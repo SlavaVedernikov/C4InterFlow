@@ -12,22 +12,20 @@ namespace C4InterFlow.Diagrams
     {
         private Note[]? _notes = null;
 
-        public ComponentDiagram (string title, BusinessProcess process, bool showBoundaries = false, bool showSequence = false, bool showInterfaceInputAndOutput = false, bool isStatic = false, Note[]? notes = null)
+        public ComponentDiagram (string title, BusinessProcess process, bool showBoundaries = false, bool showInterfaceInputAndOutput = false, bool isStatic = false, Note[]? notes = null)
         {
             DiagramTitle = title;
             Process = process;
             ShowBoundaries = showBoundaries;
-            ShowSequence = showSequence;
             IsStatic = isStatic;
             ShowInterfaceInputAndOutput = showInterfaceInputAndOutput;
             _notes = notes;
         }
 
-        public ComponentDiagram (string title, BusinessProcess process, bool showBoundaries = false, bool showSequence = false, bool showInterfaceInputAndOutput = false, Note[]? notes = null) : this (
-           title, process, showBoundaries, showSequence, showInterfaceInputAndOutput, false, notes ) { }
+        public ComponentDiagram (string title, BusinessProcess process, bool showBoundaries = false, bool showInterfaceInputAndOutput = false, Note[]? notes = null) : this (
+           title, process, showBoundaries, showInterfaceInputAndOutput, false, notes ) { }
 
         private bool ShowBoundaries { get; init; }
-        private bool ShowSequence { get; init; }
         private bool IsStatic { get; init; }
         private bool ShowInterfaceInputAndOutput { get; init; }
         private BusinessProcess Process { get; init; }
@@ -203,17 +201,12 @@ namespace C4InterFlow.Diagrams
 
                     if (containerBoundary == null)
                     {
-                        //TODO: Review the concept of Phase (i.e. Design, Build etc.)
-                        var phase = container.GetPhase();
-
-                        containerBoundary = new ContainerBoundary(container.Alias, $"{container.Label}{ (!string.IsNullOrEmpty(phase) ? $" ({phase})" : string.Empty)}")
+                        containerBoundary = new ContainerBoundary(container.Alias, $"{container.Label}")
                         {
                             Components = new List<Component>(),
                             //TODO: Review Tags usage
                             //Tags = container.Tags
                         };
-
-                        //structures.Add(containerBoundary);
                     }
 
                     if (!containerBoundary.Components.Any(x => x.Alias == interfaceOwner.Alias))

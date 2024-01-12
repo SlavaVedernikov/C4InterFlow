@@ -8,15 +8,12 @@ namespace C4InterFlow.Diagrams
 
     public class ContextDiagram : DiagramBuildRunner
     {
-        public ContextDiagram(string title, BusinessProcess process, bool showSequence = false, bool isStatic = false)
+        public ContextDiagram(string title, BusinessProcess process, bool isStatic = false)
         {
             DiagramTitle = title;
             Process = process;
-            ShowSequence = showSequence;
             IsStatic = isStatic;
         }
-
-        private bool ShowSequence { get; init; }
         private bool IsStatic { get; init; }
         private BusinessProcess Process { get; init; }
 

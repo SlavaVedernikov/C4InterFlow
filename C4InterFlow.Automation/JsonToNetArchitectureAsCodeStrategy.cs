@@ -2,7 +2,6 @@
 {
     public abstract class JsonToNetArchitectureAsCodeStrategy : ArchitectureAsCodeStrategy
     {
-        //TODO: Rename as AAC_INPUT_PATH
         public const string AAC_INPUT_PATH = "aac-input-path";
         public string ArchitectureInputPath { get; private set; }
         private bool _isInitialised = false;

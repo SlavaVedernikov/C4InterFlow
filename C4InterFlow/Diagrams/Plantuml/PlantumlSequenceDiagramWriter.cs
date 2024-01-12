@@ -26,7 +26,7 @@ namespace C4InterFlow.Diagrams.Plantuml
         private static StringBuilder BuildSequenceHeader(this StringBuilder stream, Diagram diagram, bool useStandardLibrary)
         {
             stream.AppendLine($"@startuml");
-            //TODO: Make diagram resolution configurable via diagram parameter
+            //TODO: Make diagram resolution configurable via diagram parameter. See https://github.com/SlavaVedernikov/C4InterFlow/issues/2
             stream.AppendLine("skinparam dpi 60");
             stream.AppendLine();
 

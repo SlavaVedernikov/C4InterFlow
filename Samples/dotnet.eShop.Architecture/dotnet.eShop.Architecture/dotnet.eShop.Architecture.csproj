@@ -7,12 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\C4PlusSharp\C4PlusSharp.csproj" />
+    <Folder Include="Diagrams\" />
+    <Folder Include="SoftwareSystems\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Diagrams\" />
-    <Folder Include="SoftwareSystems\" />
+    <ProjectReference Include="..\..\..\C4InterFlow\C4InterFlow.csproj" />
   </ItemGroup>
 
 </Project>

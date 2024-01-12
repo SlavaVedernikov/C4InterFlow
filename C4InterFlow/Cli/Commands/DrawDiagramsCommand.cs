@@ -22,7 +22,6 @@ public class DrawDiagramsCommand : Command
         var businessProcesesOption = BusinessProcesesOption.Get();
         var diagramFormatsOption = DiagramFormatsOption.Get();
         var showBoundariesOption = ShowBoundariesOption.Get();
-        var showSequenceOption = ShowSequenceOption.Get();
         var showInterfaceInputAndOutputOption = ShowInterfaceInputAndOutputOption.Get();
         var outputDirectoryOption = OutputDirectoryOption.Get();
         var clearOutputDirectoryOption = ClearOutputDirectoryOption.Get();
@@ -34,7 +33,6 @@ public class DrawDiagramsCommand : Command
         AddOption(businessProcesesOption);
         AddOption(diagramFormatsOption);
         AddOption(showBoundariesOption);
-        AddOption(showSequenceOption);
         AddOption(showInterfaceInputAndOutputOption);
         AddOption(outputDirectoryOption);
         AddOption(clearOutputDirectoryOption);
@@ -47,7 +45,7 @@ public class DrawDiagramsCommand : Command
             new DiagramOptionsBinder(diagramScopesOption, diagramTypesOption, diagramLevelsOfDetailsOption), 
             interfacesOption,
             businessProcesesOption,
-            new DisplayOptionsBinder(showBoundariesOption, showSequenceOption, showInterfaceInputAndOutputOption), 
+            new DisplayOptionsBinder(showBoundariesOption, showInterfaceInputAndOutputOption), 
             new OutputOptionsBinder(outputDirectoryOption, clearOutputDirectoryOption, diagramFormatsOption));
     }
 
@@ -78,16 +76,12 @@ public class DrawDiagramsCommand : Command
                         {
                             case DiagramTypesOption.SEQUENCE:
                                 {
-                                    //TODO: Rewrite clear output directory logic
-                                    //if (outputOptions.ClearOutputDirectory) ClearDirectory(sequenceDiagramsOutputDirectory);
-
                                     DrawSequenceDiagrams(
                                         diagramScope,
                                         levelOfDetails,
                                         interfaces,
                                         outputOptions.Formats,
                                         displayOptions.ShowBoundaries,
-                                        displayOptions.ShowSequence,
                                         displayOptions.ShowInterfaceInputAndOutput,
                                         outputOptions.OutputDirectory);
 
@@ -97,7 +91,6 @@ public class DrawDiagramsCommand : Command
                                         businessProcesses,
                                         outputOptions.Formats,
                                         displayOptions.ShowBoundaries,
-                                        displayOptions.ShowSequence,
                                         displayOptions.ShowInterfaceInputAndOutput,
                                         outputOptions.OutputDirectory);
                                     break;
@@ -107,16 +100,12 @@ public class DrawDiagramsCommand : Command
                                 {
                                     var isStatic = c4type.Equals(DiagramTypesOption.C4_STATIC);
 
-                                    //TODO: Rewrite clear output directory logic
-                                    //if (outputOptions.ClearOutputDirectory) ClearDirectory(c4DiagramsOutputDirectory);
-
                                     DrawC4Diagrams(
                                         diagramScope,
                                         levelOfDetails,
                                         interfaces,
                                         outputOptions.Formats,
                                         displayOptions.ShowBoundaries,
-                                        displayOptions.ShowSequence,
                                         displayOptions.ShowInterfaceInputAndOutput,
                                         outputOptions.OutputDirectory,
                                         isStatic);
@@ -127,7 +116,6 @@ public class DrawDiagramsCommand : Command
                                         businessProcesses,
                                         outputOptions.Formats,
                                         displayOptions.ShowBoundaries,
-                                        displayOptions.ShowSequence,
                                         displayOptions.ShowInterfaceInputAndOutput,
                                         outputOptions.OutputDirectory,
                                         isStatic);
@@ -236,7 +224,7 @@ public class DrawDiagramsCommand : Command
         return result;
     }
 
-    private static Diagram GetDiagram(string levelOfDetails, BusinessProcess businessProcess, bool showBoundaries, bool showSequence, bool showInterfaceInputAndOutput, bool isStatic = false)
+    private static Diagram GetDiagram(string levelOfDetails, BusinessProcess businessProcess, bool showBoundaries, bool showInterfaceInputAndOutput, bool isStatic = false)
     {
         var result = default(Diagram);
 
@@ -251,7 +239,6 @@ public class DrawDiagramsCommand : Command
                             diagramTitle,
                             process: businessProcess,
                             showBoundaries: showBoundaries,
-                            showSequence: showSequence,
                             showInterfaceInputAndOutput: showInterfaceInputAndOutput,
                             isStatic : isStatic).Build();
                         break;
@@ -262,7 +249,6 @@ public class DrawDiagramsCommand : Command
                             diagramTitle,
                             process: businessProcess,
                             showBoundaries: showBoundaries,
-                            showSequence: showSequence,
                             isStatic: isStatic).Build();
                         break;
                     }
@@ -271,7 +257,6 @@ public class DrawDiagramsCommand : Command
                         result = new ContextDiagram(
                             diagramTitle,
                             process: businessProcess,
-                            showSequence: showSequence,
                             isStatic: isStatic).Build();
                         break;
                     }
@@ -287,7 +272,7 @@ public class DrawDiagramsCommand : Command
         return result;
     }
 
-    private static Diagram GetDiagram(string levelOfDetails, Interface[] interfaces, bool showBoundaries, bool showSequence, bool showInterfaceInputAndOutput, bool isStatic = false)
+    private static Diagram GetDiagram(string levelOfDetails, Interface[] interfaces, bool showBoundaries, bool showInterfaceInputAndOutput, bool isStatic = false)
     {
         var result = default(Diagram);
 
@@ -313,7 +298,6 @@ public class DrawDiagramsCommand : Command
                         diagramTitle,
                         process: process,
                         showBoundaries: showBoundaries,
-                        showSequence: showSequence,
                         showInterfaceInputAndOutput: showInterfaceInputAndOutput,
                         isStatic: isStatic).Build();
                     break;
@@ -324,7 +308,6 @@ public class DrawDiagramsCommand : Command
                         diagramTitle,
                         process: process,
                         showBoundaries: showBoundaries,
-                        showSequence: showSequence,
                         isStatic: isStatic).Build();
                     break;
                 }
@@ -333,7 +316,6 @@ public class DrawDiagramsCommand : Command
                     result = new ContextDiagram(
                         diagramTitle,
                         process: process,
-                        showSequence: showSequence,
                         isStatic: isStatic).Build();
                     break;
                 }
@@ -344,7 +326,7 @@ public class DrawDiagramsCommand : Command
         return result;
     }
 
-    private static Diagram GetDiagram(string levelOfDetails, Interface @interface, bool showBoundaries, bool showSequence, bool showInterfaceInputAndOutput, bool isStatic = false)
+    private static Diagram GetDiagram(string levelOfDetails, Interface @interface, bool showBoundaries, bool showInterfaceInputAndOutput, bool isStatic = false)
     {
         var result = default(Diagram);
 
@@ -364,7 +346,6 @@ public class DrawDiagramsCommand : Command
                             diagramTitle,
                             process: process,
                             showBoundaries: showBoundaries,
-                            showSequence: showSequence,
                             showInterfaceInputAndOutput: showInterfaceInputAndOutput,
                             isStatic: isStatic).Build();
                         break;
@@ -375,7 +356,6 @@ public class DrawDiagramsCommand : Command
                             diagramTitle,
                             process: process,
                             showBoundaries: showBoundaries,
-                            showSequence: showSequence,
                             isStatic: isStatic).Build();
                         break;
                     }
@@ -383,8 +363,7 @@ public class DrawDiagramsCommand : Command
                     {
                         result = new ContextDiagram(
                             diagramTitle,
-                            process: process,
-                            showSequence: showSequence).Build();
+                            process: process).Build();
                         break;
                     }
                 default:
@@ -409,7 +388,7 @@ public class DrawDiagramsCommand : Command
         }
     }
 
-    private static void DrawSequenceDiagrams(string scope, string levelOfDetails, BusinessProcess[] businessProcesses, string[] formats, bool showBoundaries, bool showSequence, bool showInterfaceInputAndOutput, string outputDirectory)
+    private static void DrawSequenceDiagrams(string scope, string levelOfDetails, BusinessProcess[] businessProcesses, string[] formats, bool showBoundaries, bool showInterfaceInputAndOutput, string outputDirectory)
     {
         var context = new PlantumlSequenceContext();
         if (formats.Contains(DiagramFormatsOption.PNG))
@@ -427,7 +406,7 @@ public class DrawDiagramsCommand : Command
 
         foreach (var businessProcess in businessProcesses)
         {
-            var diagram = GetDiagram(levelOfDetails, businessProcess, showBoundaries, showSequence, showInterfaceInputAndOutput);
+            var diagram = GetDiagram(levelOfDetails, businessProcess, showBoundaries, showInterfaceInputAndOutput);
            
             if(TryGetDiagramPath(
                     scope,
@@ -443,7 +422,7 @@ public class DrawDiagramsCommand : Command
         
     }
 
-    private static void DrawC4Diagrams(string scope, string levelOfDetails, BusinessProcess[] businessProcesses, string[] formats, bool showBoundaries, bool showSequence, bool showInterfaceInputAndOutput, string outputDirectory, bool isStatic = false)
+    private static void DrawC4Diagrams(string scope, string levelOfDetails, BusinessProcess[] businessProcesses, string[] formats, bool showBoundaries, bool showInterfaceInputAndOutput, string outputDirectory, bool isStatic = false)
     {
         var context = new PlantumlContext();
         if (formats.Contains(DiagramFormatsOption.PNG))
@@ -461,7 +440,7 @@ public class DrawDiagramsCommand : Command
 
         foreach (var businessProcess in businessProcesses)
         {
-            var diagram = GetDiagram(levelOfDetails, businessProcess, showBoundaries, showSequence, showInterfaceInputAndOutput, isStatic);
+            var diagram = GetDiagram(levelOfDetails, businessProcess, showBoundaries, showInterfaceInputAndOutput, isStatic);
 
             if (TryGetDiagramPath(
                     scope,
@@ -476,7 +455,7 @@ public class DrawDiagramsCommand : Command
         }
     }
 
-    private static void DrawSequenceDiagrams(string scope, string levelOfDetails, Interface[] interfaces, string[] formats, bool showBoundaries, bool showSequence, bool showInterfaceInputAndOutput, string outputDirectory)
+    private static void DrawSequenceDiagrams(string scope, string levelOfDetails, Interface[] interfaces, string[] formats, bool showBoundaries, bool showInterfaceInputAndOutput, string outputDirectory)
     {
         var context = new PlantumlSequenceContext();
         if (formats.Contains(DiagramFormatsOption.PNG))
@@ -494,7 +473,7 @@ public class DrawDiagramsCommand : Command
 
         Parallel.ForEach(interfaces, @interface =>
         {
-            var diagram = GetDiagram(levelOfDetails, @interface, showBoundaries, showSequence, showInterfaceInputAndOutput);
+            var diagram = GetDiagram(levelOfDetails, @interface, showBoundaries, showInterfaceInputAndOutput);
 
             if (TryGetDiagramPath(
                     scope,
@@ -509,7 +488,7 @@ public class DrawDiagramsCommand : Command
         });
     }
 
-    private static void DrawC4Diagrams(string scope, string levelOfDetails, Interface[] interfaces, string[] formats, bool showBoundaries, bool showSequence, bool showInterfaceInputAndOutput, string outputDirectory, bool isStatic = false)
+    private static void DrawC4Diagrams(string scope, string levelOfDetails, Interface[] interfaces, string[] formats, bool showBoundaries, bool showInterfaceInputAndOutput, string outputDirectory, bool isStatic = false)
     {
         var context = new PlantumlContext();
         if (formats.Contains(DiagramFormatsOption.PNG))
@@ -527,7 +506,7 @@ public class DrawDiagramsCommand : Command
 
         if (scope == DiagramScopesOption.SOFTWARE_SYSTEMS)
         {
-            var diagram = GetDiagram(levelOfDetails, interfaces, showBoundaries, showSequence, showInterfaceInputAndOutput, isStatic);
+            var diagram = GetDiagram(levelOfDetails, interfaces, showBoundaries, showInterfaceInputAndOutput, isStatic);
             if (TryGetDiagramPath(
                     scope,
                     levelOfDetails,
@@ -549,7 +528,7 @@ public class DrawDiagramsCommand : Command
             foreach(var softwareSystemAlias in softwareSystemAliases)
             {
                 var systemInterfaces = interfaces.Where(x => x.Alias.StartsWith(softwareSystemAlias)).ToArray();
-                var diagram = GetDiagram(levelOfDetails, systemInterfaces, showBoundaries, showSequence, showInterfaceInputAndOutput, isStatic);
+                var diagram = GetDiagram(levelOfDetails, systemInterfaces, showBoundaries, showInterfaceInputAndOutput, isStatic);
                 if (TryGetDiagramPath(
                         scope,
                         levelOfDetails,
@@ -574,7 +553,7 @@ public class DrawDiagramsCommand : Command
             foreach (var containerAlias in containerAliases)
             {
                 var containerInterfaces = interfaces.Where(x => x.Alias.StartsWith(containerAlias)).ToArray();
-                var diagram = GetDiagram(levelOfDetails, containerInterfaces, showBoundaries, showSequence, showInterfaceInputAndOutput, isStatic);
+                var diagram = GetDiagram(levelOfDetails, containerInterfaces, showBoundaries, showInterfaceInputAndOutput, isStatic);
                 if (TryGetDiagramPath(
                         scope,
                         levelOfDetails,
@@ -599,7 +578,7 @@ public class DrawDiagramsCommand : Command
             foreach (var componentAlias in componentAliases)
             {
                 var componentInterfaces = interfaces.Where(x => x.Alias.StartsWith(componentAlias)).ToArray();
-                var diagram = GetDiagram(levelOfDetails, componentInterfaces, showBoundaries, showSequence, showInterfaceInputAndOutput, isStatic);
+                var diagram = GetDiagram(levelOfDetails, componentInterfaces, showBoundaries, showInterfaceInputAndOutput, isStatic);
                 if (TryGetDiagramPath(
                         scope,
                         levelOfDetails,
@@ -617,8 +596,7 @@ public class DrawDiagramsCommand : Command
         {
             Parallel.ForEach(interfaces, @interface =>
             {
-                //TODO: Consider removing ShowSequence option for draw-diagrams command
-                var diagram = GetDiagram(levelOfDetails, @interface, showBoundaries, !isStatic, showInterfaceInputAndOutput, isStatic);
+                var diagram = GetDiagram(levelOfDetails, @interface, showBoundaries, showInterfaceInputAndOutput, isStatic);
 
                 if (TryGetDiagramPath(
                     scope,
@@ -798,7 +776,7 @@ public class DrawDiagramsCommand : Command
         if (string.IsNullOrEmpty(@interface?.Alias))
             return null;
 
-        if (TryParseAlias(@interface?.Alias, out var system, out var container, out var component, out var @interfaceOut))
+        if (TryParseAlias(@interface?.Alias, out var system, out var container, out var component))
         {
             return $"{system.Label}{(container != null ? $" - {container.Name}" : string.Empty)}{(component != null ? $" - {component.Name}" : string.Empty)} - {@interface.Name} - {levelOfDetails.ToUpper()} level";
         }
@@ -808,37 +786,30 @@ public class DrawDiagramsCommand : Command
 
     private static bool TryParseInterface(Interface @interface, out SoftwareSystem? system, out Container? container, out Component? component)
     {
-        TryParseAlias(@interface.Alias, out system, out container, out component, out var tempInterface);
+        TryParseAlias(@interface.Alias, out system, out container, out component);
 
-        //TODO: Review the use of tempInterface
-        //return (system as Structure ?? container as Structure ?? component as Structure ?? tempInterface as Structure) != null;
         return (system as Structure ?? container as Structure ?? component as Structure) != null;
     }
 
     private static bool TryParseInterface(Interface @interface, out SoftwareSystem? system, out Container? container)
     {
-        TryParseAlias(@interface.Alias, out system, out container, out var tempComponent, out var tempInterface);
+        TryParseAlias(@interface.Alias, out system, out container, out var tempComponent);
 
-        //TODO: Review the use of tempInterface
-        //return (system as Structure ?? container as Structure ?? tempInterface as Structure) != null;
         return (system as Structure ?? container as Structure) != null;
     }
 
     private static bool TryParseInterface(Interface @interface, out SoftwareSystem? system)
     {
-        TryParseAlias(@interface.Alias, out system, out var tempContainer, out var tempComponent, out var tempInterface);
+        TryParseAlias(@interface.Alias, out system, out var tempContainer, out var tempComponent);
 
-        //TODO: Review the use of tempInterface
-        //return (system as Structure  ?? tempInterface as Structure) != null;
         return (system as Structure) != null;
     }
 
-    private static bool TryParseAlias(string alias, out SoftwareSystem? system, out Container? container, out Component? component, out Interface? @interface)
+    private static bool TryParseAlias(string alias, out SoftwareSystem? system, out Container? container, out Component? component)
     {
         container = default(Container);
         system = default(SoftwareSystem);
         component = default(Component);
-        @interface = default(Interface);
 
         if (alias == null) return false;
 
@@ -906,7 +877,7 @@ public class DrawDiagramsCommand : Command
                 system = C4InterFlow.Utils.GetInstance<SoftwareSystem>(container?.SoftwareSystem);
             }
 
-            return (system as Structure ?? container as Structure ?? component as Structure ?? @interface as Structure) != null;
+            return (system as Structure ?? container as Structure ?? component as Structure) != null;
         }
         catch
         {

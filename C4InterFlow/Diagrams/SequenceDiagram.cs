@@ -67,7 +67,7 @@ namespace C4InterFlow.Diagrams
 
                     if (containerBoundary == null)
                     {
-                        containerBoundary = new ContainerBoundary(container.Alias, $"{container.Label} ({container.GetPhase()})")
+                        containerBoundary = new ContainerBoundary(container.Alias, $"{container.Label}")
                         {
                             Components = new List<Component>(),
                         };

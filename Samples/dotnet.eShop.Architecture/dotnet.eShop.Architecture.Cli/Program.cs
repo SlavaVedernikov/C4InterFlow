@@ -1,6 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using C4PlusSharp.Cli.Root;
-using C4PlusSharp.Cli.Commands;
+using C4InterFlow.Cli.Root;
+using C4InterFlow.Cli.Commands;
 
 var root = RootCommandBuilder
     .CreateDefaultBuilder(args)

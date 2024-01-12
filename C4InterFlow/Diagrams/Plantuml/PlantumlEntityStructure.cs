@@ -81,7 +81,7 @@ namespace C4InterFlow.Diagrams.Plantuml
             var stream = new StringBuilder();
 
             stream.AppendLine();
-            stream.AppendLine($"package \"{boundary.Label} ({boundary.GetPhase()})\"{{");
+            stream.AppendLine($"package \"{boundary.Label}\"{{");
             foreach (var entity in boundary.Entities)
             {
                 stream.AppendLine($"{string.Empty.PadLeft(TabSize)}{entity.ToPumlObjectString()}");

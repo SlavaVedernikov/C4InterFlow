@@ -40,7 +40,6 @@ public class QueryUseFlowsCommand : Command
                 GetUsedBy(interfaceTypes, interfaceAlias, isRecursive, result);        
             }
             Console.WriteLine($"{COMMAND_NAME} command completed. See query results below.");
-            //TODO: Output "Used By" interface as well as the interface being used, tab-delimited
             Console.Write($"{string.Join(Environment.NewLine, result.Distinct().ToArray())}");
             return 0;
         }
@@ -51,7 +50,7 @@ public class QueryUseFlowsCommand : Command
         }
     }
 
-    //TODO: Add includePrivateInterfaces parameter (default is fale)
+    //TODO: Add includePrivateInterfaces parameter (default is false)
     //TODO: Move GetUsedBy into Utils
     //TODO: Add support for queries to DrawDiagramsCommand
     private static IEnumerable<string> GetUsedBy(IEnumerable<Type> interfaceTypes, string interfaceAlias, bool isRecursive, List<string> usedByResult)

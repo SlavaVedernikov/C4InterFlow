@@ -8,19 +8,15 @@ using C4InterFlow.Elements.Boundaries;
 
 namespace C4InterFlow.Diagrams
 {
-    //TODO: Add support for ShowBoundaries. Create Software System boundaries around Containers.
     public class ContainerDiagram : DiagramBuildRunner
     {
-        public ContainerDiagram(string title, BusinessProcess process, bool showBoundaries = false, bool showSequence = false, bool isStatic = false)
+        public ContainerDiagram(string title, BusinessProcess process, bool showBoundaries = false, bool isStatic = false)
         {
             DiagramTitle = title;
             Process = process;
             ShowBoundaries = showBoundaries;
-            ShowSequence = showSequence;
             IsStatic = isStatic;
         }
-
-        private bool ShowSequence { get; init; }
         private bool IsStatic { get; init; }
         private BusinessProcess Process { get; init; }
 
