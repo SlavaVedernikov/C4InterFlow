@@ -1,0 +1,8 @@
+{
+    "terminal.integrated.env.windows": {
+        "PATH": "C:\\Users\\slava\\.azurelogicapps\\dependencies\\DotNetSDK;${env:PATH}"
+    },
+    "omnisharp.dotNetCliPaths": [
+        "C:\\Users\\slava\\.azurelogicapps\\dependencies\\DotNetSDK"
+    ]
+}

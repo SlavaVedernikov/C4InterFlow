@@ -1,0 +1,12 @@
+@startuml
+skinparam dpi 60
+
+title Basket Api - Grpc - BasketService - MapToCustomerBasket - CONTAINER level
+
+participant "External" as C4PlusSharp.Utils.ExternalSystem
+participant "Grpc" as dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc
+
+C4PlusSharp.Utils.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService : Map To Customer Basket
+
+
+@enduml

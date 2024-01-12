@@ -1,0 +1,12 @@
+@startuml
+skinparam dpi 60
+
+title Basket Api - Data - RedisBasketRepository - GetBasketKey - CONTAINER level
+
+participant "External" as C4PlusSharp.Utils.ExternalSystem
+participant "Data" as dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data
+
+C4PlusSharp.Utils.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository : Get Basket Key
+
+
+@enduml

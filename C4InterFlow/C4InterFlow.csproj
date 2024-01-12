@@ -1,0 +1,56 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<Version>0.1.0</Version>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackageId>C4InterFlow</PackageId>
+		<PackageVersion>0.1.0</PackageVersion>
+		<Authors>Slava Vedernikov</Authors>
+		<PackageLicenseUrl></PackageLicenseUrl>
+		<PackageProjectUrl></PackageProjectUrl>
+		<PackageIconUrl></PackageIconUrl>
+		<RepositoryUrl></RepositoryUrl>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<Description>C4InterFlow: Revolutionize your Application Architecture Documentation. Designed for Architects and Developers, this tool leverages the widely-recognized C4 Model notation, enhanced with unique features like Interface and Flow, to describe your software architecture as code. Experience an intuitive, efficient way to document complex systems, ensuring clarity and consistency across your teams and products.</Description>
+		<PackageReleaseNotes></PackageReleaseNotes>
+		<Copyright>Copyright 2024 Slava Vedernikov</Copyright>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Cli\Commands\Arguments\**" />
+	  <EmbeddedResource Remove="Cli\Commands\Arguments\**" />
+	  <None Remove="Cli\Commands\Arguments\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\C4.puml" />
+	  <None Remove="Resources\C4_Component.puml" />
+	  <None Remove="Resources\C4_Container.puml" />
+	  <None Remove="Resources\C4_Context.puml" />
+	  <None Remove="Resources\C4_Deployment.puml" />
+	  <None Remove="Resources\C4_Dynamic.puml" />
+	  <None Remove="Resources\icon.png" />
+	  <None Remove="Resources\plantuml.jar" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Resources\C4.puml" />
+	  <EmbeddedResource Include="Resources\C4_Component.puml" />
+	  <EmbeddedResource Include="Resources\C4_Container.puml" />
+	  <EmbeddedResource Include="Resources\C4_Context.puml" />
+	  <EmbeddedResource Include="Resources\C4_Deployment.puml" />
+	  <EmbeddedResource Include="Resources\C4_Dynamic.puml" />
+	  <EmbeddedResource Include="Resources\icon.png" />
+	  <EmbeddedResource Include="Resources\plantuml.jar" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="System.CommandLine" Version="[2.0.0-beta4.22272.1,)" />
+	</ItemGroup>
+
+</Project>

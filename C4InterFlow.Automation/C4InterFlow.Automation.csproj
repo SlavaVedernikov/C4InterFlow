@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+	<TargetFramework>net6.0</TargetFramework>
+	<ImplicitUsings>enable</ImplicitUsings>
+	<Nullable>enable</Nullable>
+	<Version>0.1.0</Version>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackageId>C4InterFlow.Automation</PackageId>
+		<PackageVersion>0.1.0</PackageVersion>
+		<Authors>Slava Vedernikov</Authors>
+		<PackageLicenseUrl></PackageLicenseUrl>
+		<PackageProjectUrl></PackageProjectUrl>
+		<PackageIconUrl></PackageIconUrl>
+		<RepositoryUrl></RepositoryUrl>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Description>Streamline Your Architecture Documentation with C4InterFlow Automation! Tailored for Architects and Developers, this tool simplifies the creation of Application Architecture as Code. Effortlessly import from a variety of sources like .NET codebases and CSV architecture repositories. Experience enhanced efficiency and accuracy, transforming complex architectural data into clear, manageable code. Ideal for professionals seeking to optimize documentation processes and maintain consistency across projects.</Description>
+		<PackageReleaseNotes></PackageReleaseNotes>
+    <Copyright>Copyright 2024 Slava Vedernikov</Copyright>
+	</PropertyGroup>
+
+	<ItemGroup>
+	<ProjectReference Include="..\C4InterFlow\C4InterFlow.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Build.Locator" Version="1.6.10" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="[4.0.0,)" />
+		<PackageReference Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="[4.0.0,)" />
+		<PackageReference Include="CsvHelper" Version="30.0.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="YamlDotNet" Version="13.7.1" />
+	</ItemGroup>
+
+</Project>

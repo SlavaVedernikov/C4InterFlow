@@ -1,0 +1,40 @@
+@startuml
+!include ..\..\..\..\..\..\.c4s\C4_Component.puml
+
+AddElementTag("state:new", $bgColor=green, $fontColor=#ffffff, $borderColor=green, $shadowing="False")
+AddElementTag("state:changed", $bgColor=orange, $fontColor=#ffffff, $borderColor=orange, $shadowing="False")
+AddElementTag("state:removed", $bgColor=red, $fontColor=#ffffff, $borderColor=red, $shadowing="False")
+
+AddRelTag("state:new", $textColor=green, $lineColor=green)
+AddRelTag("state:changed", $textColor=orange, $lineColor=orange)
+AddRelTag("state:removed", $textColor=red, $lineColor=red)
+
+SHOW_PERSON_PORTRAIT()
+LAYOUT_TOP_DOWN()
+
+skinparam linetype polyline
+
+title C4 Static - COMPONENT level
+
+
+System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.BasketApi, "Basket Api") {
+    
+Container_Boundary(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc, "Grpc") {
+    Component(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, "Basket Service", "", "")
+}
+
+    
+Container_Boundary(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data, "Data") {
+    Component(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, "Redis Basket Repository", "", "")
+    Component(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase, "Redis Database", "", "")
+}
+
+}
+
+
+Rel(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, "Uses")
+Rel(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase, "Uses")
+
+
+SHOW_LEGEND()
+@enduml

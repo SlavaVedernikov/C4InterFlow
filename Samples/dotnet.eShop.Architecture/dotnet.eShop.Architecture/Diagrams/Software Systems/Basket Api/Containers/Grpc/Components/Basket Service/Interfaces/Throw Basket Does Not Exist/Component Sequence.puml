@@ -1,0 +1,22 @@
+@startuml
+skinparam dpi 60
+
+title Basket Api - Grpc - BasketService - ThrowBasketDoesNotExist - COMPONENT level
+
+participant "External" as C4PlusSharp.Utils.ExternalSystem
+
+box "Basket Api" #White
+
+    
+box "Grpc" #White
+
+    participant "Basket Service" as dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService
+end box
+
+end box
+
+
+C4PlusSharp.Utils.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService : Throw Basket Does Not Exist
+
+
+@enduml
