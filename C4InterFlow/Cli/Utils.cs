@@ -106,7 +106,7 @@ namespace C4InterFlow.Cli
             var paths = Directory.GetFiles(AppContext.BaseDirectory, "*.dll", SearchOption.TopDirectoryOnly);
             //TODO: Review this logic. Consider uising inclusion logic instead of exclusion.
             return paths
-            .Where(x => { var assembly = x.Split("\\").Last(); return new[] { "C4PlusSharp", "C4Sharp", "System.", "Microsoft." }.All(y => !assembly.StartsWith(y)); })
+            .Where(x => { var assembly = x.Split("\\").Last(); return new[] { "C4InterFlow", "System.", "Microsoft." }.All(y => !assembly.StartsWith(y)); })
             .Select(AssemblyLoadContext.Default.LoadFromAssemblyPath);
         }
     }

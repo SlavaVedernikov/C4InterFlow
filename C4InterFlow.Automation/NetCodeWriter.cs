@@ -10,7 +10,7 @@ namespace C4InterFlow.Automation
 {
     public class NetCodeWriter : ICodeWriter
     {
-        internal const string ROOT_ARCHITECTURE_NAMESPACE = "C4PlusSharp";
+        internal const string ROOT_ARCHITECTURE_NAMESPACE = "C4InterFlow";
         private static string GetSoftwareSystemAlias(string architectureNamespace, string softwareSystemName)
         {
             if (string.IsNullOrEmpty(architectureNamespace) || string.IsNullOrEmpty(softwareSystemName)) return string.Empty;
