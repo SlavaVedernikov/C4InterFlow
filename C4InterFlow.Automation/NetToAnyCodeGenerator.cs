@@ -8,7 +8,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace C4InterFlow.Automation
 {
-    public class CodeGenerator<T> where T : ICodeWriter , new()
+    public class NetToAnyCodeGenerator<T> where T : ICodeWriter , new()
     {
         private static readonly T CodeWriter = new T();
 
@@ -93,14 +93,14 @@ namespace C4InterFlow.Automation
             StringBuilder result, 
             WhileStatementSyntax whileStatement,
             MethodDeclarationSyntax methodDeclaration,
-            ClassDeclarationSyntax architectureClassDeclaration,
+            IArchitectureAsCodeContext architectureAsCodeContext,
             NetToNetArchitectureAsCodeWriter writer,
             IEnumerable<NetToNetAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null) 
         {
             var blockCode = HandleBlock(
                             whileStatement.Statement,
                             methodDeclaration,
-                            architectureClassDeclaration,
+                            architectureAsCodeContext,
                             writer,
                             alternativeInvocationMappers);
             if (!string.IsNullOrEmpty(blockCode))
@@ -113,14 +113,14 @@ namespace C4InterFlow.Automation
             StringBuilder result,
             ForStatementSyntax forStatement,
             MethodDeclarationSyntax methodDeclaration,
-            ClassDeclarationSyntax architectureClassDeclaration,
+            IArchitectureAsCodeContext architectureAsCodeContext,
             NetToNetArchitectureAsCodeWriter writer,
             IEnumerable<NetToNetAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
             var blockCode = HandleBlock(
                             forStatement.Statement,
                             methodDeclaration,
-                            architectureClassDeclaration,
+                            architectureAsCodeContext,
                             writer,
                             alternativeInvocationMappers);
             if (!string.IsNullOrEmpty(blockCode))
@@ -133,14 +133,14 @@ namespace C4InterFlow.Automation
             StringBuilder result,
             ForEachStatementSyntax forEachStatement,
             MethodDeclarationSyntax methodDeclaration,
-            ClassDeclarationSyntax architectureClassDeclaration,
+            IArchitectureAsCodeContext architectureAsCodeContext,
             NetToNetArchitectureAsCodeWriter writer,
             IEnumerable<NetToNetAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
             var blockCode = HandleBlock(
                             forEachStatement.Statement,
                             methodDeclaration,
-                            architectureClassDeclaration,
+                            architectureAsCodeContext,
                             writer,
                             alternativeInvocationMappers);
             if (!string.IsNullOrEmpty(blockCode))
@@ -153,14 +153,14 @@ namespace C4InterFlow.Automation
             StringBuilder result,
             DoStatementSyntax doStatement,
             MethodDeclarationSyntax methodDeclaration,
-            ClassDeclarationSyntax architectureClassDeclaration,
+            IArchitectureAsCodeContext architectureAsCodeContext,
             NetToNetArchitectureAsCodeWriter writer,
             IEnumerable<NetToNetAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
             var blockCode = HandleBlock(
                             doStatement.Statement,
                             methodDeclaration,
-                            architectureClassDeclaration,
+                            architectureAsCodeContext,
                             writer,
                             alternativeInvocationMappers);
             if (!string.IsNullOrEmpty(blockCode))
@@ -173,14 +173,14 @@ namespace C4InterFlow.Automation
             StringBuilder result,
             UsingStatementSyntax usingStatement,
             MethodDeclarationSyntax methodDeclaration,
-            ClassDeclarationSyntax architectureClassDeclaration,
+            IArchitectureAsCodeContext architectureAsCodeContext,
             NetToNetArchitectureAsCodeWriter writer,
             IEnumerable<NetToNetAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
             var blockCode = HandleBlock(
                             usingStatement.Statement,
                             methodDeclaration,
-                            architectureClassDeclaration,
+                            architectureAsCodeContext,
                             writer,
                             alternativeInvocationMappers);
 
@@ -193,7 +193,7 @@ namespace C4InterFlow.Automation
                         var invocationExpressionBlockCode = HandleInvocationExpression(
                            invocationExpression,
                            methodDeclaration,
-                           architectureClassDeclaration,
+                           architectureAsCodeContext,
                            writer,
                            alternativeInvocationMappers);
 
@@ -212,21 +212,21 @@ namespace C4InterFlow.Automation
             StringBuilder result,
             IfStatementSyntax ifStatement,
             MethodDeclarationSyntax methodDeclaration,
-            ClassDeclarationSyntax architectureClassDeclaration,
+            IArchitectureAsCodeContext architectureAsCodeContext,
             NetToNetArchitectureAsCodeWriter writer,
             IEnumerable<NetToNetAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
             var blockCode = HandleBlock(
                             ifStatement.Statement,
                             methodDeclaration,
-                            architectureClassDeclaration,
+                            architectureAsCodeContext,
                             writer,
                             alternativeInvocationMappers);
 
             var elseBlockCode = HandleElse(
                 ifStatement.Else,
                 methodDeclaration,
-                architectureClassDeclaration,
+                architectureAsCodeContext,
                 writer,
                 alternativeInvocationMappers);
 
@@ -237,7 +237,7 @@ namespace C4InterFlow.Automation
                     var conditionBlockCode = HandleInvocationExpression(
                         invocationExpression,
                         methodDeclaration,
-                        architectureClassDeclaration,
+                        architectureAsCodeContext,
                         writer,
                         alternativeInvocationMappers);
 
@@ -266,7 +266,7 @@ namespace C4InterFlow.Automation
             StringBuilder result,
             ReturnStatementSyntax returnStatement,
             MethodDeclarationSyntax methodDeclaration,
-            ClassDeclarationSyntax architectureClassDeclaration,
+            IArchitectureAsCodeContext architectureAsCodeContext,
             NetToNetArchitectureAsCodeWriter writer,
             IEnumerable<NetToNetAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
@@ -283,7 +283,7 @@ namespace C4InterFlow.Automation
                     blockCode = HandleInvocationExpression(
                         invocationExpression,
                         methodDeclaration,
-                        architectureClassDeclaration,
+                        architectureAsCodeContext,
                         writer,
                         alternativeInvocationMappers);
                     if (!string.IsNullOrEmpty(blockCode))
@@ -311,14 +311,14 @@ namespace C4InterFlow.Automation
             StringBuilder result,
             TryStatementSyntax tryStatement,
             MethodDeclarationSyntax methodDeclaration,
-            ClassDeclarationSyntax architectureClassDeclaration,
+            IArchitectureAsCodeContext architectureAsCodeContext,
             NetToNetArchitectureAsCodeWriter writer,
             IEnumerable<NetToNetAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
             var blockCode = HandleBlock(
                         tryStatement.Block,
                         methodDeclaration,
-                        architectureClassDeclaration,
+                        architectureAsCodeContext,
                         writer,
                         alternativeInvocationMappers);
             var catchCodeBlocks = new Dictionary<CatchClauseSyntax, string>();
@@ -328,7 +328,7 @@ namespace C4InterFlow.Automation
                 catchCodeBlocks.Add(catchBlock, HandleBlock(
                     catchBlock.Block,
                     methodDeclaration,
-                    architectureClassDeclaration,
+                    architectureAsCodeContext,
                     writer,
                     alternativeInvocationMappers));
             }
@@ -339,7 +339,7 @@ namespace C4InterFlow.Automation
                 finallyBlockCode = HandleBlock(
                     tryStatement.Finally.Block,
                     methodDeclaration,
-                    architectureClassDeclaration,
+                    architectureAsCodeContext,
                     writer,
                     alternativeInvocationMappers);
             }
@@ -399,7 +399,7 @@ namespace C4InterFlow.Automation
             StringBuilder result,
             StatementSyntax statement,
             MethodDeclarationSyntax methodDeclaration,
-            ClassDeclarationSyntax architectureClassDeclaration,
+            IArchitectureAsCodeContext architectureAsCodeContext,
             NetToNetArchitectureAsCodeWriter writer,
             IEnumerable<NetToNetAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
@@ -408,7 +408,7 @@ namespace C4InterFlow.Automation
                 var blockCode = HandleInvocationExpression(
                     invocationExpression,
                     methodDeclaration,
-                    architectureClassDeclaration,
+                    architectureAsCodeContext,
                     writer,
                     alternativeInvocationMappers);
                 if (!string.IsNullOrEmpty(blockCode))
@@ -422,7 +422,7 @@ namespace C4InterFlow.Automation
             StringBuilder result,
             StatementSyntax statement,
             MethodDeclarationSyntax methodDeclaration,
-            ClassDeclarationSyntax architectureClassDeclaration,
+            IArchitectureAsCodeContext architectureAsCodeContext,
             NetToNetArchitectureAsCodeWriter writer,
             IEnumerable<NetToNetAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
@@ -433,7 +433,7 @@ namespace C4InterFlow.Automation
                         result,
                         whileStatement,
                         methodDeclaration,
-                        architectureClassDeclaration,
+                        architectureAsCodeContext,
                         writer,
                         alternativeInvocationMappers);
                     break;
@@ -443,7 +443,7 @@ namespace C4InterFlow.Automation
                         result,
                         forStatement,
                         methodDeclaration,
-                        architectureClassDeclaration,
+                        architectureAsCodeContext,
                         writer,
                         alternativeInvocationMappers);
                     break;
@@ -453,7 +453,7 @@ namespace C4InterFlow.Automation
                         result,
                         forEachStatement,
                         methodDeclaration,
-                        architectureClassDeclaration,
+                        architectureAsCodeContext,
                         writer,
                         alternativeInvocationMappers);
                     break;
@@ -463,7 +463,7 @@ namespace C4InterFlow.Automation
                         result,
                         doStatement,
                         methodDeclaration,
-                        architectureClassDeclaration,
+                        architectureAsCodeContext,
                         writer,
                         alternativeInvocationMappers);
                     break;
@@ -473,7 +473,7 @@ namespace C4InterFlow.Automation
                         result,
                         ifStatement,
                         methodDeclaration,
-                        architectureClassDeclaration,
+                        architectureAsCodeContext,
                         writer,
                         alternativeInvocationMappers);
                     break;
@@ -482,7 +482,7 @@ namespace C4InterFlow.Automation
                         result,
                         returnStatement,
                         methodDeclaration,
-                        architectureClassDeclaration,
+                        architectureAsCodeContext,
                         writer,
                         alternativeInvocationMappers);
                     break;
@@ -491,7 +491,7 @@ namespace C4InterFlow.Automation
                         result,
                         tryStatement,
                         methodDeclaration,
-                        architectureClassDeclaration,
+                        architectureAsCodeContext,
                         writer,
                         alternativeInvocationMappers);
                     break;
@@ -505,7 +505,7 @@ namespace C4InterFlow.Automation
                         result,
                         usingStatement,
                         methodDeclaration,
-                        architectureClassDeclaration,
+                        architectureAsCodeContext,
                         writer,
                         alternativeInvocationMappers);
                     break;
@@ -514,7 +514,7 @@ namespace C4InterFlow.Automation
                         result,
                         statement,
                         methodDeclaration,
-                        architectureClassDeclaration,
+                        architectureAsCodeContext,
                         writer,
                         alternativeInvocationMappers);
                     break;
@@ -525,7 +525,7 @@ namespace C4InterFlow.Automation
 
         public static string GetFlowCode(
         MethodDeclarationSyntax methodDeclaration,
-        ClassDeclarationSyntax architectureClassDeclaration,
+        IArchitectureAsCodeContext architectureAsCodeContext,
         NetToNetArchitectureAsCodeWriter writer,
         IEnumerable<NetToNetAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
     {
@@ -543,7 +543,7 @@ namespace C4InterFlow.Automation
                 result,
                 statement,
                 methodDeclaration,
-                architectureClassDeclaration,
+                architectureAsCodeContext,
                 writer,
                 alternativeInvocationMappers);
         }
@@ -554,7 +554,7 @@ namespace C4InterFlow.Automation
         private static string HandleBlock(
             StatementSyntax statement,
             MethodDeclarationSyntax methodDeclaration,
-            ClassDeclarationSyntax architectureClassDeclaration,
+            IArchitectureAsCodeContext architectureAsCodeContext,
             NetToNetArchitectureAsCodeWriter writer,
             IEnumerable<NetToNetAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
@@ -568,7 +568,7 @@ namespace C4InterFlow.Automation
                         result,
                         innerStatement,
                         methodDeclaration,
-                        architectureClassDeclaration,
+                        architectureAsCodeContext,
                         writer,
                         alternativeInvocationMappers);
                 }
@@ -581,7 +581,7 @@ namespace C4InterFlow.Automation
         private static string HandleElse(
             ElseClauseSyntax elseClause,
             MethodDeclarationSyntax methodDeclaration,
-            ClassDeclarationSyntax architectureClassDeclaration,
+            IArchitectureAsCodeContext architectureAsCodeContext,
             NetToNetArchitectureAsCodeWriter writer,
             IEnumerable<NetToNetAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
@@ -594,13 +594,13 @@ namespace C4InterFlow.Automation
                     blockCode = HandleBlock(
                         elseIfStatement.Statement,
                         methodDeclaration,
-                        architectureClassDeclaration,
+                        architectureAsCodeContext,
                         writer,
                         alternativeInvocationMappers);
                     var elseBlockCode = HandleElse(
                         elseIfStatement.Else,
                         methodDeclaration,
-                        architectureClassDeclaration,
+                        architectureAsCodeContext,
                         writer,
                         alternativeInvocationMappers);
                     if (!string.IsNullOrEmpty(blockCode) || !string.IsNullOrEmpty(elseBlockCode))
@@ -621,7 +621,7 @@ namespace C4InterFlow.Automation
                     blockCode = HandleBlock(
                         elseClause.Statement,
                         methodDeclaration,
-                        architectureClassDeclaration,
+                        architectureAsCodeContext,
                         writer,
                         alternativeInvocationMappers);
                     if (!string.IsNullOrEmpty(blockCode))
@@ -637,8 +637,8 @@ namespace C4InterFlow.Automation
 
         private static string HandleInvocationExpression(
             InvocationExpressionSyntax invocationExpression, 
-            MethodDeclarationSyntax methodDeclaration, 
-            ClassDeclarationSyntax architectureClassDeclaration, 
+            MethodDeclarationSyntax methodDeclaration,
+            IArchitectureAsCodeContext architectureAsCodeContext, 
             NetToNetArchitectureAsCodeWriter writer,
             IEnumerable<NetToNetAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
@@ -646,12 +646,7 @@ namespace C4InterFlow.Automation
             var blockCode = string.Empty;
 
             var usesAliases = new List<string>();
-            var architectureClassSyntaxTree = architectureClassDeclaration.SyntaxTree;
-            var architectureWorkspace = writer.ArchitectureWorkspace;
-            var architectureProject = architectureWorkspace.CurrentSolution.Projects.FirstOrDefault(p => p.Documents.Any(d => d.FilePath == architectureClassSyntaxTree.FilePath));
-            var architectureCompilation = architectureProject.GetCompilationAsync().Result;
-            var architectureSemanticModel = architectureCompilation.GetSemanticModel(architectureClassSyntaxTree);
-
+            
             var systemMethodDeclarationSyntaxTree = methodDeclaration.SyntaxTree;
             var systemWorkspace = writer.SoftwareSystemWorkspace;
             var systemTypeMap = writer.SoftwareSystemTypeMap;
@@ -680,13 +675,7 @@ namespace C4InterFlow.Automation
                     if (invocationMethod != null && writer.ComponentMethodInterfaceClassMap.Any(x => x.Value == invocationMethod))
                     {
                         var interfaceClassFilePath = writer.ComponentMethodInterfaceClassMap.FirstOrDefault(x => x.Value == invocationMethod).Key;
-                        var interfaceClassSyntaxTree = architectureCompilation.SyntaxTrees.FirstOrDefault(x => x.FilePath == interfaceClassFilePath);
-                        var interfaceClassSemanticModel = architectureCompilation.GetSemanticModel(interfaceClassSyntaxTree);
-                        var interfaceAliasField = interfaceClassSyntaxTree.GetRoot().DescendantNodes()
-                            .OfType<FieldDeclarationSyntax>().First(f => f.Declaration.Variables.Any(v => v.Identifier.Text == "ALIAS"));
-
-                        var interfaceAliasValue = interfaceClassSemanticModel.GetConstantValue(
-                            interfaceAliasField.Declaration.Variables[0].Initializer.Value).Value as string;
+                        var interfaceAliasValue = architectureAsCodeContext.GetAliasFieldValue(interfaceClassFilePath);
 
                         if (!string.IsNullOrEmpty(interfaceAliasValue))
                         {
@@ -704,7 +693,7 @@ namespace C4InterFlow.Automation
                 }
             }
 
-            var componentInterfaceAlias = architectureClassDeclaration.GetAliasFieldValue();
+            var componentInterfaceAlias = architectureAsCodeContext.GetAliasFieldValue();
             // Make sure that usesAliases does not contain references to the componentInterfaceAlias,
             // which could happen in cases when overloading is used.
             usesAliases.RemoveAll(x => x.Equals(componentInterfaceAlias));

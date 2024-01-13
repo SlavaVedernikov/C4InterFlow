@@ -179,9 +179,9 @@ namespace C4InterFlow.Automation
 
             if (systemMethodDeclaration == null) return classDeclaration;
 
-            var flowCode = CodeGenerator<NetCodeWriter>.GetFlowCode(
+            var flowCode = NetToAnyCodeGenerator<NetCodeWriter>.GetFlowCode(
                 systemMethodDeclaration,
-                classDeclaration,
+                new NetArchitectureAsCodeContext(classDeclaration, architectureWorkspace),
                 writer,
                 alternativeInvocationMappers);
 
@@ -255,7 +255,7 @@ namespace C4InterFlow.Automation
             var documentName = $"{interfaceName}.cs";
 
             var projectDirectory = architectureProject.FilePath.Replace($"{architectureProject.Name}.csproj", string.Empty);
-            var fileDirectory = Path.Combine(projectDirectory, CodeGenerator<NetCodeWriter>.GetComponentInterfacesDirectory(softwareSystemName, containerName, componentName));
+            var fileDirectory = Path.Combine(projectDirectory, NetToAnyCodeGenerator<NetCodeWriter>.GetComponentInterfacesDirectory(softwareSystemName, containerName, componentName));
             Directory.CreateDirectory(fileDirectory);
 
             var filePath = Path.Combine(fileDirectory, documentName);
@@ -283,7 +283,7 @@ namespace C4InterFlow.Automation
                 return methodDeclaration;
             }
 
-            var sourceCode = new StringBuilder(CodeGenerator<NetCodeWriter>.GetSoftwareSystemsCodeHeader(architectureNamespace));
+            var sourceCode = new StringBuilder(NetToAnyCodeGenerator<NetCodeWriter>.GetSoftwareSystemsCodeHeader(architectureNamespace));
 
             var interfacePath = string.Empty;
 
@@ -297,7 +297,7 @@ namespace C4InterFlow.Automation
             }
             
             sourceCode.Append(
-                CodeGenerator<NetCodeWriter>.GetComponentInterfaceCode(
+                NetToAnyCodeGenerator<NetCodeWriter>.GetComponentInterfaceCode(
                 architectureNamespace,
                 softwareSystemName,
                 containerName,
@@ -348,7 +348,7 @@ namespace C4InterFlow.Automation
                 var documentName = $"{interfaceName}.cs";
 
                 var projectDirectory = architectureProject.FilePath.Replace($"{architectureProject.Name}.csproj", string.Empty);
-                var fileDirectory = Path.Combine(projectDirectory, CodeGenerator<NetCodeWriter>.GetComponentInterfacesDirectory(softwareSystemName, containerName, componentName));
+                var fileDirectory = Path.Combine(projectDirectory, NetToAnyCodeGenerator<NetCodeWriter>.GetComponentInterfacesDirectory(softwareSystemName, containerName, componentName));
                 Directory.CreateDirectory(fileDirectory);
 
                 var filePath = Path.Combine(fileDirectory, documentName);
@@ -364,10 +364,10 @@ namespace C4InterFlow.Automation
                     continue;
                 }
 
-                var sourceCode = new StringBuilder(CodeGenerator<NetCodeWriter>.GetSoftwareSystemsCodeHeader(architectureNamespace));
+                var sourceCode = new StringBuilder(NetToAnyCodeGenerator<NetCodeWriter>.GetSoftwareSystemsCodeHeader(architectureNamespace));
 
                 sourceCode.Append(
-                    CodeGenerator<NetCodeWriter>.GetComponentInterfaceCode(
+                    NetToAnyCodeGenerator<NetCodeWriter>.GetComponentInterfaceCode(
                     architectureNamespace,
                     softwareSystemName,
                     containerName,
@@ -411,7 +411,7 @@ namespace C4InterFlow.Automation
             var documentName = $"{entityName}.cs";
 
             var projectDirectory = architectureProject.FilePath.Replace($"{architectureProject.Name}.csproj", string.Empty);
-            var fileDirectory = Path.Combine(projectDirectory, CodeGenerator<NetCodeWriter>.GetEntitiesDirectory(softwareSystemName, containerName));
+            var fileDirectory = Path.Combine(projectDirectory, NetToAnyCodeGenerator<NetCodeWriter>.GetEntitiesDirectory(softwareSystemName, containerName));
             Directory.CreateDirectory(fileDirectory);
 
             var filePath = Path.Combine(fileDirectory, documentName);
@@ -423,10 +423,10 @@ namespace C4InterFlow.Automation
                 return interfaceDeclaration;
             }
 
-            var sourceCode = new StringBuilder(CodeGenerator<NetCodeWriter>.GetSoftwareSystemsCodeHeader(architectureNamespace));
+            var sourceCode = new StringBuilder(NetToAnyCodeGenerator<NetCodeWriter>.GetSoftwareSystemsCodeHeader(architectureNamespace));
 
             sourceCode.Append(
-                CodeGenerator<NetCodeWriter>.GetEntityCode(
+                NetToAnyCodeGenerator<NetCodeWriter>.GetEntityCode(
                 architectureNamespace,
                 softwareSystemName,
                 containerName,
@@ -474,7 +474,7 @@ namespace C4InterFlow.Automation
             var documentName = $"{entityName}.cs";
 
             var projectDirectory = architectureProject.FilePath.Replace($"{architectureProject.Name}.csproj", string.Empty);
-            var fileDirectory = Path.Combine(projectDirectory, CodeGenerator<NetCodeWriter>.GetEntitiesDirectory(softwareSystemName, containerName));
+            var fileDirectory = Path.Combine(projectDirectory, NetToAnyCodeGenerator<NetCodeWriter>.GetEntitiesDirectory(softwareSystemName, containerName));
             Directory.CreateDirectory(fileDirectory);
 
             var filePath = Path.Combine(fileDirectory, documentName);
@@ -486,10 +486,10 @@ namespace C4InterFlow.Automation
                 return recordDeclaration;
             }
 
-            var sourceCode = new StringBuilder(CodeGenerator<NetCodeWriter>.GetSoftwareSystemsCodeHeader(architectureNamespace));
+            var sourceCode = new StringBuilder(NetToAnyCodeGenerator<NetCodeWriter>.GetSoftwareSystemsCodeHeader(architectureNamespace));
 
             sourceCode.Append(
-                CodeGenerator<NetCodeWriter>.GetEntityCode(
+                NetToAnyCodeGenerator<NetCodeWriter>.GetEntityCode(
                 architectureNamespace,
                 softwareSystemName,
                 containerName,
@@ -548,7 +548,7 @@ namespace C4InterFlow.Automation
             var documentName = $"{componentName}.cs";
 
             var projectDirectory = project.FilePath.Replace($"{project.Name}.csproj", string.Empty);
-            var fileDirectory = Path.Combine(projectDirectory, CodeGenerator<NetCodeWriter>.GetComponentsDirectory(softwareSystemName, containerName)); ;
+            var fileDirectory = Path.Combine(projectDirectory, NetToAnyCodeGenerator<NetCodeWriter>.GetComponentsDirectory(softwareSystemName, containerName)); ;
             Directory.CreateDirectory(fileDirectory);
 
             var filePath = Path.Combine(fileDirectory, documentName);
@@ -559,10 +559,10 @@ namespace C4InterFlow.Automation
                 return classDeclaration;
             }
 
-            var sourceCode = new StringBuilder(CodeGenerator<NetCodeWriter>.GetSoftwareSystemsCodeHeader(architectureNamespace));
+            var sourceCode = new StringBuilder(NetToAnyCodeGenerator<NetCodeWriter>.GetSoftwareSystemsCodeHeader(architectureNamespace));
 
             sourceCode.Append(
-                CodeGenerator<NetCodeWriter>.GetComponentCode(
+                NetToAnyCodeGenerator<NetCodeWriter>.GetComponentCode(
                 architectureNamespace,
                 softwareSystemName,
                 containerName,
@@ -600,7 +600,7 @@ namespace C4InterFlow.Automation
             var documentName = $"{componentName}.cs";
 
             var projectDirectory = project.FilePath.Replace($"{project.Name}.csproj", string.Empty);
-            var fileDirectory = Path.Combine(projectDirectory, CodeGenerator<NetCodeWriter>.GetComponentsDirectory(softwareSystemName, containerName));
+            var fileDirectory = Path.Combine(projectDirectory, NetToAnyCodeGenerator<NetCodeWriter>.GetComponentsDirectory(softwareSystemName, containerName));
             Directory.CreateDirectory(fileDirectory);
 
             var filePath = Path.Combine(fileDirectory, documentName);
@@ -611,10 +611,10 @@ namespace C4InterFlow.Automation
                 return interfaceDeclaration;
             }
 
-            var sourceCode = new StringBuilder(CodeGenerator<NetCodeWriter>.GetSoftwareSystemsCodeHeader(architectureNamespace));
+            var sourceCode = new StringBuilder(NetToAnyCodeGenerator<NetCodeWriter>.GetSoftwareSystemsCodeHeader(architectureNamespace));
 
             sourceCode.Append(
-                CodeGenerator<NetCodeWriter>.GetComponentCode(
+                NetToAnyCodeGenerator<NetCodeWriter>.GetComponentCode(
                 architectureNamespace,
                 softwareSystemName,
                 containerName,
