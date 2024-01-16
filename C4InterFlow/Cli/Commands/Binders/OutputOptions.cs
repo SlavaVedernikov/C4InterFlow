@@ -3,38 +3,39 @@ using System;
 using System.Collections.Generic;
 using System.CommandLine.Binding;
 using System.CommandLine;
+using C4InterFlow.Cli.Commands.Options;
 
 namespace C4InterFlow.Cli.Commands.Binders
 {
     public class OutputOptions
     {
-        public OutputOptions(string outputDirectory, bool clearOutputDirectory, string[] formats) { 
+        public OutputOptions(string outputDirectory, string diagramNamePrefix, string[] formats) { 
             OutputDirectory = outputDirectory;
-            ClearOutputDirectory = clearOutputDirectory;
+            DiagramNamePrefix = diagramNamePrefix;
             Formats = formats;
         }
         public string OutputDirectory { get; private set; }
-        public bool ClearOutputDirectory { get; private set; }
+        public string DiagramNamePrefix { get; private set; }
         public string[] Formats { get; private set; }
     }
 
     public class OutputOptionsBinder : BinderBase<OutputOptions>
     {
         private readonly Option<string> _outputDirectoryOption;
-        private readonly Option<bool> _clearOutputDirectory;
-        private readonly Option<string[]> _formats;
+        private readonly Option<string> _diagramNamePrefixOption;
+        private readonly Option<string[]> _formatsOption;
 
-        public OutputOptionsBinder(Option<string> outputDirectoryOption, Option<bool> clearOutputDirectory, Option<string[]> formats)
+        public OutputOptionsBinder(Option<string> outputDirectoryOption, Option<string> diagramNamePrefixOption, Option<string[]> formatsOption)
         {
             _outputDirectoryOption = outputDirectoryOption;
-            _clearOutputDirectory = clearOutputDirectory;
-            _formats = formats;
+            _diagramNamePrefixOption = diagramNamePrefixOption;
+            _formatsOption = formatsOption;
         }
 
         protected override OutputOptions GetBoundValue(BindingContext bindingContext) =>
             new OutputOptions(
                 bindingContext.ParseResult.GetValueForOption(_outputDirectoryOption),
-                bindingContext.ParseResult.GetValueForOption(_clearOutputDirectory),
-                bindingContext.ParseResult.GetValueForOption(_formats));
+                bindingContext.ParseResult.GetValueForOption(_diagramNamePrefixOption),
+                bindingContext.ParseResult.GetValueForOption(_formatsOption));
     }
 }

@@ -23,11 +23,26 @@ namespace C4InterFlow.Automation
 
             var flowCode = new StringBuilder().AppendLine($"new Flow(ALIAS)");
             softwareSystemInterface.WithUses(writer)
-                .ToList().ForEach(i => {
-                    if(!string.IsNullOrEmpty(i.UsesInterfaceAlias))
+                .ToList().ForEach(x => {
+                    var hasCondition = !string.IsNullOrEmpty(x.Condition);
+
+                    if (hasCondition)
                     {
-                        var usesSoftwareSystem = i.UsesInterfaceAlias.Split('.').First();
-                        flowCode.AppendLine($"\t.Use(\"{writer.ArchitectureNamespace}.SoftwareSystems.{i.UsesInterfaceAlias}\")");
+                        flowCode.AppendLine($"\t.If(\"{x.Condition}\")");
+                    }
+
+                    if (!string.IsNullOrEmpty(x.UsesSoftwareSystemInterfaceAlias))
+                    {
+                        flowCode.AppendLine($"{(hasCondition ? "\t": string.Empty)}\t.Use(\"{writer.ArchitectureNamespace}.SoftwareSystems.{x.UsesSoftwareSystemInterfaceAlias}\")");
+                    }
+                    else if (!string.IsNullOrEmpty(x.UsesContainerInterfaceAlias))
+                    {
+                        flowCode.AppendLine($"{(hasCondition ? "\t" : string.Empty)}\t.Use(\"{writer.ArchitectureNamespace}.SoftwareSystems.{x.UsesContainerInterfaceAlias}\")");
+                    }
+
+                    if (hasCondition)
+                    {
+                        flowCode.AppendLine($"\t.EndIf()");
                     }
                 });
             
@@ -68,14 +83,26 @@ namespace C4InterFlow.Automation
 
             var flowCode = new StringBuilder().AppendLine($"new Flow(ALIAS)");
             containerInterface.WithUses(writer)
-                .ToList().ForEach(i => {
-                    if (!string.IsNullOrEmpty(i.UsesContainerInterfaceAlias))
+                .ToList().ForEach(x => {
+                    var hasCondition = !string.IsNullOrEmpty(x.Condition);
+
+                    if (hasCondition)
                     {
-                        flowCode.AppendLine($"\t.Use(\"{writer.ArchitectureNamespace}.SoftwareSystems.{i.UsesContainerInterfaceAlias}\")");
+                        flowCode.AppendLine($"\t.If(\"{x.Condition}\")");
                     }
-                    else if(!string.IsNullOrEmpty(i.UsesSoftwareSystemInterfaceAlias))
+
+                    if (!string.IsNullOrEmpty(x.UsesContainerInterfaceAlias))
                     {
-                        flowCode.AppendLine($"\t.Use(\"{writer.ArchitectureNamespace}.SoftwareSystems.{i.UsesSoftwareSystemInterfaceAlias}\")");
+                        flowCode.AppendLine($"{(hasCondition ? "\t" : string.Empty)}\t.Use(\"{writer.ArchitectureNamespace}.SoftwareSystems.{x.UsesContainerInterfaceAlias}\")");
+                    }
+                    else if(!string.IsNullOrEmpty(x.UsesSoftwareSystemInterfaceAlias))
+                    {
+                        flowCode.AppendLine($"{(hasCondition ? "\t" : string.Empty)}\t.Use(\"{writer.ArchitectureNamespace}.SoftwareSystems.{x.UsesSoftwareSystemInterfaceAlias}\")");
+                    }
+
+                    if (hasCondition)
+                    {
+                        flowCode.AppendLine($"\t.EndIf()");
                     }
                 });
 

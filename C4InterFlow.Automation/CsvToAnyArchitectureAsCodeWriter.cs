@@ -3,7 +3,6 @@ using CsvHelper.Configuration.Attributes;
 using System.Globalization;
 
 namespace C4InterFlow.Automation
-
 {
     public abstract class CsvToAnyArchitectureAsCodeWriter
     {
@@ -177,7 +176,11 @@ namespace C4InterFlow.Automation
             [Name("Software System Interface Alias")]
             public string InterfaceAlias { get; set; }
             [Name("Uses Software System Interface Alias")]
-            public string UsesInterfaceAlias { get; set; }
+            public string UsesSoftwareSystemInterfaceAlias { get; set; }
+            [Name("Uses Container Interface Alias")]
+            public string UsesContainerInterfaceAlias { get; set; }
+            [Name("Condition")]
+            public string Condition { get; set; }
         }
 
         public class Container
@@ -220,6 +223,8 @@ namespace C4InterFlow.Automation
             public string UsesContainerInterfaceAlias { get; set; }
             [Name("Uses Software System Interface Alias")]
             public string UsesSoftwareSystemInterfaceAlias { get; set; }
+            [Name("Condition")]
+            public string Condition { get; set; }
         }
 
         public class BusinessProcess
