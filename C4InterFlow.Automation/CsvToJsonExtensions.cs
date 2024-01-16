@@ -15,12 +15,12 @@ namespace C4InterFlow.Automation
 
             softwareSystemInterface.WithUses(writer)
             .ToList().ForEach(i => {
-                if (!string.IsNullOrEmpty(i.UsesInterfaceAlias))
+                if (!string.IsNullOrEmpty(i.UsesSoftwareSystemInterfaceAlias))
                 {
                     flows.Add( new JObject
                         {
                             { "Type", "Use" },
-                            { "Params", $"{writer.ArchitectureNamespace}.SoftwareSystems.{i.UsesInterfaceAlias}" }
+                            { "Params", $"{writer.ArchitectureNamespace}.SoftwareSystems.{i.UsesSoftwareSystemInterfaceAlias}" }
                         }
                     );
                 }

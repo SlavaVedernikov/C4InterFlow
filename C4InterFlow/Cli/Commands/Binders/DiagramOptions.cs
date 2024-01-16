@@ -57,10 +57,12 @@ namespace C4InterFlow.Cli.Commands.Binders
                 case DiagramScopesOption.SOFTWARE_SYSTEMS:
                 {
                     supportedLevelsOfDetail.AddRange(new[] {
-                        DiagramLevelsOfDetailsOption.CONTEXT
+                        DiagramLevelsOfDetailsOption.CONTEXT,
+                        DiagramLevelsOfDetailsOption.CONTAINER
                     });
                     supportedTypes.AddRange(new[] {
-                        DiagramTypesOption.C4_STATIC
+                        DiagramTypesOption.C4_STATIC,
+                        DiagramTypesOption.C4
                     });
 
                     break;

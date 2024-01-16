@@ -29,11 +29,11 @@ public class QueryByInputCommand : Command
         {
             Console.WriteLine($"{COMMAND_NAME} command is executing...");
 
-            entityAliases = Utils.ResolveWildcardStructures(entityAliases);
+            var resolvedEntityAliases = Utils.ResolveWildcardStructures(entityAliases);
             var result = new List<string>();
             var interfaceTypes = Utils.GetAllTypesOfInterface<IInterfaceInstance>();
             
-            foreach (var entityAlias in entityAliases)
+            foreach (var entityAlias in resolvedEntityAliases)
             {
                 result.AddRange(GetByInput(interfaceTypes, entityAlias));
             }
