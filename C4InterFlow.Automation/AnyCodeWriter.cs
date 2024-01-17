@@ -51,21 +51,21 @@ namespace C4InterFlow.Automation
             return $"{componentAlias}.Interfaces.{interfaceName}";
         }
 
-        internal string GetContainerInterfaceAlias(string architectureNamespace, string softwareSystemName, string containerName, string interfaceName)
+        internal static string GetContainerInterfaceAlias(string architectureNamespace, string softwareSystemName, string containerName, string interfaceName)
         {
             if (string.IsNullOrEmpty(softwareSystemName) || string.IsNullOrEmpty(containerName) || string.IsNullOrEmpty(interfaceName)) return string.Empty;
 
             return $"{architectureNamespace}.SoftwareSystems.{softwareSystemName}.Containers.{containerName}.Interfaces.{interfaceName}";
         }
 
-        internal string GetSoftwareSystemInterfaceAlias(string architectureNamespace, string softwareSystemName, string interfaceName)
+        internal static string GetSoftwareSystemInterfaceAlias(string architectureNamespace, string softwareSystemName, string interfaceName)
         {
             if (string.IsNullOrEmpty(architectureNamespace) || string.IsNullOrEmpty(softwareSystemName) || string.IsNullOrEmpty(interfaceName)) return string.Empty;
 
             return $"{architectureNamespace}.SoftwareSystems.{softwareSystemName}.Interfaces.{interfaceName}";
         }
 
-        internal string EnsureDoubleQuotes(string text)
+        internal static string EnsureDoubleQuotes(string text)
         {
             if (string.IsNullOrEmpty(text)) return "\"\"";
 
@@ -81,7 +81,7 @@ namespace C4InterFlow.Automation
 
         }
 
-        internal string GetName(string text)
+        internal static string GetName(string text)
         {
             var result = string.Empty;
             if (!string.IsNullOrEmpty(text))
@@ -99,7 +99,7 @@ namespace C4InterFlow.Automation
             return Regex.Replace(text.Replace("\"", string.Empty), "((?<=[a-z])[A-Z]|[A-Z](?=[a-z]))", " $1").Trim();
         }
 
-        private string GetFormattedParams(string @params)
+        private static string GetFormattedParams(string @params)
         {
             return @params.Replace(Environment.NewLine, "\\n").Replace("\"", "\"\"");
         }

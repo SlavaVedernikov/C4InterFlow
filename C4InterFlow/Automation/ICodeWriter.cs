@@ -8,7 +8,6 @@ namespace C4InterFlow.Automation
 {
     public interface ICodeWriter
     {
-        string GetSoftwareSystemsCodeHeader(string architectureNamespace);
         string GetSoftwareSystemCode(string architectureNamespace, string name, string label, string? description = null, string? boundary = null);
         string GetContainerCode(string architectureNamespace, string softwareSystemName, string containerName, string label, string? type = null, string? description = null, string? technology = null, string? boundary = null);
         string GetComponentCode(string architectureNamespace, string softwareSystemName, string containerName, string name, string label, string componentType = "None", string? description = null, string? technology = null);
@@ -32,11 +31,8 @@ namespace C4InterFlow.Automation
         string GetEndFinallyFlowCode();
         string GetThrowExceptionFlowCode(string? exception = null);
         string GetUseFlowCode(string alias);
-        string GetActorsCodeHeader(string architectureNamespace);
         string GetActorCode(string architectureNamespace, string type, string name, string label, string? description = null);
-        string GetBusinessProcessesCodeHeader(string architectureNamespace);
-        string GetBusinessProcessStartCode(string architectureNamespace, string name, string label, string? description = null);
-        string GetBusinessProcessEndCode(string architectureNamespace, string name, string label, string? description = null);
+        string GetBusinessProcessCode(string architectureNamespace, string name, string label, string businessActivitiesCode, string? description = null);
         string GetBusinessActivityCode(string name, string actor, string[] uses, string? description = null);
     }
 }

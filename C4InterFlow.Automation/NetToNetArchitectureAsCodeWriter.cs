@@ -50,15 +50,10 @@ namespace C4InterFlow.Automation
                 return this;
             }
 
-            var sourceCode = new StringBuilder(NetToAnyCodeGenerator<NetCodeWriter>.GetSoftwareSystemsCodeHeader(ArchitectureNamespace));
-
-            sourceCode.Append(
-                NetToAnyCodeGenerator<NetCodeWriter>.GetSoftwareSystemCode(
+            var sourceCode = NetToAnyCodeGenerator<NetCodeWriter>.GetSoftwareSystemCode(
                 ArchitectureNamespace,
                 softwareSystemName,
-                NetCodeWriter.GetLabel(softwareSystemName)));
-
-            sourceCode.AppendLine("}");
+                NetCodeWriter.GetLabel(softwareSystemName));
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
             var root = tree.GetRoot();
@@ -97,16 +92,11 @@ namespace C4InterFlow.Automation
                 return this;
             }
 
-            var sourceCode = new StringBuilder(NetToAnyCodeGenerator<NetCodeWriter>.GetSoftwareSystemsCodeHeader(ArchitectureNamespace));
-
-            sourceCode.Append(
-                NetToAnyCodeGenerator<NetCodeWriter>.GetContainerCode(
+            var sourceCode = NetToAnyCodeGenerator<NetCodeWriter>.GetContainerCode(
                 ArchitectureNamespace,
                 softwareSystemName,
                 containerName,
-                NetCodeWriter.GetLabel(containerName)));
-
-            sourceCode.AppendLine("}");
+                NetCodeWriter.GetLabel(containerName));
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
             var root = tree.GetRoot();
@@ -145,18 +135,13 @@ namespace C4InterFlow.Automation
                 return this;
             }
 
-            var sourceCode = new StringBuilder(NetToAnyCodeGenerator<NetCodeWriter>.GetSoftwareSystemsCodeHeader(ArchitectureNamespace));
-
-            sourceCode.Append(
-                NetToAnyCodeGenerator<NetCodeWriter>.GetComponentCode(
+            var sourceCode = NetToAnyCodeGenerator<NetCodeWriter>.GetComponentCode(
                 ArchitectureNamespace,
                 softwareSystemName,
                 containerName,
                 componentName,
                 NetCodeWriter.GetLabel(componentName),
-                componentType.ToString()));
-
-            sourceCode.AppendLine("}");
+                componentType.ToString());
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
             var root = tree.GetRoot();
@@ -204,10 +189,7 @@ namespace C4InterFlow.Automation
                 return this;
             }
 
-            var sourceCode = new StringBuilder(NetToAnyCodeGenerator<NetCodeWriter>.GetSoftwareSystemsCodeHeader(ArchitectureNamespace));
-
-            sourceCode.Append(
-                NetToAnyCodeGenerator<NetCodeWriter>.GetComponentInterfaceCode(
+            var sourceCode = NetToAnyCodeGenerator<NetCodeWriter>.GetComponentInterfaceCode(
                 architectureNamespace: ArchitectureNamespace,
                 softwareSystemName: softwareSystemName,
                 containerName: containerName,
@@ -217,9 +199,7 @@ namespace C4InterFlow.Automation
                 protocol: protocol,
                 path: path,
                 input: input,
-                output: output));
-
-            sourceCode.AppendLine("}");
+                output: output);
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
             var root = tree.GetRoot();

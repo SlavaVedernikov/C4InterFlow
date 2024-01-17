@@ -283,8 +283,6 @@ namespace C4InterFlow.Automation
                 return methodDeclaration;
             }
 
-            var sourceCode = new StringBuilder(NetToAnyCodeGenerator<NetCodeWriter>.GetSoftwareSystemsCodeHeader(architectureNamespace));
-
             var interfacePath = string.Empty;
 
             if(pathMapper != null)
@@ -295,9 +293,8 @@ namespace C4InterFlow.Automation
                     writer, 
                     ":", architectureNamespace.Replace(".Architecture", string.Empty), null);
             }
-            
-            sourceCode.Append(
-                NetToAnyCodeGenerator<NetCodeWriter>.GetComponentInterfaceCode(
+
+            var sourceCode = NetToAnyCodeGenerator<NetCodeWriter>.GetComponentInterfaceCode(
                 architectureNamespace,
                 softwareSystemName,
                 containerName,
@@ -306,9 +303,7 @@ namespace C4InterFlow.Automation
                 NetCodeWriter.GetLabel(interfaceName),
                 protocol: protocol,
                 path: !string.IsNullOrEmpty(interfacePath) ? interfacePath : string.Empty,
-                isPrivate: isPrivate));
-
-            sourceCode.AppendLine("}");
+                isPrivate: isPrivate);
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
             var root = tree.GetRoot();
@@ -364,19 +359,14 @@ namespace C4InterFlow.Automation
                     continue;
                 }
 
-                var sourceCode = new StringBuilder(NetToAnyCodeGenerator<NetCodeWriter>.GetSoftwareSystemsCodeHeader(architectureNamespace));
-
-                sourceCode.Append(
-                    NetToAnyCodeGenerator<NetCodeWriter>.GetComponentInterfaceCode(
+                var sourceCode = NetToAnyCodeGenerator<NetCodeWriter>.GetComponentInterfaceCode(
                     architectureNamespace,
                     softwareSystemName,
                     containerName,
                     componentName,
                     interfaceName,
                     NetCodeWriter.GetLabel(interfaceName),
-                    protocol: protocol));
-
-                sourceCode.AppendLine("}");
+                    protocol: protocol);
 
                 var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
                 var root = tree.GetRoot();
@@ -407,7 +397,7 @@ namespace C4InterFlow.Automation
 
             var entityName = interfaceDeclaration.Identifier.Text;
             var entityTypeSymbol = systemSemanticModel.GetDeclaredSymbol(interfaceDeclaration) as ITypeSymbol;
-            var entityAlias = NetCodeWriter.GetEntityAlias(architectureNamespace, softwareSystemName, containerName, entityName);
+            var entityAlias = AnyCodeWriter.GetEntityAlias(architectureNamespace, softwareSystemName, containerName, entityName);
             var documentName = $"{entityName}.cs";
 
             var projectDirectory = architectureProject.FilePath.Replace($"{architectureProject.Name}.csproj", string.Empty);
@@ -423,17 +413,12 @@ namespace C4InterFlow.Automation
                 return interfaceDeclaration;
             }
 
-            var sourceCode = new StringBuilder(NetToAnyCodeGenerator<NetCodeWriter>.GetSoftwareSystemsCodeHeader(architectureNamespace));
-
-            sourceCode.Append(
-                NetToAnyCodeGenerator<NetCodeWriter>.GetEntityCode(
+            var sourceCode = NetToAnyCodeGenerator<NetCodeWriter>.GetEntityCode(
                 architectureNamespace,
                 softwareSystemName,
                 containerName,
                 entityName,
-                NetCodeWriter.GetLabel(entityName)));
-
-            sourceCode.AppendLine("}");
+                NetCodeWriter.GetLabel(entityName));
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
             var root = tree.GetRoot();
@@ -469,7 +454,7 @@ namespace C4InterFlow.Automation
 
             var entityName = recordDeclaration.Identifier.Text;
             var entityTypeSymbol = systemSemanticModel.GetDeclaredSymbol(recordDeclaration) as ITypeSymbol;
-            var entityAlias = NetCodeWriter.GetEntityAlias(architectureNamespace,softwareSystemName,containerName, entityName);
+            var entityAlias = AnyCodeWriter.GetEntityAlias(architectureNamespace,softwareSystemName,containerName, entityName);
 
             var documentName = $"{entityName}.cs";
 
@@ -486,17 +471,12 @@ namespace C4InterFlow.Automation
                 return recordDeclaration;
             }
 
-            var sourceCode = new StringBuilder(NetToAnyCodeGenerator<NetCodeWriter>.GetSoftwareSystemsCodeHeader(architectureNamespace));
-
-            sourceCode.Append(
-                NetToAnyCodeGenerator<NetCodeWriter>.GetEntityCode(
+            var sourceCode = NetToAnyCodeGenerator<NetCodeWriter>.GetEntityCode(
                 architectureNamespace,
                 softwareSystemName,
                 containerName,
                 entityName,
-                NetCodeWriter.GetLabel(entityName)));
-
-            sourceCode.AppendLine("}");
+                NetCodeWriter.GetLabel(entityName));
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
             var root = tree.GetRoot();
@@ -559,17 +539,12 @@ namespace C4InterFlow.Automation
                 return classDeclaration;
             }
 
-            var sourceCode = new StringBuilder(NetToAnyCodeGenerator<NetCodeWriter>.GetSoftwareSystemsCodeHeader(architectureNamespace));
-
-            sourceCode.Append(
-                NetToAnyCodeGenerator<NetCodeWriter>.GetComponentCode(
+            var sourceCode = NetToAnyCodeGenerator<NetCodeWriter>.GetComponentCode(
                 architectureNamespace,
                 softwareSystemName,
                 containerName,
                 componentName,
-                NetCodeWriter.GetLabel(componentName)));
-            
-            sourceCode.AppendLine("}");
+                NetCodeWriter.GetLabel(componentName));
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
             var root = tree.GetRoot();
@@ -611,17 +586,12 @@ namespace C4InterFlow.Automation
                 return interfaceDeclaration;
             }
 
-            var sourceCode = new StringBuilder(NetToAnyCodeGenerator<NetCodeWriter>.GetSoftwareSystemsCodeHeader(architectureNamespace));
-
-            sourceCode.Append(
-                NetToAnyCodeGenerator<NetCodeWriter>.GetComponentCode(
+            var sourceCode = NetToAnyCodeGenerator<NetCodeWriter>.GetComponentCode(
                 architectureNamespace,
                 softwareSystemName,
                 containerName,
                 componentName,
-                NetCodeWriter.GetLabel(componentName)));
-
-            sourceCode.AppendLine("}");
+                NetCodeWriter.GetLabel(componentName));
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
             var root = tree.GetRoot();

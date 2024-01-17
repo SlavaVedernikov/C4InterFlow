@@ -10,7 +10,6 @@ namespace C4InterFlow.Automation
     {
         public MSBuildWorkspace SoftwareSystemWorkspace { get; private set; }
         public string ArchitectureNamespace { get; private set; }
-        public MSBuildWorkspace? ArchitectureWorkspace { get; private set; }
         public Solution? SoftwareSystemSolution { get; private set; }
         public Project? CurrentProject { get; private set; }
         public Document? CurrentDocument { get; private set; }

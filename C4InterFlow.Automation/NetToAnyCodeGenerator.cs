@@ -12,21 +12,6 @@ namespace C4InterFlow.Automation
     {
         private static readonly T CodeWriter = new T();
 
-        public static string GetSoftwareSystemsCodeHeader(string architectureNamespace)
-        {
-            return CodeWriter.GetSoftwareSystemsCodeHeader(architectureNamespace);
-        }
-
-        public static string GetActorsCodeHeader(string architectureNamespace)
-        {
-            return CodeWriter.GetActorsCodeHeader(architectureNamespace);
-        }
-
-        public static string GetBusinessProcessesCodeHeader(string architectureNamespace)
-        {
-            return CodeWriter.GetBusinessProcessesCodeHeader(architectureNamespace);
-        }
-
         public static string GetSoftwareSystemCode(string architectureNamespace, string name, string label, string? description = null, string? boundary = null)
         {
             return CodeWriter.GetSoftwareSystemCode(architectureNamespace, name, label, description, boundary);
@@ -37,14 +22,9 @@ namespace C4InterFlow.Automation
             return CodeWriter.GetActorCode(architectureNamespace, type, name, label, description);
         }
 
-        public static string GetBusinessProcessStartCode(string architectureNamespace, string name, string label, string? description = null)
+        public static string GetBusinessProcessCode(string architectureNamespace, string name, string label, string businessActivitiesCode, string? description = null)
         {
-            return CodeWriter.GetBusinessProcessStartCode(architectureNamespace, name, label, description);
-        }
-
-        public static string GetBusinessProcessEndCode(string architectureNamespace, string name, string label, string? description = null)
-        {
-            return CodeWriter.GetBusinessProcessEndCode(architectureNamespace, name, label, description);
+            return CodeWriter.GetBusinessProcessCode(architectureNamespace, name, label, businessActivitiesCode, description);
         }
 
         public static string GetBusinessActivityCode(string name, string actor, string[] uses, string? description = null)
