@@ -10,7 +10,7 @@ public static class OutputDirectoryOption
         const string description =
             "The directory where the Diagram(s) should be saved.";
 
-        var option = new Option<string>(new[] { "--output-dir", "-o" }, description);
+        var option = new Option<string>(new[] { "--output-dir", "-od" }, description);
 
         option.SetDefaultValue(Directory.GetCurrentDirectory());
 
