@@ -1,16 +1,18 @@
-﻿using System;
+﻿using C4InterFlow.Elements;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
 using System.Text;
 using System.Threading.Tasks;
+using static C4InterFlow.Utils.ExternalSystem;
 
 namespace C4InterFlow.Cli
 {
     public class Utils
     {
-        public static string[] ResolveWildcardStructures(string[] structures)
+        public static IEnumerable<string> ResolveWildcardStructures(IEnumerable<string> structures)
         {
             var result = new List<string>();
 
@@ -84,7 +86,7 @@ namespace C4InterFlow.Cli
 
             }
 
-            return result.Distinct().ToArray();
+            return result.Distinct();
         }
 
         public static IEnumerable<Type> GetAllTypesOfInterface<T>()
@@ -108,6 +110,49 @@ namespace C4InterFlow.Cli
             return paths
             .Where(x => { var assembly = x.Split("\\").Last(); return new[] { "C4InterFlow", "System.", "Microsoft." }.All(y => !assembly.StartsWith(y)); })
             .Select(AssemblyLoadContext.Default.LoadFromAssemblyPath);
+        }
+
+        public static IEnumerable<string> ReadLines(string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                Console.WriteLine($"Could not read lines from a file. The file {filePath} does not exist.");
+                yield break;
+            }
+
+            using (StreamReader sr = new StreamReader(filePath))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    yield return line;
+                }
+            }
+        }
+
+        public static void WriteLines(List<string> items, string filePath)
+        {
+            string directoryPath = Path.GetDirectoryName(filePath);
+
+            if (!string.IsNullOrEmpty(directoryPath) && !Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(filePath))
+                {
+                    foreach (string item in items)
+                    {
+                        writer.WriteLine(item);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Could not write lines to a file. An error occurred: {ex.Message}");
+            }
         }
     }
 }

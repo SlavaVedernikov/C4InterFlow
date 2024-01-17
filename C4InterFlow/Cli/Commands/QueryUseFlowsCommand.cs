@@ -14,33 +14,45 @@ public class QueryUseFlowsCommand : Command
     {
         var interfacesOption = InterfacesOption.Get();
         var isRecursiveOption = QueryIsRecursiveOption.Get();
+        var queryOutputFileOption = QueryOutputFileOption.Get();
 
         AddOption(interfacesOption);
         AddOption(isRecursiveOption);
+        AddOption(queryOutputFileOption);
 
-        this.SetHandler(async (interfaceAliases, isRecursive) =>
-            {
-                await Execute(interfaceAliases, isRecursive);
-            },
-            interfacesOption, isRecursiveOption);
+        this.SetHandler(async (interfaceAliases, isRecursive, queryOutputFile) =>
+        {
+            await Execute(interfaceAliases, isRecursive, queryOutputFile);
+        },
+        interfacesOption, isRecursiveOption, queryOutputFileOption);
     }
 
-    private static async Task<int> Execute(string[] interfaceAliases, bool isRecursive)
+    private static async Task<int> Execute(string[] interfaceAliases, bool isRecursive, string queryOutputFile)
     {
         try
         {
             Console.WriteLine($"{COMMAND_NAME} command is executing...");
 
-            interfaceAliases = Utils.ResolveWildcardStructures(interfaceAliases);
+            var resolvedInterfaceAliases = Utils.ResolveWildcardStructures(interfaceAliases);
             var result = new List<string>();
             var interfaceTypes = Utils.GetAllTypesOfInterface<IInterfaceInstance>();
 
-            foreach (var interfaceAlias in interfaceAliases)
+            foreach (var interfaceAlias in resolvedInterfaceAliases)
             {
                 GetUsedBy(interfaceTypes, interfaceAlias, isRecursive, result);        
             }
-            Console.WriteLine($"{COMMAND_NAME} command completed. See query results below.");
-            Console.Write($"{string.Join(Environment.NewLine, result.Distinct().ToArray())}");
+
+            if(!string.IsNullOrEmpty(queryOutputFile))
+            {
+                Utils.WriteLines(result, queryOutputFile);
+                Console.WriteLine($"{COMMAND_NAME} command completed. See query results in '{queryOutputFile}'.");
+            }
+            else
+            {
+                Console.WriteLine($"{COMMAND_NAME} command completed. See query results below.");
+                Console.Write($"{string.Join(Environment.NewLine, result.Distinct().ToArray())}");
+            }
+
             return 0;
         }
         catch (Exception e)

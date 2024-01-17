@@ -139,7 +139,7 @@ namespace C4InterFlow.Diagrams
             var interfaceOwner = Utils.GetInstance<Structure>(@interface.Owner);
 
             if (interfaceOwner is SoftwareSystem &&
-        !structures.OfType<SoftwareSystem>().Any(x => x.Alias == interfaceOwner.Alias))
+                !structures.OfType<SoftwareSystem>().Any(x => x.Alias == interfaceOwner.Alias))
             {
                 structures.Add(interfaceOwner);
                 currentScope = interfaceOwner.Alias;
