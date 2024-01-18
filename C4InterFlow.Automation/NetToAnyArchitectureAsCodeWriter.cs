@@ -16,8 +16,8 @@ namespace C4InterFlow.Automation
         public ClassDeclarationSyntax? CurrentClassDeclaration { get; private set; }
         public Dictionary<string, IList<string>> SoftwareSystemTypeMap { get; private set; } = new Dictionary<string, IList<string>>();
         public Dictionary<string, string> EntityTypeMap { get; private set; } = new Dictionary<string, string>();
-        public Dictionary<string, MethodDeclarationSyntax> ComponentMethodInterfaceClassMap { get; private set; } = new Dictionary<string, MethodDeclarationSyntax>();
-        public Dictionary<string, PropertyDeclarationSyntax> ComponentPropertyInterfaceClassMap { get; private set; } = new Dictionary<string, PropertyDeclarationSyntax>();
+        public Dictionary<string, MethodDeclarationSyntax> ComponentMethodInterfaceObjectMap { get; private set; } = new Dictionary<string, MethodDeclarationSyntax>();
+        public Dictionary<string, PropertyDeclarationSyntax> ComponentPropertyInterfaceObjectMap { get; private set; } = new Dictionary<string, PropertyDeclarationSyntax>();
 
         private static void RegisterInstanceVisualStudioInstance()
         {

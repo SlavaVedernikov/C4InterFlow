@@ -509,7 +509,7 @@ namespace C4InterFlow.Automation
         NetToNetArchitectureAsCodeWriter writer,
         IEnumerable<NetToNetAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
     {
-        var result = new StringBuilder().AppendLine(CodeWriter.GetFlowHeader());
+        var result = new StringBuilder().AppendLine(CodeWriter.GetFlowCode());
         
 
         if (methodDeclaration.Body == null) 
@@ -652,9 +652,9 @@ namespace C4InterFlow.Automation
                 {
                     var invocationMethod = invocationTypeDefinition.DescendantNodes().OfType<MethodDeclarationSyntax>().FirstOrDefault(x => x.Identifier.ValueText == invocationMemberName);
 
-                    if (invocationMethod != null && writer.ComponentMethodInterfaceClassMap.Any(x => x.Value == invocationMethod))
+                    if (invocationMethod != null && writer.ComponentMethodInterfaceObjectMap.Any(x => x.Value == invocationMethod))
                     {
-                        var interfaceClassFilePath = writer.ComponentMethodInterfaceClassMap.FirstOrDefault(x => x.Value == invocationMethod).Key;
+                        var interfaceClassFilePath = writer.ComponentMethodInterfaceObjectMap.FirstOrDefault(x => x.Value == invocationMethod).Key;
                         var interfaceAliasValue = architectureAsCodeContext.GetAliasFieldValue(interfaceClassFilePath);
 
                         if (!string.IsNullOrEmpty(interfaceAliasValue))

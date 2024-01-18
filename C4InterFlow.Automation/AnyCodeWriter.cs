@@ -23,6 +23,14 @@ namespace C4InterFlow.Automation
 
             return $"{architectureNamespace}.Actors.{actorName}";
         }
+
+        internal static string GetBusinessProcessAlias(string architectureNamespace, string businessProcessName)
+        {
+            if (string.IsNullOrEmpty(architectureNamespace) || string.IsNullOrEmpty(businessProcessName)) return string.Empty;
+
+            return $"{architectureNamespace}.BusinessProcesses.{businessProcessName}";
+        }
+
         internal static string GetContainerAlias(string architectureNamespace, string softwareSystemName, string containerName)
         {
             if (string.IsNullOrEmpty(architectureNamespace) || string.IsNullOrEmpty(softwareSystemName) || string.IsNullOrEmpty(containerName)) return string.Empty;

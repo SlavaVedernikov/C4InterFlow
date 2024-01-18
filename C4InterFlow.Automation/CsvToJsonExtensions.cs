@@ -26,7 +26,10 @@ namespace C4InterFlow.Automation
                 }
             });
 
-            jsonObject.Add("Flows", flows);
+            jsonObject.Add("Flow", new JObject
+                        {
+                            { "Flows", flows }
+                        });
 
             return jsonObject;
         }
@@ -63,7 +66,10 @@ namespace C4InterFlow.Automation
                     }
                 });
 
-            jsonObject.Add("Flows", flows);
+            jsonObject.Add("Flow", new JObject
+                        {
+                            { "Flows", flows }
+                        });
 
             return jsonObject;
         }

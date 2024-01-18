@@ -11,7 +11,7 @@ namespace C4InterFlow.Automation
 {
     public class NetToYamlArchitectureAsCodeWriter : NetToAnyArchitectureAsCodeWriter<ClassDeclarationSyntax, Document>
     {
-        protected string? ArchitectureOutputPath { get; private set; }
+        public string? ArchitectureOutputPath { get; private set; }
         public NetToYamlArchitectureAsCodeWriter(string softwareSystemSolutionPath, string architectureRootNamespace, string architectureOutputPath) : base(softwareSystemSolutionPath, architectureRootNamespace)
         {
             ArchitectureOutputPath = architectureOutputPath;
@@ -20,7 +20,7 @@ namespace C4InterFlow.Automation
         public override NetToYamlArchitectureAsCodeWriter AddSoftwareSystem(string softwareSystemName)
         {
             var documentName = $"{softwareSystemName}.yaml";
-            var fileDirectory = Path.Combine(ArchitectureOutputPath, NetToAnyCodeGenerator<NetCodeWriter>.GetSoftwareSystemsDirectory());
+            var fileDirectory = Path.Combine(ArchitectureOutputPath, NetToAnyCodeGenerator<YamlCodeWriter>.GetSoftwareSystemsDirectory());
             Directory.CreateDirectory(fileDirectory);
 
             var filePath = Path.Combine(fileDirectory, documentName);
@@ -31,15 +31,15 @@ namespace C4InterFlow.Automation
                 return this;
             }
 
-            var sourceCode = NetToAnyCodeGenerator<NetCodeWriter>.GetSoftwareSystemCode(
+            var sourceCode = NetToAnyCodeGenerator<YamlCodeWriter>.GetSoftwareSystemCode(
                 ArchitectureNamespace,
                 softwareSystemName,
-                NetCodeWriter.GetLabel(softwareSystemName));
+                YamlCodeWriter.GetLabel(softwareSystemName));
 
 
             if (!File.Exists(filePath))
             {
-                File.WriteAllText(filePath, sourceCode.ToString());
+                File.WriteAllText(filePath, sourceCode);
             }
 
             return this;
@@ -49,7 +49,7 @@ namespace C4InterFlow.Automation
         {
             var documentName = $"{containerName}.yaml";
 
-            var fileDirectory = Path.Combine(ArchitectureOutputPath, NetToAnyCodeGenerator<NetCodeWriter>.GetContainersDirectory(softwareSystemName));
+            var fileDirectory = Path.Combine(ArchitectureOutputPath, NetToAnyCodeGenerator<YamlCodeWriter>.GetContainersDirectory(softwareSystemName));
             Directory.CreateDirectory(fileDirectory);
 
             var filePath = Path.Combine(fileDirectory, documentName);
@@ -60,20 +60,15 @@ namespace C4InterFlow.Automation
                 return this;
             }
 
-            var sourceCode = NetToAnyCodeGenerator<NetCodeWriter>.GetContainerCode(
+            var sourceCode = NetToAnyCodeGenerator<YamlCodeWriter>.GetContainerCode(
                 ArchitectureNamespace,
                 softwareSystemName,
                 containerName,
-                NetCodeWriter.GetLabel(containerName));
-
-            var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
-            var root = tree.GetRoot();
-            var formattedRoot = root.NormalizeWhitespace();
-            var formattedSourceCode = formattedRoot.ToFullString();
+                YamlCodeWriter.GetLabel(containerName));
 
             if (!File.Exists(filePath))
             {
-                File.WriteAllText(filePath, formattedSourceCode);
+                File.WriteAllText(filePath, sourceCode);
             }
 
             return this;
@@ -81,9 +76,9 @@ namespace C4InterFlow.Automation
 
         public override NetToYamlArchitectureAsCodeWriter AddComponent(string softwareSystemName, string containerName, string componentName, ComponentType componentType = ComponentType.None)
         {
-            var documentName = $"{componentName}.cs";
+            var documentName = $"{componentName}.yaml";
 
-            var fileDirectory = Path.Combine(ArchitectureOutputPath, NetToAnyCodeGenerator<NetCodeWriter>.GetComponentsDirectory(softwareSystemName, containerName));
+            var fileDirectory = Path.Combine(ArchitectureOutputPath, NetToAnyCodeGenerator<YamlCodeWriter>.GetComponentsDirectory(softwareSystemName, containerName));
             Directory.CreateDirectory(fileDirectory);
 
             var filePath = Path.Combine(fileDirectory, documentName);
@@ -94,22 +89,17 @@ namespace C4InterFlow.Automation
                 return this;
             }
 
-            var sourceCode = NetToAnyCodeGenerator<NetCodeWriter>.GetComponentCode(
+            var sourceCode = NetToAnyCodeGenerator<YamlCodeWriter>.GetComponentCode(
                 ArchitectureNamespace,
                 softwareSystemName,
                 containerName,
                 componentName,
-                NetCodeWriter.GetLabel(componentName),
+                YamlCodeWriter.GetLabel(componentName),
                 componentType.ToString());
-
-            var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
-            var root = tree.GetRoot();
-            var formattedRoot = root.NormalizeWhitespace();
-            var formattedSourceCode = formattedRoot.ToFullString();
 
             if (!File.Exists(filePath))
             {
-                File.WriteAllText(filePath, formattedSourceCode);
+                File.WriteAllText(filePath, sourceCode);
             }
 
             return this;
@@ -126,9 +116,9 @@ namespace C4InterFlow.Automation
             string? protocol = null,
             string? path = null)
         {
-            var documentName = $"{interfaceName}.cs";
+            var documentName = $"{interfaceName}.yaml";
 
-            var fileDirectory = Path.Combine(ArchitectureOutputPath, NetToAnyCodeGenerator<NetCodeWriter>.GetComponentInterfacesDirectory(softwareSystemName, containerName, componentName));
+            var fileDirectory = Path.Combine(ArchitectureOutputPath, NetToAnyCodeGenerator<YamlCodeWriter>.GetComponentInterfacesDirectory(softwareSystemName, containerName, componentName));
             Directory.CreateDirectory(fileDirectory);
 
             var filePath = Path.Combine(fileDirectory, documentName);
@@ -139,27 +129,22 @@ namespace C4InterFlow.Automation
                 return this;
             }
 
-            var sourceCode = NetToAnyCodeGenerator<NetCodeWriter>.GetComponentInterfaceCode(
+            var sourceCode = NetToAnyCodeGenerator<YamlCodeWriter>.GetComponentInterfaceCode(
                 architectureNamespace: ArchitectureNamespace,
                 softwareSystemName: softwareSystemName,
                 containerName: containerName,
                 componentName: componentName,
                 name: interfaceName,
-                label: NetCodeWriter.GetLabel(interfaceName),
+                label: YamlCodeWriter.GetLabel(interfaceName),
                 protocol: protocol,
                 path: path,
                 input: input,
                 output: output);
 
-            var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
-            var root = tree.GetRoot();
-            var formattedRoot = root.NormalizeWhitespace();
-            var formattedSourceCode = formattedRoot.ToFullString();
-
             //TODO: Add support for Interface method overloads
             if (!File.Exists(filePath))
             {
-                File.WriteAllText(filePath, formattedSourceCode);
+                File.WriteAllText(filePath, sourceCode);
             }
 
             return this;

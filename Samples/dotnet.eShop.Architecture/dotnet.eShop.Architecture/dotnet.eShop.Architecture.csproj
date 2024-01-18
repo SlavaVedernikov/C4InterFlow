@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Diagrams\" />
+    <Folder Include="Yaml\" />
     <Folder Include="SoftwareSystems\" />
   </ItemGroup>
 

@@ -16,7 +16,7 @@ namespace C4InterFlow.Automation
         {
             return AnyCodeWriter.GetLabel(text);
         }
-        public string GetContainerCode(string architectureNamespace, string softwareSystemName, string containerName, string label, string? type = null, string? description = null, string? technology = null, string? boundary = null)
+        public string GetContainerCode(string architectureNamespace, string softwareSystemName, string name, string label, string? type = null, string? description = null, string? technology = null, string? boundary = null)
         {
             var softwareSystemAlias = AnyCodeWriter.GetSoftwareSystemAlias(architectureNamespace, softwareSystemName);
             var result = new StringBuilder(GetSoftwareSystemsCodeHeader(architectureNamespace));
@@ -26,9 +26,9 @@ namespace C4InterFlow.Automation
     {{
         public partial class Containers
         {{
-            public partial class {AnyCodeWriter.GetName(containerName)} : IContainerInstance
+            public partial class {AnyCodeWriter.GetName(name)} : IContainerInstance
             {{
-                public const string ALIAS = {$"\"{AnyCodeWriter.GetContainerAlias(architectureNamespace, softwareSystemName, containerName)}\""};
+                public const string ALIAS = {$"\"{AnyCodeWriter.GetContainerAlias(architectureNamespace, softwareSystemName, name)}\""};
 
                 public static Container Instance => new Container(
                     {softwareSystemAlias}.ALIAS, ALIAS, {AnyCodeWriter.EnsureDoubleQuotes(label)})
@@ -351,7 +351,7 @@ namespace C4InterFlow.Automation
             return result.ToString();
         }
 
-        public string GetFlowHeader()
+        public string GetFlowCode()
         {
             return $"new Flow(ALIAS)";
         }
@@ -438,7 +438,7 @@ namespace C4InterFlow.Automation
 
         public string GetBusinessProcessCode(string architectureNamespace, string name, string label, string businessActivitiesCode, string? description = null)
         {
-            var result = new StringBuilder(GetSoftwareSystemsCodeHeader(architectureNamespace));
+            var result = new StringBuilder(GetBusinessProcessesCodeHeader(architectureNamespace));
 
             result.Append($@"
     public class {AnyCodeWriter.GetName(name)} : IBusinessProcessInstance
