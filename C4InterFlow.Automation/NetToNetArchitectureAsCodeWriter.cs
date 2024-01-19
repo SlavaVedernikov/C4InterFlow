@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 
 namespace C4InterFlow.Automation
 {
-    public class NetToNetArchitectureAsCodeWriter : NetToAnyArchitectureAsCodeWriter<ClassDeclarationSyntax, Document>
+    public class NetToNetArchitectureAsCodeWriter : NetToAnyArchitectureAsCodeWriter
     {
         public NetToNetArchitectureAsCodeWriter(string softwareSystemSolutionPath, string architectureRootNamespace) : base(softwareSystemSolutionPath, architectureRootNamespace)
         {
@@ -215,7 +215,7 @@ namespace C4InterFlow.Automation
             return this;
         }
 
-        public override IEnumerable<ClassDeclarationSyntax> WithComponentInterfaces(bool reloadArchitecture = false)
+        public IEnumerable<ClassDeclarationSyntax> WithComponentInterfaces(bool reloadArchitecture = false)
         {
             var result = new List<ClassDeclarationSyntax>();
 
@@ -250,14 +250,14 @@ namespace C4InterFlow.Automation
             return result;
         }
 
-        public override ClassDeclarationSyntax? WithComponentInterface(string pattern)
+        public ClassDeclarationSyntax? WithComponentInterface(string fileNamePattern)
         {
             var project = ArchitectureWorkspace.CurrentSolution.Projects.FirstOrDefault(x => x.Name == ArchitectureNamespace);
 
             var interfaceInstanceType = typeof(Elements.Interfaces.IInterfaceInstance);
 
             var compilation = project.GetCompilationAsync().Result;
-            var syntaxTree = compilation.SyntaxTrees.Where(x => Regex.IsMatch(x.FilePath, pattern)).FirstOrDefault();
+            var syntaxTree = compilation.SyntaxTrees.Where(x => Regex.IsMatch(x.FilePath, fileNamePattern)).FirstOrDefault();
 
             if(syntaxTree != null)
             {
@@ -279,11 +279,9 @@ namespace C4InterFlow.Automation
             return null;
         }
 
-        public override IEnumerable<Document>? WithDocuments()
+        public override string GetComponentInterfaceAlias(string filePathPattern)
         {
-            return CurrentProject?.Documents.Where(x => !x.FilePath.Contains(@"\obj\"));
+            return WithComponentInterface(filePathPattern).GetAliasFieldValue();
         }
-
-
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,21 +43,24 @@ namespace C4InterFlow.Automation
             return BuildObject(path);
         }
 
-        private JObject BuildActorsObject(string architectureNamespace)
+        private JObject BuildActorsObject(string architectureNamespace, out string path)
         {
-            return BuildObject($"{architectureNamespace}.Actors");
+            path = $"{architectureNamespace}.Actors";
+            return BuildObject(path);
         }
 
-        private JObject BuildusinessProcessesObject(string architectureNamespace)
+        private JObject BuildusinessProcessesObject(string architectureNamespace, out string path)
         {
-            return BuildObject($"{architectureNamespace}.BusinessProcesses");
+            path = $"{architectureNamespace}.BusinessProcesses";
+            return BuildObject(path);
         }
 
         protected JObject BuildActorObject(string architectureNamespace, string type, string name, string label, string? description = null)
         {
-            var result = BuildActorsObject(architectureNamespace);
+            var result = BuildActorsObject(architectureNamespace, out var path);
+            var currentObject = result.SelectToken(path) as JObject;
 
-            result.Add(
+            currentObject.Add(
                 AnyCodeWriter.GetName(name),
                 new JObject
                 {
@@ -72,8 +76,8 @@ namespace C4InterFlow.Automation
         protected JObject BuildSoftwareSystemObject(string architectureNamespace, string name, string label, string? description = null, string? boundary = null)
         {
             var result = BuildSoftwareSystemsObject(architectureNamespace, out var path);
-
             var currentObject = result.SelectToken(path) as JObject;
+
             currentObject.Add(
                 AnyCodeWriter.GetName(name),
                 new JObject
@@ -91,42 +95,48 @@ namespace C4InterFlow.Automation
 
         protected JObject BuildContainerObject(string architectureNamespace, string softwareSystemName, string name, string label, string? type = null, string? description = null, string? technology = null, string? boundary = null)
         {
-            var result = BuildObject(AnyCodeWriter.GetContainerAlias(architectureNamespace, softwareSystemName, name));
+            var path = AnyCodeWriter.GetContainerAlias(architectureNamespace, softwareSystemName, name);
+            var result = BuildObject(path);
+            var currentObject = result.SelectToken(path) as JObject;
 
-            result.Add("Label", label);
-            result.Add("Description", description != null ? description : string.Empty);
-            result.Add("ContainerType", type != null ? type : "None");
-            result.Add("Boundary", boundary != null ? boundary : "Internal");
-            result.Add("Technology", technology != null ? technology : string.Empty);
-            result.Add("Components", new JObject());
-            result.Add("Interfaces", new JObject());
-            result.Add("Entities", new JObject());
+            currentObject.Add("Label", label);
+            currentObject.Add("Description", description != null ? description : string.Empty);
+            currentObject.Add("ContainerType", type != null ? type : "None");
+            currentObject.Add("Boundary", boundary != null ? boundary : "Internal");
+            currentObject.Add("Technology", technology != null ? technology : string.Empty);
+            currentObject.Add("Components", new JObject());
+            currentObject.Add("Interfaces", new JObject());
+            currentObject.Add("Entities", new JObject());
 
             return result;
         }
 
         protected JObject BuildComponentObject(string architectureNamespace, string softwareSystemName, string containerName, string name, string label, string componentType = "None", string? description = null, string? technology = null)
         {
-            var result = BuildObject(AnyCodeWriter.GetComponentAlias(architectureNamespace, softwareSystemName, containerName, name));
+            var path = AnyCodeWriter.GetComponentAlias(architectureNamespace, softwareSystemName, containerName, name);
+            var result = BuildObject(path);
+            var currentObject = result.SelectToken(path) as JObject;
 
-            result.Add("Label", label);
-            result.Add("ComponentType", componentType);
-            result.Add("Description", description != null ? description : string.Empty);
-            result.Add("Technology", technology != null ? technology : string.Empty);
-            result.Add("Containers", new JObject());
+            currentObject.Add("Label", label);
+            currentObject.Add("ComponentType", componentType);
+            currentObject.Add("Description", description != null ? description : string.Empty);
+            currentObject.Add("Technology", technology != null ? technology : string.Empty);
+            currentObject.Add("Containers", new JObject());
 
             return result;
         }
 
         public JObject BuildEntityObject(string architectureNamespace, string softwareSystemName, string containerName, string name, string label, string? type = null, string? description = null, string[]? composedOfMany = null, string[]? composedOfOne = null, string? extends = null)
         {
-            var result = BuildObject(AnyCodeWriter.GetEntityAlias(architectureNamespace, softwareSystemName, containerName, name));
+            var path = AnyCodeWriter.GetEntityAlias(architectureNamespace, softwareSystemName, containerName, name);
+            var result = BuildObject(path);
+            var currentObject = result.SelectToken(path) as JObject;
 
-            result.Add("Label", label);
-            result.Add("Description", description != null ? description : string.Empty);
-            result.Add("ComposedOfMany", composedOfMany != null ? new JArray(composedOfMany) : null);
-            result.Add("ComposedOfOne", composedOfOne != null ? new JArray(composedOfOne) : null);
-            result.Add("Extends", extends != null ? extends : string.Empty);
+            currentObject.Add("Label", label);
+            currentObject.Add("Description", description != null ? description : string.Empty);
+            currentObject.Add("ComposedOfMany", composedOfMany != null ? new JArray(composedOfMany) : null);
+            currentObject.Add("ComposedOfOne", composedOfOne != null ? new JArray(composedOfOne) : null);
+            currentObject.Add("Extends", extends != null ? extends : string.Empty);
 
             return result;
         }
@@ -136,17 +146,18 @@ namespace C4InterFlow.Automation
             var componentAlias = AnyCodeWriter.GetComponentAlias(architectureNamespace, softwareSystemName, containerName, componentName);
             var componentInterfaceAlias = AnyCodeWriter.GetComponentInterfaceAlias(componentAlias, name);
             var result = BuildObject(componentInterfaceAlias);
+            var currentObject = result.SelectToken(componentInterfaceAlias) as JObject;
 
-            result.Add("Label", label);
-            result.Add("Description", description != null ? description : string.Empty);
-            result.Add("Path", path != null ? path : string.Empty);
-            result.Add("IsPrivate", isPrivate != null ? isPrivate.Value : false);
-            result.Add("Protocol", protocol != null ? protocol : string.Empty);
-            result.Add("Flow", new JObject { { "Owner", componentInterfaceAlias } });
-            result.Add("Input", input != null ? input : string.Empty);
-            result.Add("InputTemplate", inputTemplate != null ? inputTemplate : string.Empty);
-            result.Add("Output", output != null ? output : string.Empty);
-            result.Add("OutputTemplate", outputTemplate != null ? outputTemplate : string.Empty);
+            currentObject.Add("Label", label);
+            currentObject.Add("Description", description != null ? description : string.Empty);
+            currentObject.Add("Path", path != null ? path : string.Empty);
+            currentObject.Add("IsPrivate", isPrivate != null ? isPrivate.Value : false);
+            currentObject.Add("Protocol", protocol != null ? protocol : string.Empty);
+            currentObject.Add("Flow", new JObject());
+            currentObject.Add("Input", input != null ? input : string.Empty);
+            currentObject.Add("InputTemplate", inputTemplate != null ? inputTemplate : string.Empty);
+            currentObject.Add("Output", output != null ? output : string.Empty);
+            currentObject.Add("OutputTemplate", outputTemplate != null ? outputTemplate : string.Empty);
 
             return result;
         }
@@ -155,15 +166,16 @@ namespace C4InterFlow.Automation
         {
             var containerInterfaceAlias = AnyCodeWriter.GetContainerInterfaceAlias(architectureNamespace, softwareSystemName, containerName, name);
             var result = BuildObject(containerInterfaceAlias);
+            var currentObject = result.SelectToken(containerInterfaceAlias) as JObject;
 
-            result.Add("Label", label);
-            result.Add("Description", description != null ? description : string.Empty);
-            result.Add("Protocol", protocol != null ? protocol : string.Empty);
-            result.Add("Flow", new JObject());
-            result.Add("Input", input != null ? input : string.Empty);
-            result.Add("InputTemplate", inputTemplate != null ? inputTemplate : string.Empty);
-            result.Add("Output", output != null ? output : string.Empty);
-            result.Add("OutputTemplate", outputTemplate != null ? outputTemplate : string.Empty);
+            currentObject.Add("Label", label);
+            currentObject.Add("Description", description != null ? description : string.Empty);
+            currentObject.Add("Protocol", protocol != null ? protocol : string.Empty);
+            currentObject.Add("Flow", new JObject());
+            currentObject.Add("Input", input != null ? input : string.Empty);
+            currentObject.Add("InputTemplate", inputTemplate != null ? inputTemplate : string.Empty);
+            currentObject.Add("Output", output != null ? output : string.Empty);
+            currentObject.Add("OutputTemplate", outputTemplate != null ? outputTemplate : string.Empty);
 
             return result;
         }
@@ -172,26 +184,29 @@ namespace C4InterFlow.Automation
         {
             var softwareSystemInterfaceAlias = AnyCodeWriter.GetSoftwareSystemInterfaceAlias(architectureNamespace, softwareSystemName, name);
             var result = BuildObject(softwareSystemInterfaceAlias);
+            var currentObject = result.SelectToken(softwareSystemInterfaceAlias) as JObject;
 
-            result.Add("Label", label);
-            result.Add("Description", description != null ? description : string.Empty);
-            result.Add("Protocol", protocol != null ? protocol : string.Empty);
-            result.Add("Flow", new JObject());
-            result.Add("Input", input != null ? input : string.Empty);
-            result.Add("InputTemplate", inputTemplate != null ? inputTemplate : string.Empty);
-            result.Add("Output", output != null ? output : string.Empty);
-            result.Add("OutputTemplate", outputTemplate != null ? outputTemplate : string.Empty);
+            currentObject.Add("Label", label);
+            currentObject.Add("Description", description != null ? description : string.Empty);
+            currentObject.Add("Protocol", protocol != null ? protocol : string.Empty);
+            currentObject.Add("Flow", new JObject());
+            currentObject.Add("Input", input != null ? input : string.Empty);
+            currentObject.Add("InputTemplate", inputTemplate != null ? inputTemplate : string.Empty);
+            currentObject.Add("Output", output != null ? output : string.Empty);
+            currentObject.Add("OutputTemplate", outputTemplate != null ? outputTemplate : string.Empty);
 
             return result;
         }
 
         public JObject BuildBusinessProcessObject(string architectureNamespace, string name, string label, JArray businessActivities, string? description = null)
         {
-            var result = BuildObject(AnyCodeWriter.GetBusinessProcessAlias(architectureNamespace, name));
+            var path = AnyCodeWriter.GetBusinessProcessAlias(architectureNamespace, name);
+            var result = BuildObject(path);
+            var currentObject = result.SelectToken(path) as JObject;
 
-            result.Add("Label", label);
-            result.Add("Description", description != null ? description : string.Empty);
-            result.Add("Activities", businessActivities);
+            currentObject.Add("Label", label);
+            currentObject.Add("Description", description != null ? description : string.Empty);
+            currentObject.Add("Activities", businessActivities);
 
             return result;
         }

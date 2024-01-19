@@ -1,0 +1,21 @@
+dotnet:
+  eShop:
+    Architecture:
+      SoftwareSystems:
+        BasketApi:
+          Containers:
+            Grpc:
+              Components:
+                BasketService:
+                  Interfaces:
+                    ThrowNotAuthenticated:
+                      Label: Throw Not Authenticated
+                      Description: ''
+                      Path: ''
+                      IsPrivate: true
+                      Protocol: ''
+                      Flow: {}
+                      Input: ''
+                      InputTemplate: ''
+                      Output: ''
+                      OutputTemplate: ''

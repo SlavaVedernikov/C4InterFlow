@@ -1,0 +1,21 @@
+dotnet:
+  eShop:
+    Architecture:
+      SoftwareSystems:
+        BasketApi:
+          Containers:
+            Data:
+              Components:
+                RedisBasketRepository:
+                  Interfaces:
+                    DeleteBasketAsync:
+                      Label: Delete Basket Async
+                      Description: ''
+                      Path: ''
+                      IsPrivate: false
+                      Protocol: ''
+                      Flow: {}
+                      Input: ''
+                      InputTemplate: ''
+                      Output: ''
+                      OutputTemplate: ''

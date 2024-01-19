@@ -46,10 +46,10 @@ namespace C4InterFlow.Automation
         }
     }
 
-    public class JsonArchitectureAsCodeContext : IArchitectureAsCodeContext
+    public class JObjectArchitectureAsCodeContext : IArchitectureAsCodeContext
     {
         private JObject _architectureJObject;
-        public JsonArchitectureAsCodeContext(JObject architectureJObject)
+        public JObjectArchitectureAsCodeContext(JObject architectureJObject)
         {
             _architectureJObject = architectureJObject;
         }

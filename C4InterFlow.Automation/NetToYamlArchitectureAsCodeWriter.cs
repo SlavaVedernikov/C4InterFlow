@@ -6,10 +6,11 @@ using Microsoft.CodeAnalysis.MSBuild;
 using C4InterFlow.Elements;
 using System.Text;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json.Linq;
 
 namespace C4InterFlow.Automation
 {
-    public class NetToYamlArchitectureAsCodeWriter : NetToAnyArchitectureAsCodeWriter<ClassDeclarationSyntax, Document>
+    public class NetToYamlArchitectureAsCodeWriter : NetToAnyArchitectureAsCodeWriter
     {
         public string? ArchitectureOutputPath { get; private set; }
         public NetToYamlArchitectureAsCodeWriter(string softwareSystemSolutionPath, string architectureRootNamespace, string architectureOutputPath) : base(softwareSystemSolutionPath, architectureRootNamespace)
@@ -150,25 +151,38 @@ namespace C4InterFlow.Automation
             return this;
         }
 
-        public override IEnumerable<ClassDeclarationSyntax> WithComponentInterfaces(bool reloadArchitecture = false)
+        public void AddFlowToComponentInterfaceClass(string path,
+            IEnumerable<NetToAnyMethodTriggerMapper>? methodTriggerMappers = null,
+            IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
-            var result = new List<ClassDeclarationSyntax>();
+            var systemMethodDeclaration = ComponentMethodInterfaceObjectMap.GetValueOrDefault(path);
 
-            
+            if (systemMethodDeclaration == null) return;
+
+            var architectureObject = new JObject();
+            var flowCode = NetToAnyCodeGenerator<YamlCodeWriter>.GetFlowCode(
+                systemMethodDeclaration,
+                new JObjectArchitectureAsCodeContext(architectureObject),
+                this,
+                alternativeInvocationMappers);
+        }
+
+        public List<string> WithComponentInterfaces()
+        {
+            string pattern = @"^.*\\SoftwareSystems\\.*\\Containers\\.*\\Components\\.*\\Interfaces\\.*\.yaml$";
+            List<string> result = Directory.GetFiles(ArchitectureOutputPath, "*.yaml", SearchOption.AllDirectories)
+                .Where(x => Regex.IsMatch(x, pattern)).ToList();
 
             return result;
         }
 
-        public override ClassDeclarationSyntax? WithComponentInterface(string pattern)
+        public string? WithComponentInterface(string pattern)
         {
-            return null;
-        }
+            string result = Directory.GetFiles(ArchitectureOutputPath, "*.yaml", SearchOption.AllDirectories)
+                .FirstOrDefault(x => Regex.IsMatch(x, pattern));
 
-        public override IEnumerable<Document>? WithDocuments()
-        {
-            return CurrentProject?.Documents.Where(x => !x.FilePath.Contains(@"\obj\"));
+            return result;
         }
-
 
     }
 }

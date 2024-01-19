@@ -39,10 +39,11 @@ namespace C4InterFlow.Automation
 
         public override string GetCode(JObject jObject)
         {
+            var json = JsonConvert.SerializeObject(jObject, Formatting.Indented);
+            var jsonObject = JsonConvert.DeserializeObject<ExpandoObject>(json);
+            var result = new SerializerBuilder().Build().Serialize(jsonObject);
 
-            //return JsonConvert.SerializeObject(jObject, Formatting.Indented);
-            var netObject = jObject.ToObject<Dictionary<string, object>>();
-            return new SerializerBuilder().Build().Serialize(netObject);
+            return result;
         }
 
         public string GetContainerCode(string architectureNamespace, string softwareSystemName, string name, string label, string? type = null, string? description = null, string? technology = null, string? boundary = null)

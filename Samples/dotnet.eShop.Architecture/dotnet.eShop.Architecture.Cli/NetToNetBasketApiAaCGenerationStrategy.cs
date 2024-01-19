@@ -92,9 +92,9 @@ namespace dotnet.eShop.Architecture.Cli
             writer.WithComponentInterfaces(true).ToList()
                 .ForEach(x => x.AddFlowToComponentInterfaceClass(
                     writer, null,
-                    new NetToNetAlternativeInvocationMapperConfig[]
+                    new NetToAnyAlternativeInvocationMapperConfig[]
                     {
-                        new NetToNetAlternativeInvocationMapperConfig() {
+                        new NetToAnyAlternativeInvocationMapperConfig() {
                             Mapper = Utils.MapTypeInterfacesInvocation,
                             Args = new Dictionary<string, object>() { 
                                 { Utils.ARG_SOFTWARE_SYSTEM_NAME, SoftwareSystemName },

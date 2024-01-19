@@ -1,0 +1,21 @@
+dotnet:
+  eShop:
+    Architecture:
+      SoftwareSystems:
+        BasketApi:
+          Containers:
+            Grpc:
+              Components:
+                BasketService:
+                  Interfaces:
+                    MapToCustomerBasket:
+                      Label: Map To Customer Basket
+                      Description: ''
+                      Path: ''
+                      IsPrivate: true
+                      Protocol: ''
+                      Flow: {}
+                      Input: ''
+                      InputTemplate: ''
+                      Output: ''
+                      OutputTemplate: ''

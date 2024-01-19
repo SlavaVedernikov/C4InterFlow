@@ -88,13 +88,14 @@ namespace dotnet.eShop.Architecture.Cli
             AddSoftwareSystemTypeMapping(writer);
 
             Console.WriteLine($"Updating Flow property in all Interface classes...");
-            /*
-            writer.WithComponentInterfaces(true).ToList()
-                .ForEach(x => x.AddFlowToComponentInterfaceClass(
-                    writer, null,
-                    new NetToNetAlternativeInvocationMapperConfig[]
+            
+            writer.WithComponentInterfaces().ToList()
+                .ForEach(x => writer.AddFlowToComponentInterfaceClass(
+                    x,
+                    null,
+                    new NetToAnyAlternativeInvocationMapperConfig[]
                     {
-                        new NetToNetAlternativeInvocationMapperConfig() {
+                        new NetToAnyAlternativeInvocationMapperConfig() {
                             Mapper = Utils.MapTypeInterfacesInvocation,
                             Args = new Dictionary<string, object>() { 
                                 { Utils.ARG_SOFTWARE_SYSTEM_NAME, SoftwareSystemName },
@@ -105,7 +106,7 @@ namespace dotnet.eShop.Architecture.Cli
                             }
                         }
                     }));
-            */
+           
         }
 
         private void AddSoftwareSystemTypeMapping(NetToYamlArchitectureAsCodeWriter writer)

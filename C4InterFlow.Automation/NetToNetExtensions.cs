@@ -165,8 +165,8 @@ namespace C4InterFlow.Automation
 
         public static ClassDeclarationSyntax AddFlowToComponentInterfaceClass(this ClassDeclarationSyntax classDeclaration,
             NetToNetArchitectureAsCodeWriter writer,
-            IEnumerable<NetToNetMethodTriggerMapper>? methodTriggerMappers = null,
-            IEnumerable<NetToNetAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
+            IEnumerable<NetToAnyMethodTriggerMapper>? methodTriggerMappers = null,
+            IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
             var architectureWorkspace = writer.ArchitectureWorkspace;
             var architectureClassSyntaxTree = classDeclaration.SyntaxTree;
