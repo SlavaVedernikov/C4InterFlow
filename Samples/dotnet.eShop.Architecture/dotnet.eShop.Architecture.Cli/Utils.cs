@@ -80,7 +80,8 @@ namespace dotnet.eShop.Architecture.Cli
 
             if (invocationReceiverType?.ToDisplayString() == invocationReceiverTypeName)
             {
-                var componentInterfaceFilePath = @$"^{(softwareSystemName == null ? ".*" : $@".*\\SoftwareSystems\\{softwareSystemName}")}\\Containers\\{containerName}\\Components\\{componentName}\\Interfaces\\{memberIdentifierNameSyntax?.Identifier.Text ?? memberGenericNameSyntax?.Identifier.Text}\.cs$";
+                //var componentInterfaceFilePath = @$"^{(softwareSystemName == null ? ".*" : $@".*\\SoftwareSystems\\{softwareSystemName}")}\\Containers\\{containerName}\\Components\\{componentName}\\Interfaces\\{memberIdentifierNameSyntax?.Identifier.Text ?? memberGenericNameSyntax?.Identifier.Text}\.cs$";
+                var componentInterfaceFilePath = @$"^.*\\SoftwareSystems\\{softwareSystemName}\\Containers\\{containerName}\\Components\\{componentName}\\Interfaces\\{memberIdentifierNameSyntax?.Identifier.Text ?? memberGenericNameSyntax?.Identifier.Text}\.{writer.GetFileExtension()}";
                 var interfaceAliasValue = writer.GetComponentInterfaceAlias(componentInterfaceFilePath);
 
                 if (!string.IsNullOrEmpty(interfaceAliasValue))
@@ -113,7 +114,7 @@ namespace dotnet.eShop.Architecture.Cli
             {
                 var entitySyntax = expressionSegments[2];
                 var componentName = invocationReceiverType.Name.Replace("Services", "Context");
-                var interfaceAliasValue = writer.GetComponentInterfaceAlias(@$"^{(softwareSystemName == null ? ".*" : $@".*\\SoftwareSystems\\{softwareSystemName}")}\\Containers\\{containerName}\\Components\\{componentName}\\Interfaces\\{entitySyntax}{memberSyntax}\.cs$");
+                var interfaceAliasValue = writer.GetComponentInterfaceAlias(@$"^{(softwareSystemName == null ? ".*" : $@".*\\SoftwareSystems\\{softwareSystemName}")}\\Containers\\{containerName}\\Components\\{componentName}\\Interfaces\\{entitySyntax}{memberSyntax}\.{writer.GetFileExtension()}$");
 
                 if (!string.IsNullOrEmpty(interfaceAliasValue))
                 {
@@ -144,7 +145,7 @@ namespace dotnet.eShop.Architecture.Cli
                 expressionSegments?.Any(x => x.Identifier.Text == "Context") == true)
             {
                 var componentName = invocationReceiverType.Name.Replace("Services", "Context");
-                var interfaceAliasValue = writer.GetComponentInterfaceAlias(@$"^{(softwareSystemName == null ? ".*" : $@".*\\SoftwareSystems\\{softwareSystemName}")}\\Containers\\{containerName}\\Components\\{componentName}\\Interfaces\\{memberSyntax}\.cs$");
+                var interfaceAliasValue = writer.GetComponentInterfaceAlias(@$"^{(softwareSystemName == null ? ".*" : $@".*\\SoftwareSystems\\{softwareSystemName}")}\\Containers\\{containerName}\\Components\\{componentName}\\Interfaces\\{memberSyntax}\.{writer.GetFileExtension()}$");
 
                 if (!string.IsNullOrEmpty(interfaceAliasValue))
                 {

@@ -283,5 +283,10 @@ namespace C4InterFlow.Automation
         {
             return WithComponentInterface(filePathPattern).GetAliasFieldValue();
         }
+
+        public override string GetFileExtension()
+        {
+            return "cs";
+        }
     }
 }

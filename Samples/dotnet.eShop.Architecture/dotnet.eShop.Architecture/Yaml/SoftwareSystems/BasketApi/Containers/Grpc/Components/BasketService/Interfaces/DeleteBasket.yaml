@@ -14,7 +14,15 @@ dotnet:
                       Path: ''
                       IsPrivate: false
                       Protocol: ''
-                      Flow: {}
+                      Flow:
+                        Flows:
+                        - Type: If
+                          Params: string.IsNullOrEmpty(userId)
+                          Flows:
+                          - Type: Use
+                            Params: dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService.Interfaces.ThrowNotAuthenticated
+                        - Type: Use
+                          Params: dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository.Interfaces.DeleteBasketAsync
                       Input: ''
                       InputTemplate: ''
                       Output: ''

@@ -7,6 +7,11 @@ using C4InterFlow.Elements;
 using System.Text;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json.Linq;
+using YamlDotNet.Serialization.NamingConventions;
+using YamlDotNet.Serialization;
+using System.Text.Json.Nodes;
+using Newtonsoft.Json;
+using System.Dynamic;
 
 namespace C4InterFlow.Automation
 {
@@ -151,20 +156,39 @@ namespace C4InterFlow.Automation
             return this;
         }
 
-        public void AddFlowToComponentInterfaceClass(string path,
+        public void AddFlowToComponentInterfaceClass(string filePath,
             IEnumerable<NetToAnyMethodTriggerMapper>? methodTriggerMappers = null,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
-            var systemMethodDeclaration = ComponentMethodInterfaceObjectMap.GetValueOrDefault(path);
+            var systemMethodDeclaration = ComponentMethodInterfaceObjectMap.GetValueOrDefault(filePath);
 
-            if (systemMethodDeclaration == null) return;
+            Console.WriteLine($"Add Flow To Component Interface for '{filePath}'.");
+            if (systemMethodDeclaration == null)
+            {
+                Console.WriteLine($"System Method Declaration was not found.");
+                return;
+            }
 
-            var architectureObject = new JObject();
+            var architectureObject = GetJsonObjectFromFile(filePath); ;
             var flowCode = NetToAnyCodeGenerator<YamlCodeWriter>.GetFlowCode(
                 systemMethodDeclaration,
                 new JObjectArchitectureAsCodeContext(architectureObject),
                 this,
                 alternativeInvocationMappers);
+
+            //Remove \t characters
+            flowCode = flowCode.Replace("\t", string.Empty);
+
+            var flowJsonObject = GetJsonObjectFromYaml(flowCode);
+
+            var componentInterfaceJsonObject = architectureObject.SelectToken("..SoftwareSystems.*.Containers.*.Components.*.Interfaces.*") as JObject;
+
+            componentInterfaceJsonObject["Flow"] = flowJsonObject["Flow"];
+
+            var json = JsonConvert.SerializeObject(architectureObject, Formatting.Indented);
+            var yaml = new SerializerBuilder().Build().Serialize(JsonConvert.DeserializeObject<ExpandoObject>(json));
+
+            File.WriteAllText(filePath, yaml);
         }
 
         public List<string> WithComponentInterfaces()
@@ -176,12 +200,57 @@ namespace C4InterFlow.Automation
             return result;
         }
 
-        public string? WithComponentInterface(string pattern)
+        private JObject GetJsonObjectFromFile(string filePath)
         {
-            string result = Directory.GetFiles(ArchitectureOutputPath, "*.yaml", SearchOption.AllDirectories)
-                .FirstOrDefault(x => Regex.IsMatch(x, pattern));
+            var yaml = File.ReadAllText(filePath);
 
+            return GetJsonObjectFromYaml(yaml);
+        }
+
+        private JObject GetJsonObjectFromYaml(string yaml)
+        {
+            var deserializer = new DeserializerBuilder().WithNamingConvention(UnderscoredNamingConvention.Instance).Build();
+            var yamlObject = deserializer.Deserialize(yaml);
+
+            var serializer = new SerializerBuilder()
+                .JsonCompatible()
+                .Build();
+
+            string json = serializer.Serialize(yamlObject);
+
+            return JObject.Parse(json);
+        }
+
+        public override string GetComponentInterfaceAlias(string filePathPattern)
+        {
+            var result = string.Empty;
+
+            var filePath = Directory.GetFiles(ArchitectureOutputPath, "*.yaml", SearchOption.AllDirectories)
+                .FirstOrDefault(x => Regex.IsMatch(x, filePathPattern));
+
+            if(!string.IsNullOrEmpty(filePath))
+            {
+                try
+                {
+                    var jsonObject = GetJsonObjectFromFile(filePath);
+                    var selectedToken = jsonObject.SelectToken("..SoftwareSystems.*.Containers.*.Components.*.Interfaces.*");
+
+                    if (selectedToken != null)
+                    {
+                        result = selectedToken.Path;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Could not get Alias from file pattern '{filePathPattern}'. Error: '{ex.Message}'");
+                }
+            }
             return result;
+        }
+
+        public override string GetFileExtension()
+        {
+            return "yaml";
         }
 
     }

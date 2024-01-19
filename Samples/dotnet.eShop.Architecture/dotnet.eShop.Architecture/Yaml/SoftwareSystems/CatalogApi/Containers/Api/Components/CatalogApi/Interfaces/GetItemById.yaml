@@ -1,0 +1,34 @@
+dotnet:
+  eShop:
+    Architecture:
+      SoftwareSystems:
+        CatalogApi:
+          Containers:
+            Api:
+              Components:
+                CatalogApi:
+                  Interfaces:
+                    GetItemById:
+                      Label: Get Item By Id
+                      Description: ''
+                      Path: ''
+                      IsPrivate: false
+                      Protocol: ''
+                      Flow:
+                        Flows:
+                        - Type: If
+                          Params: id <= 0
+                          Flows:
+                          - Type: Return
+                            Params: TypedResults.BadRequest
+                        - Type: If
+                          Params: item == null
+                          Flows:
+                          - Type: Return
+                            Params: TypedResults.NotFound
+                        - Type: Return
+                          Params: TypedResults.Ok
+                      Input: ''
+                      InputTemplate: ''
+                      Output: ''
+                      OutputTemplate: ''

@@ -14,7 +14,14 @@ dotnet:
                       Path: ''
                       IsPrivate: false
                       Protocol: ''
-                      Flow: {}
+                      Flow:
+                        Flows:
+                        - Type: Use
+                          Params: dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase.Interfaces.StringGetLeaseAsync
+                        - Type: Use
+                          Params: dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository.Interfaces.GetBasketKey
+                        - Type: Return
+                          Params: JsonSerializer.Deserialize
                       Input: ''
                       InputTemplate: ''
                       Output: ''

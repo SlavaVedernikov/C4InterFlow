@@ -196,12 +196,37 @@ namespace C4InterFlow.Automation
             NetToAnyArchitectureAsCodeWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
+            var ifStatementCode = string.Empty;
+
+            if (ifStatement.Condition is InvocationExpressionSyntax invocationExpression)
+            {
+                var conditionBlockCode = HandleInvocationExpression(
+                    invocationExpression,
+                    methodDeclaration,
+                    architectureAsCodeContext,
+                    writer,
+                    alternativeInvocationMappers);
+
+                if (!string.IsNullOrEmpty(conditionBlockCode))
+                {
+                    ifStatementCode = CodeWriter.GetIfFlowCode(GetFormattedBlock(conditionBlockCode));
+                }
+                else
+                {
+                    ifStatementCode = CodeWriter.GetIfFlowCode(ifStatement.Condition.ToString());
+                }
+            }
+            else
+            {
+                ifStatementCode = CodeWriter.GetIfFlowCode(ifStatement.Condition.ToString());
+            }
+
             var blockCode = HandleBlock(
-                            ifStatement.Statement,
-                            methodDeclaration,
-                            architectureAsCodeContext,
-                            writer,
-                            alternativeInvocationMappers);
+                        ifStatement.Statement,
+                        methodDeclaration,
+                        architectureAsCodeContext,
+                        writer,
+                        alternativeInvocationMappers);
 
             var elseBlockCode = HandleElse(
                 ifStatement.Else,
@@ -212,22 +237,8 @@ namespace C4InterFlow.Automation
 
             if (!string.IsNullOrEmpty(blockCode) || !string.IsNullOrEmpty(elseBlockCode))
             {
-                if (ifStatement.Condition is InvocationExpressionSyntax invocationExpression)
-                {
-                    var conditionBlockCode = HandleInvocationExpression(
-                        invocationExpression,
-                        methodDeclaration,
-                        architectureAsCodeContext,
-                        writer,
-                        alternativeInvocationMappers);
-
-                    if (!string.IsNullOrEmpty(conditionBlockCode))
-                    {
-                        result.Append(GetFormattedBlock(conditionBlockCode));
-                    }
-                }
-
-                result.AppendLine(CodeWriter.GetIfFlowCode(ifStatement.Condition.ToString()));
+                
+                result.AppendLine(ifStatementCode);
 
                 if (!string.IsNullOrEmpty(blockCode))
                 {
@@ -239,6 +250,10 @@ namespace C4InterFlow.Automation
                 }
 
                 result.AppendLine(CodeWriter.GetEndIfFlowCode());
+            }
+            else
+            {
+                CodeWriter.GetEndIfFlowCode();
             }
         }
 
@@ -655,7 +670,7 @@ namespace C4InterFlow.Automation
                     if (invocationMethod != null && writer.ComponentMethodInterfaceObjectMap.Any(x => x.Value == invocationMethod))
                     {
                         var interfaceClassFilePath = writer.ComponentMethodInterfaceObjectMap.FirstOrDefault(x => x.Value == invocationMethod).Key;
-                        var interfaceAliasValue = architectureAsCodeContext.GetAliasFieldValue(interfaceClassFilePath);
+                        var interfaceAliasValue = architectureAsCodeContext.GetComponentInterfaceAlias(interfaceClassFilePath);
 
                         if (!string.IsNullOrEmpty(interfaceAliasValue))
                         {
@@ -673,7 +688,7 @@ namespace C4InterFlow.Automation
                 }
             }
 
-            var componentInterfaceAlias = architectureAsCodeContext.GetAliasFieldValue();
+            var componentInterfaceAlias = architectureAsCodeContext.GetComponentInterfaceAlias();
             // Make sure that usesAliases does not contain references to the componentInterfaceAlias,
             // which could happen in cases when overloading is used.
             usesAliases.RemoveAll(x => x.Equals(componentInterfaceAlias));

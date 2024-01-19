@@ -1,0 +1,14 @@
+dotnet:
+  eShop:
+    Architecture:
+      SoftwareSystems:
+        CatalogApi:
+          Containers:
+            Infrastructure:
+              Components:
+                CatalogContext:
+                  Label: Catalog Context
+                  ComponentType: None
+                  Description: ''
+                  Technology: ''
+                  Containers: {}

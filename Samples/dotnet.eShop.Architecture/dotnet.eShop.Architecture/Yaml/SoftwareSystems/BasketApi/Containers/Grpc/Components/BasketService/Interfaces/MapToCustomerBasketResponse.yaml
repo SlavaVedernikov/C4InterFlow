@@ -14,7 +14,10 @@ dotnet:
                       Path: ''
                       IsPrivate: true
                       Protocol: ''
-                      Flow: {}
+                      Flow:
+                        Flows:
+                        - Type: Return
+                          Params: response
                       Input: ''
                       InputTemplate: ''
                       Output: ''

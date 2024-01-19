@@ -265,5 +265,10 @@ namespace C4InterFlow.Automation
             return string.Empty;
         }
 
+        public virtual string GetFileExtension()
+        {
+            return "*";
+        }
+
     }
 }
