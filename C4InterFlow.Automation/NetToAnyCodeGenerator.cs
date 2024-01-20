@@ -62,13 +62,6 @@ namespace C4InterFlow.Automation
             return CodeWriter.GetSoftwareSystemInterfaceCode(architectureNamespace, softwareSystemName, name, label, description, protocol, uses, input, inputTemplate, output, outputTemplate);
         }
 
-        private static void WriteLoopBlock(StringBuilder result, string condition, string blockCode)
-        {
-            result.AppendLine(CodeWriter.GetLoopFlowCode(condition));
-            result.Append(GetFormattedBlock(blockCode));
-            result.AppendLine(CodeWriter.GetEndLoopFlowCode());
-        }
-
         private static void HandleWhileStatement(
             StringBuilder result, 
             WhileStatementSyntax whileStatement,
@@ -77,15 +70,22 @@ namespace C4InterFlow.Automation
             NetToAnyArchitectureAsCodeWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null) 
         {
+            var statementFlow = CodeWriter.GetLoopFlowCode(whileStatement.Condition.ToString());
+
             var blockCode = HandleBlock(
                             whileStatement.Statement,
                             methodDeclaration,
                             architectureAsCodeContext,
                             writer,
                             alternativeInvocationMappers);
+
+            var statementFlowEnd = CodeWriter.GetEndLoopFlowCode();
+
             if (!string.IsNullOrEmpty(blockCode))
             {
-                WriteLoopBlock(result, whileStatement.Condition.ToString(), blockCode);
+                result.AppendLine(statementFlow);
+                result.Append(GetFormattedBlock(blockCode));
+                result.AppendLine(statementFlowEnd);
             }
         }
 
@@ -97,15 +97,22 @@ namespace C4InterFlow.Automation
             NetToAnyArchitectureAsCodeWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
+            var statementFlow = CodeWriter.GetLoopFlowCode(forStatement.Condition.ToString());
+
             var blockCode = HandleBlock(
                             forStatement.Statement,
                             methodDeclaration,
                             architectureAsCodeContext,
                             writer,
                             alternativeInvocationMappers);
+
+            var statementFlowEnd = CodeWriter.GetEndLoopFlowCode();
+
             if (!string.IsNullOrEmpty(blockCode))
             {
-                WriteLoopBlock(result, forStatement.Condition.ToString(), blockCode);
+                result.AppendLine(statementFlow);
+                result.Append(GetFormattedBlock(blockCode));
+                result.AppendLine(statementFlowEnd);
             }
         }
 
@@ -117,15 +124,22 @@ namespace C4InterFlow.Automation
             NetToAnyArchitectureAsCodeWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
+            var statementFlow = CodeWriter.GetLoopFlowCode(forEachStatement.Expression.ToString());
+
             var blockCode = HandleBlock(
                             forEachStatement.Statement,
                             methodDeclaration,
                             architectureAsCodeContext,
                             writer,
                             alternativeInvocationMappers);
+
+            var statementFlowEnd = CodeWriter.GetEndLoopFlowCode();
+
             if (!string.IsNullOrEmpty(blockCode))
             {
-                WriteLoopBlock(result, forEachStatement.Expression.ToString(), blockCode);
+                result.AppendLine(statementFlow);
+                result.Append(GetFormattedBlock(blockCode));
+                result.AppendLine(statementFlowEnd);
             }
         }
 
@@ -137,15 +151,22 @@ namespace C4InterFlow.Automation
             NetToAnyArchitectureAsCodeWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
+            var statementFlow = CodeWriter.GetLoopFlowCode(doStatement.Condition.ToString());
+
             var blockCode = HandleBlock(
                             doStatement.Statement,
                             methodDeclaration,
                             architectureAsCodeContext,
                             writer,
                             alternativeInvocationMappers);
+
+            var statementFlowEnd = CodeWriter.GetEndLoopFlowCode();
+
             if (!string.IsNullOrEmpty(blockCode))
             {
-                WriteLoopBlock(result, doStatement.Condition.ToString(), blockCode);
+                result.AppendLine(statementFlow);
+                result.Append(GetFormattedBlock(blockCode));
+                result.AppendLine(statementFlowEnd);
             }
         }
 
@@ -196,30 +217,15 @@ namespace C4InterFlow.Automation
             NetToAnyArchitectureAsCodeWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
-            var ifStatementCode = string.Empty;
+            var ifStatementCode = CodeWriter.GetIfFlowCode(ifStatement.Condition.ToString());
 
-            if (ifStatement.Condition is InvocationExpressionSyntax invocationExpression)
-            {
-                var conditionBlockCode = HandleInvocationExpression(
+            var conditionBlockCode = ifStatement.Condition is InvocationExpressionSyntax invocationExpression ?
+                HandleInvocationExpression(
                     invocationExpression,
                     methodDeclaration,
                     architectureAsCodeContext,
                     writer,
-                    alternativeInvocationMappers);
-
-                if (!string.IsNullOrEmpty(conditionBlockCode))
-                {
-                    ifStatementCode = CodeWriter.GetIfFlowCode(GetFormattedBlock(conditionBlockCode));
-                }
-                else
-                {
-                    ifStatementCode = CodeWriter.GetIfFlowCode(ifStatement.Condition.ToString());
-                }
-            }
-            else
-            {
-                ifStatementCode = CodeWriter.GetIfFlowCode(ifStatement.Condition.ToString());
-            }
+                    alternativeInvocationMappers) : string.Empty;
 
             var blockCode = HandleBlock(
                         ifStatement.Statement,
@@ -237,7 +243,11 @@ namespace C4InterFlow.Automation
 
             if (!string.IsNullOrEmpty(blockCode) || !string.IsNullOrEmpty(elseBlockCode))
             {
-                
+                if (!string.IsNullOrEmpty(conditionBlockCode))
+                {
+                    result.Append(GetFormattedBlock(conditionBlockCode));
+
+                }
                 result.AppendLine(ifStatementCode);
 
                 if (!string.IsNullOrEmpty(blockCode))
@@ -310,12 +320,15 @@ namespace C4InterFlow.Automation
             NetToAnyArchitectureAsCodeWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
+            var tryStatementCode = CodeWriter.GetTryFlowCode();
+
             var blockCode = HandleBlock(
                         tryStatement.Block,
                         methodDeclaration,
                         architectureAsCodeContext,
                         writer,
                         alternativeInvocationMappers);
+
             var catchCodeBlocks = new Dictionary<CatchClauseSyntax, string>();
 
             foreach (var catchBlock in tryStatement.Catches)
@@ -343,7 +356,7 @@ namespace C4InterFlow.Automation
                 catchCodeBlocks.Any(x => !string.IsNullOrEmpty(x.Value)) ||
                 !string.IsNullOrEmpty(finallyBlockCode))
             {
-                result.AppendLine(CodeWriter.GetTryFlowCode());
+                result.AppendLine(tryStatementCode);
                 if (!string.IsNullOrEmpty(blockCode))
                 {
                     result.Append(GetFormattedBlock(blockCode));
@@ -369,6 +382,10 @@ namespace C4InterFlow.Automation
                     result.AppendLine(CodeWriter.GetEndFinallyFlowCode());
                 }
                 result.AppendLine(CodeWriter.GetEndTryFlowCode());
+            }
+            else
+            {
+                CodeWriter.GetEndTryFlowCode();
             }
         }
 
@@ -406,6 +423,7 @@ namespace C4InterFlow.Automation
                     architectureAsCodeContext,
                     writer,
                     alternativeInvocationMappers);
+
                 if (!string.IsNullOrEmpty(blockCode))
                 {
                     result.AppendLine(blockCode);
@@ -586,21 +604,26 @@ namespace C4InterFlow.Automation
             {
                 if (elseClause.Statement is IfStatementSyntax elseIfStatement)
                 {
+                    var elseIfStatementCode = CodeWriter.GetElseIfFlowCode(elseIfStatement.Condition.ToFullString());
+
                     blockCode = HandleBlock(
                         elseIfStatement.Statement,
                         methodDeclaration,
                         architectureAsCodeContext,
                         writer,
                         alternativeInvocationMappers);
+
                     var elseBlockCode = HandleElse(
                         elseIfStatement.Else,
                         methodDeclaration,
                         architectureAsCodeContext,
                         writer,
                         alternativeInvocationMappers);
+
                     if (!string.IsNullOrEmpty(blockCode) || !string.IsNullOrEmpty(elseBlockCode))
                     {
-                        result.AppendLine(CodeWriter.GetElseIfFlowCode(elseIfStatement.Condition.ToFullString()));
+                        result.AppendLine(elseIfStatementCode);
+
                         if (!string.IsNullOrEmpty(blockCode))
                         {
                             result.Append(blockCode);
@@ -609,20 +632,34 @@ namespace C4InterFlow.Automation
                         {
                             result.Append(elseBlockCode);
                         }
+
+                        result.AppendLine(CodeWriter.GetEndElseIfFlowCode());
+                    }
+                    else
+                    {
+                        CodeWriter.GetEndElseIfFlowCode();
                     }
                 }
                 else
                 {
+                    var elseStatementCode = CodeWriter.GetElseFlowCode();
+
                     blockCode = HandleBlock(
                         elseClause.Statement,
                         methodDeclaration,
                         architectureAsCodeContext,
                         writer,
                         alternativeInvocationMappers);
+
                     if (!string.IsNullOrEmpty(blockCode))
                     {
-                        result.AppendLine(CodeWriter.GetElseFlowCode());
+                        result.AppendLine(elseStatementCode);
                         result.Append(blockCode);
+                        result.AppendLine(CodeWriter.GetEndElseFlowCode());
+                    }
+                    else
+                    {
+                        CodeWriter.GetEndElseFlowCode();
                     }
                 }
             }

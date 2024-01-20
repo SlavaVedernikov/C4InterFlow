@@ -25,11 +25,11 @@ dotnet:
                           Params: priceEntry.IsModified
                           Flows:
                           - Type: Else
-                            Flows: 
-                          - Type: Use
-                            Params: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.SaveChangesAsync
-                          - Type: Return
-                            Params: TypedResults.Created
+                            Flows:
+                            - Type: Use
+                              Params: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.SaveChangesAsync
+                        - Type: Return
+                          Params: TypedResults.Created
                       Input: ''
                       InputTemplate: ''
                       Output: ''

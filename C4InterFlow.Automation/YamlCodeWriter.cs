@@ -157,6 +157,13 @@ namespace C4InterFlow.Automation
             return result.ToString();
         }
 
+        public string GetEndElseIfFlowCode()
+        {
+            DecreaseFlowIndentation();
+            DecreaseFlowIndentation();
+            return string.Empty;
+        }
+
         public string GetElseFlowCode()
         {
             var result = new StringBuilder();
@@ -168,6 +175,13 @@ namespace C4InterFlow.Automation
             IncreaseFlowIndentation();
 
             return result.ToString();
+        }
+
+        public string GetEndElseFlowCode()
+        {
+            DecreaseFlowIndentation();
+            DecreaseFlowIndentation();
+            return string.Empty;
         }
 
         public string GetReturnFlowCode(string? expression = null)

@@ -21,7 +21,9 @@ namespace C4InterFlow.Automation
         string GetIfFlowCode(string condition);
         string GetEndIfFlowCode();
         string GetElseIfFlowCode(string condition);
+        string GetEndElseIfFlowCode();
         string GetElseFlowCode();
+        string GetEndElseFlowCode();
         string GetReturnFlowCode(string? expression = null);
         string GetTryFlowCode();
         string GetEndTryFlowCode();

@@ -381,9 +381,19 @@ namespace C4InterFlow.Automation
             return $"\t.ElseIf(@\"{GetFormattedParams(condition)}\")";
         }
 
+        public string GetEndElseIfFlowCode()
+        {
+            return string.Empty;
+        }
+
         public string GetElseFlowCode()
         {
             return "\t.Else()";
+        }
+
+        public string GetEndElseFlowCode()
+        {
+            return string.Empty;
         }
 
         public string GetReturnFlowCode(string? expression = null)

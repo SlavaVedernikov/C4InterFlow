@@ -27,13 +27,13 @@ dotnet:
                           - Type: Use
                             Params: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.CatalogItemsToListAsync
                           - Type: Else
-                            Flows: 
-                          - Type: Use
-                            Params: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.CatalogItemsToListAsync
-                          - Type: Use
-                            Params: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.Interfaces.ChangeUriPlaceholder
-                          - Type: Return
-                            Params: TypedResults.Ok
+                            Flows:
+                            - Type: Use
+                              Params: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.CatalogItemsToListAsync
+                        - Type: Use
+                          Params: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.Interfaces.ChangeUriPlaceholder
+                        - Type: Return
+                          Params: TypedResults.Ok
                       Input: ''
                       InputTemplate: ''
                       Output: ''
