@@ -15,19 +15,21 @@ public class QueryUseFlowsCommand : Command
         var interfacesOption = InterfacesOption.Get();
         var isRecursiveOption = QueryIsRecursiveOption.Get();
         var queryOutputFileOption = QueryOutputFileOption.Get();
+        var queryAppendOption = QueryAppendOption.Get();
 
         AddOption(interfacesOption);
         AddOption(isRecursiveOption);
         AddOption(queryOutputFileOption);
+        AddOption(queryAppendOption);
 
-        this.SetHandler(async (interfaceAliases, isRecursive, queryOutputFile) =>
+        this.SetHandler(async (interfaceAliases, isRecursive, queryOutputFile, append) =>
         {
-            await Execute(interfaceAliases, isRecursive, queryOutputFile);
+            await Execute(interfaceAliases, isRecursive, queryOutputFile, append);
         },
-        interfacesOption, isRecursiveOption, queryOutputFileOption);
+        interfacesOption, isRecursiveOption, queryOutputFileOption, queryAppendOption);
     }
 
-    private static async Task<int> Execute(string[] interfaceAliases, bool isRecursive, string queryOutputFile)
+    private static async Task<int> Execute(string[] interfaceAliases, bool isRecursive, string queryOutputFile, bool append)
     {
         try
         {
@@ -44,7 +46,7 @@ public class QueryUseFlowsCommand : Command
 
             if(!string.IsNullOrEmpty(queryOutputFile))
             {
-                Utils.WriteLines(result, queryOutputFile);
+                Utils.WriteLines(result, queryOutputFile, append);
                 Console.WriteLine($"{COMMAND_NAME} command completed. See query results in '{queryOutputFile}'.");
             }
             else
