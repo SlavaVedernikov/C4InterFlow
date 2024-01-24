@@ -5,7 +5,6 @@ using C4InterFlow.Diagrams.Plantuml;
 using C4InterFlow.Elements;
 using C4InterFlow.Cli.Commands.Binders;
 using System.Text.RegularExpressions;
-using System.IO;
 
 namespace C4InterFlow.Cli.Commands;
 
@@ -54,7 +53,7 @@ public class DrawDiagramsCommand : Command
             new OutputOptionsBinder(outputDirectoryOption, outputSubDirectoryOption, diagramNamePrefixOption, diagramFormatsOption));
     }
 
-    private static async Task<int> Execute(DiagramOptions diagramOptions, string[] interfaceAliases, string interfacesInputFile, string[] businessProcessTypeNames, DisplayOptions displayOptions, OutputOptions outputOptions)
+    public static async Task<int> Execute(DiagramOptions diagramOptions, string[]? interfaceAliases, string? interfacesInputFile, string[]? businessProcessTypeNames, DisplayOptions displayOptions, OutputOptions outputOptions)
     {
         try
         {
@@ -78,6 +77,9 @@ public class DrawDiagramsCommand : Command
                 var businessProcesses = GetBusinessProcesses(resolvedBusinessProcessTypeNames, diagramScope).ToArray();
 
                 Console.WriteLine($"Found {interfaces.Count()} interface(s) and {businessProcesses.Count()} business processe(s) for '{diagramScope}' scope.");
+                
+                if (!interfaces.Any() && !businessProcesses.Any()) continue;
+
                 foreach (var diagramType in diagramOptions.Types)
                 {
                     foreach (var levelOfDetails in diagramOptions.LevelsOfDetails)
@@ -411,6 +413,8 @@ public class DrawDiagramsCommand : Command
 
     private static void DrawSequenceDiagrams(string scope, string levelOfDetails, BusinessProcess[] businessProcesses, string[] formats, bool showBoundaries, bool showInterfaceInputAndOutput, string outputDirectory, string? outputSubDirectory = null, string? diagramNamePrefix = null)
     {
+        if (!businessProcesses.Any()) return;
+
         var context = new PlantumlSequenceContext();
         if (formats.Contains(DiagramFormatsOption.PNG))
         {
@@ -447,6 +451,8 @@ public class DrawDiagramsCommand : Command
 
     private static void DrawC4Diagrams(string scope, string levelOfDetails, BusinessProcess[] businessProcesses, string[] formats, bool showBoundaries, bool showInterfaceInputAndOutput, string outputDirectory, string? outputSubDirectory = null, bool isStatic = false, string? diagramNamePrefix = null)
     {
+        if (!businessProcesses.Any()) return;
+
         var context = new PlantumlContext();
         if (formats.Contains(DiagramFormatsOption.PNG))
         {
@@ -482,6 +488,8 @@ public class DrawDiagramsCommand : Command
 
     private static void DrawSequenceDiagrams(string scope, string levelOfDetails, Interface[] interfaces, string[] formats, bool showBoundaries, bool showInterfaceInputAndOutput, string outputDirectory, string? outputSubDirectory = null, string? diagramNamePrefix = null)
     {
+        if (!interfaces.Any()) return;
+
         var context = new PlantumlSequenceContext();
         if (formats.Contains(DiagramFormatsOption.PNG))
         {
@@ -517,6 +525,8 @@ public class DrawDiagramsCommand : Command
 
     private static void DrawC4Diagrams(string scope, string levelOfDetails, Interface[] interfaces, string[] formats, bool showBoundaries, bool showInterfaceInputAndOutput, string outputDirectory, string? outputSubDirectory = null, bool isStatic = false, string? diagramNamePrefix = null)
     {
+        if (!interfaces.Any()) return;
+
         var context = new PlantumlContext();
         if (formats.Contains(DiagramFormatsOption.PNG))
         {
@@ -673,7 +683,7 @@ public class DrawDiagramsCommand : Command
                     path = "Software Systems";
                 }
 
-                fileName = $"{(diagramNamePrefix != null ? $"{diagramNamePrefix} - " : string.Empty)}{ToPrettyName(levelOfDetails)} {ToPrettyName(diagramType)}.puml";
+                fileName = $"{(!string.IsNullOrEmpty(diagramNamePrefix) ? $"{diagramNamePrefix} - " : string.Empty)}{ToPrettyName(levelOfDetails)} {ToPrettyName(diagramType)}.puml";
 
                 break;
             }
@@ -699,7 +709,7 @@ public class DrawDiagramsCommand : Command
             path = "Software Systems";
         }
 
-        fileName = $"{(diagramNamePrefix != null ? $"{diagramNamePrefix} - " : string.Empty)}{ToPrettyName(levelOfDetails)} {ToPrettyName(diagramType)}.puml";
+        fileName = $"{(!string.IsNullOrEmpty(diagramNamePrefix) ? $"{diagramNamePrefix} - " : string.Empty)}{ToPrettyName(levelOfDetails)} {ToPrettyName(diagramType)}.puml";
         
         switch (scope)
         {
@@ -815,7 +825,7 @@ public class DrawDiagramsCommand : Command
             path = $"Business Processes";
         }
 
-        fileName = $"{(diagramNamePrefix != null ? $"{diagramNamePrefix} - " : string.Empty)}{ToPrettyName(levelOfDetails)} {ToPrettyName(diagramType)}.puml";
+        fileName = $"{(!string.IsNullOrEmpty(diagramNamePrefix) ? $"{diagramNamePrefix} - " : string.Empty)}{ToPrettyName(levelOfDetails)} {ToPrettyName(diagramType)}.puml";
 
         switch (scope)
         {

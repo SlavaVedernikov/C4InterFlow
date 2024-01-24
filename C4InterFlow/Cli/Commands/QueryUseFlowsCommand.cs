@@ -29,7 +29,7 @@ public class QueryUseFlowsCommand : Command
         interfacesOption, isRecursiveOption, queryOutputFileOption, queryAppendOption);
     }
 
-    private static async Task<int> Execute(string[] interfaceAliases, bool isRecursive, string queryOutputFile, bool append)
+    public static async Task<int> Execute(string[] interfaceAliases, bool isRecursive, string queryOutputFile, bool append)
     {
         try
         {

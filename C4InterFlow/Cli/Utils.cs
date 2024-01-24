@@ -9,6 +9,8 @@ namespace C4InterFlow.Cli
         {
             var result = new List<string>();
 
+            if (structures == null) return result;
+
             foreach (var item in structures)
             {
                 var segments = item.Split(".*");

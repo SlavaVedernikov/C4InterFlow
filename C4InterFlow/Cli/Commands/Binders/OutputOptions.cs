@@ -9,16 +9,16 @@ namespace C4InterFlow.Cli.Commands.Binders
 {
     public class OutputOptions
     {
-        public OutputOptions(string outputDirectory, string outputSubDirectory, string diagramNamePrefix, string[] formats) { 
+        public OutputOptions(string outputDirectory, string? outputSubDirectory, string? diagramNamePrefix, string[]? formats) { 
             OutputDirectory = outputDirectory;
             OutputSubDirectory = outputSubDirectory;
             DiagramNamePrefix = diagramNamePrefix;
             Formats = formats;
         }
         public string OutputDirectory { get; private set; }
-        public string OutputSubDirectory { get; private set; }
-        public string DiagramNamePrefix { get; private set; }
-        public string[] Formats { get; private set; }
+        public string? OutputSubDirectory { get; private set; }
+        public string? DiagramNamePrefix { get; private set; }
+        public string[]? Formats { get; private set; }
     }
 
     public class OutputOptionsBinder : BinderBase<OutputOptions>

@@ -100,7 +100,7 @@ namespace C4InterFlow.Automation
             return result;
         }
 
-        internal static string? GetLabel(string? text)
+        public static string? GetLabel(string? text)
         {
             if (string.IsNullOrEmpty(text)) return text;
 
