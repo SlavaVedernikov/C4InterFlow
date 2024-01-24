@@ -9,7 +9,11 @@ namespace dotnet.eShop.Architecture.SoftwareSystems
     {
         public const string ALIAS = "dotnet.eShop.Architecture.SoftwareSystems.BasketApi";
         public static SoftwareSystem Instance => new SoftwareSystem(ALIAS, "Basket Api")
-        {Description = "", Boundary = Boundary.Internal};
+        {
+            Description = "",
+            Boundary = Boundary.Internal
+        };
+
         public partial class Containers
         {
         }

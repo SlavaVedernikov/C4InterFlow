@@ -260,9 +260,9 @@ namespace C4InterFlow.Automation
             return CurrentProject?.Documents.Where(x => !x.FilePath.Contains(@"\obj\"));
         }
 
-        public virtual string GetComponentInterfaceAlias(string filePathPattern)
+        public virtual string? GetComponentInterfaceAlias(string filePathPattern)
         {
-            return string.Empty;
+            return null;
         }
 
         public virtual string GetFileExtension()

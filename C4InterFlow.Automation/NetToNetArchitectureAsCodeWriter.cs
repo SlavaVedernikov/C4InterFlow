@@ -279,9 +279,9 @@ namespace C4InterFlow.Automation
             return null;
         }
 
-        public override string GetComponentInterfaceAlias(string filePathPattern)
+        public override string? GetComponentInterfaceAlias(string filePathPattern)
         {
-            return WithComponentInterface(filePathPattern).GetAliasFieldValue();
+            return WithComponentInterface(filePathPattern)?.GetAliasFieldValue();
         }
 
         public override string GetFileExtension()

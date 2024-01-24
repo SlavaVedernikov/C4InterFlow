@@ -221,7 +221,7 @@ namespace C4InterFlow.Automation
             return JObject.Parse(json);
         }
 
-        public override string GetComponentInterfaceAlias(string filePathPattern)
+        public override string? GetComponentInterfaceAlias(string filePathPattern)
         {
             var result = string.Empty;
 
