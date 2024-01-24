@@ -13,7 +13,13 @@ namespace dotnet.eShop.Architecture.SoftwareSystems
             {
                 public const string ALIAS = "dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc";
                 public static Container Instance => new Container(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.ALIAS, ALIAS, "Grpc")
-                {ContainerType = ContainerType.None, Description = "", Technology = "", Boundary = Boundary.Internal};
+                {
+                    ContainerType = ContainerType.None,
+                    Description = "",
+                    Technology = "",
+                    Boundary = Boundary.Internal
+                };
+
                 public partial class Components
                 {
                 }

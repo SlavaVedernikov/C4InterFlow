@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 
 namespace C4InterFlow.Automation
 {
-    public class NetToNetArchitectureAsCodeWriter : NetToAnyArchitectureAsCodeWriter<ClassDeclarationSyntax, Document>
+    public class NetToNetArchitectureAsCodeWriter : NetToAnyArchitectureAsCodeWriter
     {
         public NetToNetArchitectureAsCodeWriter(string softwareSystemSolutionPath, string architectureRootNamespace) : base(softwareSystemSolutionPath, architectureRootNamespace)
         {
@@ -39,7 +39,7 @@ namespace C4InterFlow.Automation
             var documentName = $"{softwareSystemName}.cs";
 
             var projectDirectory = project.FilePath.Replace($"{project.Name}.csproj", string.Empty);
-            var fileDirectory = Path.Combine(projectDirectory, CodeGenerator<NetCodeWriter>.GetSoftwareSystemsDirectory());
+            var fileDirectory = Path.Combine(projectDirectory, NetToAnyCodeGenerator<NetCodeWriter>.GetSoftwareSystemsDirectory());
             Directory.CreateDirectory(fileDirectory);
 
             var filePath = Path.Combine(fileDirectory, documentName);
@@ -50,15 +50,10 @@ namespace C4InterFlow.Automation
                 return this;
             }
 
-            var sourceCode = new StringBuilder(CodeGenerator<NetCodeWriter>.GetSoftwareSystemsCodeHeader(ArchitectureNamespace));
-
-            sourceCode.Append(
-                CodeGenerator<NetCodeWriter>.GetSoftwareSystemCode(
+            var sourceCode = NetToAnyCodeGenerator<NetCodeWriter>.GetSoftwareSystemCode(
                 ArchitectureNamespace,
                 softwareSystemName,
-                NetCodeWriter.GetLabel(softwareSystemName)));
-
-            sourceCode.AppendLine("}");
+                NetCodeWriter.GetLabel(softwareSystemName));
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
             var root = tree.GetRoot();
@@ -86,7 +81,7 @@ namespace C4InterFlow.Automation
             var documentName = $"{containerName}.cs";
 
             var projectDirectory = project.FilePath.Replace($"{project.Name}.csproj", string.Empty);
-            var fileDirectory = Path.Combine(projectDirectory, CodeGenerator<NetCodeWriter>.GetContainersDirectory(softwareSystemName));
+            var fileDirectory = Path.Combine(projectDirectory, NetToAnyCodeGenerator<NetCodeWriter>.GetContainersDirectory(softwareSystemName));
             Directory.CreateDirectory(fileDirectory);
 
             var filePath = Path.Combine(fileDirectory, documentName);
@@ -97,16 +92,11 @@ namespace C4InterFlow.Automation
                 return this;
             }
 
-            var sourceCode = new StringBuilder(CodeGenerator<NetCodeWriter>.GetSoftwareSystemsCodeHeader(ArchitectureNamespace));
-
-            sourceCode.Append(
-                CodeGenerator<NetCodeWriter>.GetContainerCode(
+            var sourceCode = NetToAnyCodeGenerator<NetCodeWriter>.GetContainerCode(
                 ArchitectureNamespace,
                 softwareSystemName,
                 containerName,
-                NetCodeWriter.GetLabel(containerName)));
-
-            sourceCode.AppendLine("}");
+                NetCodeWriter.GetLabel(containerName));
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
             var root = tree.GetRoot();
@@ -134,7 +124,7 @@ namespace C4InterFlow.Automation
             var documentName = $"{componentName}.cs";
 
             var projectDirectory = project.FilePath.Replace($"{project.Name}.csproj", string.Empty);
-            var fileDirectory = Path.Combine(projectDirectory, CodeGenerator<NetCodeWriter>.GetComponentsDirectory(softwareSystemName, containerName));
+            var fileDirectory = Path.Combine(projectDirectory, NetToAnyCodeGenerator<NetCodeWriter>.GetComponentsDirectory(softwareSystemName, containerName));
             Directory.CreateDirectory(fileDirectory);
 
             var filePath = Path.Combine(fileDirectory, documentName);
@@ -145,18 +135,13 @@ namespace C4InterFlow.Automation
                 return this;
             }
 
-            var sourceCode = new StringBuilder(CodeGenerator<NetCodeWriter>.GetSoftwareSystemsCodeHeader(ArchitectureNamespace));
-
-            sourceCode.Append(
-                CodeGenerator<NetCodeWriter>.GetComponentCode(
+            var sourceCode = NetToAnyCodeGenerator<NetCodeWriter>.GetComponentCode(
                 ArchitectureNamespace,
                 softwareSystemName,
                 containerName,
                 componentName,
                 NetCodeWriter.GetLabel(componentName),
-                componentType.ToString()));
-
-            sourceCode.AppendLine("}");
+                componentType.ToString());
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
             var root = tree.GetRoot();
@@ -193,7 +178,7 @@ namespace C4InterFlow.Automation
             var documentName = $"{interfaceName}.cs";
 
             var projectDirectory = architectureProject.FilePath.Replace($"{architectureProject.Name}.csproj", string.Empty);
-            var fileDirectory = Path.Combine(projectDirectory, CodeGenerator<NetCodeWriter>.GetComponentInterfacesDirectory(softwareSystemName, containerName, componentName));
+            var fileDirectory = Path.Combine(projectDirectory, NetToAnyCodeGenerator<NetCodeWriter>.GetComponentInterfacesDirectory(softwareSystemName, containerName, componentName));
             Directory.CreateDirectory(fileDirectory);
 
             var filePath = Path.Combine(fileDirectory, documentName);
@@ -204,10 +189,7 @@ namespace C4InterFlow.Automation
                 return this;
             }
 
-            var sourceCode = new StringBuilder(CodeGenerator<NetCodeWriter>.GetSoftwareSystemsCodeHeader(ArchitectureNamespace));
-
-            sourceCode.Append(
-                CodeGenerator<NetCodeWriter>.GetComponentInterfaceCode(
+            var sourceCode = NetToAnyCodeGenerator<NetCodeWriter>.GetComponentInterfaceCode(
                 architectureNamespace: ArchitectureNamespace,
                 softwareSystemName: softwareSystemName,
                 containerName: containerName,
@@ -217,9 +199,7 @@ namespace C4InterFlow.Automation
                 protocol: protocol,
                 path: path,
                 input: input,
-                output: output));
-
-            sourceCode.AppendLine("}");
+                output: output);
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
             var root = tree.GetRoot();
@@ -235,7 +215,7 @@ namespace C4InterFlow.Automation
             return this;
         }
 
-        public override IEnumerable<ClassDeclarationSyntax> WithComponentInterfaces(bool reloadArchitecture = false)
+        public IEnumerable<ClassDeclarationSyntax> WithComponentInterfaces(bool reloadArchitecture = false)
         {
             var result = new List<ClassDeclarationSyntax>();
 
@@ -270,14 +250,14 @@ namespace C4InterFlow.Automation
             return result;
         }
 
-        public override ClassDeclarationSyntax? WithComponentInterface(string pattern)
+        public ClassDeclarationSyntax? WithComponentInterface(string fileNamePattern)
         {
             var project = ArchitectureWorkspace.CurrentSolution.Projects.FirstOrDefault(x => x.Name == ArchitectureNamespace);
 
             var interfaceInstanceType = typeof(Elements.Interfaces.IInterfaceInstance);
 
             var compilation = project.GetCompilationAsync().Result;
-            var syntaxTree = compilation.SyntaxTrees.Where(x => Regex.IsMatch(x.FilePath, pattern)).FirstOrDefault();
+            var syntaxTree = compilation.SyntaxTrees.Where(x => Regex.IsMatch(x.FilePath, fileNamePattern)).FirstOrDefault();
 
             if(syntaxTree != null)
             {
@@ -299,11 +279,14 @@ namespace C4InterFlow.Automation
             return null;
         }
 
-        public override IEnumerable<Document>? WithDocuments()
+        public override string? GetComponentInterfaceAlias(string filePathPattern)
         {
-            return CurrentProject?.Documents.Where(x => !x.FilePath.Contains(@"\obj\"));
+            return WithComponentInterface(filePathPattern)?.GetAliasFieldValue();
         }
 
-
+        public override string GetFileExtension()
+        {
+            return "cs";
+        }
     }
 }

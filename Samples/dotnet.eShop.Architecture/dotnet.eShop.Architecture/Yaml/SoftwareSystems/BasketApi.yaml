@@ -1,0 +1,10 @@
+dotnet:
+  eShop:
+    Architecture:
+      SoftwareSystems:
+        BasketApi:
+          Label: Basket Api
+          Boundary: Internal
+          Description: ''
+          Containers: {}
+          Interfaces: {}

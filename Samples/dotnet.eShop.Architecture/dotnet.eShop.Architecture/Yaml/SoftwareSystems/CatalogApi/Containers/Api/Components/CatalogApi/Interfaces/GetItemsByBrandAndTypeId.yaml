@@ -1,0 +1,26 @@
+dotnet:
+  eShop:
+    Architecture:
+      SoftwareSystems:
+        CatalogApi:
+          Containers:
+            Api:
+              Components:
+                CatalogApi:
+                  Interfaces:
+                    GetItemsByBrandAndTypeId:
+                      Label: Get Items By Brand And Type Id
+                      Description: ''
+                      Path: ''
+                      IsPrivate: false
+                      Protocol: ''
+                      Flow:
+                        Flows:
+                        - Type: Use
+                          Params: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.Interfaces.ChangeUriPlaceholder
+                        - Type: Return
+                          Params: TypedResults.Ok
+                      Input: ''
+                      InputTemplate: ''
+                      Output: ''
+                      OutputTemplate: ''

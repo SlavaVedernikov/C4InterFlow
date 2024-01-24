@@ -1,0 +1,14 @@
+dotnet:
+  eShop:
+    Architecture:
+      SoftwareSystems:
+        BasketApi:
+          Containers:
+            Data:
+              Components:
+                RedisBasketRepository:
+                  Label: Redis Basket Repository
+                  ComponentType: None
+                  Description: ''
+                  Technology: ''
+                  Containers: {}

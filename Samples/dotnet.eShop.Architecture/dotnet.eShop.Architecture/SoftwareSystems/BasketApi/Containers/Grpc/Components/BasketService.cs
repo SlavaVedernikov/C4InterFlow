@@ -17,7 +17,12 @@ namespace dotnet.eShop.Architecture.SoftwareSystems
                     {
                         public const string ALIAS = "dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService";
                         public static Component Instance => new Component(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.ALIAS, ALIAS, "Basket Service")
-                        {ComponentType = ComponentType.None, Description = "", Technology = ""};
+                        {
+                            ComponentType = ComponentType.None,
+                            Description = "",
+                            Technology = ""
+                        };
+
                         public partial class Interfaces
                         {
                         }

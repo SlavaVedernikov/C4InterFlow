@@ -8,7 +8,6 @@ namespace C4InterFlow.Automation
 {
     public interface ICodeWriter
     {
-        string GetSoftwareSystemsCodeHeader(string architectureNamespace);
         string GetSoftwareSystemCode(string architectureNamespace, string name, string label, string? description = null, string? boundary = null);
         string GetContainerCode(string architectureNamespace, string softwareSystemName, string containerName, string label, string? type = null, string? description = null, string? technology = null, string? boundary = null);
         string GetComponentCode(string architectureNamespace, string softwareSystemName, string containerName, string name, string label, string componentType = "None", string? description = null, string? technology = null);
@@ -16,13 +15,15 @@ namespace C4InterFlow.Automation
         string GetComponentInterfaceCode(string architectureNamespace, string softwareSystemName, string containerName, string componentName, string name, string label, string? description = null, string? protocol = null, string? path = null, bool? isPrivate = null, string? uses = null, string? input = null, string? inputTemplate = null, string? output = null, string? outputTemplate = null);
         string GetContainerInterfaceCode(string architectureNamespace, string softwareSystemName, string containerName, string name, string label, string? description = null, string? protocol = null, string? uses = null, string? input = null, string? inputTemplate = null, string? output = null, string? outputTemplate = null);
         string GetSoftwareSystemInterfaceCode(string architectureNamespace, string softwareSystemName, string name, string label, string? description = null, string? protocol = null, string? uses = null, string? input = null, string? inputTemplate = null, string? output = null, string? outputTemplate = null);
-        string GetFlowHeader();
+        string GetFlowCode();
         string GetLoopFlowCode(string condition);
         string GetEndLoopFlowCode();
         string GetIfFlowCode(string condition);
         string GetEndIfFlowCode();
         string GetElseIfFlowCode(string condition);
+        string GetEndElseIfFlowCode();
         string GetElseFlowCode();
+        string GetEndElseFlowCode();
         string GetReturnFlowCode(string? expression = null);
         string GetTryFlowCode();
         string GetEndTryFlowCode();
@@ -32,11 +33,8 @@ namespace C4InterFlow.Automation
         string GetEndFinallyFlowCode();
         string GetThrowExceptionFlowCode(string? exception = null);
         string GetUseFlowCode(string alias);
-        string GetActorsCodeHeader(string architectureNamespace);
         string GetActorCode(string architectureNamespace, string type, string name, string label, string? description = null);
-        string GetBusinessProcessesCodeHeader(string architectureNamespace);
-        string GetBusinessProcessStartCode(string architectureNamespace, string name, string label, string? description = null);
-        string GetBusinessProcessEndCode(string architectureNamespace, string name, string label, string? description = null);
+        string GetBusinessProcessCode(string architectureNamespace, string name, string label, string businessActivitiesCode, string? description = null);
         string GetBusinessActivityCode(string name, string actor, string[] uses, string? description = null);
     }
 }

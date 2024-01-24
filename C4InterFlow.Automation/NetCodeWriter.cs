@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection.Emit;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -11,112 +12,30 @@ namespace C4InterFlow.Automation
     public class NetCodeWriter : ICodeWriter
     {
         internal const string ROOT_ARCHITECTURE_NAMESPACE = "C4InterFlow";
-        private static string GetSoftwareSystemAlias(string architectureNamespace, string softwareSystemName)
-        {
-            if (string.IsNullOrEmpty(architectureNamespace) || string.IsNullOrEmpty(softwareSystemName)) return string.Empty;
-
-            return $"{architectureNamespace}.SoftwareSystems.{softwareSystemName}";
-        }
-
-        private static string GetActorAlias(string architectureNamespace, string actorName)
-        {
-            if (string.IsNullOrEmpty(architectureNamespace) || string.IsNullOrEmpty(actorName)) return string.Empty;
-
-            return $"{architectureNamespace}.Actors.{actorName}";
-        }
-        private static string GetContainerAlias(string architectureNamespace, string softwareSystemName, string containerName)
-        {
-            if (string.IsNullOrEmpty(architectureNamespace) || string.IsNullOrEmpty(softwareSystemName) || string.IsNullOrEmpty(containerName)) return string.Empty;
-
-            return $"{architectureNamespace}.SoftwareSystems.{softwareSystemName}.Containers.{containerName}";
-        }
-
-        private static string GetComponentAlias(string architectureNamespace, string softwareSystemName, string containerName, string componentName)
-        {
-            if (string.IsNullOrEmpty(softwareSystemName) || string.IsNullOrEmpty(containerName) || string.IsNullOrEmpty(componentName)) return string.Empty;
-
-            return $"{architectureNamespace}.SoftwareSystems.{softwareSystemName}.Containers.{containerName}.Components.{componentName}";
-        }
-
-        public static string GetEntityAlias(string architectureNamespace, string softwareSystemName, string containerName, string entityName)
-        {
-            if (string.IsNullOrEmpty(softwareSystemName) || string.IsNullOrEmpty(containerName) || string.IsNullOrEmpty(entityName)) return string.Empty;
-
-            return $"{architectureNamespace}.SoftwareSystems.{softwareSystemName}.Containers.{containerName}.Entities.{entityName}";
-        }
-
-        private static string GetComponentInterfaceAlias(string componentAlias, string interfaceName)
-        {
-            if (string.IsNullOrEmpty(componentAlias) || string.IsNullOrEmpty(interfaceName)) return string.Empty;
-
-            return $"{componentAlias}.Interfaces.{interfaceName}";
-        }
-
-        private string GetContainerInterfaceAlias(string architectureNamespace, string softwareSystemName, string containerName, string interfaceName)
-        {
-            if (string.IsNullOrEmpty(softwareSystemName) || string.IsNullOrEmpty(containerName) || string.IsNullOrEmpty(interfaceName)) return string.Empty;
-
-            return $"{architectureNamespace}.SoftwareSystems.{softwareSystemName}.Containers.{containerName}.Interfaces.{interfaceName}";
-        }
-
-        private string GetSoftwareSystemInterfaceAlias(string architectureNamespace, string softwareSystemName, string interfaceName)
-        {
-            if (string.IsNullOrEmpty(architectureNamespace) || string.IsNullOrEmpty(softwareSystemName) || string.IsNullOrEmpty(interfaceName)) return string.Empty;
-
-            return $"{architectureNamespace}.SoftwareSystems.{softwareSystemName}.Interfaces.{interfaceName}";
-        }
-
-        private string EnsureDoubleQuotes(string text)
-        {
-            if (string.IsNullOrEmpty(text)) return "\"\"";
-
-            var result = text;
-
-            if (!result.StartsWith("\""))
-                result = $"\"{result}";
-
-            if (!result.EndsWith("\""))
-                result = $"{result}\"";
-
-            return result;
-
-        }
-
-        private string GetName(string text)
-        {
-            var result = string.Empty;
-            if (!string.IsNullOrEmpty(text))
-            {
-                result = text.Replace(" ", string.Empty);
-            }
-
-            return result;
-        }
-
         public static string? GetLabel(string? text)
         {
-            if (string.IsNullOrEmpty(text)) return text;
-
-            return Regex.Replace(text.Replace("\"", string.Empty), "((?<=[a-z])[A-Z]|[A-Z](?=[a-z]))", " $1").Trim();
+            return AnyCodeWriter.GetLabel(text);
         }
-        public string GetContainerCode(string architectureNamespace, string softwareSystemName, string containerName, string label, string? type = null, string? description = null, string? technology = null, string? boundary = null)
+        public string GetContainerCode(string architectureNamespace, string softwareSystemName, string name, string label, string? type = null, string? description = null, string? technology = null, string? boundary = null)
         {
-            var softwareSystemAlias = GetSoftwareSystemAlias(architectureNamespace, softwareSystemName);
-            return $@"
-    public partial class {GetName(softwareSystemName)}
+            var softwareSystemAlias = AnyCodeWriter.GetSoftwareSystemAlias(architectureNamespace, softwareSystemName);
+            var result = new StringBuilder(GetSoftwareSystemsCodeHeader(architectureNamespace));
+
+            result.Append($@"
+    public partial class {AnyCodeWriter.GetName(softwareSystemName)}
     {{
         public partial class Containers
         {{
-            public partial class {GetName(containerName)} : IContainerInstance
+            public partial class {AnyCodeWriter.GetName(name)} : IContainerInstance
             {{
-                public const string ALIAS = {$"\"{GetContainerAlias(architectureNamespace, softwareSystemName, containerName)}\""};
+                public const string ALIAS = {$"\"{AnyCodeWriter.GetContainerAlias(architectureNamespace, softwareSystemName, name)}\""};
 
                 public static Container Instance => new Container(
-                    {softwareSystemAlias}.ALIAS, ALIAS, {EnsureDoubleQuotes(label)})
+                    {softwareSystemAlias}.ALIAS, ALIAS, {AnyCodeWriter.EnsureDoubleQuotes(label)})
                 {{
                     ContainerType = ContainerType.{(!string.IsNullOrEmpty(type) ? type : "None")},
-                    Description = {(!string.IsNullOrEmpty(description) ? EnsureDoubleQuotes(description) : "\"\"")},
-                    Technology = {(!string.IsNullOrEmpty(technology) ? EnsureDoubleQuotes(technology) : "\"\"")},
+                    Description = {(!string.IsNullOrEmpty(description) ? AnyCodeWriter.EnsureDoubleQuotes(description) : "\"\"")},
+                    Technology = {(!string.IsNullOrEmpty(technology) ? AnyCodeWriter.EnsureDoubleQuotes(technology) : "\"\"")},
                     Boundary = Boundary.{(!string.IsNullOrEmpty(boundary) ? boundary : "Internal")}
                 }};
 
@@ -131,10 +50,13 @@ namespace C4InterFlow.Automation
             }}
         }}
     }}
-";
+");
+            result.AppendLine("}");
+
+            return result.ToString();
         }
 
-        public string GetSoftwareSystemsCodeHeader(string architectureNamespace)
+        private string GetSoftwareSystemsCodeHeader(string architectureNamespace)
         {
             var result = new StringBuilder();
 
@@ -149,7 +71,7 @@ namespace C4InterFlow.Automation
             return result.ToString();
         }
 
-        public string GetActorsCodeHeader(string architectureNamespace)
+        private string GetActorsCodeHeader(string architectureNamespace)
         {
             var result = new StringBuilder();
 
@@ -163,7 +85,7 @@ namespace C4InterFlow.Automation
             return result.ToString();
         }
 
-        public string GetBusinessProcessesCodeHeader(string architectureNamespace)
+        private string GetBusinessProcessesCodeHeader(string architectureNamespace)
         {
             var result = new StringBuilder();
 
@@ -180,15 +102,17 @@ namespace C4InterFlow.Automation
 
         public string GetSoftwareSystemCode(string architectureNamespace, string name, string label, string? description = null, string? boundary = null)
         {
-            return $@"
-    public partial class {GetName(name)} : ISoftwareSystemInstance
+            var result = new StringBuilder(GetSoftwareSystemsCodeHeader(architectureNamespace));
+
+            result.Append($@"
+    public partial class {AnyCodeWriter.GetName(name)} : ISoftwareSystemInstance
     {{
-        public const string ALIAS = {$"\"{GetSoftwareSystemAlias(architectureNamespace, name)}\""};
+        public const string ALIAS = {$"\"{AnyCodeWriter.GetSoftwareSystemAlias(architectureNamespace, name)}\""};
 
         public static SoftwareSystem Instance => new SoftwareSystem(
-            ALIAS, {EnsureDoubleQuotes(label)})
+            ALIAS, {AnyCodeWriter.EnsureDoubleQuotes(label)})
         {{
-            Description = {(!string.IsNullOrEmpty(description) ? EnsureDoubleQuotes(description) : "\"\"")},
+            Description = {(!string.IsNullOrEmpty(description) ? AnyCodeWriter.EnsureDoubleQuotes(description) : "\"\"")},
             Boundary = Boundary.{(!string.IsNullOrEmpty(boundary) ? boundary : "Internal")}
         }};
 
@@ -198,47 +122,59 @@ namespace C4InterFlow.Automation
         public partial class Interfaces
         {{ }}
     }}
-";
+");
+
+            result.AppendLine("}");
+
+            return result.ToString();
         }
 
         public string GetActorCode(string architectureNamespace, string type, string name, string label, string? description = null)
         {
-            return $@"
-    public class {GetName(name)} : I{type}Instance
+            var result = new StringBuilder(GetActorsCodeHeader(architectureNamespace));
+
+            result.Append($@"
+    public class {AnyCodeWriter.GetName(name)} : I{type}Instance
     {{
-        public const string ALIAS = {$"\"{GetActorAlias(architectureNamespace, name)}\""};
+        public const string ALIAS = {$"\"{AnyCodeWriter.GetActorAlias(architectureNamespace, name)}\""};
 
         public static {type} Instance => new {type}(
-            ALIAS, {EnsureDoubleQuotes(label)})
+            ALIAS, {AnyCodeWriter.EnsureDoubleQuotes(label)})
         {{
             Description = {(description != null ? description : "\"\"")},
         }};
     }}
-";
+");
+
+            result.AppendLine("}");
+
+            return result.ToString();
         }
 
         public string GetComponentCode(string architectureNamespace, string softwareSystemName, string containerName, string name, string label, string componentType = "None", string? description = null, string? technology = null)
         {
-            var containerAlias = GetContainerAlias(architectureNamespace, softwareSystemName, containerName);
-            return $@"
-    public partial class {GetName(softwareSystemName)}
+            var containerAlias = AnyCodeWriter.GetContainerAlias(architectureNamespace, softwareSystemName, containerName);
+            var result = new StringBuilder(GetSoftwareSystemsCodeHeader(architectureNamespace));
+
+            result.Append($@"
+    public partial class {AnyCodeWriter.GetName(softwareSystemName)}
     {{
         public partial class Containers
         {{
-            public partial class {GetName(containerName)}
+            public partial class {AnyCodeWriter.GetName(containerName)}
             {{
                 public partial class Components
                 {{
-                    public partial class {GetName(name)} : IComponentInstance
+                    public partial class {AnyCodeWriter.GetName(name)} : IComponentInstance
                     {{
-                        public const string ALIAS = {$"\"{GetComponentAlias(architectureNamespace, softwareSystemName, containerName, name)}\""};
+                        public const string ALIAS = {$"\"{AnyCodeWriter.GetComponentAlias(architectureNamespace, softwareSystemName, containerName, name)}\""};
 
                         public static Component Instance => new Component(
-                            {containerAlias}.ALIAS, ALIAS, {EnsureDoubleQuotes(label)})
+                            {containerAlias}.ALIAS, ALIAS, {AnyCodeWriter.EnsureDoubleQuotes(label)})
                         {{
                             ComponentType = ComponentType.{componentType},
-                            Description = {(!string.IsNullOrEmpty(description) ? EnsureDoubleQuotes(description) : "\"\"")},
-                            Technology = {(!string.IsNullOrEmpty(technology) ? EnsureDoubleQuotes(technology) : "\"\"")}
+                            Description = {(!string.IsNullOrEmpty(description) ? AnyCodeWriter.EnsureDoubleQuotes(description) : "\"\"")},
+                            Technology = {(!string.IsNullOrEmpty(technology) ? AnyCodeWriter.EnsureDoubleQuotes(technology) : "\"\"")}
                         }};
 
                         public partial class Interfaces
@@ -248,46 +184,57 @@ namespace C4InterFlow.Automation
             }}
         }}
     }}
-";
+");
+
+            result.AppendLine("}");
+
+            return result.ToString();
         }
 
         public string GetEntityCode(string architectureNamespace, string softwareSystemName, string containerName, string name, string label, string? type = null, string? description = null, string[]? composedOfMany = null, string[]? composedOfOne = null, string? extends = null)
         {
-            var containerAlias = GetContainerAlias(architectureNamespace, softwareSystemName, containerName);
-            return $@"
-    public partial class {GetName(softwareSystemName)}
+            var containerAlias = AnyCodeWriter.GetContainerAlias(architectureNamespace, softwareSystemName, containerName);
+            var result = new StringBuilder(GetSoftwareSystemsCodeHeader(architectureNamespace));
+
+            result.Append($@"
+    public partial class {AnyCodeWriter.GetName(softwareSystemName)}
     {{
         public partial class Containers
         {{
-            public partial class {GetName(containerName)}
+            public partial class {AnyCodeWriter.GetName(containerName)}
             {{
                 public partial class Entities
                 {{
-                    public partial class {GetName(name)} : IEntityInstance
+                    public partial class {AnyCodeWriter.GetName(name)} : IEntityInstance
                     {{
-                        public const string ALIAS = {$"\"{GetEntityAlias(architectureNamespace, softwareSystemName, containerName, name)}\""};
+                        public const string ALIAS = {$"\"{AnyCodeWriter.GetEntityAlias(architectureNamespace, softwareSystemName, containerName, name)}\""};
 
                         public static Entity Instance => new Entity(
-                            {containerAlias}.ALIAS, ALIAS, {EnsureDoubleQuotes(label)}, {(type != null ? type : "EntityType.None")})
+                            {containerAlias}.ALIAS, ALIAS, {AnyCodeWriter.EnsureDoubleQuotes(label)}, {(type != null ? type : "EntityType.None")})
                         {{
-                            Description = {(!string.IsNullOrEmpty(description) ? EnsureDoubleQuotes(description) : "\"\"")},
-                            ComposedOfMany = new string[] {{{(composedOfMany != null ? string.Join(", ", composedOfMany.Select(x => EnsureDoubleQuotes(x))) : " ")}}},
-                            ComposedOfOne = new string[] {{{(composedOfOne != null ? string.Join(", ", composedOfOne.Select(x => EnsureDoubleQuotes(x))) : " ")}}},
-                            Extends = {(!string.IsNullOrEmpty(extends) ? EnsureDoubleQuotes(extends) : "\"\"")},
+                            Description = {(!string.IsNullOrEmpty(description) ? AnyCodeWriter.EnsureDoubleQuotes(description) : "\"\"")},
+                            ComposedOfMany = new string[] {{{(composedOfMany != null ? string.Join(", ", composedOfMany.Select(x => AnyCodeWriter.EnsureDoubleQuotes(x))) : " ")}}},
+                            ComposedOfOne = new string[] {{{(composedOfOne != null ? string.Join(", ", composedOfOne.Select(x => AnyCodeWriter.EnsureDoubleQuotes(x))) : " ")}}},
+                            Extends = {(!string.IsNullOrEmpty(extends) ? AnyCodeWriter.EnsureDoubleQuotes(extends) : "\"\"")},
                         }};
                     }}
                 }}
             }}
         }}
     }}
- ";
+ ");
+            result.AppendLine("}");
+
+            return result.ToString();
         }
 
         public string GetComponentInterfaceCode(string architectureNamespace, string softwareSystemName, string containerName, string componentName, string name, string label, string? description = null, string? protocol = null, string? path = null, bool? isPrivate = null, string? uses = null, string? input = null, string? inputTemplate = null, string? output = null, string? outputTemplate = null)
         {
-            var componentAlias = GetComponentAlias(architectureNamespace, softwareSystemName, containerName, componentName);
-            return $@"
-    public partial class {GetName(softwareSystemName)}
+            var componentAlias = AnyCodeWriter.GetComponentAlias(architectureNamespace, softwareSystemName, containerName, componentName);
+            var result = new StringBuilder(GetSoftwareSystemsCodeHeader(architectureNamespace));
+
+            result.Append($@"
+    public partial class {AnyCodeWriter.GetName(softwareSystemName)}
     {{
         public partial class Containers
         {{
@@ -299,17 +246,17 @@ namespace C4InterFlow.Automation
                     {{
                         public partial class Interfaces
                         {{
-                            public partial class {GetName(name)} : IInterfaceInstance
+                            public partial class {AnyCodeWriter.GetName(name)} : IInterfaceInstance
                             {{
-                                public const string ALIAS = {$"\"{GetComponentInterfaceAlias(componentAlias, name)}\""};
+                                public const string ALIAS = {$"\"{AnyCodeWriter.GetComponentInterfaceAlias(componentAlias, name)}\""};
 
                                 public static Interface Instance => new Interface(
-                                    {componentAlias}.ALIAS, ALIAS, {EnsureDoubleQuotes(label)})
+                                    {componentAlias}.ALIAS, ALIAS, {AnyCodeWriter.EnsureDoubleQuotes(label)})
                                 {{
-                                    Description = {(description != null ? EnsureDoubleQuotes(description) : "\"\"")},
-                                    Path = {(path != null ? EnsureDoubleQuotes(path) : "\"\"")},
+                                    Description = {(description != null ? AnyCodeWriter.EnsureDoubleQuotes(description) : "\"\"")},
+                                    Path = {(path != null ? AnyCodeWriter.EnsureDoubleQuotes(path) : "\"\"")},
                                     IsPrivate = {(isPrivate != null ? isPrivate.ToString().ToLower() : "false")},
-                                    Protocol =  {(protocol != null ? EnsureDoubleQuotes(protocol) : "\"\"")},
+                                    Protocol =  {(protocol != null ? AnyCodeWriter.EnsureDoubleQuotes(protocol) : "\"\"")},
                                     Flow = new Flow(ALIAS),
                                     Input = {(input != null ? input : "\"\"")},
                                     InputTemplate = {(inputTemplate != null ? inputTemplate : "\"\"")},
@@ -323,14 +270,19 @@ namespace C4InterFlow.Automation
             }}
         }}
     }}
-";
+");
+            result.AppendLine("}");
+
+            return result.ToString();
         }
 
         public string GetContainerInterfaceCode(string architectureNamespace, string softwareSystemName, string containerName, string name, string label, string? description = null, string? protocol = null, string? uses = null, string? input = null, string? inputTemplate = null, string? output = null, string? outputTemplate = null)
         {
-            var containerAlias = GetContainerAlias(architectureNamespace, softwareSystemName, containerName);
-            return $@"
-    public partial class {GetName(softwareSystemName)}
+            var containerAlias = AnyCodeWriter.GetContainerAlias(architectureNamespace, softwareSystemName, containerName);
+            var result = new StringBuilder(GetSoftwareSystemsCodeHeader(architectureNamespace));
+
+            result.Append($@"
+    public partial class {AnyCodeWriter.GetName(softwareSystemName)}
     {{
         public partial class Containers
         {{
@@ -338,16 +290,16 @@ namespace C4InterFlow.Automation
             {{
                 public partial class Interfaces
                 {{
-                    public partial class {GetName(name)} : IInterfaceInstance
+                    public partial class {AnyCodeWriter.GetName(name)} : IInterfaceInstance
                     {{
-                        public const string ALIAS = {$"\"{GetContainerInterfaceAlias(architectureNamespace, softwareSystemName, containerName, name)}\""};
+                        public const string ALIAS = {$"\"{AnyCodeWriter.GetContainerInterfaceAlias(architectureNamespace, softwareSystemName, containerName, name)}\""};
 
                         public static Interface Instance => new Interface(
-                            {containerAlias}.ALIAS, ALIAS, {EnsureDoubleQuotes(label)})
+                            {containerAlias}.ALIAS, ALIAS, {AnyCodeWriter.EnsureDoubleQuotes(label)})
                         {{
-                            Description = {(description != null ? EnsureDoubleQuotes(description) : "\"\"")},
+                            Description = {(description != null ? AnyCodeWriter.EnsureDoubleQuotes(description) : "\"\"")},
                             Flow = new Flow(ALIAS),
-                            Protocol = {(protocol != null ? EnsureDoubleQuotes(protocol) : "\"\"")},
+                            Protocol = {(protocol != null ? AnyCodeWriter.EnsureDoubleQuotes(protocol) : "\"\"")},
                             Input = {(input != null ? input : "\"\"")},
                             InputTemplate = {(inputTemplate != null ? inputTemplate : "\"\"")},
                             Output = {(output != null ? output : "\"\"")},
@@ -358,27 +310,33 @@ namespace C4InterFlow.Automation
             }}
         }}
     }}
-";
+");
+            result.AppendLine("}");
+
+            return result.ToString();
         }
 
         public string GetSoftwareSystemInterfaceCode(string architectureNamespace, string softwareSystemName, string name, string label, string? description = null, string? protocol = null, string? uses = null, string? input = null, string? inputTemplate = null, string? output = null, string? outputTemplate = null)
         {
-            var softwareSystemAlias = GetSoftwareSystemAlias(architectureNamespace, softwareSystemName);
-            return $@"
+            var softwareSystemAlias = AnyCodeWriter.GetSoftwareSystemAlias(architectureNamespace, softwareSystemName);
+
+            var result = new StringBuilder(GetSoftwareSystemsCodeHeader(architectureNamespace));
+
+            result.Append($@"
     public partial class {softwareSystemName}
     {{
         public partial class Interfaces
         {{
-            public partial class {GetName(name)} : IInterfaceInstance
+            public partial class {AnyCodeWriter.GetName(name)} : IInterfaceInstance
             {{
-                public const string ALIAS = {$"\"{GetSoftwareSystemInterfaceAlias(architectureNamespace, softwareSystemName, name)}\""};
+                public const string ALIAS = {$"\"{AnyCodeWriter.GetSoftwareSystemInterfaceAlias(architectureNamespace, softwareSystemName, name)}\""};
 
                 public static Interface Instance => new Interface(
-                    {softwareSystemAlias}.ALIAS, ALIAS, {EnsureDoubleQuotes(label)})
+                    {softwareSystemAlias}.ALIAS, ALIAS, {AnyCodeWriter.EnsureDoubleQuotes(label)})
                 {{
-                    Description = {(description != null ? EnsureDoubleQuotes(description) : "\"\"")},
+                    Description = {(description != null ? AnyCodeWriter.EnsureDoubleQuotes(description) : "\"\"")},
                     Flow = new Flow(ALIAS),
-                    Protocol = {(protocol != null ? EnsureDoubleQuotes(protocol) : "\"\"")},
+                    Protocol = {(protocol != null ? AnyCodeWriter.EnsureDoubleQuotes(protocol) : "\"\"")},
                     Input = {(input != null ? input : "\"\"")},
                     InputTemplate = {(inputTemplate != null ? inputTemplate : "\"\"")},
                     Output = {(output != null ? output : "\"\"")},
@@ -387,10 +345,13 @@ namespace C4InterFlow.Automation
             }}
         }}
     }}
-";
+");
+            result.AppendLine("}");
+
+            return result.ToString();
         }
 
-        public string GetFlowHeader()
+        public string GetFlowCode()
         {
             return $"new Flow(ALIAS)";
         }
@@ -420,9 +381,19 @@ namespace C4InterFlow.Automation
             return $"\t.ElseIf(@\"{GetFormattedParams(condition)}\")";
         }
 
+        public string GetEndElseIfFlowCode()
+        {
+            return string.Empty;
+        }
+
         public string GetElseFlowCode()
         {
             return "\t.Else()";
+        }
+
+        public string GetEndElseFlowCode()
+        {
+            return string.Empty;
         }
 
         public string GetReturnFlowCode(string? expression = null)
@@ -475,22 +446,22 @@ namespace C4InterFlow.Automation
             return $"\t.Use(\"{alias}\")";
         }
 
-        public string GetBusinessProcessStartCode(string architectureNamespace, string name, string label, string? description = null)
+        public string GetBusinessProcessCode(string architectureNamespace, string name, string label, string businessActivitiesCode, string? description = null)
         {
-            return $@"
-    public class {GetName(name)} : IBusinessProcessInstance
+            var result = new StringBuilder(GetBusinessProcessesCodeHeader(architectureNamespace));
+
+            result.Append($@"
+    public class {AnyCodeWriter.GetName(name)} : IBusinessProcessInstance
     {{
         public static BusinessProcess  Instance => new BusinessProcess(new BusinessActivity[]
         {{
-            ";
-        }
-
-        public string GetBusinessProcessEndCode(string architectureNamespace, string name, string label, string? description = null)
-        {
-            return $@"
-        }}, {(label != null ? EnsureDoubleQuotes(label) : "\"\"")});
+            {businessActivitiesCode}
+        }}, {(label != null ? AnyCodeWriter.EnsureDoubleQuotes(label) : "\"\"")});
     }}
-";
+");
+            result.AppendLine("}");
+
+            return result.ToString();
         }
 
         public string GetBusinessActivityCode(string name, string actor, string[] uses, string? description = null)
@@ -498,7 +469,7 @@ namespace C4InterFlow.Automation
             return $@"
             new BusinessActivity(new Flow(""{actor}"")
                 {string.Join($"{Environment.NewLine}\t\t\t\t", uses.Select(x => $".Use(\"{x}\")").ToArray())},
-                {(name != null ? EnsureDoubleQuotes(name) : "\"\"")}),
+                {(name != null ? AnyCodeWriter.EnsureDoubleQuotes(name) : "\"\"")}),
 ";
         }
     }

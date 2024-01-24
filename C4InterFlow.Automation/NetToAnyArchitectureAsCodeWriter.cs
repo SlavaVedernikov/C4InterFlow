@@ -6,19 +6,18 @@ using C4InterFlow.Elements;
 
 namespace C4InterFlow.Automation
 {
-    public class NetToAnyArchitectureAsCodeWriter<T, D> where T: class where D: class
+    public class NetToAnyArchitectureAsCodeWriter
     {
         public MSBuildWorkspace SoftwareSystemWorkspace { get; private set; }
         public string ArchitectureNamespace { get; private set; }
-        public MSBuildWorkspace? ArchitectureWorkspace { get; private set; }
         public Solution? SoftwareSystemSolution { get; private set; }
         public Project? CurrentProject { get; private set; }
         public Document? CurrentDocument { get; private set; }
         public ClassDeclarationSyntax? CurrentClassDeclaration { get; private set; }
         public Dictionary<string, IList<string>> SoftwareSystemTypeMap { get; private set; } = new Dictionary<string, IList<string>>();
         public Dictionary<string, string> EntityTypeMap { get; private set; } = new Dictionary<string, string>();
-        public Dictionary<string, MethodDeclarationSyntax> ComponentMethodInterfaceClassMap { get; private set; } = new Dictionary<string, MethodDeclarationSyntax>();
-        public Dictionary<string, PropertyDeclarationSyntax> ComponentPropertyInterfaceClassMap { get; private set; } = new Dictionary<string, PropertyDeclarationSyntax>();
+        public Dictionary<string, MethodDeclarationSyntax> ComponentMethodInterfaceObjectMap { get; private set; } = new Dictionary<string, MethodDeclarationSyntax>();
+        public Dictionary<string, PropertyDeclarationSyntax> ComponentPropertyInterfaceObjectMap { get; private set; } = new Dictionary<string, PropertyDeclarationSyntax>();
 
         private static void RegisterInstanceVisualStudioInstance()
         {
@@ -136,29 +135,29 @@ namespace C4InterFlow.Automation
             AddSoftwareSystemTypeMapping(interfaceTypeSymbol, implementationTypeSymbol);
         }
 
-        public NetToAnyArchitectureAsCodeWriter<T, D> WithSoftwareSystemProject(string projectName)
+        public NetToAnyArchitectureAsCodeWriter WithSoftwareSystemProject(string projectName)
         {
             CurrentProject = SoftwareSystemSolution.Projects.FirstOrDefault(x => x.Name == projectName);
 
             return this;
         }
 
-        public virtual NetToAnyArchitectureAsCodeWriter<T, D> AddSoftwareSystem(string softwareSystemName)
+        public virtual NetToAnyArchitectureAsCodeWriter AddSoftwareSystem(string softwareSystemName)
         {
             return this;
         }
 
-        public virtual NetToAnyArchitectureAsCodeWriter<T, D> AddContainer(string softwareSystemName, string containerName)
+        public virtual NetToAnyArchitectureAsCodeWriter AddContainer(string softwareSystemName, string containerName)
         {
             return this;
         }
 
-        public virtual NetToAnyArchitectureAsCodeWriter<T, D> AddComponent(string softwareSystemName, string containerName, string componentName, ComponentType componentType = ComponentType.None)
+        public virtual NetToAnyArchitectureAsCodeWriter AddComponent(string softwareSystemName, string containerName, string componentName, ComponentType componentType = ComponentType.None)
         {
             return this;
         }
 
-        public virtual NetToAnyArchitectureAsCodeWriter<T, D> AddComponentInterface(
+        public virtual NetToAnyArchitectureAsCodeWriter AddComponentInterface(
             string softwareSystemName,
             string containerName,
             string componentName,
@@ -251,53 +250,25 @@ namespace C4InterFlow.Automation
             return result;
         }
 
-        /*
-        public NetToAnyArchitectureAsCodeWriter<T, D> WithDocument(string filePath)
-        {
-            CurrentDocument = CurrentProject.Documents.FirstOrDefault(x => x.FilePath.Contains($"{filePath}"));
-            return this;
-        }
-        */
-        /*
-        public NetToAnyArchitectureAsCodeWriter<T, D> WithClass(string className)
-        {
-            var syntaxTree = CurrentDocument.GetSyntaxTreeAsync().Result;
-            var root = syntaxTree.GetRoot();
-
-            CurrentClassDeclaration = root.DescendantNodes().OfType<ClassDeclarationSyntax>()
-                .FirstOrDefault(n => n.Identifier.ValueText == className);
-            return this;
-        }
-        */
-
-        /*
-        public IEnumerable<MethodDeclarationSyntax> WithMethods(string[] methodNames)
-        {
-            return CurrentClassDeclaration?.DescendantNodes().OfType<MethodDeclarationSyntax>()
-                .Where(m => methodNames.Any(mn => mn.Equals(m.Identifier.ValueText)));
-        }
-        */
-
         public IEnumerable<string> WithMethods(Type type)
         {
             return null;
         }
 
-        public virtual IEnumerable<T> WithComponentInterfaces(bool reloadArchitectureProject = false)
+        public IEnumerable<Document>? WithDocuments()
         {
-            return new List<T>();
+            return CurrentProject?.Documents.Where(x => !x.FilePath.Contains(@"\obj\"));
         }
 
-        public virtual T? WithComponentInterface(string pattern)
+        public virtual string? GetComponentInterfaceAlias(string filePathPattern)
         {
-            return default(T);
+            return null;
         }
 
-        public virtual IEnumerable<D>? WithDocuments()
+        public virtual string GetFileExtension()
         {
-            return new List<D>();
+            return "*";
         }
-
 
     }
 }

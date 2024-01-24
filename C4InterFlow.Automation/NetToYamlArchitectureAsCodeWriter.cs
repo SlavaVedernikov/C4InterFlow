@@ -6,68 +6,46 @@ using Microsoft.CodeAnalysis.MSBuild;
 using C4InterFlow.Elements;
 using System.Text;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json.Linq;
+using YamlDotNet.Serialization.NamingConventions;
+using YamlDotNet.Serialization;
+using System.Text.Json.Nodes;
+using Newtonsoft.Json;
+using System.Dynamic;
 
 namespace C4InterFlow.Automation
 {
-    public class NetToYamlArchitectureAsCodeWriter : NetToAnyArchitectureAsCodeWriter<ClassDeclarationSyntax, Document>
+    public class NetToYamlArchitectureAsCodeWriter : NetToAnyArchitectureAsCodeWriter
     {
-        public NetToYamlArchitectureAsCodeWriter(string softwareSystemSolutionPath, string architectureRootNamespace) : base(softwareSystemSolutionPath, architectureRootNamespace)
+        public string? ArchitectureOutputPath { get; private set; }
+        public NetToYamlArchitectureAsCodeWriter(string softwareSystemSolutionPath, string architectureRootNamespace, string architectureOutputPath) : base(softwareSystemSolutionPath, architectureRootNamespace)
         {
+            ArchitectureOutputPath = architectureOutputPath;
         }
 
-        public MSBuildWorkspace? ArchitectureWorkspace { get; private set; }
-        public NetToYamlArchitectureAsCodeWriter WithArchitectureProject(string architectureProjectPath)
-        {
-                ArchitectureWorkspace = MSBuildWorkspace.Create(new Dictionary<string, string>()
-                {
-                    { "BuildingInsideVisualStudio", "true" }
-                });
-
-                ArchitectureWorkspace.OpenProjectAsync(architectureProjectPath).Wait();
-                return this;
-        }
         public override NetToYamlArchitectureAsCodeWriter AddSoftwareSystem(string softwareSystemName)
         {
-            var project = ArchitectureWorkspace.CurrentSolution.Projects.FirstOrDefault(x => x.Name == ArchitectureNamespace);
-
-            if (project == null)
-            {
-                Console.WriteLine($"Project '{ArchitectureNamespace}' was not found in '{ArchitectureWorkspace.CurrentSolution.FilePath}' Solution.");
-                return this;
-            }
-
-            var documentName = $"{softwareSystemName}.cs";
-
-            var projectDirectory = project.FilePath.Replace($"{project.Name}.csproj", string.Empty);
-            var fileDirectory = Path.Combine(projectDirectory, CodeGenerator<NetCodeWriter>.GetSoftwareSystemsDirectory());
+            var documentName = $"{softwareSystemName}.yaml";
+            var fileDirectory = Path.Combine(ArchitectureOutputPath, NetToAnyCodeGenerator<YamlCodeWriter>.GetSoftwareSystemsDirectory());
             Directory.CreateDirectory(fileDirectory);
 
             var filePath = Path.Combine(fileDirectory, documentName);
 
-            if (project.Documents.Any(x => x.FilePath == filePath))
+            if (File.Exists(filePath))
             {
-                Console.WriteLine($"Document '{filePath}' already exists in '{project.Name}' Project.");
+                Console.WriteLine($"Document '{filePath}' already exists.");
                 return this;
             }
 
-            var sourceCode = new StringBuilder(CodeGenerator<NetCodeWriter>.GetSoftwareSystemsCodeHeader(ArchitectureNamespace));
-
-            sourceCode.Append(
-                CodeGenerator<NetCodeWriter>.GetSoftwareSystemCode(
+            var sourceCode = NetToAnyCodeGenerator<YamlCodeWriter>.GetSoftwareSystemCode(
                 ArchitectureNamespace,
                 softwareSystemName,
-                NetCodeWriter.GetLabel(softwareSystemName)));
+                YamlCodeWriter.GetLabel(softwareSystemName));
 
-            sourceCode.AppendLine("}");
-
-            var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
-            var root = tree.GetRoot();
-            var formattedRoot = root.NormalizeWhitespace();
-            var formattedSourceCode = formattedRoot.ToFullString();
 
             if (!File.Exists(filePath))
             {
-                File.WriteAllText(filePath, formattedSourceCode);
+                File.WriteAllText(filePath, sourceCode);
             }
 
             return this;
@@ -75,47 +53,28 @@ namespace C4InterFlow.Automation
 
         public override NetToYamlArchitectureAsCodeWriter AddContainer(string softwareSystemName, string containerName)
         {
-            var project = ArchitectureWorkspace.CurrentSolution.Projects.FirstOrDefault(x => x.Name == ArchitectureNamespace);
+            var documentName = $"{containerName}.yaml";
 
-            if (project == null)
-            {
-                Console.WriteLine($"Project '{ArchitectureNamespace}' was not found in '{ArchitectureWorkspace.CurrentSolution.FilePath}' Solution.");
-                return this;
-            }
-
-            var documentName = $"{containerName}.cs";
-
-            var projectDirectory = project.FilePath.Replace($"{project.Name}.csproj", string.Empty);
-            var fileDirectory = Path.Combine(projectDirectory, CodeGenerator<NetCodeWriter>.GetContainersDirectory(softwareSystemName));
+            var fileDirectory = Path.Combine(ArchitectureOutputPath, NetToAnyCodeGenerator<YamlCodeWriter>.GetContainersDirectory(softwareSystemName));
             Directory.CreateDirectory(fileDirectory);
 
             var filePath = Path.Combine(fileDirectory, documentName);
 
-            if (project.Documents.Any(x => x.FilePath == filePath))
+            if (File.Exists(filePath))
             {
-                Console.WriteLine($"Document '{filePath}' already exists in '{project.Name}' Project.");
+                Console.WriteLine($"Document '{filePath}' already exists.");
                 return this;
             }
 
-            var sourceCode = new StringBuilder(CodeGenerator<NetCodeWriter>.GetSoftwareSystemsCodeHeader(ArchitectureNamespace));
-
-            sourceCode.Append(
-                CodeGenerator<NetCodeWriter>.GetContainerCode(
+            var sourceCode = NetToAnyCodeGenerator<YamlCodeWriter>.GetContainerCode(
                 ArchitectureNamespace,
                 softwareSystemName,
                 containerName,
-                NetCodeWriter.GetLabel(containerName)));
-
-            sourceCode.AppendLine("}");
-
-            var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
-            var root = tree.GetRoot();
-            var formattedRoot = root.NormalizeWhitespace();
-            var formattedSourceCode = formattedRoot.ToFullString();
+                YamlCodeWriter.GetLabel(containerName));
 
             if (!File.Exists(filePath))
             {
-                File.WriteAllText(filePath, formattedSourceCode);
+                File.WriteAllText(filePath, sourceCode);
             }
 
             return this;
@@ -123,49 +82,30 @@ namespace C4InterFlow.Automation
 
         public override NetToYamlArchitectureAsCodeWriter AddComponent(string softwareSystemName, string containerName, string componentName, ComponentType componentType = ComponentType.None)
         {
-            var project = ArchitectureWorkspace.CurrentSolution.Projects.FirstOrDefault(x => x.Name == ArchitectureNamespace);
+            var documentName = $"{componentName}.yaml";
 
-            if (project == null)
-            {
-                Console.WriteLine($"Project '{ArchitectureNamespace}' was not found in '{ArchitectureWorkspace.CurrentSolution.FilePath}' Solution.");
-                return this;
-            }
-
-            var documentName = $"{componentName}.cs";
-
-            var projectDirectory = project.FilePath.Replace($"{project.Name}.csproj", string.Empty);
-            var fileDirectory = Path.Combine(projectDirectory, CodeGenerator<NetCodeWriter>.GetComponentsDirectory(softwareSystemName, containerName));
+            var fileDirectory = Path.Combine(ArchitectureOutputPath, NetToAnyCodeGenerator<YamlCodeWriter>.GetComponentsDirectory(softwareSystemName, containerName));
             Directory.CreateDirectory(fileDirectory);
 
             var filePath = Path.Combine(fileDirectory, documentName);
 
-            if (project.Documents.Any(x => x.FilePath == filePath))
+            if (File.Exists(filePath))
             {
-                Console.WriteLine($"Document '{filePath}' already exists in '{project.Name}' Project.");
+                Console.WriteLine($"Document '{filePath}' already exists.");
                 return this;
             }
 
-            var sourceCode = new StringBuilder(CodeGenerator<NetCodeWriter>.GetSoftwareSystemsCodeHeader(ArchitectureNamespace));
-
-            sourceCode.Append(
-                CodeGenerator<NetCodeWriter>.GetComponentCode(
+            var sourceCode = NetToAnyCodeGenerator<YamlCodeWriter>.GetComponentCode(
                 ArchitectureNamespace,
                 softwareSystemName,
                 containerName,
                 componentName,
-                NetCodeWriter.GetLabel(componentName),
-                componentType.ToString()));
-
-            sourceCode.AppendLine("}");
-
-            var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
-            var root = tree.GetRoot();
-            var formattedRoot = root.NormalizeWhitespace();
-            var formattedSourceCode = formattedRoot.ToFullString();
+                YamlCodeWriter.GetLabel(componentName),
+                componentType.ToString());
 
             if (!File.Exists(filePath))
             {
-                File.WriteAllText(filePath, formattedSourceCode);
+                File.WriteAllText(filePath, sourceCode);
             }
 
             return this;
@@ -182,128 +122,136 @@ namespace C4InterFlow.Automation
             string? protocol = null,
             string? path = null)
         {
-            var architectureProject = ArchitectureWorkspace.CurrentSolution.Projects.FirstOrDefault(x => x.Name == ArchitectureNamespace);
+            var documentName = $"{interfaceName}.yaml";
 
-            if (architectureProject == null)
-            {
-                Console.WriteLine($"Project '{ArchitectureNamespace}' was not found in '{ArchitectureWorkspace.CurrentSolution.FilePath}' Solution.");
-                return this;
-            }
-
-            var documentName = $"{interfaceName}.cs";
-
-            var projectDirectory = architectureProject.FilePath.Replace($"{architectureProject.Name}.csproj", string.Empty);
-            var fileDirectory = Path.Combine(projectDirectory, CodeGenerator<NetCodeWriter>.GetComponentInterfacesDirectory(softwareSystemName, containerName, componentName));
+            var fileDirectory = Path.Combine(ArchitectureOutputPath, NetToAnyCodeGenerator<YamlCodeWriter>.GetComponentInterfacesDirectory(softwareSystemName, containerName, componentName));
             Directory.CreateDirectory(fileDirectory);
 
             var filePath = Path.Combine(fileDirectory, documentName);
 
-            if (architectureProject.Documents.Any(x => x.FilePath == filePath))
+            if (File.Exists(filePath))
             {
-                Console.WriteLine($"Document '{filePath}' already exists in '{architectureProject.Name}' Project.");
+                Console.WriteLine($"Document '{filePath}' already exists.");
                 return this;
             }
 
-            var sourceCode = new StringBuilder(CodeGenerator<NetCodeWriter>.GetSoftwareSystemsCodeHeader(ArchitectureNamespace));
-
-            sourceCode.Append(
-                CodeGenerator<NetCodeWriter>.GetComponentInterfaceCode(
+            var sourceCode = NetToAnyCodeGenerator<YamlCodeWriter>.GetComponentInterfaceCode(
                 architectureNamespace: ArchitectureNamespace,
                 softwareSystemName: softwareSystemName,
                 containerName: containerName,
                 componentName: componentName,
                 name: interfaceName,
-                label: NetCodeWriter.GetLabel(interfaceName),
+                label: YamlCodeWriter.GetLabel(interfaceName),
                 protocol: protocol,
                 path: path,
                 input: input,
-                output: output));
-
-            sourceCode.AppendLine("}");
-
-            var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
-            var root = tree.GetRoot();
-            var formattedRoot = root.NormalizeWhitespace();
-            var formattedSourceCode = formattedRoot.ToFullString();
+                output: output);
 
             //TODO: Add support for Interface method overloads
             if (!File.Exists(filePath))
             {
-                File.WriteAllText(filePath, formattedSourceCode);
+                File.WriteAllText(filePath, sourceCode);
             }
 
             return this;
         }
 
-        public override IEnumerable<ClassDeclarationSyntax> WithComponentInterfaces(bool reloadArchitecture = false)
+        public void AddFlowToComponentInterfaceClass(string filePath,
+            IEnumerable<NetToAnyMethodTriggerMapper>? methodTriggerMappers = null,
+            IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
-            var result = new List<ClassDeclarationSyntax>();
+            var systemMethodDeclaration = ComponentMethodInterfaceObjectMap.GetValueOrDefault(filePath);
 
-            var project = ArchitectureWorkspace.CurrentSolution.Projects.FirstOrDefault(x => x.Name == ArchitectureNamespace);
-            if(reloadArchitecture)
+            Console.WriteLine($"Add Flow To Component Interface for '{filePath}'.");
+            if (systemMethodDeclaration == null)
             {
-                ArchitectureWorkspace.CloseSolution();
-                project = ArchitectureWorkspace.OpenProjectAsync(project.FilePath).Result;
+                Console.WriteLine($"System Method Declaration was not found.");
+                return;
             }
 
-            var interfaceInstanceType = typeof(C4InterFlow.Elements.Interfaces.IInterfaceInstance);
-            string pattern = @"^.*\\Components\\.*\\Interfaces\\.*$";
-            
-            var compilation = project.GetCompilationAsync().Result;
+            var architectureObject = GetJsonObjectFromFile(filePath); ;
+            var flowCode = NetToAnyCodeGenerator<YamlCodeWriter>.GetFlowCode(
+                systemMethodDeclaration,
+                new JObjectArchitectureAsCodeContext(architectureObject),
+                this,
+                alternativeInvocationMappers);
 
-            foreach (var syntaxTree in compilation.SyntaxTrees)
-            {
-                if (!Regex.IsMatch(syntaxTree.FilePath, pattern)) continue;
+            //Remove \t characters
+            flowCode = flowCode.Replace("\t", string.Empty);
 
-                var semanticModel = compilation.GetSemanticModel(syntaxTree);
+            var flowJsonObject = GetJsonObjectFromYaml(flowCode);
 
-                var root = syntaxTree.GetRoot();
+            var componentInterfaceJsonObject = architectureObject.SelectToken("..SoftwareSystems.*.Containers.*.Components.*.Interfaces.*") as JObject;
 
-                var classes = root.DescendantNodes().OfType<ClassDeclarationSyntax>()
-                    .Where(c => c.BaseList != null &&
-                        syntaxTree.FilePath.EndsWith($"{c.Identifier.ValueText}.cs") &&   
-                        c.BaseList.Types.Any(t => t.Type.ToString() == interfaceInstanceType.Name));
+            componentInterfaceJsonObject["Flow"] = flowJsonObject["Flow"];
 
-                result.AddRange(classes);
-            }
+            var json = JsonConvert.SerializeObject(architectureObject, Formatting.Indented);
+            var yaml = new SerializerBuilder().Build().Serialize(JsonConvert.DeserializeObject<ExpandoObject>(json));
+
+            File.WriteAllText(filePath, yaml);
+        }
+
+        public List<string> WithComponentInterfaces()
+        {
+            string pattern = @"^.*\\SoftwareSystems\\.*\\Containers\\.*\\Components\\.*\\Interfaces\\.*\.yaml$";
+            List<string> result = Directory.GetFiles(ArchitectureOutputPath, "*.yaml", SearchOption.AllDirectories)
+                .Where(x => Regex.IsMatch(x, pattern)).ToList();
 
             return result;
         }
 
-        public override ClassDeclarationSyntax? WithComponentInterface(string pattern)
+        private JObject GetJsonObjectFromFile(string filePath)
         {
-            var project = ArchitectureWorkspace.CurrentSolution.Projects.FirstOrDefault(x => x.Name == ArchitectureNamespace);
+            var yaml = File.ReadAllText(filePath);
 
-            var interfaceInstanceType = typeof(C4InterFlow.Elements.Interfaces.IInterfaceInstance);
+            return GetJsonObjectFromYaml(yaml);
+        }
 
-            var compilation = project.GetCompilationAsync().Result;
-            var syntaxTree = compilation.SyntaxTrees.Where(x => Regex.IsMatch(x.FilePath, pattern)).FirstOrDefault();
+        private JObject GetJsonObjectFromYaml(string yaml)
+        {
+            var deserializer = new DeserializerBuilder().WithNamingConvention(UnderscoredNamingConvention.Instance).Build();
+            var yamlObject = deserializer.Deserialize(yaml);
 
-            if(syntaxTree != null)
+            var serializer = new SerializerBuilder()
+                .JsonCompatible()
+                .Build();
+
+            string json = serializer.Serialize(yamlObject);
+
+            return JObject.Parse(json);
+        }
+
+        public override string? GetComponentInterfaceAlias(string filePathPattern)
+        {
+            var result = string.Empty;
+
+            var filePath = Directory.GetFiles(ArchitectureOutputPath, "*.yaml", SearchOption.AllDirectories)
+                .FirstOrDefault(x => Regex.IsMatch(x, filePathPattern));
+
+            if(!string.IsNullOrEmpty(filePath))
             {
-                var semanticModel = compilation.GetSemanticModel(syntaxTree);
+                try
+                {
+                    var jsonObject = GetJsonObjectFromFile(filePath);
+                    var selectedToken = jsonObject.SelectToken("..SoftwareSystems.*.Containers.*.Components.*.Interfaces.*");
 
-                var root = syntaxTree.GetRoot();
-
-                var classes = root.DescendantNodes().OfType<ClassDeclarationSyntax>()
-                    .Where(c => c.BaseList != null &&
-                        syntaxTree.FilePath.EndsWith($"{c.Identifier.ValueText}.cs") &&
-                        c.BaseList.Types.Any(t => t.Type.ToString() == interfaceInstanceType.Name));
-
-                return classes.FirstOrDefault();
+                    if (selectedToken != null)
+                    {
+                        result = selectedToken.Path;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Could not get Alias from file pattern '{filePathPattern}'. Error: '{ex.Message}'");
+                }
             }
-
-                
-
-
-            return null;
+            return result;
         }
 
-        public override IEnumerable<Document>? WithDocuments()
+        public override string GetFileExtension()
         {
-            return CurrentProject?.Documents.Where(x => !x.FilePath.Contains(@"\obj\"));
+            return "yaml";
         }
-
 
     }
 }

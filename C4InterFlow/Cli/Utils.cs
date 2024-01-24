@@ -1,12 +1,5 @@
-﻿using C4InterFlow.Elements;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.Loader;
-using System.Text;
-using System.Threading.Tasks;
-using static C4InterFlow.Utils.ExternalSystem;
 
 namespace C4InterFlow.Cli
 {
@@ -15,6 +8,8 @@ namespace C4InterFlow.Cli
         public static IEnumerable<string> ResolveWildcardStructures(IEnumerable<string> structures)
         {
             var result = new List<string>();
+
+            if (structures == null) return result;
 
             foreach (var item in structures)
             {
@@ -45,9 +40,16 @@ namespace C4InterFlow.Cli
                                     var newType = C4InterFlow.Utils.GetType(typeItem + segmentItem);
                                     if (newType != null)
                                     {
-                                        foreach (var nestedType in newType.GetNestedTypes())
+                                        if(segments.Last().Equals(segmentItem))
                                         {
-                                            newTypes.Add(nestedType.FullName.Replace("+", "."));
+                                            newTypes.Add(typeItem + segmentItem);
+                                        }
+                                        else
+                                        {
+                                            foreach (var nestedType in newType.GetNestedTypes())
+                                            {
+                                                newTypes.Add(nestedType.FullName.Replace("+", "."));
+                                            }
                                         }
                                     }
                                 }
@@ -130,7 +132,7 @@ namespace C4InterFlow.Cli
             }
         }
 
-        public static void WriteLines(List<string> items, string filePath)
+        public static void WriteLines(List<string> items, string filePath, bool append = false)
         {
             string directoryPath = Path.GetDirectoryName(filePath);
 
@@ -141,7 +143,7 @@ namespace C4InterFlow.Cli
 
             try
             {
-                using (StreamWriter writer = new StreamWriter(filePath))
+                using (StreamWriter writer = new StreamWriter(filePath, append))
                 {
                     foreach (string item in items)
                     {

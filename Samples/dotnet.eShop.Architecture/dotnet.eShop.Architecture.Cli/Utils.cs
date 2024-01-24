@@ -57,7 +57,7 @@ namespace dotnet.eShop.Architecture.Cli
             return result == true;
         }
 
-        public static void MapTypeInterfacesInvocation(InvocationExpressionSyntax invocation, SemanticModel semanticModel, IList<string> usesAliases, NetToNetArchitectureAsCodeWriter writer, Dictionary<string, object>? args)
+        public static void MapTypeInterfacesInvocation(InvocationExpressionSyntax invocation, SemanticModel semanticModel, IList<string> usesAliases, NetToAnyArchitectureAsCodeWriter writer, Dictionary<string, object>? args)
         {
             if (!TryGetArgument(args, ARG_SOFTWARE_SYSTEM_NAME, out string softwareSystemName)) return;
             if (!TryGetArgument(args, ARG_INVOCATION_INTERFACES, out string[] invocationInterfaces)) return;
@@ -80,8 +80,9 @@ namespace dotnet.eShop.Architecture.Cli
 
             if (invocationReceiverType?.ToDisplayString() == invocationReceiverTypeName)
             {
-                var componentInterfaceFilePath = @$"^{(softwareSystemName == null ? ".*" : $@".*\\SoftwareSystems\\{softwareSystemName}")}\\Containers\\{containerName}\\Components\\{componentName}\\Interfaces\\{memberIdentifierNameSyntax?.Identifier.Text ?? memberGenericNameSyntax?.Identifier.Text}\.cs$";
-                var interfaceAliasValue = writer.WithComponentInterface(componentInterfaceFilePath)?.GetAliasFieldValue();
+                //var componentInterfaceFilePath = @$"^{(softwareSystemName == null ? ".*" : $@".*\\SoftwareSystems\\{softwareSystemName}")}\\Containers\\{containerName}\\Components\\{componentName}\\Interfaces\\{memberIdentifierNameSyntax?.Identifier.Text ?? memberGenericNameSyntax?.Identifier.Text}\.cs$";
+                var componentInterfaceFilePath = @$"^.*\\SoftwareSystems\\{softwareSystemName}\\Containers\\{containerName}\\Components\\{componentName}\\Interfaces\\{memberIdentifierNameSyntax?.Identifier.Text ?? memberGenericNameSyntax?.Identifier.Text}\.{writer.GetFileExtension()}";
+                var interfaceAliasValue = writer.GetComponentInterfaceAlias(componentInterfaceFilePath);
 
                 if (!string.IsNullOrEmpty(interfaceAliasValue))
                 {
@@ -90,7 +91,7 @@ namespace dotnet.eShop.Architecture.Cli
             }
         }
 
-        public static void MapDbContextEntityInvocation(InvocationExpressionSyntax invocation, SemanticModel semanticModel, IList<string> usesAliases, NetToNetArchitectureAsCodeWriter writer, Dictionary<string, object>? args)
+        public static void MapDbContextEntityInvocation(InvocationExpressionSyntax invocation, SemanticModel semanticModel, IList<string> usesAliases, NetToAnyArchitectureAsCodeWriter writer, Dictionary<string, object>? args)
         {
             if (!TryGetArgument(args, ARG_SOFTWARE_SYSTEM_NAME, out string softwareSystemName)) return;
             if (!TryGetArgument(args, ARG_INVOCATION_INTERFACES, out string[] invocationInterfaces)) return;
@@ -113,7 +114,7 @@ namespace dotnet.eShop.Architecture.Cli
             {
                 var entitySyntax = expressionSegments[2];
                 var componentName = invocationReceiverType.Name.Replace("Services", "Context");
-                var interfaceAliasValue = writer.WithComponentInterface(@$"^{(softwareSystemName == null ? ".*" : $@".*\\SoftwareSystems\\{softwareSystemName}")}\\Containers\\{containerName}\\Components\\{componentName}\\Interfaces\\{entitySyntax}{memberSyntax}\.cs$")?.GetAliasFieldValue();
+                var interfaceAliasValue = writer.GetComponentInterfaceAlias(@$"^{(softwareSystemName == null ? ".*" : $@".*\\SoftwareSystems\\{softwareSystemName}")}\\Containers\\{containerName}\\Components\\{componentName}\\Interfaces\\{entitySyntax}{memberSyntax}\.{writer.GetFileExtension()}$");
 
                 if (!string.IsNullOrEmpty(interfaceAliasValue))
                 {
@@ -122,7 +123,7 @@ namespace dotnet.eShop.Architecture.Cli
             }
         }
 
-        public static void MapDbContextInvocation(InvocationExpressionSyntax invocation, SemanticModel semanticModel, IList<string> usesAliases, NetToNetArchitectureAsCodeWriter writer, Dictionary<string, object>? args)
+        public static void MapDbContextInvocation(InvocationExpressionSyntax invocation, SemanticModel semanticModel, IList<string> usesAliases, NetToAnyArchitectureAsCodeWriter writer, Dictionary<string, object>? args)
         {
             if (!TryGetArgument(args, ARG_SOFTWARE_SYSTEM_NAME, out string softwareSystemName)) return;
             if (!TryGetArgument(args, ARG_INVOCATION_INTERFACES, out string[] invocationInterfaces)) return;
@@ -144,7 +145,7 @@ namespace dotnet.eShop.Architecture.Cli
                 expressionSegments?.Any(x => x.Identifier.Text == "Context") == true)
             {
                 var componentName = invocationReceiverType.Name.Replace("Services", "Context");
-                var interfaceAliasValue = writer.WithComponentInterface(@$"^{(softwareSystemName == null ? ".*" : $@".*\\SoftwareSystems\\{softwareSystemName}")}\\Containers\\{containerName}\\Components\\{componentName}\\Interfaces\\{memberSyntax}\.cs$")?.GetAliasFieldValue();
+                var interfaceAliasValue = writer.GetComponentInterfaceAlias(@$"^{(softwareSystemName == null ? ".*" : $@".*\\SoftwareSystems\\{softwareSystemName}")}\\Containers\\{containerName}\\Components\\{componentName}\\Interfaces\\{memberSyntax}\.{writer.GetFileExtension()}$");
 
                 if (!string.IsNullOrEmpty(interfaceAliasValue))
                 {

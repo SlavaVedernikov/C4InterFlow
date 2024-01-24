@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace dotnet.eShop.Architecture.Cli
 {
-    public class BasketApiAaCGenerationStrategy : NetToNetArchitectureAsCodeStrategy
+    public class NetToNetCatalogApiAaCGenerationStrategy : NetToNetArchitectureAsCodeStrategy
     {
         public override void Execute()
         {
@@ -24,18 +24,18 @@ namespace dotnet.eShop.Architecture.Cli
             var containerName = string.Empty;
             var componentName = string.Empty;
 
-            projectName = "Basket.API";
-            containerName = "Grpc";
+            projectName = "Catalog.API";
+            containerName = "Api";
 
             writer.WithSoftwareSystemProject(projectName)
                 .AddContainer(SoftwareSystemName, containerName);
 
             Console.WriteLine($"Adding {containerName} Container, Component and Interface classes for '{projectName}' project...");
-            writer.WithDocuments().Where(d => d.FilePath.Contains(@"\Grpc\") && d.Name.EndsWith("Service.cs"))
+            writer.WithDocuments().Where(d => d.FilePath.Contains(@"\Apis\") && d.Name.EndsWith("Api.cs"))
                 //.WithConfirmation(addComponentClassAction)
                 .ToList().ForEach(d =>
                 {
-                    d.WithClasses().Where(c => c.Identifier.Text.EndsWith("Service"))
+                    d.WithClasses().Where(c => c.Identifier.Text.EndsWith("Api"))
                     //.WithConfirmation(addComponentClassAction)
                     .ToList().ForEach(c =>
                     {
@@ -51,39 +51,42 @@ namespace dotnet.eShop.Architecture.Cli
                     });
                 });
 
-            containerName = "Data";
-
-            writer.AddContainer(SoftwareSystemName, containerName);
+            containerName = "Infrastructure";
 
             Console.WriteLine($"Adding {containerName} Container, Component and Interface classes for '{projectName}' project...");
-            writer.WithDocuments().Where(d => d.FilePath.Contains(@"\Repositories\") && d.Name.EndsWith("Repository.cs"))
+            writer.AddContainer(SoftwareSystemName, containerName);
+
+            writer.WithDocuments().Where(d => d.FilePath.Contains(@"\Infrastructure\") && d.Name.EndsWith("Context.cs"))
                 //.WithConfirmation(addComponentClassAction)
                 .ToList().ForEach(d =>
                 {
-                    d.WithClasses().Where(c => c.Identifier.Text.EndsWith("Repository"))
+                    d.WithClasses().Where(c => c.Identifier.Text.EndsWith("Context"))
                     //.WithConfirmation(addComponentClassAction)
                     .ToList().ForEach(c =>
                     {
                         c.AddComponentClass(SoftwareSystemName, containerName, writer)
-                        .WithMethods()
+                        .WithProperties()
                         //.WithConfirmation(addComponentInterfaceClassAction)
-                        .ToList().ForEach(m =>
-                            m.AddComponentInterfaceClass(
+                        .ToList().ForEach(p =>
+                            p.AddComponentInterfaceClass(
                                 SoftwareSystemName,
                                 containerName,
                                 c.Identifier.Text,
-                                writer));
+                                writer,
+                                Utils.DbContextEntityInterfaces));
+
+                        foreach (var @interface in Utils.DbContextInterfaces)
+                        {
+                            writer.AddComponentInterface(
+                                SoftwareSystemName,
+                                containerName,
+                                c.Identifier.Text,
+                                @interface);
+                        }
+
                     });
                 });
 
-            componentName = "RedisDatabase";
-
-            writer.AddComponent(SoftwareSystemName, containerName, componentName);
-
-            foreach (var @interface in Utils.RedisDatabaseInterfaces)
-            {
-                writer.AddComponentInterface(SoftwareSystemName, containerName, componentName, @interface);
-            }
 
             Console.WriteLine($"Adding Software System Type Mappings...");
             AddSoftwareSystemTypeMapping(writer);
@@ -92,16 +95,22 @@ namespace dotnet.eShop.Architecture.Cli
             writer.WithComponentInterfaces(true).ToList()
                 .ForEach(x => x.AddFlowToComponentInterfaceClass(
                     writer, null,
-                    new NetToNetAlternativeInvocationMapperConfig[]
+                    new NetToAnyAlternativeInvocationMapperConfig[]
                     {
-                        new NetToNetAlternativeInvocationMapperConfig() {
-                            Mapper = Utils.MapTypeInterfacesInvocation,
-                            Args = new Dictionary<string, object>() { 
+                        new NetToAnyAlternativeInvocationMapperConfig() {
+                            Mapper = Utils.MapDbContextEntityInvocation,
+                            Args = new Dictionary<string, object>() {
                                 { Utils.ARG_SOFTWARE_SYSTEM_NAME, SoftwareSystemName },
-                                { Utils.ARG_INVOCATION_INTERFACES, Utils.RedisDatabaseInterfaces },
-                                { Utils.ARG_INVOCATION_RECEIVER_TYPE_NAME, "StackExchange.Redis.IDatabase" },
-                                { Utils.ARG_CONTAINER_NAME, "Data" },
-                                { Utils.ARG_COMPONENT_NAME, "RedisDatabase" },
+                                { Utils.ARG_INVOCATION_INTERFACES, Utils.DbContextEntityInterfaces },
+                                { Utils.ARG_CONTAINER_NAME, "Infrastructure" }
+                            }
+                        },
+                        new NetToAnyAlternativeInvocationMapperConfig() {
+                            Mapper = Utils.MapDbContextInvocation,
+                            Args = new Dictionary<string, object>() {
+                                { Utils.ARG_SOFTWARE_SYSTEM_NAME, SoftwareSystemName },
+                                { Utils.ARG_INVOCATION_INTERFACES, Utils.DbContextInterfaces },
+                                { Utils.ARG_CONTAINER_NAME, "Infrastructure" }
                             }
                         }
                     }));
@@ -109,11 +118,10 @@ namespace dotnet.eShop.Architecture.Cli
 
         private void AddSoftwareSystemTypeMapping(NetToNetArchitectureAsCodeWriter writer)
         {
-            var softwareSystemRootNamespace = "eShop.Basket.API";
+            var softwareSystemRootNamespace = "eShop.Catalog.API";
             var services = new Dictionary<string, string>
             {
-                { $"{softwareSystemRootNamespace}.Grpc.BasketService", $"{softwareSystemRootNamespace}.Grpc.BasketService" },
-                { $"{softwareSystemRootNamespace}.Repositories.IBasketRepository", $"{softwareSystemRootNamespace}.Repositories.RedisBasketRepository" }
+                
             };
 
 

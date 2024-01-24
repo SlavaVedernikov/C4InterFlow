@@ -8,9 +8,9 @@ public static class OutputDirectoryOption
     public static Option<string> Get()
     {
         const string description =
-            "The directory where the Diagram(s) should be saved.";
+            "The output directory for the current command.";
 
-        var option = new Option<string>(new[] { "--output-dir", "-o" }, description);
+        var option = new Option<string>(new[] { "--output-dir", "-od" }, description);
 
         option.SetDefaultValue(Directory.GetCurrentDirectory());
 

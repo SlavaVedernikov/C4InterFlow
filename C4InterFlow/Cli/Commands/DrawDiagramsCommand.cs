@@ -5,7 +5,6 @@ using C4InterFlow.Diagrams.Plantuml;
 using C4InterFlow.Elements;
 using C4InterFlow.Cli.Commands.Binders;
 using System.Text.RegularExpressions;
-using System.IO;
 
 namespace C4InterFlow.Cli.Commands;
 
@@ -26,6 +25,7 @@ public class DrawDiagramsCommand : Command
         var showBoundariesOption = ShowBoundariesOption.Get();
         var showInterfaceInputAndOutputOption = ShowInterfaceInputAndOutputOption.Get();
         var outputDirectoryOption = OutputDirectoryOption.Get();
+        var outputSubDirectoryOption = OutputSubDirectoryOption.Get();
         var diagramNamePrefixOption = DiagramNamePrefixOption.Get();
 
         AddOption(diagramScopesOption);
@@ -38,6 +38,7 @@ public class DrawDiagramsCommand : Command
         AddOption(showBoundariesOption);
         AddOption(showInterfaceInputAndOutputOption);
         AddOption(outputDirectoryOption);
+        AddOption(outputSubDirectoryOption);
         AddOption(diagramNamePrefixOption);
 
         this.SetHandler(async (diagramOptions, interfaces, interfacesInputFile, businessProcesses, displayOptions, outputOptions) =>
@@ -49,10 +50,10 @@ public class DrawDiagramsCommand : Command
             interfacesInputFileOption,
             businessProcesesOption,
             new DisplayOptionsBinder(showBoundariesOption, showInterfaceInputAndOutputOption), 
-            new OutputOptionsBinder(outputDirectoryOption, diagramNamePrefixOption, diagramFormatsOption));
+            new OutputOptionsBinder(outputDirectoryOption, outputSubDirectoryOption, diagramNamePrefixOption, diagramFormatsOption));
     }
 
-    private static async Task<int> Execute(DiagramOptions diagramOptions, string[] interfaceAliases, string interfacesInputFile, string[] businessProcessTypeNames, DisplayOptions displayOptions, OutputOptions outputOptions)
+    public static async Task<int> Execute(DiagramOptions diagramOptions, string[]? interfaceAliases, string? interfacesInputFile, string[]? businessProcessTypeNames, DisplayOptions displayOptions, OutputOptions outputOptions)
     {
         try
         {
@@ -76,6 +77,9 @@ public class DrawDiagramsCommand : Command
                 var businessProcesses = GetBusinessProcesses(resolvedBusinessProcessTypeNames, diagramScope).ToArray();
 
                 Console.WriteLine($"Found {interfaces.Count()} interface(s) and {businessProcesses.Count()} business processe(s) for '{diagramScope}' scope.");
+                
+                if (!interfaces.Any() && !businessProcesses.Any()) continue;
+
                 foreach (var diagramType in diagramOptions.Types)
                 {
                     foreach (var levelOfDetails in diagramOptions.LevelsOfDetails)
@@ -95,7 +99,9 @@ public class DrawDiagramsCommand : Command
                                         outputOptions.Formats,
                                         displayOptions.ShowBoundaries,
                                         displayOptions.ShowInterfaceInputAndOutput,
-                                        outputOptions.OutputDirectory);
+                                        outputOptions.OutputDirectory,
+                                        outputOptions.OutputSubDirectory,
+                                        outputOptions.DiagramNamePrefix);
 
                                     DrawSequenceDiagrams(
                                         diagramScope,
@@ -104,7 +110,9 @@ public class DrawDiagramsCommand : Command
                                         outputOptions.Formats,
                                         displayOptions.ShowBoundaries,
                                         displayOptions.ShowInterfaceInputAndOutput,
-                                        outputOptions.OutputDirectory);
+                                        outputOptions.OutputDirectory,
+                                        outputOptions.OutputSubDirectory,
+                                        outputOptions.DiagramNamePrefix);
                                     break;
                                 }
                             case string c4type
@@ -120,6 +128,7 @@ public class DrawDiagramsCommand : Command
                                         displayOptions.ShowBoundaries,
                                         displayOptions.ShowInterfaceInputAndOutput,
                                         outputOptions.OutputDirectory,
+                                        outputOptions.OutputSubDirectory,
                                         isStatic,
                                         outputOptions.DiagramNamePrefix);
 
@@ -131,6 +140,7 @@ public class DrawDiagramsCommand : Command
                                         displayOptions.ShowBoundaries,
                                         displayOptions.ShowInterfaceInputAndOutput,
                                         outputOptions.OutputDirectory,
+                                        outputOptions.OutputSubDirectory,
                                         isStatic);
                                     break;
                                 }
@@ -401,8 +411,10 @@ public class DrawDiagramsCommand : Command
         }
     }
 
-    private static void DrawSequenceDiagrams(string scope, string levelOfDetails, BusinessProcess[] businessProcesses, string[] formats, bool showBoundaries, bool showInterfaceInputAndOutput, string outputDirectory)
+    private static void DrawSequenceDiagrams(string scope, string levelOfDetails, BusinessProcess[] businessProcesses, string[] formats, bool showBoundaries, bool showInterfaceInputAndOutput, string outputDirectory, string? outputSubDirectory = null, string? diagramNamePrefix = null)
     {
+        if (!businessProcesses.Any()) return;
+
         var context = new PlantumlSequenceContext();
         if (formats.Contains(DiagramFormatsOption.PNG))
         {
@@ -427,7 +439,9 @@ public class DrawDiagramsCommand : Command
                     DiagramTypesOption.SEQUENCE,
                     businessProcess,
                     out var path,
-                    out var fileName))
+                    out var fileName,
+                    outputSubDirectory,
+                    diagramNamePrefix))
             {
                 context.Export(outputDirectory, diagram, path, fileName);
             }
@@ -435,8 +449,10 @@ public class DrawDiagramsCommand : Command
         
     }
 
-    private static void DrawC4Diagrams(string scope, string levelOfDetails, BusinessProcess[] businessProcesses, string[] formats, bool showBoundaries, bool showInterfaceInputAndOutput, string outputDirectory, bool isStatic = false)
+    private static void DrawC4Diagrams(string scope, string levelOfDetails, BusinessProcess[] businessProcesses, string[] formats, bool showBoundaries, bool showInterfaceInputAndOutput, string outputDirectory, string? outputSubDirectory = null, bool isStatic = false, string? diagramNamePrefix = null)
     {
+        if (!businessProcesses.Any()) return;
+
         var context = new PlantumlContext();
         if (formats.Contains(DiagramFormatsOption.PNG))
         {
@@ -461,15 +477,19 @@ public class DrawDiagramsCommand : Command
                     isStatic ? DiagramTypesOption.C4_STATIC : DiagramTypesOption.C4,
                     businessProcess,
                     out var path,
-                    out var fileName))
+                    out var fileName,
+                    outputSubDirectory,
+                    diagramNamePrefix))
             {
                 context.Export(outputDirectory, diagram, path, fileName);
             }
         });
     }
 
-    private static void DrawSequenceDiagrams(string scope, string levelOfDetails, Interface[] interfaces, string[] formats, bool showBoundaries, bool showInterfaceInputAndOutput, string outputDirectory)
+    private static void DrawSequenceDiagrams(string scope, string levelOfDetails, Interface[] interfaces, string[] formats, bool showBoundaries, bool showInterfaceInputAndOutput, string outputDirectory, string? outputSubDirectory = null, string? diagramNamePrefix = null)
     {
+        if (!interfaces.Any()) return;
+
         var context = new PlantumlSequenceContext();
         if (formats.Contains(DiagramFormatsOption.PNG))
         {
@@ -494,15 +514,19 @@ public class DrawDiagramsCommand : Command
                     DiagramTypesOption.SEQUENCE,
                     @interface,
                     out var path,
-                    out var fileName))
+                    out var fileName,
+                    outputSubDirectory,
+                    diagramNamePrefix))
             {
                 context.Export(outputDirectory, diagram, path, fileName);
             }
         });
     }
 
-    private static void DrawC4Diagrams(string scope, string levelOfDetails, Interface[] interfaces, string[] formats, bool showBoundaries, bool showInterfaceInputAndOutput, string outputDirectory, bool isStatic = false, string? namePrefix = null)
+    private static void DrawC4Diagrams(string scope, string levelOfDetails, Interface[] interfaces, string[] formats, bool showBoundaries, bool showInterfaceInputAndOutput, string outputDirectory, string? outputSubDirectory = null, bool isStatic = false, string? diagramNamePrefix = null)
     {
+        if (!interfaces.Any()) return;
+
         var context = new PlantumlContext();
         if (formats.Contains(DiagramFormatsOption.PNG))
         {
@@ -526,7 +550,8 @@ public class DrawDiagramsCommand : Command
                     isStatic ? DiagramTypesOption.C4_STATIC : DiagramTypesOption.C4,
                     out var path,
                     out var fileName,
-                    namePrefix))
+                    outputSubDirectory,
+                    diagramNamePrefix))
             {
                 context.Export(outputDirectory, diagram, path, fileName);
             }
@@ -549,7 +574,9 @@ public class DrawDiagramsCommand : Command
                         isStatic ? DiagramTypesOption.C4_STATIC : DiagramTypesOption.C4,
                         systemInterfaces.First(),
                         out var path,
-                        out var fileName))
+                        out var fileName,
+                        outputSubDirectory,
+                        diagramNamePrefix))
                 {
                     context.Export(outputDirectory, diagram, path, fileName);
                 }
@@ -574,7 +601,9 @@ public class DrawDiagramsCommand : Command
                         isStatic ? DiagramTypesOption.C4_STATIC : DiagramTypesOption.C4,
                         containerInterfaces.First(),
                         out var path,
-                        out var fileName))
+                        out var fileName,
+                        outputSubDirectory,
+                        diagramNamePrefix))
                 {
                     context.Export(outputDirectory, diagram, path, fileName);
                 }
@@ -599,7 +628,9 @@ public class DrawDiagramsCommand : Command
                         isStatic ? DiagramTypesOption.C4_STATIC : DiagramTypesOption.C4,
                         componentInterfaces.First(),
                         out var path,
-                        out var fileName))
+                        out var fileName,
+                        outputSubDirectory,
+                        diagramNamePrefix))
                 {
                     context.Export(outputDirectory, diagram, path, fileName);
                 }
@@ -618,7 +649,9 @@ public class DrawDiagramsCommand : Command
                     isStatic ? DiagramTypesOption.C4_STATIC : DiagramTypesOption.C4,
                     @interface,
                     out var path,
-                    out var fileName))
+                    out var fileName,
+                    outputSubDirectory,
+                    diagramNamePrefix))
                 {
                     context.Export(outputDirectory, diagram, path, fileName);
                 }
@@ -635,14 +668,22 @@ public class DrawDiagramsCommand : Command
             return $"{businessProcess.Label} - {levelOfDetails.ToUpper()} level)";
     }
 
-    private static bool TryGetDiagramPath(string scope, string levelOfDetails, string diagramType, out string path, out string fileName, string? namePrefix = null)
+    private static bool TryGetDiagramPath(string scope, string levelOfDetails, string diagramType, out string path, out string fileName, string? outputSubDirectory = null, string? diagramNamePrefix = null)
     {
         switch (scope)
         {
             case DiagramScopesOption.SOFTWARE_SYSTEMS:
             {
-                path = "Software Systems";
-                fileName = $"{(namePrefix != null ? $"{namePrefix} - " : string.Empty)}{ToPrettyName(levelOfDetails)} {ToPrettyName(diagramType)}.puml";
+                if (!string.IsNullOrEmpty(outputSubDirectory))
+                {
+                    path = outputSubDirectory;
+                }
+                else
+                {
+                    path = "Software Systems";
+                }
+
+                fileName = $"{(!string.IsNullOrEmpty(diagramNamePrefix) ? $"{diagramNamePrefix} - " : string.Empty)}{ToPrettyName(levelOfDetails)} {ToPrettyName(diagramType)}.puml";
 
                 break;
             }
@@ -657,10 +698,18 @@ public class DrawDiagramsCommand : Command
 
         return !string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(fileName);
     }
-    private static bool TryGetDiagramPath(string scope, string levelOfDetails, string diagramType, Interface @interface, out string path, out string fileName)
+    private static bool TryGetDiagramPath(string scope, string levelOfDetails, string diagramType, Interface @interface, out string path, out string fileName, string? outputSubDirectory = null, string? diagramNamePrefix = null)
     {
-        path = "Software Systems";
-        fileName = $"{ToPrettyName(levelOfDetails)} {ToPrettyName(diagramType)}.puml";
+        if (!string.IsNullOrEmpty(outputSubDirectory))
+        {
+            path = outputSubDirectory;
+        }
+        else
+        {
+            path = "Software Systems";
+        }
+
+        fileName = $"{(!string.IsNullOrEmpty(diagramNamePrefix) ? $"{diagramNamePrefix} - " : string.Empty)}{ToPrettyName(levelOfDetails)} {ToPrettyName(diagramType)}.puml";
         
         switch (scope)
         {
@@ -764,10 +813,19 @@ public class DrawDiagramsCommand : Command
         return result;
     }
 
-    private static bool TryGetDiagramPath(string scope, string levelOfDetails, string diagramType, BusinessProcess businessProcess, out string path, out string fileName)
+    private static bool TryGetDiagramPath(string scope, string levelOfDetails, string diagramType, BusinessProcess businessProcess, out string path, out string fileName, string? outputSubDirectory = null, string? diagramNamePrefix = null)
     {
-        path = "Business Processes";
-        fileName = $"{ToPrettyName(levelOfDetails)} {ToPrettyName(diagramType)}.puml";
+        
+        if(!string.IsNullOrEmpty(outputSubDirectory))
+        {
+            path = outputSubDirectory;
+        }
+        else
+        {
+            path = $"Business Processes";
+        }
+
+        fileName = $"{(!string.IsNullOrEmpty(diagramNamePrefix) ? $"{diagramNamePrefix} - " : string.Empty)}{ToPrettyName(levelOfDetails)} {ToPrettyName(diagramType)}.puml";
 
         switch (scope)
         {
