@@ -1,10 +1,10 @@
 ﻿namespace C4InterFlow.Automation
 {
-    public class ArchitectureAsCodeContext
+    public class ArchitectureAsCodeWriterContext
     {
         private ArchitectureAsCodeStrategy Strategy { get; set; }
 
-        public ArchitectureAsCodeContext(ArchitectureAsCodeStrategy strategy, string architectureRootNamespace, string? architectureOutputPath, Dictionary<string, string>? parameters)
+        public ArchitectureAsCodeWriterContext(ArchitectureAsCodeStrategy strategy, string architectureRootNamespace, string? architectureOutputPath, Dictionary<string, string>? parameters)
         {
             Strategy = strategy;
             var missingRequiredParameters = strategy.GetParameterDefinitions().Where(x => 

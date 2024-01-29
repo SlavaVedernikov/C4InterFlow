@@ -31,11 +31,11 @@ public class QueryByInputCommand : Command
 
             var resolvedEntityAliases = Utils.ResolveWildcardStructures(entityAliases);
             var result = new List<string>();
-            var interfaceTypes = Utils.GetAllTypesOfInterface<IInterfaceInstance>();
+            var interfaces = Utils.GetAllInterfaces();
             
             foreach (var entityAlias in resolvedEntityAliases)
             {
-                result.AddRange(GetByInput(interfaceTypes, entityAlias));
+                result.AddRange(GetByInput(interfaces, entityAlias));
             }
             Console.WriteLine($"{COMMAND_NAME} command completed. See query results below.");
             Console.Write($"{string.Join(Environment.NewLine, result.Distinct().ToArray())}");
@@ -48,14 +48,12 @@ public class QueryByInputCommand : Command
         }
     }
 
-    private static IEnumerable<string> GetByInput(IEnumerable<Type> interfaceTypes, string entityAlias)
+    private static IEnumerable<string> GetByInput(IEnumerable<Interface> interfaces, string entityAlias)
     {
         var result = new List<string>();
 
-        foreach (var interfaceType in interfaceTypes)
+        foreach (var interfaceInstance in interfaces)
         {
-            var interfaceInstance = interfaceType?.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static)?.GetValue(null, null) as Interface;
-
             if (interfaceInstance?.Input?.Equals(entityAlias) == true)
             {  
                 result.Add(interfaceInstance.Alias);

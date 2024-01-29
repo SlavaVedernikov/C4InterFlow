@@ -43,7 +43,7 @@ public class ExecuteArchitectureAsCodeStrategyCommand : Command
                 throw new ArgumentException($"'{architectureAsCodeStrategyType}' is not a valid Architecture As Code Strategy type.");
             }
 
-            var context = new ArchitectureAsCodeContext(strategyInstance, architectureRootNamespace, architectureOutputPath, architectureAsCodeParams);
+            var context = new ArchitectureAsCodeWriterContext(strategyInstance, architectureRootNamespace, architectureOutputPath, architectureAsCodeParams);
             context.ExecuteStrategy();
             
             return 0;

@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿using C4InterFlow.Elements;
+using C4InterFlow.Elements.Interfaces;
+using System.Reflection;
 using System.Runtime.Loader;
 
 namespace C4InterFlow.Cli
@@ -7,111 +9,12 @@ namespace C4InterFlow.Cli
     {
         public static IEnumerable<string> ResolveWildcardStructures(IEnumerable<string> structures)
         {
-            var result = new List<string>();
-
-            if (structures == null) return result;
-
-            foreach (var item in structures)
-            {
-                var segments = item.Split(".*");
-                if (segments.Length == 1)
-                {
-                    result.Add(item);
-                }
-                else
-                {
-                    var types = new List<string>();
-                    var supersededTypes = new List<string>();
-                    foreach (var segmentItem in segments)
-                    {
-                        var newTypes = new List<string>();
-                        if (string.IsNullOrEmpty(segmentItem))
-                        {
-                            break;
-                        }
-
-                        if(types.Count == 0 || types.Count > 0 && segmentItem.StartsWith("."))
-                        {
-                            if (types.Count > 0)
-                            {
-                                foreach (var typeItem in types)
-                                {
-                                    supersededTypes.Add(typeItem);
-                                    var newType = C4InterFlow.Utils.GetType(typeItem + segmentItem);
-                                    if (newType != null)
-                                    {
-                                        if(segments.Last().Equals(segmentItem))
-                                        {
-                                            newTypes.Add(typeItem + segmentItem);
-                                        }
-                                        else
-                                        {
-                                            foreach (var nestedType in newType.GetNestedTypes())
-                                            {
-                                                newTypes.Add(nestedType.FullName.Replace("+", "."));
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                var type = C4InterFlow.Utils.GetType(segmentItem);
-                                if (type != null)
-                                {
-                                    foreach (var nestedType in type.GetNestedTypes())
-                                    {
-                                        newTypes.Add(nestedType.FullName.Replace("+", "."));
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            types.RemoveAll(x => !x.EndsWith(segmentItem));
-                        }
-
-                        if (newTypes.Count == 0 && !segmentItem.StartsWith("."))
-                        {
-                            newTypes.AddRange(
-                                C4InterFlow.Utils.GetTypes(segmentItem)
-                                    .Select(x => x.FullName.Replace("+", ".")));
-                        }
-
-                        types.AddRange(newTypes);
-                        types.RemoveAll(x => supersededTypes.Contains(x));
-                    }
-
-                    
-                    result.AddRange(types);
-                }
-
-            }
-
-            return result.Distinct();
+            return CommandExecutionContext.CurrentArchitectureAsCodeReaderContext.ResolveWildcardStructures(structures);
         }
 
-        public static IEnumerable<Type> GetAllTypesOfInterface<T>()
+        public static IEnumerable<Interface> GetAllInterfaces()
         {
-            var result = new List<Type>();
-
-            var assemblies = GetAssemblies();
-            foreach (var assembly in assemblies)
-            {
-                result.AddRange(assembly
-                .GetTypes()
-                .Where(type => typeof(T).IsAssignableFrom(type) && !type.IsInterface));
-            }
-            return result;
-        }
-
-        private static IEnumerable<Assembly> GetAssemblies()
-        {
-            var paths = Directory.GetFiles(AppContext.BaseDirectory, "*.dll", SearchOption.TopDirectoryOnly);
-            //TODO: Review this logic. Consider uising inclusion logic instead of exclusion.
-            return paths
-            .Where(x => { var assembly = x.Split("\\").Last(); return new[] { "C4InterFlow", "System.", "Microsoft." }.All(y => !assembly.StartsWith(y)); })
-            .Select(AssemblyLoadContext.Default.LoadFromAssemblyPath);
+            return CommandExecutionContext.CurrentArchitectureAsCodeReaderContext.GetAllInterfaces();
         }
 
         public static IEnumerable<string> ReadLines(string filePath)

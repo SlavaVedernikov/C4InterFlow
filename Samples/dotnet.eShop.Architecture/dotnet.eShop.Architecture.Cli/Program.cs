@@ -1,6 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using C4InterFlow.Cli;
 using C4InterFlow.Cli.Root;
 using C4InterFlow.Cli.Commands;
+using C4InterFlow.Automation;
 
 var root = RootCommandBuilder
     .CreateDefaultBuilder(args)
@@ -11,6 +13,8 @@ var root = RootCommandBuilder
         context.Add<QueryByInputCommand>();
         context.Add<ExecuteArchitectureAsCodeStrategyCommand>();
     });
+
+CommandExecutionContext.SetCurrentArchitectureAsCodeReaderContext(new NetArchitectureAsCodeReaderContext());
 
 await root.Run();
 

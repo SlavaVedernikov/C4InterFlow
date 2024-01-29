@@ -37,11 +37,11 @@ public class QueryUseFlowsCommand : Command
 
             var resolvedInterfaceAliases = Utils.ResolveWildcardStructures(interfaceAliases);
             var result = new List<string>();
-            var interfaceTypes = Utils.GetAllTypesOfInterface<IInterfaceInstance>();
+            var interfaces = Utils.GetAllInterfaces();
 
             foreach (var interfaceAlias in resolvedInterfaceAliases)
             {
-                GetUsedBy(interfaceTypes, interfaceAlias, isRecursive, result);        
+                GetUsedBy(interfaces, interfaceAlias, isRecursive, result);        
             }
 
             if(!string.IsNullOrEmpty(queryOutputFile))
@@ -67,7 +67,7 @@ public class QueryUseFlowsCommand : Command
     //TODO: Add includePrivateInterfaces parameter (default is false)
     //TODO: Move GetUsedBy into Utils
     //TODO: Add support for queries to DrawDiagramsCommand
-    private static IEnumerable<string> GetUsedBy(IEnumerable<Type> interfaceTypes, string interfaceAlias, bool isRecursive, List<string> usedByResult)
+    private static IEnumerable<string> GetUsedBy(IEnumerable<Interface> interfaces, string interfaceAlias, bool isRecursive, List<string> usedByResult)
     {
         var result = new List<string>();
 
@@ -76,15 +76,13 @@ public class QueryUseFlowsCommand : Command
             return result;
         }
 
-        foreach (var interfaceType in interfaceTypes)
+        foreach (var interfaceInstance in interfaces)
         {
-            var interfaceInstance = interfaceType?.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static)?.GetValue(null, null) as Interface;
-
             if (interfaceInstance?.Flow.GetUsesInterfaces().Select(x => x.Alias).Contains(interfaceAlias) == true)
             {
                 if (isRecursive)
                 {
-                    var tempResult = GetUsedBy(interfaceTypes, interfaceInstance.Alias, isRecursive, usedByResult);
+                    var tempResult = GetUsedBy(interfaces, interfaceInstance.Alias, isRecursive, usedByResult);
                     if(!tempResult.Any())
                     { 
                         result.Add(interfaceInstance.Alias);

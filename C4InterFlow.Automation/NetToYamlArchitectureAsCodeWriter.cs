@@ -172,7 +172,7 @@ namespace C4InterFlow.Automation
             var architectureObject = GetJsonObjectFromFile(filePath); ;
             var flowCode = NetToAnyCodeGenerator<YamlCodeWriter>.GetFlowCode(
                 systemMethodDeclaration,
-                new JObjectArchitectureAsCodeContext(architectureObject),
+                new JObjectArchitectureAsCodeReaderContext(architectureObject),
                 this,
                 alternativeInvocationMappers);
 
