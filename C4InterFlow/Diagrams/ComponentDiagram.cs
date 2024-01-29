@@ -178,7 +178,7 @@ namespace C4InterFlow.Diagrams
         {
             var interfaceOwner = Utils.GetInstance<Structure>(@interface.Owner);
 
-            if (interfaceOwner != null) return;
+            if (interfaceOwner == null) return;
 
             if (interfaceOwner is SoftwareSystem &&
                 !structures.OfType<SoftwareSystem>().Any(x => x.Alias == interfaceOwner.Alias))

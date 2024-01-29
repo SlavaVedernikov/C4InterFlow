@@ -1,0 +1,22 @@
+@startuml
+skinparam dpi 60
+
+title Catalog Api - Infrastructure - CatalogContext - CatalogBrandsToListAsync - COMPONENT level
+
+participant "External" as C4InterFlow.Utils.ExternalSystem
+
+box "Catalog Api" #White
+
+    
+box "Infrastructure" #White
+
+    participant "Catalog Context" as dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext
+end box
+
+end box
+
+
+C4InterFlow.Utils.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext : Catalog Brands To List Async
+
+
+@enduml

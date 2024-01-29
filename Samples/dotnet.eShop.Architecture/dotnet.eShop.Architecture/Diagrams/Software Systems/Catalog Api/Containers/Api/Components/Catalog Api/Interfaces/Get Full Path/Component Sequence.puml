@@ -1,0 +1,22 @@
+@startuml
+skinparam dpi 60
+
+title Catalog Api - Api - CatalogApi - GetFullPath - COMPONENT level
+
+participant "External" as C4InterFlow.Utils.ExternalSystem
+
+box "Catalog Api" #White
+
+    
+box "Api" #White
+
+    participant "Catalog Api" as dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi
+end box
+
+end box
+
+
+C4InterFlow.Utils.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Get Full Path
+
+
+@enduml

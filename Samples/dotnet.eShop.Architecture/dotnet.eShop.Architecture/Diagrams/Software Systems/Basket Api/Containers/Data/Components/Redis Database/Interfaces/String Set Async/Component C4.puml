@@ -16,7 +16,7 @@ skinparam linetype polyline
 
 title Basket Api - Data - RedisDatabase - StringSetAsync - COMPONENT level
 
-System_Ext(C4PlusSharp.Utils.ExternalSystem, "External", "")
+System_Ext(C4InterFlow.Utils.ExternalSystem, "External", "")
 
 System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.BasketApi, "Basket Api") {
     
@@ -27,7 +27,7 @@ Container_Boundary(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Container
 }
 
 
-Rel(C4PlusSharp.Utils.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase, "String Set Async")
+Rel(C4InterFlow.Utils.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase, "String Set Async")
 
 
 SHOW_LEGEND()

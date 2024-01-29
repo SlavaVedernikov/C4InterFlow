@@ -16,10 +16,10 @@ skinparam linetype polyline
 
 title Basket Api - Data - RedisDatabase - StringSetAsync - CONTAINER level
 
-System_Ext(C4PlusSharp.Utils.ExternalSystem, "External", "")
+System_Ext(C4InterFlow.Utils.ExternalSystem, "External", "")
 Container(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data, "Data", "", "")
 
-Rel(C4PlusSharp.Utils.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data, "Uses")
+Rel(C4InterFlow.Utils.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data, "Uses")
 
 
 SHOW_LEGEND()

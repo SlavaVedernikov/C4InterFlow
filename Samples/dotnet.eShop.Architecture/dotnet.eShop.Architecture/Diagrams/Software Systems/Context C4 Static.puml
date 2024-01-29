@@ -17,6 +17,7 @@ skinparam linetype polyline
 title C4 Static - CONTEXT level
 
 System(dotnet.eShop.Architecture.SoftwareSystems.BasketApi, "Basket Api", "")
+System(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi, "Catalog Api", "")
 
 
 

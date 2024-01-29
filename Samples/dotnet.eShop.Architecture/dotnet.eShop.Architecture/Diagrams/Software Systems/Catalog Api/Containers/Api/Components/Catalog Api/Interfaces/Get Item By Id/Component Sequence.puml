@@ -1,0 +1,31 @@
+@startuml
+skinparam dpi 60
+
+title Catalog Api - Api - CatalogApi - GetItemById - COMPONENT level
+
+participant "External" as C4InterFlow.Utils.ExternalSystem
+
+box "Catalog Api" #White
+
+    
+box "Api" #White
+
+    participant "Catalog Api" as dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi
+end box
+
+end box
+
+
+C4InterFlow.Utils.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Get Item By Id
+group Get Item By Id
+alt id <= 0
+dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Retun (TypedResults.BadRequest)
+end
+alt item == null
+dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Retun (TypedResults.NotFound)
+end
+dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Retun (TypedResults.Ok)
+end
+
+
+@enduml

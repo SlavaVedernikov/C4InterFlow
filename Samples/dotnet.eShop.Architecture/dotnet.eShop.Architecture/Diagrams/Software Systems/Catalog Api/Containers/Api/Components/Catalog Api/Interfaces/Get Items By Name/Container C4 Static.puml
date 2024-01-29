@@ -1,0 +1,28 @@
+@startuml
+!include ..\..\..\..\..\..\..\..\.c4s\C4_Container.puml
+
+AddElementTag("state:new", $bgColor=green, $fontColor=#ffffff, $borderColor=green, $shadowing="False")
+AddElementTag("state:changed", $bgColor=orange, $fontColor=#ffffff, $borderColor=orange, $shadowing="False")
+AddElementTag("state:removed", $bgColor=red, $fontColor=#ffffff, $borderColor=red, $shadowing="False")
+
+AddRelTag("state:new", $textColor=green, $lineColor=green)
+AddRelTag("state:changed", $textColor=orange, $lineColor=orange)
+AddRelTag("state:removed", $textColor=red, $lineColor=red)
+
+SHOW_PERSON_PORTRAIT()
+LAYOUT_TOP_DOWN()
+
+skinparam linetype polyline
+
+title Catalog Api - Api - CatalogApi - GetItemsByName - CONTAINER level
+
+System_Ext(C4InterFlow.Utils.ExternalSystem, "External", "")
+Container(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api, "Api", "", "")
+Container(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Infrastructure", "", "")
+
+Rel(C4InterFlow.Utils.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api, "Uses")
+Rel(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Uses")
+
+
+SHOW_LEGEND()
+@enduml

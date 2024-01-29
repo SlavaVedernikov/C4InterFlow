@@ -1,0 +1,38 @@
+@startuml
+skinparam dpi 60
+
+title Catalog Api - Api - CatalogApi - UpdateItem - COMPONENT level
+
+participant "External" as C4InterFlow.Utils.ExternalSystem
+
+box "Catalog Api" #White
+
+    
+box "Api" #White
+
+    participant "Catalog Api" as dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi
+end box
+
+    
+box "Infrastructure" #White
+
+    participant "Catalog Context" as dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext
+end box
+
+end box
+
+
+C4InterFlow.Utils.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Update Item
+group Update Item
+alt catalogItem == null
+dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Retun (TypedResults.NotFound)
+end
+alt priceEntry.IsModified
+else 
+dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext : Save Changes Async
+end
+dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Retun (TypedResults.Created)
+end
+
+
+@enduml

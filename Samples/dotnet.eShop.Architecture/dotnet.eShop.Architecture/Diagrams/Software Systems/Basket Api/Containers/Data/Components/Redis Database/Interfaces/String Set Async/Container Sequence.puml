@@ -3,10 +3,10 @@ skinparam dpi 60
 
 title Basket Api - Data - RedisDatabase - StringSetAsync - CONTAINER level
 
-participant "External" as C4PlusSharp.Utils.ExternalSystem
+participant "External" as C4InterFlow.Utils.ExternalSystem
 participant "Data" as dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data
 
-C4PlusSharp.Utils.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase : String Set Async
+C4InterFlow.Utils.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase : String Set Async
 
 
 @enduml

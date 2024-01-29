@@ -16,10 +16,10 @@ skinparam linetype polyline
 
 title Basket Api - Grpc - BasketService - ThrowNotAuthenticated - CONTAINER level
 
-System_Ext(C4PlusSharp.Utils.ExternalSystem, "External", "")
+System_Ext(C4InterFlow.Utils.ExternalSystem, "External", "")
 Container(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc, "Grpc", "", "")
 
-Rel(C4PlusSharp.Utils.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc, "Uses")
+Rel(C4InterFlow.Utils.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc, "Uses")
 
 
 SHOW_LEGEND()
