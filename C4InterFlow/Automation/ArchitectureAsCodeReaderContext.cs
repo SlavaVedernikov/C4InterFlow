@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace C4InterFlow.Automation
 {
-    public interface IArchitectureAsCodeReaderContext : IElementsResolver
+    public class ArchitectureAsCodeReaderContext
     {
         string GetComponentInterfaceAlias();
         string GetComponentInterfaceAlias(string filePath);
