@@ -3,7 +3,7 @@ using System.CommandLine.Parsing;
 
 namespace C4InterFlow.Cli.Commands.Options;
 
-public static class ArchitectureOutputPathOption
+public static class ArchitectureAsCodeOutputPathOption
 {
     public static Option<string> Get()
     {

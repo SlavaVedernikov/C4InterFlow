@@ -118,16 +118,13 @@ namespace C4InterFlow.Diagrams
 
             if (usesInterface == null || usesInterfaceOwner == null) return;
 
-            if (usesInterfaceOwner is Component)
+            var currentFlow = Utils.Clone(usesInterface.Flow);
+            foreach (var useFlow in currentFlow.GetUseFlows())
             {
-                var currentFlow = Utils.Clone(usesInterface.Flow);
-                foreach (var useFlow in currentFlow.GetUseFlows())
-                {
-                    PopulateFlow(useFlow);
-                }
-
-                flow.AddFlowsRange(currentFlow.Flows);
+                PopulateFlow(useFlow);
             }
+
+            flow.AddFlowsRange(currentFlow.Flows);
         }
 
         private List<Structure> _structures;
@@ -174,7 +171,7 @@ namespace C4InterFlow.Diagrams
                 _structures.Add(Utils.GetInstance<Structure>(item.Alias));
             }
         }
-        private void PopulateStructures(IList<Structure> structures, Interface @interface, bool terminate = false)
+        private void PopulateStructures(IList<Structure> structures, Interface @interface)
         {
             var interfaceOwner = Utils.GetInstance<Structure>(@interface.Owner);
 
@@ -237,14 +234,12 @@ namespace C4InterFlow.Diagrams
                     }
                 }
 
-                if (!terminate)
+
+                foreach (var usesInterface in @interface.Flow.GetUsesInterfaces())
                 {
-                    foreach (var usesInterface in @interface.Flow.GetUsesInterfaces())
-                    {
-                        var isCrossingSystemBoundary = @interface.GetSoftwareSystem()?.Alias != usesInterface.GetSoftwareSystem()?.Alias;
-                        PopulateStructures(structures, usesInterface, isCrossingSystemBoundary);
-                    }
+                    PopulateStructures(structures, usesInterface);
                 }
+
             }
         }
 
@@ -273,7 +268,7 @@ namespace C4InterFlow.Diagrams
             }
         }
 
-        private void PopulateRelationships(IList<Relationship> relationships, Structure actor, Interface usesInterface, bool terminate = false)
+        private void PopulateRelationships(IList<Relationship> relationships, Structure actor, Interface usesInterface)
         {
             if (actor is Interface interfaceActor)
             {
@@ -301,16 +296,10 @@ namespace C4InterFlow.Diagrams
                     usesInterface.Protocol].AddTags(usesInterface.Tags?.ToArray()));
             }
 
-            if (usesInterfaceOwner is Component)
+
+            foreach (var usesAnotherInterface in usesInterface.Flow.GetUsesInterfaces())
             {
-                if (!terminate)
-                {
-                    foreach (var usesAnotherInterface in usesInterface.Flow.GetUsesInterfaces())
-                    {
-                        var isCrossingSystemBoundary = usesInterface.GetSoftwareSystem()?.Alias != usesAnotherInterface.GetSoftwareSystem()?.Alias;
-                        PopulateRelationships(relationships, usesInterface, usesAnotherInterface, isCrossingSystemBoundary);
-                    }
-                }
+                PopulateRelationships(relationships, usesInterface, usesAnotherInterface);
             }
         }
 

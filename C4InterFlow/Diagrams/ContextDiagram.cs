@@ -92,17 +92,13 @@ namespace C4InterFlow.Diagrams
                 }
             }
 
-            
-            if (usesInterfaceOwner is SoftwareSystem || usesInterfaceOwner is Container || usesInterfaceOwner is Component)
+            var currentFlow = Utils.Clone(usesInterface.Flow);
+            foreach (var useFlow in currentFlow.GetUseFlows())
             {
-                var currentFlow = Utils.Clone(usesInterface.Flow);
-                foreach (var useFlow in currentFlow.GetUseFlows())
-                {
-                    PopulateFlow(useFlow);
-                }
-
-                flow.AddFlowsRange(currentFlow.Flows);
+                PopulateFlow(useFlow);
             }
+
+            flow.AddFlowsRange(currentFlow.Flows);
         }
 
         private List<Structure> _structures;

@@ -1,5 +1,6 @@
 ﻿using C4InterFlow.Elements.Interfaces;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -11,7 +12,7 @@ namespace C4InterFlow.Elements
     public class NetElementsResolver : IElementsResolver
     {
         private static IList<string> _nonAssemblyPaths = new List<string>();
-        private static Dictionary<string, object> _aliasToStructureMap = new Dictionary<string, object>();
+        private static ConcurrentDictionary<string, object> _aliasToStructureMap = new ConcurrentDictionary<string, object>();
 
         public T? GetInstance<T>(string alias) where T : class
         {
@@ -28,7 +29,7 @@ namespace C4InterFlow.Elements
 
             if (result != null && !_aliasToStructureMap.ContainsKey(alias))
             {
-                _aliasToStructureMap.Add(alias, result);
+                _aliasToStructureMap.TryAdd(alias, result);
             }
 
             return result;

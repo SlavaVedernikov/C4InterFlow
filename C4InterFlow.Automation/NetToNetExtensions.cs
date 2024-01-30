@@ -181,7 +181,7 @@ namespace C4InterFlow.Automation
 
             var flowCode = NetToAnyCodeGenerator<NetCodeWriter>.GetFlowCode(
                 systemMethodDeclaration,
-                new NetArchitectureAsCodeReaderContext(classDeclaration, architectureWorkspace),
+                new NetArchitectureAsCodeReaderStrategy(classDeclaration, architectureWorkspace),
                 writer,
                 alternativeInvocationMappers);
 

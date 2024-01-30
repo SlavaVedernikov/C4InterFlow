@@ -75,18 +75,13 @@ namespace C4InterFlow.Diagrams
 
             if (usesInterface == null || usesInterfaceOwner == null) return;
              
-            if (usesInterfaceOwner is Container)
+            var currentFlow = Utils.Clone(usesInterface.Flow);
+            foreach (var useFlow in currentFlow.GetUseFlows())
             {
-                var currentFlow = Utils.Clone(usesInterface.Flow);
-                foreach (var useFlow in currentFlow.GetUseFlows())
-                {
-                    PopulateFlow(useFlow);
-                }
-
-                flow.AddFlowsRange(currentFlow.Flows);
+                PopulateFlow(useFlow);
             }
 
-            
+            flow.AddFlowsRange(currentFlow.Flows);
         }
 
         private List<Structure> _structures;
@@ -189,12 +184,9 @@ namespace C4InterFlow.Diagrams
                 }
             }
 
-            if(interfaceOwner is Container || interfaceOwner is Component)
+            foreach (var usesInterface in @interface.Flow.GetUsesInterfaces())
             {
-                foreach (var usesInterface in @interface.Flow.GetUsesInterfaces())
-                {
-                    PopulateStructures(structures, usesInterface, currentScope);
-                }
+                PopulateStructures(structures, usesInterface, currentScope);
             }
         }
 
@@ -270,13 +262,9 @@ namespace C4InterFlow.Diagrams
                     usesInterface.Protocol].AddTags(usesInterface.Tags?.ToArray()));
             }
 
-
-            if (usesInterfaceOwner is Container || usesInterfaceOwner is Component)
+            foreach (var usesAnotherInterface in usesInterface.Flow.GetUsesInterfaces())
             {
-                foreach (var usesAnotherInterface in usesInterface.Flow.GetUsesInterfaces())
-                {
-                    PopulateRelationships(relationships, usesInterface, usesAnotherInterface, newFromScope, newToScope);
-                }
+                PopulateRelationships(relationships, usesInterface, usesAnotherInterface, newFromScope, newToScope);
             }
         }
 

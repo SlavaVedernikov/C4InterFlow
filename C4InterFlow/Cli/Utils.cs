@@ -1,4 +1,5 @@
-﻿using C4InterFlow.Elements;
+﻿using C4InterFlow.Automation;
+using C4InterFlow.Elements;
 using C4InterFlow.Elements.Interfaces;
 using System.Reflection;
 using System.Runtime.Loader;
@@ -9,12 +10,12 @@ namespace C4InterFlow.Cli
     {
         public static IEnumerable<string> ResolveWildcardStructures(IEnumerable<string> structures)
         {
-            return CommandExecutionContext.CurrentArchitectureAsCodeReaderContext.ResolveWildcardStructures(structures);
+            return ArchitectureAsCodeReaderContext.Strategy.ResolveWildcardStructures(structures);
         }
 
         public static IEnumerable<Interface> GetAllInterfaces()
         {
-            return CommandExecutionContext.CurrentArchitectureAsCodeReaderContext.GetAllInterfaces();
+            return ArchitectureAsCodeReaderContext.Strategy.GetAllInterfaces();
         }
 
         public static IEnumerable<string> ReadLines(string filePath)

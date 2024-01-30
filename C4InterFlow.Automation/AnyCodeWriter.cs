@@ -104,7 +104,7 @@ namespace C4InterFlow.Automation
         {
             if (string.IsNullOrEmpty(text)) return text;
 
-            return Regex.Replace(text.Replace("\"", string.Empty), "((?<=[a-z])[A-Z]|[A-Z](?=[a-z]))", " $1").Trim();
+            return Regex.Replace(Regex.Replace(text.Replace("\"", string.Empty), "((?<=[a-z])[A-Z]|A-Z)", " $1"), "((?<=[a-zA-Z])[0-9]|(?<=[0-9])[a-zA-Z])", " $1").Trim();
         }
 
         private static string GetFormattedParams(string @params)

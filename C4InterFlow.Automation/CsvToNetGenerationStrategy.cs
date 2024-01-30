@@ -16,14 +16,14 @@
             generationWriter.WithSoftwareSystems()
                     .ToList().ForEach(s => {
                         generationWriter
-                        .AddSoftwareSystemClass(s.Alias);
+                        .AddSoftwareSystemClass(name: s.Alias, label: s.Name);
                         
                         s.WithInterfaces(generationWriter).ToList().ForEach(i => {
                             generationWriter.AddSoftwareSystemInterfaceClass(i);
                         });
 
                         s.WithContainers(generationWriter).ToList().ForEach(c => {
-                            generationWriter.AddContainerClass(s.Alias, c.Alias.Split('.').Last(), c.Type);
+                            generationWriter.AddContainerClass(s.Alias, c.Alias.Split('.').Last(), c.Type, c.Name);
 
                             c.WithInterfaces(generationWriter).ToList().ForEach(i =>
                             {

@@ -14,8 +14,6 @@ var root = RootCommandBuilder
         context.Add<ExecuteArchitectureAsCodeStrategyCommand>();
     });
 
-CommandExecutionContext.SetCurrentArchitectureAsCodeReaderContext(new NetArchitectureAsCodeReaderContext());
-
 await root.Run();
 
 Console.ReadLine();

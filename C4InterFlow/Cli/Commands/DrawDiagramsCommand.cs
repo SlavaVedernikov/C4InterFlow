@@ -5,6 +5,7 @@ using C4InterFlow.Diagrams.Plantuml;
 using C4InterFlow.Elements;
 using C4InterFlow.Cli.Commands.Binders;
 using System.Text.RegularExpressions;
+using C4InterFlow.Automation;
 
 namespace C4InterFlow.Cli.Commands;
 
@@ -27,6 +28,8 @@ public class DrawDiagramsCommand : Command
         var outputDirectoryOption = OutputDirectoryOption.Get();
         var outputSubDirectoryOption = OutputSubDirectoryOption.Get();
         var diagramNamePrefixOption = DiagramNamePrefixOption.Get();
+        var architectureAsCodeInputPathOption = ArchitectureAsCodeInputPathOption.Get();
+        var architectureAsCodeReaderStrategyTypeOption = ArchitectureAsCodeReaderStrategyTypeOption.Get();
 
         AddOption(diagramScopesOption);
         AddOption(diagramTypesOption);
@@ -40,24 +43,30 @@ public class DrawDiagramsCommand : Command
         AddOption(outputDirectoryOption);
         AddOption(outputSubDirectoryOption);
         AddOption(diagramNamePrefixOption);
+        AddOption(architectureAsCodeInputPathOption);
+        AddOption(architectureAsCodeReaderStrategyTypeOption);
 
-        this.SetHandler(async (diagramOptions, interfaces, interfacesInputFile, businessProcesses, displayOptions, outputOptions) =>
+        this.SetHandler(async (diagramOptions, interfaces, interfacesInputFile, businessProcesses, displayOptions, outputOptions, architectureAsCodeInputPath, architectureAsCodeReaderStrategyType) =>
             {
-                await Execute(diagramOptions, interfaces, interfacesInputFile, businessProcesses, displayOptions, outputOptions);
+                await Execute(diagramOptions, interfaces, interfacesInputFile, businessProcesses, displayOptions, outputOptions, architectureAsCodeInputPath, architectureAsCodeReaderStrategyType);
             },
             new DiagramOptionsBinder(diagramScopesOption, diagramTypesOption, diagramLevelsOfDetailsOption), 
             interfacesOption,
             interfacesInputFileOption,
             businessProcesesOption,
             new DisplayOptionsBinder(showBoundariesOption, showInterfaceInputAndOutputOption), 
-            new OutputOptionsBinder(outputDirectoryOption, outputSubDirectoryOption, diagramNamePrefixOption, diagramFormatsOption));
+            new OutputOptionsBinder(outputDirectoryOption, outputSubDirectoryOption, diagramNamePrefixOption, diagramFormatsOption),
+            architectureAsCodeInputPathOption,
+            architectureAsCodeReaderStrategyTypeOption);
     }
 
-    public static async Task<int> Execute(DiagramOptions diagramOptions, string[]? interfaceAliases, string? interfacesInputFile, string[]? businessProcessTypeNames, DisplayOptions displayOptions, OutputOptions outputOptions)
+    public static async Task<int> Execute(DiagramOptions diagramOptions, string[]? interfaceAliases, string? interfacesInputFile, string[]? businessProcessTypeNames, DisplayOptions displayOptions, OutputOptions outputOptions, string architectureAsCodeInputPath, string architectureAsCodeReaderStrategyType)
     {
         try
         {
             Console.WriteLine($"{COMMAND_NAME} command is executing...");
+
+            SetArchitectureAsCodeReaderContext(architectureAsCodeInputPath, architectureAsCodeReaderStrategyType);
 
             var resolvedInterfaceAliases = new List<string>();
             resolvedInterfaceAliases.AddRange(Utils.ResolveWildcardStructures(interfaceAliases));
@@ -160,6 +169,20 @@ public class DrawDiagramsCommand : Command
             Console.WriteLine($"Diagram(s) generation failed with exception(s) '{e.Message}'{(e.InnerException !=null ? $", '{e.InnerException}'" : string.Empty)}.");
             return 1;
         }
+    }
+
+    private static void SetArchitectureAsCodeReaderContext(string architectureAsCodeInputPath, string architectureAsCodeReaderStrategyType)
+    {
+        Type strategyType = Type.GetType(architectureAsCodeReaderStrategyType);
+        object strategyTypeInstance = Activator.CreateInstance(strategyType);
+        var strategyInstance = strategyTypeInstance as IArchitectureAsCodeReaderStrategy;
+
+        if (strategyInstance == null)
+        {
+            throw new ArgumentException($"'{architectureAsCodeReaderStrategyType}' is not a valid Architecture As Code Reader Strategy type.");
+        }
+
+        ArchitectureAsCodeReaderContext.SetCurrentStrategy(strategyInstance, architectureAsCodeInputPath, new Dictionary<string, string>());
     }
 
     private static IEnumerable<BusinessProcess> GetBusinessProcesses(IEnumerable<string> businessProcessTypeNames, string scope)

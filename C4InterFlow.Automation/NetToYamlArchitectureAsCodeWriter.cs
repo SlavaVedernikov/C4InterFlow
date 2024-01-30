@@ -172,11 +172,12 @@ namespace C4InterFlow.Automation
             var architectureObject = GetJsonObjectFromFile(filePath); ;
             var flowCode = NetToAnyCodeGenerator<YamlCodeWriter>.GetFlowCode(
                 systemMethodDeclaration,
-                new JObjectArchitectureAsCodeReaderContext(architectureObject),
+                new JObjectArchitectureAsCodeReaderStrategy(architectureObject),
                 this,
                 alternativeInvocationMappers);
 
             //Remove \t characters
+            //TODO: Investigate how \t is written into the Flow Code
             flowCode = flowCode.Replace("\t", string.Empty);
 
             var flowJsonObject = GetJsonObjectFromYaml(flowCode);

@@ -11,20 +11,22 @@ using System.Runtime.Loader;
 
 namespace C4InterFlow.Automation
 {
-    public class NetArchitectureAsCodeReaderContext : ArchitectureAsCodeReaderContext<NetElementsResolver>
+    public class NetArchitectureAsCodeReaderStrategy : ArchitectureAsCodeReaderStrategy<NetElementsResolver>
     {
         private ClassDeclarationSyntax? CurrentClassDeclaration { get; set; }
         private MSBuildWorkspace? ArchitectureWorkspace { get; set; }
 
-        public NetArchitectureAsCodeReaderContext()
+        public NetArchitectureAsCodeReaderStrategy()
         {
 
         }
-        public NetArchitectureAsCodeReaderContext(ClassDeclarationSyntax currentClassDeclaration, MSBuildWorkspace architectureWorkspace) : this()
+        public NetArchitectureAsCodeReaderStrategy(ClassDeclarationSyntax currentClassDeclaration, MSBuildWorkspace architectureWorkspace) : this()
         {
             CurrentClassDeclaration = currentClassDeclaration;
             ArchitectureWorkspace = architectureWorkspace;
         }
+
+        protected override NetElementsResolver ElementsResolver { get => new NetElementsResolver(); }
 
         public override string GetComponentInterfaceAlias()
         {

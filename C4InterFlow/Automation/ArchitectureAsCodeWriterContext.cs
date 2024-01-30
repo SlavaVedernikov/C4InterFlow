@@ -2,9 +2,9 @@
 {
     public class ArchitectureAsCodeWriterContext
     {
-        private ArchitectureAsCodeStrategy Strategy { get; set; }
+        private ArchitectureAsCodeWriterStrategy Strategy { get; set; }
 
-        public ArchitectureAsCodeWriterContext(ArchitectureAsCodeStrategy strategy, string architectureRootNamespace, string? architectureOutputPath, Dictionary<string, string>? parameters)
+        public ArchitectureAsCodeWriterContext(ArchitectureAsCodeWriterStrategy strategy, string architectureRootNamespace, string? architectureOutputPath, Dictionary<string, string>? parameters)
         {
             Strategy = strategy;
             var missingRequiredParameters = strategy.GetParameterDefinitions().Where(x => 

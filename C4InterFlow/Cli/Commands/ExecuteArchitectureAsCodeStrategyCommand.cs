@@ -14,33 +14,33 @@ public class ExecuteArchitectureAsCodeStrategyCommand : Command
         "Executes Architecture As Code automation Strategy")
     {
         var architectureRootNamespaceOption = ArchitectureRootNamespaceOption.Get();
-        var architectureOutputPathOption = ArchitectureOutputPathOption.Get();
-        var architectureAsCodeStrategyTypeOption = ArchitectureAsCodeStrategyTypeOption.Get();
+        var architectureOutputPathOption = ArchitectureAsCodeOutputPathOption.Get();
+        var architectureAsCodeWriterStrategyTypeOption = ArchitectureAsCodeWriterStrategyTypeOption.Get();
         var architectureAsCodeParamsOption = ArchitectureAsCodeParamsOption.Get();
 
         AddOption(architectureRootNamespaceOption);
         AddOption(architectureOutputPathOption);
-        AddOption(architectureAsCodeStrategyTypeOption);
+        AddOption(architectureAsCodeWriterStrategyTypeOption);
         AddOption(architectureAsCodeParamsOption);
 
-        this.SetHandler(async (architectureRootNamespace, architectureOutputPath, architectureAsCodeStrategyType, architectureAsCodeParamsOption) =>
+        this.SetHandler(async (architectureRootNamespace, architectureOutputPath, architectureAsCodeWriterStrategyType, architectureAsCodeParamsOption) =>
             {
-                await Execute(architectureRootNamespace, architectureOutputPath, architectureAsCodeStrategyType, architectureAsCodeParamsOption);
+                await Execute(architectureRootNamespace, architectureOutputPath, architectureAsCodeWriterStrategyType, architectureAsCodeParamsOption);
             },
-            architectureRootNamespaceOption, architectureOutputPathOption, architectureAsCodeStrategyTypeOption, new ParametersBinder(architectureAsCodeParamsOption));
+            architectureRootNamespaceOption, architectureOutputPathOption, architectureAsCodeWriterStrategyTypeOption, new ParametersBinder(architectureAsCodeParamsOption));
     }
 
-    private static async Task<int> Execute(string architectureRootNamespace, string architectureOutputPath, string architectureAsCodeStrategyType, Dictionary<string, string> architectureAsCodeParams)
+    private static async Task<int> Execute(string architectureRootNamespace, string architectureOutputPath, string architectureAsCodeWriterStrategyType, Dictionary<string, string> architectureAsCodeParams)
     {
         try
         {
-            Type strategyType = Type.GetType(architectureAsCodeStrategyType);
+            Type strategyType = Type.GetType(architectureAsCodeWriterStrategyType);
             object strategyTypeInstance = Activator.CreateInstance(strategyType);
-            var strategyInstance = strategyTypeInstance as ArchitectureAsCodeStrategy;
+            var strategyInstance = strategyTypeInstance as ArchitectureAsCodeWriterStrategy;
 
             if (strategyInstance == null)
             {
-                throw new ArgumentException($"'{architectureAsCodeStrategyType}' is not a valid Architecture As Code Strategy type.");
+                throw new ArgumentException($"'{architectureAsCodeWriterStrategyType}' is not a valid Architecture As Code Strategy type.");
             }
 
             var context = new ArchitectureAsCodeWriterContext(strategyInstance, architectureRootNamespace, architectureOutputPath, architectureAsCodeParams);

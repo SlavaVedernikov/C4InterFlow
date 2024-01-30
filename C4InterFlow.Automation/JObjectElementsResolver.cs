@@ -1,15 +1,24 @@
 ﻿using C4InterFlow.Elements.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+using YamlDotNet.RepresentationModel;
+using Newtonsoft.Json.Linq;
+using YamlDotNet.Serialization;
 using System.Text;
-using System.Threading.Tasks;
+using C4InterFlow.Cli;
 
 namespace C4InterFlow.Elements
 {
     public class JObjectElementsResolver : IElementsResolver
     {
+        private JObject? JsonObject { get; set; }
+
+        public JObjectElementsResolver()
+        {
+        }
+        public JObjectElementsResolver(JObject jsonObject)
+        {
+            JsonObject = jsonObject;
+        }
+
         public T? GetInstance<T>(string alias) where T : class
         {
             if (string.IsNullOrEmpty(alias)) return default(T);

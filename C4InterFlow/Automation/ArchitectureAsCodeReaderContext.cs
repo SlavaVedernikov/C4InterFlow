@@ -1,40 +1,35 @@
-﻿using C4InterFlow.Elements.Interfaces;
-using C4InterFlow.Elements;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace C4InterFlow.Automation
+﻿namespace C4InterFlow.Automation
 {
     public class ArchitectureAsCodeReaderContext
     {
-        string GetComponentInterfaceAlias();
-        string GetComponentInterfaceAlias(string filePath);
+        private static IArchitectureAsCodeReaderStrategy? _strategy;
 
-        IEnumerable<Interface> GetAllInterfaces();
-    }
-
-    public abstract class ArchitectureAsCodeReaderContext<ElementsResolverType> : IArchitectureAsCodeReaderContext where ElementsResolverType : IElementsResolver, new()
-    {
-        public abstract string GetComponentInterfaceAlias();
-        public abstract string GetComponentInterfaceAlias(string filePath);
-        public abstract IEnumerable<Interface> GetAllInterfaces();
-        private ElementsResolverType ElementsResolver { get => new ElementsResolverType(); }
-        public Type? GetType(string alias)
+        public static IArchitectureAsCodeReaderStrategy Strategy
         {
-            return ElementsResolver.GetType(alias);
+            get
+            {
+                if (_strategy == null || !_strategy.IsInitialised)
+                {
+                    throw new InvalidOperationException("Architecture As Code Reader Strategy was not set.");
+                }
+
+                return _strategy;
+            }
         }
 
-        public T? GetInstance<T>(string alias) where T : class
+        public static void SetCurrentStrategy(IArchitectureAsCodeReaderStrategy strategy, string? architectureInputPath, Dictionary<string, string>? parameters)
         {
-            return ElementsResolver.GetInstance<T>(alias);
-        }
+            _strategy = strategy;
+            var missingRequiredParameters = strategy.GetParameterDefinitions().Where(x =>
+                x.isRequired &&
+                (parameters != null ? !parameters.Keys.Contains(x.name) || string.IsNullOrEmpty(parameters[x.name]) : false));
 
-        public IEnumerable<string> ResolveWildcardStructures(IEnumerable<string> structures)
-        {
-            return ElementsResolver.ResolveWildcardStructures(structures);
+            if (missingRequiredParameters.Any())
+            {
+                throw new ArgumentException($"The following required arguments where expected, but were not provided: {string.Join(", ", missingRequiredParameters.Select(x => $"'{x.name}'"))}");
+            }
+
+            _strategy.Initialise(architectureInputPath, parameters);
         }
     }
 }

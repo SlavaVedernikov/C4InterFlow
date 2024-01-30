@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using System.Text.Json;
+using C4InterFlow.Automation;
 using C4InterFlow.Cli;
 using C4InterFlow.Elements;
 using C4InterFlow.Elements.Interfaces;
@@ -9,8 +10,6 @@ namespace C4InterFlow
 {
     public class Utils
     {
-        private static IList<string> _nonAssemblyPaths = new List<string>();
-        private static Dictionary<string, object> _aliasToStructureMap = new Dictionary<string, object>();
         public class ExternalSystem : ISoftwareSystemInstance
         {
             public const string ALIAS = $"{nameof(C4InterFlow)}.{nameof(Utils)}.{nameof(ExternalSystem)}";
@@ -34,12 +33,12 @@ namespace C4InterFlow
 
         public static Type? GetType(string alias)
         {
-            return CommandExecutionContext.CurrentArchitectureAsCodeReaderContext.GetType(alias);
+            return ArchitectureAsCodeReaderContext.Strategy.GetType(alias);
         }
 
         public static T? GetInstance<T>(string alias) where T : class
         {
-            return CommandExecutionContext.CurrentArchitectureAsCodeReaderContext.GetInstance<T>(alias);
+            return ArchitectureAsCodeReaderContext.Strategy.GetInstance<T>(alias);
         }
 
         public static T Clone<T>(T source)

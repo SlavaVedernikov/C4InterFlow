@@ -1,6 +1,6 @@
 ﻿namespace C4InterFlow.Automation
 {
-    public abstract class ArchitectureAsCodeStrategy
+    public abstract class ArchitectureAsCodeWriterStrategy
     {
         protected string ArchitectureRootNamespace { get; private set; }
         protected string? ArchitectureOutputPath { get; private set; }
