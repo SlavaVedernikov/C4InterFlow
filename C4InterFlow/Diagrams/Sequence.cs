@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace C4InterFlow.Diagrams
 {
-    /*
     internal class Sequence
     {
         private const string NUMBERING_REGEX = @"^(\d)*(\.(\d)*)*";
@@ -108,5 +107,4 @@ namespace C4InterFlow.Diagrams
             return Regex.Replace(text, NUMBERING_REGEX, string.Empty).Trim();
         }
     }
-*/
 }
