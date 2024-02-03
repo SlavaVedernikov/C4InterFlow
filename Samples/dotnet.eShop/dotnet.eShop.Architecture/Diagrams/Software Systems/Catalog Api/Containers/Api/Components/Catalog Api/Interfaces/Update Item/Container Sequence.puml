@@ -12,16 +12,9 @@ box "Catalog Api" #White
 end box
 
 
-C4InterFlow.Utils.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Update Item
+C4InterFlow.Utils.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api : Update Item
 group Update Item
-alt catalogItem == null
-dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Retun (TypedResults.NotFound)
-end
-alt priceEntry.IsModified
-else 
-dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext : Save Changes Async
-end
-dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Retun (TypedResults.Created)
+dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure : Save Changes Async
 end
 
 

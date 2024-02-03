@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using C4InterFlow.Automation;
 using C4InterFlow.Cli;
 using C4InterFlow.Elements;
@@ -52,6 +53,13 @@ namespace C4InterFlow
             }
 
             return result;
+        }
+
+        public static string? GetLabel(string? text)
+        {
+            if (string.IsNullOrEmpty(text)) return text;
+
+            return Regex.Replace(Regex.Replace(text.Replace("\"", string.Empty), "((?<=[a-z])[A-Z]|A-Z)", " $1"), "((?<=[a-zA-Z])[0-9]|(?<=[0-9])[a-zA-Z])", " $1").Trim();
         }
     }
 }

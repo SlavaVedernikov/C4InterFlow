@@ -12,15 +12,9 @@ box "Basket Api" #White
 end box
 
 
-C4InterFlow.Utils.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService : Delete Basket
+C4InterFlow.Utils.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc : Delete Basket
 group Delete Basket
-alt string.IsNullOrEmpty(userId)
-dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService : Throw Not Authenticated
-end
-dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository : Delete Basket Async
-group Delete Basket Async
-dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase : Key Delete Async
-end
+dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data : Delete Basket Async
 end
 
 

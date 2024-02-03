@@ -11,10 +11,7 @@ box "Basket Api" #White
 end box
 
 
-C4InterFlow.Utils.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository : Delete Basket Async
-group Delete Basket Async
-dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase : Key Delete Async
-end
+C4InterFlow.Utils.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data : Delete Basket Async
 
 
 @enduml

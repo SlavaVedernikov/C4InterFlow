@@ -11,7 +11,7 @@ box "Catalog Api" #White
 end box
 
 
-C4InterFlow.Utils.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext : Catalog Types Remove
+C4InterFlow.Utils.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure : Catalog Types Remove
 
 
 @enduml

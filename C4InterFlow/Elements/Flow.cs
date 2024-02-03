@@ -1,4 +1,6 @@
 ﻿
+using System.Text.RegularExpressions;
+
 namespace C4InterFlow.Elements
 {    
     public record Flow
@@ -108,6 +110,16 @@ namespace C4InterFlow.Elements
             {
                 Flows.Add(segment);
             }
+        }
+
+        public Flow InferContainerInterface()
+        {
+            if (Type != FlowType.Use) return this;
+
+            Params = new Regex(@"\.Components\.[^.]*").Replace(Params, string.Empty);
+            OwnerAlias = new Regex(@"\.Components\.[^.]*").Replace(OwnerAlias, string.Empty);
+
+            return this;
         }
 
         public Flow Return(string value)

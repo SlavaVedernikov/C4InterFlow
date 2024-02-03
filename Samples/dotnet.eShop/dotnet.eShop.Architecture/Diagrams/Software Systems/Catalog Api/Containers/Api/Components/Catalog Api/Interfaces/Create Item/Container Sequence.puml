@@ -12,11 +12,10 @@ box "Catalog Api" #White
 end box
 
 
-C4InterFlow.Utils.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Create Item
+C4InterFlow.Utils.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api : Create Item
 group Create Item
-dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext : Catalog Items Add
-dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext : Save Changes Async
-dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Retun (TypedResults.CreatedAtRoute)
+dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure : Catalog Items Add
+dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure : Save Changes Async
 end
 
 

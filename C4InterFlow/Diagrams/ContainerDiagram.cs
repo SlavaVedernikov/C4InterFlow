@@ -2,10 +2,7 @@ using C4InterFlow.Diagrams.Plantuml.Style;
 using C4InterFlow.Diagrams.Interfaces;
 using C4InterFlow.Elements;
 using C4InterFlow.Elements.Relationships;
-using System.Security;
-using C4InterFlow.Commons.Extensions;
 using C4InterFlow.Elements.Boundaries;
-using System.Collections.Generic;
 
 namespace C4InterFlow.Diagrams
 {
@@ -54,6 +51,14 @@ namespace C4InterFlow.Diagrams
                         foreach (var useFlow in activityFlow.GetUseFlows())
                         {
                             PopulateFlow(useFlow);
+
+                            var useInterface = Utils.GetInstance<Interface>(useFlow.Params);
+                            var useInterfaceOwner = Utils.GetInstance<Structure>(useInterface?.Owner);
+
+                            if (useInterfaceOwner is Component)
+                            {
+                                useFlow.InferContainerInterface();
+                            }
                         }
 
                         parentFlow.AddFlowsRange(activityFlow.Flows);
@@ -82,7 +87,28 @@ namespace C4InterFlow.Diagrams
                 PopulateFlow(useFlow);
             }
 
-            flow.AddFlowsRange(currentFlow.Flows);
+            AddFlows(flow, currentFlow, usesInterfaceOwner);
+        }
+
+        private void AddFlows(Flow toFlow, Flow fromFlow, Structure fromFlowInterfaceOwner)
+        {
+            if (fromFlowInterfaceOwner is Component)
+            {
+                var container = Utils.GetInstance<Container>(((Component)fromFlowInterfaceOwner).Container);
+
+                if(container != null)
+                {
+                    var usesFlows = fromFlow.GetUseFlows()
+                    .Where(x => !x.Params.Contains(container.Alias))
+                    .Select(x => x.InferContainerInterface());
+
+                    toFlow.AddFlowsRange(usesFlows);
+                }
+            }
+            else
+            {
+                toFlow.AddFlowsRange(fromFlow.Flows);
+            }
         }
 
         private List<Structure> _structures;
