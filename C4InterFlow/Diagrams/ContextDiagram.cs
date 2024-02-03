@@ -67,8 +67,10 @@ namespace C4InterFlow.Diagrams
         private void PopulateFlow(Flow flow)
         {
             var usesInterface = Utils.GetInstance<Interface>(flow.Params);
-            var usesInterfaceOwner = Utils.GetInstance<Structure>(usesInterface.Owner);
-            
+            var usesInterfaceOwner = Utils.GetInstance<Structure>(usesInterface?.Owner);
+
+            if (usesInterface == null || usesInterfaceOwner == null) return;
+
             if (usesInterfaceOwner is Container)
             {
                 var usesSystem = Utils.GetInstance<Structure>(((Container)usesInterfaceOwner).SoftwareSystem);

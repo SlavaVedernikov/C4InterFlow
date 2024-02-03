@@ -6,6 +6,7 @@ using C4InterFlow.Elements;
 using C4InterFlow.Cli.Commands.Binders;
 using System.Text.RegularExpressions;
 using C4InterFlow.Automation;
+using static C4InterFlow.Utils.ExternalSystem;
 
 namespace C4InterFlow.Cli.Commands;
 
@@ -82,7 +83,10 @@ public class DrawDiagramsCommand : Command
 
             foreach (var diagramScope in diagramOptions.Scopes)
             {
+                Console.WriteLine($"Discovering Interfaces for '{diagramScope}' diagram scope.");
                 var interfaces = GetInterfaces(resolvedInterfaceAliases, diagramScope).ToArray();
+
+                Console.WriteLine($"Discovering Business Processes for '{diagramScope}' diagram scope.");
                 var businessProcesses = GetBusinessProcesses(resolvedBusinessProcessTypeNames, diagramScope).ToArray();
 
                 Console.WriteLine($"Found {interfaces.Count()} interface(s) and {businessProcesses.Count()} business processe(s) for '{diagramScope}' scope.");

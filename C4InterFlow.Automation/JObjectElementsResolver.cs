@@ -20,7 +20,7 @@ namespace C4InterFlow.Elements
             this.rootJObject = rootJObject;
         }
 
-        public T? GetInstance<T>(string alias) where T : class
+        public T? GetInstance<T>(string? alias) where T : class
         {
             if (string.IsNullOrEmpty(alias)) return default(T);
 

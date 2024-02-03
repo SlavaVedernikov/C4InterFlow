@@ -37,7 +37,7 @@ namespace C4InterFlow
             return ArchitectureAsCodeReaderContext.Strategy.GetType(alias);
         }
 
-        public static T? GetInstance<T>(string alias) where T : class
+        public static T? GetInstance<T>(string? alias) where T : class
         {
             return ArchitectureAsCodeReaderContext.Strategy.GetInstance<T>(alias);
         }

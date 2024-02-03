@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Runtime.Loader;
 using System.Text;
 using System.Threading.Tasks;
+using static C4InterFlow.Automation.CsvToAnyArchitectureAsCodeWriter;
 
 namespace C4InterFlow.Elements
 {
@@ -23,7 +24,7 @@ namespace C4InterFlow.Elements
             ArchitectureInputPaths = architectureInputPaths;
         }
 
-        public T? GetInstance<T>(string alias) where T : class
+        public T? GetInstance<T>(string? alias) where T : class
         {
             if (string.IsNullOrEmpty(alias)) return default(T);
 
@@ -107,6 +108,8 @@ namespace C4InterFlow.Elements
 
             foreach (var item in structures)
             {
+                Console.WriteLine($"Resolving wildcard Structures for '{item}'.");
+
                 var segments = item.Split(".*");
                 if (segments.Length == 1)
                 {
