@@ -26,7 +26,14 @@ namespace C4InterFlow.Automation
             ArchitectureWorkspace = architectureWorkspace;
         }
 
-        protected override NetElementsResolver ElementsResolver { get => new NetElementsResolver(); }
+        public override void Initialise(string[]? architectureInputPaths, Dictionary<string, string>? parameters)
+        {
+            _elementsResolver = new NetElementsResolver(architectureInputPaths);
+            base.Initialise(architectureInputPaths, parameters);
+        }
+
+        private NetElementsResolver _elementsResolver;
+        public override NetElementsResolver ElementsResolver { get { return _elementsResolver; } }
 
         public override string GetComponentInterfaceAlias()
         {
@@ -51,47 +58,6 @@ namespace C4InterFlow.Automation
                 interfaceAliasField.Declaration.Variables[0].Initializer.Value).Value as string;
 
             return result;
-        }
-
-        public override IEnumerable<Interface> GetAllInterfaces()
-        {
-            var result = new List<Interface>();
-
-            var interfaceClasses = GetAllTypesOfInterface<IInterfaceInstance>();
-
-            foreach (var interfaceClass in interfaceClasses)
-            {
-                var interfaceInstance = interfaceClass?.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static)?.GetValue(null, null) as Interface;
-
-                if (interfaceInstance != null)
-                {
-                    result.Add(interfaceInstance);
-                }
-            }
-
-            return result;
-        }
-        private IEnumerable<Type> GetAllTypesOfInterface<T>()
-        {
-            var result = new List<Type>();
-
-            var assemblies = GetAssemblies();
-            foreach (var assembly in assemblies)
-            {
-                result.AddRange(assembly
-                .GetTypes()
-                .Where(type => typeof(T).IsAssignableFrom(type) && !type.IsInterface));
-            }
-            return result;
-        }
-
-        private IEnumerable<Assembly> GetAssemblies()
-        {
-            var paths = Directory.GetFiles(AppContext.BaseDirectory, "*.dll", SearchOption.TopDirectoryOnly);
-            //TODO: Review this logic. Consider uising inclusion logic instead of exclusion.
-            return paths
-            .Where(x => { var assembly = x.Split("\\").Last(); return new[] { "C4InterFlow", "System.", "Microsoft." }.All(y => !assembly.StartsWith(y)); })
-            .Select(AssemblyLoadContext.Default.LoadFromAssemblyPath);
         }
     }
 }

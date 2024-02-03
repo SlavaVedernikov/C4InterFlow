@@ -7,6 +7,9 @@ participant "External" as C4InterFlow.Utils.ExternalSystem
 participant "Data" as dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data
 
 C4InterFlow.Utils.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository : Delete Basket Async
+group Delete Basket Async
+dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase : Key Delete Async
+end
 
 
 @enduml

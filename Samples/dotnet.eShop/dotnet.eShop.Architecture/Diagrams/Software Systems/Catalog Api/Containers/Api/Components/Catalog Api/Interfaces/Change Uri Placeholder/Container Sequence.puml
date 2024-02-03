@@ -7,6 +7,9 @@ participant "External" as C4InterFlow.Utils.ExternalSystem
 participant "Api" as dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api
 
 C4InterFlow.Utils.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Change Uri Placeholder
+group Change Uri Placeholder
+dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Retun (items)
+end
 
 
 @enduml

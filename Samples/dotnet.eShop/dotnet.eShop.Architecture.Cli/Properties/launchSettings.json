@@ -2,7 +2,7 @@
   "profiles": {
     "dotnet.eShop.Architecture.Cli": {
       "commandName": "Project",
-      "commandLineArgs": "execute-aac-strategy --aac-root-namespace \"dotnet.eShop.Architecture\" --aac-output-path \"C:\\Data\\Projects\\C4InterFlow\\source\\C4InterFlow\\Samples\\dotnet.eShop.Architecture\\dotnet.eShop.Architecture\\Yaml\" --aac-strategy \"dotnet.eShop.Architecture.Cli.NetToYamlCatalogApiAaCGenerationStrategy, dotnet.eShop.Architecture.Cli\" --aac-params software-system-source-path=\"C:\\Data\\Projects\\C4InterFlow\\eShop-main\\src\\Catalog.API\\Catalog.API.csproj\" --aac-params software-system-name=\"CatalogApi\"\r\n"
+      "commandLineArgs": "draw-diagrams -i  dotnet.eShop.Architecture.SoftwareSystems.*.Containers.*.Components.*.Interfaces.* --aac-input-paths dotnet.eShop.Architecture.dll --aac-reader-strategy \"C4InterFlow.Automation.NetArchitectureAsCodeReaderStrategy, C4InterFlow.Automation\" -od \"C:\\C4InterFlow\\Samples\\dotnet.eShop\\dotnet.eShop.Architecture\\Diagrams\"\r\n"
     }
   }
 }

@@ -8,6 +8,15 @@ participant "Grpc" as dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Contai
 participant "Data" as dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data
 
 C4InterFlow.Utils.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService : Delete Basket
+group Delete Basket
+alt string.IsNullOrEmpty(userId)
+dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService : Throw Not Authenticated
+end
+dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository : Delete Basket Async
+group Delete Basket Async
+dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase : Key Delete Async
+end
+end
 
 
 @enduml

@@ -16,16 +16,22 @@ namespace C4InterFlow.Automation
     public class JObjectArchitectureAsCodeReaderStrategy : ArchitectureAsCodeReaderStrategy<JObjectElementsResolver>
     {
         private JObject? RootJObject { get; set; }
-        public JObjectArchitectureAsCodeReaderStrategy(string path)
+        public JObjectArchitectureAsCodeReaderStrategy()
         {
-            RootJObject = GetJsonObjectFromFiles(path);
+           
         }
         public JObjectArchitectureAsCodeReaderStrategy(JObject rootJObject)
         {
             RootJObject = rootJObject;
         }
 
-        protected override JObjectElementsResolver ElementsResolver { get => new JObjectElementsResolver(RootJObject ?? new JObject()); }
+        public override void Initialise(string[]? architectureInputPaths, Dictionary<string, string>? parameters)
+        {
+            RootJObject = GetJsonObjectFromFiles(architectureInputPaths);
+            base.Initialise(architectureInputPaths, parameters);
+        }
+
+        public override JObjectElementsResolver ElementsResolver { get => new JObjectElementsResolver(RootJObject ?? new JObject()); }
 
         public override string GetComponentInterfaceAlias()
         {
@@ -56,15 +62,6 @@ namespace C4InterFlow.Automation
             return result;
         }
 
-        public override IEnumerable<Interface> GetAllInterfaces()
-        {
-            var result = new List<Interface>();
-
-            //TODO: Add logic
-
-            return result;
-        }
-
         private JObject GetJsonObjectFromFile(string filePath)
         {
             var yaml = File.ReadAllText(filePath);
@@ -86,25 +83,29 @@ namespace C4InterFlow.Automation
             return JObject.Parse(json);
         }
 
-        private JObject GetJsonObjectFromFiles(string path)
+        private JObject GetJsonObjectFromFiles(string[] paths)
         {
-            string[] yamlFiles = Directory.GetFiles(path, "*.yaml", SearchOption.AllDirectories);
             YamlMappingNode rootNode = null;
 
-            foreach (string yamlFile in yamlFiles)
+            foreach (var path in paths)
             {
-                using (StreamReader reader = new StreamReader(yamlFile))
+                string[] yamlFiles = Directory.GetFiles(path, "*.yaml", SearchOption.AllDirectories);
+                
+                foreach (string yamlFile in yamlFiles)
                 {
-                    var yamlStream = new YamlStream();
-                    yamlStream.Load(reader);
+                    using (StreamReader reader = new StreamReader(yamlFile))
+                    {
+                        var yamlStream = new YamlStream();
+                        yamlStream.Load(reader);
 
-                    if (rootNode == null)
-                    {
-                        rootNode = (YamlMappingNode)yamlStream.Documents[0].RootNode;
-                    }
-                    else
-                    {
-                        MergeNodes(rootNode, (YamlMappingNode)yamlStream.Documents[0].RootNode);
+                        if (rootNode == null)
+                        {
+                            rootNode = (YamlMappingNode)yamlStream.Documents[0].RootNode;
+                        }
+                        else
+                        {
+                            MergeNodes(rootNode, (YamlMappingNode)yamlStream.Documents[0].RootNode);
+                        }
                     }
                 }
             }

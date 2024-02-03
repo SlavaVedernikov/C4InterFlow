@@ -12,15 +12,14 @@ namespace C4InterFlow.Automation
     {
         string GetComponentInterfaceAlias();
         string GetComponentInterfaceAlias(string filePath);
-        IEnumerable<Interface> GetAllInterfaces();
         (string name, bool isRequired)[] GetParameterDefinitions();
-        void Initialise(string? architectureInputPath, Dictionary<string, string>? parameters);
+        void Initialise(string[]? architectureInputPaths, Dictionary<string, string>? parameters);
         bool IsInitialised { get; }
     }
 
     public abstract class ArchitectureAsCodeReaderStrategy<ElementsResolverType> : IArchitectureAsCodeReaderStrategy where ElementsResolverType : IElementsResolver, new()
     {
-        protected string? ArchitectureInputPath { get; private set; }
+        protected string[]? ArchitectureInputPaths { get; private set; }
         private bool _isInitialised = false;
         public virtual bool IsInitialised
         {
@@ -31,15 +30,14 @@ namespace C4InterFlow.Automation
         }
         public abstract string GetComponentInterfaceAlias();
         public abstract string GetComponentInterfaceAlias(string filePath);
-        public abstract IEnumerable<Interface> GetAllInterfaces();
-        protected abstract ElementsResolverType ElementsResolver { get; }
+        public abstract ElementsResolverType ElementsResolver { get; }
         public virtual (string name, bool isRequired)[] GetParameterDefinitions()
         {
             return new (string name, bool isRequired)[] { };
         }
-        public virtual void Initialise(string? architectureInputPath, Dictionary<string, string>? parameters)
+        public virtual void Initialise(string[]? architectureInputPaths, Dictionary<string, string>? parameters)
         {
-            ArchitectureInputPath = architectureInputPath;
+            ArchitectureInputPaths = architectureInputPaths;
             _isInitialised = true;
         }
         public Type? GetType(string alias)
@@ -55,6 +53,11 @@ namespace C4InterFlow.Automation
         public IEnumerable<string> ResolveWildcardStructures(IEnumerable<string> structures)
         {
             return ElementsResolver.ResolveWildcardStructures(structures);
+        }
+
+        public IEnumerable<Interface> GetAllInterfaces()
+        {
+            return ElementsResolver.GetAllInterfaces();
         }
     }
 }

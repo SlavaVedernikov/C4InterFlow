@@ -4,6 +4,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Loader;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,6 +14,14 @@ namespace C4InterFlow.Elements
     {
         private static IList<string> _nonAssemblyPaths = new List<string>();
         private static ConcurrentDictionary<string, object> _aliasToStructureMap = new ConcurrentDictionary<string, object>();
+
+        public NetElementsResolver() { }
+
+        private string[]? ArchitectureInputPaths { get; set; }
+        public NetElementsResolver(string[] architectureInputPaths)
+        {
+            ArchitectureInputPaths = architectureInputPaths;
+        }
 
         public T? GetInstance<T>(string alias) where T : class
         {
@@ -174,6 +183,52 @@ namespace C4InterFlow.Elements
             }
 
             return result.Distinct();
+        }
+
+        public IEnumerable<Interface> GetAllInterfaces()
+        {
+            var result = new List<Interface>();
+
+            var interfaceClasses = GetAllTypesOfInterface<IInterfaceInstance>();
+
+            foreach (var interfaceClass in interfaceClasses)
+            {
+                var interfaceInstance = interfaceClass?.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static)?.GetValue(null, null) as Interface;
+
+                if (interfaceInstance != null)
+                {
+                    result.Add(interfaceInstance);
+                }
+            }
+
+            return result;
+        }
+        private IEnumerable<Type> GetAllTypesOfInterface<T>()
+        {
+            var result = new List<Type>();
+
+            var assemblies = GetAssemblies();
+            foreach (var assembly in assemblies)
+            {
+                result.AddRange(assembly
+                .GetTypes()
+                .Where(type => typeof(T).IsAssignableFrom(type) && !type.IsInterface));
+            }
+            return result;
+        }
+
+        private IEnumerable<Assembly> GetAssemblies()
+        {
+            if (ArchitectureInputPaths == null || ArchitectureInputPaths.Length == 0) return new List<Assembly>();
+
+            var paths = new List<string>();
+
+            foreach(var path in ArchitectureInputPaths)
+            {
+                paths.AddRange(Directory.GetFiles(AppContext.BaseDirectory, path, SearchOption.TopDirectoryOnly));
+            }
+
+            return paths.Select(AssemblyLoadContext.Default.LoadFromAssemblyPath);
         }
 
         private IEnumerable<Type> GetTypes(string @namespace)

@@ -9,14 +9,15 @@ namespace C4InterFlow.Elements
 {
     public class JObjectElementsResolver : IElementsResolver
     {
-        private JObject? JsonObject { get; set; }
+        private JObject? rootJObject { get; set; }
 
         public JObjectElementsResolver()
         {
+            rootJObject = null;
         }
-        public JObjectElementsResolver(JObject jsonObject)
+        public JObjectElementsResolver(JObject rootJObject)
         {
-            JsonObject = jsonObject;
+            this.rootJObject = rootJObject;
         }
 
         public T? GetInstance<T>(string alias) where T : class
@@ -42,6 +43,15 @@ namespace C4InterFlow.Elements
         public IEnumerable<string> ResolveWildcardStructures(IEnumerable<string> structures)
         {
             var result = new List<string>();
+
+            //TODO: Add logic
+
+            return result;
+        }
+
+        public IEnumerable<Interface> GetAllInterfaces()
+        {
+            var result = new List<Interface>();
 
             //TODO: Add logic
 

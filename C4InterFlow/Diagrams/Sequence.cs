@@ -94,11 +94,6 @@ namespace C4InterFlow.Diagrams
             return AppendSequence(GetSequence(this, Index.ToString()), Sequences);
         }
 
-        public override string ToString()
-        {
-            return GetSequence(this, Index.ToString());
-        }
-
         internal static string RemoveNumbering(string text)
         {
             if (string.IsNullOrEmpty(text))
