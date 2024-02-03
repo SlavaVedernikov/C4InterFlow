@@ -16,10 +16,18 @@ skinparam linetype polyline
 
 title C4 Static - CONTAINER level
 
-Container(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data, "Data", "", "")
-Container(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc, "Grpc", "", "")
-Container(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api, "Api", "", "")
-Container(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Infrastructure", "", "")
+
+System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.BasketApi, "Basket Api") {
+    Container(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data, "Data", "", "")
+    Container(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc, "Grpc", "", "")
+}
+
+
+System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi, "Catalog Api") {
+    Container(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api, "Api", "", "")
+    Container(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Infrastructure", "", "")
+}
+
 
 Rel(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data, "Uses")
 Rel(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Uses")

@@ -17,7 +17,11 @@ skinparam linetype polyline
 title Catalog Api - Api - CatalogApi - GetImageMimeTypeFromImageFileExtension - CONTAINER level
 
 System_Ext(C4InterFlow.Utils.ExternalSystem, "External", "")
-Container(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api, "Api", "", "")
+
+System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi, "Catalog Api") {
+    Container(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api, "Api", "", "")
+}
+
 
 Rel(C4InterFlow.Utils.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api, "Uses")
 

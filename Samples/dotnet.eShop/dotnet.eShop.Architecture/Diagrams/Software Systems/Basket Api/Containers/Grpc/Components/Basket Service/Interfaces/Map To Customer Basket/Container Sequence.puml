@@ -4,7 +4,12 @@ skinparam dpi 60
 title Basket Api - Grpc - BasketService - MapToCustomerBasket - CONTAINER level
 
 participant "External" as C4InterFlow.Utils.ExternalSystem
-participant "Grpc" as dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc
+
+box "Basket Api" #White
+
+    participant "Grpc" as dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc
+end box
+
 
 C4InterFlow.Utils.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService : Map To Customer Basket
 group Map To Customer Basket

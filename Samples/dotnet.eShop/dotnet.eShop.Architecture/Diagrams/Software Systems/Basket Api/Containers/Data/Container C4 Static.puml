@@ -16,7 +16,11 @@ skinparam linetype polyline
 
 title C4 Static - CONTAINER level
 
-Container(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data, "Data", "", "")
+
+System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.BasketApi, "Basket Api") {
+    Container(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data, "Data", "", "")
+}
+
 
 
 

@@ -5,6 +5,7 @@ using C4InterFlow.Elements.Relationships;
 using System.Security;
 using C4InterFlow.Commons.Extensions;
 using C4InterFlow.Elements.Boundaries;
+using System.Collections.Generic;
 
 namespace C4InterFlow.Diagrams
 {
@@ -142,45 +143,19 @@ namespace C4InterFlow.Diagrams
             else if (interfaceOwner is Container)
             {
                 var container = interfaceOwner as Container;
-                if (ShowBoundaries)
+
+                if (container != null)
                 {
-                    var softwareSystem = Utils.GetInstance<SoftwareSystem>(container.SoftwareSystem);
-                    var softwareSystemBoundary = structures.OfType<SoftwareSystemBoundary>().FirstOrDefault(x => x.Alias == softwareSystem?.Alias);
-
-                    if (softwareSystemBoundary == null)
-                    {
-                        softwareSystemBoundary = new SoftwareSystemBoundary(softwareSystem.Alias, softwareSystem.Label)
-                        {
-                            Structures = new List<Structure>()
-                        };
-
-                        structures.Add(softwareSystemBoundary);
-                    }
-
-                    if (!softwareSystemBoundary.Structures.Any(x => x.Alias == container.Alias))
-                    {
-                        ((List<Structure>)softwareSystemBoundary.Structures).Add(container);
-                    }
+                    currentScope = AddContainer(structures, container, currentScope);
                 }
-                else
-                {
-                    if(!structures.OfType<Container>().Any(x => x.Alias == interfaceOwner.Alias))
-                    {
-                        structures.Add(interfaceOwner);
-                    }
-                    currentScope = interfaceOwner.Alias;
-                }
-                
             }
             else if (interfaceOwner is Component)
             {
-                var container = Utils.GetInstance<Structure>(((Component)interfaceOwner).Container);
+                var container = Utils.GetInstance<Container>(((Component)interfaceOwner).Container);
 
-                if (currentScope != container.Alias &&
-                    structures.Where(x => x.Alias == container.Alias).FirstOrDefault() as Container == null)
+                if (container != null && currentScope != container.Alias)
                 {
-                    structures.Add(container);
-                    currentScope = container.Alias;
+                    currentScope = AddContainer(structures, container, currentScope);
                 }
             }
 
@@ -188,6 +163,43 @@ namespace C4InterFlow.Diagrams
             {
                 PopulateStructures(structures, usesInterface, currentScope);
             }
+        }
+
+        private string? AddContainer(IList<Structure> structures, Container container, string? currentScope)
+        {
+            var result = currentScope;
+
+            if (ShowBoundaries)
+            {
+                var softwareSystem = Utils.GetInstance<SoftwareSystem>(container.SoftwareSystem);
+                var softwareSystemBoundary = structures.OfType<SoftwareSystemBoundary>().FirstOrDefault(x => x.Alias == softwareSystem?.Alias);
+
+                if (softwareSystemBoundary == null)
+                {
+                    softwareSystemBoundary = new SoftwareSystemBoundary(softwareSystem.Alias, softwareSystem.Label)
+                    {
+                        Structures = new List<Structure>()
+                    };
+
+                    structures.Add(softwareSystemBoundary);
+                }
+
+                if (!softwareSystemBoundary.Structures.Any(x => x.Alias == container.Alias))
+                {
+                    ((List<Structure>)softwareSystemBoundary.Structures).Add(container);
+                    result = container.Alias;
+                }
+            }
+            else
+            {
+                if (!structures.OfType<Container>().Any(x => x.Alias == container.Alias))
+                {
+                    structures.Add(container);
+                    result = container.Alias;
+                }
+            }
+
+            return result;
         }
 
         private List<Relationship> _relationships;

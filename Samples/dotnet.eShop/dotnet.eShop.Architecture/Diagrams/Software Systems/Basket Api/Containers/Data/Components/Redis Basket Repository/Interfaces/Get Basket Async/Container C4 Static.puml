@@ -17,7 +17,11 @@ skinparam linetype polyline
 title Basket Api - Data - RedisBasketRepository - GetBasketAsync - CONTAINER level
 
 System_Ext(C4InterFlow.Utils.ExternalSystem, "External", "")
-Container(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data, "Data", "", "")
+
+System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.BasketApi, "Basket Api") {
+    Container(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data, "Data", "", "")
+}
+
 
 Rel(C4InterFlow.Utils.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data, "Uses")
 

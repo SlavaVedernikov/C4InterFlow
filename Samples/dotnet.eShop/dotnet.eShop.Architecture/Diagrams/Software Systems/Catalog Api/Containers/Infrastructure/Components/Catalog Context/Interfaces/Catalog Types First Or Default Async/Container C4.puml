@@ -17,7 +17,11 @@ skinparam linetype polyline
 title Catalog Api - Infrastructure - CatalogContext - CatalogTypesFirstOrDefaultAsync - CONTAINER level
 
 System_Ext(C4InterFlow.Utils.ExternalSystem, "External", "")
-Container(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Infrastructure", "", "")
+
+System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi, "Catalog Api") {
+    Container(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Infrastructure", "", "")
+}
+
 
 Rel(C4InterFlow.Utils.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Catalog Types First Or Default Async")
 

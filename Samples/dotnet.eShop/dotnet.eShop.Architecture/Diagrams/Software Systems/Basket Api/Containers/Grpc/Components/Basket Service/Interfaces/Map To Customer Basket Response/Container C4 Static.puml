@@ -17,7 +17,11 @@ skinparam linetype polyline
 title Basket Api - Grpc - BasketService - MapToCustomerBasketResponse - CONTAINER level
 
 System_Ext(C4InterFlow.Utils.ExternalSystem, "External", "")
-Container(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc, "Grpc", "", "")
+
+System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.BasketApi, "Basket Api") {
+    Container(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc, "Grpc", "", "")
+}
+
 
 Rel(C4InterFlow.Utils.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc, "Uses")
 
