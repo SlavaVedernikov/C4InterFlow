@@ -32,9 +32,9 @@ namespace C4InterFlow
             }
         }
 
-        public static Type? GetType(string alias)
+        public static IEnumerable<T> GetNestedInstances<T>(string? alias) where T : class
         {
-            return ArchitectureAsCodeReaderContext.Strategy.GetType(alias);
+            return ArchitectureAsCodeReaderContext.Strategy.GetNestedInstances<T>(alias);
         }
 
         public static T? GetInstance<T>(string? alias) where T : class

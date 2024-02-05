@@ -8,8 +8,8 @@ namespace C4InterFlow.Elements.Interfaces
 {
     public interface IElementsResolver
     {
-        public Type? GetType(string alias);
-        public T? GetInstance<T>(string? alias) where T : class;
+        public IEnumerable<T> GetNestedInstances<T>(string? alias) where T : Structure;
+        public T? GetInstance<T>(string? alias) where T : Structure;
         public IEnumerable<string> ResolveStructures(IEnumerable<string> structures);
         public IEnumerable<Interface> GetAllInterfaces();
     }

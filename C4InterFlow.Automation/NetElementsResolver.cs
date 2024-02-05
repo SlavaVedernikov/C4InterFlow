@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
@@ -24,7 +25,7 @@ namespace C4InterFlow.Elements
             ArchitectureInputPaths = architectureInputPaths;
         }
 
-        public T? GetInstance<T>(string? alias) where T : class
+        public T? GetInstance<T>(string? alias) where T : Structure
         {
             if (string.IsNullOrEmpty(alias)) return default(T);
 
@@ -45,7 +46,7 @@ namespace C4InterFlow.Elements
             return result;
         }
 
-        public Type? GetType(string alias)
+        private Type? GetType(string alias)
         {
             Type? result = null;
 
@@ -275,6 +276,30 @@ namespace C4InterFlow.Elements
             }
 
             return result.Distinct();
+        }
+
+        public IEnumerable<T> GetNestedInstances<T>(string? alias) where T : Structure
+        {
+            var result = new List<T>();
+
+            if(string.IsNullOrEmpty(alias)) return result;
+
+            var parentType = GetType(alias);
+            var nestedTypes = parentType?.GetNestedTypes();
+
+            if (nestedTypes != null)
+            {
+                foreach (var type in nestedTypes)
+                {
+                    var instance = type?.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static)?.GetValue(null, null) as T;
+                    if (instance != null)
+                    {
+                        result.Add(instance);
+                    }
+                }
+            }
+
+            return result;
         }
     }
 }

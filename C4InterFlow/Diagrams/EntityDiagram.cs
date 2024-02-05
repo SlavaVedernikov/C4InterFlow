@@ -50,16 +50,11 @@ namespace C4InterFlow.Diagrams
                         {
                             foreach (var container in Containers)
                             {
-                                var containerType = Utils.GetType(container.Alias);
-                                var entitiesType = containerType?.GetNestedType("Entities");
-                                var entities = entitiesType?.GetNestedTypes();
+                                var entities = Utils.GetNestedInstances<Entity>($"{container.Alias}.Entities");
 
-                                if (entities != null)
+                                foreach (var item in entities)
                                 {
-                                    foreach (var item in entities)
-                                    {
-                                        AddToStructures(Utils.GetInstance<Entity>(item?.GetField("ALIAS")?.GetRawConstantValue()?.ToString()));
-                                    }
+                                    AddToStructures(item);
                                 }
                             }
                         }

@@ -40,10 +40,6 @@ namespace C4InterFlow.Automation
             ArchitectureInputPaths = architectureInputPaths;
             _isInitialised = true;
         }
-        public Type? GetType(string alias)
-        {
-            return ElementsResolver.GetType(alias);
-        }
 
         public T? GetInstance<T>(string alias) where T : class
         {
@@ -58,6 +54,11 @@ namespace C4InterFlow.Automation
         public IEnumerable<Interface> GetAllInterfaces()
         {
             return ElementsResolver.GetAllInterfaces();
+        }
+
+        public IEnumerable<T> GetNestedInstances<T>(string? alias) where T : class
+        {
+            return ElementsResolver.GetNestedInstances<T>(alias);
         }
     }
 }
