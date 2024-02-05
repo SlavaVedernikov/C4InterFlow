@@ -44,6 +44,7 @@ public class ExecuteArchitectureAsCodeStrategyCommand : Command
             }
 
             var context = new ArchitectureAsCodeWriterContext(strategyInstance, architectureRootNamespace, architectureOutputPath, architectureAsCodeParams);
+            
             context.ExecuteStrategy();
             
             return 0;

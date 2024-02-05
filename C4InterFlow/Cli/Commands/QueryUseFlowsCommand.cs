@@ -16,26 +16,32 @@ public class QueryUseFlowsCommand : Command
         var isRecursiveOption = QueryIsRecursiveOption.Get();
         var queryOutputFileOption = QueryOutputFileOption.Get();
         var queryAppendOption = QueryAppendOption.Get();
+        var architectureAsCodeInputPathsOption = ArchitectureAsCodeInputPathsOption.Get();
+        var architectureAsCodeReaderStrategyTypeOption = ArchitectureAsCodeReaderStrategyTypeOption.Get();
 
         AddOption(interfacesOption);
         AddOption(isRecursiveOption);
         AddOption(queryOutputFileOption);
         AddOption(queryAppendOption);
+        AddOption(architectureAsCodeInputPathsOption);
+        AddOption(architectureAsCodeReaderStrategyTypeOption);
 
-        this.SetHandler(async (interfaceAliases, isRecursive, queryOutputFile, append) =>
+        this.SetHandler(async (interfaceAliases, isRecursive, queryOutputFile, append, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType) =>
         {
-            await Execute(interfaceAliases, isRecursive, queryOutputFile, append);
+            await Execute(interfaceAliases, isRecursive, queryOutputFile, append, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
         },
-        interfacesOption, isRecursiveOption, queryOutputFileOption, queryAppendOption);
+        interfacesOption, isRecursiveOption, queryOutputFileOption, queryAppendOption, architectureAsCodeInputPathsOption, architectureAsCodeReaderStrategyTypeOption);
     }
 
-    public static async Task<int> Execute(string[] interfaceAliases, bool isRecursive, string queryOutputFile, bool append)
+    public static async Task<int> Execute(string[] interfaceAliases, bool isRecursive, string queryOutputFile, bool append, string[] architectureAsCodeInputPaths, string architectureAsCodeReaderStrategyType)
     {
         try
         {
             Console.WriteLine($"{COMMAND_NAME} command is executing...");
 
-            var resolvedInterfaceAliases = Utils.ResolveWildcardStructures(interfaceAliases);
+            Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
+
+            var resolvedInterfaceAliases = Utils.ResolveStructures(interfaceAliases);
             var result = new List<string>();
             var interfaces = Utils.GetAllInterfaces();
 

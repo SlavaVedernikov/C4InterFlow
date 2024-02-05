@@ -8,9 +8,9 @@ namespace C4InterFlow.Cli
 {
     public class Utils
     {
-        public static IEnumerable<string> ResolveWildcardStructures(IEnumerable<string> structures)
+        public static IEnumerable<string> ResolveStructures(IEnumerable<string> structures)
         {
-            return ArchitectureAsCodeReaderContext.Strategy.ResolveWildcardStructures(structures);
+            return ArchitectureAsCodeReaderContext.Strategy.ResolveStructures(structures);
         }
 
         public static IEnumerable<Interface> GetAllInterfaces()
@@ -59,6 +59,20 @@ namespace C4InterFlow.Cli
             {
                 Console.WriteLine($"Could not write lines to a file. An error occurred: {ex.Message}");
             }
+        }
+
+        public static void SetArchitectureAsCodeReaderContext(string[] architectureAsCodeInputPaths, string architectureAsCodeReaderStrategyType)
+        {
+            Type strategyType = Type.GetType(architectureAsCodeReaderStrategyType);
+            object strategyTypeInstance = Activator.CreateInstance(strategyType);
+            var strategyInstance = strategyTypeInstance as IArchitectureAsCodeReaderStrategy;
+
+            if (strategyInstance == null)
+            {
+                throw new ArgumentException($"'{architectureAsCodeReaderStrategyType}' is not a valid Architecture As Code Reader Strategy type.");
+            }
+
+            ArchitectureAsCodeReaderContext.SetCurrentStrategy(strategyInstance, architectureAsCodeInputPaths, new Dictionary<string, string>());
         }
     }
 }

@@ -13,23 +13,29 @@ public class QueryByInputCommand : Command
         "Queries interfaces by alias values in Interface 'Input' field.")
     {
         var entitiesOption = EntitiesOption.Get();
+        var architectureAsCodeInputPathsOption = ArchitectureAsCodeInputPathsOption.Get();
+        var architectureAsCodeReaderStrategyTypeOption = ArchitectureAsCodeReaderStrategyTypeOption.Get();
 
         AddOption(entitiesOption);
+        AddOption(architectureAsCodeInputPathsOption);
+        AddOption(architectureAsCodeReaderStrategyTypeOption);
 
-        this.SetHandler(async (entityAliases) =>
+        this.SetHandler(async (entityAliases, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType) =>
             {
-                await Execute(entityAliases);
+                await Execute(entityAliases, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
             },
-            entitiesOption);
+            entitiesOption, architectureAsCodeInputPathsOption, architectureAsCodeReaderStrategyTypeOption);
     }
 
-    private static async Task<int> Execute(string[] entityAliases)
+    private static async Task<int> Execute(string[] entityAliases, string[] architectureAsCodeInputPaths, string architectureAsCodeReaderStrategyType)
     {
         try
         {
             Console.WriteLine($"{COMMAND_NAME} command is executing...");
 
-            var resolvedEntityAliases = Utils.ResolveWildcardStructures(entityAliases);
+            Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
+
+            var resolvedEntityAliases = Utils.ResolveStructures(entityAliases);
             var result = new List<string>();
             var interfaces = Utils.GetAllInterfaces();
             

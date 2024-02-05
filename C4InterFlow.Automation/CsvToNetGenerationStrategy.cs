@@ -1,4 +1,6 @@
-﻿namespace C4InterFlow.Automation
+﻿using C4InterFlow.Elements;
+
+namespace C4InterFlow.Automation
 {
     public class CsvToNetGenerationStrategy : CsvToNetArchitectureAsCodeStrategy
     {
@@ -16,7 +18,7 @@
             generationWriter.WithSoftwareSystems()
                     .ToList().ForEach(s => {
                         generationWriter
-                        .AddSoftwareSystemClass(name: s.Alias, label: s.Name);
+                        .AddSoftwareSystemClass(name: s.Alias, boundary: s.GetBoundary(), label: s.Name);
                         
                         s.WithInterfaces(generationWriter).ToList().ForEach(i => {
                             generationWriter.AddSoftwareSystemInterfaceClass(i);
@@ -40,7 +42,19 @@
                             generationWriter));
 
                     });
-            
+
+            generationWriter.WithActors()
+                    .ToList().ForEach(a =>
+                    {
+                        if(!a.TryGetType(generationWriter, out var type))
+                        {
+                            type = nameof(Person);
+                        }
+                        generationWriter.AddActorClass(a.Alias, type, a.Name);
+                    });
+
+            generationWriter.WithBusinessProcesses()
+                .ToList().ForEach(b => generationWriter.AddBusinessProcessClass(b.Alias, b.WithBusinessActivities(generationWriter).ToArray()));
         }
     }
 }

@@ -50,9 +50,9 @@ namespace C4InterFlow.Automation
             return ElementsResolver.GetInstance<T>(alias);
         }
 
-        public IEnumerable<string> ResolveWildcardStructures(IEnumerable<string> structures)
+        public IEnumerable<string> ResolveStructures(IEnumerable<string> structures)
         {
-            return ElementsResolver.ResolveWildcardStructures(structures);
+            return ElementsResolver.ResolveStructures(structures);
         }
 
         public IEnumerable<Interface> GetAllInterfaces()

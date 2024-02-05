@@ -100,7 +100,7 @@ namespace C4InterFlow.Elements
             return result;
         }
 
-        public IEnumerable<string> ResolveWildcardStructures(IEnumerable<string> structures)
+        public IEnumerable<string> ResolveStructures(IEnumerable<string> structures)
         {
             var result = new List<string>();
 
@@ -108,8 +108,6 @@ namespace C4InterFlow.Elements
 
             foreach (var item in structures)
             {
-                Console.WriteLine($"Resolving wildcard Structures for '{item}'.");
-
                 var segments = item.Split(".*");
                 if (segments.Length == 1)
                 {
@@ -117,6 +115,7 @@ namespace C4InterFlow.Elements
                 }
                 else
                 {
+                    Console.WriteLine($"Resolving wildcard Structures for '{item}'.");
                     var types = new List<string>();
                     var supersededTypes = new List<string>();
                     foreach (var segmentItem in segments)

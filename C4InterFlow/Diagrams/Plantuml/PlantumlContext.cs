@@ -166,8 +166,10 @@ public partial class PlantumlContext
 
             var jar = CalculateJarCommand(UsingStandardLibraryBaseUrl, generatedImageFormat, directory);
 
-            ProcessInfo.Arguments = $"{jar} \"{filePath}\"";
+            // Get the JAVA_OPTS environment variable
             var javaOpts = Environment.GetEnvironmentVariable("JAVA_OPTS");
+
+            ProcessInfo.Arguments = $"{(!string.IsNullOrEmpty(javaOpts) ? $"{javaOpts} " : string.Empty)}{jar} \"{filePath}\"";
             ProcessInfo.RedirectStandardOutput = true;
             ProcessInfo.StandardOutputEncoding = Encoding.UTF8;
 

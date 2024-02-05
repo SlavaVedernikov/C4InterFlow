@@ -2,6 +2,7 @@
 {
     public class CsvToJsonGenerationStrategy : CsvToJsonArchitectureAsCodeStrategy
     {
+        private static readonly bool WriteAaCPerSystem = false;
         public override void Execute()
         {
             var addSystemClassAction = "add System Class";
@@ -9,18 +10,26 @@
 
             var architectureRootNamespaceSegments = ArchitectureRootNamespace.Split('.');
             var generationWriter = CsvToJsonArchitectureAsCodeWriter
-                .WithCsvData(ArchitectureInputPath)
-                //.WithArchitectureRootNamespace(ArchitectureRootNamespace)
-                //.WithArchitectureOutputPath(Path.Combine(ArchitectureOutputPath, $"{ArchitectureRootNamespace}.json"))
-                ;
+                .WithCsvData(ArchitectureInputPath);
+
+            if (!WriteAaCPerSystem)
+            {
+                generationWriter.WithArchitectureRootNamespace(ArchitectureRootNamespace)
+                .WithArchitectureOutputPath(Path.Combine(ArchitectureOutputPath, $"{ArchitectureRootNamespace}.json"));
+            }
+
 
             generationWriter.WithSoftwareSystems()
                     .ToList().ForEach(s => {
-                        generationWriter
-                        .WithArchitectureRootNamespace(ArchitectureRootNamespace)
-                        .WithArchitectureOutputPath(Path.Combine(ArchitectureOutputPath, $"{ArchitectureRootNamespace}.{s.Alias}.json"))
-                        .AddSoftwareSystemObject(s.Alias);
-                        
+                        if (WriteAaCPerSystem)
+                        {
+                            generationWriter
+                                .WithArchitectureRootNamespace(ArchitectureRootNamespace)
+                                .WithArchitectureOutputPath(Path.Combine(ArchitectureOutputPath, $"{ArchitectureRootNamespace}.{s.Alias}.json"));
+                        }
+
+                        generationWriter.AddSoftwareSystemObject(s.Alias, s.GetBoundary());
+
                         s.WithInterfaces(generationWriter).ToList().ForEach(i => {
                             generationWriter.AddSoftwareSystemInterfaceObject(i);
                         });
@@ -42,11 +51,17 @@
                         .ToList().ForEach(x => x.AddFlowToContainerInterfaceObject(
                             generationWriter));
 
-                        generationWriter.WriteArchitecture();
+                        if (WriteAaCPerSystem)
+                        {
+                            generationWriter.WriteArchitecture();
+                        }
 
                     });
 
-            //generationWriter.WriteArchitecture();
+            if (!WriteAaCPerSystem)
+            {
+                generationWriter.WriteArchitecture();
+            }
 
 
         }

@@ -86,6 +86,8 @@ namespace C4InterFlow.Automation
             var fileDirectory = ArchitectureProject.FilePath.Replace($"{ArchitectureProject.Name}.csproj", string.Empty);            
             var filePath = Path.Combine(fileDirectory, documentName);
 
+            Directory.CreateDirectory(fileDirectory);
+
             if (ArchitectureProject.Documents.Any(x => x.FilePath == filePath))
             {
                 Console.WriteLine($"Document '{filePath}' already exists in '{ArchitectureProject.Name}' Project.");
@@ -117,11 +119,10 @@ namespace C4InterFlow.Automation
             var documentName = $"{interfaceName}.cs";
             var projectDirectory = ArchitectureProject.FilePath.Replace($"{ArchitectureProject.Name}.csproj", string.Empty);
             var fileDirectory = Path.Combine(projectDirectory, NetToAnyCodeGenerator<NetCodeWriter>.GetSoftwareSystemInterfacesDirectory(softwareSystemName));
-            
-            Directory.CreateDirectory(fileDirectory);
             var filePath = Path.Combine(fileDirectory, documentName);
 
-            
+            Directory.CreateDirectory(fileDirectory);
+
             if (!SoftwareSystemInterfaceClassFileNameMap.ContainsKey(filePath))
             {
                 SoftwareSystemInterfaceClassFileNameMap.Add(filePath, softwareSystemInterface);
@@ -159,9 +160,9 @@ namespace C4InterFlow.Automation
 
             var projectDirectory = ArchitectureProject.FilePath.Replace($"{ArchitectureProject.Name}.csproj", string.Empty);
             var fileDirectory = Path.Combine(projectDirectory, NetToAnyCodeGenerator<NetCodeWriter>.GetContainersDirectory(softwareSystemName));
-            Directory.CreateDirectory(fileDirectory);
-
             var filePath = Path.Combine(fileDirectory, documentName);
+
+            Directory.CreateDirectory(fileDirectory);
 
             if (ArchitectureProject.Documents.Any(x => x.FilePath == filePath))
             {
@@ -198,8 +199,9 @@ namespace C4InterFlow.Automation
             var documentName = $"{interfaceName}.cs";
             var projectDirectory = ArchitectureProject.FilePath.Replace($"{ArchitectureProject.Name}.csproj", string.Empty);
             var fileDirectory = Path.Combine(projectDirectory, NetToAnyCodeGenerator<NetCodeWriter>.GetContainerInterfaceDirectory(softwareSystemName, containerName));
-            Directory.CreateDirectory(fileDirectory);
             var filePath = Path.Combine(fileDirectory, documentName);
+
+            Directory.CreateDirectory(fileDirectory);
 
             if (!ContainerInterfaceClassFileNameMap.ContainsKey(filePath))
             {

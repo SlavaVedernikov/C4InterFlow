@@ -10,7 +10,7 @@ namespace C4InterFlow.Elements.Interfaces
     {
         public Type? GetType(string alias);
         public T? GetInstance<T>(string? alias) where T : class;
-        public IEnumerable<string> ResolveWildcardStructures(IEnumerable<string> structures);
+        public IEnumerable<string> ResolveStructures(IEnumerable<string> structures);
         public IEnumerable<Interface> GetAllInterfaces();
     }
 }

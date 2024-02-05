@@ -40,7 +40,7 @@ namespace C4InterFlow.Elements
             return result;
         }
 
-        public IEnumerable<string> ResolveWildcardStructures(IEnumerable<string> structures)
+        public IEnumerable<string> ResolveStructures(IEnumerable<string> structures)
         {
             var result = new List<string>();
 
