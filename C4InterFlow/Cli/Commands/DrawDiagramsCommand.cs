@@ -63,7 +63,7 @@ public class DrawDiagramsCommand : Command
     {
         try
         {
-            Console.WriteLine($"{COMMAND_NAME} command is executing...");
+            Console.WriteLine($"'{COMMAND_NAME}' command is executing...");
 
             Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
 
@@ -77,7 +77,9 @@ public class DrawDiagramsCommand : Command
                 resolvedInterfaceAliases.AddRange(Utils.ResolveStructures(fileInputInterfaceAliases));
             }
 
-            var resolvedBusinessProcessTypeNames = Utils.ResolveStructures(businessProcessTypeNames);
+            resolvedInterfaceAliases = resolvedInterfaceAliases.Distinct().ToList();
+
+            var resolvedBusinessProcessTypeNames = Utils.ResolveStructures(businessProcessTypeNames).Distinct();
 
             foreach (var diagramScope in diagramOptions.Scopes)
             {
@@ -370,7 +372,7 @@ public class DrawDiagramsCommand : Command
             var process = new BusinessProcess(
                             new BusinessActivity[] {
                             new BusinessActivity(
-                                new Flow(C4InterFlow.Utils.ExternalSystem.ALIAS).Use(@interface.Alias))
+                                new Flow(C4InterFlow.SoftwareSystems.ExternalSystem.ALIAS).Use(@interface.Alias))
                             });
             switch (levelOfDetails)
             {
@@ -592,7 +594,7 @@ public class DrawDiagramsCommand : Command
 
             Parallel.ForEach(softwareSystemAliases, softwareSystemAlias =>
             {
-                var systemInterfaces = interfaces.Where(x => x.Alias.StartsWith(softwareSystemAlias)).ToArray();
+                var systemInterfaces = interfaces.Where(x => x.Alias.StartsWith($"{softwareSystemAlias}.")).ToArray();
                 var diagram = GetDiagram(levelOfDetails, systemInterfaces, showBoundaries, showInterfaceInputAndOutput, isStatic);
                 if (TryGetDiagramPath(
                         scope,
@@ -625,7 +627,7 @@ public class DrawDiagramsCommand : Command
 
             Parallel.ForEach(containerAliases, containerAlias =>
             {
-                var containerInterfaces = interfaces.Where(x => x.Alias.StartsWith(containerAlias)).ToArray();
+                var containerInterfaces = interfaces.Where(x => x.Alias.StartsWith($"{containerAlias}.")).ToArray();
                 var diagram = GetDiagram(levelOfDetails, containerInterfaces, showBoundaries, showInterfaceInputAndOutput, isStatic);
                 if (TryGetDiagramPath(
                         scope,
@@ -658,7 +660,7 @@ public class DrawDiagramsCommand : Command
 
             Parallel.ForEach(componentAliases, componentAlias =>
             {
-                var componentInterfaces = interfaces.Where(x => x.Alias.StartsWith(componentAlias)).ToArray();
+                var componentInterfaces = interfaces.Where(x => x.Alias.StartsWith($"{componentAlias}.")).ToArray();
                 var diagram = GetDiagram(levelOfDetails, componentInterfaces, showBoundaries, showInterfaceInputAndOutput, isStatic);
                 if (TryGetDiagramPath(
                         scope,
@@ -896,7 +898,7 @@ public class DrawDiagramsCommand : Command
 
         if (TryParseInterface(@interface, out var system, out var container, out var component))
         {
-            return $"{system.Label}{(container != null ? $" - {container.Name}" : string.Empty)}{(component != null ? $" - {component.Name}" : string.Empty)} - {@interface.Name} - {levelOfDetails.ToUpper()} level";
+            return $"{system.Label}{(container != null ? $" - {container.Label}" : string.Empty)}{(component != null ? $" - {component.Label}" : string.Empty)} - {@interface.Label} - {levelOfDetails.ToUpper()} level";
         }
 
         return null;

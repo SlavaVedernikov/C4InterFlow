@@ -14,9 +14,9 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Catalog Api - Infrastructure - CatalogContext - CatalogItemsFindAsync - COMPONENT level
+title Catalog Api - Infrastructure - Catalog Context - Catalog Items Find Async - COMPONENT level
 
-System_Ext(C4InterFlow.Utils.ExternalSystem, "External", "")
+System(C4InterFlow.SoftwareSystems.ExternalSystem, "External System", "")
 
 System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi, "Catalog Api") {
     
@@ -27,7 +27,7 @@ Container_Boundary(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containe
 }
 
 
-Rel(C4InterFlow.Utils.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext, "Catalog Items Find Async")
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext, "Catalog Items Find Async")
 
 
 SHOW_LEGEND()

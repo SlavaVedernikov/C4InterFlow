@@ -72,6 +72,35 @@ namespace C4InterFlow.Elements
             return GetUseFlows().Select(x => !string.IsNullOrEmpty(x.Params) ? x.Params : string.Empty).ToArray();
         }
 
+        public Flow[] GetFlowsOfType(FlowType type)
+        {
+            var result = new List<Flow>();
+
+            result.AddRange(GetFlowsOfType(this, type));
+
+            return result.ToArray();
+        }
+
+        private Flow[] GetFlowsOfType(Flow flow, FlowType type)
+        {
+            var result = new List<Flow>();
+
+            if (flow.Flows == null) return result.ToArray();
+
+            foreach (var segment in flow.Flows)
+            {
+                if (segment.Type == type)
+                {
+                    result.Add(segment);
+                }
+                else
+                {
+                    result.AddRange(GetFlowsOfType(segment, type));
+                }
+            }
+
+            return result.ToArray();
+        }
         public Flow[] GetUseFlows()
         {
             var result = new List<Flow>();
@@ -84,6 +113,8 @@ namespace C4InterFlow.Elements
         private Flow[] GetUseFlows(Flow flow)
         {
             var result = new List<Flow>();
+
+            if (flow.Flows == null) return result.ToArray();
 
             foreach (var segment in flow.Flows)
             {
@@ -106,6 +137,8 @@ namespace C4InterFlow.Elements
 
         public void AddFlowsRange(IEnumerable<Flow> flows)
         {
+            if (flows == null) return;
+
             foreach (var segment in flows)
             {
                 Flows.Add(segment);

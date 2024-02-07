@@ -2,7 +2,7 @@
   "profiles": {
     "dotnet.eShop.Architecture.Cli": {
       "commandName": "Project",
-      "commandLineArgs": "draw-diagrams -i  dotnet.eShop.Architecture.SoftwareSystems.*.Containers.*.Components.*.Interfaces.* --aac-input-paths dotnet.eShop.Architecture.dll --aac-reader-strategy \"C4InterFlow.Automation.NetArchitectureAsCodeReaderStrategy, C4InterFlow.Automation\" -od \"C:\\C4InterFlow\\Samples\\dotnet.eShop\\dotnet.eShop.Architecture\\Diagrams\"\r\n"
+      "commandLineArgs": "draw-diagrams -i  dotnet.eShop.Architecture.SoftwareSystems.*.Containers.*.Components.*.Interfaces.* --aac-input-paths \"C:\\C4InterFlow\\Samples\\dotnet.eShop\\dotnet.eShop.Architecture\\Yaml\" --aac-reader-strategy \"C4InterFlow.Automation.JObjectArchitectureAsCodeReaderStrategy, C4InterFlow.Automation\" -od \"C:\\C4InterFlow\\Samples\\dotnet.eShop\\dotnet.eShop.Architecture\\Diagrams\"\r\n"
     }
   }
 }

@@ -1,9 +1,9 @@
 @startuml
 skinparam dpi 60
 
-title Catalog Api - Api - CatalogApi - GetItemById - COMPONENT level
+title Catalog Api - Api - Catalog Api - Get Item By Id - COMPONENT level
 
-participant "External" as C4InterFlow.Utils.ExternalSystem
+participant "External System" as C4InterFlow.SoftwareSystems.ExternalSystem
 
 box "Catalog Api" #White
 
@@ -16,7 +16,7 @@ end box
 end box
 
 
-C4InterFlow.Utils.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Get Item By Id
+C4InterFlow.SoftwareSystems.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Get Item By Id
 group Get Item By Id
 alt id <= 0
 dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Retun (TypedResults.BadRequest)

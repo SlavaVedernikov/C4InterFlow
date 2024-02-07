@@ -41,7 +41,7 @@ namespace C4InterFlow.Automation
             _isInitialised = true;
         }
 
-        public T? GetInstance<T>(string alias) where T : class
+        public T? GetInstance<T>(string alias) where T : Structure
         {
             return ElementsResolver.GetInstance<T>(alias);
         }
@@ -56,7 +56,7 @@ namespace C4InterFlow.Automation
             return ElementsResolver.GetAllInterfaces();
         }
 
-        public IEnumerable<T> GetNestedInstances<T>(string? alias) where T : class
+        public IEnumerable<T> GetNestedInstances<T>(string? alias) where T : Structure
         {
             return ElementsResolver.GetNestedInstances<T>(alias);
         }

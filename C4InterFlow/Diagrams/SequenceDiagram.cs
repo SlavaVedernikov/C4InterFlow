@@ -38,7 +38,7 @@ namespace C4InterFlow.Diagrams
                     {
                         _structures = new List<Structure>
                         {
-                            Utils.ExternalSystem.Interfaces.ExternalInterface.Instance
+                            SoftwareSystems.ExternalSystem.Interfaces.ExternalInterface.Instance
                         };
                         foreach (var item in Interfaces)
                         {
@@ -100,7 +100,7 @@ namespace C4InterFlow.Diagrams
 
                         foreach (var item in Interfaces)
                         {
-                            GetRelationships(_relationships, Utils.ExternalSystem.Interfaces.ExternalInterface.Instance, item);
+                            GetRelationships(_relationships, SoftwareSystems.ExternalSystem.Interfaces.ExternalInterface.Instance, item);
                         }
 
                     }

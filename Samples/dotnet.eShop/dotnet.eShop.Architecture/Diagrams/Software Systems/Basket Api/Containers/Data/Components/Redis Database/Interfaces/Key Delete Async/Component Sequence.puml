@@ -1,9 +1,9 @@
 @startuml
 skinparam dpi 60
 
-title Basket Api - Data - RedisDatabase - KeyDeleteAsync - COMPONENT level
+title Basket Api - Data - Redis Database - Key Delete Async - COMPONENT level
 
-participant "External" as C4InterFlow.Utils.ExternalSystem
+participant "External System" as C4InterFlow.SoftwareSystems.ExternalSystem
 
 box "Basket Api" #White
 
@@ -16,7 +16,7 @@ end box
 end box
 
 
-C4InterFlow.Utils.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase : Key Delete Async
+C4InterFlow.SoftwareSystems.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase : Key Delete Async
 
 
 @enduml

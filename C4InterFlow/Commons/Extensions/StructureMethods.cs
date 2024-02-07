@@ -13,7 +13,7 @@ namespace C4InterFlow.Commons.Extensions
     public static class StructureMethods
     {
 
-        public static T? GetInstance<T>(this Structure structure) where T : class
+        public static T? GetInstance<T>(this Structure structure) where T : Structure
         {
             return Utils.GetInstance<T>(structure.Alias);
         }

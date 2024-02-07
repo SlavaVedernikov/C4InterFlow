@@ -1,9 +1,9 @@
 @startuml
 skinparam dpi 60
 
-title Basket Api - Grpc - BasketService - ThrowNotAuthenticated - CONTAINER level
+title Basket Api - Grpc - Basket Service - Throw Not Authenticated - CONTAINER level
 
-participant "External" as C4InterFlow.Utils.ExternalSystem
+participant "External System" as C4InterFlow.SoftwareSystems.ExternalSystem
 
 box "Basket Api" #White
 
@@ -11,7 +11,7 @@ box "Basket Api" #White
 end box
 
 
-C4InterFlow.Utils.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc : Throw Not Authenticated
+C4InterFlow.SoftwareSystems.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc : Throw Not Authenticated
 
 
 @enduml

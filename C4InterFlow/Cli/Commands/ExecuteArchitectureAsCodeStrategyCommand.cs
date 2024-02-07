@@ -34,6 +34,8 @@ public class ExecuteArchitectureAsCodeStrategyCommand : Command
     {
         try
         {
+            Console.WriteLine($"'{COMMAND_NAME}' command is executing...");
+
             Type strategyType = Type.GetType(architectureAsCodeWriterStrategyType);
             object strategyTypeInstance = Activator.CreateInstance(strategyType);
             var strategyInstance = strategyTypeInstance as ArchitectureAsCodeWriterStrategy;

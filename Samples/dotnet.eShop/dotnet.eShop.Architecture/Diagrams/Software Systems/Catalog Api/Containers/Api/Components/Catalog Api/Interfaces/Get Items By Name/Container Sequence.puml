@@ -1,9 +1,9 @@
 @startuml
 skinparam dpi 60
 
-title Catalog Api - Api - CatalogApi - GetItemsByName - CONTAINER level
+title Catalog Api - Api - Catalog Api - Get Items By Name - CONTAINER level
 
-participant "External" as C4InterFlow.Utils.ExternalSystem
+participant "External System" as C4InterFlow.SoftwareSystems.ExternalSystem
 
 box "Catalog Api" #White
 
@@ -12,7 +12,7 @@ box "Catalog Api" #White
 end box
 
 
-C4InterFlow.Utils.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api : Get Items By Name
+C4InterFlow.SoftwareSystems.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api : Get Items By Name
 group Get Items By Name
 dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure : Catalog Items To List Async
 end

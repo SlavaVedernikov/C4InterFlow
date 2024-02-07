@@ -11,33 +11,12 @@ namespace C4InterFlow
 {
     public class Utils
     {
-        public class ExternalSystem : ISoftwareSystemInstance
-        {
-            public const string ALIAS = $"{nameof(C4InterFlow)}.{nameof(Utils)}.{nameof(ExternalSystem)}";
-            public static SoftwareSystem Instance => new SoftwareSystem(ALIAS, "External")
-            {
-                Boundary = Boundary.External
-            };
-
-            public class Interfaces
-            {
-                public class ExternalInterface : IInterfaceInstance
-                {
-                    public const string ALIAS = $"{nameof(C4InterFlow)}.{nameof(Utils)}.{nameof(ExternalSystem)}.{nameof(Interfaces)}.{nameof(ExternalInterface)}";
-                    public static Interface Instance => new Interface(
-                    ExternalSystem.ALIAS,
-                    ALIAS,
-                    "External");
-                }
-            }
-        }
-
-        public static IEnumerable<T> GetNestedInstances<T>(string? alias) where T : class
+        public static IEnumerable<T> GetNestedInstances<T>(string? alias) where T : Structure
         {
             return ArchitectureAsCodeReaderContext.Strategy.GetNestedInstances<T>(alias);
         }
 
-        public static T? GetInstance<T>(string? alias) where T : class
+        public static T? GetInstance<T>(string? alias) where T : Structure
         {
             return ArchitectureAsCodeReaderContext.Strategy.GetInstance<T>(alias);
         }

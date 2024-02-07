@@ -28,8 +28,8 @@ namespace C4InterFlow.Elements
 
             if(token == null) return result;
 
-            var collectionToken = token?.Parent;
-            var ownerToken = collectionToken?.Parent;
+            var collectionToken = token?.Parent?.Parent;
+            var ownerToken = collectionToken?.Parent?.Parent;
 
             if (collectionToken == null || ownerToken == null) return result;
 
@@ -37,9 +37,34 @@ namespace C4InterFlow.Elements
 
             switch (collectionToken.Path.Split('.').Last()) {
                 case "Interfaces":
+                    var flow = token?["Flow"]?.ToObject<Flow>();
+                    if (flow != null)
+                    {
+                        flow.OwnerAlias = alias;
+
+                        foreach (var item in flow.GetUseFlows())
+                        {
+                            item.OwnerAlias = alias;
+                        };
+
+                        foreach (var item in flow.GetFlowsOfType(Flow.FlowType.Return))
+                        {
+                            item.OwnerAlias = alias;
+                        };
+
+                        foreach (var item in flow.GetFlowsOfType(Flow.FlowType.ThrowException))
+                        {
+                            item.OwnerAlias = alias;
+                        };
+                    }
+                    else
+                    {
+                        flow = new Flow(alias);
+                    }
+
                     result = new Interface(ownerToken.Path, alias, label)
                     {
-                        Flow = token?["Flow"]?.ToObject<Flow>() ?? new Flow()
+                        Flow = flow
                     } as T;
                     break;
                 case "SoftwareSystems":

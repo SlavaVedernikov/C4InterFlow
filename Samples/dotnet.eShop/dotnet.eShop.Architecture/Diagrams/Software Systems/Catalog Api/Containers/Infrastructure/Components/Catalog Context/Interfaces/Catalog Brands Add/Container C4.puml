@@ -14,16 +14,16 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Catalog Api - Infrastructure - CatalogContext - CatalogBrandsAdd - CONTAINER level
+title Catalog Api - Infrastructure - Catalog Context - Catalog Brands Add - CONTAINER level
 
-System_Ext(C4InterFlow.Utils.ExternalSystem, "External", "")
+System(C4InterFlow.SoftwareSystems.ExternalSystem, "External System", "")
 
 System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi, "Catalog Api") {
     Container(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Infrastructure", "", "")
 }
 
 
-Rel(C4InterFlow.Utils.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Catalog Brands Add")
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Catalog Brands Add")
 
 
 SHOW_LEGEND()

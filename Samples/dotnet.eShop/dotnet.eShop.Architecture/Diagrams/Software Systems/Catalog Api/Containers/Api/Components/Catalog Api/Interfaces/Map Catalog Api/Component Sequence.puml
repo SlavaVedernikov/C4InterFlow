@@ -1,9 +1,9 @@
 @startuml
 skinparam dpi 60
 
-title Catalog Api - Api - CatalogApi - MapCatalogApi - COMPONENT level
+title Catalog Api - Api - Catalog Api - Map Catalog Api - COMPONENT level
 
-participant "External" as C4InterFlow.Utils.ExternalSystem
+participant "External System" as C4InterFlow.SoftwareSystems.ExternalSystem
 
 box "Catalog Api" #White
 
@@ -16,7 +16,7 @@ end box
 end box
 
 
-C4InterFlow.Utils.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Map Catalog Api
+C4InterFlow.SoftwareSystems.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Map Catalog Api
 group Map Catalog Api
 dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Retun (app)
 end

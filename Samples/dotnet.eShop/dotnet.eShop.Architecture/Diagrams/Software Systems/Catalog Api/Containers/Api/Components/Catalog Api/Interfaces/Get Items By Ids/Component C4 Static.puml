@@ -14,9 +14,9 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Catalog Api - Api - CatalogApi - GetItemsByIds - COMPONENT level
+title Catalog Api - Api - Catalog Api - Get Items By Ids - COMPONENT level
 
-System_Ext(C4InterFlow.Utils.ExternalSystem, "External", "")
+System(C4InterFlow.SoftwareSystems.ExternalSystem, "External System", "")
 
 System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi, "Catalog Api") {
     
@@ -32,7 +32,7 @@ Container_Boundary(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containe
 }
 
 
-Rel(C4InterFlow.Utils.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, "Uses")
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, "Uses")
 Rel(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext, "Uses")
 
 
