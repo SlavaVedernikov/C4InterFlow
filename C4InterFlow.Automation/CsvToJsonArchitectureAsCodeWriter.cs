@@ -1,11 +1,8 @@
 ﻿using Microsoft.CodeAnalysis;
-using CsvHelper;
-using System.Globalization;
 using Newtonsoft.Json.Linq;
 using YamlDotNet.Serialization;
 using Newtonsoft.Json;
 using System.Dynamic;
-using C4InterFlow.Elements;
 
 namespace C4InterFlow.Automation
 {
@@ -35,7 +32,38 @@ namespace C4InterFlow.Automation
                 currentObject = segmentObject;
             }
 
-            currentObject.Add("SoftwareSystems", new JObject());
+            return this;
+        }
+
+        public CsvToJsonArchitectureAsCodeWriter WithSoftwareSystemsCollection()
+        {
+            var architectureNamespaceRoot = JsonArchitectureAsCode.SelectToken($"{ArchitectureNamespace}") as JObject;
+            if (architectureNamespaceRoot != null && !architectureNamespaceRoot.ContainsKey("SoftwareSystems"))
+            {
+                architectureNamespaceRoot.Add("SoftwareSystems", new JObject());
+            }
+
+            return this;
+        }
+
+        public CsvToJsonArchitectureAsCodeWriter WithActorsCollection()
+        {
+            var architectureNamespaceRoot = JsonArchitectureAsCode.SelectToken($"{ArchitectureNamespace}") as JObject;
+            if(architectureNamespaceRoot != null && !architectureNamespaceRoot.ContainsKey("Actors"))
+            {
+                architectureNamespaceRoot.Add("Actors", new JObject());
+            }
+
+            return this;
+        }
+
+        public CsvToJsonArchitectureAsCodeWriter WithBusinessProcessesCollection()
+        {
+            var architectureNamespaceRoot = JsonArchitectureAsCode.SelectToken($"{ArchitectureNamespace}") as JObject;
+            if (architectureNamespaceRoot != null && !architectureNamespaceRoot.ContainsKey("BusinessProcesses"))
+            {
+                architectureNamespaceRoot.Add("BusinessProcesses", new JObject());
+            }
 
             return this;
         }
@@ -43,6 +71,14 @@ namespace C4InterFlow.Automation
         public CsvToJsonArchitectureAsCodeWriter WithArchitectureOutputPath(string architectureOutputPath)
         {
             ArchitectureOutputPath = architectureOutputPath;
+
+            var directoryPath = Path.GetDirectoryName(ArchitectureOutputPath);
+
+            if(!string.IsNullOrEmpty(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+            
             return this;
         }
 
@@ -55,6 +91,8 @@ namespace C4InterFlow.Automation
             var serializer = new SerializerBuilder().Build();
             var yaml = serializer.Serialize(jsonObject);
             File.WriteAllText(ArchitectureOutputPath.Replace(".json", ".yaml"), yaml);
+
+            JsonArchitectureAsCode = new JObject();
         }
 
         public IEnumerable<SoftwareSystem> WithSoftwareSystems()
@@ -62,14 +100,92 @@ namespace C4InterFlow.Automation
             return SoftwareSystemRecords.Where(x => !string.IsNullOrEmpty(x.Alias.Trim()));
         }
 
-        public CsvToJsonArchitectureAsCodeWriter AddSoftwareSystemObject(string softwareSystemName, string? boundary = null)
+        public IEnumerable<Actor> WithActors()
+        {
+            return ActorRecords.Where(x => !string.IsNullOrEmpty(x.Alias.Trim()));
+        }
+
+        public IEnumerable<BusinessProcess> WithBusinessProcesses()
+        {
+            return BusinessProcessRecords.Where(x => !string.IsNullOrEmpty(x.Alias.Trim()));
+        }
+
+        public CsvToJsonArchitectureAsCodeWriter AddActorObject(string name, string type, string? label = null)
+        {
+            var actorsObject = JsonArchitectureAsCode.SelectToken($"{ArchitectureNamespace}.Actors") as JObject;
+
+            if (actorsObject != null)
+            {
+                actorsObject.Add(
+                    name,
+                    new JObject
+                    {
+                        { "Type", type },
+                        { "Label", string.IsNullOrEmpty(label) ? AnyCodeWriter.GetLabel(name) : label },
+                    });
+            }
+
+            return this;
+        }
+
+        public CsvToJsonArchitectureAsCodeWriter AddBusinessProcessObject(string name, BusinessActivity[] businessActivities, string? label = null)
+        {
+            var businessProcessesObject = JsonArchitectureAsCode.SelectToken($"{ArchitectureNamespace}.BusinessProcesses") as JObject;
+
+            if (businessProcessesObject != null)
+            {
+                var businessActivitiesJArray = new JArray();
+                foreach (var businessActivity in businessActivities
+                    .Where(x => !string.IsNullOrEmpty(x.UsesSoftwareSystemInterfaceAlias) ||
+                        !string.IsNullOrEmpty(x.UsesContainerInterfaceAlias))
+                    .GroupBy(x => new { x.Name, x.ActorAlias })
+                    .Select(g => new
+                    {
+                        g.Key.Name,
+                        g.Key.ActorAlias,
+                        Uses = g.Select(x => $"{ArchitectureNamespace}.SoftwareSystems.{(string.IsNullOrEmpty(x.UsesContainerInterfaceAlias) ? x.UsesSoftwareSystemInterfaceAlias : x.UsesContainerInterfaceAlias)}").ToArray()
+                    }))
+                {
+                    var actor = $"{ArchitectureNamespace}.Actors.{businessActivity.ActorAlias}";
+                    businessActivitiesJArray.Add(new JObject()
+                    {
+                        { "Name", name },
+                        { "Actor", actor },
+                        {
+                            "Flow",
+                            new JObject()
+                            {
+                                { "Flows", new JArray(businessActivity.Uses.Select(x => new JObject()
+                                    {
+                                        { "Type", "Use" },
+                                        { "Params", x }
+                                    }).ToArray()) }
+
+                            }
+                        }
+                    });
+                }
+
+                businessProcessesObject.Add(
+                    name,
+                    new JObject
+                    {
+                        { "Label", string.IsNullOrEmpty(label) ? AnyCodeWriter.GetLabel(name) : label },
+                        { "Activities", businessActivitiesJArray }
+                    });
+            }
+
+            return this;
+        }
+
+        public CsvToJsonArchitectureAsCodeWriter AddSoftwareSystemObject(string name, string? boundary = null)
         {
             var softwareSystemsObject = JsonArchitectureAsCode.SelectToken($"{ArchitectureNamespace}.SoftwareSystems") as JObject;
 
             if(softwareSystemsObject != null )
             {
                 softwareSystemsObject.Add(
-                    softwareSystemName, 
+                    name, 
                     new JObject
                     {
                         { "Boundary", boundary != null ? boundary : "Internal" },

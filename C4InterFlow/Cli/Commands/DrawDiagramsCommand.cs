@@ -323,7 +323,7 @@ public class DrawDiagramsCommand : Command
 
         var process = new BusinessProcess(
                         new BusinessActivity[] {
-                            new BusinessActivity(flow)
+                            new BusinessActivity(flow, SoftwareSystems.ExternalSystem.ALIAS)
                         });
 
         switch (levelOfDetails)
@@ -372,7 +372,8 @@ public class DrawDiagramsCommand : Command
             var process = new BusinessProcess(
                             new BusinessActivity[] {
                             new BusinessActivity(
-                                new Flow(C4InterFlow.SoftwareSystems.ExternalSystem.ALIAS).Use(@interface.Alias))
+                                new Flow().Use(@interface.Alias),
+                                SoftwareSystems.ExternalSystem.ALIAS)
                             });
             switch (levelOfDetails)
             {

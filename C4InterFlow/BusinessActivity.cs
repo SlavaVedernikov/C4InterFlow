@@ -9,22 +9,24 @@ namespace C4InterFlow
 {
     public record BusinessActivity
     {
-        public BusinessActivity(Flow flow) : this(flow, string.Empty) { }
+        public BusinessActivity(Flow flow, string actorAlias) : this(flow, actorAlias, string.Empty) { }
 
-        public BusinessActivity(Flow flow, string label)
+        public BusinessActivity(Flow flow, string actor, string label)
         {
-            Flow = flow;
-            Label = label;
-        }
+            Actor = actor;
 
-        public Structure? Actor { 
-            get 
-            {
-                return Utils.GetInstance<Structure>(Flow.OwnerAlias);
-            }
+            Flow = flow;
+            Flow.OwnerAlias = Actor;
+
+            Label = label;
         }
         public string? Label { get; private set; }
         public Flow Flow { get; private set; }
+        public string Actor { get; private set; }
+
+        public Structure? GetActorInstance() {
+            return Utils.GetInstance<Structure>(Actor);
+        }
     }
 
 }

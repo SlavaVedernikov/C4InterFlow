@@ -39,7 +39,7 @@ namespace C4InterFlow.Diagrams
 
                         if (Process.Activities.Count() > 1)
                         {
-                            var actor = activity.Actor ?? SoftwareSystems.ExternalSystem.Interfaces.ExternalInterface.Instance;
+                            var actor = activity.GetActorInstance() ?? SoftwareSystems.ExternalSystem.Interfaces.ExternalInterface.Instance;
                             //TODO: Consider refactoring this so that it is treated as a divider/separator e.g. "== {actor.Label} =="
                             parentFlow = _flow.Group(
                                 $"{actor.Label}{(!string.IsNullOrEmpty(activity.Label) ? $" - {activity.Label}" : string.Empty)}",
@@ -123,9 +123,10 @@ namespace C4InterFlow.Diagrams
 
                         foreach (var activity in Process.Activities)
                         {
-                            if (activity.Actor != null && _structures.All(i => i.Alias != activity.Actor.Alias))
+                            var actor = activity.GetActorInstance();
+                            if (actor != null && _structures.All(i => i.Alias != activity.Actor))
                             {
-                                if(activity.Actor is Interface @interface)
+                                if(actor is Interface @interface)
                                 {
                                     var interfaceOwner = Utils.GetInstance<Structure>(@interface.Owner);
                                     if(interfaceOwner != null)
@@ -134,12 +135,12 @@ namespace C4InterFlow.Diagrams
                                     }
                                     else
                                     {
-                                        _structures.Add(activity.Actor);
+                                        _structures.Add(actor);
                                     }
                                 }
                                 else
                                 {
-                                    _structures.Add(activity.Actor);
+                                    _structures.Add(actor);
                                 }
                                 
                             }
@@ -241,7 +242,7 @@ namespace C4InterFlow.Diagrams
                     {
                         foreach (var @interface in activity.Flow.GetUsesInterfaces())
                         {
-                            PopulateRelationships(_relationships, activity.Actor ?? SoftwareSystems.ExternalSystem.Interfaces.ExternalInterface.Instance, @interface);
+                            PopulateRelationships(_relationships, activity.GetActorInstance() ?? SoftwareSystems.ExternalSystem.Interfaces.ExternalInterface.Instance, @interface);
                         }
                     }
                 }

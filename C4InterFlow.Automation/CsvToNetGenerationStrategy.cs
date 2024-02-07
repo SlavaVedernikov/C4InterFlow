@@ -10,51 +10,51 @@ namespace C4InterFlow.Automation
             var addSystemInterfaceClassAction = "add System Interface Class";
 
             var architectureRootNamespaceSegments = ArchitectureRootNamespace.Split('.');
-            var generationWriter = CsvToNetArchitectureAsCodeWriter
+            var writer = CsvToNetArchitectureAsCodeWriter
                 .WithCsvData(ArchitectureInputPath)
                 .WithArchitectureRootNamespace(ArchitectureRootNamespace)
                 .WithArchitectureProject(ArchitectureOutputPath);
 
-            generationWriter.WithSoftwareSystems()
+            writer.WithSoftwareSystems()
                     .ToList().ForEach(s => {
-                        generationWriter
+                        writer
                         .AddSoftwareSystemClass(name: s.Alias, boundary: s.GetBoundary(), label: s.Name);
                         
-                        s.WithInterfaces(generationWriter).ToList().ForEach(i => {
-                            generationWriter.AddSoftwareSystemInterfaceClass(i);
+                        s.WithInterfaces(writer).ToList().ForEach(i => {
+                            writer.AddSoftwareSystemInterfaceClass(i);
                         });
 
-                        s.WithContainers(generationWriter).ToList().ForEach(c => {
-                            generationWriter.AddContainerClass(s.Alias, c.Alias.Split('.').Last(), c.Type, c.Name);
+                        s.WithContainers(writer).ToList().ForEach(c => {
+                            writer.AddContainerClass(s.Alias, c.Alias.Split('.').Last(), c.Type, c.Name);
 
-                            c.WithInterfaces(generationWriter).ToList().ForEach(i =>
+                            c.WithInterfaces(writer).ToList().ForEach(i =>
                             {
-                                generationWriter.AddContainerInterfaceClass(i);
+                                writer.AddContainerInterfaceClass(i);
                             });
                         });
 
-                        generationWriter.WithSoftwareSystemInterfaceClasses(s.Alias, true)
+                        writer.WithSoftwareSystemInterfaceClasses(s.Alias, true)
                         .ToList().ForEach(x => x.AddFlowToSoftwareSystemInterfaceClass(
-                            generationWriter));
+                            writer));
 
-                        generationWriter.WithContainerInterfaceClasses()
+                        writer.WithContainerInterfaceClasses()
                         .ToList().ForEach(x => x.AddFlowToContainerInterfaceClass(
-                            generationWriter));
+                            writer));
 
                     });
 
-            generationWriter.WithActors()
+            writer.WithActors()
                     .ToList().ForEach(a =>
                     {
-                        if(!a.TryGetType(generationWriter, out var type))
+                        if(!a.TryGetType(writer, out var type))
                         {
                             type = nameof(Person);
                         }
-                        generationWriter.AddActorClass(a.Alias, type, a.Name);
+                        writer.AddActorClass(a.Alias, type, a.Name);
                     });
 
-            generationWriter.WithBusinessProcesses()
-                .ToList().ForEach(b => generationWriter.AddBusinessProcessClass(b.Alias, b.WithBusinessActivities(generationWriter).ToArray()));
+            writer.WithBusinessProcesses()
+                .ToList().ForEach(b => writer.AddBusinessProcessClass(b.Alias, b.WithBusinessActivities(writer).ToArray()));
         }
     }
 }

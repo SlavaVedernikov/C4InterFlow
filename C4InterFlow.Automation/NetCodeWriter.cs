@@ -467,8 +467,9 @@ namespace C4InterFlow.Automation
         public string GetBusinessActivityCode(string name, string actor, string[] uses, string? description = null)
         {
             return $@"
-            new BusinessActivity(new Flow(""{actor}"")
+            new BusinessActivity(new Flow()
                 {string.Join($"{Environment.NewLine}\t\t\t\t", uses.Select(x => $".Use(\"{x}\")").ToArray())},
+                ""{actor}"",
                 {(name != null ? AnyCodeWriter.EnsureDoubleQuotes(name) : "\"\"")}),
 ";
         }
