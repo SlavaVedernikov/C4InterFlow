@@ -1,0 +1,21 @@
+@startuml
+skinparam dpi 60
+
+title Basket Api - Grpc - Basket Service - Delete Basket - CONTAINER level
+
+participant "External System" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Basket Api" #White
+
+    participant "Grpc" as dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc
+    participant "Data" as dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc : Delete Basket
+group Delete Basket
+dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data : Delete Basket Async
+end
+
+
+@enduml

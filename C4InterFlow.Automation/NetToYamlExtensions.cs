@@ -206,9 +206,9 @@ namespace C4InterFlow.Automation
             var documentName = $"{interfaceName}.yaml";
 
             var fileDirectory = Path.Combine(writer.ArchitectureOutputPath, NetToAnyCodeGenerator<YamlCodeWriter>.GetComponentInterfacesDirectory(softwareSystemName, containerName, componentName));
-            Directory.CreateDirectory(fileDirectory);
-
             var filePath = Path.Combine(fileDirectory, documentName);
+
+            Directory.CreateDirectory(fileDirectory);
 
             if (!writer.ComponentMethodInterfaceObjectMap.Keys.Contains(filePath))
             {
@@ -282,9 +282,9 @@ namespace C4InterFlow.Automation
                 var documentName = $"{interfaceName}.yaml";
 
                 var fileDirectory = Path.Combine(writer.ArchitectureOutputPath, NetToAnyCodeGenerator<YamlCodeWriter>.GetComponentInterfacesDirectory(softwareSystemName, containerName, componentName));
-                Directory.CreateDirectory(fileDirectory);
-
                 var filePath = Path.Combine(fileDirectory, documentName);
+
+                Directory.CreateDirectory(fileDirectory);
 
                 if (!writer.ComponentPropertyInterfaceObjectMap.Keys.Contains(filePath))
                 {
@@ -327,9 +327,9 @@ namespace C4InterFlow.Automation
             var documentName = $"{entityName}.yaml";
 
             var fileDirectory = Path.Combine(writer.ArchitectureOutputPath, NetToAnyCodeGenerator<YamlCodeWriter>.GetEntitiesDirectory(softwareSystemName, containerName));
-            Directory.CreateDirectory(fileDirectory);
-
             var filePath = Path.Combine(fileDirectory, documentName);
+
+            Directory.CreateDirectory(fileDirectory);
 
             if (File.Exists(filePath))
             {
@@ -372,9 +372,9 @@ namespace C4InterFlow.Automation
             var documentName = $"{entityName}.yaml";
 
             var fileDirectory = Path.Combine(writer.ArchitectureOutputPath, NetToAnyCodeGenerator<YamlCodeWriter>.GetEntitiesDirectory(softwareSystemName, containerName));
-            Directory.CreateDirectory(fileDirectory);
-
             var filePath = Path.Combine(fileDirectory, documentName);
+
+            Directory.CreateDirectory(fileDirectory);
 
             if (File.Exists(filePath))
             {
@@ -430,9 +430,9 @@ namespace C4InterFlow.Automation
             var documentName = $"{componentName}.yaml";
 
             var fileDirectory = Path.Combine(writer.ArchitectureOutputPath, NetToAnyCodeGenerator<YamlCodeWriter>.GetComponentsDirectory(softwareSystemName, containerName)); ;
-            Directory.CreateDirectory(fileDirectory);
-
             var filePath = Path.Combine(fileDirectory, documentName);
+
+            Directory.CreateDirectory(fileDirectory);
 
             if (File.Exists(filePath))
             {
@@ -464,9 +464,9 @@ namespace C4InterFlow.Automation
             var documentName = $"{componentName}.yaml";
 
             var fileDirectory = Path.Combine(writer.ArchitectureOutputPath, NetToAnyCodeGenerator<YamlCodeWriter>.GetComponentsDirectory(softwareSystemName, containerName));
-            Directory.CreateDirectory(fileDirectory);
-
             var filePath = Path.Combine(fileDirectory, documentName);
+
+            Directory.CreateDirectory(fileDirectory);
 
             if (File.Exists(filePath))
             {

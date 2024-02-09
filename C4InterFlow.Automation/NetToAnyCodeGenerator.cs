@@ -66,7 +66,7 @@ namespace C4InterFlow.Automation
             StringBuilder result, 
             WhileStatementSyntax whileStatement,
             MethodDeclarationSyntax methodDeclaration,
-            IArchitectureAsCodeContext architectureAsCodeContext,
+            IArchitectureAsCodeReaderStrategy architectureAsCodeContext,
             NetToAnyArchitectureAsCodeWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null) 
         {
@@ -93,7 +93,7 @@ namespace C4InterFlow.Automation
             StringBuilder result,
             ForStatementSyntax forStatement,
             MethodDeclarationSyntax methodDeclaration,
-            IArchitectureAsCodeContext architectureAsCodeContext,
+            IArchitectureAsCodeReaderStrategy architectureAsCodeContext,
             NetToAnyArchitectureAsCodeWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
@@ -120,7 +120,7 @@ namespace C4InterFlow.Automation
             StringBuilder result,
             ForEachStatementSyntax forEachStatement,
             MethodDeclarationSyntax methodDeclaration,
-            IArchitectureAsCodeContext architectureAsCodeContext,
+            IArchitectureAsCodeReaderStrategy architectureAsCodeContext,
             NetToAnyArchitectureAsCodeWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
@@ -147,7 +147,7 @@ namespace C4InterFlow.Automation
             StringBuilder result,
             DoStatementSyntax doStatement,
             MethodDeclarationSyntax methodDeclaration,
-            IArchitectureAsCodeContext architectureAsCodeContext,
+            IArchitectureAsCodeReaderStrategy architectureAsCodeContext,
             NetToAnyArchitectureAsCodeWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
@@ -174,7 +174,7 @@ namespace C4InterFlow.Automation
             StringBuilder result,
             UsingStatementSyntax usingStatement,
             MethodDeclarationSyntax methodDeclaration,
-            IArchitectureAsCodeContext architectureAsCodeContext,
+            IArchitectureAsCodeReaderStrategy architectureAsCodeContext,
             NetToAnyArchitectureAsCodeWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
@@ -213,7 +213,7 @@ namespace C4InterFlow.Automation
             StringBuilder result,
             IfStatementSyntax ifStatement,
             MethodDeclarationSyntax methodDeclaration,
-            IArchitectureAsCodeContext architectureAsCodeContext,
+            IArchitectureAsCodeReaderStrategy architectureAsCodeContext,
             NetToAnyArchitectureAsCodeWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
@@ -271,7 +271,7 @@ namespace C4InterFlow.Automation
             StringBuilder result,
             ReturnStatementSyntax returnStatement,
             MethodDeclarationSyntax methodDeclaration,
-            IArchitectureAsCodeContext architectureAsCodeContext,
+            IArchitectureAsCodeReaderStrategy architectureAsCodeContext,
             NetToAnyArchitectureAsCodeWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
@@ -316,7 +316,7 @@ namespace C4InterFlow.Automation
             StringBuilder result,
             TryStatementSyntax tryStatement,
             MethodDeclarationSyntax methodDeclaration,
-            IArchitectureAsCodeContext architectureAsCodeContext,
+            IArchitectureAsCodeReaderStrategy architectureAsCodeContext,
             NetToAnyArchitectureAsCodeWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
@@ -411,7 +411,7 @@ namespace C4InterFlow.Automation
             StringBuilder result,
             StatementSyntax statement,
             MethodDeclarationSyntax methodDeclaration,
-            IArchitectureAsCodeContext architectureAsCodeContext,
+            IArchitectureAsCodeReaderStrategy architectureAsCodeContext,
             NetToAnyArchitectureAsCodeWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
@@ -435,7 +435,7 @@ namespace C4InterFlow.Automation
             StringBuilder result,
             StatementSyntax statement,
             MethodDeclarationSyntax methodDeclaration,
-            IArchitectureAsCodeContext architectureAsCodeContext,
+            IArchitectureAsCodeReaderStrategy architectureAsCodeContext,
             NetToAnyArchitectureAsCodeWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
@@ -538,7 +538,7 @@ namespace C4InterFlow.Automation
 
         public static string GetFlowCode(
         MethodDeclarationSyntax methodDeclaration,
-        IArchitectureAsCodeContext architectureAsCodeContext,
+        IArchitectureAsCodeReaderStrategy architectureAsCodeContext,
         NetToAnyArchitectureAsCodeWriter writer,
         IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
     {
@@ -567,7 +567,7 @@ namespace C4InterFlow.Automation
         private static string HandleBlock(
             StatementSyntax statement,
             MethodDeclarationSyntax methodDeclaration,
-            IArchitectureAsCodeContext architectureAsCodeContext,
+            IArchitectureAsCodeReaderStrategy architectureAsCodeContext,
             NetToAnyArchitectureAsCodeWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
@@ -594,7 +594,7 @@ namespace C4InterFlow.Automation
         private static string HandleElse(
             ElseClauseSyntax elseClause,
             MethodDeclarationSyntax methodDeclaration,
-            IArchitectureAsCodeContext architectureAsCodeContext,
+            IArchitectureAsCodeReaderStrategy architectureAsCodeContext,
             NetToAnyArchitectureAsCodeWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
@@ -670,7 +670,7 @@ namespace C4InterFlow.Automation
         private static string HandleInvocationExpression(
             InvocationExpressionSyntax invocationExpression, 
             MethodDeclarationSyntax methodDeclaration,
-            IArchitectureAsCodeContext architectureAsCodeContext, 
+            IArchitectureAsCodeReaderStrategy architectureAsCodeContext, 
             NetToAnyArchitectureAsCodeWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {

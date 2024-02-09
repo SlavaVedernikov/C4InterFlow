@@ -37,7 +37,7 @@ namespace C4InterFlow.Diagrams
 
                         if (Process.Activities.Count() > 1)
                         {
-                            var actor = activity.Actor ?? Utils.ExternalSystem.Interfaces.ExternalInterface.Instance;
+                            var actor = activity.GetActorInstance() ?? SoftwareSystems.ExternalSystem.Interfaces.ExternalInterface.Instance;
                             //TODO: Consider refactoring this so that it is treated as a divider/separator e.g. "== {actor.Label} =="
                             parentFlow = _flow.Group(
                                 $"{actor.Label}{(!string.IsNullOrEmpty(activity.Label) ? $" - {activity.Label}" : string.Empty)}",
@@ -67,8 +67,10 @@ namespace C4InterFlow.Diagrams
         private void PopulateFlow(Flow flow)
         {
             var usesInterface = Utils.GetInstance<Interface>(flow.Params);
-            var usesInterfaceOwner = Utils.GetInstance<Structure>(usesInterface.Owner);
-            
+            var usesInterfaceOwner = Utils.GetInstance<Structure>(usesInterface?.Owner);
+
+            if (usesInterface == null || usesInterfaceOwner == null) return;
+
             if (usesInterfaceOwner is Container)
             {
                 var usesSystem = Utils.GetInstance<Structure>(((Container)usesInterfaceOwner).SoftwareSystem);
@@ -92,17 +94,13 @@ namespace C4InterFlow.Diagrams
                 }
             }
 
-            
-            if (usesInterfaceOwner is SoftwareSystem || usesInterfaceOwner is Container || usesInterfaceOwner is Component)
+            var currentFlow = Utils.Clone(usesInterface.Flow);
+            foreach (var useFlow in currentFlow.GetUseFlows())
             {
-                var currentFlow = Utils.Clone(usesInterface.Flow);
-                foreach (var useFlow in currentFlow.GetUseFlows())
-                {
-                    PopulateFlow(useFlow);
-                }
-
-                flow.AddFlowsRange(currentFlow.Flows);
+                PopulateFlow(useFlow);
             }
+
+            flow.AddFlowsRange(currentFlow.Flows);
         }
 
         private List<Structure> _structures;
@@ -117,9 +115,10 @@ namespace C4InterFlow.Diagrams
 
                         foreach (var activity in Process.Activities)
                         {
-                            if (activity.Actor != null && _structures.All(i => i.Alias != activity.Actor.Alias))
+                            var actor = activity.GetActorInstance();
+                            if (activity.Actor != null && _structures.All(i => i.Alias != activity.Actor))
                             {
-                                _structures.Add(activity.Actor);
+                                _structures.Add(actor);
                             }
 
                             foreach (var @interface in activity.Flow.GetUsesInterfaces())
@@ -127,6 +126,8 @@ namespace C4InterFlow.Diagrams
                                 PopulateStructures(_structures, @interface);
                             }
                         }
+
+                        _structures = CleanUpStructures(_structures).ToList();
                     }
 
                     return _structures;
@@ -190,7 +191,7 @@ namespace C4InterFlow.Diagrams
                         {
                             foreach (var @interface in activity.Flow.GetUseFlows().Select(x => Utils.GetInstance<Interface>(x.Params)))
                             {
-                                PopulateRelationships(_relationships, activity.Actor ?? Utils.ExternalSystem.Interfaces.ExternalInterface.Instance, @interface);
+                                PopulateRelationships(_relationships, activity.GetActorInstance() ?? SoftwareSystems.ExternalSystem.Interfaces.ExternalInterface.Instance, @interface);
                             }
                         }
 

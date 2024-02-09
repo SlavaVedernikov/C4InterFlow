@@ -84,7 +84,7 @@ namespace C4InterFlow.Diagrams
 
                         if(Process.Activities.Count() > 1)
                         {
-                            var actor = activity.Actor ?? Utils.ExternalSystem.Interfaces.ExternalInterface.Instance;
+                            var actor = activity.GetActorInstance() ?? SoftwareSystems.ExternalSystem.Interfaces.ExternalInterface.Instance;
                             //TODO: Consider refactoring this so that it is treated as a divider/separator e.g. "== {actor.Label} =="
                             parentFlow = _flow.Group(
                                 $"{actor.Label}{(!string.IsNullOrEmpty(activity.Label) ? $" - {activity.Label}" : string.Empty)}",
@@ -118,16 +118,13 @@ namespace C4InterFlow.Diagrams
 
             if (usesInterface == null || usesInterfaceOwner == null) return;
 
-            if (usesInterfaceOwner is Component)
+            var currentFlow = Utils.Clone(usesInterface.Flow);
+            foreach (var useFlow in currentFlow.GetUseFlows())
             {
-                var currentFlow = Utils.Clone(usesInterface.Flow);
-                foreach (var useFlow in currentFlow.GetUseFlows())
-                {
-                    PopulateFlow(useFlow);
-                }
-
-                flow.AddFlowsRange(currentFlow.Flows);
+                PopulateFlow(useFlow);
             }
+
+            flow.AddFlowsRange(currentFlow.Flows);
         }
 
         private List<Structure> _structures;
@@ -141,9 +138,10 @@ namespace C4InterFlow.Diagrams
 
                     foreach (var activity in Process.Activities)
                     {
-                        if (activity.Actor != null && _structures.All(i => i.Alias != activity.Actor.Alias))
+                        var actor = activity.GetActorInstance();
+                        if (actor != null && _structures.All(i => i.Alias != activity.Actor))
                         {
-                            _structures.Add(activity.Actor);
+                            _structures.Add(actor);
                         }
 
                         foreach (var @interface in activity.Flow.GetUsesInterfaces())
@@ -152,10 +150,7 @@ namespace C4InterFlow.Diagrams
                         }
                     }
 
-                    if (ShowBoundaries)
-                    {
-                        CleanUpStructures();
-                    }
+                    _structures = CleanUpStructures(_structures).ToList();
                 }
 
                 return _structures;
@@ -163,22 +158,34 @@ namespace C4InterFlow.Diagrams
         }
 
         //TODO: Review and test this logic
-        private void CleanUpStructures()
+        protected override IList<Structure> CleanUpStructures(IList<Structure> structures)
         {
-            var emptyContainerBoundaries = _structures.Where(x => x is ContainerBoundary && ((ContainerBoundary)x).Components.Count() == 0).ToList();
+            structures = base.CleanUpStructures(structures);
 
-            foreach (var item in emptyContainerBoundaries)
+            if (ShowBoundaries)
             {
-                _structures.Remove(item);
+                var emptyContainerBoundaries = structures.Where(x => x is ContainerBoundary && ((ContainerBoundary)x).Components.Count() == 0).ToList();
 
-                _structures.Add(Utils.GetInstance<Structure>(item.Alias));
+                foreach (var item in emptyContainerBoundaries)
+                {
+                    structures.Remove(item);
+
+                    var structure = Utils.GetInstance<Structure>(item.Alias);
+                    if (structure != null)
+                    {
+                        structures.Add(structure);
+                    }
+                }
             }
+
+            return structures;
         }
-        private void PopulateStructures(IList<Structure> structures, Interface @interface, bool terminate = false)
+        
+        private void PopulateStructures(IList<Structure> structures, Interface @interface)
         {
             var interfaceOwner = Utils.GetInstance<Structure>(@interface.Owner);
 
-            if (interfaceOwner != null) return;
+            if (interfaceOwner == null) return;
 
             if (interfaceOwner is SoftwareSystem &&
                 !structures.OfType<SoftwareSystem>().Any(x => x.Alias == interfaceOwner.Alias))
@@ -237,14 +244,12 @@ namespace C4InterFlow.Diagrams
                     }
                 }
 
-                if (!terminate)
+
+                foreach (var usesInterface in @interface.Flow.GetUsesInterfaces())
                 {
-                    foreach (var usesInterface in @interface.Flow.GetUsesInterfaces())
-                    {
-                        var isCrossingSystemBoundary = @interface.GetSoftwareSystem()?.Alias != usesInterface.GetSoftwareSystem()?.Alias;
-                        PopulateStructures(structures, usesInterface, isCrossingSystemBoundary);
-                    }
+                    PopulateStructures(structures, usesInterface);
                 }
+
             }
         }
 
@@ -261,7 +266,7 @@ namespace C4InterFlow.Diagrams
                         {
                             foreach (var @interface in activity.Flow.GetUseFlows().Select(x => Utils.GetInstance<Interface>(x.Params)).Where(x => x != null))
                             {
-                                PopulateRelationships(_relationships, activity.Actor ?? Utils.ExternalSystem.Interfaces.ExternalInterface.Instance, @interface);
+                                PopulateRelationships(_relationships, activity.GetActorInstance() ?? SoftwareSystems.ExternalSystem.Interfaces.ExternalInterface.Instance, @interface);
                             }
                         }
 
@@ -273,7 +278,7 @@ namespace C4InterFlow.Diagrams
             }
         }
 
-        private void PopulateRelationships(IList<Relationship> relationships, Structure actor, Interface usesInterface, bool terminate = false)
+        private void PopulateRelationships(IList<Relationship> relationships, Structure actor, Interface usesInterface)
         {
             if (actor is Interface interfaceActor)
             {
@@ -301,16 +306,10 @@ namespace C4InterFlow.Diagrams
                     usesInterface.Protocol].AddTags(usesInterface.Tags?.ToArray()));
             }
 
-            if (usesInterfaceOwner is Component)
+
+            foreach (var usesAnotherInterface in usesInterface.Flow.GetUsesInterfaces())
             {
-                if (!terminate)
-                {
-                    foreach (var usesAnotherInterface in usesInterface.Flow.GetUsesInterfaces())
-                    {
-                        var isCrossingSystemBoundary = usesInterface.GetSoftwareSystem()?.Alias != usesAnotherInterface.GetSoftwareSystem()?.Alias;
-                        PopulateRelationships(relationships, usesInterface, usesAnotherInterface, isCrossingSystemBoundary);
-                    }
-                }
+                PopulateRelationships(relationships, usesInterface, usesAnotherInterface);
             }
         }
 

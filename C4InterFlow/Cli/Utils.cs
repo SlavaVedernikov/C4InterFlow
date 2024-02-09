@@ -1,117 +1,21 @@
-﻿using System.Reflection;
+﻿using C4InterFlow.Automation;
+using C4InterFlow.Elements;
+using C4InterFlow.Elements.Interfaces;
+using System.Reflection;
 using System.Runtime.Loader;
 
 namespace C4InterFlow.Cli
 {
     public class Utils
     {
-        public static IEnumerable<string> ResolveWildcardStructures(IEnumerable<string> structures)
+        public static IEnumerable<string> ResolveStructures(IEnumerable<string> structures)
         {
-            var result = new List<string>();
-
-            if (structures == null) return result;
-
-            foreach (var item in structures)
-            {
-                var segments = item.Split(".*");
-                if (segments.Length == 1)
-                {
-                    result.Add(item);
-                }
-                else
-                {
-                    var types = new List<string>();
-                    var supersededTypes = new List<string>();
-                    foreach (var segmentItem in segments)
-                    {
-                        var newTypes = new List<string>();
-                        if (string.IsNullOrEmpty(segmentItem))
-                        {
-                            break;
-                        }
-
-                        if(types.Count == 0 || types.Count > 0 && segmentItem.StartsWith("."))
-                        {
-                            if (types.Count > 0)
-                            {
-                                foreach (var typeItem in types)
-                                {
-                                    supersededTypes.Add(typeItem);
-                                    var newType = C4InterFlow.Utils.GetType(typeItem + segmentItem);
-                                    if (newType != null)
-                                    {
-                                        if(segments.Last().Equals(segmentItem))
-                                        {
-                                            newTypes.Add(typeItem + segmentItem);
-                                        }
-                                        else
-                                        {
-                                            foreach (var nestedType in newType.GetNestedTypes())
-                                            {
-                                                newTypes.Add(nestedType.FullName.Replace("+", "."));
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                var type = C4InterFlow.Utils.GetType(segmentItem);
-                                if (type != null)
-                                {
-                                    foreach (var nestedType in type.GetNestedTypes())
-                                    {
-                                        newTypes.Add(nestedType.FullName.Replace("+", "."));
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            types.RemoveAll(x => !x.EndsWith(segmentItem));
-                        }
-
-                        if (newTypes.Count == 0 && !segmentItem.StartsWith("."))
-                        {
-                            newTypes.AddRange(
-                                C4InterFlow.Utils.GetTypes(segmentItem)
-                                    .Select(x => x.FullName.Replace("+", ".")));
-                        }
-
-                        types.AddRange(newTypes);
-                        types.RemoveAll(x => supersededTypes.Contains(x));
-                    }
-
-                    
-                    result.AddRange(types);
-                }
-
-            }
-
-            return result.Distinct();
+            return ArchitectureAsCodeReaderContext.Strategy.ResolveStructures(structures);
         }
 
-        public static IEnumerable<Type> GetAllTypesOfInterface<T>()
+        public static IEnumerable<Interface> GetAllInterfaces()
         {
-            var result = new List<Type>();
-
-            var assemblies = GetAssemblies();
-            foreach (var assembly in assemblies)
-            {
-                result.AddRange(assembly
-                .GetTypes()
-                .Where(type => typeof(T).IsAssignableFrom(type) && !type.IsInterface));
-            }
-            return result;
-        }
-
-        private static IEnumerable<Assembly> GetAssemblies()
-        {
-            var paths = Directory.GetFiles(AppContext.BaseDirectory, "*.dll", SearchOption.TopDirectoryOnly);
-            //TODO: Review this logic. Consider uising inclusion logic instead of exclusion.
-            return paths
-            .Where(x => { var assembly = x.Split("\\").Last(); return new[] { "C4InterFlow", "System.", "Microsoft." }.All(y => !assembly.StartsWith(y)); })
-            .Select(AssemblyLoadContext.Default.LoadFromAssemblyPath);
+            return ArchitectureAsCodeReaderContext.Strategy.GetAllInterfaces();
         }
 
         public static IEnumerable<string> ReadLines(string filePath)
@@ -155,6 +59,20 @@ namespace C4InterFlow.Cli
             {
                 Console.WriteLine($"Could not write lines to a file. An error occurred: {ex.Message}");
             }
+        }
+
+        public static void SetArchitectureAsCodeReaderContext(string[] architectureAsCodeInputPaths, string architectureAsCodeReaderStrategyType)
+        {
+            Type strategyType = Type.GetType(architectureAsCodeReaderStrategyType);
+            object strategyTypeInstance = Activator.CreateInstance(strategyType);
+            var strategyInstance = strategyTypeInstance as IArchitectureAsCodeReaderStrategy;
+
+            if (strategyInstance == null)
+            {
+                throw new ArgumentException($"'{architectureAsCodeReaderStrategyType}' is not a valid Architecture As Code Reader Strategy type.");
+            }
+
+            ArchitectureAsCodeReaderContext.SetCurrentStrategy(strategyInstance, architectureAsCodeInputPaths, new Dictionary<string, string>());
         }
     }
 }

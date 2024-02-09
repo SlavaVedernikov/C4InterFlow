@@ -27,9 +27,9 @@ namespace C4InterFlow.Automation
         {
             var documentName = $"{softwareSystemName}.yaml";
             var fileDirectory = Path.Combine(ArchitectureOutputPath, NetToAnyCodeGenerator<YamlCodeWriter>.GetSoftwareSystemsDirectory());
-            Directory.CreateDirectory(fileDirectory);
-
             var filePath = Path.Combine(fileDirectory, documentName);
+
+            Directory.CreateDirectory(fileDirectory);
 
             if (File.Exists(filePath))
             {
@@ -56,9 +56,9 @@ namespace C4InterFlow.Automation
             var documentName = $"{containerName}.yaml";
 
             var fileDirectory = Path.Combine(ArchitectureOutputPath, NetToAnyCodeGenerator<YamlCodeWriter>.GetContainersDirectory(softwareSystemName));
-            Directory.CreateDirectory(fileDirectory);
-
             var filePath = Path.Combine(fileDirectory, documentName);
+
+            Directory.CreateDirectory(fileDirectory);
 
             if (File.Exists(filePath))
             {
@@ -85,9 +85,9 @@ namespace C4InterFlow.Automation
             var documentName = $"{componentName}.yaml";
 
             var fileDirectory = Path.Combine(ArchitectureOutputPath, NetToAnyCodeGenerator<YamlCodeWriter>.GetComponentsDirectory(softwareSystemName, containerName));
-            Directory.CreateDirectory(fileDirectory);
-
             var filePath = Path.Combine(fileDirectory, documentName);
+
+            Directory.CreateDirectory(fileDirectory);
 
             if (File.Exists(filePath))
             {
@@ -125,9 +125,9 @@ namespace C4InterFlow.Automation
             var documentName = $"{interfaceName}.yaml";
 
             var fileDirectory = Path.Combine(ArchitectureOutputPath, NetToAnyCodeGenerator<YamlCodeWriter>.GetComponentInterfacesDirectory(softwareSystemName, containerName, componentName));
-            Directory.CreateDirectory(fileDirectory);
-
             var filePath = Path.Combine(fileDirectory, documentName);
+
+            Directory.CreateDirectory(fileDirectory);
 
             if (File.Exists(filePath))
             {
@@ -172,11 +172,12 @@ namespace C4InterFlow.Automation
             var architectureObject = GetJsonObjectFromFile(filePath); ;
             var flowCode = NetToAnyCodeGenerator<YamlCodeWriter>.GetFlowCode(
                 systemMethodDeclaration,
-                new JObjectArchitectureAsCodeContext(architectureObject),
+                new JObjectArchitectureAsCodeReaderStrategy(architectureObject),
                 this,
                 alternativeInvocationMappers);
 
             //Remove \t characters
+            //TODO: Investigate how \t is written into the Flow Code
             flowCode = flowCode.Replace("\t", string.Empty);
 
             var flowJsonObject = GetJsonObjectFromYaml(flowCode);

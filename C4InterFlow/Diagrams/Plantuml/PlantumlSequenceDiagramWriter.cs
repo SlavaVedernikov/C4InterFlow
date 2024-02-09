@@ -41,6 +41,18 @@ namespace C4InterFlow.Diagrams.Plantuml
 
         private static StringBuilder BuildSequenceBody(this StringBuilder stream, Diagram diagram)
         {
+            var flowParticipants = diagram.Flow?.Flows?
+                .Select(x => Utils.GetInstance<Elements.Structure>(x.Owner))
+                .Where(x => x != null && !diagram.Structures.Any(s => s.Alias == x.Alias)).Distinct();
+
+            if (flowParticipants != null)
+            {
+                foreach (var structure in flowParticipants)
+                {
+                    stream.AppendLine(structure?.ToPumlSequenceString());
+                }
+            }
+
             foreach (var structure in diagram.Structures)
             {
                 stream.AppendLine(structure.ToPumlSequenceString());

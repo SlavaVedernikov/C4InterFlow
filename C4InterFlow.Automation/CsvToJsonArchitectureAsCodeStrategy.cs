@@ -1,6 +1,6 @@
 ﻿namespace C4InterFlow.Automation
 {
-    public abstract class CsvToJsonArchitectureAsCodeStrategy : ArchitectureAsCodeStrategy
+    public abstract class CsvToJsonArchitectureAsCodeStrategy : ArchitectureAsCodeWriterStrategy
     {
         public const string AAC_INPUT_PATH = "aac-input-path";
         public string ArchitectureInputPath { get; private set; }

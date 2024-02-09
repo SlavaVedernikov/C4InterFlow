@@ -1,4 +1,6 @@
 ﻿
+using System.Text.RegularExpressions;
+
 namespace C4InterFlow.Elements
 {    
     public record Flow
@@ -22,22 +24,22 @@ namespace C4InterFlow.Elements
         public Flow() : this(string.Empty)
         {
         }
-        public Flow(string ownerAlias)
+        public Flow(string owner)
         {
             Type = FlowType.None;
-            OwnerAlias = ownerAlias;
+            Owner = owner;
         }
 
-        private Flow(FlowType type, Flow parentFlow, string? @params = null) : this(type, parentFlow, parentFlow.OwnerAlias, @params)
+        private Flow(FlowType type, Flow parent, string? @params = null) : this(type, parent, parent.Owner, @params)
         {
             
         }
 
-        private Flow(FlowType type, Flow parentFlow, string ownerAlias, string? @params = null)
+        private Flow(FlowType type, Flow parent, string owner, string? @params = null)
         {
-            OwnerAlias = ownerAlias;
+            Owner = owner;
             Type = type;
-            Parent = parentFlow;
+            Parent = parent;
             Params = @params;
         }
 
@@ -45,7 +47,25 @@ namespace C4InterFlow.Elements
         public FlowType Type { get; set; }
         private Flow? Parent { get; set; }
 
-        public string OwnerAlias { get; set; }
+        private string _owner = string.Empty;
+        public string Owner { 
+            get 
+            {
+                return _owner;
+            }
+            set
+            {
+                _owner = value;
+
+                if(Flows != null)
+                {
+                    foreach (var flow in Flows)
+                    {
+                        flow.Owner = value;
+                    }
+                }
+            } 
+        }
         public string? Params { get; set; }
         public Interface[] GetUsesInterfaces()
         {
@@ -70,6 +90,35 @@ namespace C4InterFlow.Elements
             return GetUseFlows().Select(x => !string.IsNullOrEmpty(x.Params) ? x.Params : string.Empty).ToArray();
         }
 
+        public Flow[] GetFlowsOfType(FlowType type)
+        {
+            var result = new List<Flow>();
+
+            result.AddRange(GetFlowsOfType(this, type));
+
+            return result.ToArray();
+        }
+
+        private Flow[] GetFlowsOfType(Flow flow, FlowType type)
+        {
+            var result = new List<Flow>();
+
+            if (flow.Flows == null) return result.ToArray();
+
+            foreach (var segment in flow.Flows)
+            {
+                if (segment.Type == type)
+                {
+                    result.Add(segment);
+                }
+                else
+                {
+                    result.AddRange(GetFlowsOfType(segment, type));
+                }
+            }
+
+            return result.ToArray();
+        }
         public Flow[] GetUseFlows()
         {
             var result = new List<Flow>();
@@ -82,6 +131,8 @@ namespace C4InterFlow.Elements
         private Flow[] GetUseFlows(Flow flow)
         {
             var result = new List<Flow>();
+
+            if (flow.Flows == null) return result.ToArray();
 
             foreach (var segment in flow.Flows)
             {
@@ -104,10 +155,22 @@ namespace C4InterFlow.Elements
 
         public void AddFlowsRange(IEnumerable<Flow> flows)
         {
+            if (flows == null) return;
+
             foreach (var segment in flows)
             {
                 Flows.Add(segment);
             }
+        }
+
+        public Flow InferContainerInterface()
+        {
+            if (Type != FlowType.Use) return this;
+
+            Params = new Regex(@"\.Components\.[^.]*").Replace(Params, string.Empty);
+            Owner = new Regex(@"\.Components\.[^.]*").Replace(Owner, string.Empty);
+
+            return this;
         }
 
         public Flow Return(string value)

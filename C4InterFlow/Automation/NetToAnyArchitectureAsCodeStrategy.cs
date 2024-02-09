@@ -1,6 +1,6 @@
 ﻿namespace C4InterFlow.Automation
 {
-    public abstract class NetToAnyArchitectureAsCodeStrategy : ArchitectureAsCodeStrategy
+    public abstract class NetToAnyArchitectureAsCodeStrategy : ArchitectureAsCodeWriterStrategy
     {
         public const string SOFTWARE_SYSTEM_SOURCE_PATH = "software-system-source-path";
         public const string SOFTWARE_SYSTEM_NAME = "software-system-name";

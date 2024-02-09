@@ -17,7 +17,7 @@ namespace C4InterFlow.Diagrams.Plantuml
                 var stream = new StringBuilder();
 
                 stream.AppendLine();
-                stream.AppendLine($"box \"{structure.Label}\" #White\n");
+                stream.AppendLine($"box \"{structure.Label}\" #White");
                 foreach (var item in softwareSystemBoundary.Structures)
                 {
                     stream.AppendLine($"{string.Empty.PadLeft(TabSize)}{item.ToPumlSequenceString()}");
@@ -32,7 +32,7 @@ namespace C4InterFlow.Diagrams.Plantuml
                 var stream = new StringBuilder();
 
                 stream.AppendLine();
-                stream.AppendLine($"box \"{structure.Label}\" #White\n");
+                stream.AppendLine($"box \"{structure.Label}\" #White");
                 foreach (var item in containerBoundary.Components)
                 {
                     stream.AppendLine($"{string.Empty.PadLeft(TabSize)}{item.ToPumlSequenceString()}");

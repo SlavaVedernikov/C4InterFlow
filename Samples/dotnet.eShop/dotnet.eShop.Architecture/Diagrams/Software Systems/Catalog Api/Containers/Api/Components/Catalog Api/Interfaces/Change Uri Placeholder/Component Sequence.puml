@@ -1,0 +1,25 @@
+@startuml
+skinparam dpi 60
+
+title Catalog Api - Api - Catalog Api - Change Uri Placeholder - COMPONENT level
+
+participant "External System" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Catalog Api" #White
+
+    
+box "Api" #White
+
+    participant "Catalog Api" as dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi
+end box
+
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Change Uri Placeholder
+group Change Uri Placeholder
+dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Retun (items)
+end
+
+
+@enduml

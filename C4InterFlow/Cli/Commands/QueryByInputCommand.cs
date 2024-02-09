@@ -3,6 +3,7 @@ using C4InterFlow.Elements;
 using C4InterFlow.Elements.Interfaces;
 using C4InterFlow.Cli.Commands.Options;
 using System.Reflection;
+using C4InterFlow.Automation;
 
 namespace C4InterFlow.Cli.Commands;
 
@@ -13,29 +14,38 @@ public class QueryByInputCommand : Command
         "Queries interfaces by alias values in Interface 'Input' field.")
     {
         var entitiesOption = EntitiesOption.Get();
+        var architectureAsCodeInputPathsOption = ArchitectureAsCodeInputPathsOption.Get();
+        var architectureAsCodeReaderStrategyTypeOption = ArchitectureAsCodeReaderStrategyTypeOption.Get();
 
         AddOption(entitiesOption);
+        AddOption(architectureAsCodeInputPathsOption);
+        AddOption(architectureAsCodeReaderStrategyTypeOption);
 
-        this.SetHandler(async (entityAliases) =>
+        this.SetHandler(async (entityAliases, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType) =>
             {
-                await Execute(entityAliases);
+                await Execute(entityAliases, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
             },
-            entitiesOption);
+            entitiesOption, architectureAsCodeInputPathsOption, architectureAsCodeReaderStrategyTypeOption);
     }
 
-    private static async Task<int> Execute(string[] entityAliases)
+    private static async Task<int> Execute(string[] entityAliases, string[] architectureAsCodeInputPaths, string architectureAsCodeReaderStrategyType)
     {
         try
         {
-            Console.WriteLine($"{COMMAND_NAME} command is executing...");
+            Console.WriteLine($"'{COMMAND_NAME}' command is executing...");
 
-            var resolvedEntityAliases = Utils.ResolveWildcardStructures(entityAliases);
+            if(!ArchitectureAsCodeReaderContext.HasStrategy)
+            {
+                Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
+            }
+
+            var resolvedEntityAliases = Utils.ResolveStructures(entityAliases);
             var result = new List<string>();
-            var interfaceTypes = Utils.GetAllTypesOfInterface<IInterfaceInstance>();
+            var interfaces = Utils.GetAllInterfaces();
             
             foreach (var entityAlias in resolvedEntityAliases)
             {
-                result.AddRange(GetByInput(interfaceTypes, entityAlias));
+                result.AddRange(GetByInput(interfaces, entityAlias));
             }
             Console.WriteLine($"{COMMAND_NAME} command completed. See query results below.");
             Console.Write($"{string.Join(Environment.NewLine, result.Distinct().ToArray())}");
@@ -48,14 +58,12 @@ public class QueryByInputCommand : Command
         }
     }
 
-    private static IEnumerable<string> GetByInput(IEnumerable<Type> interfaceTypes, string entityAlias)
+    private static IEnumerable<string> GetByInput(IEnumerable<Interface> interfaces, string entityAlias)
     {
         var result = new List<string>();
 
-        foreach (var interfaceType in interfaceTypes)
+        foreach (var interfaceInstance in interfaces)
         {
-            var interfaceInstance = interfaceType?.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static)?.GetValue(null, null) as Interface;
-
             if (interfaceInstance?.Input?.Equals(entityAlias) == true)
             {  
                 result.Add(interfaceInstance.Alias);

@@ -181,7 +181,7 @@ namespace C4InterFlow.Automation
 
             var flowCode = NetToAnyCodeGenerator<NetCodeWriter>.GetFlowCode(
                 systemMethodDeclaration,
-                new NetArchitectureAsCodeContext(classDeclaration, architectureWorkspace),
+                new NetArchitectureAsCodeReaderStrategy(classDeclaration, architectureWorkspace),
                 writer,
                 alternativeInvocationMappers);
 
@@ -256,9 +256,9 @@ namespace C4InterFlow.Automation
 
             var projectDirectory = architectureProject.FilePath.Replace($"{architectureProject.Name}.csproj", string.Empty);
             var fileDirectory = Path.Combine(projectDirectory, NetToAnyCodeGenerator<NetCodeWriter>.GetComponentInterfacesDirectory(softwareSystemName, containerName, componentName));
-            Directory.CreateDirectory(fileDirectory);
-
             var filePath = Path.Combine(fileDirectory, documentName);
+
+            Directory.CreateDirectory(fileDirectory);
 
             if (!writer.ComponentMethodInterfaceObjectMap.Keys.Contains(filePath))
             {
@@ -344,9 +344,9 @@ namespace C4InterFlow.Automation
 
                 var projectDirectory = architectureProject.FilePath.Replace($"{architectureProject.Name}.csproj", string.Empty);
                 var fileDirectory = Path.Combine(projectDirectory, NetToAnyCodeGenerator<NetCodeWriter>.GetComponentInterfacesDirectory(softwareSystemName, containerName, componentName));
-                Directory.CreateDirectory(fileDirectory);
-
                 var filePath = Path.Combine(fileDirectory, documentName);
+
+                Directory.CreateDirectory(fileDirectory);
 
                 if (!writer.ComponentPropertyInterfaceObjectMap.Keys.Contains(filePath))
                 {
@@ -402,9 +402,9 @@ namespace C4InterFlow.Automation
 
             var projectDirectory = architectureProject.FilePath.Replace($"{architectureProject.Name}.csproj", string.Empty);
             var fileDirectory = Path.Combine(projectDirectory, NetToAnyCodeGenerator<NetCodeWriter>.GetEntitiesDirectory(softwareSystemName, containerName));
-            Directory.CreateDirectory(fileDirectory);
-
             var filePath = Path.Combine(fileDirectory, documentName);
+
+            Directory.CreateDirectory(fileDirectory);
 
             if (architectureProject.Documents.Any(x => x.FilePath == filePath))
             {
@@ -460,9 +460,9 @@ namespace C4InterFlow.Automation
 
             var projectDirectory = architectureProject.FilePath.Replace($"{architectureProject.Name}.csproj", string.Empty);
             var fileDirectory = Path.Combine(projectDirectory, NetToAnyCodeGenerator<NetCodeWriter>.GetEntitiesDirectory(softwareSystemName, containerName));
-            Directory.CreateDirectory(fileDirectory);
-
             var filePath = Path.Combine(fileDirectory, documentName);
+            
+            Directory.CreateDirectory(fileDirectory);
 
             if (architectureProject.Documents.Any(x => x.FilePath == filePath))
             {
@@ -529,9 +529,9 @@ namespace C4InterFlow.Automation
 
             var projectDirectory = project.FilePath.Replace($"{project.Name}.csproj", string.Empty);
             var fileDirectory = Path.Combine(projectDirectory, NetToAnyCodeGenerator<NetCodeWriter>.GetComponentsDirectory(softwareSystemName, containerName)); ;
-            Directory.CreateDirectory(fileDirectory);
-
             var filePath = Path.Combine(fileDirectory, documentName);
+
+            Directory.CreateDirectory(fileDirectory);
 
             if (project.Documents.Any(x => x.FilePath == filePath))
             {
@@ -576,9 +576,9 @@ namespace C4InterFlow.Automation
 
             var projectDirectory = project.FilePath.Replace($"{project.Name}.csproj", string.Empty);
             var fileDirectory = Path.Combine(projectDirectory, NetToAnyCodeGenerator<NetCodeWriter>.GetComponentsDirectory(softwareSystemName, containerName));
-            Directory.CreateDirectory(fileDirectory);
-
             var filePath = Path.Combine(fileDirectory, documentName);
+
+            Directory.CreateDirectory(fileDirectory);
 
             if (project.Documents.Any(x => x.FilePath == filePath))
             {

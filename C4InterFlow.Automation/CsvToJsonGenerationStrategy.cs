@@ -1,4 +1,6 @@
-﻿namespace C4InterFlow.Automation
+﻿using C4InterFlow.Elements;
+
+namespace C4InterFlow.Automation
 {
     public class CsvToJsonGenerationStrategy : CsvToJsonArchitectureAsCodeStrategy
     {
@@ -8,47 +10,75 @@
             var addSystemInterfaceClassAction = "add System Interface Class";
 
             var architectureRootNamespaceSegments = ArchitectureRootNamespace.Split('.');
-            var generationWriter = CsvToJsonArchitectureAsCodeWriter
-                .WithCsvData(ArchitectureInputPath)
-                //.WithArchitectureRootNamespace(ArchitectureRootNamespace)
-                //.WithArchitectureOutputPath(Path.Combine(ArchitectureOutputPath, $"{ArchitectureRootNamespace}.json"))
-                ;
+            var writer = CsvToJsonArchitectureAsCodeWriter
+                .WithCsvData(ArchitectureInputPath);
 
-            generationWriter.WithSoftwareSystems()
+
+            writer.WithSoftwareSystems()
                     .ToList().ForEach(s => {
-                        generationWriter
-                        .WithArchitectureRootNamespace(ArchitectureRootNamespace)
-                        .WithArchitectureOutputPath(Path.Combine(ArchitectureOutputPath, $"{ArchitectureRootNamespace}.{s.Alias}.json"))
-                        .AddSoftwareSystemObject(s.Alias);
-                        
-                        s.WithInterfaces(generationWriter).ToList().ForEach(i => {
-                            generationWriter.AddSoftwareSystemInterfaceObject(i);
+
+                        writer
+                            .WithArchitectureRootNamespace(ArchitectureRootNamespace)
+                            .WithSoftwareSystemsCollection()
+                            .WithArchitectureOutputPath(Path.Combine(ArchitectureOutputPath, "SoftwareSystems", $"{s.Alias}.json"));
+
+
+                        writer.AddSoftwareSystemObject(s.Alias, s.GetBoundary(), s.Name);
+
+                        s.WithInterfaces(writer).ToList().ForEach(i => {
+                            writer.AddSoftwareSystemInterfaceObject(i);
                         });
 
-                        s.WithContainers(generationWriter).ToList().ForEach(c => {
-                            generationWriter.AddContainerObject(s.Alias, c.Alias.Split('.').Last(), c.Type);
+                        s.WithContainers(writer).ToList().ForEach(c => {
+                            writer.AddContainerObject(s.Alias, c.Alias.Split('.').Last(), c.Type, c.Name);
 
-                            c.WithInterfaces(generationWriter).ToList().ForEach(i =>
+                            c.WithInterfaces(writer).ToList().ForEach(i =>
                             {
-                                generationWriter.AddContainerInterfaceObject(i);
+                                writer.AddContainerInterfaceObject(i);
                             });
                         });
 
-                        generationWriter.WithSoftwareSystemInterfaceObjects(s.Alias)
+                        writer.WithSoftwareSystemInterfaceObjects(s.Alias)
                         .ToList().ForEach(x => x.AddFlowToSoftwareSystemInterfaceObject(
-                            generationWriter));
+                            writer));
 
-                        generationWriter.WithContainerInterfaceObjects(s.Alias)
+                        writer.WithContainerInterfaceObjects(s.Alias)
                         .ToList().ForEach(x => x.AddFlowToContainerInterfaceObject(
-                            generationWriter));
+                            writer));
 
-                        generationWriter.WriteArchitecture();
+                        writer.WriteArchitecture();
 
                     });
 
-            //generationWriter.WriteArchitecture();
+            writer.WithActors()
+                    .ToList().ForEach(a =>
+                    {
+                        writer
+                            .WithArchitectureRootNamespace(ArchitectureRootNamespace)
+                            .WithActorsCollection()
+                            .WithArchitectureOutputPath(Path.Combine(ArchitectureOutputPath, "Actors", $"{a.Alias}.json"));
 
+                        if (!a.TryGetType(writer, out var type))
+                        {
+                            type = nameof(Person);
+                        }
 
+                        writer.AddActorObject(a.Alias, type, a.Name);
+
+                        writer.WriteArchitecture();
+                    });
+
+            writer.WithBusinessProcesses()
+                .ToList().ForEach(b => {
+                    writer
+                        .WithArchitectureRootNamespace(ArchitectureRootNamespace)
+                        .WithBusinessProcessesCollection()
+                        .WithArchitectureOutputPath(Path.Combine(ArchitectureOutputPath, "BusinessProcessess", $"{b.Alias}.json"));
+                    
+                    writer.AddBusinessProcessObject(b.Alias, b.WithBusinessActivities(writer).ToArray(), b.Name);
+
+                    writer.WriteArchitecture();
+                });
         }
     }
 }

@@ -1,0 +1,25 @@
+@startuml
+skinparam dpi 60
+
+title Basket Api - Grpc - Basket Service - Map To Customer Basket - COMPONENT level
+
+participant "External System" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Basket Api" #White
+
+    
+box "Grpc" #White
+
+    participant "Basket Service" as dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService
+end box
+
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService : Map To Customer Basket
+group Map To Customer Basket
+dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService : Retun (response)
+end
+
+
+@enduml

@@ -1,0 +1,17 @@
+@startuml
+skinparam dpi 60
+
+title Catalog Api - Infrastructure - Catalog Context - Catalog Types Add - CONTAINER level
+
+participant "External System" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Catalog Api" #White
+
+    participant "Infrastructure" as dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure : Catalog Types Add
+
+
+@enduml

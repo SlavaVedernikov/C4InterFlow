@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace C4InterFlow.Diagrams.Plantuml
@@ -18,9 +19,9 @@ namespace C4InterFlow.Diagrams.Plantuml
             var flowOwner = default(Structure);
             var actor = default(Structure);
 
-            if(!string.IsNullOrEmpty(flow.OwnerAlias))
+            if(!string.IsNullOrEmpty(flow.Owner))
             {
-                flowOwner = Utils.GetInstance<Structure>(flow.OwnerAlias);
+                flowOwner = Utils.GetInstance<Structure>(flow.Owner);
                 if (flowOwner != null)
                 {
                     if(flowOwner is Interface @interface)
@@ -30,8 +31,12 @@ namespace C4InterFlow.Diagrams.Plantuml
                     else
                     {
                         actor = flowOwner;
-                    }
-                    
+                    }   
+                }
+                else
+                {
+                    // Flow Owner may be an inferred Interface, so get the corresponding structure from its Alias
+                    actor = Utils.GetInstance<Structure>(new Regex(@"\.Interfaces\.[^.]*").Replace(flow.Owner, string.Empty));
                 }
             }
             
@@ -73,16 +78,32 @@ namespace C4InterFlow.Diagrams.Plantuml
             }
             else if(flow.Type == Flow.FlowType.Use)
             {
+                var usesInterfaceOwner = default(Structure);
+                var label = string.Empty;
+
                 var usesInterface = Utils.GetInstance<Interface>(flow.Params);
-                var usesInterfaceOwner = Utils.GetInstance<Structure>(usesInterface.Owner);
-                var flowRelationship = new Relationship(actor.Alias, usesInterfaceOwner.Alias, usesInterface.Label);
-                sb.AppendLine(flowRelationship.ToPumlSequenceString());
-                
-                if(flow.Flows.Any())
+                if(usesInterface != null)
                 {
-                    sb.AppendLine($"group {usesInterface.Label}");
+                    usesInterfaceOwner = Utils.GetInstance<Structure>(usesInterface.Owner);
+                    label = usesInterface.Label;
+                }
+                else
+                {
+                    // Flow may be using an inferred Interface, so get the corresponding structure from its Alias
+                    usesInterfaceOwner = Utils.GetInstance<Structure>(new Regex(@"\.Interfaces\.[^.]*").Replace(flow.Params, string.Empty));
+                    label = Utils.GetLabel(flow.Params.Split('.').Last());
                 }
                 
+                if(usesInterfaceOwner != null)
+                {
+                    var flowRelationship = new Relationship(actor.Alias, usesInterfaceOwner.Alias, label);
+                    sb.AppendLine(flowRelationship.ToPumlSequenceString());
+                }
+
+                if (flow.Flows.Any())
+                {
+                    sb.AppendLine($"group {label}");
+                }
             }
 
             foreach (var segment in flow.Flows)
