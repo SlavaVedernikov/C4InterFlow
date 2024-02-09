@@ -150,10 +150,7 @@ namespace C4InterFlow.Diagrams
                         }
                     }
 
-                    if (ShowBoundaries)
-                    {
-                        CleanUpStructures();
-                    }
+                    _structures = CleanUpStructures(_structures).ToList();
                 }
 
                 return _structures;
@@ -161,17 +158,29 @@ namespace C4InterFlow.Diagrams
         }
 
         //TODO: Review and test this logic
-        private void CleanUpStructures()
+        protected override IList<Structure> CleanUpStructures(IList<Structure> structures)
         {
-            var emptyContainerBoundaries = _structures.Where(x => x is ContainerBoundary && ((ContainerBoundary)x).Components.Count() == 0).ToList();
+            structures = base.CleanUpStructures(structures);
 
-            foreach (var item in emptyContainerBoundaries)
+            if (ShowBoundaries)
             {
-                _structures.Remove(item);
+                var emptyContainerBoundaries = structures.Where(x => x is ContainerBoundary && ((ContainerBoundary)x).Components.Count() == 0).ToList();
 
-                _structures.Add(Utils.GetInstance<Structure>(item.Alias));
+                foreach (var item in emptyContainerBoundaries)
+                {
+                    structures.Remove(item);
+
+                    var structure = Utils.GetInstance<Structure>(item.Alias);
+                    if (structure != null)
+                    {
+                        structures.Add(structure);
+                    }
+                }
             }
+
+            return structures;
         }
+        
         private void PopulateStructures(IList<Structure> structures, Interface @interface)
         {
             var interfaceOwner = Utils.GetInstance<Structure>(@interface.Owner);

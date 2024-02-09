@@ -4,13 +4,20 @@
     {
         private static IArchitectureAsCodeReaderStrategy? _strategy;
 
+        public static bool HasStrategy
+        {
+            get
+            {
+                return _strategy != null && _strategy.IsInitialised;
+            }
+        }
         public static IArchitectureAsCodeReaderStrategy Strategy
         {
             get
             {
                 if (_strategy == null || !_strategy.IsInitialised)
                 {
-                    throw new InvalidOperationException("Architecture As Code Reader Strategy was not set.");
+                    throw new InvalidOperationException("Architecture As Code Reader Strategy was not set or not initialised.");
                 }
 
                 return _strategy;

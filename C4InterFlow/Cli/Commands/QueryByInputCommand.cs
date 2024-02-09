@@ -3,6 +3,7 @@ using C4InterFlow.Elements;
 using C4InterFlow.Elements.Interfaces;
 using C4InterFlow.Cli.Commands.Options;
 using System.Reflection;
+using C4InterFlow.Automation;
 
 namespace C4InterFlow.Cli.Commands;
 
@@ -33,7 +34,10 @@ public class QueryByInputCommand : Command
         {
             Console.WriteLine($"'{COMMAND_NAME}' command is executing...");
 
-            Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
+            if(!ArchitectureAsCodeReaderContext.HasStrategy)
+            {
+                Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
+            }
 
             var resolvedEntityAliases = Utils.ResolveStructures(entityAliases);
             var result = new List<string>();

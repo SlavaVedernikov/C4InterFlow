@@ -150,6 +150,8 @@ namespace C4InterFlow.Diagrams
                                 PopulateStructures(_structures, @interface);
                             }
                         }
+
+                        _structures = CleanUpStructures(_structures).ToList();
                     }
 
                     return _structures;
@@ -245,9 +247,9 @@ namespace C4InterFlow.Diagrams
                             PopulateRelationships(_relationships, activity.GetActorInstance() ?? SoftwareSystems.ExternalSystem.Interfaces.ExternalInterface.Instance, @interface);
                         }
                     }
-                }
 
-                _relationships = CleanUpRelationships(_relationships, IsStatic).ToList();
+                    _relationships = CleanUpRelationships(_relationships, IsStatic).ToList();
+                }
 
                 return _relationships;
             }

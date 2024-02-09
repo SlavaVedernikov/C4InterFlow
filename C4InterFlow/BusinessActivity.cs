@@ -9,14 +9,16 @@ namespace C4InterFlow
 {
     public record BusinessActivity
     {
-        public BusinessActivity(Flow flow, string actorAlias) : this(flow, actorAlias, string.Empty) { }
-
-        public BusinessActivity(Flow flow, string actor, string label)
+        public BusinessActivity(Flow flow, string actor, string? label = null)
         {
             Actor = actor;
 
             Flow = flow;
-            Flow.OwnerAlias = Actor;
+
+            if(string.IsNullOrEmpty(Flow.Owner))
+            {
+                Flow.Owner = Actor;
+            }
 
             Label = label;
         }

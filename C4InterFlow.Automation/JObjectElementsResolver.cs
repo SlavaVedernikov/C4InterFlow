@@ -1,12 +1,16 @@
-﻿using C4InterFlow.Elements.Interfaces;
+﻿using C4InterFlow.Elements;
+using C4InterFlow.Elements.Interfaces;
+using C4InterFlow.Elements.Relationships;
 using Newtonsoft.Json.Linq;
+using System.Collections.Concurrent;
+using System.Reflection;
 
 namespace C4InterFlow.Elements
 {
     public class JObjectElementsResolver : IElementsResolver
     {
+        private static ConcurrentDictionary<string, object> _aliasToStructureMap = new ConcurrentDictionary<string, object>();
         private JObject? RootJObject { get; init; }
-        private string ArchitectureNamespace { get; init; }
 
         public JObjectElementsResolver()
         {
@@ -15,7 +19,6 @@ namespace C4InterFlow.Elements
         public JObjectElementsResolver(JObject rootJObject)
         {
             RootJObject = rootJObject;
-            ArchitectureNamespace = GetArchitectureNamespace();
         }
 
         public T? GetInstance<T>(string? alias) where T : Structure
@@ -23,6 +26,11 @@ namespace C4InterFlow.Elements
             var result = default(T);
 
             if (string.IsNullOrEmpty(alias)) return result;
+
+            if (_aliasToStructureMap.ContainsKey(alias))
+            {
+                return _aliasToStructureMap[alias] as T;
+            }
 
             var token = RootJObject?.SelectToken(alias);
 
@@ -33,54 +41,89 @@ namespace C4InterFlow.Elements
 
             if (collectionToken == null || ownerToken == null) return result;
 
-            var label = Utils.GetLabel(alias.Split('.').Last()) ?? string.Empty;
+            var label = token?["Label"]?.ToString() ?? Utils.GetLabel(alias.Split('.').Last()) ?? string.Empty;
 
             switch (collectionToken.Path.Split('.').Last()) {
-                case "Interfaces":
-                    var flow = token?["Flow"]?.ToObject<Flow>();
-                    if (flow != null)
+                case "Actors":
+                    var typeName = token?["Type"]?.ToString();
+
+                    if(!string.IsNullOrEmpty(typeName))
                     {
-                        flow.OwnerAlias = alias;
+                        var type = Type.GetType($"{nameof(C4InterFlow)}.{nameof(Elements)}.{typeName},{nameof(C4InterFlow)}");
 
-                        foreach (var item in flow.GetUseFlows())
+                        if (type != null)
                         {
-                            item.OwnerAlias = alias;
-                        };
+                            var typeConstructor = type.GetConstructor(new[] { typeof(string), typeof(string) });
 
-                        foreach (var item in flow.GetFlowsOfType(Flow.FlowType.Return))
-                        {
-                            item.OwnerAlias = alias;
-                        };
+                            if (typeConstructor != null)
+                            {
+                                result = typeConstructor.Invoke(new object[] { alias, label }) as T;
+                            }
+                        }
+                    }
+                    
+                    break;
+                case "BusinessProcesses":
+                    var activities = token?["Activities"]?.ToObject<BusinessActivity[]>();
 
-                        foreach (var item in flow.GetFlowsOfType(Flow.FlowType.ThrowException))
-                        {
-                            item.OwnerAlias = alias;
-                        };
+                    if(activities != null)
+                    {
+                        result = new BusinessProcess(activities, label) as T;
+                    }
+                    break;
+                case "Interfaces":
+                    var interfaceFlow = token?["Flow"]?.ToObject<Flow>();
+                    if (interfaceFlow != null)
+                    {
+                        interfaceFlow.Owner = alias;
                     }
                     else
                     {
-                        flow = new Flow(alias);
+                        interfaceFlow = new Flow(alias);
                     }
 
                     result = new Interface(ownerToken.Path, alias, label)
                     {
-                        Flow = flow
+                        Flow = interfaceFlow
                     } as T;
                     break;
                 case "SoftwareSystems":
-                    result = new SoftwareSystem(alias, label) as T;
+                    var softwareSystemsBoundaryName = token?["Boundary"]?.ToString();
+                    result = new SoftwareSystem(alias, label)
+                    {
+                        Boundary = !string.IsNullOrEmpty(softwareSystemsBoundaryName) &&
+                        Enum.TryParse(softwareSystemsBoundaryName, out Boundary softwareSystemsBoundary) ?
+                        softwareSystemsBoundary : Boundary.Internal
+                    } as T;
                     break;
                 case "Containers":
-                    result = new Container(ownerToken.Path, alias, label) as T;
+                    var containerTypeName = token?["ContainerType"]?.ToString();
+                    result = new Container(ownerToken.Path, alias, label)
+                    {
+                        ContainerType = !string.IsNullOrEmpty(containerTypeName) &&
+                        Enum.TryParse(containerTypeName, out ContainerType containerType) ?
+                        containerType : ContainerType.None
+                    } as T;
                     break;
                 case "Components":
-                    result = new Component(ownerToken.Path, alias, label) as T;
+                    var componentTypeName = token?["ComponentType"]?.ToString();
+                    result = new Component(ownerToken.Path, alias, label)
+                    {
+                        ComponentType = !string.IsNullOrEmpty(componentTypeName) &&
+                        Enum.TryParse(componentTypeName, out ComponentType componentType) ? 
+                        componentType : ComponentType.None
+                    } as T;
                     break;
                 case "Entities":
                     result = new Entity(ownerToken.Path, alias, label, EntityType.None) as T;
                     break;
                 default:
                     break;
+            }
+
+            if (result != null && !_aliasToStructureMap.ContainsKey(alias))
+            {
+                _aliasToStructureMap.TryAdd(alias, result);
             }
 
             return result;
@@ -90,8 +133,15 @@ namespace C4InterFlow.Elements
         {
             var result = new List<string>();
 
+            if (structures == null) return result;
+
             foreach (var item in structures)
             {
+                if(item.Contains(".*"))
+                {
+                    Console.WriteLine($"Resolving wildcard Structures for '{item}'.");
+                }
+                
                 result.AddRange(RootJObject.SelectTokens(item).Select(x => x.Path));
             }
 
@@ -102,9 +152,7 @@ namespace C4InterFlow.Elements
         {
             var result = new List<Interface>();
 
-            result.AddRange(GetInterfaces(RootJObject.SelectTokens($"{ArchitectureNamespace}.SoftwareSystems.*.Interfaces.*")));
-            result.AddRange(GetInterfaces(RootJObject.SelectTokens($"{ArchitectureNamespace}.SoftwareSystems.*.Containers.*.Interfaces.*")));
-            result.AddRange(GetInterfaces(RootJObject.SelectTokens($"{ArchitectureNamespace}.SoftwareSystems.*.Containers.*.Components.*.Interfaces.*")));
+            result.AddRange(GetInterfaces(RootJObject.SelectTokens($"..Interfaces.*")));
 
             return result;
         }
@@ -142,26 +190,6 @@ namespace C4InterFlow.Elements
                 {
                     result.Add(instance);
                 }
-            }
-
-            return result;
-        }
-
-        private string GetArchitectureNamespace()
-        {
-            var result = string.Empty;
-            var maxDepth = 10;
-            var currentDepth = 1;
-
-            while (string.IsNullOrEmpty(result) && currentDepth <= maxDepth)
-            {
-                var token = RootJObject.SelectToken($"{string.Concat(Enumerable.Repeat("*.", currentDepth))}SoftwareSystems");
-
-                if(token != null )
-                {
-                    result = token.Parent.Path;
-                }
-                currentDepth++;
             }
 
             return result;

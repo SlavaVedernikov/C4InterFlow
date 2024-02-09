@@ -54,7 +54,7 @@ namespace C4InterFlow.Automation
                     });
 
             writer.WithBusinessProcesses()
-                .ToList().ForEach(b => writer.AddBusinessProcessClass(b.Alias, b.WithBusinessActivities(writer).ToArray()));
+                .ToList().ForEach(b => writer.AddBusinessProcessClass(b.Alias, b.WithBusinessActivities(writer).ToArray(), b.Name));
         }
     }
 }

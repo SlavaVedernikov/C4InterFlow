@@ -72,25 +72,35 @@ public abstract class DiagramBuildRunner : IDiagramBuildRunner
         };
     }
 
-    protected IList<Relationship> CleanUpRelationships(IList<Relationship> relationships, bool isStatic)
+    protected virtual IList<Structure> CleanUpStructures(IList<Structure> structures)
+    {
+        foreach (var item in structures.Where(x => x.Alias == SoftwareSystems.ExternalSystem.ALIAS).ToArray())
+        {
+            structures.Remove(item);
+        }
+
+        return structures;
+    }
+    protected virtual IList<Relationship> CleanUpRelationships(IList<Relationship> relationships, bool isStatic)
     {
         if (relationships == null) return null;
 
         List<Relationship> relationshipsToRemove = new List<Relationship>();
         List<Relationship> relationshipsToAdd = new List<Relationship>();
 
-        var duplicateRelationshipGroups = relationships.GroupBy(r => new
+        var relationshipGroups = relationships.GroupBy(r => new
         {
             r.From,
             r.To
-        }).Select(g => new
+        })
+        .Select(g => new
         {
             g.Key,
             Relationships = g.ToList()
         });
 
 
-        foreach (var duplicateRelationshipGroup in duplicateRelationshipGroups)
+        foreach (var duplicateRelationshipGroup in relationshipGroups)
         {
             relationshipsToRemove.AddRange(duplicateRelationshipGroup.Relationships);
 
@@ -124,7 +134,7 @@ public abstract class DiagramBuildRunner : IDiagramBuildRunner
                     var protocol = relationshipProtocolGroup.Key.Protocol;
 
                     var relationship = (fromStructure > toStructure)[
-                        isStatic ? "Uses" : string.Join("\\n", relationshipProtocolGroup.Relationships.Select(x => $"{x.Label}{(string.IsNullOrEmpty(protocol) ? string.Empty : $"\\n[{protocol}]")}").Distinct())
+                        isStatic ? "Uses" : string.Join("\\n", relationshipProtocolGroup.Relationships.Select(x => $"{x.Label}{(string.IsNullOrEmpty(protocol) ? string.Empty : $"\\n[{protocol}]")}").Distinct().OrderBy(x => x))
                     ];
 
                     if(!string.IsNullOrEmpty(protocol))
@@ -150,6 +160,11 @@ public abstract class DiagramBuildRunner : IDiagramBuildRunner
         }
 
         foreach (var item in relationships.Where(x => x.From == x.To).ToArray())
+        {
+            relationships.Remove(item);
+        }
+
+        foreach (var item in relationships.Where(x => x.From == SoftwareSystems.ExternalSystem.ALIAS).ToArray())
         {
             relationships.Remove(item);
         }

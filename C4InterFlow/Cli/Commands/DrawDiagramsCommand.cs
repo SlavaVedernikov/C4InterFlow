@@ -5,6 +5,7 @@ using C4InterFlow.Diagrams.Plantuml;
 using C4InterFlow.Elements;
 using C4InterFlow.Cli.Commands.Binders;
 using System.Text.RegularExpressions;
+using C4InterFlow.Automation;
 
 namespace C4InterFlow.Cli.Commands;
 
@@ -65,7 +66,10 @@ public class DrawDiagramsCommand : Command
         {
             Console.WriteLine($"'{COMMAND_NAME}' command is executing...");
 
-            Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
+            if (!ArchitectureAsCodeReaderContext.HasStrategy)
+            {
+                Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
+            }
 
             var resolvedInterfaceAliases = new List<string>();
             resolvedInterfaceAliases.AddRange(Utils.ResolveStructures(interfaceAliases));

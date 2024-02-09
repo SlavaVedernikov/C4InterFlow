@@ -3,6 +3,8 @@ using Newtonsoft.Json.Linq;
 using YamlDotNet.Serialization;
 using Newtonsoft.Json;
 using System.Dynamic;
+using System.Reflection.Emit;
+using System.Xml.Linq;
 
 namespace C4InterFlow.Automation
 {
@@ -149,7 +151,7 @@ namespace C4InterFlow.Automation
                     var actor = $"{ArchitectureNamespace}.Actors.{businessActivity.ActorAlias}";
                     businessActivitiesJArray.Add(new JObject()
                     {
-                        { "Name", name },
+                        { "Label", name },
                         { "Actor", actor },
                         {
                             "Flow",
@@ -178,36 +180,40 @@ namespace C4InterFlow.Automation
             return this;
         }
 
-        public CsvToJsonArchitectureAsCodeWriter AddSoftwareSystemObject(string name, string? boundary = null)
+        public CsvToJsonArchitectureAsCodeWriter AddSoftwareSystemObject(string name, string? boundary = null, string label = null)
         {
             var softwareSystemsObject = JsonArchitectureAsCode.SelectToken($"{ArchitectureNamespace}.SoftwareSystems") as JObject;
 
             if(softwareSystemsObject != null )
             {
-                softwareSystemsObject.Add(
-                    name, 
-                    new JObject
+                var softwareSystemObject = new JObject
                     {
                         { "Boundary", boundary != null ? boundary : "Internal" },
                         { "Containers", new JObject() },
                         { "Interfaces", new JObject() }
-                    }
-                );
+                    };
+
+                AddLabel(softwareSystemObject, name, label);
+
+                softwareSystemsObject.Add(name, softwareSystemObject);
             }
             return this;
         }
         public CsvToJsonArchitectureAsCodeWriter AddSoftwareSystemInterfaceObject(SoftwareSystemInterface softwareSystemInterface)
         {
             var softwareSystemName = softwareSystemInterface.SoftwareSystemAlias;
-            var interfaceName = softwareSystemInterface.Alias.Split('.').Last();
+            var name = softwareSystemInterface.Alias.Split('.').Last();
+            var label = softwareSystemInterface.Name;
+
             var softwareSystemInterfacesObject = JsonArchitectureAsCode.SelectToken($"{ArchitectureNamespace}.SoftwareSystems.{softwareSystemName}.Interfaces") as JObject;
 
             if (softwareSystemInterfacesObject != null)
             {
                 var softwareSystemInterfaceObject = new JObject();
 
-                softwareSystemInterfacesObject.Add(
-                    interfaceName, softwareSystemInterfaceObject);
+                AddLabel(softwareSystemInterfaceObject, name, label);
+
+                softwareSystemInterfacesObject.Add(name, softwareSystemInterfaceObject);
 
                 if (!SoftwareSystemInterfaceClassFileNameMap.Keys.Contains(softwareSystemInterfaceObject.Path))
                 {
@@ -218,21 +224,22 @@ namespace C4InterFlow.Automation
             return this;
         }
 
-        public CsvToJsonArchitectureAsCodeWriter AddContainerObject(string softwareSystemName, string containerName, string? containerType = null )
+        public CsvToJsonArchitectureAsCodeWriter AddContainerObject(string softwareSystemName, string name, string? containerType = null, string? label = null)
         {
-            var softwareSystemContainersObject = JsonArchitectureAsCode.SelectToken($"{ArchitectureNamespace}.SoftwareSystems.{softwareSystemName}.Containers") as JObject;
+            var containersObject = JsonArchitectureAsCode.SelectToken($"{ArchitectureNamespace}.SoftwareSystems.{softwareSystemName}.Containers") as JObject;
 
-            if (softwareSystemContainersObject != null)
+            if (containersObject != null)
             {
-                softwareSystemContainersObject.Add(
-                    containerName,
-                    new JObject
+                var containerObject = new JObject
                     {
                         { "ContainerType", containerType != null ? containerType : "None" },
                         { "Components", new JObject() },
                         { "Interfaces", new JObject() }
-                    }
-                );
+                    };
+
+                containersObject.Add(name, containerObject);
+
+                AddLabel(containerObject, name, label);
             }
 
             return this;
@@ -243,15 +250,17 @@ namespace C4InterFlow.Automation
             var containerAliasSegments = containerInterface.ContainerAlias.Split('.');
             var softwareSystemName = containerAliasSegments[Array.IndexOf(containerAliasSegments, "Containers") - 1];
             var containerName = containerAliasSegments.Last();
-            var interfaceName = containerInterface.Alias.Split('.').Last();
-
+            var name = containerInterface.Alias.Split('.').Last();
+            var label = containerInterface.Name;
             var containerInterfacesObject = JsonArchitectureAsCode.SelectToken($"{ArchitectureNamespace}.SoftwareSystems.{softwareSystemName}.Containers.{containerName}.Interfaces") as JObject;
 
             if (containerInterfacesObject != null)
             {
                 var containerInterfaceObject = new JObject();
-                containerInterfacesObject.Add(
-                    interfaceName, containerInterfaceObject);
+
+                AddLabel(containerInterfaceObject, name, label);
+
+                containerInterfacesObject.Add(name, containerInterfaceObject);
 
                 if (!ContainerInterfaceClassFileNameMap.Keys.Contains(containerInterfaceObject.Path))
                 {
@@ -274,6 +283,19 @@ namespace C4InterFlow.Automation
             var result = JsonArchitectureAsCode.SelectTokens($"{ArchitectureNamespace}.SoftwareSystems.{(softwareSystemName != null ? softwareSystemName : "*")}.Containers.{(containerName != null ? containerName : "*")}.Interfaces.*").Select(x => x as JObject);
 
             return result;
+        }
+
+        private void AddLabel(JObject jObject, string name, string? label)
+        {
+            if (!string.IsNullOrEmpty(label))
+            {
+                var inferredLabel = Utils.GetLabel(name);
+
+                if (!label.Equals(inferredLabel))
+                {
+                    jObject.Add("Label", label);
+                }
+            }
         }
     }
 }

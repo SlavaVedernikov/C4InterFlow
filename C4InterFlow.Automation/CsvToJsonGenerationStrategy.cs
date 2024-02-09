@@ -23,14 +23,14 @@ namespace C4InterFlow.Automation
                             .WithArchitectureOutputPath(Path.Combine(ArchitectureOutputPath, "SoftwareSystems", $"{s.Alias}.json"));
 
 
-                        writer.AddSoftwareSystemObject(s.Alias, s.GetBoundary());
+                        writer.AddSoftwareSystemObject(s.Alias, s.GetBoundary(), s.Name);
 
                         s.WithInterfaces(writer).ToList().ForEach(i => {
                             writer.AddSoftwareSystemInterfaceObject(i);
                         });
 
                         s.WithContainers(writer).ToList().ForEach(c => {
-                            writer.AddContainerObject(s.Alias, c.Alias.Split('.').Last(), c.Type);
+                            writer.AddContainerObject(s.Alias, c.Alias.Split('.').Last(), c.Type, c.Name);
 
                             c.WithInterfaces(writer).ToList().ForEach(i =>
                             {
@@ -75,7 +75,7 @@ namespace C4InterFlow.Automation
                         .WithBusinessProcessesCollection()
                         .WithArchitectureOutputPath(Path.Combine(ArchitectureOutputPath, "BusinessProcessess", $"{b.Alias}.json"));
                     
-                    writer.AddBusinessProcessObject(b.Alias, b.WithBusinessActivities(writer).ToArray());
+                    writer.AddBusinessProcessObject(b.Alias, b.WithBusinessActivities(writer).ToArray(), b.Name);
 
                     writer.WriteArchitecture();
                 });

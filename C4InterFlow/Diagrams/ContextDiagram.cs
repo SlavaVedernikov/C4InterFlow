@@ -126,6 +126,8 @@ namespace C4InterFlow.Diagrams
                                 PopulateStructures(_structures, @interface);
                             }
                         }
+
+                        _structures = CleanUpStructures(_structures).ToList();
                     }
 
                     return _structures;

@@ -3,6 +3,7 @@ using C4InterFlow.Elements;
 using C4InterFlow.Elements.Interfaces;
 using C4InterFlow.Cli.Commands.Options;
 using System.Reflection;
+using C4InterFlow.Automation;
 
 namespace C4InterFlow.Cli.Commands;
 
@@ -41,7 +42,10 @@ public class QueryUseFlowsCommand : Command
         {
             Console.WriteLine($"'{COMMAND_NAME}' command is executing...");
 
-            Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
+            if (!ArchitectureAsCodeReaderContext.HasStrategy)
+            {
+                Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
+            }
 
             var resolvedInterfaceAliases = Utils.ResolveStructures(interfaceAliases);
             var result = new List<string>();
@@ -52,7 +56,9 @@ public class QueryUseFlowsCommand : Command
                 GetUsedBy(interfaces, interfaceAlias, isRecursive, result, queryIncludeSelf);        
             }
 
-            if(!string.IsNullOrEmpty(queryOutputFile))
+            result = result.Distinct().ToList();
+
+            if (!string.IsNullOrEmpty(queryOutputFile))
             {
                 Utils.WriteLines(result, queryOutputFile, append);
                 Console.WriteLine($"{COMMAND_NAME} command completed. See query results in '{queryOutputFile}'.");

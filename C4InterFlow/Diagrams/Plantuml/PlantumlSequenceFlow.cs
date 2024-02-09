@@ -19,9 +19,9 @@ namespace C4InterFlow.Diagrams.Plantuml
             var flowOwner = default(Structure);
             var actor = default(Structure);
 
-            if(!string.IsNullOrEmpty(flow.OwnerAlias))
+            if(!string.IsNullOrEmpty(flow.Owner))
             {
-                flowOwner = Utils.GetInstance<Structure>(flow.OwnerAlias);
+                flowOwner = Utils.GetInstance<Structure>(flow.Owner);
                 if (flowOwner != null)
                 {
                     if(flowOwner is Interface @interface)
@@ -36,7 +36,7 @@ namespace C4InterFlow.Diagrams.Plantuml
                 else
                 {
                     // Flow Owner may be an inferred Interface, so get the corresponding structure from its Alias
-                    actor = Utils.GetInstance<Structure>(new Regex(@"\.Interfaces\.[^.]*").Replace(flow.OwnerAlias, string.Empty));
+                    actor = Utils.GetInstance<Structure>(new Regex(@"\.Interfaces\.[^.]*").Replace(flow.Owner, string.Empty));
                 }
             }
             
