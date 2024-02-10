@@ -19,7 +19,7 @@ namespace dotnet.eShop.Architecture.SoftwareSystems
                         {
                             public partial class MapToCustomerBasketResponse : IInterfaceInstance
                             {
-                                public const string ALIAS = "dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService.Interfaces.MapToCustomerBasketResponse";
+                                private static readonly string ALIAS = "dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService.Interfaces.MapToCustomerBasketResponse";
                                 public static Interface Instance => new Interface(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService.ALIAS, ALIAS, "Map To Customer Basket Response")
                                 {
                                     Description = "",

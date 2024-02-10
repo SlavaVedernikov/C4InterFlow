@@ -19,7 +19,7 @@ namespace dotnet.eShop.Architecture.SoftwareSystems
                         {
                             public partial class StringGetLeaseAsync : IInterfaceInstance
                             {
-                                public const string ALIAS = "dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase.Interfaces.StringGetLeaseAsync";
+                                private static readonly string ALIAS = "dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase.Interfaces.StringGetLeaseAsync";
                                 public static Interface Instance => new Interface(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase.ALIAS, ALIAS, "String Get Lease Async")
                                 {
                                     Description = "",

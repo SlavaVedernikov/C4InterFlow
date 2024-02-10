@@ -15,7 +15,7 @@ namespace dotnet.eShop.Architecture.SoftwareSystems
                 {
                     public partial class RedisDatabase : IComponentInstance
                     {
-                        public const string ALIAS = "dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase";
+                        private static readonly string ALIAS = "dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase";
                         public static Component Instance => new Component(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.ALIAS, ALIAS, "Redis Database")
                         {
                             ComponentType = ComponentType.None,

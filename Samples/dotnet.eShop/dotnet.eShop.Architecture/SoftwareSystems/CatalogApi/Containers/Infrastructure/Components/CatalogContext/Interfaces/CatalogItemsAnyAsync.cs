@@ -19,7 +19,7 @@ namespace dotnet.eShop.Architecture.SoftwareSystems
                         {
                             public partial class CatalogItemsAnyAsync : IInterfaceInstance
                             {
-                                public const string ALIAS = "dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.CatalogItemsAnyAsync";
+                                private static readonly string ALIAS = "dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.CatalogItemsAnyAsync";
                                 public static Interface Instance => new Interface(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.ALIAS, ALIAS, "Catalog Items Any Async")
                                 {
                                     Description = "",

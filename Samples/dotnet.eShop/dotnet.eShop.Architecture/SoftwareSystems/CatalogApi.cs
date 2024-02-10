@@ -7,7 +7,7 @@ namespace dotnet.eShop.Architecture.SoftwareSystems
 {
     public partial class CatalogApi : ISoftwareSystemInstance
     {
-        public const string ALIAS = "dotnet.eShop.Architecture.SoftwareSystems.CatalogApi";
+        private static readonly string ALIAS = "dotnet.eShop.Architecture.SoftwareSystems.CatalogApi";
         public static SoftwareSystem Instance => new SoftwareSystem(ALIAS, "Catalog Api")
         {
             Description = "",

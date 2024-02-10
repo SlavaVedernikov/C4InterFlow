@@ -19,7 +19,7 @@ namespace dotnet.eShop.Architecture.SoftwareSystems
                         {
                             public partial class GetImageMimeTypeFromImageFileExtension : IInterfaceInstance
                             {
-                                public const string ALIAS = "dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.Interfaces.GetImageMimeTypeFromImageFileExtension";
+                                private static readonly string ALIAS = "dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.Interfaces.GetImageMimeTypeFromImageFileExtension";
                                 public static Interface Instance => new Interface(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.ALIAS, ALIAS, "Get Image Mime Type From Image File Extension")
                                 {
                                     Description = "",

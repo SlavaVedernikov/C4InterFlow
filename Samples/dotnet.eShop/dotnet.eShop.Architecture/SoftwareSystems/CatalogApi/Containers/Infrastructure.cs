@@ -11,7 +11,7 @@ namespace dotnet.eShop.Architecture.SoftwareSystems
         {
             public partial class Infrastructure : IContainerInstance
             {
-                public const string ALIAS = "dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure";
+                private static readonly string ALIAS = "dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure";
                 public static Container Instance => new Container(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.ALIAS, ALIAS, "Infrastructure")
                 {
                     ContainerType = ContainerType.None,

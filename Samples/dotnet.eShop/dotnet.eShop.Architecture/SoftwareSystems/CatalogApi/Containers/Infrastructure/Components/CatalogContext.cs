@@ -15,7 +15,7 @@ namespace dotnet.eShop.Architecture.SoftwareSystems
                 {
                     public partial class CatalogContext : IComponentInstance
                     {
-                        public const string ALIAS = "dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext";
+                        private static readonly string ALIAS = "dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext";
                         public static Component Instance => new Component(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.ALIAS, ALIAS, "Catalog Context")
                         {
                             ComponentType = ComponentType.None,

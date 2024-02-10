@@ -11,7 +11,7 @@ namespace dotnet.eShop.Architecture.SoftwareSystems
         {
             public partial class Data : IContainerInstance
             {
-                public const string ALIAS = "dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data";
+                private static readonly string ALIAS = "dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data";
                 public static Container Instance => new Container(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.ALIAS, ALIAS, "Data")
                 {
                     ContainerType = ContainerType.None,

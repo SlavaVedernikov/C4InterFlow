@@ -44,20 +44,17 @@ namespace C4InterFlow.Automation
         {
             var result = string.Empty;
 
-            var architectureClassSyntaxTree = CurrentClassDeclaration.SyntaxTree;
-            var architectureProject = ArchitectureWorkspace.CurrentSolution.Projects.FirstOrDefault(p => p.Documents.Any(d => d.FilePath == architectureClassSyntaxTree.FilePath));
-            var architectureCompilation = architectureProject.GetCompilationAsync().Result;
-            var architectureSemanticModel = architectureCompilation.GetSemanticModel(architectureClassSyntaxTree);
+            var architectureClassSyntaxTree = CurrentClassDeclaration?.SyntaxTree;
+            var architectureProject = ArchitectureWorkspace?.CurrentSolution.Projects.FirstOrDefault(p => p.Documents.Any(d => d.FilePath == architectureClassSyntaxTree?.FilePath));
+            var architectureCompilation = architectureProject?.GetCompilationAsync().Result;
 
-            var interfaceClassSyntaxTree = architectureCompilation.SyntaxTrees.FirstOrDefault(x => x.FilePath == filePath);
-            var interfaceClassSemanticModel = architectureCompilation.GetSemanticModel(interfaceClassSyntaxTree);
-            var interfaceAliasField = interfaceClassSyntaxTree.GetRoot().DescendantNodes()
+            var interfaceClassSyntaxTree = architectureCompilation?.SyntaxTrees.FirstOrDefault(x => x.FilePath == filePath);
+            var interfaceAliasField = interfaceClassSyntaxTree?.GetRoot().DescendantNodes()
                 .OfType<FieldDeclarationSyntax>().First(f => f.Declaration.Variables.Any(v => v.Identifier.Text == "ALIAS"));
 
-            result = interfaceClassSemanticModel.GetConstantValue(
-                interfaceAliasField.Declaration.Variables[0].Initializer.Value).Value as string;
+            result = interfaceAliasField?.Declaration?.Variables[0]?.Initializer?.Value.ToString().Replace("\"", string.Empty);
 
-            return result;
+            return result ?? string.Empty;
         }
     }
 }

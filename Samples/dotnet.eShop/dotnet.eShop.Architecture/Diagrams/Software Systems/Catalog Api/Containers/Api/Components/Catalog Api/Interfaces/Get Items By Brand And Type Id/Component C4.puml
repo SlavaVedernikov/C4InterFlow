@@ -16,7 +16,6 @@ skinparam linetype polyline
 
 title Catalog Api - Api - Catalog Api - Get Items By Brand And Type Id - COMPONENT level
 
-System(C4InterFlow.SoftwareSystems.ExternalSystem, "External System", "")
 
 System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi, "Catalog Api") {
     
@@ -27,7 +26,6 @@ Container_Boundary(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containe
 }
 
 
-Rel(C4InterFlow.SoftwareSystems.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, "Get Items By Brand And Type Id")
 
 
 SHOW_LEGEND()

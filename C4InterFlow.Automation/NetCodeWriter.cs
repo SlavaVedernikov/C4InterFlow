@@ -11,7 +11,7 @@ namespace C4InterFlow.Automation
 {
     public class NetCodeWriter : ICodeWriter
     {
-        internal const string ROOT_ARCHITECTURE_NAMESPACE = "C4InterFlow";
+        internal const string ROOT_ARCHITECTURE_NAMESPACE = nameof(C4InterFlow);
         public static string? GetLabel(string? text)
         {
             return AnyCodeWriter.GetLabel(text);
@@ -28,7 +28,7 @@ namespace C4InterFlow.Automation
         {{
             public partial class {AnyCodeWriter.GetName(name)} : IContainerInstance
             {{
-                public const string ALIAS = {$"\"{AnyCodeWriter.GetContainerAlias(architectureNamespace, softwareSystemName, name)}\""};
+                private static readonly string ALIAS = {$"\"{AnyCodeWriter.GetContainerAlias(architectureNamespace, softwareSystemName, name)}\""};
 
                 public static Container Instance => new Container(
                     {softwareSystemAlias}.ALIAS, ALIAS, {AnyCodeWriter.EnsureDoubleQuotes(label)})
@@ -107,7 +107,7 @@ namespace C4InterFlow.Automation
             result.Append($@"
     public partial class {AnyCodeWriter.GetName(name)} : ISoftwareSystemInstance
     {{
-        public const string ALIAS = {$"\"{AnyCodeWriter.GetSoftwareSystemAlias(architectureNamespace, name)}\""};
+        private static readonly string ALIAS = {$"\"{AnyCodeWriter.GetSoftwareSystemAlias(architectureNamespace, name)}\""};
 
         public static SoftwareSystem Instance => new SoftwareSystem(
             ALIAS, {AnyCodeWriter.EnsureDoubleQuotes(label)})
@@ -136,7 +136,7 @@ namespace C4InterFlow.Automation
             result.Append($@"
     public class {AnyCodeWriter.GetName(name)} : I{type}Instance
     {{
-        public const string ALIAS = {$"\"{AnyCodeWriter.GetActorAlias(architectureNamespace, name)}\""};
+        private static readonly string ALIAS = {$"\"{AnyCodeWriter.GetActorAlias(architectureNamespace, name)}\""};
 
         public static {type} Instance => new {type}(
             ALIAS, {AnyCodeWriter.EnsureDoubleQuotes(label)})
@@ -167,7 +167,7 @@ namespace C4InterFlow.Automation
                 {{
                     public partial class {AnyCodeWriter.GetName(name)} : IComponentInstance
                     {{
-                        public const string ALIAS = {$"\"{AnyCodeWriter.GetComponentAlias(architectureNamespace, softwareSystemName, containerName, name)}\""};
+                        private static readonly string ALIAS = {$"\"{AnyCodeWriter.GetComponentAlias(architectureNamespace, softwareSystemName, containerName, name)}\""};
 
                         public static Component Instance => new Component(
                             {containerAlias}.ALIAS, ALIAS, {AnyCodeWriter.EnsureDoubleQuotes(label)})
@@ -207,7 +207,7 @@ namespace C4InterFlow.Automation
                 {{
                     public partial class {AnyCodeWriter.GetName(name)} : IEntityInstance
                     {{
-                        public const string ALIAS = {$"\"{AnyCodeWriter.GetEntityAlias(architectureNamespace, softwareSystemName, containerName, name)}\""};
+                        private static readonly string ALIAS = {$"\"{AnyCodeWriter.GetEntityAlias(architectureNamespace, softwareSystemName, containerName, name)}\""};
 
                         public static Entity Instance => new Entity(
                             {containerAlias}.ALIAS, ALIAS, {AnyCodeWriter.EnsureDoubleQuotes(label)}, {(type != null ? type : "EntityType.None")})
@@ -248,7 +248,7 @@ namespace C4InterFlow.Automation
                         {{
                             public partial class {AnyCodeWriter.GetName(name)} : IInterfaceInstance
                             {{
-                                public const string ALIAS = {$"\"{AnyCodeWriter.GetComponentInterfaceAlias(componentAlias, name)}\""};
+                                private static readonly string ALIAS = {$"\"{AnyCodeWriter.GetComponentInterfaceAlias(componentAlias, name)}\""};
 
                                 public static Interface Instance => new Interface(
                                     {componentAlias}.ALIAS, ALIAS, {AnyCodeWriter.EnsureDoubleQuotes(label)})
@@ -292,7 +292,7 @@ namespace C4InterFlow.Automation
                 {{
                     public partial class {AnyCodeWriter.GetName(name)} : IInterfaceInstance
                     {{
-                        public const string ALIAS = {$"\"{AnyCodeWriter.GetContainerInterfaceAlias(architectureNamespace, softwareSystemName, containerName, name)}\""};
+                        private static readonly string ALIAS = {$"\"{AnyCodeWriter.GetContainerInterfaceAlias(architectureNamespace, softwareSystemName, containerName, name)}\""};
 
                         public static Interface Instance => new Interface(
                             {containerAlias}.ALIAS, ALIAS, {AnyCodeWriter.EnsureDoubleQuotes(label)})
@@ -329,7 +329,7 @@ namespace C4InterFlow.Automation
         {{
             public partial class {AnyCodeWriter.GetName(name)} : IInterfaceInstance
             {{
-                public const string ALIAS = {$"\"{AnyCodeWriter.GetSoftwareSystemInterfaceAlias(architectureNamespace, softwareSystemName, name)}\""};
+                private static readonly string ALIAS = {$"\"{AnyCodeWriter.GetSoftwareSystemInterfaceAlias(architectureNamespace, softwareSystemName, name)}\""};
 
                 public static Interface Instance => new Interface(
                     {softwareSystemAlias}.ALIAS, ALIAS, {AnyCodeWriter.EnsureDoubleQuotes(label)})

@@ -30,7 +30,7 @@ System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi, "Catalog A
 
 
 Rel(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data, "Delete Basket Async\nGet Basket Async\nUpdate Basket Async")
-Rel(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Catalog Items Add\nSave Changes Async\nCatalog Items Single Or Default\nCatalog Items Remove\nCatalog Items To List Async")
+Rel(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Catalog Items Add\nCatalog Items Remove\nCatalog Items Single Or Default\nCatalog Items To List Async\nSave Changes Async")
 
 
 SHOW_LEGEND()

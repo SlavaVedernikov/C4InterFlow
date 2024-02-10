@@ -3,10 +3,9 @@ skinparam dpi 60
 
 title Catalog Api - Api - Catalog Api - Update Item - CONTAINER level
 
-participant "External System" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 
 box "Catalog Api" #White
-
     participant "Api" as dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api
     participant "Infrastructure" as dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure
 end box
@@ -14,7 +13,7 @@ end box
 
 C4InterFlow.SoftwareSystems.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api : Update Item
 group Update Item
-dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure : Save Changes Async
+C4InterFlow.SoftwareSystems.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure : Save Changes Async
 end
 
 
