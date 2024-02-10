@@ -30,8 +30,12 @@ namespace dotnet.eShop.Architecture.SoftwareSystems
                                     	.If(@"string.IsNullOrEmpty(userId)")
                                     		.Use("dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService.Interfaces.ThrowNotAuthenticated")
                                     	.EndIf()
+                                    	.Use("dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService.Interfaces.MapToCustomerBasket")
                                     	.Use("dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository.Interfaces.UpdateBasketAsync")
-                                    	.Return(@"MapToCustomerBasketResponse"),
+                                    	.If(@"response is null")
+                                    		.Use("dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService.Interfaces.ThrowBasketDoesNotExist")
+                                    	.EndIf()
+                                    	.Use("dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService.Interfaces.MapToCustomerBasketResponse"),
                                     Input = "",
                                     InputTemplate = "",
                                     Output = "",

@@ -119,7 +119,11 @@ namespace C4InterFlow.Automation
 
             if (expression is IdentifierNameSyntax)
             {
-                var methodSymbol = semanticModel.GetSymbolInfo(expression).Symbol as IMethodSymbol;
+                var methodSymbol = (semanticModel.GetSymbolInfo(expression).Symbol ?? 
+                    (semanticModel.GetSymbolInfo(expression).CandidateSymbols != null ? 
+                    semanticModel.GetSymbolInfo(expression).CandidateSymbols.FirstOrDefault() : 
+                    default(ISymbol))
+                    ) as IMethodSymbol;
                 return methodSymbol?.ReceiverType;
             }
 

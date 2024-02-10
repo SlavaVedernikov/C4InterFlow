@@ -30,6 +30,7 @@ namespace dotnet.eShop.Architecture.SoftwareSystems
                                     	.If(@"item is null")
                                     		.Return(@"TypedResults.NotFound")
                                     	.EndIf()
+                                    	.Use("dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.Interfaces.GetFullPath")
                                     	.Use("dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.Interfaces.GetImageMimeTypeFromImageFileExtension")
                                     	.Return(@"TypedResults.PhysicalFile"),
                                     Input = "",

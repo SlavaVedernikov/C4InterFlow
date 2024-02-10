@@ -27,6 +27,7 @@ namespace dotnet.eShop.Architecture.SoftwareSystems
                                     IsPrivate = false,
                                     Protocol = "",
                                     Flow = new Flow(ALIAS)
+                                    	.Use("dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.Interfaces.ChangeUriPlaceholder")
                                     	.Return(@"TypedResults.Ok"),
                                     Input = "",
                                     InputTemplate = "",

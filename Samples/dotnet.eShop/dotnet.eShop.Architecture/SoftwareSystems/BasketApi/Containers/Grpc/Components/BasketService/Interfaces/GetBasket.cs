@@ -29,7 +29,7 @@ namespace dotnet.eShop.Architecture.SoftwareSystems
                                     Flow = new Flow(ALIAS)
                                     	.Use("dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository.Interfaces.GetBasketAsync")
                                     	.If(@"data is not null")
-                                    		.Return(@"MapToCustomerBasketResponse")
+                                    		.Use("dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService.Interfaces.MapToCustomerBasketResponse")
                                     	.EndIf(),
                                     Input = "",
                                     InputTemplate = "",
