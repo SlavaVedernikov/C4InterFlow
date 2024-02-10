@@ -66,6 +66,18 @@ namespace C4InterFlow.Elements
                 }
             } 
         }
+
+        private void SetOwner(string value, bool selfOnly = false)
+        {
+            if (selfOnly)
+            {
+                _owner = value;
+            }
+            else
+            {
+                Owner = value;
+            }
+        }
         public string? Params { get; set; }
         public Interface[] GetUsesInterfaces()
         {
@@ -168,7 +180,7 @@ namespace C4InterFlow.Elements
             if (Type != FlowType.Use) return this;
 
             Params = new Regex(@"\.Components\.[^.]*").Replace(Params, string.Empty);
-            Owner = new Regex(@"\.Components\.[^.]*").Replace(Owner, string.Empty);
+            SetOwner(new Regex(@"\.Components\.[^.]*").Replace(Owner, string.Empty), true);
 
             return this;
         }

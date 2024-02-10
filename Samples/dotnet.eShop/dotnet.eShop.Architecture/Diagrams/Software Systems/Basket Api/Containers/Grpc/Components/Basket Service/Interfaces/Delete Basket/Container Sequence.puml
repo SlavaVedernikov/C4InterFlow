@@ -13,7 +13,7 @@ end box
 
 C4InterFlow.SoftwareSystems.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc : Delete Basket
 group Delete Basket
-C4InterFlow.SoftwareSystems.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data : Delete Basket Async
+dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data : Delete Basket Async
 end
 
 

@@ -13,9 +13,9 @@ end box
 
 C4InterFlow.SoftwareSystems.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api : Delete Item By Id
 group Delete Item By Id
-C4InterFlow.SoftwareSystems.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure : Catalog Items Single Or Default
-C4InterFlow.SoftwareSystems.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure : Catalog Items Remove
-C4InterFlow.SoftwareSystems.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure : Save Changes Async
+dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure : Catalog Items Single Or Default
+dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure : Catalog Items Remove
+dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure : Save Changes Async
 end
 
 

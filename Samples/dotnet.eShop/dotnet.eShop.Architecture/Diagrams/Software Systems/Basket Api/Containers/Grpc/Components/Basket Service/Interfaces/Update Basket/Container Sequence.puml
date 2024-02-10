@@ -13,7 +13,7 @@ end box
 
 C4InterFlow.SoftwareSystems.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc : Update Basket
 group Update Basket
-C4InterFlow.SoftwareSystems.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data : Update Basket Async
+dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data : Update Basket Async
 end
 
 
