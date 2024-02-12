@@ -60,6 +60,8 @@ namespace C4InterFlow.Visualization
                     }
                 }
 
+                _flow.InferSoftwareSystemInterfaces();
+
                 return _flow;
             }
         }
@@ -67,32 +69,8 @@ namespace C4InterFlow.Visualization
         private void PopulateFlow(Flow flow)
         {
             var usesInterface = Utils.GetInstance<Interface>(flow.Params);
-            var usesInterfaceOwner = Utils.GetInstance<Structure>(usesInterface?.Owner);
 
-            if (usesInterface == null || usesInterfaceOwner == null) return;
-
-            if (usesInterfaceOwner is Container)
-            {
-                var usesSystem = Utils.GetInstance<Structure>(((Container)usesInterfaceOwner).SoftwareSystem);
-                if (usesSystem != null)
-                {
-                    usesInterfaceOwner = usesSystem;
-                }
-                
-            }
-            else if (usesInterfaceOwner is Component)
-            {
-                var usesContainer = Utils.GetInstance<Structure>(((Component)usesInterfaceOwner).Container);
-                if (usesContainer != null)
-                {
-                    var usesSystem = Utils.GetInstance<Structure>(((Container)usesContainer).SoftwareSystem);
-                    if (usesSystem != null)
-                    {
-                        usesInterfaceOwner = usesSystem;
-                    }
-                    
-                }
-            }
+            if (usesInterface == null) return;
 
             var currentFlow = Utils.Clone(usesInterface.Flow);
             foreach (var useFlow in currentFlow.GetUseFlows())

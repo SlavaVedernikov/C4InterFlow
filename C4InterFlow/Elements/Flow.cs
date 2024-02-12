@@ -1,4 +1,5 @@
 ﻿
+using System.ComponentModel;
 using System.Text.RegularExpressions;
 
 namespace C4InterFlow.Elements
@@ -144,13 +145,29 @@ namespace C4InterFlow.Elements
         {
             var result = new List<Flow>();
 
-            if (flow.Flows == null) return result.ToArray();
+
+            if (flow?.Type == FlowType.Use)
+            {
+                result.Add(flow);
+            }
+            
+            if (flow?.Flows == null)
+            {
+                return result.ToArray();
+            }
 
             foreach (var segment in flow.Flows)
             {
                 if (segment.Type == FlowType.Use)
                 {
                     result.Add(segment);
+
+                    if (segment.Flows == null) continue;
+
+                    foreach (var useSegment in segment.Flows)
+                    {
+                        result.AddRange(GetUseFlows(useSegment));
+                    }
                 }
                 else
                 {
@@ -175,12 +192,41 @@ namespace C4InterFlow.Elements
             }
         }
 
-        public Flow InferContainerInterface()
+        public Flow InferContainerInterfaces()
         {
-            if (Type != FlowType.Use) return this;
+            var useFlows = GetUseFlows();
 
-            Params = new Regex(@"\.Components\.[^.]*").Replace(Params, string.Empty);
-            SetOwner(new Regex(@"\.Components\.[^.]*").Replace(Owner, string.Empty), true);
+            useFlows.Where(x => x.Params.Contains(".Components.") || x.Owner.Contains(".Components."))
+                .ToList()
+                .ForEach(x =>
+                {
+                    x.Params = new Regex(@"\.Components\.[^.]*").Replace(x.Params, string.Empty);
+                    x.SetOwner(new Regex(@"\.Components\.[^.]*").Replace(x.Owner, string.Empty), true);
+                });
+
+            return this;
+        }
+
+        public Flow InferSoftwareSystemInterfaces()
+        {
+
+            var useFlows = GetUseFlows();
+
+            useFlows.Where(x => x.Params.Contains(".Components.") || x.Owner.Contains(".Components."))
+                .ToList()
+                .ForEach(x =>
+                {
+                    x.Params = new Regex(@"\.Components\.[^.]*").Replace(x.Params, string.Empty);
+                    x.SetOwner(new Regex(@"\.Components\.[^.]*").Replace(x.Owner, string.Empty), true);
+                });
+
+            useFlows.Where(x => x.Params.Contains(".Containers.") || x.Owner.Contains(".Containers."))
+                .ToList()
+                .ForEach(x =>
+                {
+                    x.Params = new Regex(@"\.Containers\.[^.]*").Replace(x.Params, string.Empty);
+                    x.SetOwner(new Regex(@"\.Containers\.[^.]*").Replace(x.Owner, string.Empty), true);
+                });
 
             return this;
         }

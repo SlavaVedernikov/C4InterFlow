@@ -51,14 +51,6 @@ namespace C4InterFlow.Visualization
                         foreach (var useFlow in activityFlow.GetUseFlows())
                         {
                             PopulateFlow(useFlow);
-
-                            var useInterface = Utils.GetInstance<Interface>(useFlow.Params);
-                            var useInterfaceOwner = Utils.GetInstance<Structure>(useInterface?.Owner);
-
-                            if (useInterfaceOwner is Component)
-                            {
-                                useFlow.InferContainerInterface();
-                            }
                         }
 
                         parentFlow.AddFlowsRange(activityFlow.Flows);
@@ -70,6 +62,8 @@ namespace C4InterFlow.Visualization
                     }
                 }
 
+                _flow.InferContainerInterfaces();
+
                 return _flow;
             }
         }
@@ -77,9 +71,8 @@ namespace C4InterFlow.Visualization
         private void PopulateFlow(Flow flow)
         {
             var usesInterface = Utils.GetInstance<Interface>(flow.Params);
-            var usesInterfaceOwner = Utils.GetInstance<Structure>(usesInterface?.Owner);
 
-            if (usesInterface == null || usesInterfaceOwner == null) return;
+            if (usesInterface == null) return;
              
             var currentFlow = Utils.Clone(usesInterface.Flow);
             foreach (var useFlow in currentFlow.GetUseFlows())
@@ -87,28 +80,7 @@ namespace C4InterFlow.Visualization
                 PopulateFlow(useFlow);
             }
 
-            AddFlows(flow, currentFlow, usesInterfaceOwner);
-        }
-
-        private void AddFlows(Flow toFlow, Flow fromFlow, Structure fromFlowInterfaceOwner)
-        {
-            if (fromFlowInterfaceOwner is Component)
-            {
-                var container = Utils.GetInstance<Container>(((Component)fromFlowInterfaceOwner).Container);
-
-                if(container != null)
-                {
-                    var usesFlows = fromFlow.GetUseFlows()
-                    .Where(x => !x.Params.Contains(container.Alias))
-                    .Select(x => x.InferContainerInterface());
-
-                    toFlow.AddFlowsRange(usesFlows);
-                }
-            }
-            else
-            {
-                toFlow.AddFlowsRange(fromFlow.Flows);
-            }
+            flow.AddFlowsRange(currentFlow.Flows);
         }
 
         private List<Structure> _structures;
