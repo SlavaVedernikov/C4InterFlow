@@ -161,11 +161,8 @@ namespace C4InterFlow.Automation
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
             var systemMethodDeclaration = ComponentMethodInterfaceObjectMap.GetValueOrDefault(filePath);
-
-            Console.WriteLine($"Add Flow To Component Interface for '{filePath}'.");
             if (systemMethodDeclaration == null)
             {
-                Console.WriteLine($"System Method Declaration was not found.");
                 return;
             }
 

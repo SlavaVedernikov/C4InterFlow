@@ -18,8 +18,9 @@ namespace C4InterFlow.Visualization.Plantuml
             var pumlKeyword = string.Empty;
             var flowOwner = default(Structure);
             var actor = default(Structure);
+            var innerFlows = new List<Flow>();
 
-            if(!string.IsNullOrEmpty(flow.Owner))
+            if (!string.IsNullOrEmpty(flow.Owner))
             {
                 flowOwner = Utils.GetInstance<Structure>(flow.Owner);
                 if (flowOwner != null)
@@ -100,7 +101,11 @@ namespace C4InterFlow.Visualization.Plantuml
                     sb.AppendLine(flowRelationship.ToPumlSequenceString());
                 }
 
-                if (flow.GetUseFlows().Any(x => x.Params != flow.Params))
+
+                innerFlows.AddRange(flow.GetFlowsByType(flow, Flow.FlowType.Use));
+                innerFlows.AddRange(flow.GetFlowsByType(flow, Flow.FlowType.Return));
+                innerFlows.AddRange(flow.GetFlowsByType(flow, Flow.FlowType.ThrowException));
+                if (innerFlows.Any())
                 {
                     sb.AppendLine($"group {label}");
                 }
@@ -114,7 +119,7 @@ namespace C4InterFlow.Visualization.Plantuml
             if (flow.Type == Flow.FlowType.If || 
                 flow.Type == Flow.FlowType.Loop || 
                 flow.Type == Flow.FlowType.Group ||
-                (flow.Type == Flow.FlowType.Use && flow.GetUseFlows().Any(x => x.Params != flow.Params)))
+                (flow.Type == Flow.FlowType.Use && innerFlows.Any()))
             {
                 sb.AppendLine("end");
             }

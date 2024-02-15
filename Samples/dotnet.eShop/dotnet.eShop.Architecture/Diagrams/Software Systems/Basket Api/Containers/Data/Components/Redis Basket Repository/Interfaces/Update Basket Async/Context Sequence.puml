@@ -1,0 +1,12 @@
+@startuml
+skinparam dpi 60
+
+title Basket Api - Data - Redis Basket Repository - Update Basket Async - CONTEXT level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "Basket Api" as dotnet.eShop.Architecture.SoftwareSystems.BasketApi
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi : Update Basket Async
+
+
+@enduml

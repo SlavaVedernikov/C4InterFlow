@@ -110,16 +110,10 @@ namespace C4InterFlow.Elements
             return result.ToArray();
         }
 
-        private Flow[] GetFlowsByType(Flow flow, FlowType type)
+        internal Flow[] GetFlowsByType(Flow flow, FlowType type)
         {
             var result = new List<Flow>();
 
-            
-            if (flow?.Type == type)
-            {
-                result.Add(flow);
-            }
-            
             if (flow?.Flows == null)
             {
                 return result.ToArray();
