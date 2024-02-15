@@ -17,6 +17,7 @@ namespace C4InterFlow.Automation
 
             writer.WithSoftwareSystems()
                     .ToList().ForEach(s => {
+                        Console.WriteLine($"Generating AaC for '{s.Alias}' Software System");
                         writer
                         .AddSoftwareSystemClass(name: s.Alias, boundary: s.GetBoundary(), label: s.Name);
                         
@@ -25,6 +26,7 @@ namespace C4InterFlow.Automation
                         });
 
                         s.WithContainers(writer).ToList().ForEach(c => {
+                            Console.WriteLine($"Generating AaC for '{c.Alias}' Container");
                             writer.AddContainerClass(s.Alias, c.Alias.Split('.').Last(), c.Type, c.Name);
 
                             c.WithInterfaces(writer).ToList().ForEach(i =>
@@ -33,6 +35,7 @@ namespace C4InterFlow.Automation
                             });
                         });
 
+                        Console.WriteLine($"Generating AaC flows for '{s.Alias}' Software System");
                         writer.WithSoftwareSystemInterfaceClasses(s.Alias, true)
                         .ToList().ForEach(x => x.AddFlowToSoftwareSystemInterfaceClass(
                             writer));
@@ -43,6 +46,7 @@ namespace C4InterFlow.Automation
 
                     });
 
+            Console.WriteLine($"Generating Actors");
             writer.WithActors()
                     .ToList().ForEach(a =>
                     {
@@ -53,6 +57,7 @@ namespace C4InterFlow.Automation
                         writer.AddActorClass(a.Alias, type, a.Name);
                     });
 
+            Console.WriteLine($"Generating Business Processes");
             writer.WithBusinessProcesses()
                 .ToList().ForEach(b => writer.AddBusinessProcessClass(b.Alias, b.WithBusinessActivities(writer).ToArray(), b.Name));
         }

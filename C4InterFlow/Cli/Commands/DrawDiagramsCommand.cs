@@ -404,7 +404,8 @@ public class DrawDiagramsCommand : Command
                     {
                         result = new ContextDiagram(
                             diagramTitle,
-                            process: process).Build();
+                            process: process,
+                            isStatic: isStatic).Build();
                         break;
                     }
                 default:
@@ -418,15 +419,6 @@ public class DrawDiagramsCommand : Command
 
 
         return result;
-    }
-
-    private static void ClearDirectory(string path)
-    {
-        if(Directory.Exists(path))
-        {
-            Directory.Delete(path, true);
-            Directory.CreateDirectory(path);
-        }
     }
 
     private static void DrawSequenceDiagrams(string scope, string levelOfDetails, BusinessProcess[] businessProcesses, string[] formats, bool showBoundaries, bool showInterfaceInputAndOutput, string outputDirectory, string? outputSubDirectory = null, string? diagramNamePrefix = null)

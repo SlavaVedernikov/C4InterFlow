@@ -151,7 +151,7 @@ namespace C4InterFlow.Automation
                     var actor = $"{ArchitectureNamespace}.Actors.{businessActivity.ActorAlias}";
                     businessActivitiesJArray.Add(new JObject()
                     {
-                        { "Label", name },
+                        { "Label", businessActivity.Name },
                         { "Actor", actor },
                         {
                             "Flow",

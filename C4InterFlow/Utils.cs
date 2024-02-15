@@ -40,5 +40,17 @@ namespace C4InterFlow
 
             return Regex.Replace(Regex.Replace(Regex.Replace(text.Replace("\"", string.Empty), "([A-Z]+)([A-Z][a-z])", "$1 $2"), "((?<=[a-z])[A-Z]|A-Z)", " $1"), "((?<=[a-zA-Z])[0-9]|(?<=[0-9])[a-zA-Z])", " $1").Trim();
         }
+
+        public static string GetContainerAlias(string alias)
+        {
+            var match = Regex.Match(alias, @"(.*\.SoftwareSystems\.[^.]+\.Containers\.[^.]+)");
+            return match.Success ? match.Groups[1].Value : string.Empty;
+        }
+
+        public static string GetSoftwareSystemAlias(string alias)
+        {
+            var match = Regex.Match(alias, @"^(.*?)(?:\.Interfaces|\.Containers)");
+            return match.Success ? match.Groups[1].Value : string.Empty;
+        }
     }
 }

@@ -1,5 +1,4 @@
 ﻿
-using System.ComponentModel;
 using System.Text.RegularExpressions;
 
 namespace C4InterFlow.Elements
@@ -102,51 +101,21 @@ namespace C4InterFlow.Elements
         {
             return GetUseFlows().Select(x => !string.IsNullOrEmpty(x.Params) ? x.Params : string.Empty).ToArray();
         }
-
-        public Flow[] GetFlowsOfType(FlowType type)
-        {
-            var result = new List<Flow>();
-
-            result.AddRange(GetFlowsOfType(this, type));
-
-            return result.ToArray();
-        }
-
-        private Flow[] GetFlowsOfType(Flow flow, FlowType type)
-        {
-            var result = new List<Flow>();
-
-            if (flow.Flows == null) return result.ToArray();
-
-            foreach (var segment in flow.Flows)
-            {
-                if (segment.Type == type)
-                {
-                    result.Add(segment);
-                }
-                else
-                {
-                    result.AddRange(GetFlowsOfType(segment, type));
-                }
-            }
-
-            return result.ToArray();
-        }
         public Flow[] GetUseFlows()
         {
             var result = new List<Flow>();
 
-            result.AddRange(GetUseFlows(this));
+            result.AddRange(GetFlowsByType(this, FlowType.Use));
 
             return result.ToArray();
         }
 
-        private Flow[] GetUseFlows(Flow flow)
+        private Flow[] GetFlowsByType(Flow flow, FlowType type)
         {
             var result = new List<Flow>();
 
-
-            if (flow?.Type == FlowType.Use)
+            
+            if (flow?.Type == type)
             {
                 result.Add(flow);
             }
@@ -158,20 +127,20 @@ namespace C4InterFlow.Elements
 
             foreach (var segment in flow.Flows)
             {
-                if (segment.Type == FlowType.Use)
+                if (segment.Type == type)
                 {
                     result.Add(segment);
-
+                    
                     if (segment.Flows == null) continue;
 
                     foreach (var useSegment in segment.Flows)
                     {
-                        result.AddRange(GetUseFlows(useSegment));
+                        result.AddRange(GetFlowsByType(useSegment, type));
                     }
                 }
                 else
                 {
-                    result.AddRange(GetUseFlows(segment));
+                    result.AddRange(GetFlowsByType(segment, type));
                 }
             }
 
@@ -192,7 +161,190 @@ namespace C4InterFlow.Elements
             }
         }
 
-        public Flow InferContainerInterfaces()
+        public void InferContainerInterfaces()
+        {
+            var currentScope = Utils.GetContainerAlias(Owner);
+
+            if (string.IsNullOrEmpty(currentScope))
+            {
+                currentScope = Utils.GetSoftwareSystemAlias(Owner);
+            }
+
+            if (string.IsNullOrEmpty(currentScope))
+            {
+                currentScope = Owner;
+            }
+
+            InferContainerInterfaces(this, currentScope);
+            CleanUpInferredContainerFlows();
+
+        }
+
+        private void CleanUpInferredContainerFlows()
+        {
+            var flows = new List<Flow>();
+
+            var json = System.Text.Json.JsonSerializer.Serialize(this);
+
+            flows.AddRange(GetFlowsByType(this, FlowType.If));
+            flows.AddRange(GetFlowsByType(this, FlowType.ElseIf));
+            flows.AddRange(GetFlowsByType(this, FlowType.Else));
+            flows.AddRange(GetFlowsByType(this, FlowType.Loop));
+            flows.AddRange(GetFlowsByType(this, FlowType.Group));
+            flows.AddRange(GetFlowsByType(this, FlowType.Try));
+            flows.AddRange(GetFlowsByType(this, FlowType.Catch));
+            flows.AddRange(GetFlowsByType(this, FlowType.Finally));
+
+            flows.ForEach(x =>
+            {
+                if(x.Flows == null || x.Flows.Count == 0 || x.Owner.Contains(".Components."))
+                {
+                    x.Type = FlowType.None;
+                }
+            });
+        }
+
+        public void InferSoftwareSystemInterfaces()
+        {
+            var currentScope = Utils.GetSoftwareSystemAlias(Owner);
+
+            if (string.IsNullOrEmpty(currentScope))
+            {
+                currentScope = Owner;
+            }
+
+            InferSoftwareSystemInterfaces(this, currentScope);
+            CleanUpInferredSoftwareSystemFlows();
+
+        }
+
+        private void CleanUpInferredSoftwareSystemFlows()
+        {
+            var flows = new List<Flow>();
+
+            var json = System.Text.Json.JsonSerializer.Serialize(this);
+
+            flows.AddRange(GetFlowsByType(this, FlowType.If));
+            flows.AddRange(GetFlowsByType(this, FlowType.ElseIf));
+            flows.AddRange(GetFlowsByType(this, FlowType.Else));
+            flows.AddRange(GetFlowsByType(this, FlowType.Loop));
+            flows.AddRange(GetFlowsByType(this, FlowType.Group));
+            flows.AddRange(GetFlowsByType(this, FlowType.Try));
+            flows.AddRange(GetFlowsByType(this, FlowType.Catch));
+            flows.AddRange(GetFlowsByType(this, FlowType.Finally));
+
+            flows.ForEach(x =>
+            {
+                if (x.Flows == null || 
+                x.Flows.Count == 0 || 
+                x.Owner.Contains(".Components.") || 
+                x.Owner.Contains(".Containers."))
+                {
+                    x.Type = FlowType.None;
+                }
+            });
+        }
+        private void InferContainerInterfaces(Flow flow, string currentScope)
+        {
+            if(flow.Type == FlowType.Use)
+            {
+                flow.Params = new Regex(@"\.Components\.[^.]*").Replace(flow.Params, string.Empty);
+                flow.SetOwner(new Regex(@"\.Components\.[^.]*").Replace(flow.Owner, string.Empty), true);
+
+                var newScope = Utils.GetContainerAlias(flow.Params);
+
+                if(string.IsNullOrEmpty(newScope))
+                {
+                    newScope = Utils.GetSoftwareSystemAlias(flow.Params);
+                }
+
+                if (string.IsNullOrEmpty(newScope))
+                {
+                    newScope = flow.Params;
+                }
+
+                if(currentScope.Equals(newScope))
+                {
+                    flow.Type = FlowType.None;
+                }
+
+                if (flow.Flows != null)
+                {
+                    foreach (var segment in flow.Flows)
+                    {
+                        InferContainerInterfaces(segment, newScope);
+                    }
+                }
+            }
+            else if (flow.Type == FlowType.Return || flow.Type == FlowType.ThrowException) 
+            {
+                if(flow.Owner.Contains(".Components."))
+                {
+                    flow.Type = FlowType.None;
+                }
+            }
+            else
+            {
+                if (flow.Flows != null)
+                {
+                    foreach (var segment in flow.Flows)
+                    {
+                        InferContainerInterfaces(segment, currentScope);
+                    }
+                }
+            }
+        }
+
+        private void InferSoftwareSystemInterfaces(Flow flow, string currentScope)
+        {
+            if (flow.Type == FlowType.Use)
+            {
+                flow.Params = new Regex(@"\.Components\.[^.]*").Replace(flow.Params, string.Empty);
+                flow.SetOwner(new Regex(@"\.Components\.[^.]*").Replace(flow.Owner, string.Empty), true);
+
+                flow.Params = new Regex(@"\.Containers\.[^.]*").Replace(flow.Params, string.Empty);
+                flow.SetOwner(new Regex(@"\.Containers\.[^.]*").Replace(flow.Owner, string.Empty), true);
+
+                var newScope = Utils.GetSoftwareSystemAlias(flow.Params);
+
+                if (string.IsNullOrEmpty(newScope))
+                {
+                    newScope = flow.Params;
+                }
+
+                if (currentScope.Equals(newScope))
+                {
+                    flow.Type = FlowType.None;
+                }
+
+                if (flow.Flows != null)
+                {
+                    foreach (var segment in flow.Flows)
+                    {
+                        InferSoftwareSystemInterfaces(segment, newScope);
+                    }
+                }
+            }
+            else if (flow.Type == FlowType.Return || flow.Type == FlowType.ThrowException)
+            {
+                if (flow.Owner.Contains(".Components.") || flow.Owner.Contains(".Containers."))
+                {
+                    flow.Type = FlowType.None;
+                }
+            }
+            else
+            {
+                if (flow.Flows != null)
+                {
+                    foreach (var segment in flow.Flows)
+                    {
+                        InferSoftwareSystemInterfaces(segment, currentScope);
+                    }
+                }
+            }
+        }
+        /*
+        public void InferContainerInterfaces()
         {
             var useFlows = GetUseFlows();
 
@@ -204,10 +356,22 @@ namespace C4InterFlow.Elements
                     x.SetOwner(new Regex(@"\.Components\.[^.]*").Replace(x.Owner, string.Empty), true);
                 });
 
-            return this;
-        }
+            var otherFlows = new List<Flow>();
 
-        public Flow InferSoftwareSystemInterfaces()
+            otherFlows.AddRange(GetFlowsByType(this, FlowType.Return));
+            otherFlows.AddRange(GetFlowsByType(this, FlowType.ThrowException));
+
+            otherFlows.Where(x => x.Owner.Contains(".Components."))
+                .ToList()
+                .ForEach(x =>
+                {
+                    x.SetOwner(new Regex(@"\.Components\.[^.]*").Replace(x.Owner, string.Empty), true);
+                });
+        }
+        */
+
+        /*
+        public void InferSoftwareSystemInterfaces()
         {
 
             var useFlows = GetUseFlows();
@@ -228,8 +392,26 @@ namespace C4InterFlow.Elements
                     x.SetOwner(new Regex(@"\.Containers\.[^.]*").Replace(x.Owner, string.Empty), true);
                 });
 
-            return this;
-        }
+            var otherFlows = new List<Flow>();
+
+            otherFlows.AddRange(GetFlowsByType(this, FlowType.Return));
+            otherFlows.AddRange(GetFlowsByType(this, FlowType.ThrowException));
+
+            otherFlows.Where(x => x.Owner.Contains(".Components."))
+                .ToList()
+                .ForEach(x =>
+                {
+                    x.SetOwner(new Regex(@"\.Components\.[^.]*").Replace(x.Owner, string.Empty), true);
+                });
+
+            otherFlows.Where(x => x.Owner.Contains(".Containers."))
+                .ToList()
+                .ForEach(x =>
+                {
+                    x.SetOwner(new Regex(@"\.Containers\.[^.]*").Replace(x.Owner, string.Empty), true);
+                });
+        
+        */
 
         public Flow Return(string value)
         {

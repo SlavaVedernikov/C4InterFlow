@@ -100,7 +100,7 @@ namespace C4InterFlow.Visualization.Plantuml
                     sb.AppendLine(flowRelationship.ToPumlSequenceString());
                 }
 
-                if (flow.Flows.Any())
+                if (flow.GetUseFlows().Any(x => x.Params != flow.Params))
                 {
                     sb.AppendLine($"group {label}");
                 }
@@ -114,7 +114,7 @@ namespace C4InterFlow.Visualization.Plantuml
             if (flow.Type == Flow.FlowType.If || 
                 flow.Type == Flow.FlowType.Loop || 
                 flow.Type == Flow.FlowType.Group ||
-                (flow.Type == Flow.FlowType.Use && flow.Flows.Any()))
+                (flow.Type == Flow.FlowType.Use && flow.GetUseFlows().Any(x => x.Params != flow.Params)))
             {
                 sb.AppendLine("end");
             }
