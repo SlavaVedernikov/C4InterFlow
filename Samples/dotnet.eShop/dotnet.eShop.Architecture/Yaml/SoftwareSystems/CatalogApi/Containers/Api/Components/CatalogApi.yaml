@@ -11,4 +11,4 @@ dotnet:
                   ComponentType: None
                   Description: ''
                   Technology: ''
-                  Containers: {}
+                  Interfaces: {}

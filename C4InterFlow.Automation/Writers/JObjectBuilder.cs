@@ -121,7 +121,7 @@ namespace C4InterFlow.Automation.Writers
             currentObject.Add("ComponentType", componentType);
             currentObject.Add("Description", description != null ? description : string.Empty);
             currentObject.Add("Technology", technology != null ? technology : string.Empty);
-            currentObject.Add("Containers", new JObject());
+            currentObject.Add("Interfaces", new JObject());
 
             return result;
         }
