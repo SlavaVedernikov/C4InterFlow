@@ -16,7 +16,6 @@ skinparam linetype polyline
 
 title Basket Api - Data - Redis Basket Repository - Delete Basket Async - COMPONENT level
 
-System(C4InterFlow.SoftwareSystems.ExternalSystem, "External System", "")
 
 System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.BasketApi, "Basket Api") {
     
@@ -28,7 +27,6 @@ Container_Boundary(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Container
 }
 
 
-Rel(C4InterFlow.SoftwareSystems.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, "Delete Basket Async")
 Rel(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase, "Key Delete Async")
 
 

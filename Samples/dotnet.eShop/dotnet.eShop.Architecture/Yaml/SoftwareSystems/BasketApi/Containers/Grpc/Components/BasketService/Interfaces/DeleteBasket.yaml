@@ -17,12 +17,12 @@ dotnet:
                       Flow:
                         Flows:
                         - Type: If
-                          Params: string.IsNullOrEmpty(userId)
+                          Expression: string.IsNullOrEmpty(userId)
                           Flows:
                           - Type: Use
-                            Params: dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService.Interfaces.ThrowNotAuthenticated
+                            Expression: dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService.Interfaces.ThrowNotAuthenticated
                         - Type: Use
-                          Params: dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository.Interfaces.DeleteBasketAsync
+                          Expression: dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository.Interfaces.DeleteBasketAsync
                       Input: ''
                       InputTemplate: ''
                       Output: ''

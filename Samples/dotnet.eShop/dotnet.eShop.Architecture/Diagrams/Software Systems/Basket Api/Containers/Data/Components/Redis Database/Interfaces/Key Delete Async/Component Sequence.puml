@@ -3,13 +3,11 @@ skinparam dpi 60
 
 title Basket Api - Data - Redis Database - Key Delete Async - COMPONENT level
 
-participant "External System" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 
 box "Basket Api" #White
-
     
 box "Data" #White
-
     participant "Redis Database" as dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase
 end box
 

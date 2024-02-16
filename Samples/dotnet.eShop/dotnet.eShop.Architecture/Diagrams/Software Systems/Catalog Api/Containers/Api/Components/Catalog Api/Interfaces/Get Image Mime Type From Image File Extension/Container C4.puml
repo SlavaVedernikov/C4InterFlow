@@ -16,14 +16,12 @@ skinparam linetype polyline
 
 title Catalog Api - Api - Catalog Api - Get Image Mime Type From Image File Extension - CONTAINER level
 
-System(C4InterFlow.SoftwareSystems.ExternalSystem, "External System", "")
 
 System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi, "Catalog Api") {
     Container(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api, "Api", "", "")
 }
 
 
-Rel(C4InterFlow.SoftwareSystems.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api, "Get Image Mime Type From Image File Extension")
 
 
 SHOW_LEGEND()

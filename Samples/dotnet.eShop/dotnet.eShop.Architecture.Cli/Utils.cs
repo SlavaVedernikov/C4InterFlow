@@ -1,7 +1,7 @@
-﻿using C4InterFlow.Automation;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis;
 using System.Text.RegularExpressions;
+using C4InterFlow.Automation.Writers;
 
 namespace dotnet.eShop.Architecture.Cli
 {
@@ -57,7 +57,7 @@ namespace dotnet.eShop.Architecture.Cli
             return result == true;
         }
 
-        public static void MapTypeInterfacesInvocation(InvocationExpressionSyntax invocation, SemanticModel semanticModel, IList<string> usesAliases, NetToAnyArchitectureAsCodeWriter writer, Dictionary<string, object>? args)
+        public static void MapTypeInterfacesInvocation(InvocationExpressionSyntax invocation, SemanticModel semanticModel, IList<string> usesAliases, CSharpToAnyArchitectureAsCodeWriter writer, Dictionary<string, object>? args)
         {
             if (!TryGetArgument(args, ARG_SOFTWARE_SYSTEM_NAME, out string softwareSystemName)) return;
             if (!TryGetArgument(args, ARG_INVOCATION_INTERFACES, out string[] invocationInterfaces)) return;
@@ -91,7 +91,7 @@ namespace dotnet.eShop.Architecture.Cli
             }
         }
 
-        public static void MapDbContextEntityInvocation(InvocationExpressionSyntax invocation, SemanticModel semanticModel, IList<string> usesAliases, NetToAnyArchitectureAsCodeWriter writer, Dictionary<string, object>? args)
+        public static void MapDbContextEntityInvocation(InvocationExpressionSyntax invocation, SemanticModel semanticModel, IList<string> usesAliases, CSharpToAnyArchitectureAsCodeWriter writer, Dictionary<string, object>? args)
         {
             if (!TryGetArgument(args, ARG_SOFTWARE_SYSTEM_NAME, out string softwareSystemName)) return;
             if (!TryGetArgument(args, ARG_INVOCATION_INTERFACES, out string[] invocationInterfaces)) return;
@@ -123,7 +123,7 @@ namespace dotnet.eShop.Architecture.Cli
             }
         }
 
-        public static void MapDbContextInvocation(InvocationExpressionSyntax invocation, SemanticModel semanticModel, IList<string> usesAliases, NetToAnyArchitectureAsCodeWriter writer, Dictionary<string, object>? args)
+        public static void MapDbContextInvocation(InvocationExpressionSyntax invocation, SemanticModel semanticModel, IList<string> usesAliases, CSharpToAnyArchitectureAsCodeWriter writer, Dictionary<string, object>? args)
         {
             if (!TryGetArgument(args, ARG_SOFTWARE_SYSTEM_NAME, out string softwareSystemName)) return;
             if (!TryGetArgument(args, ARG_INVOCATION_INTERFACES, out string[] invocationInterfaces)) return;

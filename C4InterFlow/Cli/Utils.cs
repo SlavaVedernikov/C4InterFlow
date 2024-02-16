@@ -1,6 +1,6 @@
 ﻿using C4InterFlow.Automation;
-using C4InterFlow.Elements;
-using C4InterFlow.Elements.Interfaces;
+using C4InterFlow.Structures;
+using C4InterFlow.Structures.Interfaces;
 using System.Reflection;
 using System.Runtime.Loader;
 

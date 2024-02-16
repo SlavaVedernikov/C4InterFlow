@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using C4InterFlow.Elements;
+using C4InterFlow.Structures;
 
 namespace C4InterFlow.Attributes
 {

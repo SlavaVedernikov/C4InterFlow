@@ -16,14 +16,12 @@ skinparam linetype polyline
 
 title Catalog Api - Api - Catalog Api - Map Catalog Api - CONTAINER level
 
-System(C4InterFlow.SoftwareSystems.ExternalSystem, "External System", "")
 
 System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi, "Catalog Api") {
     Container(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api, "Api", "", "")
 }
 
 
-Rel(C4InterFlow.SoftwareSystems.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api, "Uses")
 
 
 SHOW_LEGEND()

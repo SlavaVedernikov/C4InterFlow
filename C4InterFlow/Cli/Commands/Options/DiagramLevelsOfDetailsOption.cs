@@ -1,5 +1,5 @@
-using C4InterFlow.Diagrams;
-using C4InterFlow.Elements;
+using C4InterFlow.Visualization;
+using C4InterFlow.Structures;
 using System.CommandLine;
 using System.CommandLine.Parsing;
 

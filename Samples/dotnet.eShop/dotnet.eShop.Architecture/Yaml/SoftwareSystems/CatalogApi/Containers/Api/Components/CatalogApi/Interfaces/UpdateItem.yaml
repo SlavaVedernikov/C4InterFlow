@@ -17,19 +17,19 @@ dotnet:
                       Flow:
                         Flows:
                         - Type: If
-                          Params: catalogItem == null
+                          Expression: catalogItem == null
                           Flows:
                           - Type: Return
-                            Params: TypedResults.NotFound
+                            Expression: TypedResults.NotFound
                         - Type: If
-                          Params: priceEntry.IsModified
+                          Expression: priceEntry.IsModified
                           Flows:
                           - Type: Else
                             Flows:
                             - Type: Use
-                              Params: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.SaveChangesAsync
+                              Expression: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.SaveChangesAsync
                         - Type: Return
-                          Params: TypedResults.Created
+                          Expression: TypedResults.Created
                       Input: ''
                       InputTemplate: ''
                       Output: ''

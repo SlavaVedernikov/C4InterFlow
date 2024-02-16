@@ -1,8 +1,8 @@
 using System.CommandLine;
-using C4InterFlow.Diagrams;
+using C4InterFlow.Visualization;
 using C4InterFlow.Cli.Commands.Options;
-using C4InterFlow.Diagrams.Plantuml;
-using C4InterFlow.Elements;
+using C4InterFlow.Visualization.Plantuml;
+using C4InterFlow.Structures;
 using C4InterFlow.Cli.Commands.Binders;
 using System.Text.RegularExpressions;
 using C4InterFlow.Automation;
@@ -404,7 +404,8 @@ public class DrawDiagramsCommand : Command
                     {
                         result = new ContextDiagram(
                             diagramTitle,
-                            process: process).Build();
+                            process: process,
+                            isStatic: isStatic).Build();
                         break;
                     }
                 default:
@@ -418,15 +419,6 @@ public class DrawDiagramsCommand : Command
 
 
         return result;
-    }
-
-    private static void ClearDirectory(string path)
-    {
-        if(Directory.Exists(path))
-        {
-            Directory.Delete(path, true);
-            Directory.CreateDirectory(path);
-        }
     }
 
     private static void DrawSequenceDiagrams(string scope, string levelOfDetails, BusinessProcess[] businessProcesses, string[] formats, bool showBoundaries, bool showInterfaceInputAndOutput, string outputDirectory, string? outputSubDirectory = null, string? diagramNamePrefix = null)

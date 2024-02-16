@@ -16,7 +16,6 @@ skinparam linetype polyline
 
 title Basket Api - Grpc - Basket Service - Map To Customer Basket Response - COMPONENT level
 
-System(C4InterFlow.SoftwareSystems.ExternalSystem, "External System", "")
 
 System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.BasketApi, "Basket Api") {
     
@@ -27,7 +26,6 @@ Container_Boundary(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Container
 }
 
 
-Rel(C4InterFlow.SoftwareSystems.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, "Map To Customer Basket Response")
 
 
 SHOW_LEGEND()

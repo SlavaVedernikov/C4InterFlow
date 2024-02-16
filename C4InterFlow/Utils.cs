@@ -3,9 +3,9 @@ using System.Text.Json;
 using System.Text.RegularExpressions;
 using C4InterFlow.Automation;
 using C4InterFlow.Cli;
-using C4InterFlow.Elements;
-using C4InterFlow.Elements.Interfaces;
-using C4InterFlow.Elements.Relationships;
+using C4InterFlow.Structures;
+using C4InterFlow.Structures.Interfaces;
+using C4InterFlow.Structures.Relationships;
 
 namespace C4InterFlow
 {
@@ -39,6 +39,18 @@ namespace C4InterFlow
             if (string.IsNullOrEmpty(text)) return text;
 
             return Regex.Replace(Regex.Replace(Regex.Replace(text.Replace("\"", string.Empty), "([A-Z]+)([A-Z][a-z])", "$1 $2"), "((?<=[a-z])[A-Z]|A-Z)", " $1"), "((?<=[a-zA-Z])[0-9]|(?<=[0-9])[a-zA-Z])", " $1").Trim();
+        }
+
+        public static string GetContainerAlias(string alias)
+        {
+            var match = Regex.Match(alias, @"(.*\.SoftwareSystems\.[^.]+\.Containers\.[^.]+)");
+            return match.Success ? match.Groups[1].Value : string.Empty;
+        }
+
+        public static string GetSoftwareSystemAlias(string alias)
+        {
+            var match = Regex.Match(alias, @"^(.*?)(?:\.Interfaces|\.Containers)");
+            return match.Success ? match.Groups[1].Value : string.Empty;
         }
     }
 }

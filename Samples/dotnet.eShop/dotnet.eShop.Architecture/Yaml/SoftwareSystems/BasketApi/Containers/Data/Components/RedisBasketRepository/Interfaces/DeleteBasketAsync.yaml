@@ -17,7 +17,7 @@ dotnet:
                       Flow:
                         Flows:
                         - Type: Use
-                          Params: dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase.Interfaces.KeyDeleteAsync
+                          Expression: dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase.Interfaces.KeyDeleteAsync
                       Input: ''
                       InputTemplate: ''
                       Output: ''

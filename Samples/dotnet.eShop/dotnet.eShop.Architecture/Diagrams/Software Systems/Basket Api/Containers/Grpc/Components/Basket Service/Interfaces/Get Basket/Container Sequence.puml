@@ -3,10 +3,9 @@ skinparam dpi 60
 
 title Basket Api - Grpc - Basket Service - Get Basket - CONTAINER level
 
-participant "External System" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 
 box "Basket Api" #White
-
     participant "Grpc" as dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc
     participant "Data" as dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data
 end box

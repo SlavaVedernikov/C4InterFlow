@@ -16,7 +16,6 @@ skinparam linetype polyline
 
 title Catalog Api - Api - Catalog Api - Delete Item By Id - CONTAINER level
 
-System(C4InterFlow.SoftwareSystems.ExternalSystem, "External System", "")
 
 System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi, "Catalog Api") {
     Container(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api, "Api", "", "")
@@ -24,8 +23,7 @@ System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi, "Catalog A
 }
 
 
-Rel(C4InterFlow.SoftwareSystems.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api, "Delete Item By Id")
-Rel(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Catalog Items Single Or Default\nCatalog Items Remove\nSave Changes Async")
+Rel(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Catalog Items Remove\nCatalog Items Single Or Default\nSave Changes Async")
 
 
 SHOW_LEGEND()

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Formats.Asn1.AsnWriter;
 using C4InterFlow.Cli.Commands.Options;
-using C4InterFlow.Diagrams;
+using C4InterFlow.Visualization;
 
 namespace C4InterFlow.Cli.Commands.Binders
 {
@@ -75,7 +75,8 @@ namespace C4InterFlow.Cli.Commands.Binders
                         DiagramLevelsOfDetailsOption.COMPONENT
                     });
                     supportedTypes.AddRange(new[] {
-                        DiagramTypesOption.C4_STATIC
+                        DiagramTypesOption.C4_STATIC,
+                        DiagramTypesOption.C4
                     });
 
                     break;
@@ -83,8 +84,7 @@ namespace C4InterFlow.Cli.Commands.Binders
                 case DiagramScopesOption.SOFTWARE_SYSTEM_INTERFACE:
                 {
                     supportedLevelsOfDetail.AddRange(new[] {
-                        DiagramLevelsOfDetailsOption.CONTEXT,
-                        DiagramLevelsOfDetailsOption.CONTAINER
+                        DiagramLevelsOfDetailsOption.CONTEXT
                         });
                     supportedTypes.AddRange(new[] {
                         DiagramTypesOption.C4_STATIC,
@@ -101,7 +101,8 @@ namespace C4InterFlow.Cli.Commands.Binders
                         DiagramLevelsOfDetailsOption.COMPONENT
                         });
                         supportedTypes.AddRange(new[] {
-                        DiagramTypesOption.C4_STATIC
+                        DiagramTypesOption.C4_STATIC,
+                        DiagramTypesOption.C4
                     });
 
                     break;
@@ -109,8 +110,8 @@ namespace C4InterFlow.Cli.Commands.Binders
                 case DiagramScopesOption.CONTAINER_INTERFACE:
                 {
                     supportedLevelsOfDetail.AddRange(new[] {
-                        DiagramLevelsOfDetailsOption.CONTAINER,
-                        DiagramLevelsOfDetailsOption.COMPONENT
+                        DiagramLevelsOfDetailsOption.CONTEXT,
+                        DiagramLevelsOfDetailsOption.CONTAINER
                         });
                         supportedTypes.AddRange(new[] {
                             DiagramTypesOption.C4_STATIC,
@@ -126,7 +127,8 @@ namespace C4InterFlow.Cli.Commands.Binders
                         DiagramLevelsOfDetailsOption.COMPONENT
                     });
                     supportedTypes.AddRange(new[] {
-                        DiagramTypesOption.C4_STATIC
+                        DiagramTypesOption.C4_STATIC,
+                        DiagramTypesOption.C4
                     });
 
                     break;
@@ -134,6 +136,7 @@ namespace C4InterFlow.Cli.Commands.Binders
                 case DiagramScopesOption.COMPONENT_INTERFACE:
                 {
                     supportedLevelsOfDetail.AddRange(new[] {
+                        DiagramLevelsOfDetailsOption.CONTEXT,
                         DiagramLevelsOfDetailsOption.CONTAINER,
                         DiagramLevelsOfDetailsOption.COMPONENT
                     });

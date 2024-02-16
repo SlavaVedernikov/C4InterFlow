@@ -17,18 +17,18 @@ dotnet:
                       Flow:
                         Flows:
                         - Type: Use
-                          Params: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.CatalogItemsSingleOrDefault
+                          Expression: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.CatalogItemsSingleOrDefault
                         - Type: If
-                          Params: item is null
+                          Expression: item is null
                           Flows:
                           - Type: Return
-                            Params: TypedResults.NotFound
+                            Expression: TypedResults.NotFound
                         - Type: Use
-                          Params: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.CatalogItemsRemove
+                          Expression: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.CatalogItemsRemove
                         - Type: Use
-                          Params: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.SaveChangesAsync
+                          Expression: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.SaveChangesAsync
                         - Type: Return
-                          Params: TypedResults.NoContent
+                          Expression: TypedResults.NoContent
                       Input: ''
                       InputTemplate: ''
                       Output: ''

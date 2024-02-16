@@ -16,7 +16,6 @@ skinparam linetype polyline
 
 title Basket Api - Grpc - Basket Service - Delete Basket - CONTAINER level
 
-System(C4InterFlow.SoftwareSystems.ExternalSystem, "External System", "")
 
 System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.BasketApi, "Basket Api") {
     Container(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc, "Grpc", "", "")
@@ -24,7 +23,6 @@ System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.BasketApi, "Basket Api
 }
 
 
-Rel(C4InterFlow.SoftwareSystems.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc, "Delete Basket")
 Rel(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data, "Delete Basket Async")
 
 

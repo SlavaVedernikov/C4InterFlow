@@ -3,10 +3,9 @@ skinparam dpi 60
 
 title Catalog Api - Infrastructure - Catalog Context - Catalog Items Single Or Default - CONTAINER level
 
-participant "External System" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 
 box "Catalog Api" #White
-
     participant "Infrastructure" as dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure
 end box
 

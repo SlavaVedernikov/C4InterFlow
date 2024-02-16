@@ -17,11 +17,11 @@ dotnet:
                       Flow:
                         Flows:
                         - Type: Use
-                          Params: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.CatalogItemsAdd
+                          Expression: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.CatalogItemsAdd
                         - Type: Use
-                          Params: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.SaveChangesAsync
+                          Expression: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.SaveChangesAsync
                         - Type: Return
-                          Params: TypedResults.CreatedAtRoute
+                          Expression: TypedResults.CreatedAtRoute
                       Input: ''
                       InputTemplate: ''
                       Output: ''

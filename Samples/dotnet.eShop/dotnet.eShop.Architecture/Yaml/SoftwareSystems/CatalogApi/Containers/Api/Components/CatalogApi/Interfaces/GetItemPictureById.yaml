@@ -17,16 +17,16 @@ dotnet:
                       Flow:
                         Flows:
                         - Type: If
-                          Params: item is null
+                          Expression: item is null
                           Flows:
                           - Type: Return
-                            Params: TypedResults.NotFound
+                            Expression: TypedResults.NotFound
                         - Type: Use
-                          Params: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.Interfaces.GetFullPath
+                          Expression: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.Interfaces.GetFullPath
                         - Type: Use
-                          Params: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.Interfaces.GetImageMimeTypeFromImageFileExtension
+                          Expression: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.Interfaces.GetImageMimeTypeFromImageFileExtension
                         - Type: Return
-                          Params: TypedResults.PhysicalFile
+                          Expression: TypedResults.PhysicalFile
                       Input: ''
                       InputTemplate: ''
                       Output: ''
