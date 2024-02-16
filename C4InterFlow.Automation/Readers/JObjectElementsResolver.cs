@@ -64,7 +64,7 @@ namespace C4InterFlow.Automation.Readers
 
                     break;
                 case "BusinessProcesses":
-                    var activities = token?["Activities"]?.ToObject<BusinessActivity[]>();
+                    var activities = token?["Activities"]?.ToObject<Activity[]>();
 
                     if (activities != null)
                     {

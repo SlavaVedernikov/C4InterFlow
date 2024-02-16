@@ -1,0 +1,42 @@
+@startuml
+object "Namespace" as Namespace
+object "Software System" as SoftwareSystem 
+object "Container" as Container
+object "Component" as Component
+object "Interface" as Interface
+object "Flow" as Flow
+object "Business Process" as BusinessProcess
+object "Activity" as Activity
+object "Actor" as Actor
+
+enum "Flow Type" as FlowType {
+    None
+If
+ElseIf
+Else
+Loop
+Group
+Try
+Catch
+Finally
+ThrowException
+Return
+Use
+}
+
+
+Namespace --> SoftwareSystem : "  Has One or Many"
+Namespace --> Namespace : "  Has Zero or Many"
+SoftwareSystem --> Container: "  Has Zero or Many"
+Container--> Component: "  Has Zero or Many"
+SoftwareSystem -right-> Interface: "  Has Zero or Many"
+Container -right-> Interface: "  Has Zero or Many"
+Component -right-> Interface: "  Has Zero or Many"
+Interface --> Flow: "  Has Zero or Many"
+Flow --> Flow: "  Has Zero or Many"
+BusinessProcess -up-> Activity : "  Has One or Many"
+Activity -up-> Flow: "  Has One or Many"
+Actor -right-> Activity : "  Performs One or Many"
+Flow -up-> Interface : "  Uses One or Many"
+Flow -left-> FlowType : "  Can be of type"
+@enduml
