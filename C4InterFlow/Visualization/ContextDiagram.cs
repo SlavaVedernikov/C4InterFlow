@@ -1,7 +1,7 @@
 using C4InterFlow.Visualization.Plantuml.Style;
 using C4InterFlow.Visualization.Interfaces;
-using C4InterFlow.Elements;
-using C4InterFlow.Elements.Relationships;
+using C4InterFlow.Structures;
+using C4InterFlow.Structures.Relationships;
 
 namespace C4InterFlow.Visualization
 {
@@ -68,7 +68,7 @@ namespace C4InterFlow.Visualization
 
         private void PopulateFlow(Flow flow)
         {
-            var usesInterface = Utils.GetInstance<Interface>(flow.Params);
+            var usesInterface = Utils.GetInstance<Interface>(flow.Expression);
 
             if (usesInterface == null) return;
 
@@ -167,7 +167,7 @@ namespace C4InterFlow.Visualization
 
                         foreach (var activity in Process.Activities)
                         {
-                            foreach (var @interface in activity.Flow.GetUseFlows().Select(x => Utils.GetInstance<Interface>(x.Params)))
+                            foreach (var @interface in activity.Flow.GetUseFlows().Select(x => Utils.GetInstance<Interface>(x.Expression)))
                             {
                                 PopulateRelationships(_relationships, activity.GetActorInstance() ?? SoftwareSystems.ExternalSystem.Interfaces.ExternalInterface.Instance, @interface);
                             }

@@ -1,5 +1,5 @@
-﻿using C4InterFlow.Elements;
-using C4InterFlow.Elements.Boundaries;
+﻿using C4InterFlow.Structures;
+using C4InterFlow.Structures.Boundaries;
 using System.Text;
 
 namespace C4InterFlow.Visualization.Plantuml

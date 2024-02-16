@@ -17,7 +17,7 @@ dotnet:
                       Flow:
                         Flows:
                         - Type: Return
-                          Params: response
+                          Expression: response
                       Input: ''
                       InputTemplate: ''
                       Output: ''

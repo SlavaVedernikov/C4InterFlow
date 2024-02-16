@@ -3,9 +3,9 @@ using System.Text.Json;
 using System.Text.RegularExpressions;
 using C4InterFlow.Automation;
 using C4InterFlow.Cli;
-using C4InterFlow.Elements;
-using C4InterFlow.Elements.Interfaces;
-using C4InterFlow.Elements.Relationships;
+using C4InterFlow.Structures;
+using C4InterFlow.Structures.Interfaces;
+using C4InterFlow.Structures.Relationships;
 
 namespace C4InterFlow
 {

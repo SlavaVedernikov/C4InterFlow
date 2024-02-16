@@ -1,6 +1,6 @@
 ﻿using C4InterFlow.Visualization.Interfaces;
-using C4InterFlow.Elements;
-using C4InterFlow.Elements.Relationships;
+using C4InterFlow.Structures;
+using C4InterFlow.Structures.Relationships;
 
 namespace C4InterFlow.Visualization;
 

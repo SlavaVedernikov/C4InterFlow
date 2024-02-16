@@ -15,5 +15,3 @@ var root = RootCommandBuilder
     });
 
 await root.Run();
-
-Console.ReadLine();

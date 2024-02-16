@@ -2,7 +2,7 @@ using System.CommandLine;
 using C4InterFlow.Visualization;
 using C4InterFlow.Cli.Commands.Options;
 using C4InterFlow.Visualization.Plantuml;
-using C4InterFlow.Elements;
+using C4InterFlow.Structures;
 using C4InterFlow.Cli.Commands.Binders;
 using System.Text.RegularExpressions;
 using C4InterFlow.Automation;

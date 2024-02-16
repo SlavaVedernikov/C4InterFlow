@@ -1,5 +1,5 @@
 using System.CommandLine;
-using C4InterFlow.Elements;
+using C4InterFlow.Structures;
 using C4InterFlow.Cli.Commands.Options;
 using C4InterFlow.Automation;
 using System.Reflection;

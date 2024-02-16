@@ -1,8 +1,8 @@
 using C4InterFlow.Visualization.Plantuml.Style;
 using C4InterFlow.Visualization.Interfaces;
-using C4InterFlow.Elements;
-using C4InterFlow.Elements.Relationships;
-using C4InterFlow.Elements.Boundaries;
+using C4InterFlow.Structures;
+using C4InterFlow.Structures.Relationships;
+using C4InterFlow.Structures.Boundaries;
 
 namespace C4InterFlow.Visualization
 {
@@ -22,7 +22,7 @@ namespace C4InterFlow.Visualization
             var interfaces = new List<Interface>();
             foreach (var activity in process.Activities)
             {
-                interfaces.AddRange(activity.Flow.GetUseFlows().Select(x => Utils.GetInstance<Interface>(x.Params)));
+                interfaces.AddRange(activity.Flow.GetUseFlows().Select(x => Utils.GetInstance<Interface>(x.Expression)));
             }
 
             Interfaces = interfaces;

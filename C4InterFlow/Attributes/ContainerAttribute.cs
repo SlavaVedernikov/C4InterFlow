@@ -1,5 +1,4 @@
-﻿using C4InterFlow.Elements;
-using C4InterFlow.Elements.Relationships;
+﻿using C4InterFlow.Structures;
 
 namespace C4InterFlow.Attributes
 {

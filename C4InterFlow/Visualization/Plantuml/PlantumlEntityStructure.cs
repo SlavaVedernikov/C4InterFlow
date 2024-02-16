@@ -1,6 +1,6 @@
 ﻿using C4InterFlow.Commons.Extensions;
-using C4InterFlow.Elements;
-using C4InterFlow.Elements.Boundaries;
+using C4InterFlow.Structures;
+using C4InterFlow.Structures.Boundaries;
 using System;
 using System.Collections.Generic;
 using System.Linq;

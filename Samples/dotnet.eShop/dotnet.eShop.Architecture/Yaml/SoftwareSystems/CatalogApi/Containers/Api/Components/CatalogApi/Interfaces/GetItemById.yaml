@@ -17,17 +17,17 @@ dotnet:
                       Flow:
                         Flows:
                         - Type: If
-                          Params: id <= 0
+                          Expression: id <= 0
                           Flows:
                           - Type: Return
-                            Params: TypedResults.BadRequest
+                            Expression: TypedResults.BadRequest
                         - Type: If
-                          Params: item == null
+                          Expression: item == null
                           Flows:
                           - Type: Return
-                            Params: TypedResults.NotFound
+                            Expression: TypedResults.NotFound
                         - Type: Return
-                          Params: TypedResults.Ok
+                          Expression: TypedResults.Ok
                       Input: ''
                       InputTemplate: ''
                       Output: ''

@@ -1,5 +1,5 @@
-﻿using C4InterFlow.Elements;
-using C4InterFlow.Elements.Relationships;
+﻿using C4InterFlow.Structures;
+using C4InterFlow.Structures.Relationships;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,17 +64,17 @@ namespace C4InterFlow.Visualization.Plantuml
 
             if (!string.IsNullOrEmpty(pumlKeyword))
             {
-                sb.AppendLine($"{pumlKeyword} {(!string.IsNullOrEmpty(flow.Params) ? flow.Params.Replace("\n", @"\n") : string.Empty)}");
+                sb.AppendLine($"{pumlKeyword} {(!string.IsNullOrEmpty(flow.Expression) ? flow.Expression.Replace("\n", @"\n") : string.Empty)}");
             }
 
             if (flow.Type == Flow.FlowType.ThrowException)
             {
-                var flowRelationship = new Relationship(actor.Alias, actor.Alias, $"Exception{(!string.IsNullOrEmpty(flow.Params) ? $" ({flow.Params.Replace("\n", @"\n")})" : string.Empty)}");
+                var flowRelationship = new Relationship(actor.Alias, actor.Alias, $"Exception{(!string.IsNullOrEmpty(flow.Expression) ? $" ({flow.Expression.Replace("\n", @"\n")})" : string.Empty)}");
                 sb.AppendLine(flowRelationship.ToPumlSequenceString());
             }
             else if (flow.Type == Flow.FlowType.Return)
             {
-                var flowRelationship = new Relationship(actor.Alias, actor.Alias, $"Retun{(!string.IsNullOrEmpty(flow.Params) ? $" ({flow.Params.Replace("\n", @"\n")})" : string.Empty)}");
+                var flowRelationship = new Relationship(actor.Alias, actor.Alias, $"Retun{(!string.IsNullOrEmpty(flow.Expression) ? $" ({flow.Expression.Replace("\n", @"\n")})" : string.Empty)}");
                 sb.AppendLine(flowRelationship.ToPumlSequenceString());
             }
             else if(flow.Type == Flow.FlowType.Use)
@@ -82,7 +82,7 @@ namespace C4InterFlow.Visualization.Plantuml
                 var usesInterfaceOwner = default(Structure);
                 var label = string.Empty;
 
-                var usesInterface = Utils.GetInstance<Interface>(flow.Params);
+                var usesInterface = Utils.GetInstance<Interface>(flow.Expression);
                 if(usesInterface != null)
                 {
                     usesInterfaceOwner = Utils.GetInstance<Structure>(usesInterface.Owner);
@@ -91,8 +91,8 @@ namespace C4InterFlow.Visualization.Plantuml
                 else
                 {
                     // Flow may be using an inferred Interface, so get the corresponding structure from its Alias
-                    usesInterfaceOwner = Utils.GetInstance<Structure>(new Regex(@"\.Interfaces\.[^.]*").Replace(flow.Params, string.Empty));
-                    label = Utils.GetLabel(flow.Params.Split('.').Last());
+                    usesInterfaceOwner = Utils.GetInstance<Structure>(new Regex(@"\.Interfaces\.[^.]*").Replace(flow.Expression, string.Empty));
+                    label = Utils.GetLabel(flow.Expression.Split('.').Last());
                 }
                 
                 if(usesInterfaceOwner != null)

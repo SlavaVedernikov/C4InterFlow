@@ -17,7 +17,7 @@ dotnet:
                       Flow:
                         Flows:
                         - Type: Return
-                          Params: app
+                          Expression: app
                       Input: ''
                       InputTemplate: ''
                       Output: ''

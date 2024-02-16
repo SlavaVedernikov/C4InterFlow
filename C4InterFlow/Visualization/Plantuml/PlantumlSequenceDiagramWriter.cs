@@ -42,7 +42,7 @@ namespace C4InterFlow.Visualization.Plantuml
         private static StringBuilder BuildSequenceBody(this StringBuilder stream, Diagram diagram)
         {
             var flowParticipants = diagram.Flow?.Flows?
-                .Select(x => Utils.GetInstance<Elements.Structure>(x.Owner))
+                .Select(x => Utils.GetInstance<Structures.Structure>(x.Owner))
                 .Where(x => x != null && !diagram.Structures.Any(s => s.Alias == x.Alias)).Distinct();
 
             if (flowParticipants != null)

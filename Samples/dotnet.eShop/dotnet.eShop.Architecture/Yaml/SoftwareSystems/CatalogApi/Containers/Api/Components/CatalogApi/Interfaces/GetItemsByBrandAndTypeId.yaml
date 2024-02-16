@@ -17,9 +17,9 @@ dotnet:
                       Flow:
                         Flows:
                         - Type: Use
-                          Params: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.Interfaces.ChangeUriPlaceholder
+                          Expression: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.Interfaces.ChangeUriPlaceholder
                         - Type: Return
-                          Params: TypedResults.Ok
+                          Expression: TypedResults.Ok
                       Input: ''
                       InputTemplate: ''
                       Output: ''

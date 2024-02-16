@@ -17,23 +17,23 @@ dotnet:
                       Flow:
                         Flows:
                         - Type: If
-                          Params: '!services.CatalogAI.IsEnabled'
+                          Expression: '!services.CatalogAI.IsEnabled'
                           Flows:
                           - Type: Use
-                            Params: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.Interfaces.GetItemsByName
+                            Expression: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.Interfaces.GetItemsByName
                         - Type: If
-                          Params: services.Logger.IsEnabled(LogLevel.Debug)
+                          Expression: services.Logger.IsEnabled(LogLevel.Debug)
                           Flows:
                           - Type: Use
-                            Params: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.CatalogItemsToListAsync
+                            Expression: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.CatalogItemsToListAsync
                           - Type: Else
                             Flows:
                             - Type: Use
-                              Params: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.CatalogItemsToListAsync
+                              Expression: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.CatalogItemsToListAsync
                         - Type: Use
-                          Params: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.Interfaces.ChangeUriPlaceholder
+                          Expression: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.Interfaces.ChangeUriPlaceholder
                         - Type: Return
-                          Params: TypedResults.Ok
+                          Expression: TypedResults.Ok
                       Input: ''
                       InputTemplate: ''
                       Output: ''

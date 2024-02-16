@@ -1,8 +1,7 @@
 using System.Text;
 using C4InterFlow.Commons;
-using C4InterFlow.Elements;
-using C4InterFlow.Elements.Boundaries;
-using C4InterFlow.Elements.Relationships;
+using C4InterFlow.Structures;
+using C4InterFlow.Structures.Boundaries;
 
 namespace C4InterFlow.Visualization.Plantuml;
 

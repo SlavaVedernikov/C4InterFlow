@@ -1,8 +1,8 @@
 using C4InterFlow.Visualization.Plantuml.Style;
 using C4InterFlow.Visualization.Interfaces;
-using C4InterFlow.Elements;
-using C4InterFlow.Elements.Relationships;
-using C4InterFlow.Elements.Boundaries;
+using C4InterFlow.Structures;
+using C4InterFlow.Structures.Relationships;
+using C4InterFlow.Structures.Boundaries;
 
 namespace C4InterFlow.Visualization
 {
@@ -70,7 +70,7 @@ namespace C4InterFlow.Visualization
 
         private void PopulateFlow(Flow flow)
         {
-            var usesInterface = Utils.GetInstance<Interface>(flow.Params);
+            var usesInterface = Utils.GetInstance<Interface>(flow.Expression);
 
             if (usesInterface == null) return;
              
