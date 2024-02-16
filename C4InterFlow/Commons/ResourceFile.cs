@@ -1,6 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using C4InterFlow.Visualization.Plantuml;
+using C4InterFlow.Visualisation.Plantuml;
 
 namespace C4InterFlow.Commons;
 

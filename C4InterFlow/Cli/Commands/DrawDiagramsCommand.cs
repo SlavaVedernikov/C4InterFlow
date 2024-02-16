@@ -1,7 +1,7 @@
 using System.CommandLine;
-using C4InterFlow.Visualization;
+using C4InterFlow.Visualisation;
 using C4InterFlow.Cli.Commands.Options;
-using C4InterFlow.Visualization.Plantuml;
+using C4InterFlow.Visualisation.Plantuml;
 using C4InterFlow.Structures;
 using C4InterFlow.Cli.Commands.Binders;
 using System.Text.RegularExpressions;
@@ -326,8 +326,8 @@ public class DrawDiagramsCommand : Command
         }
 
         var process = new BusinessProcess(
-                        new BusinessActivity[] {
-                            new BusinessActivity(flow, SoftwareSystems.ExternalSystem.ALIAS)
+                        new Activity[] {
+                            new Activity(flow, SoftwareSystems.ExternalSystem.ALIAS)
                         });
 
         switch (levelOfDetails)
@@ -374,8 +374,8 @@ public class DrawDiagramsCommand : Command
         if (diagramTitle != null)
         {
             var process = new BusinessProcess(
-                            new BusinessActivity[] {
-                            new BusinessActivity(
+                            new Activity[] {
+                            new Activity(
                                 new Flow().Use(@interface.Alias),
                                 SoftwareSystems.ExternalSystem.ALIAS)
                             });
