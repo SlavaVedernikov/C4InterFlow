@@ -11,7 +11,7 @@ public class QueryUseFlowsCommand : Command
 {
     private const string COMMAND_NAME = "query-use-flows";
     public QueryUseFlowsCommand() : base(COMMAND_NAME,
-        "Given interface(s), finds other interface(s) that given interface(s) are used by.")
+        "Finds all interface(s) that Use given interface(s) in their Flows.")
     {
         var interfacesOption = InterfacesOption.Get();
         var isRecursiveOption = QueryIsRecursiveOption.Get();
