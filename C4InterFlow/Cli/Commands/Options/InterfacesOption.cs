@@ -8,7 +8,7 @@ public static class InterfacesOption
     public static Option<string[]> Get()
     {
         const string description =
-            "The aliases of the interfases for which to draw the Diagram(s).";
+            "The aliases of the interfaces to be used as input for a Command";
 
         var option = new Option<string[]>(new[] { "--interfaces", "-i" }, description)
         {

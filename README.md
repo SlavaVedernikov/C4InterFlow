@@ -40,6 +40,10 @@ C4InterFlow offers versatile capabilities including:
     - **Automatic generation** of **Business Process as Code** in C# or YAML from **Excel/CSV Architecture Catalogue**
 - **Command Line Interface** (CLI) used for automating AaC **generation**, AaC **querying** and **diagrams generation**
 
+## Capabilities map
+
+![C4InterFlow - Overview](Documentation/Images/C4InterFlow%20-%20overview.gif)
+
 # Getting Started
 
 - Learn more on our [wiki](https://github.com/SlavaVedernikov/C4InterFlow/wiki)

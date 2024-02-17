@@ -7,7 +7,7 @@ public static class QueryIsRecursiveOption
 {
     public static Option<bool> Get()
     {
-        const string description = $"Is Query recursive. Default false.";
+        const string description = $"Indicates if the Query should be executed recursively. Default false.";
 
         var option = new Option<bool>(new[] { "--recursive", "-r" }, description);
         option.SetDefaultValue(false);
