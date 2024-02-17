@@ -8,9 +8,12 @@ public static class ArchitectureRootNamespaceOption
     public static Option<string> Get()
     {
         const string description =
-            "The root Namespace of the Architecture As Code project.";
+            "Architecture As Code root Namespace.";
 
-        var option = new Option<string>(new[] { "--aac-root-namespace", "-aac-rn" }, description);
+        var option = new Option<string>(new[] { "--aac-root-namespace", "-aac-rn" }, description)
+        {
+            IsRequired = true
+        };
 
         return option;
     }

@@ -13,12 +13,12 @@ namespace C4InterFlow
     {
         public static IEnumerable<T> GetNestedInstances<T>(string? alias) where T : Structure
         {
-            return ArchitectureAsCodeReaderContext.Strategy.GetNestedInstances<T>(alias);
+            return AaCReaderContext.Strategy.GetNestedInstances<T>(alias);
         }
 
         public static T? GetInstance<T>(string? alias) where T : Structure
         {
-            return ArchitectureAsCodeReaderContext.Strategy.GetInstance<T>(alias);
+            return AaCReaderContext.Strategy.GetInstance<T>(alias);
         }
 
         public static T Clone<T>(T source)

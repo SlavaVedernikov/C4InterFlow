@@ -167,7 +167,7 @@ namespace C4InterFlow.Automation.Writers
         }
 
         public static ClassDeclarationSyntax AddFlowToComponentInterfaceClass(this ClassDeclarationSyntax classDeclaration,
-            CSharpToNetArchitectureAsCodeWriter writer,
+            CSharpToNetAaCWriter writer,
             IEnumerable<CSharpToAnyMethodTriggerMapper>? methodTriggerMappers = null,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
@@ -184,7 +184,7 @@ namespace C4InterFlow.Automation.Writers
 
             var flowCode = CSharpToAnyCodeGenerator<CSharpCodeWriter>.GetFlowCode(
                 systemMethodDeclaration,
-                new CSharpArchitectureAsCodeReaderStrategy(classDeclaration, architectureWorkspace),
+                new CSharpAaCReaderStrategy(classDeclaration, architectureWorkspace),
                 writer,
                 alternativeInvocationMappers);
 
@@ -237,8 +237,8 @@ namespace C4InterFlow.Automation.Writers
         }
 
         public static MethodDeclarationSyntax AddComponentInterfaceClass(this MethodDeclarationSyntax methodDeclaration,
-            string softwareSystemName, string containerName, string componentName, CSharpToNetArchitectureAsCodeWriter writer,
-            Func<MethodDeclarationSyntax, SemanticModel, CSharpToNetArchitectureAsCodeWriter, string?, string?, string?, string>? pathMapper = null,
+            string softwareSystemName, string containerName, string componentName, CSharpToNetAaCWriter writer,
+            Func<MethodDeclarationSyntax, SemanticModel, CSharpToNetAaCWriter, string?, string?, string?, string>? pathMapper = null,
             string? protocol = null)
         {
             var architectureNamespace = writer.ArchitectureNamespace;
@@ -323,7 +323,7 @@ namespace C4InterFlow.Automation.Writers
         }
 
         public static PropertyDeclarationSyntax AddComponentInterfaceClass(this PropertyDeclarationSyntax propertyDeclaration,
-            string softwareSystemName, string containerName, string componentName, CSharpToNetArchitectureAsCodeWriter writer,
+            string softwareSystemName, string containerName, string componentName, CSharpToNetAaCWriter writer,
             string[] interfaces,
             string? protocol = null)
         {
@@ -381,7 +381,7 @@ namespace C4InterFlow.Automation.Writers
 
             return propertyDeclaration;
         }
-        public static InterfaceDeclarationSyntax AddEntityClass(this InterfaceDeclarationSyntax interfaceDeclaration, string softwareSystemName, string containerName, CSharpToNetArchitectureAsCodeWriter writer)
+        public static InterfaceDeclarationSyntax AddEntityClass(this InterfaceDeclarationSyntax interfaceDeclaration, string softwareSystemName, string containerName, CSharpToNetAaCWriter writer)
         {
             var systemWorkspace = writer.SoftwareSystemWorkspace;
             var systemSyntaxTree = interfaceDeclaration.SyntaxTree;
@@ -438,7 +438,7 @@ namespace C4InterFlow.Automation.Writers
 
         }
 
-        public static RecordDeclarationSyntax AddEntityClass(this RecordDeclarationSyntax recordDeclaration, string softwareSystemName, string containerName, CSharpToNetArchitectureAsCodeWriter writer)
+        public static RecordDeclarationSyntax AddEntityClass(this RecordDeclarationSyntax recordDeclaration, string softwareSystemName, string containerName, CSharpToNetAaCWriter writer)
         {
             var systemWorkspace = writer.SoftwareSystemWorkspace;
             var systemSyntaxTree = recordDeclaration.SyntaxTree;
@@ -516,7 +516,7 @@ namespace C4InterFlow.Automation.Writers
 
             return result;
         }
-        public static ClassDeclarationSyntax AddComponentClass(this ClassDeclarationSyntax classDeclaration, string softwareSystemName, string containerName, CSharpToNetArchitectureAsCodeWriter writer)
+        public static ClassDeclarationSyntax AddComponentClass(this ClassDeclarationSyntax classDeclaration, string softwareSystemName, string containerName, CSharpToNetAaCWriter writer)
         {
             var architectureNamespace = writer.ArchitectureNamespace;
             var project = writer.ArchitectureWorkspace.CurrentSolution.Projects.FirstOrDefault(x => x.Name == architectureNamespace);
@@ -563,7 +563,7 @@ namespace C4InterFlow.Automation.Writers
 
         }
 
-        public static InterfaceDeclarationSyntax AddComponentClass(this InterfaceDeclarationSyntax interfaceDeclaration, string softwareSystemName, string containerName, CSharpToNetArchitectureAsCodeWriter writer)
+        public static InterfaceDeclarationSyntax AddComponentClass(this InterfaceDeclarationSyntax interfaceDeclaration, string softwareSystemName, string containerName, CSharpToNetAaCWriter writer)
         {
             var architectureNamespace = writer.ArchitectureNamespace;
             var project = writer.ArchitectureWorkspace.CurrentSolution.Projects.FirstOrDefault(x => x.Name == architectureNamespace);

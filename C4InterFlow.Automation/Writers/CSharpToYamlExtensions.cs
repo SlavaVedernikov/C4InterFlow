@@ -51,8 +51,8 @@ namespace C4InterFlow.Automation.Writers
         }
 
         public static MethodDeclarationSyntax AddComponentInterfaceYamlFile(this MethodDeclarationSyntax methodDeclaration,
-            string softwareSystemName, string containerName, string componentName, CSharpToYamlArchitectureAsCodeWriter writer,
-            Func<MethodDeclarationSyntax, SemanticModel, CSharpToYamlArchitectureAsCodeWriter, string?, string?, string?, string>? pathMapper = null,
+            string softwareSystemName, string containerName, string componentName, CSharpToYamlAaCWriter writer,
+            Func<MethodDeclarationSyntax, SemanticModel, CSharpToYamlAaCWriter, string?, string?, string?, string>? pathMapper = null,
             string? protocol = null)
         {
             var architectureNamespace = writer.ArchitectureNamespace;
@@ -124,7 +124,7 @@ namespace C4InterFlow.Automation.Writers
         }
 
         public static PropertyDeclarationSyntax AddComponentInterfaceYamlFile(this PropertyDeclarationSyntax propertyDeclaration,
-            string softwareSystemName, string containerName, string componentName, CSharpToYamlArchitectureAsCodeWriter writer,
+            string softwareSystemName, string containerName, string componentName, CSharpToYamlAaCWriter writer,
             string[] interfaces,
             string? protocol = null)
         {
@@ -170,7 +170,7 @@ namespace C4InterFlow.Automation.Writers
 
             return propertyDeclaration;
         }
-        public static InterfaceDeclarationSyntax AddEntityYamlFile(this InterfaceDeclarationSyntax interfaceDeclaration, string softwareSystemName, string containerName, CSharpToYamlArchitectureAsCodeWriter writer)
+        public static InterfaceDeclarationSyntax AddEntityYamlFile(this InterfaceDeclarationSyntax interfaceDeclaration, string softwareSystemName, string containerName, CSharpToYamlAaCWriter writer)
         {
             var systemWorkspace = writer.SoftwareSystemWorkspace;
             var systemSyntaxTree = interfaceDeclaration.SyntaxTree;
@@ -214,7 +214,7 @@ namespace C4InterFlow.Automation.Writers
 
         }
 
-        public static RecordDeclarationSyntax AddEntityYamlFile(this RecordDeclarationSyntax recordDeclaration, string softwareSystemName, string containerName, CSharpToYamlArchitectureAsCodeWriter writer)
+        public static RecordDeclarationSyntax AddEntityYamlFile(this RecordDeclarationSyntax recordDeclaration, string softwareSystemName, string containerName, CSharpToYamlAaCWriter writer)
         {
             var systemWorkspace = writer.SoftwareSystemWorkspace;
             var systemSyntaxTree = recordDeclaration.SyntaxTree;
@@ -260,7 +260,7 @@ namespace C4InterFlow.Automation.Writers
 
         }
 
-        public static ClassDeclarationSyntax AddComponentYamlFile(this ClassDeclarationSyntax classDeclaration, string softwareSystemName, string containerName, CSharpToYamlArchitectureAsCodeWriter writer)
+        public static ClassDeclarationSyntax AddComponentYamlFile(this ClassDeclarationSyntax classDeclaration, string softwareSystemName, string containerName, CSharpToYamlAaCWriter writer)
         {
             var architectureNamespace = writer.ArchitectureNamespace;
             var componentName = classDeclaration.Identifier.Text;
@@ -293,7 +293,7 @@ namespace C4InterFlow.Automation.Writers
 
         }
 
-        public static InterfaceDeclarationSyntax AddComponentYamlFile(this InterfaceDeclarationSyntax interfaceDeclaration, string softwareSystemName, string containerName, CSharpToYamlArchitectureAsCodeWriter writer)
+        public static InterfaceDeclarationSyntax AddComponentYamlFile(this InterfaceDeclarationSyntax interfaceDeclaration, string softwareSystemName, string containerName, CSharpToYamlAaCWriter writer)
         {
             var architectureNamespace = writer.ArchitectureNamespace;
 

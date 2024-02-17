@@ -28,8 +28,8 @@ powershell.exe -Command "if (Test-Path '%aac-root-namespace%\BusinessProcesses\*
 :: Execute AaC Strategy
 echo Executing AaC Strategy...
 :: pause
-%cli-output-dir%\%cli-exe% execute-aac-strategy --aac-root-namespace "%aac-root-namespace%" --aac-output-path "%aac-root-namespace%\%aac-root-namespace%.csproj" --aac-writer-strategy "%aac-root-namespace%.Cli.CSharpToCSharpBasketApiAaCGenerationStrategy, %aac-root-namespace%.Cli" --aac-params software-system-source-path="%net-sourcecode-dir%\Basket.API\Basket.API.csproj" --aac-params software-system-name="BasketApi"
+%cli-output-dir%\%cli-exe% execute-aac-strategy --aac-root-namespace "%aac-root-namespace%" --aac-output-path "%aac-root-namespace%\%aac-root-namespace%.csproj" --aac-writer-strategy "%aac-root-namespace%.Cli.CSharpToCSharpBasketApiAaCGenerator, %aac-root-namespace%.Cli" --aac-params software-system-source-path="%net-sourcecode-dir%\Basket.API\Basket.API.csproj" --aac-params software-system-name="BasketApi"
 
-%cli-output-dir%\%cli-exe% execute-aac-strategy --aac-root-namespace "%aac-root-namespace%" --aac-output-path "%aac-root-namespace%\%aac-root-namespace%.csproj" --aac-writer-strategy "%aac-root-namespace%.Cli.CSharpToCSharpCatalogApiAaCGenerationStrategy, %aac-root-namespace%.Cli" --aac-params software-system-source-path="%net-sourcecode-dir%\Catalog.API\Catalog.API.csproj" --aac-params software-system-name="CatalogApi"
+%cli-output-dir%\%cli-exe% execute-aac-strategy --aac-root-namespace "%aac-root-namespace%" --aac-output-path "%aac-root-namespace%\%aac-root-namespace%.csproj" --aac-writer-strategy "%aac-root-namespace%.Cli.CSharpToCSharpCatalogApiAaCGenerator, %aac-root-namespace%.Cli" --aac-params software-system-source-path="%net-sourcecode-dir%\Catalog.API\Catalog.API.csproj" --aac-params software-system-name="CatalogApi"
 
 pause

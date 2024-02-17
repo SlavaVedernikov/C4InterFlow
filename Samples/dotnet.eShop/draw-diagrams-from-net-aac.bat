@@ -5,7 +5,7 @@ set "cli-project-path=.\%aac-root-namespace%.Cli\%aac-root-namespace%.Cli.csproj
 set "cli-output-dir=.\%aac-root-namespace%.Cli\bin\%build-configuration%\net6.0"
 set "cli-exe=%aac-root-namespace%.Cli.exe"
 set "diagrams-dir=%aac-root-namespace%\Diagrams"
-set "aac-reader-strategy=C4InterFlow.Automation.Readers.CSharpArchitectureAsCodeReaderStrategy,C4InterFlow.Automation"
+set "aac-reader-strategy=C4InterFlow.Automation.Readers.CSharpAaCReaderStrategy,C4InterFlow.Automation"
 set "aac-input-paths=%aac-root-namespace%.dll"
 
 dotnet publish %cli-project-path% --configuration %build-configuration% --output %cli-output-dir%
@@ -19,6 +19,6 @@ echo Draw Diagrams with '%aac-reader-strategy%' AaC reader strategy and '%aac-in
 :: pause
 
 echo Drawing Diagrams...
-%cli-output-dir%\%cli-exe% draw-diagrams --interfaces  %aac-root-namespace%.SoftwareSystems.*.Containers.*.Components.*.Interfaces.* --aac-reader-strategy "%aac-reader-strategy%" --aac-input-paths "%aac-input-paths%" --output-dir "%diagrams-dir%"
+%cli-output-dir%\%cli-exe% draw-diagrams --interfaces  %aac-root-namespace%.SoftwareSystems.*.Containers.*.Components.*.Interfaces.* --aac-reader-strategy "%aac-reader-strategy%" --aac-input-paths "%aac-input-paths%" --output-dir "%diagrams-dir%" --formats png
 
 pause   

@@ -28,8 +28,8 @@ public class DrawDiagramsCommand : Command
         var outputDirectoryOption = OutputDirectoryOption.Get();
         var outputSubDirectoryOption = OutputSubDirectoryOption.Get();
         var diagramNamePrefixOption = DiagramNamePrefixOption.Get();
-        var architectureAsCodeInputPathsOption = ArchitectureAsCodeInputPathsOption.Get();
-        var architectureAsCodeReaderStrategyTypeOption = ArchitectureAsCodeReaderStrategyTypeOption.Get();
+        var architectureAsCodeInputPathsOption = AaCInputPathsOption.Get();
+        var architectureAsCodeReaderStrategyTypeOption = AaCReaderStrategyTypeOption.Get();
 
         AddOption(diagramScopesOption);
         AddOption(diagramTypesOption);
@@ -38,7 +38,6 @@ public class DrawDiagramsCommand : Command
         AddOption(interfacesInputFileOption);
         AddOption(businessProcesesOption);
         AddOption(diagramFormatsOption);
-        AddOption(showBoundariesOption);
         AddOption(showInterfaceInputAndOutputOption);
         AddOption(outputDirectoryOption);
         AddOption(outputSubDirectoryOption);
@@ -54,7 +53,7 @@ public class DrawDiagramsCommand : Command
             interfacesOption,
             interfacesInputFileOption,
             businessProcesesOption,
-            new DisplayOptionsBinder(showBoundariesOption, showInterfaceInputAndOutputOption), 
+            new DisplayOptionsBinder(showInterfaceInputAndOutputOption), 
             new OutputOptionsBinder(outputDirectoryOption, outputSubDirectoryOption, diagramNamePrefixOption, diagramFormatsOption),
             architectureAsCodeInputPathsOption,
             architectureAsCodeReaderStrategyTypeOption);
@@ -66,7 +65,7 @@ public class DrawDiagramsCommand : Command
         {
             Console.WriteLine($"'{COMMAND_NAME}' command is executing...");
 
-            if (!ArchitectureAsCodeReaderContext.HasStrategy)
+            if (!AaCReaderContext.HasStrategy)
             {
                 Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
             }

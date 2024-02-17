@@ -17,8 +17,8 @@ public class QueryUseFlowsCommand : Command
         var isRecursiveOption = QueryIsRecursiveOption.Get();
         var queryOutputFileOption = QueryOutputFileOption.Get();
         var queryAppendOption = QueryAppendOption.Get();
-        var architectureAsCodeInputPathsOption = ArchitectureAsCodeInputPathsOption.Get();
-        var architectureAsCodeReaderStrategyTypeOption = ArchitectureAsCodeReaderStrategyTypeOption.Get();
+        var architectureAsCodeInputPathsOption = AaCInputPathsOption.Get();
+        var architectureAsCodeReaderStrategyTypeOption = AaCReaderStrategyTypeOption.Get();
         var queryIncludeSelfOption = QueryIncludeSelfOption.Get();
 
         AddOption(interfacesOption);
@@ -42,7 +42,7 @@ public class QueryUseFlowsCommand : Command
         {
             Console.WriteLine($"'{COMMAND_NAME}' command is executing...");
 
-            if (!ArchitectureAsCodeReaderContext.HasStrategy)
+            if (!AaCReaderContext.HasStrategy)
             {
                 Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
             }
