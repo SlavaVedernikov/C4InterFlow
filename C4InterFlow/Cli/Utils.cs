@@ -10,12 +10,12 @@ namespace C4InterFlow.Cli
     {
         public static IEnumerable<string> ResolveStructures(IEnumerable<string> structures)
         {
-            return ArchitectureAsCodeReaderContext.Strategy.ResolveStructures(structures);
+            return AaCReaderContext.Strategy.ResolveStructures(structures);
         }
 
         public static IEnumerable<Interface> GetAllInterfaces()
         {
-            return ArchitectureAsCodeReaderContext.Strategy.GetAllInterfaces();
+            return AaCReaderContext.Strategy.GetAllInterfaces();
         }
 
         public static IEnumerable<string> ReadLines(string filePath)
@@ -65,14 +65,14 @@ namespace C4InterFlow.Cli
         {
             Type strategyType = Type.GetType(architectureAsCodeReaderStrategyType);
             object strategyTypeInstance = Activator.CreateInstance(strategyType);
-            var strategyInstance = strategyTypeInstance as IArchitectureAsCodeReaderStrategy;
+            var strategyInstance = strategyTypeInstance as IAaCReaderStrategy;
 
             if (strategyInstance == null)
             {
                 throw new ArgumentException($"'{architectureAsCodeReaderStrategyType}' is not a valid Architecture As Code Reader Strategy type.");
             }
 
-            ArchitectureAsCodeReaderContext.SetCurrentStrategy(strategyInstance, architectureAsCodeInputPaths, new Dictionary<string, string>());
+            AaCReaderContext.SetCurrentStrategy(strategyInstance, architectureAsCodeInputPaths, new Dictionary<string, string>());
         }
     }
 }

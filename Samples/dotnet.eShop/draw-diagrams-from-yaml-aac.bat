@@ -5,7 +5,7 @@ set "cli-project-path=.\%aac-root-namespace%.Cli\%aac-root-namespace%.Cli.csproj
 set "cli-output-dir=.\%aac-root-namespace%.Cli\bin\%build-configuration%\net6.0"
 set "cli-exe=%aac-root-namespace%.Cli.exe"
 set "diagrams-dir=%aac-root-namespace%\Diagrams"
-set "aac-reader-strategy=C4InterFlow.Automation.Readers.YamlArchitectureAsCodeReaderStrategy,C4InterFlow.Automation"
+set "aac-reader-strategy=C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation"
 set "aac-input-paths=%aac-root-namespace%\Yaml"
 
 dotnet publish %cli-project-path% --configuration %build-configuration% --output %cli-output-dir%

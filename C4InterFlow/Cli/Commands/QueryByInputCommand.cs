@@ -14,8 +14,8 @@ public class QueryByInputCommand : Command
         "Queries interfaces by alias values in Interface 'Input' field.")
     {
         var entitiesOption = EntitiesOption.Get();
-        var architectureAsCodeInputPathsOption = ArchitectureAsCodeInputPathsOption.Get();
-        var architectureAsCodeReaderStrategyTypeOption = ArchitectureAsCodeReaderStrategyTypeOption.Get();
+        var architectureAsCodeInputPathsOption = AaCInputPathsOption.Get();
+        var architectureAsCodeReaderStrategyTypeOption = AaCReaderStrategyTypeOption.Get();
 
         AddOption(entitiesOption);
         AddOption(architectureAsCodeInputPathsOption);
@@ -34,7 +34,7 @@ public class QueryByInputCommand : Command
         {
             Console.WriteLine($"'{COMMAND_NAME}' command is executing...");
 
-            if(!ArchitectureAsCodeReaderContext.HasStrategy)
+            if(!AaCReaderContext.HasStrategy)
             {
                 Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
             }

@@ -6,7 +6,7 @@ namespace C4InterFlow.Automation.Writers
     public static class CsvToJsonExtensions
     {
         public static JObject AddFlowToSoftwareSystemInterfaceObject(this JObject jsonObject,
-            CsvToJsonArchitectureAsCodeWriter writer)
+            CsvToJsonAaCWriter writer)
         {
             var softwareSystemInterface = writer.SoftwareSystemInterfaceClassFileNameMap.GetValueOrDefault(jsonObject.Path);
             if (softwareSystemInterface == null || !softwareSystemInterface.WithUses(writer).Any()) return jsonObject;
@@ -45,7 +45,7 @@ namespace C4InterFlow.Automation.Writers
         }
 
         public static JObject AddFlowToContainerInterfaceObject(this JObject jsonObject,
-            CsvToJsonArchitectureAsCodeWriter writer)
+            CsvToJsonAaCWriter writer)
         {
             var containerInterface = writer.ContainerInterfaceClassFileNameMap.GetValueOrDefault(jsonObject.Path);
 

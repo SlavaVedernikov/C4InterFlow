@@ -8,7 +8,7 @@ namespace C4InterFlow.Automation.Writers
     public static class CsvToCSharpExtensions
     {
         public static ClassDeclarationSyntax AddFlowToSoftwareSystemInterfaceClass(this ClassDeclarationSyntax classDeclaration,
-            CsvToCSharpArchitectureAsCodeWriter writer)
+            CsvToCSharpAaCWriter writer)
         {
             var architectureWorkspace = writer.ArchitectureWorkspace;
             var architectureClassSyntaxTree = classDeclaration.SyntaxTree;
@@ -69,7 +69,7 @@ namespace C4InterFlow.Automation.Writers
         }
 
         public static ClassDeclarationSyntax AddFlowToContainerInterfaceClass(this ClassDeclarationSyntax classDeclaration,
-            CsvToCSharpArchitectureAsCodeWriter writer)
+            CsvToCSharpAaCWriter writer)
         {
             var architectureWorkspace = writer.ArchitectureWorkspace;
             var architectureClassSyntaxTree = classDeclaration.SyntaxTree;

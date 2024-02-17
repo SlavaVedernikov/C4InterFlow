@@ -11,7 +11,7 @@ var root = RootCommandBuilder
         context.Add<DrawDiagramsCommand>();
         context.Add<QueryUseFlowsCommand>();
         context.Add<QueryByInputCommand>();
-        context.Add<ExecuteArchitectureAsCodeStrategyCommand>();
+        context.Add<ExecuteAaCStrategyCommand>();
     });
 
 await root.Run();

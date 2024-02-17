@@ -9,7 +9,7 @@ namespace C4InterFlow.Automation.Writers
     public static class JsonToCSharpExtensions
     {
         public static ClassDeclarationSyntax AddFlowToSoftwareSystemInterfaceClass(this ClassDeclarationSyntax classDeclaration,
-            JsonToCSharpArchitectureAsCodeWriter writer)
+            JsonToCSharpAaCWriter writer)
         {
             var architectureWorkspace = writer.ArchitectureWorkspace;
             var architectureClassSyntaxTree = classDeclaration.SyntaxTree;
@@ -55,7 +55,7 @@ namespace C4InterFlow.Automation.Writers
         }
 
         public static ClassDeclarationSyntax AddFlowToContainerInterfaceClass(this ClassDeclarationSyntax classDeclaration,
-            JsonToCSharpArchitectureAsCodeWriter writer)
+            JsonToCSharpAaCWriter writer)
         {
             var architectureWorkspace = writer.ArchitectureWorkspace;
             var architectureClassSyntaxTree = classDeclaration.SyntaxTree;

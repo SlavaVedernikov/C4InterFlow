@@ -26,9 +26,9 @@ powershell.exe -Command "if (Test-Path '%aac-root-namespace%\Yaml\*') { Remove-I
 :: Execute AaC Strategy
 echo Executing AaC Strategy...
 :: pause
-%cli-output-dir%\%cli-exe% execute-aac-strategy --aac-root-namespace "%aac-root-namespace%" --aac-output-path "%aac-root-namespace%\Yaml" --aac-writer-strategy "%aac-root-namespace%.Cli.CSharpToYamlBasketApiAaCGenerationStrategy, %aac-root-namespace%.Cli" --aac-params software-system-source-path="%net-sourcecode-dir%\Basket.API\Basket.API.csproj" --aac-params software-system-name="BasketApi"
+%cli-output-dir%\%cli-exe% execute-aac-strategy --aac-root-namespace "%aac-root-namespace%" --aac-output-path "%aac-root-namespace%\Yaml" --aac-writer-strategy "%aac-root-namespace%.Cli.CSharpToYamlBasketApiAaCGenerator, %aac-root-namespace%.Cli" --aac-params software-system-source-path="%net-sourcecode-dir%\Basket.API\Basket.API.csproj" --aac-params software-system-name="BasketApi"
 
-%cli-output-dir%\%cli-exe% execute-aac-strategy --aac-root-namespace "%aac-root-namespace%" --aac-output-path "%aac-root-namespace%\Yaml" --aac-writer-strategy "%aac-root-namespace%.Cli.CSharpToYamlCatalogApiAaCGenerationStrategy, %aac-root-namespace%.Cli" --aac-params software-system-source-path="%net-sourcecode-dir%\Catalog.API\Catalog.API.csproj" --aac-params software-system-name="CatalogApi"
+%cli-output-dir%\%cli-exe% execute-aac-strategy --aac-root-namespace "%aac-root-namespace%" --aac-output-path "%aac-root-namespace%\Yaml" --aac-writer-strategy "%aac-root-namespace%.Cli.CSharpToYamlCatalogApiAaCGenerator, %aac-root-namespace%.Cli" --aac-params software-system-source-path="%net-sourcecode-dir%\Catalog.API\Catalog.API.csproj" --aac-params software-system-name="CatalogApi"
 
 pause
 

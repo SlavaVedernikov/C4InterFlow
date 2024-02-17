@@ -66,8 +66,8 @@ namespace C4InterFlow.Automation.Writers
             StringBuilder result,
             WhileStatementSyntax whileStatement,
             MethodDeclarationSyntax methodDeclaration,
-            IArchitectureAsCodeReaderStrategy architectureAsCodeContext,
-            CSharpToAnyArchitectureAsCodeWriter writer,
+            IAaCReaderStrategy architectureAsCodeContext,
+            CSharpToAnyAaCWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
             var statementFlow = CodeWriter.GetLoopFlowCode(whileStatement.Condition.ToString());
@@ -93,8 +93,8 @@ namespace C4InterFlow.Automation.Writers
             StringBuilder result,
             ForStatementSyntax forStatement,
             MethodDeclarationSyntax methodDeclaration,
-            IArchitectureAsCodeReaderStrategy architectureAsCodeContext,
-            CSharpToAnyArchitectureAsCodeWriter writer,
+            IAaCReaderStrategy architectureAsCodeContext,
+            CSharpToAnyAaCWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
             var statementFlow = CodeWriter.GetLoopFlowCode(forStatement.Condition.ToString());
@@ -120,8 +120,8 @@ namespace C4InterFlow.Automation.Writers
             StringBuilder result,
             ForEachStatementSyntax forEachStatement,
             MethodDeclarationSyntax methodDeclaration,
-            IArchitectureAsCodeReaderStrategy architectureAsCodeContext,
-            CSharpToAnyArchitectureAsCodeWriter writer,
+            IAaCReaderStrategy architectureAsCodeContext,
+            CSharpToAnyAaCWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
             var statementFlow = CodeWriter.GetLoopFlowCode(forEachStatement.Expression.ToString());
@@ -147,8 +147,8 @@ namespace C4InterFlow.Automation.Writers
             StringBuilder result,
             DoStatementSyntax doStatement,
             MethodDeclarationSyntax methodDeclaration,
-            IArchitectureAsCodeReaderStrategy architectureAsCodeContext,
-            CSharpToAnyArchitectureAsCodeWriter writer,
+            IAaCReaderStrategy architectureAsCodeContext,
+            CSharpToAnyAaCWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
             var statementFlow = CodeWriter.GetLoopFlowCode(doStatement.Condition.ToString());
@@ -174,8 +174,8 @@ namespace C4InterFlow.Automation.Writers
             StringBuilder result,
             UsingStatementSyntax usingStatement,
             MethodDeclarationSyntax methodDeclaration,
-            IArchitectureAsCodeReaderStrategy architectureAsCodeContext,
-            CSharpToAnyArchitectureAsCodeWriter writer,
+            IAaCReaderStrategy architectureAsCodeContext,
+            CSharpToAnyAaCWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
             var blockCode = HandleBlock(
@@ -213,8 +213,8 @@ namespace C4InterFlow.Automation.Writers
             StringBuilder result,
             IfStatementSyntax ifStatement,
             MethodDeclarationSyntax methodDeclaration,
-            IArchitectureAsCodeReaderStrategy architectureAsCodeContext,
-            CSharpToAnyArchitectureAsCodeWriter writer,
+            IAaCReaderStrategy architectureAsCodeContext,
+            CSharpToAnyAaCWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
             var ifStatementCode = CodeWriter.GetIfFlowCode(ifStatement.Condition.ToString());
@@ -271,8 +271,8 @@ namespace C4InterFlow.Automation.Writers
             StringBuilder result,
             ReturnStatementSyntax returnStatement,
             MethodDeclarationSyntax methodDeclaration,
-            IArchitectureAsCodeReaderStrategy architectureAsCodeContext,
-            CSharpToAnyArchitectureAsCodeWriter writer,
+            IAaCReaderStrategy architectureAsCodeContext,
+            CSharpToAnyAaCWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
             var blockCode = string.Empty;
@@ -316,8 +316,8 @@ namespace C4InterFlow.Automation.Writers
             StringBuilder result,
             TryStatementSyntax tryStatement,
             MethodDeclarationSyntax methodDeclaration,
-            IArchitectureAsCodeReaderStrategy architectureAsCodeContext,
-            CSharpToAnyArchitectureAsCodeWriter writer,
+            IAaCReaderStrategy architectureAsCodeContext,
+            CSharpToAnyAaCWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
             var tryStatementCode = CodeWriter.GetTryFlowCode();
@@ -411,8 +411,8 @@ namespace C4InterFlow.Automation.Writers
             StringBuilder result,
             StatementSyntax statement,
             MethodDeclarationSyntax methodDeclaration,
-            IArchitectureAsCodeReaderStrategy architectureAsCodeContext,
-            CSharpToAnyArchitectureAsCodeWriter writer,
+            IAaCReaderStrategy architectureAsCodeContext,
+            CSharpToAnyAaCWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
             foreach (var invocationExpression in statement.DescendantNodes().OfType<InvocationExpressionSyntax>())
@@ -435,8 +435,8 @@ namespace C4InterFlow.Automation.Writers
             StringBuilder result,
             StatementSyntax statement,
             MethodDeclarationSyntax methodDeclaration,
-            IArchitectureAsCodeReaderStrategy architectureAsCodeContext,
-            CSharpToAnyArchitectureAsCodeWriter writer,
+            IAaCReaderStrategy architectureAsCodeContext,
+            CSharpToAnyAaCWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
             switch (statement)
@@ -538,8 +538,8 @@ namespace C4InterFlow.Automation.Writers
 
         public static string GetFlowCode(
         MethodDeclarationSyntax methodDeclaration,
-        IArchitectureAsCodeReaderStrategy architectureAsCodeContext,
-        CSharpToAnyArchitectureAsCodeWriter writer,
+        IAaCReaderStrategy architectureAsCodeContext,
+        CSharpToAnyAaCWriter writer,
         IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
             var result = new StringBuilder().AppendLine(CodeWriter.GetFlowCode());
@@ -567,8 +567,8 @@ namespace C4InterFlow.Automation.Writers
         private static string HandleBlock(
             StatementSyntax statement,
             MethodDeclarationSyntax methodDeclaration,
-            IArchitectureAsCodeReaderStrategy architectureAsCodeContext,
-            CSharpToAnyArchitectureAsCodeWriter writer,
+            IAaCReaderStrategy architectureAsCodeContext,
+            CSharpToAnyAaCWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
             var result = new StringBuilder();
@@ -594,8 +594,8 @@ namespace C4InterFlow.Automation.Writers
         private static string HandleElse(
             ElseClauseSyntax elseClause,
             MethodDeclarationSyntax methodDeclaration,
-            IArchitectureAsCodeReaderStrategy architectureAsCodeContext,
-            CSharpToAnyArchitectureAsCodeWriter writer,
+            IAaCReaderStrategy architectureAsCodeContext,
+            CSharpToAnyAaCWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
             var result = new StringBuilder();
@@ -670,8 +670,8 @@ namespace C4InterFlow.Automation.Writers
         private static string HandleInvocationExpression(
             InvocationExpressionSyntax invocationExpression,
             MethodDeclarationSyntax methodDeclaration,
-            IArchitectureAsCodeReaderStrategy architectureAsCodeContext,
-            CSharpToAnyArchitectureAsCodeWriter writer,
+            IAaCReaderStrategy architectureAsCodeContext,
+            CSharpToAnyAaCWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
             var result = new StringBuilder();
