@@ -1,8 +1,28 @@
 ![C4 InterFlow - Logo](Documentation/Images/Logo%20-%20with%20text%20180x180.png)
 
-# What is C4InterFlow?
+# Vision 💡
+Transform the landscape of **Application Architecture** by bridging the **gap** between **Architecture Model** and **Code**.
 
-**C4InterFlow** is a comprehensive **Application Architecture** focused **toolchain** designed for anyone in an organisation, who wants to either **contribute** to (or just to **explore**) the Application Architecture **documentation**. For example, Software Engineers and Architects can contribute by populating an **Architecture Catalogue** and by writing (or generating) **Architecture as Code** (AaC). Product Owners, QA and any other team members, on the other hand, may want to explore the Application Architecture by **browsing** various **automatically generated diagrams** (e.g. C4, Sequence etc.) as well as by **querying** Application Architecture (e.g. to find dependencies). Architects and Product Owners can also contribute by adding Business Processes to the **Architecture Catalogue** or by writing **Business Processes as Code**.
+# Mission 🎯
+ Provide a **comprehensive** Application Architecture **toolchain** for IT Professionals to
+ 1. Effortlessly express Application **Architecture as Code** (AaC)
+ 2. Automatically **generate** Application Architecture **diagrams** from AaC
+ 3. Intuitively **analyse** Application Architecture by issuing simple **queries** against AaC
+ 
+# Overview
+
+**C4InterFlow** is a comprehensive **Application Architecture** focused **toolchain** designed for anyone in an organisation, who wants to either **contribute** to (or just to **explore**) the Application Architecture **documentation**.  
+
+## Example use cases
+**Software Engineers** and **Architects** contribute by populating an **Architecture Catalogue** and by generating (or writing manually) **Architecture as Code** (AaC).  
+
+**Product Owners**, **QA** and any other team members, on the other hand, explore the Application Architecture by **browsing** various **automatically generated diagrams** (e.g. C4, Sequence etc.) as well as by **querying** Application Architecture (e.g. to find dependencies).  
+
+**Architects** and **Product Owners** contribute by adding Business Processes to the **Architecture Catalogue** or by writing **Business Processes as Code** manually.
+
+**Operations** team members explore the Business Processes by **browsing** various **automatically generated diagrams** 
+
+
 
 # Capabilities
 C4InterFlow offers versatile capabilities including:
@@ -20,15 +40,19 @@ C4InterFlow offers versatile capabilities including:
     - **Automatic generation** of **Business Process as Code** in C# or YAML from **Excel/CSV Architecture Catalogue**
 - **Command Line Interface** (CLI) used for automating AaC **generation**, AaC **querying** and **diagrams generation**
 
+# Getting Started
+
+- Learn more on our [wiki](https://github.com/SlavaVedernikov/C4InterFlow/wiki)
+- Choose a strategy for Architecture as Code generation.
+- Get your teams to own their Architecture by expressing it in **YAML** or **C#** code
+  - Use automation to bring AaC from multiple Repos into a centralised Architecture Repo and use it to generate diagrams for the whole Enterprise.
+- Utilize a set of [CLI capabilities](https://github.com/SlavaVedernikov/C4InterFlow/wiki/Command-Line-Interface-(CLI)) via C4InterFlow CLI App
+- Expose CLI capabilities via your own C# Console Application.
+  - It's a good way of extending it with custom commands.
+
 # System Requirements
 
 - Java PlantUML .jar (embedded within the project).
-
-# Getting Started
-
-- Utilize the provided CLI capabilities within any C# Command Line App.
-- Choose a strategy for Architecture as Code generation.
-- Utilize CLI commands and options to generate or manually write Architecture as Code and to start drawing diagrams.
 
 # Support
 
