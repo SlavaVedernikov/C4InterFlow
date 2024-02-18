@@ -232,6 +232,17 @@ namespace C4InterFlow.Automation.Readers
                 paths.AddRange(Directory.GetFiles(AppContext.BaseDirectory, path, SearchOption.TopDirectoryOnly));
             }
 
+            foreach(var path in paths)
+            {
+                try
+                {
+                    AssemblyLoadContext.Default.LoadFromAssemblyPath(path);
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine($"Failed to load an assembly from path '{path}': {ex.Message}");
+                }
+            }
             return paths.Select(AssemblyLoadContext.Default.LoadFromAssemblyPath);
         }
 
