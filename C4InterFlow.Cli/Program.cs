@@ -1,4 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using C4InterFlow.Cli;
 using C4InterFlow.Cli.Root;
 using C4InterFlow.Cli.Commands;
 

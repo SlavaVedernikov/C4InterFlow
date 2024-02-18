@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "C4InterFlow.Cli": {
+      "commandName": "Project",
+      "commandLineArgs": "draw-diagrams --aac-input-paths dotnet.eShop.Architecture.dll --aac-reader-strategy \"C4InterFlow.Automation.Readers.CSharpAaCReaderStrategy,C4InterFlow.Automation\" --interfaces dotnet.eShop.Architecture.SoftwareSystems.*.Containers.*.Components.*.Interfaces.*"
+    }
+  }
+}

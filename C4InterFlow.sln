@@ -5,7 +5,9 @@ VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "C4InterFlow", "C4InterFlow\C4InterFlow.csproj", "{B047B5AE-FA9A-453E-B522-F53ED61A0C80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4InterFlow.Automation", "C4InterFlow.Automation\C4InterFlow.Automation.csproj", "{5DD6985D-35AC-4154-B09B-2186AB9AA3AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "C4InterFlow.Automation", "C4InterFlow.Automation\C4InterFlow.Automation.csproj", "{5DD6985D-35AC-4154-B09B-2186AB9AA3AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C4InterFlow.Cli", "C4InterFlow.Cli\C4InterFlow.Cli.csproj", "{EB78BBEC-4D8A-456C-90F1-920E45FFF982}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{5DD6985D-35AC-4154-B09B-2186AB9AA3AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DD6985D-35AC-4154-B09B-2186AB9AA3AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DD6985D-35AC-4154-B09B-2186AB9AA3AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB78BBEC-4D8A-456C-90F1-920E45FFF982}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB78BBEC-4D8A-456C-90F1-920E45FFF982}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB78BBEC-4D8A-456C-90F1-920E45FFF982}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB78BBEC-4D8A-456C-90F1-920E45FFF982}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
