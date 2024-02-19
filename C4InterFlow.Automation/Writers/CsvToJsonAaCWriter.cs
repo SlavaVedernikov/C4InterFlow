@@ -130,7 +130,7 @@ namespace C4InterFlow.Automation.Writers
             return this;
         }
 
-        public CsvToJsonAaCWriter AddBusinessProcessObject(string name, BusinessActivity[] businessActivities, string? label = null)
+        public CsvToJsonAaCWriter AddBusinessProcessObject(string name, Activity[] businessActivities, string? label = null)
         {
             var businessProcessesObject = JsonArchitectureAsCode.SelectToken($"{ArchitectureNamespace}.BusinessProcesses") as JObject;
 

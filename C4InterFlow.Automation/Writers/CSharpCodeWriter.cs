@@ -445,7 +445,7 @@ namespace C4InterFlow.Automation.Writers
             result.Append($@"
     public class {AnyCodeWriter.GetName(name)} : IBusinessProcessInstance
     {{
-        public static BusinessProcess  Instance => new BusinessProcess(new BusinessActivity[]
+        public static BusinessProcess  Instance => new BusinessProcess(new Activity[]
         {{
             {businessActivitiesCode}
         }}, {(label != null ? AnyCodeWriter.EnsureDoubleQuotes(label) : "\"\"")});
@@ -459,7 +459,7 @@ namespace C4InterFlow.Automation.Writers
         public string GetBusinessActivityCode(string name, string actor, string[] uses, string? description = null)
         {
             return $@"
-            new BusinessActivity(new Flow()
+            new Activity(new Flow()
                 {string.Join($"{Environment.NewLine}\t\t\t\t", uses.Select(x => $".Use(\"{x}\")").ToArray())},
                 ""{actor}"",
                 {(name != null ? AnyCodeWriter.EnsureDoubleQuotes(name) : "\"\"")}),

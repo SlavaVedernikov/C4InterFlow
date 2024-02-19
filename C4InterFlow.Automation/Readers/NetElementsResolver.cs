@@ -21,9 +21,11 @@ namespace C4InterFlow.Automation.Readers
         public NetElementsResolver() { }
 
         private string[]? ArchitectureInputPaths { get; set; }
+        private IEnumerable<Assembly> ArchitectureAssemblies  { get; set; }
         public NetElementsResolver(string[] architectureInputPaths)
         {
             ArchitectureInputPaths = architectureInputPaths;
+            ArchitectureAssemblies = LoadArchitectureAssemblies();
         }
 
         public T? GetInstance<T>(string? alias) where T : Structure
@@ -211,8 +213,9 @@ namespace C4InterFlow.Automation.Readers
         {
             var result = new List<Type>();
 
-            var assemblies = GetAssemblies();
-            foreach (var assembly in assemblies)
+            if (ArchitectureAssemblies == null) return result;
+
+            foreach (var assembly in ArchitectureAssemblies)
             {
                 result.AddRange(assembly
                 .GetTypes()
@@ -221,7 +224,7 @@ namespace C4InterFlow.Automation.Readers
             return result;
         }
 
-        private IEnumerable<Assembly> GetAssemblies()
+        private IEnumerable<Assembly> LoadArchitectureAssemblies()
         {
             if (ArchitectureInputPaths == null || ArchitectureInputPaths.Length == 0) return new List<Assembly>();
 
@@ -229,10 +232,10 @@ namespace C4InterFlow.Automation.Readers
 
             foreach (var path in ArchitectureInputPaths)
             {
-                paths.AddRange(Directory.GetFiles(AppContext.BaseDirectory, path, SearchOption.TopDirectoryOnly));
+                paths.AddRange(Directory.GetFiles(Directory.GetCurrentDirectory(), path, SearchOption.TopDirectoryOnly));
             }
 
-            foreach(var path in paths)
+            foreach(var path in paths.Distinct())
             {
                 try
                 {

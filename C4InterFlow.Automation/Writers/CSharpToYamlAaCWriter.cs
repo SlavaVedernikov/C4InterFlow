@@ -151,17 +151,19 @@ namespace C4InterFlow.Automation.Writers
             return this;
         }
 
-        public void AddFlowToComponentInterfaceClass(string filePath,
+        public void AddFlowToComponentInterfaceYamlFile(string filePath,
             IEnumerable<CSharpToAnyMethodTriggerMapper>? methodTriggerMappers = null,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
+            if (!filePath.EndsWith(".yaml")) return;
+
             var systemMethodDeclaration = ComponentMethodInterfaceObjectMap.GetValueOrDefault(filePath);
             if (systemMethodDeclaration == null)
             {
                 return;
             }
 
-            var architectureObject = GetJsonObjectFromFile(filePath); ;
+            var architectureObject = GetJsonObjectFromYamlFile(filePath); ;
             var flowCode = CSharpToAnyCodeGenerator<YamlCodeWriter>.GetFlowCode(
                 systemMethodDeclaration,
                 new YamlAaCReaderStrategy(architectureObject),
@@ -184,7 +186,7 @@ namespace C4InterFlow.Automation.Writers
             File.WriteAllText(filePath, yaml);
         }
 
-        public List<string> WithComponentInterfaces()
+        public List<string> WithComponentInterfaceFiles()
         {
             string pattern = @"^.*\\SoftwareSystems\\.*\\Containers\\.*\\Components\\.*\\Interfaces\\.*\.yaml$";
             List<string> result = Directory.GetFiles(ArchitectureOutputPath, "*.yaml", SearchOption.AllDirectories)
@@ -193,8 +195,10 @@ namespace C4InterFlow.Automation.Writers
             return result;
         }
 
-        private JObject GetJsonObjectFromFile(string filePath)
+        private JObject GetJsonObjectFromYamlFile(string filePath)
         {
+            if (!filePath.EndsWith(".yaml")) return new JObject();
+
             var yaml = File.ReadAllText(filePath);
 
             return GetJsonObjectFromYaml(yaml);
@@ -225,7 +229,7 @@ namespace C4InterFlow.Automation.Writers
             {
                 try
                 {
-                    var jsonObject = GetJsonObjectFromFile(filePath);
+                    var jsonObject = GetJsonObjectFromYamlFile(filePath);
                     var selectedToken = jsonObject.SelectToken("..SoftwareSystems.*.Containers.*.Components.*.Interfaces.*");
 
                     if (selectedToken != null)

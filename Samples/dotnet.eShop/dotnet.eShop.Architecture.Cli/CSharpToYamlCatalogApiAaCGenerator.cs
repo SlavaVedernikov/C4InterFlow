@@ -85,8 +85,8 @@ namespace dotnet.eShop.Architecture.Cli
             AddSoftwareSystemTypeMapping(writer);
 
             Console.WriteLine($"Updating Flow property in all Interface objects...");
-            writer.WithComponentInterfaces().ToList()
-                .ForEach(x => writer.AddFlowToComponentInterfaceClass(
+            writer.WithComponentInterfaceFiles().ToList()
+                .ForEach(x => writer.AddFlowToComponentInterfaceYamlFile(
                     x,
                     null,
                     new NetToAnyAlternativeInvocationMapperConfig[]
