@@ -97,7 +97,7 @@ namespace C4InterFlow.Automation.Writers
             return this;
         }
 
-        public CsvToCSharpAaCWriter AddBusinessProcessClass(string name, BusinessActivity[] businessActivities, string? label = null)
+        public CsvToCSharpAaCWriter AddBusinessProcessClass(string name, Activity[] businessActivities, string? label = null)
         {
             var documentName = $"{name}.cs";
             var projectDirectory = ArchitectureProject.FilePath.Replace($"{ArchitectureProject.Name}.csproj", string.Empty);

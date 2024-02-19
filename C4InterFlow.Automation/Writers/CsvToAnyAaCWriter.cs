@@ -28,7 +28,7 @@ namespace C4InterFlow.Automation.Writers
         protected ContainerInterface[] ContainerInterfaceRecords { get; set; }
         protected ContainerInterfaceUses[] ContainerInterfaceUsesRecords { get; set; }
         protected BusinessProcess[] BusinessProcessRecords { get; set; }
-        protected BusinessActivity[] BusinessActivityRecords { get; set; }
+        protected Activity[] BusinessActivityRecords { get; set; }
         public Dictionary<string, SoftwareSystemInterface> SoftwareSystemInterfaceClassFileNameMap { get; private set; } = new Dictionary<string, SoftwareSystemInterface>();
         public Dictionary<string, ContainerInterface> ContainerInterfaceClassFileNameMap { get; private set; } = new Dictionary<string, ContainerInterface>();
 
@@ -101,7 +101,7 @@ namespace C4InterFlow.Automation.Writers
             using (var reader = new StreamReader(@$"{ArchitectureInputPath}\{FILE_BUSINESS_PROCESS_ACTIVITIES}.csv"))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
-                BusinessActivityRecords = csv.GetRecords<BusinessActivity>().ToArray();
+                BusinessActivityRecords = csv.GetRecords<Activity>().ToArray();
             }
         }
         public class Actor
@@ -234,14 +234,14 @@ namespace C4InterFlow.Automation.Writers
             [Name("Name")]
             public string Name { get; set; }
 
-            public IEnumerable<BusinessActivity> WithBusinessActivities(CsvToAnyAaCWriter writer)
+            public IEnumerable<Activity> WithBusinessActivities(CsvToAnyAaCWriter writer)
             {
                 return writer.BusinessActivityRecords.Where(x => !string.IsNullOrEmpty(x.BusinessProcessAlias.Trim()) &&
                     x.BusinessProcessAlias == Alias);
             }
         }
 
-        public class BusinessActivity
+        public class Activity
         {
             [Name("Business Process Alias")]
             public string BusinessProcessAlias { get; set; }

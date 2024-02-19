@@ -32,16 +32,13 @@ namespace dotnet.eShop.Architecture.Cli
 
             Console.WriteLine($"Adding {containerName} Container, Component and Interface classes for '{projectName}' project...");
             writer.WithDocuments().Where(d => d.FilePath.Contains(@"\Grpc\") && d.Name.EndsWith("Service.cs"))
-                //.WithConfirmation(addComponentClassAction)
                 .ToList().ForEach(d =>
                 {
                     d.WithClasses().Where(c => c.Identifier.Text.EndsWith("Service"))
-                    //.WithConfirmation(addComponentClassAction)
                     .ToList().ForEach(c =>
                     {
                         c.AddComponentClass(SoftwareSystemName, containerName, writer)
                         .WithMethods()
-                        //.WithConfirmation(addComponentInterfaceClassAction)
                         .ToList().ForEach(m =>
                             m.AddComponentInterfaceClass(
                                 SoftwareSystemName,
@@ -57,16 +54,13 @@ namespace dotnet.eShop.Architecture.Cli
 
             Console.WriteLine($"Adding {containerName} Container, Component and Interface classes for '{projectName}' project...");
             writer.WithDocuments().Where(d => d.FilePath.Contains(@"\Repositories\") && d.Name.EndsWith("Repository.cs"))
-                //.WithConfirmation(addComponentClassAction)
                 .ToList().ForEach(d =>
                 {
                     d.WithClasses().Where(c => c.Identifier.Text.EndsWith("Repository"))
-                    //.WithConfirmation(addComponentClassAction)
                     .ToList().ForEach(c =>
                     {
                         c.AddComponentClass(SoftwareSystemName, containerName, writer)
                         .WithMethods()
-                        //.WithConfirmation(addComponentInterfaceClassAction)
                         .ToList().ForEach(m =>
                             m.AddComponentInterfaceClass(
                                 SoftwareSystemName,
