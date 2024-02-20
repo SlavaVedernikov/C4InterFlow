@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace C4InterFlow.Automation
 {
-    public interface IAaCReaderStrategy : IElementsResolver
+    public interface IAaCReaderStrategy : IStructuresResolver
     {
         string GetComponentInterfaceAlias();
         string GetComponentInterfaceAlias(string filePath);
@@ -17,7 +17,7 @@ namespace C4InterFlow.Automation
         bool IsInitialised { get; }
     }
 
-    public abstract class AaCReaderStrategy<ElementsResolverType> : IAaCReaderStrategy where ElementsResolverType : IElementsResolver, new()
+    public abstract class AaCReaderStrategy<ElementsResolverType> : IAaCReaderStrategy where ElementsResolverType : IStructuresResolver, new()
     {
         protected string[]? ArchitectureInputPaths { get; private set; }
         private bool _isInitialised = false;

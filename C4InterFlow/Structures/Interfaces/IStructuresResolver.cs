@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace C4InterFlow.Structures.Interfaces
 {
-    public interface IElementsResolver
+    public interface IStructuresResolver
     {
         public IEnumerable<T> GetNestedInstances<T>(string? alias) where T : Structure;
         public T? GetInstance<T>(string? alias) where T : Structure;

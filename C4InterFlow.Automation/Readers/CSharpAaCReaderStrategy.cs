@@ -11,7 +11,7 @@ using C4InterFlow.Automation.Writers;
 
 namespace C4InterFlow.Automation.Readers
 {
-    public class CSharpAaCReaderStrategy : AaCReaderStrategy<NetElementsResolver>
+    public class CSharpAaCReaderStrategy : AaCReaderStrategy<NetStructuresResolver>
     {
         private ClassDeclarationSyntax? CurrentClassDeclaration { get; set; }
         private MSBuildWorkspace? ArchitectureWorkspace { get; set; }
@@ -28,12 +28,12 @@ namespace C4InterFlow.Automation.Readers
 
         public override void Initialise(string[]? architectureInputPaths, Dictionary<string, string>? parameters)
         {
-            _elementsResolver = new NetElementsResolver(architectureInputPaths);
+            _elementsResolver = new NetStructuresResolver(architectureInputPaths);
             base.Initialise(architectureInputPaths, parameters);
         }
 
-        private NetElementsResolver _elementsResolver;
-        public override NetElementsResolver ElementsResolver { get { return _elementsResolver; } }
+        private NetStructuresResolver _elementsResolver;
+        public override NetStructuresResolver ElementsResolver { get { return _elementsResolver; } }
 
         public override string GetComponentInterfaceAlias()
         {
