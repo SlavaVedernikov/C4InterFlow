@@ -13,7 +13,7 @@ Transform the landscape of **Application Architecture** by bridging the **gap** 
 
 **C4InterFlow** is a comprehensive **Application Architecture** focused **toolchain** designed for anyone in an organisation, who wants to either **contribute** to (or just to **explore**) the Application Architecture **documentation**.  
 
-## Problem statement
+## Problem statements ❗
 
 Documenting Application Architecture with diagram drawing tools like Visio, Miro, LucidCharts etc., while popular and often effective, poses several key (genetically unsolved) problems that stem from the inherent limitations of these tools and the complex nature of software architecture. Here are some of these problems
 
@@ -35,14 +35,16 @@ Documenting Application Architecture with diagram drawing tools like Visio, Miro
 
 - **Business Process Modelling**: Diagraming tools require users to create **new static diagrams** each time they want to model **new interactions** between different structures, their behaviors, and actors, such as **business processes**. This method leads to significant **duplication** of structures and behaviors across diagrams, making it **cumbersome** to **update**, **maintain**, and **understand** the holistic view of the system.
 
+## Solutions 💡
+  
 The table below maps Problems to Possible Solutions and C4InterFlow Capabilities.
 
-| Problem | Proposed solution | C4Interflow Capability |
+| ❗ Problem | 💡 Proposed solution | 🌟 C4Interflow Capability |
 |---------|-------------------|------------------------|
 | **Complexity Management** |  **Modular Architecture Definitions**: define **architecture in code**, so that it can be modularised into smaller, manageable components, making complex systems easier to understand and manage. | Definition of **Architecture as Code** in **C#** or **YAML** at any level of modularity e.g. Software System, Container, Component, Interface etc. |
 | **Complexity Management** | **Adaptive Visualization**: allow the user to **adjust the number of structures and their relationships** (boxes and lines) they see and at what **level of detail** when they visualise Application Architecture, based on the user's **context**, **focus**, or specific **task at hand**, thereby managing complexity by displaying only relevant information. | Generation of Architecture diagrams of different **scopes** (e.g. all Software Systems, Software System, Container, Interface(s), Business Process etc.) and at different **levels of details** (e.g. Context, Container and Component) |
 | **Dynamic and Evolving Architectures** | **Continuous Integration/Continuous Deployment (CI/CD) for Architecture**: implement of CI/CD pipelines for architecture code, managing evolving architecture through automated integration, and deployment processes. | Using **Command Line Interface** (CLI) for automating AaC **generation**, AaC **querying** and **diagrams generation** in CI/CD pipelines|
-| **Architecture Model - Code gap** | **Code-driven Architecture and Diangams generation**: generate architecture diagrams directly from metadata in the codebase, using code analysis and other techniques. | Automatic generation of Architecture as Code in **C#** or **YAML** from **.NET (C#) source code**. Extensible architecture allows generation of Architecture as Code from codebases in **other languages** as well as from **Infrastructure as Code** (IaC) |
+| **Architecture Model - Code gap** | **Code-driven Architecture and Diangams generation**: generate architecture diagrams directly from metadata in the codebase, using code analysis and other techniques. | Automatic generation of Architecture as Code in **C#** or **YAML** from **.NET (C#) source code**. Extensible C4InterFlow architecture allows generation of Architecture as Code from codebases in **other languages** as well as from **Infrastructure as Code** (IaC) |
 | **Standardization and Consistency** | **Architecture Domain-Specific Languages (DSLs)**: create standardized DSLs for defining architectures, ensuring **consistency** in how architectures are described and understood across tools and teams. | Use C4InterFlow **Architecture as Code DSL**, inspired by C4 Model and ArchiMate, to express architecture **Structures** and **Behaviours** in **C#** and **YAML**  |
 | **Standardization and Consistency** | **Adopt Standards for Diagramming**: work towards a **widely adopted standard(s)** for software architecture diagramming that includes symbols, notation, and abstraction levels, similar to UML. | Automatic generation of **C4 Model** and UML **Sequence** diagrams using a single **Visualisation Engine** that guaranties **consistency** in visual architecture represenattions |
 | **Duplication** | **Architecture Model driven visualisation**: allows for **generation** of architecture diagrams for different view points from a single **Architecture Model** | Create multiple architecture views by **querying** Architecture as Code to find **relevant** Structures and Behaviours (Interfaces) and generating diagrams using **query results** |
@@ -56,6 +58,35 @@ The table below maps Problems to Possible Solutions and C4InterFlow Capabilities
 
 ![C4InterFlow - Overview](Documentation/Images/C4InterFlow%20-%20overview.gif)
 
+## Toolchain Tracks
+
+![C4InterFlow - Toolchain Tracks](<Documentation/Images/C4InterFlow - toolchain tracks.png>)
+
+- **Track 1**
+  - User populates Architecture/Business Processes Catalogue
+    - Excel is currently the only supported format
+  - User executes Excel Macro to Write (export) Architecture/Business Processes Catalogue into CSV files
+  - CLI `execute-aac-strategy` Command is executed via CI/CD or in any other manner
+    - This generates Architecture as Code (AaC) and Business Processes as Code (BPaC) from Architecture/Business Processes Catalogue in CSV format
+- **Track 2**
+  - User writes Source Code for Software System(s)
+  - CLI `execute-aac-strategy` Command is executed via CI/CD or in any other manner
+    - This generates Architecture as Code (AaC) from the Source Code
+      - C# Source Code is supported out-of-the-box
+      - Extensible C4InterFlow architecture allows generation of Architecture as Code from codebases in **other languages** as well as from **Infrastructure as Code** (IaC)
+- **Track 3**
+  - User writes Architecture as Code (AaC) and Business Processes as Code (BPaC) either in **C#** or **YAML**
+
+- **Common steps for Tracks 1, 2 and 3**
+  - CLI `draw-diagrams` Command is executed via CI/CD or in any other manner
+    - This generates Diagrams as Code in PlantUML (.puml) format
+    - This can also generate SVG, PNG and Markdown (.md) formats for the same diagrams
+
+- **Track 4**
+  - User writes Diagrams as Code (DaC) in **C#**
+  - In C# code, `C4InterFlow.Visualisation` is used to generate Diagrams as Code in PlantUML (.puml) format
+    - This can also generate SVG, PNG and Markdown (.md) formats for the same diagrams
+
 ## Example use cases
 **Software Engineers** and **Architects** contribute by populating an **Architecture Catalogue** and by generating (or writing manually) **Architecture as Code** (AaC).  
 
@@ -67,17 +98,14 @@ The table below maps Problems to Possible Solutions and C4InterFlow Capabilities
 
 # Getting Started
 
-- Learn more on our [wiki](https://github.com/SlavaVedernikov/C4InterFlow/wiki)
-- Choose a strategy for Architecture as Code generation.
-- Get your teams to own their Architecture by expressing it in **YAML** or **C#** code
-  - Use automation to bring AaC from multiple Repos into a centralised Architecture Repo and use it to generate diagrams for the whole Enterprise.
-- Utilize a set of [CLI capabilities](https://github.com/SlavaVedernikov/C4InterFlow/wiki/Command-Line-Interface-(CLI)) via C4InterFlow CLI App
-- Expose CLI capabilities via your own C# Console Application.
-  - It's a good way of extending it with custom commands.
+- Choose an approach for expressing Architecture as Code (AaC) i.e. **C#** or **YAML**
+- Choose the [C4InterFlow toolchain Track](#toolchain-tracks) you'd like use to eventually arrive to the Application Architecture Diagrams
+- Explore the [CLI capabilities](https://github.com/SlavaVedernikov/C4InterFlow/wiki/Command-Line-Interface-(CLI)) available out-of-the-box with C4InterFlow
+- Learn more on the [wiki](https://github.com/SlavaVedernikov/C4InterFlow/wiki)
 
 # System Requirements
 
-- Java PlantUML .jar (embedded within the project).
+- **Java** and `plantuml.jar` (embedded as a resource).
 
 # Support
 
