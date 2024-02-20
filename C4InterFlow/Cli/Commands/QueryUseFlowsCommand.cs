@@ -92,7 +92,7 @@ public class QueryUseFlowsCommand : Command
 
         foreach (var interfaceInstance in interfaces)
         {
-            if (interfaceInstance?.Flow.GetUsesInterfaces().Select(x => x.Alias).Contains(interfaceAlias) == true)
+            if (interfaceInstance?.Flow?.GetUsesInterfaces()?.Select(x => x.Alias)?.Contains(interfaceAlias) == true)
             {
                 if (isRecursive)
                 {

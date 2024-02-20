@@ -4,6 +4,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
@@ -13,18 +14,25 @@ using static C4InterFlow.Automation.Writers.CsvToAnyAaCWriter;
 
 namespace C4InterFlow.Automation.Readers
 {
-    public class NetElementsResolver : IElementsResolver
+    public class NetStructuresResolver : IStructuresResolver
     {
-        private static IList<string> _nonAssemblyPaths = new List<string>();
         private static ConcurrentDictionary<string, object> _aliasToStructureMap = new ConcurrentDictionary<string, object>();
 
-        public NetElementsResolver() { }
+        public NetStructuresResolver()
+        {
+        
+        }
 
         private string[]? ArchitectureInputPaths { get; set; }
         private IEnumerable<Assembly> ArchitectureAssemblies  { get; set; }
-        public NetElementsResolver(string[] architectureInputPaths)
+        public NetStructuresResolver(string[] architectureInputPaths)
         {
-            ArchitectureInputPaths = architectureInputPaths;
+            var paths = new List<string>();
+            paths.AddRange(architectureInputPaths);
+            paths.Add($"{nameof(C4InterFlow)}.dll");
+
+            ArchitectureInputPaths = paths.ToArray();
+
             ArchitectureAssemblies = LoadArchitectureAssemblies();
         }
 
@@ -55,38 +63,21 @@ namespace C4InterFlow.Automation.Readers
 
             if (alias == null) return result;
 
+            if(ArchitectureAssemblies?.Any() == false) return result;
+
             var path = string.Empty;
-
-            var assemblies = new List<Assembly>();
-
-
 
             foreach (var segment in alias.Split('.'))
             {
-                Assembly? assembly = null;
-
                 if (!string.IsNullOrEmpty(path)) path += ".";
 
                 path += segment;
 
-                if (!_nonAssemblyPaths.Contains(path))
+                if (result == null)
                 {
-                    try
+                    foreach (var item in ArchitectureAssemblies)
                     {
-                        assembly = AppDomain.CurrentDomain.Load(new AssemblyName(path));
-                        assemblies.Add(assembly);
-                    }
-                    catch
-                    {
-                        _nonAssemblyPaths.Add(path);
-                    }
-                }
-
-                if (result == null && assemblies.Count > 0)
-                {
-                    foreach (var item in assemblies)
-                    {
-                        result = Type.GetType($"{path}, {item.FullName}");
+                        result = item.GetType(path);
                         if (result != null)
                         {
                             break;
@@ -104,13 +95,13 @@ namespace C4InterFlow.Automation.Readers
             return result;
         }
 
-        public IEnumerable<string> ResolveStructures(IEnumerable<string> structures)
+        public IEnumerable<string> ResolveStructures(IEnumerable<string> aliases)
         {
             var result = new List<string>();
 
-            if (structures == null) return result;
+            if (aliases == null) return result;
 
-            foreach (var item in structures)
+            foreach (var item in aliases)
             {
                 var segments = item.Split(".*");
                 if (segments.Length == 1)
@@ -159,10 +150,20 @@ namespace C4InterFlow.Automation.Readers
                                 var type = GetType(segmentItem);
                                 if (type != null)
                                 {
-                                    foreach (var nestedType in type.GetNestedTypes())
+                                    var nestedTypes = type.GetNestedTypes();
+
+                                    if (nestedTypes?.Any() == true)
                                     {
-                                        newTypes.Add(nestedType.FullName.Replace("+", "."));
+                                        foreach (var nestedType in nestedTypes)
+                                        {
+                                            newTypes.Add(nestedType.FullName.Replace("+", "."));
+                                        }
                                     }
+                                    else
+                                    {
+                                        newTypes.Add(type.FullName.Replace("+", "."));
+                                    }
+                                    
                                 }
                             }
                         }
@@ -173,9 +174,10 @@ namespace C4InterFlow.Automation.Readers
 
                         if (newTypes.Count == 0 && !segmentItem.StartsWith("."))
                         {
-                            newTypes.AddRange(
-                                GetTypes(segmentItem)
-                                    .Select(x => x.FullName.Replace("+", ".")));
+                            GetTypes(segmentItem)
+                                .Select(x => x.FullName.Replace("+", "."))
+                                .ToList()
+                                .ForEach(x => newTypes.Add(x));
                         }
 
                         types.AddRange(newTypes);
@@ -213,7 +215,7 @@ namespace C4InterFlow.Automation.Readers
         {
             var result = new List<Type>();
 
-            if (ArchitectureAssemblies == null) return result;
+            if (ArchitectureAssemblies?.Any() == false) return result;
 
             foreach (var assembly in ArchitectureAssemblies)
             {
@@ -226,27 +228,40 @@ namespace C4InterFlow.Automation.Readers
 
         private IEnumerable<Assembly> LoadArchitectureAssemblies()
         {
-            if (ArchitectureInputPaths == null || ArchitectureInputPaths.Length == 0) return new List<Assembly>();
+            var result = new List<Assembly>();
+
+           
+
+            if (ArchitectureInputPaths?.Any() == false) return new List<Assembly>();
+
+            
 
             var paths = new List<string>();
 
             foreach (var path in ArchitectureInputPaths)
             {
                 paths.AddRange(Directory.GetFiles(Directory.GetCurrentDirectory(), path, SearchOption.TopDirectoryOnly));
+                paths.AddRange(Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, path, SearchOption.TopDirectoryOnly));
             }
 
-            foreach(var path in paths.Distinct())
+            foreach (var path in paths.Distinct())
             {
                 try
                 {
-                    AssemblyLoadContext.Default.LoadFromAssemblyPath(path);
+                    var assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(path);
+
+                    if(assembly != null)
+                    {
+                        result.Add(assembly);
+                    }
+                    
                 }
                 catch(Exception ex)
                 {
                     Console.WriteLine($"Failed to load an assembly from path '{path}': {ex.Message}");
                 }
             }
-            return paths.Select(AssemblyLoadContext.Default.LoadFromAssemblyPath);
+            return result;
         }
 
         private IEnumerable<Type> GetTypes(string @namespace)
@@ -255,38 +270,20 @@ namespace C4InterFlow.Automation.Readers
 
             if (@namespace == null) return result;
 
-            var path = string.Empty;
+            if (ArchitectureAssemblies?.Any() == false) return result;
 
-            var assemblies = new List<Assembly>();
+            var path = string.Empty;
 
             foreach (var segment in @namespace.Split('.'))
             {
-                Assembly? assembly = null;
-
                 if (!string.IsNullOrEmpty(path)) path += ".";
 
                 path += segment;
 
-                if (!_nonAssemblyPaths.Contains(path))
+                foreach (var item in ArchitectureAssemblies)
                 {
-                    try
-                    {
-                        assembly = AppDomain.CurrentDomain.Load(new AssemblyName(path));
-                        assemblies.Add(assembly);
-                    }
-                    catch
-                    {
-                        _nonAssemblyPaths.Add(path);
-                    }
-                }
-
-                if (assemblies.Count > 0)
-                {
-                    foreach (var item in assemblies)
-                    {
-                        result.AddRange(item.GetTypes().Where(x =>
-                        x.Namespace == @namespace && !x.IsNested));
-                    }
+                    result.AddRange(item.GetTypes().Where(x =>
+                    x.Namespace == @namespace && !x.IsNested));
                 }
             }
 

@@ -7,7 +7,7 @@ using YamlDotNet.RepresentationModel;
 
 namespace C4InterFlow.Automation.Readers
 {
-    public class YamlAaCReaderStrategy : AaCReaderStrategy<JObjectElementsResolver>
+    public class YamlAaCReaderStrategy : AaCReaderStrategy<JObjectStructuresResolver>
     {
         private JObject? RootJObject { get; set; }
         public YamlAaCReaderStrategy()
@@ -28,7 +28,7 @@ namespace C4InterFlow.Automation.Readers
             base.Initialise(architectureInputPaths, parameters);
         }
 
-        public override JObjectElementsResolver ElementsResolver { get => new JObjectElementsResolver(RootJObject ?? new JObject()); }
+        public override JObjectStructuresResolver ElementsResolver { get => new JObjectStructuresResolver(RootJObject ?? new JObject()); }
 
         public override string GetComponentInterfaceAlias()
         {
