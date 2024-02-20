@@ -1,0 +1,89 @@
+@startuml
+
+<style>
+collections {
+    BackgroundColor lightgreen
+}
+
+rectangle {
+    .c4interflow {
+        BackgroundColor lightblue
+    }
+}
+</style>
+hide <<c4interflow>> stereotype
+
+actor "User (**Track 1**)" as User1
+rectangle "Excel" #line.dashed {
+    collections  "**Architecture/Business Processes Catalogue**" as ArchitectureCatalogueExcel
+    rectangle  "**Macro**" as MacroExcel
+}
+collections  "**Architecture Catalogue** (CSV)" as ArchitectureCatalogueCSV
+
+actor "User (**Track 3**)" as User2
+
+together {
+    collections  "**Business Processes as Code** (BPaC) (C# or YAML)" as BusinessProcessesAsCode
+    collections  "**Architecture as Code** (AaC) (C# or YAML)" as ArchitectureAsCode
+
+    BusinessProcessesAsCode .left.> ArchitectureAsCode : Uses 
+}
+
+actor "User (**Track 3**)" as User4
+
+
+actor "User (**Track 2**)" as User3
+collections  "**Codebase** (C#)" as Codebase
+
+rectangle "CLI (execute-aac-strategy)" #line.dashed {
+    rectangle  "**AaC Writer Strategy** (from CSV)" <<c4interflow>> as AaCWriterStrategyCSV
+    rectangle  "**AaC Writer Strategy** (from C#)" <<c4interflow>> as AaCWriterStrategyCSharp
+}
+
+rectangle "CLI (draw-diagrams)" #line.dashed {
+    rectangle "**AaC Reader Strategy** (from C# or YAML)" <<c4interflow>> as AaCReaderStrategy
+    rectangle "**Visualisation**" <<c4interflow>> as Visualisation 
+    rectangle "**Command**" <<c4interflow>> as Command 
+}
+
+rectangle "**PlantUML** (.jar)" as PlantUMLJava
+collections  "**Diagrams as Code** (DaC) (Plant UML)" as DiagramsAsCodePlantUML
+collections  "**Diagrams** (SVG, PNG)" as Diagrams
+collections  "**Markdown** (.md)" as Markdown
+
+User1 -down-> ArchitectureCatalogueExcel: "  Populates"
+
+MacroExcel -up-> ArchitectureCatalogueExcel : "  Reads"
+MacroExcel -down-> ArchitectureCatalogueCSV : "  Writes"
+
+AaCWriterStrategyCSV -up-> ArchitectureCatalogueCSV  : "  Reads"
+AaCWriterStrategyCSV -down-> ArchitectureAsCode  : "  Writes"
+AaCWriterStrategyCSV -down-> BusinessProcessesAsCode  : "  Writes"
+
+User2 -left-> ArchitectureAsCode : "  Writes"
+
+User4 -down-> BusinessProcessesAsCode : "  Writes"
+
+User3 -down-> Codebase : "  Writes"
+
+AaCWriterStrategyCSharp -up-> Codebase : "  Reads"
+AaCWriterStrategyCSharp -down-> ArchitectureAsCode  : "  Writes"
+
+AaCReaderStrategy -up-> ArchitectureAsCode : "  Reads"
+AaCReaderStrategy -up-> BusinessProcessesAsCode  : "  Reads"
+Command .down.> Visualisation : Uses
+Command .up.> AaCReaderStrategy : Uses
+Visualisation -down-> DiagramsAsCodePlantUML : " Writes"
+
+
+Visualisation -down-> Markdown : "  Writes"
+PlantUMLJava -up-> DiagramsAsCodePlantUML : "  Reads"
+PlantUMLJava -down-> Diagrams : " Writes"
+
+Visualisation ..> PlantUMLJava : Uses
+
+actor "User (**Track 4**)" as User5
+collections  "**Diagrams as Code** (DaC) (C#)" as DiagramsAsCodeCSharp
+User5 --> DiagramsAsCodeCSharp : "  Writes"
+DiagramsAsCodeCSharp .left.> Visualisation : Uses
+@enduml
