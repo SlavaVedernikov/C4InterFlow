@@ -14,11 +14,12 @@ rectangle {
 hide <<c4interflow>> stereotype
 
 actor "User (**Track 1**)" as User1
+actor "User (**Track 1**)" as User6
 rectangle "Excel" #line.dashed {
     collections  "**Architecture/Business Processes Catalogue**" as ArchitectureCatalogueExcel
     rectangle  "**Macro**" as MacroExcel
 }
-collections  "**Architecture Catalogue** (CSV)" as ArchitectureCatalogueCSV
+collections  "**Architecture/Business Processes Catalogue** (CSV)" as ArchitectureCatalogueCSV
 
 actor "User (**Track 3**)" as User2
 
@@ -33,7 +34,7 @@ actor "User (**Track 3**)" as User4
 
 
 actor "User (**Track 2**)" as User3
-collections  "**Codebase** (C#)" as Codebase
+collections  "**Software Systems' Source Code** (C#)" as Codebase
 
 rectangle "CLI (execute-aac-strategy)" #line.dashed {
     rectangle  "**AaC Writer Strategy** (from CSV)" <<c4interflow>> as AaCWriterStrategyCSV
@@ -53,6 +54,7 @@ collections  "**Markdown** (.md)" as Markdown
 
 User1 -down-> ArchitectureCatalogueExcel: "  Populates"
 
+User6 -left-> MacroExcel : Runs
 MacroExcel -up-> ArchitectureCatalogueExcel : "  Reads"
 MacroExcel -down-> ArchitectureCatalogueCSV : "  Writes"
 
