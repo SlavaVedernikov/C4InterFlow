@@ -15,11 +15,14 @@ namespace C4InterFlow.SoftwareSystems
         {
             public class ExternalInterface : IInterfaceInstance
             {
-                public const string ALIAS = $"{nameof(C4InterFlow)}{nameof(SoftwareSystems)}.{nameof(ExternalSystem)}.{nameof(Interfaces)}.{nameof(ExternalInterface)}";
+                public const string ALIAS = $"{nameof(C4InterFlow)}.{nameof(SoftwareSystems)}.{nameof(ExternalSystem)}.{nameof(Interfaces)}.{nameof(ExternalInterface)}";
                 public static Interface Instance => new Interface(
                 ExternalSystem.ALIAS,
                 ALIAS,
-                "External");
+                "External")
+                {
+                    Flow = new Flow(ALIAS)
+                };
             }
         }
     }

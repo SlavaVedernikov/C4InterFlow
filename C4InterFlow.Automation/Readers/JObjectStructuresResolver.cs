@@ -6,16 +6,16 @@ using System.Reflection;
 
 namespace C4InterFlow.Automation.Readers
 {
-    public class JObjectElementsResolver : IElementsResolver
+    public class JObjectStructuresResolver : IStructuresResolver
     {
         private static ConcurrentDictionary<string, object> _aliasToStructureMap = new ConcurrentDictionary<string, object>();
         private JObject? RootJObject { get; init; }
 
-        public JObjectElementsResolver()
+        public JObjectStructuresResolver()
         {
             RootJObject = null;
         }
-        public JObjectElementsResolver(JObject rootJObject)
+        public JObjectStructuresResolver(JObject rootJObject)
         {
             RootJObject = rootJObject;
         }
