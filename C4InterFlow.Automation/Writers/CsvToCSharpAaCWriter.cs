@@ -114,19 +114,19 @@ namespace C4InterFlow.Automation.Writers
 
             var businessActivitiesSourceCode = new StringBuilder();
             foreach (var businessActivity in businessActivities
-                .Where(x => !string.IsNullOrEmpty(x.UsesSoftwareSystemInterfaceAlias) ||
-                    !string.IsNullOrEmpty(x.UsesContainerInterfaceAlias))
-                .GroupBy(x => new { x.Name, x.ActorAlias })
+                .Where(x => !string.IsNullOrEmpty(x.UsesSoftwareSystemInterface) ||
+                    !string.IsNullOrEmpty(x.UsesContainerInterface))
+                .GroupBy(x => new { x.Name, x.Actor })
                 .Select(g => new
                 {
                     g.Key.Name,
-                    g.Key.ActorAlias,
-                    Uses = g.Select(x => $"{ArchitectureNamespace}.SoftwareSystems.{(string.IsNullOrEmpty(x.UsesContainerInterfaceAlias) ? x.UsesSoftwareSystemInterfaceAlias : x.UsesContainerInterfaceAlias)}").ToArray()
+                    g.Key.Actor,
+                    Uses = g.Select(x => $"{ArchitectureNamespace}.SoftwareSystems.{(string.IsNullOrEmpty(x.UsesContainerInterface) ? x.UsesSoftwareSystemInterface : x.UsesContainerInterface)}").ToArray()
                 }))
             {
                 businessActivitiesSourceCode.Append(CSharpToAnyCodeGenerator<CSharpCodeWriter>.GetBusinessActivityCode(
                     businessActivity.Name,
-                    $"{ArchitectureNamespace}.Actors.{businessActivity.ActorAlias}",
+                    $"{ArchitectureNamespace}.Actors.{businessActivity.Actor}",
                     businessActivity.Uses));
             }
 
@@ -181,7 +181,7 @@ namespace C4InterFlow.Automation.Writers
         }
         public CsvToCSharpAaCWriter AddSoftwareSystemInterfaceClass(SoftwareSystemInterface softwareSystemInterface)
         {
-            var softwareSystemName = softwareSystemInterface.SoftwareSystemAlias;
+            var softwareSystemName = softwareSystemInterface.SoftwareSystem;
             var interfaceName = softwareSystemInterface.Alias.Split('.').Last();
             var documentName = $"{interfaceName}.cs";
             var projectDirectory = ArchitectureProject.FilePath.Replace($"{ArchitectureProject.Name}.csproj", string.Empty);
@@ -259,7 +259,7 @@ namespace C4InterFlow.Automation.Writers
 
         public CsvToCSharpAaCWriter AddContainerInterfaceClass(ContainerInterface containerInterface)
         {
-            var containerAliasSegments = containerInterface.ContainerAlias.Split('.');
+            var containerAliasSegments = containerInterface.Container.Split('.');
             var softwareSystemName = containerAliasSegments[Array.IndexOf(containerAliasSegments, "Containers") - 1];
             var containerName = containerAliasSegments.Last();
             var interfaceName = containerInterface.Alias.Split('.').Last();
