@@ -8,14 +8,14 @@ namespace C4InterFlow.Automation.Writers
     {
         protected const string FILE_SOFTWARE_SYSTEMS = "Software Systems";
         protected const string FILE_SOFTWARE_SYSTEM_INTERFACES = "Software System Interfaces";
-        protected const string FILE_SOFTWARE_SYSTEM_INTERFACES_USE = "Software System Interfaces Use";
+        protected const string FILE_SOFTWARE_SYSTEM_INTERFACE_FLOWS = "Software System Interface Flows";
         protected const string FILE_CONTAINERS = "Containers";
         protected const string FILE_CONTAINER_INTERFACES = "Container Interfaces";
-        protected const string FILE_CONTAINER_INTERFACES_USE = "Container Interfaces Use";
+        protected const string FILE_CONTAINER_INTERFACE_FLOWS = "Container Interface Flows";
         protected const string FILE_ACTORS = "Actors";
         protected const string FILE_ACTOR_TYPES = "Actor Types";
         protected const string FILE_BUSINESS_PROCESSES = "Business Processes";
-        protected const string FILE_BUSINESS_PROCESS_ACTIVITIES = "Business Process Activities";
+        protected const string FILE_ACTIVITIES = "Activities";
         protected string? ArchitectureInputPath { get; set; }
         public string ArchitectureNamespace { get; protected set; }
 
@@ -23,10 +23,10 @@ namespace C4InterFlow.Automation.Writers
         protected ActorType[] ActorTypeRecords { get; set; }
         protected SoftwareSystem[] SoftwareSystemRecords { get; set; }
         protected SoftwareSystemInterface[] SoftwareSystemInterfaceRecords { get; set; }
-        protected SoftwareSystemInterfaceUses[] SoftwareSystemInterfaceUsesRecords { get; set; }
+        protected SoftwareSystemInterfaceFlow[] SoftwareSystemInterfaceUsesRecords { get; set; }
         protected Container[] ContainerRecords { get; set; }
         protected ContainerInterface[] ContainerInterfaceRecords { get; set; }
-        protected ContainerInterfaceUses[] ContainerInterfaceUsesRecords { get; set; }
+        protected ContainerInterfaceFlow[] ContainerInterfaceUsesRecords { get; set; }
         protected BusinessProcess[] BusinessProcessRecords { get; set; }
         protected Activity[] BusinessActivityRecords { get; set; }
         public Dictionary<string, SoftwareSystemInterface> SoftwareSystemInterfaceClassFileNameMap { get; private set; } = new Dictionary<string, SoftwareSystemInterface>();
@@ -62,10 +62,10 @@ namespace C4InterFlow.Automation.Writers
                 SoftwareSystemInterfaceRecords = csv.GetRecords<SoftwareSystemInterface>().ToArray();
             }
 
-            using (var reader = new StreamReader(@$"{ArchitectureInputPath}\{FILE_SOFTWARE_SYSTEM_INTERFACES_USE}.csv"))
+            using (var reader = new StreamReader(@$"{ArchitectureInputPath}\{FILE_SOFTWARE_SYSTEM_INTERFACE_FLOWS}.csv"))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
-                SoftwareSystemInterfaceUsesRecords = csv.GetRecords<SoftwareSystemInterfaceUses>().ToArray();
+                SoftwareSystemInterfaceUsesRecords = csv.GetRecords<SoftwareSystemInterfaceFlow>().ToArray();
             }
 
             using (var reader = new StreamReader(@$"{ArchitectureInputPath}\{FILE_CONTAINERS}.csv"))
@@ -80,10 +80,10 @@ namespace C4InterFlow.Automation.Writers
                 ContainerInterfaceRecords = csv.GetRecords<ContainerInterface>().ToArray();
             }
 
-            using (var reader = new StreamReader(@$"{ArchitectureInputPath}\{FILE_CONTAINER_INTERFACES_USE}.csv"))
+            using (var reader = new StreamReader(@$"{ArchitectureInputPath}\{FILE_CONTAINER_INTERFACE_FLOWS}.csv"))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
-                ContainerInterfaceUsesRecords = csv.GetRecords<ContainerInterfaceUses>().ToArray();
+                ContainerInterfaceUsesRecords = csv.GetRecords<ContainerInterfaceFlow>().ToArray();
             }
 
             using (var reader = new StreamReader(@$"{ArchitectureInputPath}\{FILE_ACTORS}.csv"))
@@ -98,15 +98,15 @@ namespace C4InterFlow.Automation.Writers
                 BusinessProcessRecords = csv.GetRecords<BusinessProcess>().ToArray();
             }
 
-            using (var reader = new StreamReader(@$"{ArchitectureInputPath}\{FILE_BUSINESS_PROCESS_ACTIVITIES}.csv"))
+            using (var reader = new StreamReader(@$"{ArchitectureInputPath}\{FILE_ACTIVITIES}.csv"))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 BusinessActivityRecords = csv.GetRecords<Activity>().ToArray();
             }
         }
-        public class Actor
+        public record Actor
         {
-            [Name("Actor Alias")]
+            [Name("Alias")]
             public string Alias { get; set; }
             [Name("Name")]
             public string Name { get; set; }
@@ -119,7 +119,7 @@ namespace C4InterFlow.Automation.Writers
             }
         }
 
-        public class ActorType
+        public record ActorType
         {
             [Name("Name")]
             public string Name { get; set; }
@@ -127,9 +127,9 @@ namespace C4InterFlow.Automation.Writers
             public string Type { get; set; }
         }
 
-        public class SoftwareSystem
+        public record SoftwareSystem
         {
-            [Name("Software System Alias")]
+            [Name("Alias")]
             public string Alias { get; set; }
             [Name("Name")]
             public string Name { get; set; }
@@ -144,49 +144,49 @@ namespace C4InterFlow.Automation.Writers
 
             public IEnumerable<SoftwareSystemInterface> WithInterfaces(CsvToAnyAaCWriter writer)
             {
-                return writer.SoftwareSystemInterfaceRecords.Where(x => !string.IsNullOrEmpty(x.SoftwareSystemAlias.Trim()) &&
-                    x.SoftwareSystemAlias == Alias);
+                return writer.SoftwareSystemInterfaceRecords.Where(x => !string.IsNullOrEmpty(x.SoftwareSystem.Trim()) &&
+                    x.SoftwareSystem == Alias);
             }
 
             public IEnumerable<Container> WithContainers(CsvToAnyAaCWriter writer)
             {
-                return writer.ContainerRecords.Where(x => !string.IsNullOrEmpty(x.SoftwareSystemAlias.Trim()) &&
-                    x.SoftwareSystemAlias == Alias);
+                return writer.ContainerRecords.Where(x => !string.IsNullOrEmpty(x.SoftwareSystem.Trim()) &&
+                    x.SoftwareSystem == Alias);
             }
         }
 
-        public class SoftwareSystemInterface
+        public record SoftwareSystemInterface
         {
-            [Name("Software System Alias")]
-            public string SoftwareSystemAlias { get; set; }
+            [Name("Software System")]
+            public string SoftwareSystem { get; set; }
             [Name("Alias")]
             public string Alias { get; set; }
             [Name("Name")]
             public string Name { get; set; }
 
-            public IEnumerable<SoftwareSystemInterfaceUses> WithUses(CsvToAnyAaCWriter writer)
+            public IEnumerable<SoftwareSystemInterfaceFlow> WithUses(CsvToAnyAaCWriter writer)
             {
-                return writer.SoftwareSystemInterfaceUsesRecords.Where(x => !string.IsNullOrEmpty(x.InterfaceAlias.Trim()) &&
-                    x.InterfaceAlias == Alias);
+                return writer.SoftwareSystemInterfaceUsesRecords.Where(x => !string.IsNullOrEmpty(x.SoftwareSystemInterface.Trim()) &&
+                    x.SoftwareSystemInterface == Alias);
             }
         }
 
-        public class SoftwareSystemInterfaceUses
+        public record SoftwareSystemInterfaceFlow
         {
-            [Name("Software System Interface Alias")]
-            public string InterfaceAlias { get; set; }
-            [Name("Uses Software System Interface Alias")]
-            public string UsesSoftwareSystemInterfaceAlias { get; set; }
-            [Name("Uses Container Interface Alias")]
-            public string UsesContainerInterfaceAlias { get; set; }
+            [Name("Software System Interface")]
+            public string SoftwareSystemInterface { get; set; }
+            [Name("Uses Software System Interface")]
+            public string UsesSoftwareSystemInterface { get; set; }
+            [Name("Uses Container Interface")]
+            public string UsesContainerInterface { get; set; }
             [Name("Condition")]
             public string Condition { get; set; }
         }
 
-        public class Container
+        public record Container
         {
-            [Name("Software System Alias")]
-            public string SoftwareSystemAlias { get; set; }
+            [Name("Software System")]
+            public string SoftwareSystem { get; set; }
             [Name("Alias")]
             public string Alias { get; set; }
             [Name("Name")]
@@ -196,67 +196,67 @@ namespace C4InterFlow.Automation.Writers
 
             public IEnumerable<ContainerInterface> WithInterfaces(CsvToAnyAaCWriter writer)
             {
-                return writer.ContainerInterfaceRecords.Where(x => x.ContainerAlias == Alias);
+                return writer.ContainerInterfaceRecords.Where(x => x.Container == Alias);
             }
         }
 
-        public class ContainerInterface
+        public record ContainerInterface
         {
-            [Name("Container Alias")]
-            public string ContainerAlias { get; set; }
+            [Name("Container")]
+            public string Container { get; set; }
             [Name("Alias")]
             public string Alias { get; set; }
             [Name("Name")]
             public string Name { get; set; }
 
-            public IEnumerable<ContainerInterfaceUses> WithUses(CsvToAnyAaCWriter writer)
+            public IEnumerable<ContainerInterfaceFlow> WithUses(CsvToAnyAaCWriter writer)
             {
-                return writer.ContainerInterfaceUsesRecords.Where(x => x.InterfaceAlias == Alias);
+                return writer.ContainerInterfaceUsesRecords.Where(x => x.ContainerInterface == Alias);
             }
         }
 
-        public class ContainerInterfaceUses
+        public record ContainerInterfaceFlow
         {
-            [Name("Container Interface Alias")]
-            public string InterfaceAlias { get; set; }
-            [Name("Uses Container Interface Alias")]
-            public string UsesContainerInterfaceAlias { get; set; }
-            [Name("Uses Software System Interface Alias")]
-            public string UsesSoftwareSystemInterfaceAlias { get; set; }
+            [Name("Container Interface")]
+            public string ContainerInterface { get; set; }
+            [Name("Uses Container Interface")]
+            public string UsesContainerInterface { get; set; }
+            [Name("Uses Software System Interface")]
+            public string UsesSoftwareSystemInterface { get; set; }
             [Name("Condition")]
             public string Condition { get; set; }
         }
 
-        public class BusinessProcess
+        public record BusinessProcess
         {
-            [Name("Business Process Alias")]
+            [Name("Alias")]
             public string Alias { get; set; }
             [Name("Name")]
             public string Name { get; set; }
 
             public IEnumerable<Activity> WithBusinessActivities(CsvToAnyAaCWriter writer)
             {
-                return writer.BusinessActivityRecords.Where(x => !string.IsNullOrEmpty(x.BusinessProcessAlias.Trim()) &&
-                    x.BusinessProcessAlias == Alias);
+                return writer.BusinessActivityRecords.Where(x => !string.IsNullOrEmpty(x.BusinessProcess.Trim()) &&
+                    x.BusinessProcess == Alias);
             }
         }
 
-        public class Activity
+        public record Activity
         {
-            [Name("Business Process Alias")]
-            public string BusinessProcessAlias { get; set; }
+            [Name("Business Process")]
+            public string BusinessProcess { get; set; }
 
-            [Name("Activity Name")]
+            [Name("Name")]
             public string Name { get; set; }
 
-            [Name("Actor Alias")]
-            public string ActorAlias { get; set; }
+            [Name("Actor")]
+            public string Actor { get; set; }
 
-            [Name("Uses Container Interface Alias")]
-            public string UsesContainerInterfaceAlias { get; set; }
+            [Name("Uses Container Interface")]
+            public string UsesContainerInterface { get; set; }
 
-            [Name("Uses Software System Interface Alias")]
-            public string UsesSoftwareSystemInterfaceAlias { get; set; }
+            [Name("Uses Software System Interface")]
+            public string UsesSoftwareSystemInterface { get; set; }
 
 
         }
