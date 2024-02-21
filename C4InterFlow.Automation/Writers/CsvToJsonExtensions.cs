@@ -16,21 +16,21 @@ namespace C4InterFlow.Automation.Writers
             softwareSystemInterface.WithUses(writer)
             .ToList().ForEach(i =>
             {
-                if (!string.IsNullOrEmpty(i.UsesContainerInterfaceAlias))
+                if (!string.IsNullOrEmpty(i.UsesContainerInterface))
                 {
                     flows.Add(new JObject
                             {
                                 { "Type", "Use" },
-                                { "Expression", $"{writer.ArchitectureNamespace}.SoftwareSystems.{i.UsesContainerInterfaceAlias}" }
+                                { "Expression", $"{writer.ArchitectureNamespace}.SoftwareSystems.{i.UsesContainerInterface}" }
                             }
                     );
                 }
-                else if (!string.IsNullOrEmpty(i.UsesSoftwareSystemInterfaceAlias))
+                else if (!string.IsNullOrEmpty(i.UsesSoftwareSystemInterface))
                 {
                     flows.Add(new JObject
                         {
                             { "Type", "Use" },
-                            { "Expression", $"{writer.ArchitectureNamespace}.SoftwareSystems.{i.UsesSoftwareSystemInterfaceAlias}" }
+                            { "Expression", $"{writer.ArchitectureNamespace}.SoftwareSystems.{i.UsesSoftwareSystemInterface}" }
                         }
                     );
                 }
@@ -57,21 +57,21 @@ namespace C4InterFlow.Automation.Writers
                 .ToList().ForEach(i =>
                 {
 
-                    if (!string.IsNullOrEmpty(i.UsesContainerInterfaceAlias))
+                    if (!string.IsNullOrEmpty(i.UsesContainerInterface))
                     {
                         flows.Add(new JObject
                             {
                                 { "Type", "Use" },
-                                { "Expression", $"{writer.ArchitectureNamespace}.SoftwareSystems.{i.UsesContainerInterfaceAlias}" }
+                                { "Expression", $"{writer.ArchitectureNamespace}.SoftwareSystems.{i.UsesContainerInterface}" }
                             }
                         );
                     }
-                    else if (!string.IsNullOrEmpty(i.UsesSoftwareSystemInterfaceAlias))
+                    else if (!string.IsNullOrEmpty(i.UsesSoftwareSystemInterface))
                     {
                         flows.Add(new JObject
                             {
                                 { "Type", "Use" },
-                                { "Expression", $"{writer.ArchitectureNamespace}.SoftwareSystems.{i.UsesSoftwareSystemInterfaceAlias}" }
+                                { "Expression", $"{writer.ArchitectureNamespace}.SoftwareSystems.{i.UsesSoftwareSystemInterface}" }
                             }
                         );
                     }

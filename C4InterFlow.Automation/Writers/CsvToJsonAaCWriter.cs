@@ -138,17 +138,17 @@ namespace C4InterFlow.Automation.Writers
             {
                 var businessActivitiesJArray = new JArray();
                 foreach (var businessActivity in businessActivities
-                    .Where(x => !string.IsNullOrEmpty(x.UsesSoftwareSystemInterfaceAlias) ||
-                        !string.IsNullOrEmpty(x.UsesContainerInterfaceAlias))
-                    .GroupBy(x => new { x.Name, x.ActorAlias })
+                    .Where(x => !string.IsNullOrEmpty(x.UsesSoftwareSystemInterface) ||
+                        !string.IsNullOrEmpty(x.UsesContainerInterface))
+                    .GroupBy(x => new { x.Name, x.Actor })
                     .Select(g => new
                     {
                         g.Key.Name,
-                        g.Key.ActorAlias,
-                        Uses = g.Select(x => $"{ArchitectureNamespace}.SoftwareSystems.{(string.IsNullOrEmpty(x.UsesContainerInterfaceAlias) ? x.UsesSoftwareSystemInterfaceAlias : x.UsesContainerInterfaceAlias)}").ToArray()
+                        g.Key.Actor,
+                        Uses = g.Select(x => $"{ArchitectureNamespace}.SoftwareSystems.{(string.IsNullOrEmpty(x.UsesContainerInterface) ? x.UsesSoftwareSystemInterface : x.UsesContainerInterface)}").ToArray()
                     }))
                 {
-                    var actor = $"{ArchitectureNamespace}.Actors.{businessActivity.ActorAlias}";
+                    var actor = $"{ArchitectureNamespace}.Actors.{businessActivity.Actor}";
                     businessActivitiesJArray.Add(new JObject()
                     {
                         { "Label", businessActivity.Name },
@@ -201,7 +201,7 @@ namespace C4InterFlow.Automation.Writers
         }
         public CsvToJsonAaCWriter AddSoftwareSystemInterfaceObject(SoftwareSystemInterface softwareSystemInterface)
         {
-            var softwareSystemName = softwareSystemInterface.SoftwareSystemAlias;
+            var softwareSystemName = softwareSystemInterface.SoftwareSystem;
             var name = softwareSystemInterface.Alias.Split('.').Last();
             var label = softwareSystemInterface.Name;
 
@@ -247,7 +247,7 @@ namespace C4InterFlow.Automation.Writers
 
         public CsvToJsonAaCWriter AddContainerInterfaceObject(ContainerInterface containerInterface)
         {
-            var containerAliasSegments = containerInterface.ContainerAlias.Split('.');
+            var containerAliasSegments = containerInterface.Container.Split('.');
             var softwareSystemName = containerAliasSegments[Array.IndexOf(containerAliasSegments, "Containers") - 1];
             var containerName = containerAliasSegments.Last();
             var name = containerInterface.Alias.Split('.').Last();

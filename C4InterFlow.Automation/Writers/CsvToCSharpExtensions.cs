@@ -32,13 +32,13 @@ namespace C4InterFlow.Automation.Writers
                         flowCode.AppendLine($"\t.If(\"{x.Condition}\")");
                     }
 
-                    if (!string.IsNullOrEmpty(x.UsesSoftwareSystemInterfaceAlias))
+                    if (!string.IsNullOrEmpty(x.UsesSoftwareSystemInterface))
                     {
-                        flowCode.AppendLine($"{(hasCondition ? "\t" : string.Empty)}\t.Use(\"{writer.ArchitectureNamespace}.SoftwareSystems.{x.UsesSoftwareSystemInterfaceAlias}\")");
+                        flowCode.AppendLine($"{(hasCondition ? "\t" : string.Empty)}\t.Use(\"{writer.ArchitectureNamespace}.SoftwareSystems.{x.UsesSoftwareSystemInterface}\")");
                     }
-                    else if (!string.IsNullOrEmpty(x.UsesContainerInterfaceAlias))
+                    else if (!string.IsNullOrEmpty(x.UsesContainerInterface))
                     {
-                        flowCode.AppendLine($"{(hasCondition ? "\t" : string.Empty)}\t.Use(\"{writer.ArchitectureNamespace}.SoftwareSystems.{x.UsesContainerInterfaceAlias}\")");
+                        flowCode.AppendLine($"{(hasCondition ? "\t" : string.Empty)}\t.Use(\"{writer.ArchitectureNamespace}.SoftwareSystems.{x.UsesContainerInterface}\")");
                     }
 
                     if (hasCondition)
@@ -93,13 +93,13 @@ namespace C4InterFlow.Automation.Writers
                         flowCode.AppendLine($"\t.If(\"{x.Condition}\")");
                     }
 
-                    if (!string.IsNullOrEmpty(x.UsesContainerInterfaceAlias))
+                    if (!string.IsNullOrEmpty(x.UsesContainerInterface))
                     {
-                        flowCode.AppendLine($"{(hasCondition ? "\t" : string.Empty)}\t.Use(\"{writer.ArchitectureNamespace}.SoftwareSystems.{x.UsesContainerInterfaceAlias}\")");
+                        flowCode.AppendLine($"{(hasCondition ? "\t" : string.Empty)}\t.Use(\"{writer.ArchitectureNamespace}.SoftwareSystems.{x.UsesContainerInterface}\")");
                     }
-                    else if (!string.IsNullOrEmpty(x.UsesSoftwareSystemInterfaceAlias))
+                    else if (!string.IsNullOrEmpty(x.UsesSoftwareSystemInterface))
                     {
-                        flowCode.AppendLine($"{(hasCondition ? "\t" : string.Empty)}\t.Use(\"{writer.ArchitectureNamespace}.SoftwareSystems.{x.UsesSoftwareSystemInterfaceAlias}\")");
+                        flowCode.AppendLine($"{(hasCondition ? "\t" : string.Empty)}\t.Use(\"{writer.ArchitectureNamespace}.SoftwareSystems.{x.UsesSoftwareSystemInterface}\")");
                     }
 
                     if (hasCondition)
