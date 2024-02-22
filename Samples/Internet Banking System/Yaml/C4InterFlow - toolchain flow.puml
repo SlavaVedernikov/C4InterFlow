@@ -1,0 +1,52 @@
+@startuml
+
+<style>
+collections {
+    BackgroundColor lightgreen
+}
+
+rectangle {
+    .c4interflow {
+        BackgroundColor lightblue
+    }
+}
+</style>
+hide <<c4interflow>> stereotype
+
+actor "User" as User2
+
+together {
+    collections  "**Business Processes as Code** (BPaC) (C# or YAML)" as BusinessProcessesAsCode
+    collections  "**Architecture as Code** (AaC) (C# or YAML)" as ArchitectureAsCode
+
+    BusinessProcessesAsCode .left.> ArchitectureAsCode : Uses 
+}
+
+
+rectangle "C4InterFlow CLI (draw-diagrams)" #line.dashed {
+    rectangle "**AaC Reader Strategy** (from YAML)" <<c4interflow>> as AaCReaderStrategy
+    rectangle "**Visualisation**" <<c4interflow>> as Visualisation 
+    rectangle "**Command**" <<c4interflow>> as Command 
+}
+
+rectangle "**PlantUML** (.jar)" as PlantUMLJava
+collections  "**Diagrams as Code** (DaC) (Plant UML)" as DiagramsAsCodePlantUML
+collections  "**Diagrams** (SVG, PNG)" as Diagrams
+
+User2 -left-> ArchitectureAsCode : "  Writes"
+
+User2 -down-> BusinessProcessesAsCode : "  Writes"
+
+
+AaCReaderStrategy -up-> ArchitectureAsCode : "  Reads"
+AaCReaderStrategy -up-> BusinessProcessesAsCode  : "  Reads"
+Command .down.> Visualisation : Uses
+Command .up.> AaCReaderStrategy : Uses
+Visualisation -down-> DiagramsAsCodePlantUML : " Writes"
+
+PlantUMLJava -up-> DiagramsAsCodePlantUML : "  Reads"
+PlantUMLJava -down-> Diagrams : " Writes"
+
+Visualisation ..> PlantUMLJava : Uses
+
+@enduml

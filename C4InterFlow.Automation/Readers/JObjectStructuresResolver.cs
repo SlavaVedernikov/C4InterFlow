@@ -41,6 +41,7 @@ namespace C4InterFlow.Automation.Readers
             if (collectionToken == null || ownerToken == null) return result;
 
             var label = token?["Label"]?.ToString() ?? Utils.GetLabel(alias.Split('.').Last()) ?? string.Empty;
+            var description = token?["Description"]?.ToString() ?? string.Empty;
 
             switch (collectionToken.Path.Split('.').Last())
             {
@@ -53,11 +54,11 @@ namespace C4InterFlow.Automation.Readers
 
                         if (type != null)
                         {
-                            var typeConstructor = type.GetConstructor(new[] { typeof(string), typeof(string) });
+                            var typeConstructor = type.GetConstructor(new[] { typeof(string), typeof(string), typeof(string) });
 
                             if (typeConstructor != null)
                             {
-                                result = typeConstructor.Invoke(new object[] { alias, label }) as T;
+                                result = typeConstructor.Invoke(new object[] { alias, label, description }) as T;
                             }
                         }
                     }
@@ -68,11 +69,15 @@ namespace C4InterFlow.Automation.Readers
 
                     if (activities != null)
                     {
-                        result = new BusinessProcess(activities, label) as T;
+                        result = new BusinessProcess(activities, label)
+                        { 
+                            Description = description
+                        } as T;
                     }
                     break;
                 case "Interfaces":
                     var interfaceFlow = token?["Flow"]?.ToObject<Flow>();
+                    var protocol = token?["Protocol"]?.ToString() ?? string.Empty;
                     if (interfaceFlow != null)
                     {
                         interfaceFlow.Owner = alias;
@@ -84,38 +89,49 @@ namespace C4InterFlow.Automation.Readers
 
                     result = new Interface(ownerToken.Path, alias, label)
                     {
-                        Flow = interfaceFlow
+                        Flow = interfaceFlow,
+                        Protocol = protocol
                     } as T;
                     break;
                 case "SoftwareSystems":
                     var softwareSystemsBoundaryName = token?["Boundary"]?.ToString();
-                    result = new SoftwareSystem(alias, label)
+                    result = new SoftwareSystem(alias, label, description)
                     {
                         Boundary = !string.IsNullOrEmpty(softwareSystemsBoundaryName) &&
                         Enum.TryParse(softwareSystemsBoundaryName, out Boundary softwareSystemsBoundary) ?
-                        softwareSystemsBoundary : Boundary.Internal
+                        softwareSystemsBoundary : Boundary.Internal,
+                  
                     } as T;
                     break;
                 case "Containers":
                     var containerTypeName = token?["ContainerType"]?.ToString();
+                    var containerTechnology = token?["Technology"]?.ToString();
                     result = new Container(ownerToken.Path, alias, label)
                     {
                         ContainerType = !string.IsNullOrEmpty(containerTypeName) &&
                         Enum.TryParse(containerTypeName, out ContainerType containerType) ?
-                        containerType : ContainerType.None
+                        containerType : ContainerType.None,
+                        Description = description,
+                        Technology = containerTechnology
                     } as T;
                     break;
                 case "Components":
                     var componentTypeName = token?["ComponentType"]?.ToString();
+                    var componentTechnology = token?["Technology"]?.ToString();
                     result = new Component(ownerToken.Path, alias, label)
                     {
                         ComponentType = !string.IsNullOrEmpty(componentTypeName) &&
                         Enum.TryParse(componentTypeName, out ComponentType componentType) ?
-                        componentType : ComponentType.None
+                        componentType : ComponentType.None,
+                        Description = description,
+                        Technology = componentTechnology
                     } as T;
                     break;
                 case "Entities":
-                    result = new Entity(ownerToken.Path, alias, label, EntityType.None) as T;
+                    result = new Entity(ownerToken.Path, alias, label, EntityType.None)
+                    {
+                        Description = description
+                    } as T;
                     break;
                 default:
                     break;

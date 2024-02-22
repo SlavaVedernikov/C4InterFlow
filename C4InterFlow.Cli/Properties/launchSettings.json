@@ -2,7 +2,7 @@
   "profiles": {
     "C4InterFlow.Cli": {
       "commandName": "Project",
-      "commandLineArgs": "draw-diagrams --aac-input-paths dotnet.eShop.Architecture.dll --aac-reader-strategy \"C4InterFlow.Automation.Readers.CSharpAaCReaderStrategy,C4InterFlow.Automation\" --interfaces dotnet.eShop.Architecture.SoftwareSystems.*.Containers.*.Components.*.Interfaces.*"
+      "commandLineArgs": "draw-diagrams --aac-input-paths \"C:\\C4InterFlow\\Samples\\Internet Banking System\\Architecture\\Yaml\" --aac-reader-strategy \"C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation\" --interfaces BigBankPlc.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes BigBankPlc.BusinessProcesses.* --levels-of-details context container --output-dir \"C:\\C4InterFlow\\Samples\\Internet Banking System\\Architecture\\\\Diagrams\""
     }
   }
 }
