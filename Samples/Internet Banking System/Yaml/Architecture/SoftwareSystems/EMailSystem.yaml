@@ -1,0 +1,19 @@
+BigBankPlc:
+  SoftwareSystems:
+    EMailSystem:
+      Label: E-Mail System
+      Boundary: External
+      Description: The internal Microsoft Exchange system
+      Interfaces:
+        SendNewAccountCreatedNotificationEMail:
+          Label: Send New Account Created Notification E-Mail
+          Protocol: 'SMTP'
+        ReceiveNewAccountCreatedNotificationEMail:
+          Label: Receive New Account Created Notification E-Mail
+          Protocol: 'POP3'
+        SendPasswordChangedNotificationEMail:
+          Label: Send Password Changed Notification E-Mail
+          Protocol: 'SMTP'
+        ReceivePasswordChangedNotificationEMail:
+          Label: Receive Password Changed Notification E-Mail
+          Protocol: 'POP3'

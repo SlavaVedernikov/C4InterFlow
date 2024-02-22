@@ -82,11 +82,6 @@ The table below maps Problems to Possible Solutions and C4InterFlow Capabilities
     - This generates Diagrams as Code in PlantUML (.puml) format
     - This can also generate SVG, PNG and Markdown (.md) formats for the same diagrams
 
-- **Track 4**
-  - User writes Diagrams as Code (DaC) in **C#**
-  - In C# code, `C4InterFlow.Visualisation` is used to generate Diagrams as Code in PlantUML (.puml) format
-    - This can also generate SVG, PNG and Markdown (.md) formats for the same diagrams
-
 ## Example use cases
 **Software Engineers** and **Architects** contribute by populating an **Architecture Catalogue** and by generating (or writing manually) **Architecture as Code** (AaC).  
 
@@ -100,6 +95,7 @@ The table below maps Problems to Possible Solutions and C4InterFlow Capabilities
 
 - Choose an approach for expressing Architecture as Code (AaC) i.e. **C#** or **YAML**
 - Choose the [C4InterFlow toolchain Track](#toolchain-tracks) you'd like use to eventually arrive to the Application Architecture Diagrams
+- Check out the [Samples](https://github.com/SlavaVedernikov/C4InterFlow/wiki/Samples)
 - Explore the [CLI capabilities](https://github.com/SlavaVedernikov/C4InterFlow/wiki/Command-Line-Interface-(CLI)) available out-of-the-box with C4InterFlow
 - Learn more on the [wiki](https://github.com/SlavaVedernikov/C4InterFlow/wiki)
 

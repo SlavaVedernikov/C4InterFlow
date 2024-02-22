@@ -1,0 +1,174 @@
+BigBankPlc:
+  SoftwareSystems:
+    InternetBanking:
+      Label: Internet Banking
+      Boundary: Internal
+      Description: Provided Internet Banking services
+      Containers:
+        WebApplication:
+          Label: Web Application
+          Description: Delivers the static content and the Internet banking SPA
+          ContainerType: WebApplication
+          Boundary: Internal
+          Technology: Java, Spring MVC
+          Interfaces:
+            Navigate:
+              Label: Navigate
+              Protocol: 'HTTPS'
+              Flow:
+                Flows:
+                  - Type: Use
+                    Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.LoadAndStart
+        SinglePageApp:
+          Label: Single-Page App
+          Description: Provides all the Internet banking functionality to customers via their web browser
+          ContainerType: Spa
+          Boundary: Internal
+          Technology: JavaScript, Angular
+          Interfaces:
+            LoadAndStart:
+              Label: Load And Start
+              Protocol: 'HTTPS'
+            SignIn:
+              Label: Sign In
+              Protocol: 'HTTPS'
+              Flow:
+                Flows:
+                  - Type: Use
+                    Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.SignIn
+            ChangePassword:
+              Label: Change Password
+              Protocol: 'HTTPS'
+              Flow:
+                Flows:
+                  - Type: Use
+                    Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.ChangePassword
+            ViewCustomerDetails:
+              Label: View Customer Details
+              Protocol: 'HTTPS'
+              Flow:
+                Flows:
+                  - Type: Use
+                    Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.GetCustomer
+                  - Type: Use
+                    Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.GetCustomerAccounts
+            ViewAccountTransactions:
+              Label: View Account Transactions
+              Protocol: 'HTTPS'
+              Flow:
+                Flows:
+                  - Type: Use
+                    Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.GetAccountTransactions
+            CreateAccount:
+              Label: Create Account
+              Protocol: 'HTTPS'
+              Flow:
+                Flows:
+                  - Type: Use
+                    Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.CreateAccount
+        MobileApp:
+          Label: Mobile App
+          Description: Provides a limited subset of the Internet banking functionality to customers via their mobile device
+          ContainerType: Mobile
+          Boundary: Internal
+          Technology: C#, Xamarin
+          Interfaces:
+            SignIn:
+              Label: Sign In
+              Protocol: 'HTTPS'
+              Flow:
+                Flows:
+                  - Type: Use
+                    Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.SignIn
+            ChangePassword:
+              Label: Change Password
+              Protocol: 'HTTPS'
+              Flow:
+                Flows:
+                  - Type: Use
+                    Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.ChangePassword
+            ViewCustomerDetails:
+              Label: View Customer Details
+              Protocol: 'HTTPS'
+              Flow:
+                Flows:
+                  - Type: Use
+                    Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.GetCustomer
+                  - Type: Use
+                    Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.GetCustomerAccounts
+            ViewAccountTransactions:
+              Label: View Account Transactions
+              Protocol: 'HTTPS'
+              Flow:
+                Flows:
+                  - Type: Use
+                    Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.GetAccountTransactions
+        APIApplication:
+          Label: API Application
+          Description: 'Provides Internet banking functionality via API'
+          ContainerType: Spa
+          Boundary: Internal
+          Technology: Java, Docker Container
+          Interfaces:
+            SignIn:
+              Label: Sign In
+              Protocol: 'HTTPS'
+              Flow:
+                Flows:
+                  - Type: Use
+                    Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database.Interfaces.AuthenticateUser
+            ChangePassword:
+              Label: Change Password
+              Protocol: 'HTTPS'
+              Flow:
+                Flows:
+                  - Type: Use
+                    Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database.Interfaces.UpdateUserPassword
+                  - Type: Use
+                    Expression: BigBankPlc.SoftwareSystems.EMailSystem.Interfaces.SendPasswordChangedNotificationEMail
+            GetCustomer:
+              Label: Get Customer
+              Protocol: 'HTTPS'
+              Flow:
+                Flows:
+                  - Type: Use
+                    Expression: BigBankPlc.SoftwareSystems.MainframeBankingSystem.Interfaces.GetCustomer
+            GetCustomerAccounts:
+              Label: Get Customer Accounts
+              Protocol: 'HTTPS'
+              Flow:
+                Flows:
+                  - Type: Use
+                    Expression: BigBankPlc.SoftwareSystems.MainframeBankingSystem.Interfaces.GetCustomerAccounts
+            GetAccountTransactions:
+              Label: Get Account Transactions
+              Protocol: 'HTTPS'
+              Flow:
+                Flows:
+                  - Type: Use
+                    Expression: BigBankPlc.SoftwareSystems.MainframeBankingSystem.Interfaces.GetAccountTransactions
+            CreateAccount:
+              Label: Create Account
+              Protocol: 'HTTPS'
+              Flow:
+                Flows:
+                  - Type: Use
+                    Expression: BigBankPlc.SoftwareSystems.MainframeBankingSystem.Interfaces.CreateAccount
+                  - Type: Use
+                    Expression: BigBankPlc.SoftwareSystems.EMailSystem.Interfaces.SendNewAccountCreatedNotificationEMail
+        Database:
+          Label: Database
+          Description: Stores user registration information, hashed auth credentials, access logs, etc.
+          ContainerType: Database
+          Boundary: Internal
+          Technology: SQL Server Database
+          Interfaces:
+            AuthenticateUser:
+              Label: Authenticate User
+              Protocol: 'TCP/IP, SQL'
+            SelectUserData:
+              Label: Select User Data
+              Protocol: 'TCP/IP, SQL'
+            UpdateUserPassword:
+              Label: Update User Password
+              Protocol: 'TCP/IP, SQL'

@@ -1,0 +1,30 @@
+@startuml
+!include ..\..\..\..\..\..\.c4s\C4_Container.puml
+
+AddElementTag("state:new", $bgColor=green, $fontColor=#ffffff, $borderColor=green, $shadowing="False")
+AddElementTag("state:changed", $bgColor=orange, $fontColor=#ffffff, $borderColor=orange, $shadowing="False")
+AddElementTag("state:removed", $bgColor=red, $fontColor=#ffffff, $borderColor=red, $shadowing="False")
+
+AddRelTag("state:new", $textColor=green, $lineColor=green)
+AddRelTag("state:changed", $textColor=orange, $lineColor=orange)
+AddRelTag("state:removed", $textColor=red, $lineColor=red)
+
+SHOW_PERSON_PORTRAIT()
+LAYOUT_TOP_DOWN()
+
+skinparam linetype polyline
+
+title Internet Banking - API Application - Sign In - CONTAINER level
+
+
+System_Boundary(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking") {
+    Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "API Application", "Java, Docker Container", "Provides Internet banking functionality via API")
+    ContainerDb(BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Database", "SQL Server Database", "Stores user registration information, hashed auth credentials, access logs, etc.")
+}
+
+
+Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Uses\n[TCP/IP, SQL]", $tags='protocol:tcp/ip, sql')
+
+
+SHOW_LEGEND()
+@enduml
