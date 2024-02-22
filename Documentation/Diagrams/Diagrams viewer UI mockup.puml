@@ -1,0 +1,55 @@
+@startsalt
+{
+. | Type: { (X) **C4** | () C4 Static | () Sequence }
+. | Level of Details: { () Context | () Container | (X) **Component**}
+. | Formats: { () puml | () png | (X) **svg**}
+
+{SI
+{
+{T
+ + Software Systems
+ ++ **Basket Api**
+ +++ Containers
+ ++++ Data
+ +++++ Components
+ ++++++ Redis Basket Repository
+ ++++++ Redis Database
+ ++++ Grpc
+ +++++ Components
+ ++++++ Basket Service
+ +++++++ Interfaces
+ ++++++++ Delete Basket
+ ++++++++ Get Basket
+ ++++++++ Update Basket
+ ++ Catalog Api
+ +++ ...
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+}
+} 
+}
+}
+
+@endsalt

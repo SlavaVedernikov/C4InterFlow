@@ -5,7 +5,7 @@ set "net-sourcecode-dir=C:\Data\Projects\C4InterFlow\eShop-main"
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :: Possible values: CSharp, Yaml
-set "aac-type=Yaml"
+set "aac-type=CSharp"
 ::::::::::::::::::::::::::::::::
 
 set "build-configuration=Debug"
@@ -63,9 +63,9 @@ echo AaC is cleared
 :: Execute AaC Strategy
 echo Executing AaC Strategy...
 
-%cli-output-dir%\%cli-exe% execute-aac-strategy --aac-root-namespace "%aac-root-namespace%" --aac-output-path "%aac-output-path%" --aac-writer-strategy "%aac-project-name%.Cli.CSharpTo%aac-type%BasketApiAaCGenerator, %aac-project-name%.Cli" --aac-params software-system-source-path="%net-sourcecode-dir%\src\Basket.API\Basket.API.csproj" --aac-params software-system-name="BasketApi"
+%cli-output-dir%\%cli-exe% execute-aac-strategy --aac-root-namespace "%aac-root-namespace%" --aac-output-path "%aac-output-path%" --aac-writer-strategy "%aac-project-name%.Cli.CSharpTo%aac-type%BasketApiAaCGenerator, %aac-project-name%.Cli" --params software-system-source-path="%net-sourcecode-dir%\src\Basket.API\Basket.API.csproj" --params software-system-name="BasketApi"
 
-%cli-output-dir%\%cli-exe% execute-aac-strategy --aac-root-namespace "%aac-root-namespace%" --aac-output-path "%aac-output-path%" --aac-writer-strategy "%aac-project-name%.Cli.CSharpTo%aac-type%CatalogApiAaCGenerator, %aac-project-name%.Cli" --aac-params software-system-source-path="%net-sourcecode-dir%\src\Catalog.API\Catalog.API.csproj" --aac-params software-system-name="CatalogApi"
+%cli-output-dir%\%cli-exe% execute-aac-strategy --aac-root-namespace "%aac-root-namespace%" --aac-output-path "%aac-output-path%" --aac-writer-strategy "%aac-project-name%.Cli.CSharpTo%aac-type%CatalogApiAaCGenerator, %aac-project-name%.Cli" --params software-system-source-path="%net-sourcecode-dir%\src\Catalog.API\Catalog.API.csproj" --params software-system-name="CatalogApi"
 
 pause
 
