@@ -16,18 +16,18 @@ public class ExecuteAaCStrategyCommand : Command
         var architectureRootNamespaceOption = ArchitectureRootNamespaceOption.Get();
         var architectureOutputPathOption = AaCOutputPathOption.Get();
         var architectureAsCodeWriterStrategyTypeOption = AaCWriterStrategyTypeOption.Get();
-        var architectureAsCodeParamsOption = AaCParamsOption.Get();
+        var paramsOption = ParamsOption.Get();
 
         AddOption(architectureRootNamespaceOption);
         AddOption(architectureOutputPathOption);
         AddOption(architectureAsCodeWriterStrategyTypeOption);
-        AddOption(architectureAsCodeParamsOption);
+        AddOption(paramsOption);
 
-        this.SetHandler(async (architectureRootNamespace, architectureOutputPath, architectureAsCodeWriterStrategyType, architectureAsCodeParamsOption) =>
+        this.SetHandler(async (architectureRootNamespace, architectureOutputPath, architectureAsCodeWriterStrategyType, paramsOption) =>
             {
-                await Execute(architectureRootNamespace, architectureOutputPath, architectureAsCodeWriterStrategyType, architectureAsCodeParamsOption);
+                await Execute(architectureRootNamespace, architectureOutputPath, architectureAsCodeWriterStrategyType, paramsOption);
             },
-            architectureRootNamespaceOption, architectureOutputPathOption, architectureAsCodeWriterStrategyTypeOption, new ParametersBinder(architectureAsCodeParamsOption));
+            architectureRootNamespaceOption, architectureOutputPathOption, architectureAsCodeWriterStrategyTypeOption, new ParametersBinder(paramsOption));
     }
 
     private static async Task<int> Execute(string architectureRootNamespace, string architectureOutputPath, string architectureAsCodeWriterStrategyType, Dictionary<string, string> architectureAsCodeParams)
