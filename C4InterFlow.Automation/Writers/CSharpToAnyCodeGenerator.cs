@@ -27,9 +27,9 @@ namespace C4InterFlow.Automation.Writers
             return CodeWriter.GetBusinessProcessCode(architectureNamespace, name, label, businessActivitiesCode, description);
         }
 
-        public static string GetBusinessActivityCode(string name, string actor, string[] uses, string? description = null)
+        public static string GetBusinessActivityCode(string label, string actor, Structures.Flow[] flows, string? description = null)
         {
-            return CodeWriter.GetBusinessActivityCode(name, actor, uses, description);
+            return CodeWriter.GetBusinessProcessActivityCode(label, actor, flows, description);
         }
 
         public static string GetContainerCode(string architectureNamespace, string softwareSystemName, string containerName, string label, string? type = null, string? description = null, string? technology = null, string? boundary = null)
@@ -704,9 +704,9 @@ namespace C4InterFlow.Automation.Writers
                 {
                     var invocationMethod = invocationTypeDefinition.DescendantNodes().OfType<MethodDeclarationSyntax>().FirstOrDefault(x => x.Identifier.ValueText == invocationMemberName);
 
-                    if (invocationMethod != null && writer.ComponentMethodInterfaceObjectMap.Any(x => x.Value == invocationMethod))
+                    if (invocationMethod != null && writer.ComponentInterfaceAaCFileToCSharpMethodDeclarationMap.Any(x => x.Value == invocationMethod))
                     {
-                        var interfaceClassFilePath = writer.ComponentMethodInterfaceObjectMap.FirstOrDefault(x => x.Value == invocationMethod).Key;
+                        var interfaceClassFilePath = writer.ComponentInterfaceAaCFileToCSharpMethodDeclarationMap.FirstOrDefault(x => x.Value == invocationMethod).Key;
                         var interfaceAliasValue = architectureAsCodeContext.GetComponentInterfaceAlias(interfaceClassFilePath);
 
                         if (!string.IsNullOrEmpty(interfaceAliasValue))

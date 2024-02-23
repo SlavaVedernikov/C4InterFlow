@@ -18,7 +18,7 @@ namespace C4InterFlow.Automation.Writers
             var architectureCompilation = architectureProject.GetCompilationAsync().Result;
             var architectureSemanticModel = architectureCompilation.GetSemanticModel(architectureClassSyntaxTree);
 
-            var softwareSystemInterface = writer.SoftwareSystemInterfaceClassFileNameMap.GetValueOrDefault(architectureClassSyntaxTree.FilePath);
+            var softwareSystemInterface = writer.SoftwareSystemInterfaceAaCPathToJObjectMap.GetValueOrDefault(architectureClassSyntaxTree.FilePath);
 
             if (softwareSystemInterface == null) return classDeclaration;
 
@@ -64,7 +64,7 @@ namespace C4InterFlow.Automation.Writers
             var architectureCompilation = architectureProject.GetCompilationAsync().Result;
             var architectureSemanticModel = architectureCompilation.GetSemanticModel(architectureClassSyntaxTree);
 
-            var containerInterface = writer.ContainerInterfaceClassFileNameMap.GetValueOrDefault(architectureClassSyntaxTree.FilePath);
+            var containerInterface = writer.ContainerInterfaceAaCPathToJObjectMap.GetValueOrDefault(architectureClassSyntaxTree.FilePath);
 
             if (containerInterface == null) return classDeclaration;
 

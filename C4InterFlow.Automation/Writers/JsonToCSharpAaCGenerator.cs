@@ -1,47 +1,47 @@
-﻿namespace C4InterFlow.Automation.Writers
+﻿using C4InterFlow.Structures;
+using System;
+
+namespace C4InterFlow.Automation.Writers
 {
     public class JsonToCSharpAaCGenerator : JsonToCSharpAaCWriterStrategy
     {
         public override void Execute()
         {
-            var addSystemClassAction = "add System Class";
-            var addSystemInterfaceClassAction = "add System Interface Class";
-
             var architectureRootNamespaceSegments = ArchitectureRootNamespace.Split('.');
-            var generationWriter = JsonToCSharpAaCWriter
+            var writer = JsonToCSharpAaCWriter
                 .WithJsonData(ArchitectureInputPath)
                 .WithArchitectureRootNamespace(ArchitectureRootNamespace)
                 .WithArchitectureProject(ArchitectureOutputPath);
 
-            generationWriter.WithSoftwareSystems()
+            writer.WithSoftwareSystems()
                     .ToList().ForEach(s =>
                     {
-                        var softwareSystemName = s.Path.Split('.').Last();
-                        generationWriter
-                        .AddSoftwareSystemClass(softwareSystemName);
+                        var softwareSystemName = s.Name;
+                        writer
+                        .AddSoftwareSystem(softwareSystemName, Enum.GetName(typeof(Boundary), s.Boundary), s.Label);
 
-                        s.WithInterfaces().ToList().ForEach(i =>
+                        writer.WithInterfaces(s).ToList().ForEach(i =>
                         {
-                            generationWriter.AddSoftwareSystemInterfaceClass(i);
+                            writer.AddSoftwareSystemInterface(s.Name, i.Name, i.Label);
                         });
 
-                        s.WithContainers().ToList().ForEach(c =>
+                        writer.WithContainers(s).ToList().ForEach(c =>
                         {
-                            generationWriter.AddContainerClass(softwareSystemName, c.Path.Split('.').Last(), c.Property("Type")?.Value?.ToString());
+                            writer.AddContainer(softwareSystemName, c.Name, Enum.GetName(typeof(ContainerType), c.ContainerType));
 
-                            c.WithInterfaces().ToList().ForEach(i =>
+                            writer.WithInterfaces(c).ToList().ForEach(i =>
                             {
-                                generationWriter.AddContainerInterfaceClass(i);
+                                writer.AddContainerInterface(softwareSystemName, c.Name, i.Name, i.Label);
                             });
                         });
 
-                        generationWriter.WithSoftwareSystemInterfaceClasses(softwareSystemName, true)
+                        writer.WithSoftwareSystemInterfaceClasses(softwareSystemName, true)
                         .ToList().ForEach(x => x.AddFlowToSoftwareSystemInterfaceClass(
-                            generationWriter));
+                            writer));
 
-                        generationWriter.WithContainerInterfaceClasses()
+                        writer.WithContainerInterfaceClasses()
                         .ToList().ForEach(x => x.AddFlowToContainerInterfaceClass(
-                            generationWriter));
+                            writer));
 
                     });
 

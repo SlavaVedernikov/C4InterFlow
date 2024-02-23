@@ -23,21 +23,22 @@ namespace C4InterFlow.Automation.Writers
                             .WithSoftwareSystemsCollection()
                             .WithArchitectureOutputPath(Path.Combine(ArchitectureOutputPath, "SoftwareSystems", $"{s.Alias}.json"));
 
+                        var softwareSystemName = s.Alias;
+                        writer.AddSoftwareSystem(softwareSystemName, s.GetBoundary(), s.Name);
 
-                        writer.AddSoftwareSystemObject(s.Alias, s.GetBoundary(), s.Name);
-
-                        s.WithInterfaces(writer).ToList().ForEach(i =>
+                        s.WithInterfaces(writer.DataProvider).ToList().ForEach(i =>
                         {
-                            writer.AddSoftwareSystemInterfaceObject(i);
+                            writer.AddSoftwareSystemInterface(softwareSystemName, i.Alias.Split('.').Last(), i.Name);
                         });
 
-                        s.WithContainers(writer).ToList().ForEach(c =>
+                        s.WithContainers(writer.DataProvider).ToList().ForEach(c =>
                         {
-                            writer.AddContainerObject(s.Alias, c.Alias.Split('.').Last(), c.Type, c.Name);
+                            var containerName = c.Alias.Split('.').Last();
+                            writer.AddContainer(softwareSystemName, containerName, c.Type, c.Name);
 
-                            c.WithInterfaces(writer).ToList().ForEach(i =>
+                            c.WithInterfaces(writer.DataProvider).ToList().ForEach(i =>
                             {
-                                writer.AddContainerInterfaceObject(i);
+                                writer.AddContainerInterface(softwareSystemName, containerName, i.Alias.Split('.').Last(), i.Name);
                             });
                         });
 
@@ -61,12 +62,12 @@ namespace C4InterFlow.Automation.Writers
                             .WithActorsCollection()
                             .WithArchitectureOutputPath(Path.Combine(ArchitectureOutputPath, "Actors", $"{a.Alias}.json"));
 
-                        if (!a.TryGetType(writer, out var type))
+                        if (!a.TryGetType(writer.DataProvider, out var type))
                         {
                             type = nameof(Person);
                         }
 
-                        writer.AddActorObject(a.Alias, type, a.Name);
+                        writer.AddActor(a.Alias, type, a.Name);
 
                         writer.WriteArchitecture();
                     });
@@ -79,7 +80,7 @@ namespace C4InterFlow.Automation.Writers
                         .WithBusinessProcessesCollection()
                         .WithArchitectureOutputPath(Path.Combine(ArchitectureOutputPath, "BusinessProcessess", $"{b.Alias}.json"));
 
-                    writer.AddBusinessProcessObject(b.Alias, b.WithBusinessActivities(writer).ToArray(), b.Name);
+                    writer.AddBusinessProcess(b.Alias, b.Name);
 
                     writer.WriteArchitecture();
                 });

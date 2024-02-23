@@ -5,7 +5,7 @@ set "net-sourcecode-dir=C:\Data\Projects\C4InterFlow\eShop-main"
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :: Possible values: CSharp, Yaml
-set "aac-type=CSharp"
+set "aac-type=Yaml"
 ::::::::::::::::::::::::::::::::
 
 set "build-configuration=Debug"

@@ -2,7 +2,7 @@
   "profiles": {
     "dotnet.eShop.Architecture.Cli": {
       "commandName": "Project",
-      "commandLineArgs": "draw-diagrams -h"
+      "commandLineArgs": "execute-aac-strategy --aac-root-namespace \"dotnet.eShop.Architecture\" --aac-output-path \"C:\\C4InterFlow\\Samples\\dotnet.eShop\\dotnet.eShop.Architecture\\Yaml\" --aac-writer-strategy \"dotnet.eShop.Architecture.Cli.CSharpToYamlBasketApiAaCGenerator, dotnet.eShop.Architecture.Cli\" --params software-system-source-path=\"C:\\Data\\Projects\\C4InterFlow\\eShop-main\\src\\Basket.API\\Basket.API.csproj\" --params software-system-name=\"BasketApi\"\r\n"
     }
   }
 }

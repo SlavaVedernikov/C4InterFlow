@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace dotnet.eShop.Architecture.Cli
 {
-    public class CSharpToCSharpBasketApiAaCGenerator : CSharpToNetAaCWriterStrategy
+    public class CSharpToCSharpBasketApiAaCGenerator : CSharpToCSharpAaCWriterStrategy
     {
         public override void Execute()
         {
@@ -15,7 +15,7 @@ namespace dotnet.eShop.Architecture.Cli
             var addComponentInterfaceClassAction = "add Component Interface Class";
             var addEntityClassAction = "add Entity Class";
 
-            var writer = new CSharpToNetAaCWriter(SoftwareSystemSourcePath, ArchitectureRootNamespace);
+            var writer = new CSharpToCSharpAaCWriter(SoftwareSystemSourcePath, ArchitectureRootNamespace);
 
             writer.WithArchitectureProject(ArchitectureOutputPath)
                 .AddSoftwareSystem(SoftwareSystemName);
@@ -101,7 +101,7 @@ namespace dotnet.eShop.Architecture.Cli
                     }));
         }
 
-        private void AddSoftwareSystemTypeMapping(CSharpToNetAaCWriter writer)
+        private void AddSoftwareSystemTypeMapping(CSharpToCSharpAaCWriter writer)
         {
             var softwareSystemRootNamespace = "eShop.Basket.API";
             var services = new Dictionary<string, string>

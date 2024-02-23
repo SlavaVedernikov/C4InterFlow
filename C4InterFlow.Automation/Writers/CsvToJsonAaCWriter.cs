@@ -12,9 +12,8 @@ namespace C4InterFlow.Automation.Writers
     {
         public JObject JsonArchitectureAsCode { get; private set; }
         public string ArchitectureOutputPath { get; private set; }
-        protected CsvToJsonAaCWriter(string architectureInputPath)
+        protected CsvToJsonAaCWriter(string architectureInputPath):base(architectureInputPath)
         {
-            LoadData(architectureInputPath);
         }
 
         public static CsvToJsonAaCWriter WithCsvData(string csvRootPath)
@@ -97,22 +96,22 @@ namespace C4InterFlow.Automation.Writers
             JsonArchitectureAsCode = new JObject();
         }
 
-        public IEnumerable<SoftwareSystem> WithSoftwareSystems()
+        public IEnumerable<CsvDataProvider.SoftwareSystem> WithSoftwareSystems()
         {
-            return SoftwareSystemRecords.Where(x => !string.IsNullOrEmpty(x.Alias.Trim()));
+            return DataProvider.SoftwareSystemRecords.Where(x => !string.IsNullOrEmpty(x.Alias.Trim()));
         }
 
-        public IEnumerable<Actor> WithActors()
+        public IEnumerable<CsvDataProvider.Actor> WithActors()
         {
-            return ActorRecords.Where(x => !string.IsNullOrEmpty(x.Alias.Trim()));
+            return DataProvider.ActorRecords.Where(x => !string.IsNullOrEmpty(x.Alias.Trim()));
         }
 
-        public IEnumerable<BusinessProcess> WithBusinessProcesses()
+        public IEnumerable<CsvDataProvider.BusinessProcess> WithBusinessProcesses()
         {
-            return BusinessProcessRecords.Where(x => !string.IsNullOrEmpty(x.Alias.Trim()));
+            return DataProvider.BusinessProcessRecords.Where(x => !string.IsNullOrEmpty(x.Alias.Trim()));
         }
 
-        public CsvToJsonAaCWriter AddActorObject(string name, string type, string? label = null)
+        public override CsvToJsonAaCWriter AddActor(string name, string type, string? label = null)
         {
             var actorsObject = JsonArchitectureAsCode.SelectToken($"{ArchitectureNamespace}.Actors") as JObject;
 
@@ -130,40 +129,26 @@ namespace C4InterFlow.Automation.Writers
             return this;
         }
 
-        public CsvToJsonAaCWriter AddBusinessProcessObject(string name, Activity[] businessActivities, string? label = null)
+        public override CsvToJsonAaCWriter AddBusinessProcess(string name, string? label = null)
         {
+            var businessProcess = DataProvider.BusinessProcessRecords.FirstOrDefault(x => x.Alias == name);
+
+            if (businessProcess == null) return this;
+
             var businessProcessesObject = JsonArchitectureAsCode.SelectToken($"{ArchitectureNamespace}.BusinessProcesses") as JObject;
 
             if (businessProcessesObject != null)
             {
                 var businessActivitiesJArray = new JArray();
-                foreach (var businessActivity in businessActivities
-                    .Where(x => !string.IsNullOrEmpty(x.UsesSoftwareSystemInterface) ||
-                        !string.IsNullOrEmpty(x.UsesContainerInterface))
-                    .GroupBy(x => new { x.Name, x.Actor })
-                    .Select(g => new
-                    {
-                        g.Key.Name,
-                        g.Key.Actor,
-                        Uses = g.Select(x => $"{ArchitectureNamespace}.SoftwareSystems.{(string.IsNullOrEmpty(x.UsesContainerInterface) ? x.UsesSoftwareSystemInterface : x.UsesContainerInterface)}").ToArray()
-                    }))
+                foreach (var businessActivity in GetBusinessProcessActivities(businessProcess))
                 {
-                    var actor = $"{ArchitectureNamespace}.Actors.{businessActivity.Actor}";
+                    var actor = businessActivity.Actor;
                     businessActivitiesJArray.Add(new JObject()
                     {
-                        { "Label", businessActivity.Name },
+                        { "Label", businessActivity.Label },
                         { "Actor", actor },
                         {
-                            "Flow",
-                            new JObject()
-                            {
-                                { "Flows", new JArray(businessActivity.Uses.Select(x => new JObject()
-                                    {
-                                        { "Type", "Use" },
-                                        { "Expression", x }
-                                    }).ToArray()) }
-
-                            }
+                            "Flow", new JObject(businessActivity.Flow)
                         }
                     });
                 }
@@ -180,7 +165,7 @@ namespace C4InterFlow.Automation.Writers
             return this;
         }
 
-        public CsvToJsonAaCWriter AddSoftwareSystemObject(string name, string? boundary = null, string label = null)
+        public override CsvToJsonAaCWriter AddSoftwareSystem(string name, string? boundary = null, string label = null)
         {
             var softwareSystemsObject = JsonArchitectureAsCode.SelectToken($"{ArchitectureNamespace}.SoftwareSystems") as JObject;
 
@@ -199,12 +184,15 @@ namespace C4InterFlow.Automation.Writers
             }
             return this;
         }
-        public CsvToJsonAaCWriter AddSoftwareSystemInterfaceObject(SoftwareSystemInterface softwareSystemInterface)
+        public override CsvToJsonAaCWriter AddSoftwareSystemInterface(
+            string softwareSystemName,
+            string name,
+            string? label = null,
+            string? input = null,
+            string? output = null,
+            string? protocol = null,
+            string? path = null)
         {
-            var softwareSystemName = softwareSystemInterface.SoftwareSystem;
-            var name = softwareSystemInterface.Alias.Split('.').Last();
-            var label = softwareSystemInterface.Name;
-
             var softwareSystemInterfacesObject = JsonArchitectureAsCode.SelectToken($"{ArchitectureNamespace}.SoftwareSystems.{softwareSystemName}.Interfaces") as JObject;
 
             if (softwareSystemInterfacesObject != null)
@@ -215,16 +203,20 @@ namespace C4InterFlow.Automation.Writers
 
                 softwareSystemInterfacesObject.Add(name, softwareSystemInterfaceObject);
 
-                if (!SoftwareSystemInterfaceClassFileNameMap.Keys.Contains(softwareSystemInterfaceObject.Path))
+                if (!SoftwareSystemInterfaceAaCPathToCsvRecordMap.Keys.Contains(softwareSystemInterfaceObject.Path))
                 {
-                    SoftwareSystemInterfaceClassFileNameMap.Add(softwareSystemInterfaceObject.Path, softwareSystemInterface);
+                    var softwareSystemInterface = DataProvider.SoftwareSystemInterfaceRecords.FirstOrDefault(x => x.Name == name);
+                    if (softwareSystemInterface != null)
+                    {
+                        SoftwareSystemInterfaceAaCPathToCsvRecordMap.Add(softwareSystemInterfaceObject.Path, softwareSystemInterface);
+                    }
                 }
             }
 
             return this;
         }
 
-        public CsvToJsonAaCWriter AddContainerObject(string softwareSystemName, string name, string? containerType = null, string? label = null)
+        public override CsvToJsonAaCWriter AddContainer(string softwareSystemName, string name, string? containerType = null, string? label = null)
         {
             var containersObject = JsonArchitectureAsCode.SelectToken($"{ArchitectureNamespace}.SoftwareSystems.{softwareSystemName}.Containers") as JObject;
 
@@ -245,13 +237,16 @@ namespace C4InterFlow.Automation.Writers
             return this;
         }
 
-        public CsvToJsonAaCWriter AddContainerInterfaceObject(ContainerInterface containerInterface)
+        public override CsvToJsonAaCWriter AddContainerInterface(
+            string softwareSystemName,
+            string containerName,
+            string name,
+            string? label = null,
+            string? input = null,
+            string? output = null,
+            string? protocol = null,
+            string? path = null)
         {
-            var containerAliasSegments = containerInterface.Container.Split('.');
-            var softwareSystemName = containerAliasSegments[Array.IndexOf(containerAliasSegments, "Containers") - 1];
-            var containerName = containerAliasSegments.Last();
-            var name = containerInterface.Alias.Split('.').Last();
-            var label = containerInterface.Name;
             var containerInterfacesObject = JsonArchitectureAsCode.SelectToken($"{ArchitectureNamespace}.SoftwareSystems.{softwareSystemName}.Containers.{containerName}.Interfaces") as JObject;
 
             if (containerInterfacesObject != null)
@@ -262,9 +257,13 @@ namespace C4InterFlow.Automation.Writers
 
                 containerInterfacesObject.Add(name, containerInterfaceObject);
 
-                if (!ContainerInterfaceClassFileNameMap.Keys.Contains(containerInterfaceObject.Path))
+                if (!ContainerInterfaceAaCPathToCsvRecordMap.Keys.Contains(containerInterfaceObject.Path))
                 {
-                    ContainerInterfaceClassFileNameMap.Add(containerInterfaceObject.Path, containerInterface);
+                    var containerInterface = DataProvider.ContainerInterfaceRecords.FirstOrDefault(x => x.Name == name);
+                    if (containerInterface != null)
+                    {
+                        ContainerInterfaceAaCPathToCsvRecordMap.Add(containerInterfaceObject.Path, containerInterface);
+                    }
                 }
             }
 

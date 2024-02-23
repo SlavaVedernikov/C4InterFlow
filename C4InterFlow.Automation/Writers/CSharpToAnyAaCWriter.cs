@@ -6,7 +6,7 @@ using C4InterFlow.Structures;
 
 namespace C4InterFlow.Automation.Writers
 {
-    public class CSharpToAnyAaCWriter
+    public abstract class CSharpToAnyAaCWriter : IAaCWriter
     {
         public MSBuildWorkspace SoftwareSystemWorkspace { get; private set; }
         public string ArchitectureNamespace { get; private set; }
@@ -16,8 +16,8 @@ namespace C4InterFlow.Automation.Writers
         public ClassDeclarationSyntax? CurrentClassDeclaration { get; private set; }
         public Dictionary<string, IList<string>> SoftwareSystemTypeMap { get; private set; } = new Dictionary<string, IList<string>>();
         public Dictionary<string, string> EntityTypeMap { get; private set; } = new Dictionary<string, string>();
-        public Dictionary<string, MethodDeclarationSyntax> ComponentMethodInterfaceObjectMap { get; private set; } = new Dictionary<string, MethodDeclarationSyntax>();
-        public Dictionary<string, PropertyDeclarationSyntax> ComponentPropertyInterfaceObjectMap { get; private set; } = new Dictionary<string, PropertyDeclarationSyntax>();
+        public Dictionary<string, MethodDeclarationSyntax> ComponentInterfaceAaCFileToCSharpMethodDeclarationMap { get; private set; } = new Dictionary<string, MethodDeclarationSyntax>();
+        public Dictionary<string, PropertyDeclarationSyntax> ComponentInterfaceAaCFileToCSharpPropertyDeclarationMap { get; private set; } = new Dictionary<string, PropertyDeclarationSyntax>();
 
         private static void RegisterInstanceVisualStudioInstance()
         {
@@ -142,34 +142,6 @@ namespace C4InterFlow.Automation.Writers
             return this;
         }
 
-        public virtual CSharpToAnyAaCWriter AddSoftwareSystem(string softwareSystemName)
-        {
-            return this;
-        }
-
-        public virtual CSharpToAnyAaCWriter AddContainer(string softwareSystemName, string containerName)
-        {
-            return this;
-        }
-
-        public virtual CSharpToAnyAaCWriter AddComponent(string softwareSystemName, string containerName, string componentName, ComponentType componentType = ComponentType.None)
-        {
-            return this;
-        }
-
-        public virtual CSharpToAnyAaCWriter AddComponentInterface(
-            string softwareSystemName,
-            string containerName,
-            string componentName,
-            string interfaceName,
-            string? input = null,
-            string? output = null,
-            string? protocol = null,
-            string? path = null)
-        {
-            return this;
-        }
-
         public Dictionary<string, string> GetSoftwareSystemTypeMappings(string typeName, string methodName, string[] mappingMethodNames)
         {
             var result = new Dictionary<string, string>();
@@ -251,25 +223,83 @@ namespace C4InterFlow.Automation.Writers
             return result;
         }
 
-        public IEnumerable<string> WithMethods(Type type)
-        {
-            return null;
-        }
-
         public IEnumerable<Document>? WithDocuments()
         {
             return CurrentProject?.Documents.Where(x => !x.FilePath.Contains(@"\obj\"));
         }
 
+        public virtual IAaCWriter AddActor(string name, string type, string? label = null)
+        {
+            return this;
+        }
+
+        public virtual IAaCWriter AddBusinessProcess(string name, string? label = null)
+        {
+            return this;
+        }
+
+        public virtual IAaCWriter AddSoftwareSystem(string name, string? boundary = null, string? label = null)
+        {
+            return this;
+        }
+
+        public virtual IAaCWriter AddSoftwareSystemInterface(
+            string softwareSystemName, 
+            string name, 
+            string? label = null, 
+            string? input = null, 
+            string? output = null, 
+            string? protocol = null, 
+            string? path = null)
+        {
+            return this;
+        }
+
+        public virtual IAaCWriter AddContainer(string softwareSystemName, string name, string? containerType = null, string? label = null)
+        {
+            return this;
+        }
+
+        public virtual IAaCWriter AddContainerInterface(
+            string softwareSystemName, 
+            string containerName, 
+            string name,
+            string? label = null,
+            string? input = null, 
+            string? output = null, 
+            string? protocol = null, 
+            string? path = null)
+        {
+            return this;
+        }
+
+        public virtual IAaCWriter AddComponent(string softwareSystemName, string containerName, string name, ComponentType componentType = ComponentType.None)
+        {
+            return this;
+        }
+
+        public virtual IAaCWriter AddComponentInterface(
+            string softwareSystemName,
+            string containerName,
+            string componentName,
+            string name,
+            string? label = null,
+            string? input = null,
+            string? output = null,
+            string? protocol = null,
+            string? path = null)
+        {
+            return this;
+        }
+
         public virtual string? GetComponentInterfaceAlias(string filePathPattern)
         {
-            return null;
+            return string.Empty;
         }
 
         public virtual string GetFileExtension()
         {
-            return "*";
+            return string.Empty;
         }
-
     }
 }

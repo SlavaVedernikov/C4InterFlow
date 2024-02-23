@@ -299,9 +299,9 @@ namespace C4InterFlow.Automation.Writers
             return GetCode(BuildBusinessProcessObject(architectureNamespace, name, label, businessActivities, description));
         }
 
-        public string GetBusinessActivityCode(string name, string actor, string[] uses, string? description = null)
+        public string GetBusinessProcessActivityCode(string label, string actor, Flow[] flows, string? description = null)
         {
-            return GetCode(BuildBusinessActivityObject(name, actor, uses));
+            return GetCode(BuildBusinessProcessActivityObject(label, actor, flows));
         }
     }
 }

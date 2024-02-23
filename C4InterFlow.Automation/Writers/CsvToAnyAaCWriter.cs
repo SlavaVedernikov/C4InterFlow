@@ -1,264 +1,126 @@
-﻿using CsvHelper;
-using CsvHelper.Configuration.Attributes;
-using System.Globalization;
+﻿using C4InterFlow.Structures;
 
 namespace C4InterFlow.Automation.Writers
 {
-    public abstract class CsvToAnyAaCWriter
+    public abstract class CsvToAnyAaCWriter : IAaCWriter
     {
-        protected const string FILE_SOFTWARE_SYSTEMS = "Software Systems";
-        protected const string FILE_SOFTWARE_SYSTEM_INTERFACES = "Software System Interfaces";
-        protected const string FILE_SOFTWARE_SYSTEM_INTERFACE_FLOWS = "Software System Interface Flows";
-        protected const string FILE_CONTAINERS = "Containers";
-        protected const string FILE_CONTAINER_INTERFACES = "Container Interfaces";
-        protected const string FILE_CONTAINER_INTERFACE_FLOWS = "Container Interface Flows";
-        protected const string FILE_ACTORS = "Actors";
-        protected const string FILE_ACTOR_TYPES = "Actor Types";
-        protected const string FILE_BUSINESS_PROCESSES = "Business Processes";
-        protected const string FILE_ACTIVITIES = "Activities";
         protected string? ArchitectureInputPath { get; set; }
         public string ArchitectureNamespace { get; protected set; }
+        public Dictionary<string, CsvDataProvider.SoftwareSystemInterface> SoftwareSystemInterfaceAaCPathToCsvRecordMap { get; private set; } = new Dictionary<string, CsvDataProvider.SoftwareSystemInterface>();
+        public Dictionary<string, CsvDataProvider.ContainerInterface> ContainerInterfaceAaCPathToCsvRecordMap { get; private set; } = new Dictionary<string, CsvDataProvider.ContainerInterface>();
 
-        protected Actor[] ActorRecords { get; set; }
-        protected ActorType[] ActorTypeRecords { get; set; }
-        protected SoftwareSystem[] SoftwareSystemRecords { get; set; }
-        protected SoftwareSystemInterface[] SoftwareSystemInterfaceRecords { get; set; }
-        protected SoftwareSystemInterfaceFlow[] SoftwareSystemInterfaceUsesRecords { get; set; }
-        protected Container[] ContainerRecords { get; set; }
-        protected ContainerInterface[] ContainerInterfaceRecords { get; set; }
-        protected ContainerInterfaceFlow[] ContainerInterfaceUsesRecords { get; set; }
-        protected BusinessProcess[] BusinessProcessRecords { get; set; }
-        protected Activity[] BusinessActivityRecords { get; set; }
-        public Dictionary<string, SoftwareSystemInterface> SoftwareSystemInterfaceClassFileNameMap { get; private set; } = new Dictionary<string, SoftwareSystemInterface>();
-        public Dictionary<string, ContainerInterface> ContainerInterfaceClassFileNameMap { get; private set; } = new Dictionary<string, ContainerInterface>();
-
-        protected void LoadData(string architectureInputPath)
+        public CsvDataProvider DataProvider { get; init; }
+        protected CsvToAnyAaCWriter(string architectureInputPath)
         {
             ArchitectureInputPath = architectureInputPath;
 
-            Console.WriteLine($"Loading data from '{ArchitectureInputPath}'...");
+            Console.WriteLine($"Reading data from '{ArchitectureInputPath}'...");
 
-            using (var reader = new StreamReader(@$"{ArchitectureInputPath}\{FILE_ACTORS}.csv"))
-            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-            {
-                ActorRecords = csv.GetRecords<Actor>().ToArray();
-            }
-
-            using (var reader = new StreamReader(@$"{ArchitectureInputPath}\{FILE_ACTOR_TYPES}.csv"))
-            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-            {
-                ActorTypeRecords = csv.GetRecords<ActorType>().ToArray();
-            }
-
-            using (var reader = new StreamReader(@$"{ArchitectureInputPath}\{FILE_SOFTWARE_SYSTEMS}.csv"))
-            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-            {
-                SoftwareSystemRecords = csv.GetRecords<SoftwareSystem>().ToArray();
-            }
-
-            using (var reader = new StreamReader(@$"{ArchitectureInputPath}\{FILE_SOFTWARE_SYSTEM_INTERFACES}.csv"))
-            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-            {
-                SoftwareSystemInterfaceRecords = csv.GetRecords<SoftwareSystemInterface>().ToArray();
-            }
-
-            using (var reader = new StreamReader(@$"{ArchitectureInputPath}\{FILE_SOFTWARE_SYSTEM_INTERFACE_FLOWS}.csv"))
-            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-            {
-                SoftwareSystemInterfaceUsesRecords = csv.GetRecords<SoftwareSystemInterfaceFlow>().ToArray();
-            }
-
-            using (var reader = new StreamReader(@$"{ArchitectureInputPath}\{FILE_CONTAINERS}.csv"))
-            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-            {
-                ContainerRecords = csv.GetRecords<Container>().ToArray();
-            }
-
-            using (var reader = new StreamReader(@$"{ArchitectureInputPath}\{FILE_CONTAINER_INTERFACES}.csv"))
-            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-            {
-                ContainerInterfaceRecords = csv.GetRecords<ContainerInterface>().ToArray();
-            }
-
-            using (var reader = new StreamReader(@$"{ArchitectureInputPath}\{FILE_CONTAINER_INTERFACE_FLOWS}.csv"))
-            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-            {
-                ContainerInterfaceUsesRecords = csv.GetRecords<ContainerInterfaceFlow>().ToArray();
-            }
-
-            using (var reader = new StreamReader(@$"{ArchitectureInputPath}\{FILE_ACTORS}.csv"))
-            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-            {
-                ActorRecords = csv.GetRecords<Actor>().ToArray();
-            }
-
-            using (var reader = new StreamReader(@$"{ArchitectureInputPath}\{FILE_BUSINESS_PROCESSES}.csv"))
-            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-            {
-                BusinessProcessRecords = csv.GetRecords<BusinessProcess>().ToArray();
-            }
-
-            using (var reader = new StreamReader(@$"{ArchitectureInputPath}\{FILE_ACTIVITIES}.csv"))
-            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-            {
-                BusinessActivityRecords = csv.GetRecords<Activity>().ToArray();
-            }
-        }
-        public record Actor
-        {
-            [Name("Alias")]
-            public string Alias { get; set; }
-            [Name("Name")]
-            public string Name { get; set; }
-            [Name("Type")]
-            public string TypeName { get; set; }
-            public bool TryGetType(CsvToAnyAaCWriter writer, out string? type)
-            {
-                type = writer.ActorTypeRecords.FirstOrDefault(x => x.Name == TypeName)?.Type;
-                return type != null;
-            }
+            DataProvider = new CsvDataProvider(ArchitectureInputPath);
         }
 
-        public record ActorType
+        protected IEnumerable<Structures.Activity> GetBusinessProcessActivities(CsvDataProvider.BusinessProcess businessProcess)
         {
-            [Name("Name")]
-            public string Name { get; set; }
-            [Name("Type")]
-            public string Type { get; set; }
-        }
+            var result = new List<Structures.Activity>();
 
-        public record SoftwareSystem
-        {
-            [Name("Alias")]
-            public string Alias { get; set; }
-            [Name("Name")]
-            public string Name { get; set; }
-            [Name("Is External")]
-            [BooleanTrueValues("Yes", "yes")]
-            [BooleanFalseValues("No", "no", "")]
-            public bool IsExternal { get; set; }
-            public string GetBoundary()
+            if (businessProcess == null) return result;
+
+            foreach (var businessActivity in businessProcess.WithBusinessActivities(DataProvider)
+                .Where(x => !string.IsNullOrEmpty(x.UsesSoftwareSystemInterface) ||
+                    !string.IsNullOrEmpty(x.UsesContainerInterface))
+                .GroupBy(x => new { x.Name, x.Actor })
+                .Select(g => new
+                {
+                    g.Key.Name,
+                    g.Key.Actor,
+                    Uses = g.Select(x => $"{ArchitectureNamespace}.SoftwareSystems.{(string.IsNullOrEmpty(x.UsesContainerInterface) ? x.UsesSoftwareSystemInterface : x.UsesContainerInterface)}").ToArray()
+                }))
             {
-                return IsExternal ? "External" : "Internal";
+                var flow = new Flow($"{ArchitectureNamespace}.Actors.{businessActivity.Actor}");
+
+                foreach(var usesInterface in businessActivity.Uses)
+                {
+                    flow.Use(usesInterface);
+                }
+
+                result.Add(new Structures.Activity(flow, businessActivity.Actor, businessActivity.Name));
             }
 
-            public IEnumerable<SoftwareSystemInterface> WithInterfaces(CsvToAnyAaCWriter writer)
-            {
-                return writer.SoftwareSystemInterfaceRecords.Where(x => !string.IsNullOrEmpty(x.SoftwareSystem.Trim()) &&
-                    x.SoftwareSystem == Alias);
-            }
-
-            public IEnumerable<Container> WithContainers(CsvToAnyAaCWriter writer)
-            {
-                return writer.ContainerRecords.Where(x => !string.IsNullOrEmpty(x.SoftwareSystem.Trim()) &&
-                    x.SoftwareSystem == Alias);
-            }
+            return result;
         }
 
-        public record SoftwareSystemInterface
+        public virtual IAaCWriter AddActor(string name, string type, string? label = null)
         {
-            [Name("Software System")]
-            public string SoftwareSystem { get; set; }
-            [Name("Alias")]
-            public string Alias { get; set; }
-            [Name("Name")]
-            public string Name { get; set; }
-
-            public IEnumerable<SoftwareSystemInterfaceFlow> WithUses(CsvToAnyAaCWriter writer)
-            {
-                return writer.SoftwareSystemInterfaceUsesRecords.Where(x => !string.IsNullOrEmpty(x.SoftwareSystemInterface.Trim()) &&
-                    x.SoftwareSystemInterface == Alias);
-            }
+            return this;
         }
 
-        public record SoftwareSystemInterfaceFlow
+        public virtual IAaCWriter AddBusinessProcess(string name, string? label = null)
         {
-            [Name("Software System Interface")]
-            public string SoftwareSystemInterface { get; set; }
-            [Name("Uses Software System Interface")]
-            public string UsesSoftwareSystemInterface { get; set; }
-            [Name("Uses Container Interface")]
-            public string UsesContainerInterface { get; set; }
-            [Name("Condition")]
-            public string Condition { get; set; }
+            return this;
         }
 
-        public record Container
+        public virtual IAaCWriter AddSoftwareSystem(string name, string? boundary = null, string? label = null)
         {
-            [Name("Software System")]
-            public string SoftwareSystem { get; set; }
-            [Name("Alias")]
-            public string Alias { get; set; }
-            [Name("Name")]
-            public string Name { get; set; }
-            [Name("Type")]
-            public string Type { get; set; }
-
-            public IEnumerable<ContainerInterface> WithInterfaces(CsvToAnyAaCWriter writer)
-            {
-                return writer.ContainerInterfaceRecords.Where(x => x.Container == Alias);
-            }
+            return this;
         }
 
-        public record ContainerInterface
+        public virtual IAaCWriter AddSoftwareSystemInterface(
+            string softwareSystemName,
+            string name,
+            string? label = null,
+            string? input = null,
+            string? output = null,
+            string? protocol = null,
+            string? path = null)
         {
-            [Name("Container")]
-            public string Container { get; set; }
-            [Name("Alias")]
-            public string Alias { get; set; }
-            [Name("Name")]
-            public string Name { get; set; }
-
-            public IEnumerable<ContainerInterfaceFlow> WithUses(CsvToAnyAaCWriter writer)
-            {
-                return writer.ContainerInterfaceUsesRecords.Where(x => x.ContainerInterface == Alias);
-            }
+            return this;
         }
 
-        public record ContainerInterfaceFlow
+        public virtual IAaCWriter AddContainer(string softwareSystemName, string name, string? containerType = null, string? label = null)
         {
-            [Name("Container Interface")]
-            public string ContainerInterface { get; set; }
-            [Name("Uses Container Interface")]
-            public string UsesContainerInterface { get; set; }
-            [Name("Uses Software System Interface")]
-            public string UsesSoftwareSystemInterface { get; set; }
-            [Name("Condition")]
-            public string Condition { get; set; }
+            return this;
         }
 
-        public record BusinessProcess
+        public virtual IAaCWriter AddContainerInterface(
+            string softwareSystemName,
+            string containerName,
+            string name,
+            string? label = null,
+            string? input = null,
+            string? output = null,
+            string? protocol = null,
+            string? path = null)
         {
-            [Name("Alias")]
-            public string Alias { get; set; }
-            [Name("Name")]
-            public string Name { get; set; }
-
-            public IEnumerable<Activity> WithBusinessActivities(CsvToAnyAaCWriter writer)
-            {
-                return writer.BusinessActivityRecords.Where(x => !string.IsNullOrEmpty(x.BusinessProcess.Trim()) &&
-                    x.BusinessProcess == Alias);
-            }
+            return this;
         }
 
-        public record Activity
+        public virtual IAaCWriter AddComponent(string softwareSystemName, string containerName, string name, ComponentType componentType = ComponentType.None)
         {
-            [Name("Business Process")]
-            public string BusinessProcess { get; set; }
+            return this;
+        }
 
-            [Name("Name")]
-            public string Name { get; set; }
+        public virtual IAaCWriter AddComponentInterface(
+            string softwareSystemName,
+            string containerName,
+            string componentName,
+            string name,
+            string? label = null,
+            string? input = null,
+            string? output = null,
+            string? protocol = null,
+            string? path = null)
+        {
+            return this;
+        }
 
-            [Name("Actor")]
-            public string Actor { get; set; }
+        public virtual string? GetComponentInterfaceAlias(string filePathPattern)
+        {
+            return string.Empty;
+        }
 
-            [Name("Uses Container Interface")]
-            public string UsesContainerInterface { get; set; }
-
-            [Name("Uses Software System Interface")]
-            public string UsesSoftwareSystemInterface { get; set; }
-
-
+        public virtual string GetFileExtension()
+        {
+            return string.Empty;
         }
     }
 }

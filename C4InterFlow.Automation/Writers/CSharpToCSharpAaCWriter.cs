@@ -9,14 +9,15 @@ using System.Text.RegularExpressions;
 
 namespace C4InterFlow.Automation.Writers
 {
-    public class CSharpToNetAaCWriter : CSharpToAnyAaCWriter
+    public class CSharpToCSharpAaCWriter : CSharpToAnyAaCWriter
     {
-        public CSharpToNetAaCWriter(string softwareSystemSolutionPath, string architectureRootNamespace) : base(softwareSystemSolutionPath, architectureRootNamespace)
+        private string FileExtension => "cs";
+        public CSharpToCSharpAaCWriter(string softwareSystemSolutionPath, string architectureRootNamespace) : base(softwareSystemSolutionPath, architectureRootNamespace)
         {
         }
 
         public MSBuildWorkspace? ArchitectureWorkspace { get; private set; }
-        public CSharpToNetAaCWriter WithArchitectureProject(string architectureProjectPath)
+        public CSharpToCSharpAaCWriter WithArchitectureProject(string architectureProjectPath)
         {
             ArchitectureWorkspace = MSBuildWorkspace.Create(new Dictionary<string, string>()
                 {
@@ -26,7 +27,7 @@ namespace C4InterFlow.Automation.Writers
             ArchitectureWorkspace.OpenProjectAsync(architectureProjectPath).Wait();
             return this;
         }
-        public override CSharpToNetAaCWriter AddSoftwareSystem(string softwareSystemName)
+        public override CSharpToCSharpAaCWriter AddSoftwareSystem(string name, string? boundary = null, string? label = null)
         {
             var project = ArchitectureWorkspace.CurrentSolution.Projects.FirstOrDefault(x => x.Name == ArchitectureNamespace);
 
@@ -36,7 +37,7 @@ namespace C4InterFlow.Automation.Writers
                 return this;
             }
 
-            var documentName = $"{softwareSystemName}.cs";
+            var documentName = $"{name}.{FileExtension}";
 
             var projectDirectory = project.FilePath.Replace($"{project.Name}.csproj", string.Empty);
             var fileDirectory = Path.Combine(projectDirectory, CSharpToAnyCodeGenerator<CSharpCodeWriter>.GetSoftwareSystemsDirectory());
@@ -52,8 +53,8 @@ namespace C4InterFlow.Automation.Writers
 
             var sourceCode = CSharpToAnyCodeGenerator<CSharpCodeWriter>.GetSoftwareSystemCode(
                 ArchitectureNamespace,
-                softwareSystemName,
-                CSharpCodeWriter.GetLabel(softwareSystemName));
+                name,
+                CSharpCodeWriter.GetLabel(name));
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
             var root = tree.GetRoot();
@@ -68,7 +69,7 @@ namespace C4InterFlow.Automation.Writers
             return this;
         }
 
-        public override CSharpToNetAaCWriter AddContainer(string softwareSystemName, string containerName)
+        public override CSharpToCSharpAaCWriter AddContainer(string softwareSystemName, string name, string? containerType = null, string? label = null)
         {
             var project = ArchitectureWorkspace.CurrentSolution.Projects.FirstOrDefault(x => x.Name == ArchitectureNamespace);
 
@@ -78,7 +79,7 @@ namespace C4InterFlow.Automation.Writers
                 return this;
             }
 
-            var documentName = $"{containerName}.cs";
+            var documentName = $"{name}.{FileExtension}";
 
             var projectDirectory = project.FilePath.Replace($"{project.Name}.csproj", string.Empty);
             var fileDirectory = Path.Combine(projectDirectory, CSharpToAnyCodeGenerator<CSharpCodeWriter>.GetContainersDirectory(softwareSystemName));
@@ -95,8 +96,8 @@ namespace C4InterFlow.Automation.Writers
             var sourceCode = CSharpToAnyCodeGenerator<CSharpCodeWriter>.GetContainerCode(
                 ArchitectureNamespace,
                 softwareSystemName,
-                containerName,
-                CSharpCodeWriter.GetLabel(containerName));
+                name,
+                CSharpCodeWriter.GetLabel(name));
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
             var root = tree.GetRoot();
@@ -111,7 +112,7 @@ namespace C4InterFlow.Automation.Writers
             return this;
         }
 
-        public override CSharpToNetAaCWriter AddComponent(string softwareSystemName, string containerName, string componentName, ComponentType componentType = ComponentType.None)
+        public override CSharpToCSharpAaCWriter AddComponent(string softwareSystemName, string containerName, string name, ComponentType componentType = ComponentType.None)
         {
             var project = ArchitectureWorkspace.CurrentSolution.Projects.FirstOrDefault(x => x.Name == ArchitectureNamespace);
 
@@ -121,7 +122,7 @@ namespace C4InterFlow.Automation.Writers
                 return this;
             }
 
-            var documentName = $"{componentName}.cs";
+            var documentName = $"{name}.{FileExtension}";
 
             var projectDirectory = project.FilePath.Replace($"{project.Name}.csproj", string.Empty);
             var fileDirectory = Path.Combine(projectDirectory, CSharpToAnyCodeGenerator<CSharpCodeWriter>.GetComponentsDirectory(softwareSystemName, containerName));
@@ -139,8 +140,8 @@ namespace C4InterFlow.Automation.Writers
                 ArchitectureNamespace,
                 softwareSystemName,
                 containerName,
-                componentName,
-                CSharpCodeWriter.GetLabel(componentName),
+                name,
+                CSharpCodeWriter.GetLabel(name),
                 componentType.ToString());
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
@@ -157,11 +158,12 @@ namespace C4InterFlow.Automation.Writers
 
         }
 
-        public override CSharpToNetAaCWriter AddComponentInterface(
+        public override CSharpToCSharpAaCWriter AddComponentInterface(
             string softwareSystemName,
             string containerName,
             string componentName,
-            string interfaceName,
+            string name,
+            string? label = null,
             string? input = null,
             string? output = null,
             string? protocol = null,
@@ -175,7 +177,7 @@ namespace C4InterFlow.Automation.Writers
                 return this;
             }
 
-            var documentName = $"{interfaceName}.cs";
+            var documentName = $"{name}.{FileExtension}";
 
             var projectDirectory = architectureProject.FilePath.Replace($"{architectureProject.Name}.csproj", string.Empty);
             var fileDirectory = Path.Combine(projectDirectory, CSharpToAnyCodeGenerator<CSharpCodeWriter>.GetComponentInterfacesDirectory(softwareSystemName, containerName, componentName));
@@ -194,8 +196,8 @@ namespace C4InterFlow.Automation.Writers
                 softwareSystemName: softwareSystemName,
                 containerName: containerName,
                 componentName: componentName,
-                name: interfaceName,
-                label: CSharpCodeWriter.GetLabel(interfaceName),
+                name: name,
+                label: label ?? CSharpCodeWriter.GetLabel(name),
                 protocol: protocol,
                 path: path,
                 input: input,
@@ -241,7 +243,7 @@ namespace C4InterFlow.Automation.Writers
 
                 var classes = root.DescendantNodes().OfType<ClassDeclarationSyntax>()
                     .Where(c => c.BaseList != null &&
-                        syntaxTree.FilePath.EndsWith($"{c.Identifier.ValueText}.cs") &&
+                        syntaxTree.FilePath.EndsWith($"{c.Identifier.ValueText}.{FileExtension}") &&
                         c.BaseList.Types.Any(t => t.Type.ToString() == interfaceInstanceType.Name));
 
                 result.AddRange(classes);
@@ -267,7 +269,7 @@ namespace C4InterFlow.Automation.Writers
 
                 var classes = root.DescendantNodes().OfType<ClassDeclarationSyntax>()
                     .Where(c => c.BaseList != null &&
-                        syntaxTree.FilePath.EndsWith($"{c.Identifier.ValueText}.cs") &&
+                        syntaxTree.FilePath.EndsWith($"{c.Identifier.ValueText}.{FileExtension}") &&
                         c.BaseList.Types.Any(t => t.Type.ToString() == interfaceInstanceType.Name));
 
                 return classes.FirstOrDefault();
@@ -286,7 +288,7 @@ namespace C4InterFlow.Automation.Writers
 
         public override string GetFileExtension()
         {
-            return "cs";
+            return FileExtension;
         }
     }
 }

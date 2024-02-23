@@ -37,6 +37,12 @@ public class ExecuteAaCStrategyCommand : Command
             Console.WriteLine($"'{COMMAND_NAME}' command is executing...");
 
             Type strategyType = Type.GetType(architectureAsCodeWriterStrategyType);
+
+            if (strategyType == null)
+            {
+                throw new ArgumentException($"Cannot find type '{architectureAsCodeWriterStrategyType}'.");
+            }
+
             object strategyTypeInstance = Activator.CreateInstance(strategyType);
             var strategyInstance = strategyTypeInstance as AaCWriterStrategy;
 

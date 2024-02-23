@@ -12,15 +12,16 @@ namespace C4InterFlow.Automation.Writers
 {
     public class CSharpToYamlAaCWriter : CSharpToAnyAaCWriter
     {
+        private string FileExtension => "yaml";
         public string? ArchitectureOutputPath { get; private set; }
         public CSharpToYamlAaCWriter(string softwareSystemSolutionPath, string architectureRootNamespace, string architectureOutputPath) : base(softwareSystemSolutionPath, architectureRootNamespace)
         {
             ArchitectureOutputPath = architectureOutputPath;
         }
 
-        public override CSharpToYamlAaCWriter AddSoftwareSystem(string softwareSystemName)
+        public override CSharpToYamlAaCWriter AddSoftwareSystem(string name, string? boundary = null, string? label = null)
         {
-            var documentName = $"{softwareSystemName}.yaml";
+            var documentName = $"{name}.{FileExtension}";
             var fileDirectory = Path.Combine(ArchitectureOutputPath, CSharpToAnyCodeGenerator<YamlCodeWriter>.GetSoftwareSystemsDirectory());
             var filePath = Path.Combine(fileDirectory, documentName);
 
@@ -34,8 +35,8 @@ namespace C4InterFlow.Automation.Writers
 
             var sourceCode = CSharpToAnyCodeGenerator<YamlCodeWriter>.GetSoftwareSystemCode(
                 ArchitectureNamespace,
-                softwareSystemName,
-                YamlCodeWriter.GetLabel(softwareSystemName));
+                name,
+                YamlCodeWriter.GetLabel(name));
 
 
             if (!File.Exists(filePath))
@@ -46,9 +47,9 @@ namespace C4InterFlow.Automation.Writers
             return this;
         }
 
-        public override CSharpToYamlAaCWriter AddContainer(string softwareSystemName, string containerName)
+        public override CSharpToYamlAaCWriter AddContainer(string softwareSystemName, string name, string? containerType = null, string? label = null)
         {
-            var documentName = $"{containerName}.yaml";
+            var documentName = $"{name}.{FileExtension}";
 
             var fileDirectory = Path.Combine(ArchitectureOutputPath, CSharpToAnyCodeGenerator<YamlCodeWriter>.GetContainersDirectory(softwareSystemName));
             var filePath = Path.Combine(fileDirectory, documentName);
@@ -64,8 +65,8 @@ namespace C4InterFlow.Automation.Writers
             var sourceCode = CSharpToAnyCodeGenerator<YamlCodeWriter>.GetContainerCode(
                 ArchitectureNamespace,
                 softwareSystemName,
-                containerName,
-                YamlCodeWriter.GetLabel(containerName));
+                name,
+                YamlCodeWriter.GetLabel(name));
 
             if (!File.Exists(filePath))
             {
@@ -75,9 +76,9 @@ namespace C4InterFlow.Automation.Writers
             return this;
         }
 
-        public override CSharpToYamlAaCWriter AddComponent(string softwareSystemName, string containerName, string componentName, ComponentType componentType = ComponentType.None)
+        public override CSharpToYamlAaCWriter AddComponent(string softwareSystemName, string containerName, string name, ComponentType componentType = ComponentType.None)
         {
-            var documentName = $"{componentName}.yaml";
+            var documentName = $"{name}.{FileExtension}";
 
             var fileDirectory = Path.Combine(ArchitectureOutputPath, CSharpToAnyCodeGenerator<YamlCodeWriter>.GetComponentsDirectory(softwareSystemName, containerName));
             var filePath = Path.Combine(fileDirectory, documentName);
@@ -94,8 +95,8 @@ namespace C4InterFlow.Automation.Writers
                 ArchitectureNamespace,
                 softwareSystemName,
                 containerName,
-                componentName,
-                YamlCodeWriter.GetLabel(componentName),
+                name,
+                YamlCodeWriter.GetLabel(name),
                 componentType.ToString());
 
             if (!File.Exists(filePath))
@@ -111,13 +112,14 @@ namespace C4InterFlow.Automation.Writers
             string softwareSystemName,
             string containerName,
             string componentName,
-            string interfaceName,
+            string name,
+            string? label = null,
             string? input = null,
             string? output = null,
             string? protocol = null,
             string? path = null)
         {
-            var documentName = $"{interfaceName}.yaml";
+            var documentName = $"{name}.{FileExtension}";
 
             var fileDirectory = Path.Combine(ArchitectureOutputPath, CSharpToAnyCodeGenerator<YamlCodeWriter>.GetComponentInterfacesDirectory(softwareSystemName, containerName, componentName));
             var filePath = Path.Combine(fileDirectory, documentName);
@@ -135,8 +137,8 @@ namespace C4InterFlow.Automation.Writers
                 softwareSystemName: softwareSystemName,
                 containerName: containerName,
                 componentName: componentName,
-                name: interfaceName,
-                label: YamlCodeWriter.GetLabel(interfaceName),
+                name: name,
+                label: label ?? YamlCodeWriter.GetLabel(name),
                 protocol: protocol,
                 path: path,
                 input: input,
@@ -155,9 +157,9 @@ namespace C4InterFlow.Automation.Writers
             IEnumerable<CSharpToAnyMethodTriggerMapper>? methodTriggerMappers = null,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
-            if (!filePath.EndsWith(".yaml")) return;
+            if (!filePath.EndsWith($".{FileExtension}")) return;
 
-            var systemMethodDeclaration = ComponentMethodInterfaceObjectMap.GetValueOrDefault(filePath);
+            var systemMethodDeclaration = ComponentInterfaceAaCFileToCSharpMethodDeclarationMap.GetValueOrDefault(filePath);
             if (systemMethodDeclaration == null)
             {
                 return;
@@ -188,8 +190,8 @@ namespace C4InterFlow.Automation.Writers
 
         public List<string> WithComponentInterfaceFiles()
         {
-            string pattern = @"^.*\\SoftwareSystems\\.*\\Containers\\.*\\Components\\.*\\Interfaces\\.*\.yaml$";
-            List<string> result = Directory.GetFiles(ArchitectureOutputPath, "*.yaml", SearchOption.AllDirectories)
+            string pattern = @$"^.*\\SoftwareSystems\\.*\\Containers\\.*\\Components\\.*\\Interfaces\\.*\.yaml$";
+            List<string> result = Directory.GetFiles(ArchitectureOutputPath, $"*.{FileExtension}", SearchOption.AllDirectories)
                 .Where(x => Regex.IsMatch(x, pattern)).ToList();
 
             return result;
@@ -197,7 +199,7 @@ namespace C4InterFlow.Automation.Writers
 
         private JObject GetJsonObjectFromYamlFile(string filePath)
         {
-            if (!filePath.EndsWith(".yaml")) return new JObject();
+            if (!filePath.EndsWith($".{FileExtension}")) return new JObject();
 
             var yaml = File.ReadAllText(filePath);
 
@@ -222,7 +224,7 @@ namespace C4InterFlow.Automation.Writers
         {
             var result = string.Empty;
 
-            var filePath = Directory.GetFiles(ArchitectureOutputPath, "*.yaml", SearchOption.AllDirectories)
+            var filePath = Directory.GetFiles(ArchitectureOutputPath, $"*.{FileExtension}", SearchOption.AllDirectories)
                 .FirstOrDefault(x => Regex.IsMatch(x, filePathPattern));
 
             if (!string.IsNullOrEmpty(filePath))
@@ -247,7 +249,7 @@ namespace C4InterFlow.Automation.Writers
 
         public override string GetFileExtension()
         {
-            return "yaml";
+            return FileExtension;
         }
 
     }

@@ -10,6 +10,8 @@ namespace C4InterFlow.Automation.Writers
 {
     public class AnyCodeWriter
     {
+        internal static readonly string SoftwareSystemInterfacePattern = @"^(?!.*\.(Containers|Components)\.).*\.Interfaces\.\w+$";
+        internal static readonly string  ContainerInterfacePattern = @"^.*\.Containers\.\w+\.Interfaces\.\w+$";
         internal static string GetSoftwareSystemAlias(string architectureNamespace, string softwareSystemName)
         {
             if (string.IsNullOrEmpty(architectureNamespace) || string.IsNullOrEmpty(softwareSystemName)) return string.Empty;
