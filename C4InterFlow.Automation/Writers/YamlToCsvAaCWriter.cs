@@ -50,9 +50,9 @@ namespace C4InterFlow.Automation.Writers
                     Name = label ?? string.Empty,
                     Actor = actor,
                     UsesContainerInterface = (flow.Expression != null && Regex.IsMatch(flow.Expression, AnyCodeWriter.ContainerInterfacePattern) ?
-                    flow.Expression.Replace($"{ArchitectureNamespace}.", string.Empty) : string.Empty) ?? string.Empty,
+                    flow.Expression.Replace($"{ArchitectureNamespace}.SoftwareSystems.", string.Empty) : string.Empty) ?? string.Empty,
                     UsesSoftwareSystemInterface = (flow.Expression != null && Regex.IsMatch(flow.Expression, AnyCodeWriter.SoftwareSystemInterfacePattern) ?
-                    flow.Expression.Replace($"{ArchitectureNamespace}.", string.Empty) : string.Empty) ?? string.Empty
+                    flow.Expression.Replace($"{ArchitectureNamespace}.SoftwareSystems.", string.Empty) : string.Empty) ?? string.Empty
                 });
             }
                 
@@ -94,11 +94,11 @@ namespace C4InterFlow.Automation.Writers
             {
                 DataProvider.SoftwareSystemInterfaceFlowRecords.Add(new CsvDataProvider.SoftwareSystemInterfaceFlow()
                 {
-                    SoftwareSystemInterface = interfaceInstance.Alias.Replace($"{ArchitectureNamespace}.", string.Empty),
+                    SoftwareSystemInterface = interfaceInstance.Alias.Replace($"{ArchitectureNamespace}.SoftwareSystems.", string.Empty),
                     UsesContainerInterface = (flow.Expression != null && Regex.IsMatch(flow.Expression, AnyCodeWriter.ContainerInterfacePattern) ? 
-                    flow.Expression.Replace($"{ArchitectureNamespace}.", string.Empty) : string.Empty) ?? string.Empty,
+                    flow.Expression.Replace($"{ArchitectureNamespace}.SoftwareSystems.", string.Empty) : string.Empty) ?? string.Empty,
                     UsesSoftwareSystemInterface = (flow.Expression != null && Regex.IsMatch(flow.Expression, AnyCodeWriter.SoftwareSystemInterfacePattern) ? 
-                    flow.Expression.Replace($"{ArchitectureNamespace}.", string.Empty) : string.Empty) ?? string.Empty
+                    flow.Expression.Replace($"{ArchitectureNamespace}.SoftwareSystems.", string.Empty) : string.Empty) ?? string.Empty
                 });
             }
             return this;
@@ -143,11 +143,11 @@ namespace C4InterFlow.Automation.Writers
             {
                 DataProvider.ContainerInterfaceFlowRecords.Add(new CsvDataProvider.ContainerInterfaceFlow()
                 {
-                    ContainerInterface = interfaceInstance.Alias.Replace($"{ArchitectureNamespace}.", string.Empty),
+                    ContainerInterface = interfaceInstance.Alias.Replace($"{ArchitectureNamespace}.SoftwareSystems.", string.Empty),
                     UsesContainerInterface = (flow.Expression != null && Regex.IsMatch(flow.Expression, AnyCodeWriter.ContainerInterfacePattern) ? 
-                    flow.Expression?.Replace($"{ArchitectureNamespace}.", string.Empty) : string.Empty) ?? string.Empty,
+                    flow.Expression?.Replace($"{ArchitectureNamespace}.SoftwareSystems.", string.Empty) : string.Empty) ?? string.Empty,
                     UsesSoftwareSystemInterface = (flow.Expression != null && Regex.IsMatch(flow.Expression, AnyCodeWriter.SoftwareSystemInterfacePattern) ? 
-                    flow.Expression.Replace($"{ArchitectureNamespace}.", string.Empty) : string.Empty) ?? string.Empty,
+                    flow.Expression.Replace($"{ArchitectureNamespace}.SoftwareSystems.", string.Empty) : string.Empty) ?? string.Empty,
                 });
             }
             return this;
