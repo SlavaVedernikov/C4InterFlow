@@ -1,0 +1,6 @@
+Software System,Alias,Name,Type
+InternetBanking,InternetBanking.Containers.WebApplication,Web Application,WebApplication
+InternetBanking,InternetBanking.Containers.SinglePageApp,Single-Page App,Spa
+InternetBanking,InternetBanking.Containers.MobileApp,Mobile App,Mobile
+InternetBanking,InternetBanking.Containers.APIApplication,API Application,Spa
+InternetBanking,InternetBanking.Containers.Database,Database,Database

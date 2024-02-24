@@ -1,0 +1,9 @@
+Software System,Alias,Name
+EMailSystem,EMailSystem.Interfaces.SendNewAccountCreatedNotificationEMail,Send New Account Created Notification E-Mail
+EMailSystem,EMailSystem.Interfaces.ReceiveNewAccountCreatedNotificationEMail,Receive New Account Created Notification E-Mail
+EMailSystem,EMailSystem.Interfaces.SendPasswordChangedNotificationEMail,Send Password Changed Notification E-Mail
+EMailSystem,EMailSystem.Interfaces.ReceivePasswordChangedNotificationEMail,Receive Password Changed Notification E-Mail
+MainframeBankingSystem,MainframeBankingSystem.Interfaces.GetCustomer,Get Customer
+MainframeBankingSystem,MainframeBankingSystem.Interfaces.GetCustomerAccounts,Get Customer Accounts
+MainframeBankingSystem,MainframeBankingSystem.Interfaces.GetAccountTransactions,Get Account Transactions
+MainframeBankingSystem,MainframeBankingSystem.Interfaces.CreateAccount,Create Account

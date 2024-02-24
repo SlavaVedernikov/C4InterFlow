@@ -2,6 +2,11 @@
 using Newtonsoft.Json.Linq;
 using C4InterFlow.Structures;
 using C4InterFlow.Automation.Readers;
+using System.Text;
+using YamlDotNet.RepresentationModel;
+using YamlDotNet.Serialization;
+using Newtonsoft.Json;
+using System.Dynamic;
 
 namespace C4InterFlow.Automation.Writers
 {
@@ -35,6 +40,11 @@ namespace C4InterFlow.Automation.Writers
             RootJObject = GetJsonObjectFromFiles(architectureInputPath);
         }
 
+        public YamlToAnyAaCWriter WithArchitectureRootNamespace(string architectureRootNamespace)
+        {
+            ArchitectureNamespace = architectureRootNamespace.Trim();
+            return this;
+        }
         public IEnumerable<Structure> WithActors()
         {
             return RootJObject?.SelectTokens($"{ArchitectureNamespace}.Actors.*")
@@ -43,7 +53,7 @@ namespace C4InterFlow.Automation.Writers
 
         public IEnumerable<BusinessProcess> WithBusinessProcesses()
         {
-            return RootJObject?.SelectTokens($"{ArchitectureNamespace}.Actors.*")
+            return RootJObject?.SelectTokens($"{ArchitectureNamespace}.BusinessProcesses.*")
                 .Select(x => ElementsResolver.GetInstance<BusinessProcess>(x.Path)).Where(x => x != null)!;
         }
 
@@ -77,57 +87,75 @@ namespace C4InterFlow.Automation.Writers
 
         private JObject GetJsonObjectFromFiles(string path)
         {
-            JObject rootNode = null;
+            YamlMappingNode rootNode = null;
 
+            string[] yamlFiles = Directory.GetFiles(path, "*.yaml", SearchOption.AllDirectories);
 
-            string[] jsonFiles = Directory.GetFiles(path, "*.json", SearchOption.AllDirectories);
-
-            foreach (string jsonFile in jsonFiles)
+            foreach (string yamlFile in yamlFiles)
             {
-                using (StreamReader reader = new StreamReader(jsonFile))
+                using (StreamReader reader = new StreamReader(yamlFile))
                 {
-                    var json = reader.ReadToEnd();
-                    var jsonObject = JObject.Parse(json);
+                    var yamlStream = new YamlStream();
+                    yamlStream.Load(reader);
 
                     if (rootNode == null)
                     {
-                        rootNode = jsonObject;
+                        rootNode = (YamlMappingNode)yamlStream.Documents[0].RootNode;
                     }
                     else
                     {
-                        MergeNodes(rootNode, jsonObject);
+                        MergeNodes(rootNode, (YamlMappingNode)yamlStream.Documents[0].RootNode);
                     }
                 }
             }
 
+            var document = new YamlDocument(rootNode);
 
-            return rootNode;
+            return GetJObject(document);
         }
 
-        private void MergeNodes(JObject target, JObject source)
-        {
-            foreach (var sourceProperty in source.Properties())
-            {
-                JProperty targetProperty = target.Property(sourceProperty.Name);
 
-                if (targetProperty == null)
+        private JObject GetJObject(YamlDocument yamlDocument)
+        {
+            var yamlStream = new YamlStream(yamlDocument);
+            var stringBuilder = new StringBuilder();
+
+            using (var stringWriter = new StringWriter(stringBuilder))
+            {
+                // Pass 'false' to avoid getting random strings in the output
+                yamlStream.Save(stringWriter, false);
+            }
+
+            var deserializer = new DeserializerBuilder().Build();
+            var yamlObject = deserializer.Deserialize(new StringReader(stringBuilder.ToString()));
+
+            var serializer = new SerializerBuilder().JsonCompatible().Build();
+            string jsonString = serializer.Serialize(yamlObject);
+
+            return JObject.Parse(jsonString);
+        }
+
+        private void MergeNodes(YamlMappingNode target, YamlMappingNode source)
+        {
+            foreach (var sourceEntry in source.Children)
+            {
+                if (!target.Children.ContainsKey(sourceEntry.Key))
                 {
-                    target.Add(sourceProperty);
+                    target.Children.Add(sourceEntry.Key, sourceEntry.Value);
                 }
                 else
                 {
-                    if (sourceProperty.Value is JObject sourceValueObject && targetProperty.Value is JObject targetValueObject)
+                    if (sourceEntry.Value is YamlMappingNode sourceValueMapping && target.Children[sourceEntry.Key] is YamlMappingNode targetValueMapping)
                     {
-                        MergeNodes(targetValueObject, sourceValueObject);
+                        MergeNodes(targetValueMapping, sourceValueMapping);
                     }
                     else
                     {
-                        targetProperty.Value = sourceProperty.Value;
+                        target.Children[sourceEntry.Key] = sourceEntry.Value;
                     }
                 }
             }
         }
-
 
         public virtual IAaCWriter AddActor(string name, string type, string? label = null)
         {

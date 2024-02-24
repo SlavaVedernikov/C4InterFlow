@@ -16,7 +16,7 @@ namespace C4InterFlow.Automation.Writers
         private CsvDataProvider DataProvider { get; init; }
         public YamlToCsvAaCWriter(string architectureInputPath, string architectureOutputPath) : base(architectureInputPath)
         {
-            DataProvider = new CsvDataProvider(architectureOutputPath);
+            DataProvider = new CsvDataProvider(architectureOutputPath, CsvDataProvider.Mode.Write);
         }
 
         public override IAaCWriter AddActor(string name, string type, string? label = null)
@@ -59,7 +59,7 @@ namespace C4InterFlow.Automation.Writers
             return this;
         }
 
-        public virtual IAaCWriter AddSoftwareSystem(string name, string? boundary = null, string? label = null)
+        public override IAaCWriter AddSoftwareSystem(string name, string? boundary = null, string? label = null)
         {
             DataProvider.SoftwareSystemRecords.Add(new CsvDataProvider.SoftwareSystem()
             {
@@ -82,7 +82,7 @@ namespace C4InterFlow.Automation.Writers
             DataProvider.SoftwareSystemInterfaceRecords.Add(new CsvDataProvider.SoftwareSystemInterface()
             {
                 SoftwareSystem = softwareSystemName,
-                Alias = name,
+                Alias = $"{softwareSystemName}.Interfaces.{name}",
                 Name = label ?? string.Empty,
             });
             return this;
@@ -156,6 +156,11 @@ namespace C4InterFlow.Automation.Writers
         public override string GetFileExtension()
         {
             return FileExtension;
+        }
+
+        public void WriteArchitecture()
+        {
+            DataProvider.WriteData();
         }
     }
 }

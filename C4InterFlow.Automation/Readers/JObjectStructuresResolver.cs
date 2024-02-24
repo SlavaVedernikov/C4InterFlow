@@ -69,7 +69,7 @@ namespace C4InterFlow.Automation.Readers
 
                     if (activities != null)
                     {
-                        result = new BusinessProcess(activities, label)
+                        result = new BusinessProcess(activities, alias, label)
                         { 
                             Description = description
                         } as T;

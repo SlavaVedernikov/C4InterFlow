@@ -10,7 +10,9 @@ namespace C4InterFlow.Automation.Writers
             var architectureRootNamespaceSegments = ArchitectureRootNamespace.Split('.');
             var writer = new YamlToCsvAaCWriter(ArchitectureInputPath, ArchitectureOutputPath);
 
-            writer.WithSoftwareSystems().ToList().ForEach(s =>
+            writer
+                .WithArchitectureRootNamespace(ArchitectureRootNamespace)
+                .WithSoftwareSystems().ToList().ForEach(s =>
             {
                 var softwareSystemName = s.Alias.Split('.').Last();
                 writer
@@ -25,7 +27,7 @@ namespace C4InterFlow.Automation.Writers
                 writer.WithContainers(s).ToList().ForEach(c =>
                 {
                     var containerName = c.Alias.Split('.').Last();
-                    writer.AddContainer(softwareSystemName, containerName, Enum.GetName(typeof(ContainerType), c.ContainerType));
+                    writer.AddContainer(softwareSystemName, containerName, Enum.GetName(typeof(ContainerType), c.ContainerType), c.Label);
 
                     writer.WithInterfaces(c).ToList().ForEach(i =>
                     {
@@ -54,6 +56,8 @@ namespace C4InterFlow.Automation.Writers
                         activity.Label);
                 }
             });
+
+            writer.WriteArchitecture();
         }
     }
 }

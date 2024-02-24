@@ -129,12 +129,6 @@ namespace C4InterFlow.Automation
                 csv.WriteRecords(ActorRecords);
             }
 
-            using (var writer = new StreamWriter(@$"{DataPath}\{FILE_ACTOR_TYPES}.csv"))
-            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
-            {
-                csv.WriteRecords(ActorTypeRecords);
-            }
-
             using (var writer = new StreamWriter(@$"{DataPath}\{FILE_SOFTWARE_SYSTEMS}.csv"))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
