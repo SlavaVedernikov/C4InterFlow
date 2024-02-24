@@ -1,2 +1,2 @@
-Alias,Name,Type
-Customer,Customer,Person
+Name,Type,Alias
+Customer,Person,Customer

@@ -177,39 +177,23 @@ namespace C4InterFlow.Automation
                 csv.WriteRecords(ActivityRecords);
             }
         }
-        public record Actor
-        {
-            [Name("Alias")]
-            public string Alias { get; set; }
-            [Name("Name")]
-            public string Name { get; set; }
-            [Name("Type")]
-            public string TypeName { get; set; }
-            public bool TryGetType(CsvDataProvider dataProvider, out string? type)
-            {
-                type = dataProvider.ActorTypeRecords.FirstOrDefault(x => x.Name == TypeName)?.Type;
-                return type != null;
-            }
-        }
-
-        public record ActorType
-        {
-            [Name("Name")]
-            public string Name { get; set; }
-            [Name("Type")]
-            public string Type { get; set; }
-        }
 
         public record SoftwareSystem
         {
-            [Name("Alias")]
-            public string Alias { get; set; }
             [Name("Name")]
+            [Index(1)]
             public string Name { get; set; }
+
             [Name("Is External")]
+            [Index(2)]
             [BooleanTrueValues("Yes", "yes")]
             [BooleanFalseValues("No", "no", "")]
             public bool IsExternal { get; set; }
+
+            [Name("Alias")]
+            [Index(3)]
+            public string Alias { get; set; }
+
             public string GetBoundary()
             {
                 return IsExternal ? "External" : "Internal";
@@ -231,11 +215,16 @@ namespace C4InterFlow.Automation
         public record SoftwareSystemInterface
         {
             [Name("Software System")]
+            [Index(1)]
             public string SoftwareSystem { get; set; }
-            [Name("Alias")]
-            public string Alias { get; set; }
+
             [Name("Name")]
+            [Index(2)]
             public string Name { get; set; }
+
+            [Name("Alias")]
+            [Index(3)]
+            public string Alias { get; set; }
 
             public IEnumerable<SoftwareSystemInterfaceFlow> WithUses(CsvDataProvider dataProvider)
             {
@@ -247,25 +236,39 @@ namespace C4InterFlow.Automation
         public record SoftwareSystemInterfaceFlow
         {
             [Name("Software System Interface")]
+            [Index(1)]
             public string SoftwareSystemInterface { get; set; }
+
             [Name("Uses Software System Interface")]
+            [Index(2)]
             public string UsesSoftwareSystemInterface { get; set; }
+
             [Name("Uses Container Interface")]
+            [Index(3)]
             public string UsesContainerInterface { get; set; }
+
             [Name("Condition")]
+            [Index(4)]
             public string Condition { get; set; }
         }
 
         public record Container
         {
             [Name("Software System")]
+            [Index(1)]
             public string SoftwareSystem { get; set; }
-            [Name("Alias")]
-            public string Alias { get; set; }
+
             [Name("Name")]
+            [Index(2)]
             public string Name { get; set; }
+
             [Name("Type")]
+            [Index(3)]
             public string Type { get; set; }
+
+            [Name("Alias")]
+            [Index(4)]
+            public string Alias { get; set; }
 
             public IEnumerable<ContainerInterface> WithInterfaces(CsvDataProvider dataProvider)
             {
@@ -276,11 +279,17 @@ namespace C4InterFlow.Automation
         public record ContainerInterface
         {
             [Name("Container")]
+            [Index(1)]
             public string Container { get; set; }
-            [Name("Alias")]
-            public string Alias { get; set; }
+
             [Name("Name")]
+            [Index(2)]
             public string Name { get; set; }
+
+            [Name("Alias")]
+            [Index(3)]
+            public string Alias { get; set; }
+            
 
             public IEnumerable<ContainerInterfaceFlow> WithUses(CsvDataProvider dataProvider)
             {
@@ -291,22 +300,62 @@ namespace C4InterFlow.Automation
         public record ContainerInterfaceFlow
         {
             [Name("Container Interface")]
+            [Index(1)]
             public string ContainerInterface { get; set; }
+
             [Name("Uses Container Interface")]
+            [Index(2)]
             public string UsesContainerInterface { get; set; }
+
             [Name("Uses Software System Interface")]
+            [Index(3)]
             public string UsesSoftwareSystemInterface { get; set; }
+
             [Name("Condition")]
+            [Index(4)]
             public string Condition { get; set; }
         }
 
-        public record BusinessProcess
+        public record ActorType
         {
-            [Name("Alias")]
-            public string Alias { get; set; }
             [Name("Name")]
+            [Index(1)]
             public string Name { get; set; }
 
+            [Name("Type")]
+            [Index(2)]
+            public string Type { get; set; }
+
+        }
+
+        public record Actor
+        {
+            [Name("Name")]
+            [Index(1)]
+            public string Name { get; set; }
+
+            [Name("Type")]
+            [Index(2)]
+            public string TypeName { get; set; }
+
+            [Name("Alias")]
+            [Index(3)]
+            public string Alias { get; set; }
+            public bool TryGetType(CsvDataProvider dataProvider, out string? type)
+            {
+                type = dataProvider.ActorTypeRecords.FirstOrDefault(x => x.Name == TypeName)?.Type;
+                return type != null;
+            }
+        }
+        public record BusinessProcess
+        {
+            [Name("Name")]
+            [Index(1)]
+            public string Name { get; set; }
+
+            [Name("Alias")]
+            [Index(2)]
+            public string Alias { get; set; }
             public IEnumerable<Activity> WithBusinessActivities(CsvDataProvider DataProvider)
             {
                 return DataProvider.ActivityRecords.Where(x => !string.IsNullOrEmpty(x.BusinessProcess.Trim()) &&
@@ -317,18 +366,23 @@ namespace C4InterFlow.Automation
         public record Activity
         {
             [Name("Business Process")]
+            [Index(1)]
             public string BusinessProcess { get; set; }
 
             [Name("Name")]
+            [Index(2)]
             public string Name { get; set; }
 
             [Name("Actor")]
+            [Index(3)]
             public string Actor { get; set; }
 
             [Name("Uses Container Interface")]
+            [Index(4)]
             public string UsesContainerInterface { get; set; }
 
             [Name("Uses Software System Interface")]
+            [Index(5)]
             public string UsesSoftwareSystemInterface { get; set; }
 
 
