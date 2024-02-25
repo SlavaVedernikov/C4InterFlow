@@ -1,0 +1,25 @@
+{
+  "BigBankPlc": {
+    "SoftwareSystems": {
+      "MainframeBankingSystem": {
+        "Label": "Mainframe Banking System",
+        "Boundary": "External",
+        "Containers": {},
+        "Interfaces": {
+          "GetCustomer": {
+            "Label": "Get Customer"
+          },
+          "GetCustomerAccounts": {
+            "Label": "Get Customer Accounts"
+          },
+          "GetAccountTransactions": {
+            "Label": "Get Account Transactions"
+          },
+          "CreateAccount": {
+            "Label": "Create Account"
+          }
+        }
+      }
+    }
+  }
+}

@@ -3,17 +3,17 @@ using Newtonsoft.Json.Linq;
 
 namespace C4InterFlow.Automation.Writers
 {
-    public static class CsvToJsonExtensions
+    public static class CsvToJObjectExtensions
     {
         public static JObject AddFlowToSoftwareSystemInterfaceObject(this JObject jsonObject,
-            CsvToJsonAaCWriter writer)
+            CsvToJObjectAaCWriter writer)
         {
-            var softwareSystemInterface = writer.SoftwareSystemInterfaceClassFileNameMap.GetValueOrDefault(jsonObject.Path);
-            if (softwareSystemInterface == null || !softwareSystemInterface.WithUses(writer).Any()) return jsonObject;
+            var softwareSystemInterface = writer.SoftwareSystemInterfaceAaCPathToCsvRecordMap.GetValueOrDefault(jsonObject.Path);
+            if (softwareSystemInterface == null || !softwareSystemInterface.WithUses(writer.DataProvider).Any()) return jsonObject;
 
             var flows = new JArray();
 
-            softwareSystemInterface.WithUses(writer)
+            softwareSystemInterface.WithUses(writer.DataProvider)
             .ToList().ForEach(i =>
             {
                 if (!string.IsNullOrEmpty(i.UsesContainerInterface))
@@ -45,15 +45,15 @@ namespace C4InterFlow.Automation.Writers
         }
 
         public static JObject AddFlowToContainerInterfaceObject(this JObject jsonObject,
-            CsvToJsonAaCWriter writer)
+            CsvToJObjectAaCWriter writer)
         {
-            var containerInterface = writer.ContainerInterfaceClassFileNameMap.GetValueOrDefault(jsonObject.Path);
+            var containerInterface = writer.ContainerInterfaceAaCPathToCsvRecordMap.GetValueOrDefault(jsonObject.Path);
 
-            if (containerInterface == null || !containerInterface.WithUses(writer).Any()) return jsonObject;
+            if (containerInterface == null || !containerInterface.WithUses(writer.DataProvider).Any()) return jsonObject;
 
             var flows = new JArray();
 
-            containerInterface.WithUses(writer)
+            containerInterface.WithUses(writer.DataProvider)
                 .ToList().ForEach(i =>
                 {
 

@@ -1,0 +1,16 @@
+@startuml
+skinparam dpi 60
+
+title Internet Banking - Single-Page App - Change Password - CONTEXT level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "Internet Banking" as BigBankPlc.SoftwareSystems.InternetBanking
+participant "E-Mail System" as BigBankPlc.SoftwareSystems.EMailSystem
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> BigBankPlc.SoftwareSystems.InternetBanking : Change Password
+group Change Password
+BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.EMailSystem : Send Password Changed Notification E-Mail
+end
+
+
+@enduml

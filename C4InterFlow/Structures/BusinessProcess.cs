@@ -7,7 +7,12 @@
 
         }
 
-        public BusinessProcess(IEnumerable<Activity> activities, string label) : base(string.Empty, label)
+        public BusinessProcess(IEnumerable<Activity> activities, string label) : this(activities, string.Empty, label)
+        {
+
+        }
+
+        public BusinessProcess(IEnumerable<Activity> activities, string alias, string label) : base(alias, label)
         {
             Activities = activities;
         }

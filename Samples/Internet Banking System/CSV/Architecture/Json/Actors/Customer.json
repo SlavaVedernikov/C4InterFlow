@@ -1,0 +1,10 @@
+{
+  "BigBankPlc": {
+    "Actors": {
+      "Customer": {
+        "Type": "Person",
+        "Label": "Customer"
+      }
+    }
+  }
+}

@@ -17,12 +17,12 @@ namespace C4InterFlow.Automation.Writers
             var architectureCompilation = architectureProject.GetCompilationAsync().Result;
             var architectureSemanticModel = architectureCompilation.GetSemanticModel(architectureClassSyntaxTree);
 
-            var softwareSystemInterface = writer.SoftwareSystemInterfaceClassFileNameMap.GetValueOrDefault(architectureClassSyntaxTree.FilePath);
+            var softwareSystemInterface = writer.SoftwareSystemInterfaceAaCPathToCsvRecordMap.GetValueOrDefault(architectureClassSyntaxTree.FilePath);
 
             if (softwareSystemInterface == null) return classDeclaration;
 
             var flowCode = new StringBuilder().AppendLine($"new Flow(ALIAS)");
-            softwareSystemInterface.WithUses(writer)
+            softwareSystemInterface.WithUses(writer.DataProvider)
                 .ToList().ForEach(x =>
                 {
                     var hasCondition = !string.IsNullOrEmpty(x.Condition);
@@ -78,12 +78,12 @@ namespace C4InterFlow.Automation.Writers
             var architectureCompilation = architectureProject.GetCompilationAsync().Result;
             var architectureSemanticModel = architectureCompilation.GetSemanticModel(architectureClassSyntaxTree);
 
-            var containerInterface = writer.ContainerInterfaceClassFileNameMap.GetValueOrDefault(architectureClassSyntaxTree.FilePath);
+            var containerInterface = writer.ContainerInterfaceAaCPathToCsvRecordMap.GetValueOrDefault(architectureClassSyntaxTree.FilePath);
 
             if (containerInterface == null) return classDeclaration;
 
             var flowCode = new StringBuilder().AppendLine($"new Flow(ALIAS)");
-            containerInterface.WithUses(writer)
+            containerInterface.WithUses(writer.DataProvider)
                 .ToList().ForEach(x =>
                 {
                     var hasCondition = !string.IsNullOrEmpty(x.Condition);

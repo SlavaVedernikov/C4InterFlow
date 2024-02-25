@@ -9,36 +9,14 @@ using Newtonsoft.Json.Linq;
 
 namespace C4InterFlow.Automation.Writers
 {
-    public class JsonToCSharpAaCWriter
+    public class JsonToCSharpAaCWriter : JsonToAnyAaCWriter
     {
+        private string FileExtension => "cs";
         public Project? ArchitectureProject { get; private set; }
-        protected string? ArchitectureInputPath { get; private set; }
-
-        public IList<JObject> ArchitectureJsonData { get; private set; }
-        public string ArchitectureNamespace { get; private set; }
         public MSBuildWorkspace? ArchitectureWorkspace { get; private set; }
 
-        public Dictionary<string, JObject> SoftwareSystemInterfaceClassFileNameMap { get; private set; } = new Dictionary<string, JObject>();
-        public Dictionary<string, JObject> ContainerInterfaceClassFileNameMap { get; private set; } = new Dictionary<string, JObject>();
-
-        protected JsonToCSharpAaCWriter(string architectureInputPath)
+        protected JsonToCSharpAaCWriter(string architectureInputPath) : base(architectureInputPath)
         {
-            ArchitectureInputPath = architectureInputPath;
-
-            ArchitectureJsonData = new List<JObject>();
-
-            var jsonFiles = Directory.EnumerateFiles(ArchitectureInputPath, "*.json", SearchOption.AllDirectories);
-
-            foreach (var jsonFile in jsonFiles)
-            {
-                var jsonText = File.ReadAllText(jsonFile);
-                var jsonObject = JObject.Parse(jsonText);
-                ArchitectureJsonData.Add(jsonObject);
-            }
-
-            Console.WriteLine($"Loading data from '{ArchitectureInputPath}'...");
-
-
             RegisterInstanceVisualStudioInstance();
             ArchitectureWorkspace = MSBuildWorkspace.Create(new Dictionary<string, string>()
             {
@@ -56,6 +34,7 @@ namespace C4InterFlow.Automation.Writers
         {
             return new JsonToCSharpAaCWriter(jsonRootPath);
         }
+
         public JsonToCSharpAaCWriter WithArchitectureRootNamespace(string architectureRootNamespace)
         {
             ArchitectureNamespace = architectureRootNamespace.Trim();
@@ -68,20 +47,9 @@ namespace C4InterFlow.Automation.Writers
             return this;
         }
 
-        public IEnumerable<JObject> WithSoftwareSystems()
+        public override JsonToCSharpAaCWriter AddSoftwareSystem(string name, string? boundary = null, string? label = null)
         {
-            var result = new List<JObject>();
-
-            foreach (var item in ArchitectureJsonData)
-            {
-                result.AddRange(item.SelectTokens($"{ArchitectureNamespace}.SoftwareSystems.*").Select(x => x as JObject));
-            }
-            return result;
-        }
-
-        public JsonToCSharpAaCWriter AddSoftwareSystemClass(string softwareSystemName)
-        {
-            var documentName = $"{softwareSystemName}.cs";
+            var documentName = $"{name}.{FileExtension}";
             var fileDirectory = ArchitectureProject.FilePath.Replace($"{ArchitectureProject.Name}.csproj", string.Empty);
             var filePath = Path.Combine(fileDirectory, documentName);
 
@@ -95,8 +63,8 @@ namespace C4InterFlow.Automation.Writers
 
             var sourceCode = CSharpToAnyCodeGenerator<CSharpCodeWriter>.GetSoftwareSystemCode(
                 ArchitectureNamespace,
-                softwareSystemName,
-                CSharpCodeWriter.GetLabel(softwareSystemName));
+                name,
+                label ?? CSharpCodeWriter.GetLabel(name));
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
             var root = tree.GetRoot();
@@ -110,21 +78,29 @@ namespace C4InterFlow.Automation.Writers
 
             return this;
         }
-        public JsonToCSharpAaCWriter AddSoftwareSystemInterfaceClass(JObject softwareSystemInterface)
+        public override JsonToCSharpAaCWriter AddSoftwareSystemInterface(
+            string softwareSystemName,
+            string name,
+            string? label = null,
+            string? input = null,
+            string? output = null,
+            string? protocol = null,
+            string? path = null)
         {
-            var softwareSystemInterfaceAliasSegments = softwareSystemInterface.Path.Split('.');
-            var softwareSystemName = softwareSystemInterfaceAliasSegments[softwareSystemInterfaceAliasSegments.Length - 3];
-            var interfaceName = softwareSystemInterfaceAliasSegments.Last();
-            var documentName = $"{interfaceName}.cs";
+            var documentName = $"{name}.{FileExtension}";
             var projectDirectory = ArchitectureProject.FilePath.Replace($"{ArchitectureProject.Name}.csproj", string.Empty);
             var fileDirectory = Path.Combine(projectDirectory, CSharpToAnyCodeGenerator<CSharpCodeWriter>.GetSoftwareSystemInterfacesDirectory(softwareSystemName));
             var filePath = Path.Combine(fileDirectory, documentName);
 
             Directory.CreateDirectory(fileDirectory);
 
-            if (!SoftwareSystemInterfaceClassFileNameMap.ContainsKey(filePath))
+            if (!SoftwareSystemInterfaceAaCPathToJObjectMap.ContainsKey(filePath))
             {
-                SoftwareSystemInterfaceClassFileNameMap.Add(filePath, softwareSystemInterface);
+                var softwareSystemInterface = GetSoftwareSystemInterface(softwareSystemName, name);
+                if (softwareSystemInterface != null)
+                {
+                    SoftwareSystemInterfaceAaCPathToJObjectMap.Add(filePath, softwareSystemInterface);
+                }
             }
 
 
@@ -137,8 +113,8 @@ namespace C4InterFlow.Automation.Writers
             var sourceCode = CSharpToAnyCodeGenerator<CSharpCodeWriter>.GetSoftwareSystemInterfaceCode(
                 ArchitectureNamespace,
                 softwareSystemName,
-                interfaceName,
-                CSharpCodeWriter.GetLabel(interfaceName));
+                name,
+                label ?? CSharpCodeWriter.GetLabel(name));
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
             var root = tree.GetRoot();
@@ -153,9 +129,9 @@ namespace C4InterFlow.Automation.Writers
             return this;
         }
 
-        public JsonToCSharpAaCWriter AddContainerClass(string softwareSystemName, string containerName, string? containerType = null)
+        public override JsonToCSharpAaCWriter AddContainer(string softwareSystemName, string containerName, string? containerType = null, string? label = null)
         {
-            var documentName = $"{containerName}.cs";
+            var documentName = $"{containerName}.{FileExtension}";
 
             var projectDirectory = ArchitectureProject.FilePath.Replace($"{ArchitectureProject.Name}.csproj", string.Empty);
             var fileDirectory = Path.Combine(projectDirectory, CSharpToAnyCodeGenerator<CSharpCodeWriter>.GetContainersDirectory(softwareSystemName));
@@ -173,7 +149,7 @@ namespace C4InterFlow.Automation.Writers
                 ArchitectureNamespace,
                 softwareSystemName,
                 containerName,
-                CSharpCodeWriter.GetLabel(containerName),
+                label ?? CSharpCodeWriter.GetLabel(containerName),
                 containerType);
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
@@ -189,22 +165,30 @@ namespace C4InterFlow.Automation.Writers
             return this;
         }
 
-        public JsonToCSharpAaCWriter AddContainerInterfaceClass(JObject containerInterface)
+        public override JsonToCSharpAaCWriter AddContainerInterface(
+            string softwareSystemName,
+            string containerName,
+            string name,
+            string? label = null,
+            string? input = null,
+            string? output = null,
+            string? protocol = null,
+            string? path = null)
         {
-            var containerInterfaceAliasSegments = containerInterface.Path.Split('.');
-            var softwareSystemName = containerInterfaceAliasSegments[Array.IndexOf(containerInterfaceAliasSegments, "Containers") - 1];
-            var containerName = containerInterfaceAliasSegments[Array.IndexOf(containerInterfaceAliasSegments, "Containers") + 1]; ;
-            var interfaceName = containerInterfaceAliasSegments.Last();
-            var documentName = $"{interfaceName}.cs";
+            var documentName = $"{name}.{FileExtension}";
             var projectDirectory = ArchitectureProject.FilePath.Replace($"{ArchitectureProject.Name}.csproj", string.Empty);
             var fileDirectory = Path.Combine(projectDirectory, CSharpToAnyCodeGenerator<CSharpCodeWriter>.GetContainerInterfaceDirectory(softwareSystemName, containerName));
             var filePath = Path.Combine(fileDirectory, documentName);
 
             Directory.CreateDirectory(fileDirectory);
 
-            if (!ContainerInterfaceClassFileNameMap.ContainsKey(filePath))
+            if (!ContainerInterfaceAaCPathToJObjectMap.ContainsKey(filePath))
             {
-                ContainerInterfaceClassFileNameMap.Add(filePath, containerInterface);
+                var containerInterface = GetContainerInterface(softwareSystemName, containerName, name);
+                if(containerInterface != null)
+                {
+                    ContainerInterfaceAaCPathToJObjectMap.Add(filePath, containerInterface);
+                }
             }
 
             if (ArchitectureProject.Documents.Any(x => x.FilePath == filePath))
@@ -217,8 +201,8 @@ namespace C4InterFlow.Automation.Writers
                 ArchitectureNamespace,
                 softwareSystemName,
                 containerName,
-                interfaceName,
-                CSharpCodeWriter.GetLabel(interfaceName));
+                name,
+                CSharpCodeWriter.GetLabel(name));
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
             var root = tree.GetRoot();
@@ -231,6 +215,11 @@ namespace C4InterFlow.Automation.Writers
             }
 
             return this;
+        }
+
+        public override string GetFileExtension()
+        {
+            return FileExtension;
         }
 
         public IEnumerable<ClassDeclarationSyntax> WithSoftwareSystemInterfaceClasses(string softwareSystemName, bool reloadArchitectureProject = false)
@@ -258,7 +247,7 @@ namespace C4InterFlow.Automation.Writers
 
                 var classes = root.DescendantNodes().OfType<ClassDeclarationSyntax>()
                     .Where(c => c.BaseList != null &&
-                        syntaxTree.FilePath.EndsWith($"{c.Identifier.ValueText}.cs") &&
+                        syntaxTree.FilePath.EndsWith($"{c.Identifier.ValueText}.{FileExtension}") &&
                         c.BaseList.Types.Any(t => t.Type.ToString() == interfaceInstanceType.Name));
 
                 result.AddRange(classes);
@@ -292,7 +281,7 @@ namespace C4InterFlow.Automation.Writers
 
                 var classes = root.DescendantNodes().OfType<ClassDeclarationSyntax>()
                     .Where(c => c.BaseList != null &&
-                        syntaxTree.FilePath.EndsWith($"{c.Identifier.ValueText}.cs") &&
+                        syntaxTree.FilePath.EndsWith($"{c.Identifier.ValueText}.{FileExtension}") &&
                         c.BaseList.Types.Any(t => t.Type.ToString() == interfaceInstanceType.Name));
 
                 result.AddRange(classes);

@@ -1,6 +1,6 @@
 ﻿namespace C4InterFlow.Automation.Writers
 {
-    public abstract class CsvToJsonAaCWriterStrategy : AaCWriterStrategy
+    public abstract class YamlToCsvAaCWriterStrategy : AaCWriterStrategy
     {
         public const string AAC_INPUT_PATH = "aac-input-path";
         public string ArchitectureInputPath { get; private set; }
@@ -19,7 +19,7 @@
                 (AAC_INPUT_PATH, true)
             };
         }
-        public override void Initialise(string architectureRootNamespace, string? architectureJsonPath, Dictionary<string, string>? parameters)
+        public override void Initialise(string architectureRootNamespace, string? architectureProjectPath, Dictionary<string, string>? parameters)
         {
             if (parameters == null)
             {
@@ -33,7 +33,7 @@
 
             ArchitectureInputPath = softwareSystemSolutionPath;
 
-            base.Initialise(architectureRootNamespace, architectureJsonPath, null);
+            base.Initialise(architectureRootNamespace, architectureProjectPath, null);
             _isInitialised = true;
         }
     }

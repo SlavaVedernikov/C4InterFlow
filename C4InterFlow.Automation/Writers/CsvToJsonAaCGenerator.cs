@@ -2,13 +2,10 @@
 
 namespace C4InterFlow.Automation.Writers
 {
-    public class CsvToJsonAaCGenerator : CsvToJsonAaCWriterStrategy
+    public class CsvToJsonAaCGenerator : CsvToJObjectAaCWriterStrategy
     {
         public override void Execute()
         {
-            var addSystemClassAction = "add System Class";
-            var addSystemInterfaceClassAction = "add System Interface Class";
-
             var architectureRootNamespaceSegments = ArchitectureRootNamespace.Split('.');
             var writer = CsvToJsonAaCWriter
                 .WithCsvData(ArchitectureInputPath);
@@ -20,24 +17,24 @@ namespace C4InterFlow.Automation.Writers
 
                         writer
                             .WithArchitectureRootNamespace(ArchitectureRootNamespace)
-                            .WithSoftwareSystemsCollection()
-                            .WithArchitectureOutputPath(Path.Combine(ArchitectureOutputPath, "SoftwareSystems", $"{s.Alias}.json"));
+                            .WithSoftwareSystemsCollection();
 
+                        var softwareSystemName = s.Alias;
+                        writer.AddSoftwareSystem(softwareSystemName, s.GetBoundary(), s.Name);
 
-                        writer.AddSoftwareSystemObject(s.Alias, s.GetBoundary(), s.Name);
-
-                        s.WithInterfaces(writer).ToList().ForEach(i =>
+                        s.WithInterfaces(writer.DataProvider).ToList().ForEach(i =>
                         {
-                            writer.AddSoftwareSystemInterfaceObject(i);
+                            writer.AddSoftwareSystemInterface(softwareSystemName, i.Alias.Split('.').Last(), i.Name);
                         });
 
-                        s.WithContainers(writer).ToList().ForEach(c =>
+                        s.WithContainers(writer.DataProvider).ToList().ForEach(c =>
                         {
-                            writer.AddContainerObject(s.Alias, c.Alias.Split('.').Last(), c.Type, c.Name);
+                            var containerName = c.Alias.Split('.').Last();
+                            writer.AddContainer(softwareSystemName, containerName, c.Type, c.Name);
 
-                            c.WithInterfaces(writer).ToList().ForEach(i =>
+                            c.WithInterfaces(writer.DataProvider).ToList().ForEach(i =>
                             {
-                                writer.AddContainerInterfaceObject(i);
+                                writer.AddContainerInterface(softwareSystemName, containerName, i.Alias.Split('.').Last(), i.Name);
                             });
                         });
 
@@ -49,7 +46,7 @@ namespace C4InterFlow.Automation.Writers
                         .ToList().ForEach(x => x.AddFlowToContainerInterfaceObject(
                             writer));
 
-                        writer.WriteArchitecture();
+                        writer.WriteArchitecture(Path.Combine(ArchitectureOutputPath, "SoftwareSystems"), s.Alias);
 
                     });
 
@@ -58,17 +55,16 @@ namespace C4InterFlow.Automation.Writers
                     {
                         writer
                             .WithArchitectureRootNamespace(ArchitectureRootNamespace)
-                            .WithActorsCollection()
-                            .WithArchitectureOutputPath(Path.Combine(ArchitectureOutputPath, "Actors", $"{a.Alias}.json"));
+                            .WithActorsCollection();
 
-                        if (!a.TryGetType(writer, out var type))
+                        if (!a.TryGetType(writer.DataProvider, out var type))
                         {
                             type = nameof(Person);
                         }
 
-                        writer.AddActorObject(a.Alias, type, a.Name);
+                        writer.AddActor(a.Alias, type, a.Name);
 
-                        writer.WriteArchitecture();
+                        writer.WriteArchitecture(Path.Combine(ArchitectureOutputPath, "Actors"), a.Alias);
                     });
 
             writer.WithBusinessProcesses()
@@ -76,12 +72,11 @@ namespace C4InterFlow.Automation.Writers
                 {
                     writer
                         .WithArchitectureRootNamespace(ArchitectureRootNamespace)
-                        .WithBusinessProcessesCollection()
-                        .WithArchitectureOutputPath(Path.Combine(ArchitectureOutputPath, "BusinessProcessess", $"{b.Alias}.json"));
+                        .WithBusinessProcessesCollection();
 
-                    writer.AddBusinessProcessObject(b.Alias, b.WithBusinessActivities(writer).ToArray(), b.Name);
+                    writer.AddBusinessProcess(b.Alias, b.Name);
 
-                    writer.WriteArchitecture();
+                    writer.WriteArchitecture(Path.Combine(ArchitectureOutputPath, "BusinessProcessess"), b.Alias);
                 });
         }
     }

@@ -1,0 +1,47 @@
+@startuml
+skinparam dpi 60
+
+title Complete (End-To-End) - CONTEXT level)
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem.Interfaces.ExternalInterface
+participant "Internet Banking" as BigBankPlc.SoftwareSystems.InternetBanking
+participant "Mainframe Banking System" as BigBankPlc.SoftwareSystems.MainframeBankingSystem
+participant "E-Mail System" as BigBankPlc.SoftwareSystems.EMailSystem
+
+group External - Banking via Web App
+BigBankPlc.Actors.Customer -> BigBankPlc.SoftwareSystems.InternetBanking : Navigate
+BigBankPlc.Actors.Customer -> BigBankPlc.SoftwareSystems.InternetBanking : Sign In
+BigBankPlc.Actors.Customer -> BigBankPlc.SoftwareSystems.InternetBanking : View Customer Details
+group View Customer Details
+BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer
+BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer Accounts
+end
+BigBankPlc.Actors.Customer -> BigBankPlc.SoftwareSystems.InternetBanking : View Account Transactions
+group View Account Transactions
+BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Account Transactions
+end
+BigBankPlc.Actors.Customer -> BigBankPlc.SoftwareSystems.InternetBanking : Create Account
+group Create Account
+BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Create Account
+BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.EMailSystem : Send New Account Created Notification E Mail
+end
+end
+group External - Banking via Mobile App
+BigBankPlc.Actors.Customer -> BigBankPlc.SoftwareSystems.InternetBanking : Sign In
+BigBankPlc.Actors.Customer -> BigBankPlc.SoftwareSystems.InternetBanking : View Customer Details
+group View Customer Details
+BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer
+BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer Accounts
+end
+BigBankPlc.Actors.Customer -> BigBankPlc.SoftwareSystems.InternetBanking : View Account Transactions
+group View Account Transactions
+BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Account Transactions
+end
+end
+group External - Receive E-Mail Notifications
+BigBankPlc.Actors.Customer -> BigBankPlc.SoftwareSystems.EMailSystem : Receive Password Changed Notification E-Mail
+BigBankPlc.Actors.Customer -> BigBankPlc.SoftwareSystems.EMailSystem : Receive New Account Created Notification E-Mail
+end
+
+
+@enduml

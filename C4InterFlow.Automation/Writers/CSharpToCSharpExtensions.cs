@@ -167,7 +167,7 @@ namespace C4InterFlow.Automation.Writers
         }
 
         public static ClassDeclarationSyntax AddFlowToComponentInterfaceClass(this ClassDeclarationSyntax classDeclaration,
-            CSharpToNetAaCWriter writer,
+            CSharpToCSharpAaCWriter writer,
             IEnumerable<CSharpToAnyMethodTriggerMapper>? methodTriggerMappers = null,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
@@ -178,7 +178,7 @@ namespace C4InterFlow.Automation.Writers
             var architectureCompilation = architectureProject.GetCompilationAsync().Result;
             var architectureSemanticModel = architectureCompilation.GetSemanticModel(architectureClassSyntaxTree);
 
-            var systemMethodDeclaration = writer.ComponentMethodInterfaceObjectMap.GetValueOrDefault(architectureClassSyntaxTree.FilePath);
+            var systemMethodDeclaration = writer.ComponentInterfaceAaCFileToCSharpMethodDeclarationMap.GetValueOrDefault(architectureClassSyntaxTree.FilePath);
 
             if (systemMethodDeclaration == null) return classDeclaration;
 
@@ -237,8 +237,8 @@ namespace C4InterFlow.Automation.Writers
         }
 
         public static MethodDeclarationSyntax AddComponentInterfaceClass(this MethodDeclarationSyntax methodDeclaration,
-            string softwareSystemName, string containerName, string componentName, CSharpToNetAaCWriter writer,
-            Func<MethodDeclarationSyntax, SemanticModel, CSharpToNetAaCWriter, string?, string?, string?, string>? pathMapper = null,
+            string softwareSystemName, string containerName, string componentName, CSharpToCSharpAaCWriter writer,
+            Func<MethodDeclarationSyntax, SemanticModel, CSharpToCSharpAaCWriter, string?, string?, string?, string>? pathMapper = null,
             string? protocol = null)
         {
             var architectureNamespace = writer.ArchitectureNamespace;
@@ -263,9 +263,9 @@ namespace C4InterFlow.Automation.Writers
 
             Directory.CreateDirectory(fileDirectory);
 
-            if (!writer.ComponentMethodInterfaceObjectMap.Keys.Contains(filePath))
+            if (!writer.ComponentInterfaceAaCFileToCSharpMethodDeclarationMap.Keys.Contains(filePath))
             {
-                writer.ComponentMethodInterfaceObjectMap.Add(filePath, methodDeclaration);
+                writer.ComponentInterfaceAaCFileToCSharpMethodDeclarationMap.Add(filePath, methodDeclaration);
             }
 
             var isPrivate = methodDeclaration.Modifiers.Any(modifier => modifier.IsKind(SyntaxKind.PrivateKeyword));
@@ -323,7 +323,7 @@ namespace C4InterFlow.Automation.Writers
         }
 
         public static PropertyDeclarationSyntax AddComponentInterfaceClass(this PropertyDeclarationSyntax propertyDeclaration,
-            string softwareSystemName, string containerName, string componentName, CSharpToNetAaCWriter writer,
+            string softwareSystemName, string containerName, string componentName, CSharpToCSharpAaCWriter writer,
             string[] interfaces,
             string? protocol = null)
         {
@@ -351,9 +351,9 @@ namespace C4InterFlow.Automation.Writers
 
                 Directory.CreateDirectory(fileDirectory);
 
-                if (!writer.ComponentPropertyInterfaceObjectMap.Keys.Contains(filePath))
+                if (!writer.ComponentInterfaceAaCFileToCSharpPropertyDeclarationMap.Keys.Contains(filePath))
                 {
-                    writer.ComponentPropertyInterfaceObjectMap.Add(filePath, propertyDeclaration);
+                    writer.ComponentInterfaceAaCFileToCSharpPropertyDeclarationMap.Add(filePath, propertyDeclaration);
                 }
 
                 if (architectureProject.Documents.Any(x => x.FilePath == filePath))
@@ -381,7 +381,7 @@ namespace C4InterFlow.Automation.Writers
 
             return propertyDeclaration;
         }
-        public static InterfaceDeclarationSyntax AddEntityClass(this InterfaceDeclarationSyntax interfaceDeclaration, string softwareSystemName, string containerName, CSharpToNetAaCWriter writer)
+        public static InterfaceDeclarationSyntax AddEntityClass(this InterfaceDeclarationSyntax interfaceDeclaration, string softwareSystemName, string containerName, CSharpToCSharpAaCWriter writer)
         {
             var systemWorkspace = writer.SoftwareSystemWorkspace;
             var systemSyntaxTree = interfaceDeclaration.SyntaxTree;
@@ -438,7 +438,7 @@ namespace C4InterFlow.Automation.Writers
 
         }
 
-        public static RecordDeclarationSyntax AddEntityClass(this RecordDeclarationSyntax recordDeclaration, string softwareSystemName, string containerName, CSharpToNetAaCWriter writer)
+        public static RecordDeclarationSyntax AddEntityClass(this RecordDeclarationSyntax recordDeclaration, string softwareSystemName, string containerName, CSharpToCSharpAaCWriter writer)
         {
             var systemWorkspace = writer.SoftwareSystemWorkspace;
             var systemSyntaxTree = recordDeclaration.SyntaxTree;
@@ -516,7 +516,7 @@ namespace C4InterFlow.Automation.Writers
 
             return result;
         }
-        public static ClassDeclarationSyntax AddComponentClass(this ClassDeclarationSyntax classDeclaration, string softwareSystemName, string containerName, CSharpToNetAaCWriter writer)
+        public static ClassDeclarationSyntax AddComponentClass(this ClassDeclarationSyntax classDeclaration, string softwareSystemName, string containerName, CSharpToCSharpAaCWriter writer)
         {
             var architectureNamespace = writer.ArchitectureNamespace;
             var project = writer.ArchitectureWorkspace.CurrentSolution.Projects.FirstOrDefault(x => x.Name == architectureNamespace);
@@ -563,7 +563,7 @@ namespace C4InterFlow.Automation.Writers
 
         }
 
-        public static InterfaceDeclarationSyntax AddComponentClass(this InterfaceDeclarationSyntax interfaceDeclaration, string softwareSystemName, string containerName, CSharpToNetAaCWriter writer)
+        public static InterfaceDeclarationSyntax AddComponentClass(this InterfaceDeclarationSyntax interfaceDeclaration, string softwareSystemName, string containerName, CSharpToCSharpAaCWriter writer)
         {
             var architectureNamespace = writer.ArchitectureNamespace;
             var project = writer.ArchitectureWorkspace.CurrentSolution.Projects.FirstOrDefault(x => x.Name == architectureNamespace);

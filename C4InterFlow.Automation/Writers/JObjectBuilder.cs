@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using C4InterFlow.Structures;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace C4InterFlow.Automation.Writers
 {
@@ -46,12 +48,6 @@ namespace C4InterFlow.Automation.Writers
         private JObject BuildActorsObject(string architectureNamespace, out string path)
         {
             path = $"{architectureNamespace}.Actors";
-            return BuildObject(path);
-        }
-
-        private JObject BuildusinessProcessesObject(string architectureNamespace, out string path)
-        {
-            path = $"{architectureNamespace}.BusinessProcesses";
             return BuildObject(path);
         }
 
@@ -211,18 +207,54 @@ namespace C4InterFlow.Automation.Writers
             return result;
         }
 
-        public JObject BuildBusinessActivityObject(string name, string actor, string[] uses)
+        public JObject BuildFlowObject(Flow flow, string? owner = null)
         {
-            return new JObject
+            var result = new JObject();
+
+            if(!string.IsNullOrEmpty(owner))
             {
-                { "Flow", new JObject {
-                                            { "Owner", actor },
-                                            { "Flows", new JArray(uses.Select(x => new JObject {
-                                                    { "Type", "Use"},
-                                                    { "Expression", x}
-                                                }).ToArray()) } } },
-                { "Name", name }
+                result.Add("Owner", owner);
+            }
+
+            if(flow.Flows != null)
+            {
+                var flowsArray = new JArray();
+
+                foreach (var innerFlow in flow.Flows)
+                {
+                    flowsArray.Add(BuildFlowObject(innerFlow, owner));
+                }
+
+                if(flowsArray.Count > 0)
+                {
+                    result.Add("Flows", flowsArray);
+                }
+            }
+            return result;
+        }
+        public JObject BuildBusinessProcessActivityObject(string label, string actor, Flow[] flows)
+        {
+            var flowsArray = new JArray();
+
+            foreach(var flow in flows)
+            {
+                flowsArray.Add(BuildFlowObject(flow, actor));
+            }
+
+            var activityFlow = new JObject { { "Owner", actor } };
+
+            if(flowsArray.Count > 0)
+            {
+                activityFlow.Add("Flows", flowsArray);
+            }
+
+            var result = new JObject
+            {
+                { "Flow", activityFlow },
+                { "Label", label }
             };
+
+            return result;
         }
     }
 }

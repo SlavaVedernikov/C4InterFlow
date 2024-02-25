@@ -28,7 +28,18 @@ namespace C4InterFlow.Automation.Readers
             base.Initialise(architectureInputPaths, parameters);
         }
 
-        public override JObjectStructuresResolver ElementsResolver { get => new JObjectStructuresResolver(RootJObject ?? new JObject()); }
+        private Lazy<JObjectStructuresResolver> _elementsResolver;
+        public override JObjectStructuresResolver ElementsResolver
+        {
+            get
+            {
+                if (_elementsResolver == null)
+                {
+                    _elementsResolver = new Lazy<JObjectStructuresResolver>(() => new JObjectStructuresResolver(RootJObject ?? new JObject()));
+                }
+                return _elementsResolver.Value;
+            }
+        }
 
         public override string GetComponentInterfaceAlias()
         {

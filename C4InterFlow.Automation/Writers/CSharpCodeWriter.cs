@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using C4InterFlow.Structures;
+using System.Text;
 
 namespace C4InterFlow.Automation.Writers
 {
@@ -348,6 +349,81 @@ namespace C4InterFlow.Automation.Writers
             return $"new Flow(ALIAS)";
         }
 
+        public string GetFlowCode(Flow flow)
+        {
+            var result = new StringBuilder();
+            var expression = flow.Expression ?? string.Empty;
+
+            switch (flow.Type) {
+                case Flow.FlowType.If:
+                    {
+                        result.Append(GetIfFlowCode(expression));
+                        break;
+                    }
+                case Flow.FlowType.ElseIf:
+                    {
+                        result.Append(GetElseIfFlowCode(expression));
+                        break;
+                    }
+                case Flow.FlowType.Else:
+                    {
+                        result.Append(GetElseFlowCode());
+                        break;
+                    }
+                case Flow.FlowType.Loop:
+                    {
+                        result.Append(GetLoopFlowCode(expression));
+                        break;
+                    }
+                case Flow.FlowType.Try:
+                    {
+                        result.Append(GetTryFlowCode());
+                        break;
+                    }
+                case Flow.FlowType.Catch:
+                    {
+                        result.Append(GetCatchFlowCode(expression));
+                        break;
+                    }
+                case Flow.FlowType.Finally:
+                    {
+                        result.Append(GetFinallyFlowCode());
+                        break;
+                    }
+                case Flow.FlowType.Return:
+                    {
+                        result.Append(GetReturnFlowCode(expression));
+                        break;
+                    }
+                case Flow.FlowType.ThrowException:
+                    {
+                        result.Append(GetThrowExceptionFlowCode(expression));
+                        break;
+                    }
+                case Flow.FlowType.Use:
+                    {
+                        result.Append(GetUseFlowCode(expression));
+                        break;
+                    }
+                default:
+                    break;
+            }
+
+            if (flow.Flows != null)
+            {
+                foreach (var innerFlow in flow.Flows)
+                {
+                    var code = GetFlowCode(innerFlow);
+                    if (!string.IsNullOrEmpty(code))
+                    {
+                        result.AppendLine($"\t{code}");
+                    }
+                }
+            }
+
+            return result.ToString();
+        }
+
         public string GetLoopFlowCode(string condition)
         {
             return $"\t.Loop(@\"{GetFormattedParams(condition)}\")";
@@ -456,14 +532,24 @@ namespace C4InterFlow.Automation.Writers
             return result.ToString();
         }
 
-        public string GetBusinessActivityCode(string name, string actor, string[] uses, string? description = null)
+        public string GetBusinessProcessActivityCode(string label, string actor, Flow[] flows, string? description = null)
         {
-            return $@"
-            new Activity(new Flow()
-                {string.Join($"{Environment.NewLine}\t\t\t\t", uses.Select(x => $".Use(\"{x}\")").ToArray())},
+            var result = new StringBuilder($@"
+            new Activity(new Flow({actor})");
+            
+            foreach(var flow in flows)
+            {
+                var code = GetFlowCode(flow);
+                if(!string.IsNullOrEmpty(code))
+                {
+                    result.AppendLine($"\t{code}");
+                }
+            }
+            result.Append($@",
                 ""{actor}"",
-                {(name != null ? AnyCodeWriter.EnsureDoubleQuotes(name) : "\"\"")}),
-";
+                {(!string.IsNullOrEmpty(label) ? AnyCodeWriter.EnsureDoubleQuotes(label) : "\"\"")}),
+");
+            return result.ToString();
         }
     }
 }

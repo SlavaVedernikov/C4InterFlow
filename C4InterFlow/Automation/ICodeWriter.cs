@@ -1,4 +1,5 @@
-﻿using System;
+﻿using C4InterFlow.Structures;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,6 +36,6 @@ namespace C4InterFlow.Automation
         string GetUseFlowCode(string alias);
         string GetActorCode(string architectureNamespace, string type, string name, string label, string? description = null);
         string GetBusinessProcessCode(string architectureNamespace, string name, string label, string businessActivitiesCode, string? description = null);
-        string GetBusinessActivityCode(string name, string actor, string[] uses, string? description = null);
+        string GetBusinessProcessActivityCode(string label, string actor, Flow[] flows, string? description = null);
     }
 }

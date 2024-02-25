@@ -19,22 +19,24 @@ namespace C4InterFlow.Automation.Writers
                     .ToList().ForEach(s =>
                     {
                         Console.WriteLine($"Generating AaC for '{s.Alias}' Software System");
-                        writer
-                        .AddSoftwareSystemClass(name: s.Alias, boundary: s.GetBoundary(), label: s.Name);
 
-                        s.WithInterfaces(writer).ToList().ForEach(i =>
+                        var softwareSystemName = s.Alias;
+                        writer.AddSoftwareSystem(softwareSystemName, s.GetBoundary(), s.Name);
+
+                        s.WithInterfaces(writer.DataProvider).ToList().ForEach(i =>
                         {
-                            writer.AddSoftwareSystemInterfaceClass(i);
+                            writer.AddSoftwareSystemInterface(softwareSystemName, i.Alias.Split('.').Last(), i.Name);
                         });
 
-                        s.WithContainers(writer).ToList().ForEach(c =>
+                        s.WithContainers(writer.DataProvider).ToList().ForEach(c =>
                         {
                             Console.WriteLine($"Generating AaC for '{c.Alias}' Container");
-                            writer.AddContainerClass(s.Alias, c.Alias.Split('.').Last(), c.Type, c.Name);
+                            var containerName = c.Alias.Split('.').Last();
+                            writer.AddContainer(softwareSystemName, containerName, c.Type, c.Name);
 
-                            c.WithInterfaces(writer).ToList().ForEach(i =>
+                            c.WithInterfaces(writer.DataProvider).ToList().ForEach(i =>
                             {
-                                writer.AddContainerInterfaceClass(i);
+                                writer.AddContainerInterface(softwareSystemName, containerName, i.Alias.Split('.').Last(), i.Name);
                             });
                         });
 
@@ -53,16 +55,16 @@ namespace C4InterFlow.Automation.Writers
             writer.WithActors()
                     .ToList().ForEach(a =>
                     {
-                        if (!a.TryGetType(writer, out var type))
+                        if (!a.TryGetType(writer.DataProvider, out var type))
                         {
                             type = nameof(Person);
                         }
-                        writer.AddActorClass(a.Alias, type, a.Name);
+                        writer.AddActor(a.Alias, type, a.Name);
                     });
 
             Console.WriteLine($"Generating Business Processes");
             writer.WithBusinessProcesses()
-                .ToList().ForEach(b => writer.AddBusinessProcessClass(b.Alias, b.WithBusinessActivities(writer).ToArray(), b.Name));
+                .ToList().ForEach(b => writer.AddBusinessProcess(b.Alias, b.Name));
         }
     }
 }

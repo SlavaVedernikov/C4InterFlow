@@ -69,9 +69,9 @@ namespace C4InterFlow.Automation.Writers
 
             Directory.CreateDirectory(fileDirectory);
 
-            if (!writer.ComponentMethodInterfaceObjectMap.Keys.Contains(filePath))
+            if (!writer.ComponentInterfaceAaCFileToCSharpMethodDeclarationMap.Keys.Contains(filePath))
             {
-                writer.ComponentMethodInterfaceObjectMap.Add(filePath, methodDeclaration);
+                writer.ComponentInterfaceAaCFileToCSharpMethodDeclarationMap.Add(filePath, methodDeclaration);
             }
 
             var isPrivate = methodDeclaration.Modifiers.Any(modifier => modifier.IsKind(SyntaxKind.PrivateKeyword));
@@ -145,9 +145,9 @@ namespace C4InterFlow.Automation.Writers
 
                 Directory.CreateDirectory(fileDirectory);
 
-                if (!writer.ComponentPropertyInterfaceObjectMap.Keys.Contains(filePath))
+                if (!writer.ComponentInterfaceAaCFileToCSharpPropertyDeclarationMap.Keys.Contains(filePath))
                 {
-                    writer.ComponentPropertyInterfaceObjectMap.Add(filePath, propertyDeclaration);
+                    writer.ComponentInterfaceAaCFileToCSharpPropertyDeclarationMap.Add(filePath, propertyDeclaration);
                 }
 
                 if (File.Exists(filePath))
