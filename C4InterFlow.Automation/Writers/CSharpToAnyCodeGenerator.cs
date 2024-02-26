@@ -27,9 +27,9 @@ namespace C4InterFlow.Automation.Writers
             return CodeWriter.GetBusinessProcessCode(architectureNamespace, name, label, businessActivitiesCode, description);
         }
 
-        public static string GetBusinessActivityCode(string label, string actor, Structures.Flow[] flows, string? description = null)
+        public static string GetActivityCode(string label, string actor, Structures.Flow[] flows, string? description = null)
         {
-            return CodeWriter.GetBusinessProcessActivityCode(label, actor, flows, description);
+            return CodeWriter.GetActivityCode(label, actor, flows, description);
         }
 
         public static string GetContainerCode(string architectureNamespace, string softwareSystemName, string containerName, string label, string? type = null, string? description = null, string? technology = null, string? boundary = null)

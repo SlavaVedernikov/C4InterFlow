@@ -532,23 +532,23 @@ namespace C4InterFlow.Automation.Writers
             return result.ToString();
         }
 
-        public string GetBusinessProcessActivityCode(string label, string actor, Flow[] flows, string? description = null)
+        public string GetActivityCode(string label, string actor, Flow[] flows, string? description = null)
         {
             var result = new StringBuilder($@"
-            new Activity(new Flow({actor})");
+            new Activity(new Flow()");
             
-            foreach(var flow in flows)
+            foreach (var flow in flows)
             {
                 var code = GetFlowCode(flow);
                 if(!string.IsNullOrEmpty(code))
                 {
-                    result.AppendLine($"\t{code}");
+                    result.AppendLine();
+                    result.Append($"\t\t\t{code}");
                 }
             }
-            result.Append($@",
+            result.AppendLine($@",
                 ""{actor}"",
-                {(!string.IsNullOrEmpty(label) ? AnyCodeWriter.EnsureDoubleQuotes(label) : "\"\"")}),
-");
+                {(!string.IsNullOrEmpty(label) ? AnyCodeWriter.EnsureDoubleQuotes(label) : "\"\"")}),");
             return result.ToString();
         }
     }

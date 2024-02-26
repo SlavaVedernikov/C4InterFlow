@@ -118,9 +118,9 @@ namespace C4InterFlow.Automation.Writers
             var businessActivitiesSourceCode = new StringBuilder();
             foreach (var businessActivity in GetBusinessProcessActivities(businessProcess))
             {
-                businessActivitiesSourceCode.Append(CSharpToAnyCodeGenerator<CSharpCodeWriter>.GetBusinessActivityCode(
+                businessActivitiesSourceCode.Append(CSharpToAnyCodeGenerator<CSharpCodeWriter>.GetActivityCode(
                     businessActivity.Label,
-                    businessActivity.Actor,
+                    $"{ArchitectureNamespace}.Actors.{businessActivity.Actor}",
                     businessActivity.Flow?.Flows?.ToArray() ?? new Structures.Flow[] { }));
             }
 
@@ -191,7 +191,7 @@ namespace C4InterFlow.Automation.Writers
 
             if (!SoftwareSystemInterfaceAaCPathToCsvRecordMap.Keys.Contains(filePath))
             {
-                var softwareSystemInterface = DataProvider.SoftwareSystemInterfaceRecords.FirstOrDefault(x => x.Name == name);
+                var softwareSystemInterface = DataProvider.SoftwareSystemInterfaceRecords.FirstOrDefault(x => x.Alias == $"{softwareSystemName}.Interfaces.{name}");
                 if(softwareSystemInterface != null)
                 {
                     SoftwareSystemInterfaceAaCPathToCsvRecordMap.Add(filePath, softwareSystemInterface);
@@ -208,7 +208,7 @@ namespace C4InterFlow.Automation.Writers
                 ArchitectureNamespace,
                 softwareSystemName,
                 name,
-                string.IsNullOrEmpty(name) ? CSharpCodeWriter.GetLabel(name) : name);
+                string.IsNullOrEmpty(label) ? CSharpCodeWriter.GetLabel(name) : label);
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
             var root = tree.GetRoot();
@@ -279,7 +279,7 @@ namespace C4InterFlow.Automation.Writers
 
             if (!ContainerInterfaceAaCPathToCsvRecordMap.Keys.Contains(filePath))
             {
-                var containerInterface = DataProvider.ContainerInterfaceRecords.FirstOrDefault(x => x.Name == name);
+                var containerInterface = DataProvider.ContainerInterfaceRecords.FirstOrDefault(x => x.Alias == $"{softwareSystemName}.Containers.{containerName}.Interfaces.{name}");
                 if (containerInterface != null)
                 {
                     ContainerInterfaceAaCPathToCsvRecordMap.Add(filePath, containerInterface);

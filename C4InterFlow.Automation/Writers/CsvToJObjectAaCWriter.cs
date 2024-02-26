@@ -177,7 +177,7 @@ namespace C4InterFlow.Automation.Writers
                     softwareSystemObject.Add("Interfaces", new JObject());
                 }
 
-                softwareSystemInterfacesObject = JsonArchitectureAsCode.SelectToken($"{ArchitectureNamespace}.SoftwareSystems.{softwareSystemName}.Containers") as JObject;
+                softwareSystemInterfacesObject = JsonArchitectureAsCode.SelectToken($"{ArchitectureNamespace}.SoftwareSystems.{softwareSystemName}.Interfaces") as JObject;
             }
 
             if (softwareSystemInterfacesObject != null)
