@@ -2,6 +2,7 @@ using System.Text;
 using C4InterFlow.Commons;
 using C4InterFlow.Structures;
 using C4InterFlow.Structures.Boundaries;
+using C4InterFlow.Visualisation.Plantuml.Enums;
 
 namespace C4InterFlow.Visualisation.Plantuml;
 
@@ -13,17 +14,17 @@ internal static class PlantumlStructure
     /// <summary>
     /// Parser Structure to PlantUML
     /// </summary>
-    public static string ToPumlString(this Structure structure)
+    public static string ToPumlString(this Structure structure, BoundaryStyle? style = BoundaryStyle.CurlyBracketsEnclosed)
         => structure switch
         {
             Person person => person.ToPumlString(),
             SoftwareSystem system => system.ToPumlString(),
-            SoftwareSystemBoundary softwareSystemBoundary => softwareSystemBoundary.ToPumlString(),
+            SoftwareSystemBoundary softwareSystemBoundary => softwareSystemBoundary.ToPumlString(style),
             DeploymentNode deploymentNode => deploymentNode.ToPumlString(),
             Component component => component.ToPumlString(),
             Container container => container.ToPumlString(),
-            ContainerBoundary containerBoundary => containerBoundary.ToPumlString(),
-            EnterpriseBoundary enterpriseBoundary => enterpriseBoundary.ToPumlString(),
+            ContainerBoundary containerBoundary => containerBoundary.ToPumlString(style),
+            EnterpriseBoundary enterpriseBoundary => enterpriseBoundary.ToPumlString(style),
             _ => string.Empty
         };
 
@@ -45,37 +46,52 @@ internal static class PlantumlStructure
                 .TryConcatTags(system) + ")";
     }
 
-    private static string ToPumlString(this SoftwareSystemBoundary boundary)
+    private static string ToPumlString(this SoftwareSystemBoundary boundary, BoundaryStyle? style = BoundaryStyle.CurlyBracketsEnclosed)
     {
         var stream = new StringBuilder();
         stream.AppendLine();
-        stream.AppendLine($"System_Boundary({boundary.Alias}, \"{boundary.Label}\") {{");
+        stream.AppendLine($"System_Boundary({boundary.Alias}, \"{boundary.Label}\"){(style!.Value == BoundaryStyle.CurlyBracketsEnclosed ? " {" : string.Empty)}");
 
         foreach (var structure in boundary.Structures)
         {
-            stream.AppendLine($"{TabIndentation.Indent()}{structure.ToPumlString()}");
+            stream.AppendLine($"{TabIndentation.Indent()}{structure.ToPumlString(style)}");
         }
 
-        stream.AppendLine("}");
+        if (style!.Value == BoundaryStyle.CurlyBracketsEnclosed)
+        {
+            stream.Append("}");
+        }
+        else
+        {
+            stream.Append("Boundary_End()");
+        }
+        
 
         return stream.ToString();
     }
 
-    private static string ToPumlString(this EnterpriseBoundary boundary)
+    private static string ToPumlString(this EnterpriseBoundary boundary, BoundaryStyle? style = BoundaryStyle.CurlyBracketsEnclosed)
     {
         var stream = new StringBuilder();
         stream.AppendLine();
-        stream.AppendLine($"Enterprise_Boundary({boundary.Alias}, \"{boundary.Label}\") {{");
+        stream.AppendLine($"Enterprise_Boundary({boundary.Alias}, \"{boundary.Label}\"){(style!.Value == BoundaryStyle.CurlyBracketsEnclosed ? " {" : string.Empty)}");
 
         foreach (var structure in boundary.Structures)
         {
             if (structure is Person or SoftwareSystem or EnterpriseBoundary)
             {
-                stream.AppendLine($"{TabIndentation.Indent()}{structure.ToPumlString()}");
+                stream.AppendLine($"{TabIndentation.Indent()}{structure.ToPumlString(style)}");
             }
         }
 
-        stream.AppendLine("}");
+        if (style!.Value == BoundaryStyle.CurlyBracketsEnclosed)
+        {
+            stream.Append("}");
+        }
+        else
+        {
+            stream.Append("Boundary_End()");
+        }
 
         return stream.ToString();
     }
@@ -111,27 +127,26 @@ internal static class PlantumlStructure
             .TryConcatTags(container) + ")";
     }
 
-    private static string ToPumlString(this ContainerBoundary boundary)
+    private static string ToPumlString(this ContainerBoundary boundary, BoundaryStyle? style = BoundaryStyle.CurlyBracketsEnclosed)
     {
         var stream = new StringBuilder();
 
         stream.AppendLine();
-        stream.AppendLine($"Container_Boundary({boundary.Alias}, \"{boundary.Label}\") {{");
+        stream.AppendLine($"Container_Boundary({boundary.Alias}, \"{boundary.Label}\"){(style!.Value == BoundaryStyle.CurlyBracketsEnclosed ? " {" : string.Empty)}");
+
         foreach (var component in boundary.Components)
         {
             stream.AppendLine($"{TabIndentation.Indent()}{component.ToPumlString()}");
         }
 
-        if (boundary.Relationships.Any())
+        if (style!.Value == BoundaryStyle.CurlyBracketsEnclosed)
         {
-            stream.AppendLine();
-            foreach (var relationship in boundary.Relationships)
-            {
-                stream.AppendLine($"{TabIndentation.Indent()}{relationship.ToPumlString()}");
-            }
+            stream.Append("}");
         }
-
-        stream.AppendLine("}");
+        else
+        {
+            stream.Append("Boundary_End()");
+        }
 
         return stream.ToString();
     }

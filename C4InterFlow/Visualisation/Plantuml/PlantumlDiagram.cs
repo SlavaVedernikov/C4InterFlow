@@ -133,10 +133,10 @@ public static class PlantumlDiagram
         return stream;
     }
 
-    private static string GetPumlFilePath(this Diagram diagram, bool useUrlInclude, string path)
+    internal static string GetPumlFilePath(this Diagram diagram, bool useUrlInclude, string path, bool? isSequenceDiagram = false)
     {
         const string standardLibraryBaseUrl = "https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master";
-        var pumlFileName = $"{diagram.Name}.puml";
+        var pumlFileName = $"{(isSequenceDiagram == true? "C4_Sequence" : diagram.Name)}.puml";
 
         return useUrlInclude
             ? $"{standardLibraryBaseUrl}/{pumlFileName}"

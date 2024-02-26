@@ -1,17 +1,15 @@
-﻿using C4InterFlow.Commons.FileSystem;
-using C4InterFlow.Visualisation;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using C4InterFlow.Visualisation.Plantuml.Enums;
 
 namespace C4InterFlow.Visualisation.Plantuml
 {
     public class PlantumlSequenceContext : PlantumlContext
     {
+        private SequenceDiagramStyle Style {get; set;}
+        public PlantumlSequenceContext() : this(SequenceDiagramStyle.PlantUML) { }
+
+        public PlantumlSequenceContext(SequenceDiagramStyle style) {
+            Style = style;
+        }
         protected override string SavePumlFiles(string outputDirectory, Diagram diagram, string path, string fileName)
         {
             try
@@ -19,7 +17,7 @@ namespace C4InterFlow.Visualisation.Plantuml
                 PlantumlResources.LoadResources(outputDirectory);
                 var filePath = Path.Combine(outputDirectory, path, fileName);
                 Directory.CreateDirectory(Path.Combine(outputDirectory, path));
-                File.WriteAllText(filePath, diagram.ToPumlSequenceString(UsingStandardLibraryBaseUrl));
+                File.WriteAllText(filePath, diagram.ToPumlSequenceString(UsingStandardLibraryBaseUrl, path, Style));
                 return filePath;
             }
             catch (Exception e)

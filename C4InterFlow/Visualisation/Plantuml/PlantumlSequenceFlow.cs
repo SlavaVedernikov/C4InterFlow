@@ -6,13 +6,13 @@ using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+using C4InterFlow.Visualisation.Plantuml.Enums;
 
 namespace C4InterFlow.Visualisation.Plantuml
 {
     public static class PlantumlSequenceFlow
     {
-        public static string ToPumlSequenceString(this Flow flow)
+        public static string ToPumlSequenceString(this Flow flow, SequenceDiagramStyle style)
         {
             var sb = new StringBuilder();
             var pumlKeyword = string.Empty;
@@ -70,12 +70,12 @@ namespace C4InterFlow.Visualisation.Plantuml
             if (flow.Type == Flow.FlowType.ThrowException)
             {
                 var flowRelationship = new Relationship(actor.Alias, actor.Alias, $"Exception{(!string.IsNullOrEmpty(flow.Expression) ? $" ({flow.Expression.Replace("\n", @"\n")})" : string.Empty)}");
-                sb.AppendLine(flowRelationship.ToPumlSequenceString());
+                sb.AppendLine(flowRelationship.ToPumlSequenceString(style));
             }
             else if (flow.Type == Flow.FlowType.Return)
             {
                 var flowRelationship = new Relationship(actor.Alias, actor.Alias, $"Retun{(!string.IsNullOrEmpty(flow.Expression) ? $" ({flow.Expression.Replace("\n", @"\n")})" : string.Empty)}");
-                sb.AppendLine(flowRelationship.ToPumlSequenceString());
+                sb.AppendLine(flowRelationship.ToPumlSequenceString(style));
             }
             else if(flow.Type == Flow.FlowType.Use)
             {
@@ -98,7 +98,7 @@ namespace C4InterFlow.Visualisation.Plantuml
                 if(usesInterfaceOwner != null)
                 {
                     var flowRelationship = new Relationship(actor.Alias, usesInterfaceOwner.Alias, label);
-                    sb.AppendLine(flowRelationship.ToPumlSequenceString());
+                    sb.AppendLine(flowRelationship.ToPumlSequenceString(style));
                 }
 
 
@@ -113,7 +113,7 @@ namespace C4InterFlow.Visualisation.Plantuml
 
             foreach (var segment in flow.Flows)
             {
-                sb.Append(segment.ToPumlSequenceString());
+                sb.Append(segment.ToPumlSequenceString(style));
             }
 
             if (flow.Type == Flow.FlowType.If || 

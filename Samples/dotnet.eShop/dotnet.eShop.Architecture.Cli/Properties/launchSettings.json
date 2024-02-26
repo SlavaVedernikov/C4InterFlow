@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "dotnet.eShop.Architecture.Cli": {
-      "commandName": "Project",
-      "commandLineArgs": "execute-aac-strategy --aac-root-namespace \"BigBankPlc\" --aac-output-path \"C:\\C4InterFlow\\Samples\\Internet Banking System\\CSV\\Architecture\" --aac-writer-strategy \"C4InterFlow.Automation.Writers.YamlToCsvAaCGenerator,C4InterFlow.Automation\" --params aac-input-path=\"C:\\C4InterFlow\\Samples\\Internet Banking System\\Yaml\\Architecture\"\r\n"
-    }
-  }
-}

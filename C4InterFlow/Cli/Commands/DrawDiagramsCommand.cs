@@ -6,6 +6,7 @@ using C4InterFlow.Structures;
 using C4InterFlow.Cli.Commands.Binders;
 using System.Text.RegularExpressions;
 using C4InterFlow.Automation;
+using C4InterFlow.Visualisation.Plantuml.Enums;
 
 namespace C4InterFlow.Cli.Commands;
 
@@ -129,6 +130,33 @@ public class DrawDiagramsCommand : Command
                                         outputOptions.OutputDirectory,
                                         outputOptions.OutputSubDirectory,
                                         outputOptions.DiagramNamePrefix);
+                                    break;
+                                }
+                            case DiagramTypesOption.C4_SEQUENCE:
+                                {
+                                    DrawSequenceDiagrams(
+                                        diagramScope,
+                                        levelOfDetails,
+                                        interfaces,
+                                        outputOptions.Formats,
+                                        displayOptions.ShowBoundaries,
+                                        displayOptions.ShowInterfaceInputAndOutput,
+                                        outputOptions.OutputDirectory,
+                                        outputOptions.OutputSubDirectory,
+                                        outputOptions.DiagramNamePrefix,
+                                        SequenceDiagramStyle.C4);
+
+                                    DrawSequenceDiagrams(
+                                        diagramScope,
+                                        levelOfDetails,
+                                        businessProcesses,
+                                        outputOptions.Formats,
+                                        displayOptions.ShowBoundaries,
+                                        displayOptions.ShowInterfaceInputAndOutput,
+                                        outputOptions.OutputDirectory,
+                                        outputOptions.OutputSubDirectory,
+                                        outputOptions.DiagramNamePrefix,
+                                        SequenceDiagramStyle.C4);
                                     break;
                                 }
                             case string c4type
@@ -420,11 +448,11 @@ public class DrawDiagramsCommand : Command
         return result;
     }
 
-    private static void DrawSequenceDiagrams(string scope, string levelOfDetails, BusinessProcess[] businessProcesses, string[] formats, bool showBoundaries, bool showInterfaceInputAndOutput, string outputDirectory, string? outputSubDirectory = null, string? diagramNamePrefix = null)
+    private static void DrawSequenceDiagrams(string scope, string levelOfDetails, BusinessProcess[] businessProcesses, string[] formats, bool showBoundaries, bool showInterfaceInputAndOutput, string outputDirectory, string? outputSubDirectory = null, string? diagramNamePrefix = null, SequenceDiagramStyle? style = SequenceDiagramStyle.PlantUML)
     {
         if (!businessProcesses.Any()) return;
 
-        var context = new PlantumlSequenceContext();
+        var context = new PlantumlSequenceContext(style!.Value);
         if (formats.Contains(DiagramFormatsOption.PNG))
         {
             context.UseDiagramImageBuilder();
@@ -447,7 +475,7 @@ public class DrawDiagramsCommand : Command
             if (TryGetDiagramPath(
                     scope,
                     levelOfDetails,
-                    DiagramTypesOption.SEQUENCE,
+                    (style!.Value == SequenceDiagramStyle.C4 ? DiagramTypesOption.C4_SEQUENCE : DiagramTypesOption.SEQUENCE),
                     businessProcess,
                     out var path,
                     out var fileName,
@@ -503,11 +531,11 @@ public class DrawDiagramsCommand : Command
         progress.Complete();
     }
 
-    private static void DrawSequenceDiagrams(string scope, string levelOfDetails, Interface[] interfaces, string[] formats, bool showBoundaries, bool showInterfaceInputAndOutput, string outputDirectory, string? outputSubDirectory = null, string? diagramNamePrefix = null)
+    private static void DrawSequenceDiagrams(string scope, string levelOfDetails, Interface[] interfaces, string[] formats, bool showBoundaries, bool showInterfaceInputAndOutput, string outputDirectory, string? outputSubDirectory = null, string? diagramNamePrefix = null, SequenceDiagramStyle? style = SequenceDiagramStyle.PlantUML)
     {
         if (!interfaces.Any()) return;
 
-        var context = new PlantumlSequenceContext();
+        var context = new PlantumlSequenceContext(style!.Value);
         if (formats.Contains(DiagramFormatsOption.PNG))
         {
             context.UseDiagramImageBuilder();
@@ -530,7 +558,7 @@ public class DrawDiagramsCommand : Command
             if (TryGetDiagramPath(
                     scope,
                     levelOfDetails,
-                    DiagramTypesOption.SEQUENCE,
+                    (style!.Value == SequenceDiagramStyle.C4 ? DiagramTypesOption.C4_SEQUENCE : DiagramTypesOption.SEQUENCE),
                     @interface,
                     out var path,
                     out var fileName,
@@ -727,7 +755,7 @@ public class DrawDiagramsCommand : Command
                     path = "Software Systems";
                 }
 
-                fileName = $"{(!string.IsNullOrEmpty(diagramNamePrefix) ? $"{diagramNamePrefix} - " : string.Empty)}{ToPrettyName(levelOfDetails)} {ToPrettyName(diagramType)}.puml";
+                fileName = $"{(!string.IsNullOrEmpty(diagramNamePrefix) ? $"{diagramNamePrefix} - " : string.Empty)}{ToPrettyName(levelOfDetails)} - {ToPrettyName(diagramType)}.puml";
 
                 break;
             }
@@ -753,7 +781,7 @@ public class DrawDiagramsCommand : Command
             path = "Software Systems";
         }
 
-        fileName = $"{(!string.IsNullOrEmpty(diagramNamePrefix) ? $"{diagramNamePrefix} - " : string.Empty)}{ToPrettyName(levelOfDetails)} {ToPrettyName(diagramType)}.puml";
+        fileName = $"{(!string.IsNullOrEmpty(diagramNamePrefix) ? $"{diagramNamePrefix} - " : string.Empty)}{ToPrettyName(levelOfDetails)} - {ToPrettyName(diagramType)}.puml";
         
         switch (scope)
         {
@@ -869,7 +897,7 @@ public class DrawDiagramsCommand : Command
             path = $"Business Processes";
         }
 
-        fileName = $"{(!string.IsNullOrEmpty(diagramNamePrefix) ? $"{diagramNamePrefix} - " : string.Empty)}{ToPrettyName(levelOfDetails)} {ToPrettyName(diagramType)}.puml";
+        fileName = $"{(!string.IsNullOrEmpty(diagramNamePrefix) ? $"{diagramNamePrefix} - " : string.Empty)}{ToPrettyName(levelOfDetails)} - {ToPrettyName(diagramType)}.puml";
 
         switch (scope)
         {
