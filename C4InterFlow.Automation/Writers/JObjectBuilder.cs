@@ -250,8 +250,10 @@ namespace C4InterFlow.Automation.Writers
 
             var result = new JObject
             {
+                { "Label", label },
+                { "Actor", actor },
                 { "Flow", activityFlow },
-                { "Label", label }
+                
             };
 
             return result;

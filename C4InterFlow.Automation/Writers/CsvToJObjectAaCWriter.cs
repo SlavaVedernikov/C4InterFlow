@@ -113,17 +113,22 @@ namespace C4InterFlow.Automation.Writers
 
             if (businessProcessesObject != null)
             {
-                JsonSerializer serializer = new JsonSerializer();
+                var settings = new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore,
+                    DefaultValueHandling = DefaultValueHandling.Ignore
+                };
+
+                JsonSerializer serializer = JsonSerializer.Create(settings);
                 serializer.Converters.Add(new StringEnumConverter());
 
                 var businessActivitiesJArray = new JArray();
                 foreach (var businessActivity in GetBusinessProcessActivities(businessProcess))
                 {
-                    var actor = businessActivity.Actor;
                     businessActivitiesJArray.Add(new JObject()
                     {
                         { "Label", businessActivity.Label },
-                        { "Actor", actor },
+                        { "Actor", businessActivity.Actor },
                         {
                             "Flow", JObject.FromObject(businessActivity.Flow, serializer)
                         }

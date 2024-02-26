@@ -120,7 +120,7 @@ namespace C4InterFlow.Automation.Writers
             {
                 businessActivitiesSourceCode.Append(CSharpToAnyCodeGenerator<CSharpCodeWriter>.GetActivityCode(
                     businessActivity.Label,
-                    $"{ArchitectureNamespace}.Actors.{businessActivity.Actor}",
+                    businessActivity.Actor,
                     businessActivity.Flow?.Flows?.ToArray() ?? new Structures.Flow[] { }));
             }
 

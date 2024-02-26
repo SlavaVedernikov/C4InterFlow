@@ -42,6 +42,8 @@ namespace C4InterFlow.Automation.Writers
 
         public IAaCWriter AddActivity(string businessProcessName, string actor, IEnumerable<Flow> flows, string? label = null)
         {
+            if (flows == null) return this;
+
             foreach (var flow in flows)
             {
                 DataProvider.ActivityRecords.Add(new CsvDataProvider.Activity()

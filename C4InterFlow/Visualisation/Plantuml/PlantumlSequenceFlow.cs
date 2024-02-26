@@ -111,9 +111,12 @@ namespace C4InterFlow.Visualisation.Plantuml
                 }
             }
 
-            foreach (var segment in flow.Flows)
+            if(flow.Flows != null)
             {
-                sb.Append(segment.ToPumlSequenceString(style));
+                foreach (var segment in flow.Flows)
+                {
+                    sb.Append(segment.ToPumlSequenceString(style));
+                }
             }
 
             if (flow.Type == Flow.FlowType.If || 
