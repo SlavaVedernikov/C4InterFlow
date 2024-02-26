@@ -4,25 +4,36 @@
 	<TargetFramework>net6.0</TargetFramework>
 	<ImplicitUsings>enable</ImplicitUsings>
 	<Nullable>enable</Nullable>
+  <Deterministic>true</Deterministic>
+  <IncludeSymbols>true</IncludeSymbols>
+  <SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	<Version>0.31.0</Version>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<PackageId>C4InterFlow.Automation</PackageId>
-		<PackageVersion>0.31.0</PackageVersion>
-		<Authors>Slava Vedernikov</Authors>
-		<PackageLicenseUrl></PackageLicenseUrl>
-		<PackageProjectUrl></PackageProjectUrl>
-		<PackageIconUrl></PackageIconUrl>
-		<RepositoryUrl></RepositoryUrl>
-		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Description>Streamline Your Architecture Documentation with C4InterFlow Automation! Tailored for Architects and Developers, this tool simplifies the creation of Application Architecture as Code. Effortlessly import from a variety of sources like .NET codebases and CSV architecture repositories. Experience enhanced efficiency and accuracy, transforming complex architectural data into clear, manageable code. Ideal for professionals seeking to optimize documentation processes and maintain consistency across projects.</Description>
-		<PackageReleaseNotes></PackageReleaseNotes>
+    <PackageVersion>0.31.0-rc</PackageVersion>
+    <Authors>Slava Vedernikov</Authors>
+    <Description>Revolutionize your Application Architecture Documentation with C4InterFlow. Designed for Architects and Engineers, this tool leverages the widely-recognized C4 Model notation, enhanced with unique features like Interface and Flow, to describe your Application Architecture as code. Experience an intuitive, efficient way to document complex systems, ensuring clarity and consistency across your teams and products.</Description>
     <Copyright>Copyright 2024 Slava Vedernikov</Copyright>
-	</PropertyGroup>
+    <PackageProjectUrl>https://github.com/SlavaVedernikov/C4InterFlow/wiki</PackageProjectUrl>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/SlavaVedernikov/C4InterFlow</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>architecture-as-code c4-model architecture-as-code-dsl architecture-diagrams-generation plantuml-diagrams architecture-as-code-tools architecture-as-code-toolchain application-architecture business-process-as-code</PackageTags>
+    <PackageReleaseNotes>Initial Release Candidate</PackageReleaseNotes>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="..\NuGet\icon.png" Pack="true" PackagePath="\"/>
+    <None Include="..\NuGet\C4InterFlow.Automation\README.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+  
 	<ItemGroup>
-	<ProjectReference Include="..\C4InterFlow\C4InterFlow.csproj" />
+	  <ProjectReference Include="..\C4InterFlow\C4InterFlow.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
