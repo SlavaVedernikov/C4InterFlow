@@ -17,7 +17,6 @@ public record ContainerBoundary : Structure, IBoundary
     }
 
     public IEnumerable<Component> Components { get; init; } = Array.Empty<Component>();
-    public IEnumerable<Relationship> Relationships { get; init; } = Array.Empty<Relationship>();
     public Structure[] GetBoundaryStructures() => Components.Select(x => x as Structure).ToArray();
 }
 

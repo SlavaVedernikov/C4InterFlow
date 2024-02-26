@@ -89,7 +89,8 @@ namespace C4InterFlow.Cli.Commands.Binders
                     supportedTypes.AddRange(new[] {
                         DiagramTypesOption.C4_STATIC,
                         DiagramTypesOption.C4,
-                        DiagramTypesOption.SEQUENCE
+                        DiagramTypesOption.SEQUENCE,
+                        DiagramTypesOption.C4_SEQUENCE
                     });
 
                     break;
@@ -116,7 +117,8 @@ namespace C4InterFlow.Cli.Commands.Binders
                         supportedTypes.AddRange(new[] {
                             DiagramTypesOption.C4_STATIC,
                             DiagramTypesOption.C4,
-                            DiagramTypesOption.SEQUENCE
+                            DiagramTypesOption.SEQUENCE,
+                            DiagramTypesOption.C4_SEQUENCE
                         });
 
                     break;
@@ -143,7 +145,8 @@ namespace C4InterFlow.Cli.Commands.Binders
                     supportedTypes.AddRange(new[] {
                         DiagramTypesOption.C4_STATIC,
                         DiagramTypesOption.C4,
-                        DiagramTypesOption.SEQUENCE
+                        DiagramTypesOption.SEQUENCE,
+                        DiagramTypesOption.C4_SEQUENCE
                     });
 
                     break;
@@ -158,7 +161,8 @@ namespace C4InterFlow.Cli.Commands.Binders
                     supportedTypes.AddRange(new[] {
                         DiagramTypesOption.C4_STATIC,
                         DiagramTypesOption.C4,
-                        DiagramTypesOption.SEQUENCE
+                        DiagramTypesOption.SEQUENCE,
+                        DiagramTypesOption.C4_SEQUENCE
                     });
 
                     break;

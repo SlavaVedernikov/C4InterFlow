@@ -17,6 +17,7 @@ internal static class PlantumlResources
         LoadResource(local, "C4_Container.puml");
         LoadResource(local, "C4_Context.puml");
         LoadResource(local, "C4_Deployment.puml");
+        LoadResource(local, "C4_Sequence.puml");
     }
 
     /// <summary>
