@@ -1,0 +1,50 @@
+BigBankPlc:
+  BusinessProcesses:
+    CompleteEndToEnd:
+      Label: Complete (End-To-End)
+      Activities:
+      - Label: Banking via Web App
+        Actor: BigBankPlc.Actors.Customer
+        Flow:
+          Flows:
+          - Type: Use
+            Owner: BigBankPlc.Actors.Customer
+            Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.WebApplication.Interfaces.Navigate
+          - Type: Use
+            Owner: BigBankPlc.Actors.Customer
+            Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.SignIn
+          - Type: Use
+            Owner: BigBankPlc.Actors.Customer
+            Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.ViewCustomerDetails
+          - Type: Use
+            Owner: BigBankPlc.Actors.Customer
+            Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.ViewAccountTransactions
+          - Type: Use
+            Owner: BigBankPlc.Actors.Customer
+            Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.CreateAccount
+          Owner: BigBankPlc.Actors.Customer
+      - Label: Banking via Mobile App
+        Actor: BigBankPlc.Actors.Customer
+        Flow:
+          Flows:
+          - Type: Use
+            Owner: BigBankPlc.Actors.Customer
+            Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp.Interfaces.SignIn
+          - Type: Use
+            Owner: BigBankPlc.Actors.Customer
+            Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp.Interfaces.ViewCustomerDetails
+          - Type: Use
+            Owner: BigBankPlc.Actors.Customer
+            Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp.Interfaces.ViewAccountTransactions
+          Owner: BigBankPlc.Actors.Customer
+      - Label: Receive E-Mail Notifications
+        Actor: BigBankPlc.Actors.Customer
+        Flow:
+          Flows:
+          - Type: Use
+            Owner: BigBankPlc.Actors.Customer
+            Expression: BigBankPlc.SoftwareSystems.EMailSystem.Interfaces.ReceivePasswordChangedNotificationEMail
+          - Type: Use
+            Owner: BigBankPlc.Actors.Customer
+            Expression: BigBankPlc.SoftwareSystems.EMailSystem.Interfaces.ReceiveNewAccountCreatedNotificationEMail
+          Owner: BigBankPlc.Actors.Customer

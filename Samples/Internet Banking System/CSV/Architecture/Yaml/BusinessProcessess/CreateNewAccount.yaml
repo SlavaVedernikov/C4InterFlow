@@ -1,0 +1,40 @@
+BigBankPlc:
+  BusinessProcesses:
+    CreateNewAccount:
+      Label: Create New Account
+      Activities:
+      - Label: Go to Online Banking URL
+        Actor: BigBankPlc.Actors.Customer
+        Flow:
+          Flows:
+          - Type: Use
+            Owner: BigBankPlc.Actors.Customer
+            Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.WebApplication.Interfaces.Navigate
+          Owner: BigBankPlc.Actors.Customer
+      - Label: Sign In and View Home Page
+        Actor: BigBankPlc.Actors.Customer
+        Flow:
+          Flows:
+          - Type: Use
+            Owner: BigBankPlc.Actors.Customer
+            Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.SignIn
+          - Type: Use
+            Owner: BigBankPlc.Actors.Customer
+            Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.ViewCustomerDetails
+          Owner: BigBankPlc.Actors.Customer
+      - Label: Create New Account
+        Actor: BigBankPlc.Actors.Customer
+        Flow:
+          Flows:
+          - Type: Use
+            Owner: BigBankPlc.Actors.Customer
+            Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.CreateAccount
+          Owner: BigBankPlc.Actors.Customer
+      - Label: Receive New Account Created Notification E-Mail
+        Actor: BigBankPlc.Actors.Customer
+        Flow:
+          Flows:
+          - Type: Use
+            Owner: BigBankPlc.Actors.Customer
+            Expression: BigBankPlc.SoftwareSystems.EMailSystem.Interfaces.ReceiveNewAccountCreatedNotificationEMail
+          Owner: BigBankPlc.Actors.Customer

@@ -1,0 +1,15 @@
+@startuml
+
+title Internet Banking - API Application - Get Account Transactions - CONTEXT level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "Internet Banking" as BigBankPlc.SoftwareSystems.InternetBanking
+participant "Mainframe Banking System" as BigBankPlc.SoftwareSystems.MainframeBankingSystem
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> BigBankPlc.SoftwareSystems.InternetBanking : Get Account Transactions
+group Get Account Transactions
+BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Account Transactions
+end
+
+
+@enduml

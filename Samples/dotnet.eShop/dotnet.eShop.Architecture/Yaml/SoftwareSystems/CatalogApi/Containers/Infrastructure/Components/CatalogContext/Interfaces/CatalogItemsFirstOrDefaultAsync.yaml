@@ -1,0 +1,21 @@
+dotnet:
+  eShop:
+    Architecture:
+      SoftwareSystems:
+        CatalogApi:
+          Containers:
+            Infrastructure:
+              Components:
+                CatalogContext:
+                  Interfaces:
+                    CatalogItemsFirstOrDefaultAsync:
+                      Label: Catalog Items First Or Default Async
+                      Description: ''
+                      Path: ''
+                      IsPrivate: false
+                      Protocol: ''
+                      Flow: {}
+                      Input: ''
+                      InputTemplate: ''
+                      Output: ''
+                      OutputTemplate: ''

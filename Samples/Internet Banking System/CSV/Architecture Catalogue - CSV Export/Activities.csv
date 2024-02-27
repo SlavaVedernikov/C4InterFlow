@@ -1,0 +1,16 @@
+Business Process,Name,Actor,Uses Container Interface,Uses Software System Interface
+CompleteEndToEnd,Banking via Web App,Customer,InternetBanking.Containers.WebApplication.Interfaces.Navigate,
+CompleteEndToEnd,Banking via Web App,Customer,InternetBanking.Containers.SinglePageApp.Interfaces.SignIn,
+CompleteEndToEnd,Banking via Web App,Customer,InternetBanking.Containers.SinglePageApp.Interfaces.ViewCustomerDetails,
+CompleteEndToEnd,Banking via Web App,Customer,InternetBanking.Containers.SinglePageApp.Interfaces.ViewAccountTransactions,
+CompleteEndToEnd,Banking via Web App,Customer,InternetBanking.Containers.SinglePageApp.Interfaces.CreateAccount,
+CompleteEndToEnd,Banking via Mobile App,Customer,InternetBanking.Containers.MobileApp.Interfaces.SignIn,
+CompleteEndToEnd,Banking via Mobile App,Customer,InternetBanking.Containers.MobileApp.Interfaces.ViewCustomerDetails,
+CompleteEndToEnd,Banking via Mobile App,Customer,InternetBanking.Containers.MobileApp.Interfaces.ViewAccountTransactions,
+CompleteEndToEnd,Receive E-Mail Notifications,Customer,,EMailSystem.Interfaces.ReceivePasswordChangedNotificationEMail
+CompleteEndToEnd,Receive E-Mail Notifications,Customer,,EMailSystem.Interfaces.ReceiveNewAccountCreatedNotificationEMail
+CreateNewAccount,Go to Online Banking URL,Customer,InternetBanking.Containers.WebApplication.Interfaces.Navigate,
+CreateNewAccount,Sign In and View Home Page,Customer,InternetBanking.Containers.SinglePageApp.Interfaces.SignIn,
+CreateNewAccount,Sign In and View Home Page,Customer,InternetBanking.Containers.SinglePageApp.Interfaces.ViewCustomerDetails,
+CreateNewAccount,Create New Account,Customer,InternetBanking.Containers.SinglePageApp.Interfaces.CreateAccount,
+CreateNewAccount,Receive New Account Created Notification E-Mail,Customer,,EMailSystem.Interfaces.ReceiveNewAccountCreatedNotificationEMail

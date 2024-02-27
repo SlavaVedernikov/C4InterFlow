@@ -1,0 +1,24 @@
+dotnet:
+  eShop:
+    Architecture:
+      SoftwareSystems:
+        CatalogApi:
+          Containers:
+            Api:
+              Components:
+                CatalogApi:
+                  Interfaces:
+                    ChangeUriPlaceholder:
+                      Label: Change Uri Placeholder
+                      Description: ''
+                      Path: ''
+                      IsPrivate: true
+                      Protocol: ''
+                      Flow:
+                        Flows:
+                        - Type: Return
+                          Expression: items
+                      Input: ''
+                      InputTemplate: ''
+                      Output: ''
+                      OutputTemplate: ''

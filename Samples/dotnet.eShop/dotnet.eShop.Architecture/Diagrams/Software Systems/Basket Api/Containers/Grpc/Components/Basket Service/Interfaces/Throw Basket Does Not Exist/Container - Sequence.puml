@@ -1,0 +1,15 @@
+@startuml
+
+title Basket Api - Grpc - Basket Service - Throw Basket Does Not Exist - CONTAINER level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Basket Api" #White
+    participant "Grpc" as dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc : Throw Basket Does Not Exist
+
+
+@enduml

@@ -1,0 +1,22 @@
+dotnet:
+  eShop:
+    Architecture:
+      SoftwareSystems:
+        BasketApi:
+          Containers:
+            Grpc:
+              Components:
+                BasketService:
+                  Interfaces:
+                    ThrowBasketDoesNotExist:
+                      Label: Throw Basket Does Not Exist
+                      Description: ''
+                      Path: ''
+                      IsPrivate: true
+                      Protocol: ''
+                      Flow:
+                        Flows: 
+                      Input: ''
+                      InputTemplate: ''
+                      Output: ''
+                      OutputTemplate: ''

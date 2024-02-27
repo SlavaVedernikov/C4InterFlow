@@ -1,0 +1,14 @@
+BigBankPlc:
+  SoftwareSystems:
+    EMailSystem:
+      Label: E-Mail System
+      Boundary: External
+      Interfaces:
+        SendNewAccountCreatedNotificationEMail:
+          Label: Send New Account Created Notification E-Mail
+        ReceiveNewAccountCreatedNotificationEMail:
+          Label: Receive New Account Created Notification E-Mail
+        SendPasswordChangedNotificationEMail:
+          Label: Send Password Changed Notification E-Mail
+        ReceivePasswordChangedNotificationEMail:
+          Label: Receive Password Changed Notification E-Mail

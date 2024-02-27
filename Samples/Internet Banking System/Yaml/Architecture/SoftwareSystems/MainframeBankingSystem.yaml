@@ -1,0 +1,19 @@
+BigBankPlc:
+  SoftwareSystems:
+    MainframeBankingSystem:
+      Label: Mainframe Banking System
+      Boundary: External
+      Description: ''
+      Interfaces:
+        GetCustomer:
+          Label: Get Customer
+          Protocol: 'TCP/IP'
+        GetCustomerAccounts:
+          Label: Get Customer Accounts
+          Protocol: 'TCP/IP'
+        GetAccountTransactions:
+          Label: Get Account Transactions
+          Protocol: 'TCP/IP'
+        CreateAccount:
+          Label: Create Account
+          Protocol: 'TCP/IP'

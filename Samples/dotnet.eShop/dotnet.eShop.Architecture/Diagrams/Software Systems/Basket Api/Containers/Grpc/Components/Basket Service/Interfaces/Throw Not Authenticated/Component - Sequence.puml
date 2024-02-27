@@ -1,0 +1,19 @@
+@startuml
+
+title Basket Api - Grpc - Basket Service - Throw Not Authenticated - COMPONENT level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Basket Api" #White
+    
+box "Grpc" #White
+    participant "Basket Service" as dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService
+end box
+
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService : Throw Not Authenticated
+
+
+@enduml

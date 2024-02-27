@@ -1,0 +1,11 @@
+@startuml
+
+title Catalog Api - Api - Catalog Api - Get All Items - CONTEXT level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "Catalog Api" as dotnet.eShop.Architecture.SoftwareSystems.CatalogApi
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi : Get All Items
+
+
+@enduml
