@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using YamlDotNet.Serialization;
+using Newtonsoft.Json.Converters;
 
 namespace C4InterFlow.Automation.Writers
 {

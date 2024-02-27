@@ -4,14 +4,14 @@
 Transform the landscape of **Application Architecture** by bridging the **gap** between **Architecture Model** and **Code**.
 
 # Mission 🎯
- Provide a **comprehensive** Application Architecture **toolchain** for IT Professionals to
+ Provide a **comprehensive** Application Architecture **framework** for IT Professionals to
  1. Effortlessly express Application **Architecture as Code** (AaC)
  2. Automatically **generate** Application Architecture **diagrams** from AaC
  3. Intuitively **analyse** Application Architecture by issuing simple **queries** against AaC
  
 # Overview
 
-**C4InterFlow** is a comprehensive **Application Architecture** focused **toolchain** designed for anyone in an organisation, who wants to either **contribute** to (or just to **explore**) the Application Architecture **documentation**.  
+**C4InterFlow** is a comprehensive **Application Architecture** focused **framework** designed for anyone in an organisation, who wants to either **contribute** to (or just to **explore**) the Application Architecture **documentation**.  
 
 ## Problem statements ❗
 

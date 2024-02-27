@@ -129,9 +129,9 @@ namespace C4InterFlow.Automation.Writers
             return this;
         }
 
-        public override JsonToCSharpAaCWriter AddContainer(string softwareSystemName, string containerName, string? containerType = null, string? label = null)
+        public override JsonToCSharpAaCWriter AddContainer(string softwareSystemName, string name, string? containerType = null, string? label = null)
         {
-            var documentName = $"{containerName}.{FileExtension}";
+            var documentName = $"{name}.{FileExtension}";
 
             var projectDirectory = ArchitectureProject.FilePath.Replace($"{ArchitectureProject.Name}.csproj", string.Empty);
             var fileDirectory = Path.Combine(projectDirectory, CSharpToAnyCodeGenerator<CSharpCodeWriter>.GetContainersDirectory(softwareSystemName));
@@ -148,8 +148,8 @@ namespace C4InterFlow.Automation.Writers
             var sourceCode = CSharpToAnyCodeGenerator<CSharpCodeWriter>.GetContainerCode(
                 ArchitectureNamespace,
                 softwareSystemName,
-                containerName,
-                label ?? CSharpCodeWriter.GetLabel(containerName),
+                name,
+                label ?? CSharpCodeWriter.GetLabel(name),
                 containerType);
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
@@ -202,7 +202,7 @@ namespace C4InterFlow.Automation.Writers
                 softwareSystemName,
                 containerName,
                 name,
-                CSharpCodeWriter.GetLabel(name));
+                label ?? CSharpCodeWriter.GetLabel(name));
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
             var root = tree.GetRoot();
