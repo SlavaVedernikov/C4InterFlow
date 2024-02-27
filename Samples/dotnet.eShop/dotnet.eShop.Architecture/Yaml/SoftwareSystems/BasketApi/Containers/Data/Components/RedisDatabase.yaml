@@ -1,0 +1,14 @@
+dotnet:
+  eShop:
+    Architecture:
+      SoftwareSystems:
+        BasketApi:
+          Containers:
+            Data:
+              Components:
+                RedisDatabase:
+                  Label: Redis Database
+                  ComponentType: None
+                  Description: ''
+                  Technology: ''
+                  Interfaces: {}

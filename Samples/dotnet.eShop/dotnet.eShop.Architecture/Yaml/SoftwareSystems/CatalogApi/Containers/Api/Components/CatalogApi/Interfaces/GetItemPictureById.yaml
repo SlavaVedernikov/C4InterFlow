@@ -1,0 +1,33 @@
+dotnet:
+  eShop:
+    Architecture:
+      SoftwareSystems:
+        CatalogApi:
+          Containers:
+            Api:
+              Components:
+                CatalogApi:
+                  Interfaces:
+                    GetItemPictureById:
+                      Label: Get Item Picture By Id
+                      Description: ''
+                      Path: ''
+                      IsPrivate: false
+                      Protocol: ''
+                      Flow:
+                        Flows:
+                        - Type: If
+                          Expression: item is null
+                          Flows:
+                          - Type: Return
+                            Expression: TypedResults.NotFound
+                        - Type: Use
+                          Expression: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.Interfaces.GetFullPath
+                        - Type: Use
+                          Expression: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.Interfaces.GetImageMimeTypeFromImageFileExtension
+                        - Type: Return
+                          Expression: TypedResults.PhysicalFile
+                      Input: ''
+                      InputTemplate: ''
+                      Output: ''
+                      OutputTemplate: ''

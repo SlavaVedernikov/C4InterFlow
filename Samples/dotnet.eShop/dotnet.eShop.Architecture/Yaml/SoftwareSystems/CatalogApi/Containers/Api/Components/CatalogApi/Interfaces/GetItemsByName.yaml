@@ -1,0 +1,28 @@
+dotnet:
+  eShop:
+    Architecture:
+      SoftwareSystems:
+        CatalogApi:
+          Containers:
+            Api:
+              Components:
+                CatalogApi:
+                  Interfaces:
+                    GetItemsByName:
+                      Label: Get Items By Name
+                      Description: ''
+                      Path: ''
+                      IsPrivate: false
+                      Protocol: ''
+                      Flow:
+                        Flows:
+                        - Type: Use
+                          Expression: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.CatalogItemsToListAsync
+                        - Type: Use
+                          Expression: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.Interfaces.ChangeUriPlaceholder
+                        - Type: Return
+                          Expression: TypedResults.Ok
+                      Input: ''
+                      InputTemplate: ''
+                      Output: ''
+                      OutputTemplate: ''

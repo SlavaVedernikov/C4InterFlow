@@ -1,0 +1,12 @@
+@startuml
+!include ..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Catalog Api - Api - Catalog Api - Create Item - CONTEXT level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+System(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi, "Catalog Api", "")
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi, "Create Item")
+
+
+@enduml

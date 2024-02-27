@@ -1,0 +1,21 @@
+dotnet:
+  eShop:
+    Architecture:
+      SoftwareSystems:
+        CatalogApi:
+          Containers:
+            Infrastructure:
+              Components:
+                CatalogContext:
+                  Interfaces:
+                    CatalogBrandsSingleOrDefault:
+                      Label: Catalog Brands Single Or Default
+                      Description: ''
+                      Path: ''
+                      IsPrivate: false
+                      Protocol: ''
+                      Flow: {}
+                      Input: ''
+                      InputTemplate: ''
+                      Output: ''
+                      OutputTemplate: ''

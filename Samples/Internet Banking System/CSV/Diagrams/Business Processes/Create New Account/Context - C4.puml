@@ -1,0 +1,31 @@
+@startuml
+!include ..\..\.c4s\C4_Context.puml
+
+AddElementTag("state:new", $bgColor=green, $fontColor=#ffffff, $borderColor=green, $shadowing="False")
+AddElementTag("state:changed", $bgColor=orange, $fontColor=#ffffff, $borderColor=orange, $shadowing="False")
+AddElementTag("state:removed", $bgColor=red, $fontColor=#ffffff, $borderColor=red, $shadowing="False")
+
+AddRelTag("state:new", $textColor=green, $lineColor=green)
+AddRelTag("state:changed", $textColor=orange, $lineColor=orange)
+AddRelTag("state:removed", $textColor=red, $lineColor=red)
+
+SHOW_PERSON_PORTRAIT()
+LAYOUT_TOP_DOWN()
+
+skinparam linetype polyline
+
+title Create New Account - CONTEXT level)
+
+Person(BigBankPlc.Actors.Customer, "Customer", "")
+System(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking", "")
+System_Ext(BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Mainframe Banking System", "")
+System_Ext(BigBankPlc.SoftwareSystems.EMailSystem, "E-Mail System", "")
+
+Rel(BigBankPlc.Actors.Customer, BigBankPlc.SoftwareSystems.InternetBanking, "Navigate\nSign In\nView Customer Details\nCreate Account")
+Rel(BigBankPlc.SoftwareSystems.InternetBanking, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Customer\nGet Customer Accounts\nCreate Account")
+Rel(BigBankPlc.SoftwareSystems.InternetBanking, BigBankPlc.SoftwareSystems.EMailSystem, "Send New Account Created Notification E-Mail")
+Rel(BigBankPlc.Actors.Customer, BigBankPlc.SoftwareSystems.EMailSystem, "Receive New Account Created Notification E-Mail")
+
+
+SHOW_LEGEND()
+@enduml

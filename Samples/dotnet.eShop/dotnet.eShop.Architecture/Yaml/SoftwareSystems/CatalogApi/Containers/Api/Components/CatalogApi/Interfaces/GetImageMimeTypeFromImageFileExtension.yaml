@@ -1,0 +1,22 @@
+dotnet:
+  eShop:
+    Architecture:
+      SoftwareSystems:
+        CatalogApi:
+          Containers:
+            Api:
+              Components:
+                CatalogApi:
+                  Interfaces:
+                    GetImageMimeTypeFromImageFileExtension:
+                      Label: Get Image Mime Type From Image File Extension
+                      Description: ''
+                      Path: ''
+                      IsPrivate: true
+                      Protocol: ''
+                      Flow:
+                        Flows: 
+                      Input: ''
+                      InputTemplate: ''
+                      Output: ''
+                      OutputTemplate: ''

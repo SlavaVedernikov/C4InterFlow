@@ -36,14 +36,17 @@ namespace C4InterFlow.Automation.Writers
                     Uses = g.Select(x => $"{ArchitectureNamespace}.SoftwareSystems.{(string.IsNullOrEmpty(x.UsesContainerInterface) ? x.UsesSoftwareSystemInterface : x.UsesContainerInterface)}").ToArray()
                 }))
             {
-                var flow = new Flow($"{ArchitectureNamespace}.Actors.{businessActivity.Actor}");
+                var flow = new Flow();
 
                 foreach(var usesInterface in businessActivity.Uses)
                 {
                     flow.Use(usesInterface);
                 }
 
-                result.Add(new Structures.Activity(flow, businessActivity.Actor, businessActivity.Name));
+                result.Add(new Activity(
+                    flow, 
+                    $"{ArchitectureNamespace}.Actors.{businessActivity.Actor}", 
+                    businessActivity.Name));
             }
 
             return result;

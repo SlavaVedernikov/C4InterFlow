@@ -1,0 +1,18 @@
+@startuml
+!include ..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Basket Api - Grpc - Basket Service - Throw Basket Does Not Exist - COMPONENT level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.BasketApi, "Basket Api")
+    
+Container_Boundary(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc, "Grpc")
+    Component(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, "Basket Service", "", "")
+Boundary_End()
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, "Throw Basket Does Not Exist")
+
+
+@enduml

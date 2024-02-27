@@ -1,0 +1,34 @@
+@startuml
+
+title Basket Api - Grpc - Basket Service - Delete Basket - COMPONENT level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Basket Api" #White
+    
+box "Grpc" #White
+    participant "Basket Service" as dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService
+end box
+
+    
+box "Data" #White
+    participant "Redis Basket Repository" as dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository
+    participant "Redis Database" as dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase
+end box
+
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService : Delete Basket
+group Delete Basket
+alt string.IsNullOrEmpty(userId)
+dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService : Throw Not Authenticated
+end
+dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository : Delete Basket Async
+group Delete Basket Async
+dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase : Key Delete Async
+end
+end
+
+
+@enduml

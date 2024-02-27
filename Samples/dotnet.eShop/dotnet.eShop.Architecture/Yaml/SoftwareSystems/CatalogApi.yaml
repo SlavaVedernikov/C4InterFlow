@@ -1,0 +1,10 @@
+dotnet:
+  eShop:
+    Architecture:
+      SoftwareSystems:
+        CatalogApi:
+          Label: Catalog Api
+          Boundary: Internal
+          Description: ''
+          Containers: {}
+          Interfaces: {}

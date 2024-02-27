@@ -1,0 +1,19 @@
+@startuml
+
+title Catalog Api - Api - Catalog Api - Get All Items - CONTAINER level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Catalog Api" #White
+    participant "Api" as dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api
+    participant "Infrastructure" as dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api : Get All Items
+group Get All Items
+dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure : Catalog Items To List Async
+end
+
+
+@enduml
