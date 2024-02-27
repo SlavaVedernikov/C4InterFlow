@@ -33,10 +33,7 @@ namespace C4InterFlow.Automation.Writers
 
             var filePath = Path.Combine(architectureOutputPath, $"{fileName}.{FileExtension}");
 
-            var settings = new JsonSerializerSettings();
-            settings.Converters.Add(new StringEnumConverter());
-
-            var json = JsonConvert.SerializeObject(JsonArchitectureAsCode, Formatting.Indented, settings);
+            var json = JsonConvert.SerializeObject(JsonArchitectureAsCode, Formatting.Indented);
             File.WriteAllText(filePath, json);
 
             JsonArchitectureAsCode = new JObject();

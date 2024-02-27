@@ -7,6 +7,7 @@ using System.Reflection.Emit;
 using System.Xml.Linq;
 using System.IO;
 using Newtonsoft.Json.Converters;
+using C4InterFlow.Structures;
 
 namespace C4InterFlow.Automation.Writers
 {
@@ -91,13 +92,15 @@ namespace C4InterFlow.Automation.Writers
 
             if (actorsObject != null)
             {
-                actorsObject.Add(
-                    name,
-                    new JObject
-                    {
-                        { "Type", type },
-                        { "Label", string.IsNullOrEmpty(label) ? AnyCodeWriter.GetLabel(name) : label },
-                    });
+                var actorObject = new JObject
+                {
+                    { "Type", type },
+                    { "Label", string.IsNullOrEmpty(label) ? AnyCodeWriter.GetLabel(name) : label },
+                };
+
+                actorsObject.Add(name, actorObject);
+
+                RemoveRedundantLabels(actorObject);
             }
 
             return this;
@@ -116,7 +119,6 @@ namespace C4InterFlow.Automation.Writers
                 var settings = new JsonSerializerSettings
                 {
                     NullValueHandling = NullValueHandling.Ignore,
-                    DefaultValueHandling = DefaultValueHandling.Ignore
                 };
 
                 JsonSerializer serializer = JsonSerializer.Create(settings);
@@ -135,13 +137,19 @@ namespace C4InterFlow.Automation.Writers
                     });
                 }
 
-                businessProcessesObject.Add(
-                    name,
-                    new JObject
-                    {
-                        { "Label", string.IsNullOrEmpty(label) ? AnyCodeWriter.GetLabel(name) : label },
-                        { "Activities", businessActivitiesJArray }
-                    });
+                var businessProcessObject = new JObject
+                {
+                    { "Label", string.IsNullOrEmpty(label) ? AnyCodeWriter.GetLabel(name) : label },
+                    { "Activities", businessActivitiesJArray }
+                };
+
+                RemoveEmptyFlows(businessProcessObject);
+                RemoveOwners(businessProcessObject);
+                RemoveNoneTypes(businessProcessObject);
+
+                businessProcessesObject.Add(name, businessProcessObject);
+
+                RemoveRedundantLabels(businessProcessObject);
             }
 
             return this;
@@ -160,6 +168,8 @@ namespace C4InterFlow.Automation.Writers
                     };
 
                 softwareSystemsObject.Add(name, softwareSystemObject);
+
+                RemoveRedundantLabels(softwareSystemObject);
             }
             return this;
         }
@@ -193,6 +203,8 @@ namespace C4InterFlow.Automation.Writers
                 };
 
                 softwareSystemInterfacesObject.Add(name, softwareSystemInterfaceObject);
+
+                RemoveRedundantLabels(softwareSystemInterfaceObject);
 
                 if (!SoftwareSystemInterfaceAaCPathToCsvRecordMap.Keys.Contains(softwareSystemInterfaceObject.Path))
                 {
@@ -230,6 +242,8 @@ namespace C4InterFlow.Automation.Writers
                     };
 
                 containersObject.Add(name, containerObject);
+
+                RemoveRedundantLabels(containerObject);
             }
 
             return this;
@@ -266,6 +280,8 @@ namespace C4InterFlow.Automation.Writers
                 };
 
                 containerInterfacesObject.Add(name, containerInterfaceObject);
+
+                RemoveRedundantLabels(containerInterfaceObject);
 
                 if (!ContainerInterfaceAaCPathToCsvRecordMap.Keys.Contains(containerInterfaceObject.Path))
                 {
@@ -304,5 +320,110 @@ namespace C4InterFlow.Automation.Writers
 
             return result ?? string.Empty;
         }
+
+        protected void RemoveEmptyFlows(JObject rootJObject)
+        {
+            var flows = rootJObject.SelectTokens("..Flows");
+
+            var tokensToRemove = new List<JToken>();
+            if (flows == null) return;
+            // Remove empty "Flows" arrays
+            foreach (var token in flows)
+            {
+                if (token is JArray flowsArray && flowsArray.Count == 0)
+                {
+                    tokensToRemove.Add(token);
+                }
+            }
+
+            foreach (var token in tokensToRemove)
+            {
+                token.Parent?.Remove();
+            }
+        }
+
+        protected void RemoveOwners(JObject rootJObject)
+        {
+            var owners = rootJObject.SelectTokens("..Owner");
+
+            var tokensToRemove = new List<JToken>();
+            if (owners == null) return;
+
+            foreach (var token in owners)
+            {
+                tokensToRemove.Add(token);
+            }
+
+            foreach (var token in tokensToRemove)
+            {
+                token.Parent?.Remove();
+            }
+        }
+
+        protected void RemoveNoneTypes(JObject rootJObject)
+        {
+            var types = rootJObject.SelectTokens("..Type");
+
+            var tokensToRemove = new List<JToken>();
+            if (types == null) return;
+
+            foreach (var token in types)
+            {
+                if(token.Value<string>() == nameof(Flow.FlowType.None))
+                {
+                    tokensToRemove.Add(token);
+                }
+            }
+
+            foreach (var token in tokensToRemove)
+            {
+                token.Parent?.Remove();
+            }
+        }
+
+        protected void RemoveRedundantLabels(JObject rootJObject)
+        {
+            var labels = rootJObject.SelectTokens("..Label");
+
+            var tokensToRemove = new List<JToken>();
+            if (labels == null) return;
+
+            foreach (var token in labels)
+            {
+                if (token.Value<string>().Replace(" ", string.Empty) == rootJObject.Path.Split(".").Last())
+                {
+                    tokensToRemove.Add(token);
+                }
+            }
+
+            foreach (var token in tokensToRemove)
+            {
+                token.Parent?.Remove();
+            }
+        }
+
+        public class EmptyJArrayConverter : JsonConverter
+        {
+            public override bool CanConvert(Type objectType)
+            {
+                return true;
+                //return objectType == typeof(JArray);
+            }
+
+            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+            {
+                var array = value as JArray;
+                if (array?.Count > 0)
+                {
+                    JArray.FromObject(array).WriteTo(writer);
+                }
+            }
+
+            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
     }
 }

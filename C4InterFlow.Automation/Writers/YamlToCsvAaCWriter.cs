@@ -25,7 +25,7 @@ namespace C4InterFlow.Automation.Writers
             {
                 Alias = name,
                 TypeName = type,
-                Name = label ?? string.Empty
+                Name = label ?? AnyCodeWriter.GetLabel(name) ?? string.Empty
             });
             return this;
         }
@@ -35,7 +35,7 @@ namespace C4InterFlow.Automation.Writers
             DataProvider.BusinessProcessRecords.Add(new CsvDataProvider.BusinessProcess()
             {
                 Alias = name,
-                Name = label ?? string.Empty
+                Name = label ?? AnyCodeWriter.GetLabel(name) ?? string.Empty
             });
             return this;
         }
@@ -66,7 +66,7 @@ namespace C4InterFlow.Automation.Writers
             DataProvider.SoftwareSystemRecords.Add(new CsvDataProvider.SoftwareSystem()
             {
                 Alias = name,
-                Name = label ?? string.Empty,
+                Name = label ?? AnyCodeWriter.GetLabel(name) ?? string.Empty,
                 IsExternal = Enum.TryParse<Boundary>(boundary, out var boundaryValue) ? boundaryValue == Boundary.External : false,
             });
             return this;
@@ -85,7 +85,7 @@ namespace C4InterFlow.Automation.Writers
             {
                 SoftwareSystem = softwareSystemName,
                 Alias = $"{softwareSystemName}.Interfaces.{name}",
-                Name = label ?? string.Empty,
+                Name = label ?? AnyCodeWriter.GetLabel(name) ?? string.Empty,
             });
             return this;
         }
@@ -112,7 +112,7 @@ namespace C4InterFlow.Automation.Writers
             {
                 Alias = $"{softwareSystemName}.Containers.{name}",
                 SoftwareSystem = softwareSystemName,
-                Name = label ?? string.Empty,
+                Name = label ?? AnyCodeWriter.GetLabel(name) ?? string.Empty,
                 Type = Enum.TryParse<ContainerType>((containerType ?? string.Empty), out var containerTypeValue) ?
                 Enum.GetName(typeof(ContainerType), containerTypeValue)!:
                 Enum.GetName(typeof(ContainerType), ContainerType.None)!
@@ -134,7 +134,7 @@ namespace C4InterFlow.Automation.Writers
             {
                 Alias = $"{softwareSystemName}.Containers.{containerName}.Interfaces.{name}",
                 Container = $"{softwareSystemName}.Containers.{containerName}",
-                Name = label ?? string.Empty
+                Name = label ?? AnyCodeWriter.GetLabel(name) ?? string.Empty
             });
             return this;
         }
