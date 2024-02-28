@@ -383,7 +383,7 @@ namespace C4InterFlow.Automation.Writers
 
         protected void RemoveRedundantLabels(JObject rootJObject)
         {
-            var labels = rootJObject.SelectTokens("..Label");
+            var labels = rootJObject.SelectTokens("Label");
 
             var tokensToRemove = new List<JToken>();
             if (labels == null) return;

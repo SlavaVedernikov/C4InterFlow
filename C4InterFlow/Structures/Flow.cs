@@ -338,50 +338,207 @@ namespace C4InterFlow.Structures
             }
         }
 
+        private bool IsAllowed(FlowType parentFlowType, FlowType childFlowType, out string message) {
+            var result = false;
+            message = string.Empty;
+            FlowType[] allowedParents = new FlowType[] { };
+
+            switch (childFlowType)
+            {
+                case FlowType.If:
+                    allowedParents = new FlowType[] {
+                        FlowType.None,
+                        FlowType.If,
+                        FlowType.ElseIf,
+                        FlowType.Else,
+                        FlowType.Loop,
+                        FlowType.Group,
+                        FlowType.Try,
+                        FlowType.Catch,
+                        FlowType.Finally};
+                    break;
+                case FlowType.ElseIf:
+                    allowedParents = new FlowType[] {
+                        FlowType.If};
+                    break;
+                case FlowType.Else:
+                    allowedParents = new FlowType[] {
+                        FlowType.If};
+                    break;
+                case FlowType.Loop:
+                    allowedParents = new FlowType[] {
+                        FlowType.None,
+                        FlowType.If,
+                        FlowType.ElseIf,
+                        FlowType.Else,
+                        FlowType.Loop,
+                        FlowType.Group,
+                        FlowType.Try,
+                        FlowType.Catch,
+                        FlowType.Finally};
+                    break;
+                case FlowType.Group:
+                    allowedParents = new FlowType[] {
+                        FlowType.None,
+                        FlowType.If,
+                        FlowType.ElseIf,
+                        FlowType.Else,
+                        FlowType.Loop,
+                        FlowType.Group,
+                        FlowType.Try,
+                        FlowType.Catch,
+                        FlowType.Finally};
+                    break;
+                case FlowType.Try:
+                    allowedParents = new FlowType[] {
+                        FlowType.None,
+                        FlowType.If,
+                        FlowType.ElseIf,
+                        FlowType.Else,
+                        FlowType.Loop,
+                        FlowType.Group,
+                        FlowType.Try,
+                        FlowType.Catch,
+                        FlowType.Finally};
+                    break;
+                case FlowType.Catch:
+                    allowedParents = new FlowType[] {
+                        FlowType.Try};
+                    break;
+                case FlowType.Finally:
+                    allowedParents = new FlowType[] {
+                        FlowType.Try};
+                    break;
+                case FlowType.ThrowException:
+                    allowedParents = new FlowType[] {
+                        FlowType.None,
+                        FlowType.If,
+                        FlowType.ElseIf,
+                        FlowType.Else,
+                        FlowType.Loop,
+                        FlowType.Group,
+                        FlowType.Try,
+                        FlowType.Catch,
+                        FlowType.Finally};
+                    break;
+                case FlowType.Return:
+                    allowedParents = new FlowType[] {
+                        FlowType.None,
+                        FlowType.If,
+                        FlowType.ElseIf,
+                        FlowType.Else,
+                        FlowType.Loop,
+                        FlowType.Group,
+                        FlowType.Try,
+                        FlowType.Catch,
+                        FlowType.Finally};
+                    break;
+                case FlowType.Use:
+                    allowedParents = new FlowType[] {
+                        FlowType.None,
+                        FlowType.If,
+                        FlowType.ElseIf,
+                        FlowType.Else,
+                        FlowType.Loop,
+                        FlowType.Group,
+                        FlowType.Try,
+                        FlowType.Catch,
+                        FlowType.Finally };
+                    break;
+            }
+
+            result = allowedParents.Contains(parentFlowType);
+
+            if(!result && allowedParents?.Count() > 0)
+            {
+                message = $"'{childFlowType}' is only allowed inside {string.Join(", ", allowedParents.Select(x => $"'{x}'"))}";
+            }
+
+            return result;
+        }
         public Flow Return(string value)
         {
-            var flow = new Flow(FlowType.Return, this, value);
-            AddFlow(flow);
+            var flowType = FlowType.Return;
+            var parent = this;
+
+            if(!IsAllowed(parent.Type, flowType, out var message))
+            {
+                throw new InvalidOperationException(message);
+            }
+
+            AddFlow(new Flow(flowType, parent, value));
             return this;
         }
 
         public Flow Use(string interfaceAlias)
         {
-            var flow = new Flow(FlowType.Use, this, interfaceAlias);
-            AddFlow(flow);
+            var flowType = FlowType.Use;
+            var parent = this;
+
+            if (!IsAllowed(parent.Type, flowType, out var message))
+            {
+                throw new InvalidOperationException(message);
+            }
+
+            AddFlow(new Flow(flowType, parent, interfaceAlias));
             return this;
         }
 
         public Flow ThrowException(string exception)
         {
-            var flow = new Flow(FlowType.ThrowException, this, exception);
-            AddFlow(flow);
+            var flowType = FlowType.ThrowException;
+            var parent = this;
+
+            if (!IsAllowed(parent.Type, flowType, out var message))
+            {
+                throw new InvalidOperationException(message);
+            }
+
+            AddFlow(new Flow(flowType, parent, exception));
             return this;
         }
 
         public Flow If(string condition)
         {
-            var flow = new Flow(FlowType.If, this, condition);
+            var flowType = FlowType.If;
+            var parent = this;
+
+            if (!IsAllowed(parent.Type, flowType, out var message))
+            {
+                throw new InvalidOperationException(message);
+            }
+
+            var flow = new Flow(flowType, this, condition);
             AddFlow(flow);
             return flow;
         }
 
         public Flow ElseIf(string condition)
         {
-            if (Type != FlowType.If && Type != FlowType.ElseIf)
-                throw new Exception("ElseIf has to have corresponding If or ElseIf");
+            var flowType = FlowType.ElseIf;
+            var parent = Parent;
 
-            var flow = new Flow(FlowType.ElseIf, Parent, condition);
+            if (!IsAllowed(parent.Type, flowType, out var message))
+            {
+                throw new InvalidOperationException(message);
+            }
+
+            var flow = new Flow(flowType, parent, condition);
             AddFlow(flow);
             return flow;
         }
 
         public Flow Else()
         {
-            if (Type != FlowType.If && Type != FlowType.ElseIf)
-                throw new Exception("Else has to have corresponding If or ElseIf");
+            var flowType = FlowType.Else;
+            var parent = Parent;
 
-            var flow = new Flow(FlowType.Else, Parent);
+            if (!IsAllowed(parent.Type, flowType, out var message))
+            {
+                throw new InvalidOperationException(message);
+            }
+
+            var flow = new Flow(flowType, parent);
             AddFlow(flow);
             return flow;
         }
@@ -396,7 +553,15 @@ namespace C4InterFlow.Structures
 
         public Flow Try()
         {
-            var flow = new Flow(FlowType.Try, this);
+            var flowType = FlowType.Try;
+            var parent = this;
+
+            if (!IsAllowed(parent.Type, flowType, out var message))
+            {
+                throw new InvalidOperationException(message);
+            }
+
+            var flow = new Flow(flowType, parent);
             AddFlow(flow);
             return flow;
         }
@@ -411,10 +576,15 @@ namespace C4InterFlow.Structures
 
         public Flow Catch(string? exception = null)
         {
-            if (Type != FlowType.Try)
-                throw new Exception("Catch has to have the corresponding Try");
+            var flowType = FlowType.Catch;
+            var parent = this;
 
-            var flow = new Flow(FlowType.Catch, this, exception??string.Empty);
+            if (!IsAllowed(parent.Type, flowType, out var message))
+            {
+                throw new InvalidOperationException(message);
+            }
+
+            var flow = new Flow(flowType, parent, exception??string.Empty);
             AddFlow(flow);
             return flow;
         }
@@ -429,10 +599,15 @@ namespace C4InterFlow.Structures
 
         public Flow Finally()
         {
-            if (Type != FlowType.Try)
-                throw new Exception("Finally has to have the corresponding Try");
+            var flowType = FlowType.Finally;
+            var parent = this;
 
-            var flow = new Flow(FlowType.Finally, this);
+            if (!IsAllowed(parent.Type, flowType, out var message))
+            {
+                throw new InvalidOperationException(message);
+            }
+
+            var flow = new Flow(flowType, parent);
             AddFlow(flow);
             return flow;
         }
@@ -447,7 +622,15 @@ namespace C4InterFlow.Structures
 
         public Flow Loop(string condition)
         {
-            var flow = new Flow(FlowType.Loop, this, condition);
+            var flowType = FlowType.Loop;
+            var parent = this;
+
+            if (!IsAllowed(parent.Type, flowType, out var message))
+            {
+                throw new InvalidOperationException(message);
+            }
+
+            var flow = new Flow(flowType, parent, condition);
             AddFlow(flow);
             return flow;
         }
@@ -460,11 +643,19 @@ namespace C4InterFlow.Structures
             return Parent;
         }
 
-        public Flow Group(string condition, string? ownerAlias = null)
+        public Flow Group(string label, string? ownerAlias = null)
         {
+            var flowType = FlowType.Group;
+            var parent = this;
+
+            if (!IsAllowed(parent.Type, flowType, out var message))
+            {
+                throw new InvalidOperationException(message);
+            }
+
             var flow = (ownerAlias == null ?
-                new Flow(FlowType.Group, this, condition) :
-                new Flow(FlowType.Group, this, ownerAlias, condition));
+                new Flow(flowType, parent, label) :
+                new Flow(flowType, parent, ownerAlias, label));
             AddFlow(flow);
             return flow;
         }
