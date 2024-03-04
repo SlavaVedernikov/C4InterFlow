@@ -1,10 +1,29 @@
 ﻿using Microsoft.CodeAnalysis;
 using Newtonsoft.Json.Linq;
+using System.Reflection.Metadata;
 
 namespace C4InterFlow.Automation.Writers
 {
     public static class CsvToJObjectExtensions
     {
+        public static JObject AddAttributesToSoftwareSystemObject(this JObject jsonObject,
+            CsvToJObjectAaCWriter writer)
+        {
+            var softwareSystem = writer.SoftwareSystemAaCPathToCsvRecordMap.GetValueOrDefault(jsonObject.Path);
+            if (softwareSystem == null || !softwareSystem.WithAttributes(writer.DataProvider).Any()) return jsonObject;
+
+            var attributes = new JObject();
+
+            softwareSystem.WithAttributes(writer.DataProvider)
+            .ToList().ForEach(a =>
+            {
+                attributes.Add(a.Attribute, a.Value );
+            });
+
+            jsonObject.Add("Attributes", attributes);
+
+            return jsonObject;
+        }
         public static JObject AddFlowToSoftwareSystemInterfaceObject(this JObject jsonObject,
             CsvToJObjectAaCWriter writer)
         {
@@ -16,9 +35,26 @@ namespace C4InterFlow.Automation.Writers
             softwareSystemInterface.WithUses(writer.DataProvider)
             .ToList().ForEach(i =>
             {
+                var currentFlows = flows;
+                var hasCondition = !string.IsNullOrEmpty(i.Condition);
+
+                if (hasCondition)
+                {
+                    var ifFlows = new JArray();
+                    var ifFlow = new JObject
+                    {
+                        { "Type", "If" },
+                        { "Expression", i.Condition },
+                        { "Flows", ifFlows }
+                    };
+
+                    flows.Add(ifFlow);
+                    currentFlows = ifFlows;
+                }
+
                 if (!string.IsNullOrEmpty(i.UsesContainerInterface))
                 {
-                    flows.Add(new JObject
+                    currentFlows.Add(new JObject
                             {
                                 { "Type", "Use" },
                                 { "Expression", $"{writer.ArchitectureNamespace}.SoftwareSystems.{i.UsesContainerInterface}" }
@@ -27,7 +63,7 @@ namespace C4InterFlow.Automation.Writers
                 }
                 else if (!string.IsNullOrEmpty(i.UsesSoftwareSystemInterface))
                 {
-                    flows.Add(new JObject
+                    currentFlows.Add(new JObject
                         {
                             { "Type", "Use" },
                             { "Expression", $"{writer.ArchitectureNamespace}.SoftwareSystems.{i.UsesSoftwareSystemInterface}" }
@@ -56,10 +92,26 @@ namespace C4InterFlow.Automation.Writers
             containerInterface.WithUses(writer.DataProvider)
                 .ToList().ForEach(i =>
                 {
+                    var currentFlows = flows;
+                    var hasCondition = !string.IsNullOrEmpty(i.Condition);
+
+                    if (hasCondition)
+                    {
+                        var ifFlows = new JArray();
+                        var ifFlow = new JObject
+                    {
+                        { "Type", "If" },
+                        { "Expression", i.Condition },
+                        { "Flows", ifFlows }
+                    };
+
+                        flows.Add(ifFlow);
+                        currentFlows = ifFlows;
+                    }
 
                     if (!string.IsNullOrEmpty(i.UsesContainerInterface))
                     {
-                        flows.Add(new JObject
+                        currentFlows.Add(new JObject
                             {
                                 { "Type", "Use" },
                                 { "Expression", $"{writer.ArchitectureNamespace}.SoftwareSystems.{i.UsesContainerInterface}" }
@@ -68,7 +120,7 @@ namespace C4InterFlow.Automation.Writers
                     }
                     else if (!string.IsNullOrEmpty(i.UsesSoftwareSystemInterface))
                     {
-                        flows.Add(new JObject
+                        currentFlows.Add(new JObject
                             {
                                 { "Type", "Use" },
                                 { "Expression", $"{writer.ArchitectureNamespace}.SoftwareSystems.{i.UsesSoftwareSystemInterface}" }

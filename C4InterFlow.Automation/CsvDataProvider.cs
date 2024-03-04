@@ -14,6 +14,7 @@ namespace C4InterFlow.Automation
             Write
         }
         protected const string FILE_SOFTWARE_SYSTEMS = "Software Systems";
+        protected const string FILE_SOFTWARE_SYSTEM_ATTRIBUTES = "Software System Attributes";
         protected const string FILE_SOFTWARE_SYSTEM_INTERFACES = "Software System Interfaces";
         protected const string FILE_SOFTWARE_SYSTEM_INTERFACE_FLOWS = "Software System Interface Flows";
         protected const string FILE_CONTAINERS = "Containers";
@@ -23,6 +24,7 @@ namespace C4InterFlow.Automation
         protected const string FILE_ACTOR_TYPES = "Actor Types";
         protected const string FILE_BUSINESS_PROCESSES = "Business Processes";
         protected const string FILE_ACTIVITIES = "Activities";
+        protected const string FILE_ATTRIBUTES = "Attributes";
 
         private string DataPath { get; set; }
         public CsvDataProvider(string dataPath, Mode mode = Mode.Read) {
@@ -65,6 +67,11 @@ namespace C4InterFlow.Automation
                 using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                 {
                     SoftwareSystemInterfaceRecords = csv.GetRecords<SoftwareSystemInterface>().ToList();
+                }
+                using (var reader = new StreamReader(@$"{DataPath}\{FILE_SOFTWARE_SYSTEM_ATTRIBUTES}.csv"))
+                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                {
+                    SoftwareSystemAttributeRecords = csv.GetRecords<SoftwareSystemAttribute>().ToList();
                 }
 
                 using (var reader = new StreamReader(@$"{DataPath}\{FILE_SOFTWARE_SYSTEM_INTERFACE_FLOWS}.csv"))
@@ -113,6 +120,7 @@ namespace C4InterFlow.Automation
         public IList<Actor> ActorRecords { get; init; }
         public IList<ActorType> ActorTypeRecords { get; init; }
         public IList<SoftwareSystem> SoftwareSystemRecords { get; init; }
+        public IList<SoftwareSystemAttribute> SoftwareSystemAttributeRecords { get; init; }
         public IList<SoftwareSystemInterface> SoftwareSystemInterfaceRecords { get; init; }
         public IList<SoftwareSystemInterfaceFlow> SoftwareSystemInterfaceFlowRecords { get; init; }
         public IList<Container> ContainerRecords { get; init; }
@@ -133,6 +141,12 @@ namespace C4InterFlow.Automation
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
                 csv.WriteRecords(SoftwareSystemRecords);
+            }
+
+            using (var writer = new StreamWriter(@$"{DataPath}\{FILE_SOFTWARE_SYSTEM_ATTRIBUTES}.csv"))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                csv.WriteRecords(SoftwareSystemAttributeRecords);
             }
 
             using (var writer = new StreamWriter(@$"{DataPath}\{FILE_SOFTWARE_SYSTEM_INTERFACES}.csv"))
@@ -199,6 +213,12 @@ namespace C4InterFlow.Automation
                 return IsExternal ? "External" : "Internal";
             }
 
+            public IEnumerable<SoftwareSystemAttribute> WithAttributes(CsvDataProvider dataProvider)
+            {
+                return dataProvider.SoftwareSystemAttributeRecords.Where(x => !string.IsNullOrEmpty(x.SoftwareSystem.Trim()) &&
+                    x.SoftwareSystem == Alias);
+            }
+
             public IEnumerable<SoftwareSystemInterface> WithInterfaces(CsvDataProvider dataProvider)
             {
                 return dataProvider.SoftwareSystemInterfaceRecords.Where(x => !string.IsNullOrEmpty(x.SoftwareSystem.Trim()) &&
@@ -210,6 +230,21 @@ namespace C4InterFlow.Automation
                 return dataProvider.ContainerRecords.Where(x => !string.IsNullOrEmpty(x.SoftwareSystem.Trim()) &&
                     x.SoftwareSystem == Alias);
             }
+        }
+
+        public record SoftwareSystemAttribute
+        {
+            [Name("Software System")]
+            [Index(1)]
+            public string SoftwareSystem { get; set; }
+
+            [Name("Attribute")]
+            [Index(2)]
+            public string Attribute { get; set; }
+
+            [Name("Value")]
+            [Index(3)]
+            public string Value { get; set; }
         }
 
         public record SoftwareSystemInterface
@@ -386,6 +421,17 @@ namespace C4InterFlow.Automation
             public string UsesSoftwareSystemInterface { get; set; }
 
 
+        }
+
+        public record Attribute
+        {
+            [Name("Name")]
+            [Index(1)]
+            public string Name { get; set; }
+
+            [Name("Alias")]
+            [Index(2)]
+            public string Alias { get; set; }
         }
     }
 }
