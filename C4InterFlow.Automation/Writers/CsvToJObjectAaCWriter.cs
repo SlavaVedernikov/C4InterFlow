@@ -99,8 +99,6 @@ namespace C4InterFlow.Automation.Writers
                 };
 
                 actorsObject.Add(name, actorObject);
-
-                RemoveRedundantLabels(actorObject);
             }
 
             return this;
@@ -148,8 +146,6 @@ namespace C4InterFlow.Automation.Writers
                 RemoveNoneTypes(businessProcessObject);
 
                 businessProcessesObject.Add(name, businessProcessObject);
-
-                RemoveRedundantLabels(businessProcessObject);
             }
 
             return this;
@@ -168,8 +164,6 @@ namespace C4InterFlow.Automation.Writers
                     };
 
                 softwareSystemsObject.Add(name, softwareSystemObject);
-
-                RemoveRedundantLabels(softwareSystemObject);
             }
             return this;
         }
@@ -203,8 +197,6 @@ namespace C4InterFlow.Automation.Writers
                 };
 
                 softwareSystemInterfacesObject.Add(name, softwareSystemInterfaceObject);
-
-                RemoveRedundantLabels(softwareSystemInterfaceObject);
 
                 if (!SoftwareSystemInterfaceAaCPathToCsvRecordMap.Keys.Contains(softwareSystemInterfaceObject.Path))
                 {
@@ -242,8 +234,6 @@ namespace C4InterFlow.Automation.Writers
                     };
 
                 containersObject.Add(name, containerObject);
-
-                RemoveRedundantLabels(containerObject);
             }
 
             return this;
@@ -280,8 +270,6 @@ namespace C4InterFlow.Automation.Writers
                 };
 
                 containerInterfacesObject.Add(name, containerInterfaceObject);
-
-                RemoveRedundantLabels(containerInterfaceObject);
 
                 if (!ContainerInterfaceAaCPathToCsvRecordMap.Keys.Contains(containerInterfaceObject.Path))
                 {
@@ -383,7 +371,7 @@ namespace C4InterFlow.Automation.Writers
 
         protected void RemoveRedundantLabels(JObject rootJObject)
         {
-            var labels = rootJObject.SelectTokens("..Label");
+            var labels = rootJObject.SelectTokens("Label");
 
             var tokensToRemove = new List<JToken>();
             if (labels == null) return;
