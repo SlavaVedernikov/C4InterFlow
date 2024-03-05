@@ -80,7 +80,7 @@ namespace C4InterFlow.Automation.Writers
 
                     writer.AddBusinessProcess(b.Alias, b.Name);
 
-                    writer.WriteArchitecture(Path.Combine(ArchitectureOutputPath, "BusinessProcessess"), b.Alias);
+                    writer.WriteArchitecture(Path.Combine(ArchitectureOutputPath, "BusinessProcesses"), b.Alias);
                 });
         }
     }
