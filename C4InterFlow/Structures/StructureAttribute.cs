@@ -8,9 +8,9 @@ namespace C4InterFlow.Structures
 {
     public record StructureAttribute : Structure
     {
-        public object Value { get; init; }
+        public object? Value { get; init; }
 
-        public StructureAttribute(string alias, string label, object value) : base(alias, label)
+        public StructureAttribute(string alias, string label, object? value) : base(alias, label)
         {
             Value = value;
         }

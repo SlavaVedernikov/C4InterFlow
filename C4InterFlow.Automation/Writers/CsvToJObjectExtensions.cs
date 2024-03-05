@@ -17,7 +17,15 @@ namespace C4InterFlow.Automation.Writers
             softwareSystem.WithAttributes(writer.DataProvider)
             .ToList().ForEach(a =>
             {
-                attributes.Add(a.Attribute, a.Value );
+                var attribute = new JObject();
+
+                if(a.TryGetAttributeName(writer.DataProvider, out var name))
+                {
+                    attribute.Add("Label", name);
+                }
+                attribute.Add("Value", a.Value);
+
+                attributes.Add(a.Attribute, attribute);
             });
 
             jsonObject.Add("Attributes", attributes);

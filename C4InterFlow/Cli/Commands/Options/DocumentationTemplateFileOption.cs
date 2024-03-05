@@ -9,7 +9,7 @@ public static class DocumentationTemplateFileOption
         const string description =
            $"The template file to be used to generate the documentation";
 
-        var option = new Option<string>(new[] { "--file-extension", "-fe" }, description);
+        var option = new Option<string>(new[] { "--template-file", "-tf" }, description);
 
         return option;
     }

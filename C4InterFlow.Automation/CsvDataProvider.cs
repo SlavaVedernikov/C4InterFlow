@@ -35,6 +35,7 @@ namespace C4InterFlow.Automation
                 ActorRecords = new List<Actor>();
                 ActorTypeRecords = new List<ActorType>();
                 SoftwareSystemRecords = new List<SoftwareSystem>();
+                SoftwareSystemAttributeRecords = new List<SoftwareSystemAttribute>();
                 SoftwareSystemInterfaceRecords = new List<SoftwareSystemInterface>();
                 SoftwareSystemInterfaceFlowRecords = new List<SoftwareSystemInterfaceFlow>();
                 ContainerRecords = new List<Container>();
@@ -42,6 +43,7 @@ namespace C4InterFlow.Automation
                 ContainerInterfaceFlowRecords = new List<ContainerInterfaceFlow>();
                 BusinessProcessRecords = new List<BusinessProcess>();
                 ActivityRecords = new List<Activity>();
+                AttributeRecords = new List<Attribute>();
             }
             else
             {
@@ -115,6 +117,12 @@ namespace C4InterFlow.Automation
                 {
                     ActivityRecords = csv.GetRecords<Activity>().ToList();
                 }
+
+                using (var reader = new StreamReader(@$"{DataPath}\{FILE_ATTRIBUTES}.csv"))
+                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                {
+                    AttributeRecords = csv.GetRecords<Attribute>().ToList();
+                }
             }
         }
         public IList<Actor> ActorRecords { get; init; }
@@ -128,7 +136,7 @@ namespace C4InterFlow.Automation
         public IList<ContainerInterfaceFlow> ContainerInterfaceFlowRecords { get; init; }
         public IList<BusinessProcess> BusinessProcessRecords { get; init; }
         public IList<Activity> ActivityRecords { get; init; }
-
+        public IList<Attribute> AttributeRecords { get; init; }
         public void WriteData()
         {
             using (var writer = new StreamWriter(@$"{DataPath}\{FILE_ACTORS}.csv"))
@@ -190,6 +198,12 @@ namespace C4InterFlow.Automation
             {
                 csv.WriteRecords(ActivityRecords);
             }
+
+            using (var writer = new StreamWriter(@$"{DataPath}\{FILE_ATTRIBUTES}.csv"))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                csv.WriteRecords(AttributeRecords);
+            }
         }
 
         public record SoftwareSystem
@@ -245,6 +259,12 @@ namespace C4InterFlow.Automation
             [Name("Value")]
             [Index(3)]
             public string Value { get; set; }
+
+            public bool TryGetAttributeName(CsvDataProvider dataProvider, out string? name)
+            {
+                name = dataProvider.AttributeRecords.FirstOrDefault(x => x.Alias == Attribute)?.Name;
+                return name != null;
+            }
         }
 
         public record SoftwareSystemInterface

@@ -7,10 +7,10 @@ using C4InterFlow.Cli.Commands.Binders;
 
 namespace C4InterFlow.Cli.Commands;
 
-public class GenerateDocumentationCommand : Command
+public class ExecuteAaCStrategyCommand: Command
 {
-    private const string COMMAND_NAME = "generate-documentation";
-    public GenerateDocumentationCommand() : base(COMMAND_NAME,
+    private const string COMMAND_NAME = "execute-aac-strategy";
+    public ExecuteAaCStrategyCommand() : base(COMMAND_NAME,
         "Executes Architecture As Code generation Strategy")
     {
         var architectureRootNamespaceOption = ArchitectureRootNamespaceOption.Get();
@@ -48,7 +48,7 @@ public class GenerateDocumentationCommand : Command
 
             if (strategyInstance == null)
             {
-                throw new ArgumentException($"'{architectureAsCodeWriterStrategyType}' is not a valid Architecture As Code Strategy type.");
+                throw new ArgumentException($"Cannot load AaC Writer Strategy type'{architectureAsCodeWriterStrategyType}'.");
             }
 
             var context = new AaCWriterContext(strategyInstance, architectureRootNamespace, architectureOutputPath, architectureAsCodeParams);
