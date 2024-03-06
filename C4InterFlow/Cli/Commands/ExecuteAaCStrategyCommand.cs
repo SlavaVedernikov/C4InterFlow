@@ -7,7 +7,7 @@ using C4InterFlow.Cli.Commands.Binders;
 
 namespace C4InterFlow.Cli.Commands;
 
-public class ExecuteAaCStrategyCommand : Command
+public class ExecuteAaCStrategyCommand: Command
 {
     private const string COMMAND_NAME = "execute-aac-strategy";
     public ExecuteAaCStrategyCommand() : base(COMMAND_NAME,
@@ -48,7 +48,7 @@ public class ExecuteAaCStrategyCommand : Command
 
             if (strategyInstance == null)
             {
-                throw new ArgumentException($"'{architectureAsCodeWriterStrategyType}' is not a valid Architecture As Code Strategy type.");
+                throw new ArgumentException($"Cannot load AaC Writer Strategy type'{architectureAsCodeWriterStrategyType}'.");
             }
 
             var context = new AaCWriterContext(strategyInstance, architectureRootNamespace, architectureOutputPath, architectureAsCodeParams);
@@ -63,34 +63,5 @@ public class ExecuteAaCStrategyCommand : Command
             return 1;
         }
     }
-
-    private static IEnumerable<string> GetUsedBy(IEnumerable<Type> interfaceTypes, string interfaceAlias, bool isRecursive, List<string> usedByResult)
-    {
-        var result = new List<string>();
-
-        foreach (var interfaceType in interfaceTypes)
-        {
-            var interfaceInstance = interfaceType?.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static)?.GetValue(null, null) as Interface;
-
-            if (interfaceInstance?.Flow.GetUsesInterfaces().Select(x => x.Alias).Contains(interfaceAlias) == true)
-            {
-                if (isRecursive)
-                {
-                    var tempResult = GetUsedBy(interfaceTypes, interfaceInstance.Alias, isRecursive, usedByResult);
-                    if(!tempResult.Any())
-                    { 
-                        result.Add(interfaceInstance.Alias);
-                    }
-                }
-                else
-                {
-                    result.Add(interfaceInstance.Alias);
-                }
-
-            }
-        }
-
-        usedByResult.AddRange(result);
-        return result;
-    }
+    
 }

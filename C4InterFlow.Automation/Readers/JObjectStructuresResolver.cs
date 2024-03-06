@@ -3,6 +3,7 @@ using C4InterFlow.Structures.Interfaces;
 using Newtonsoft.Json.Linq;
 using System.Collections.Concurrent;
 using System.Reflection;
+using System.Security.Cryptography;
 
 namespace C4InterFlow.Automation.Readers
 {
@@ -40,13 +41,13 @@ namespace C4InterFlow.Automation.Readers
 
             if (collectionToken == null || ownerToken == null) return result;
 
-            var label = token?["Label"]?.ToString() ?? Utils.GetLabel(alias.Split('.').Last()) ?? string.Empty;
+            var label = token!["Label"]?.ToString() ?? Utils.GetLabel(alias.Split('.').Last()) ?? string.Empty;
             var description = token?["Description"]?.ToString() ?? string.Empty;
 
             switch (collectionToken.Path.Split('.').Last())
             {
                 case "Actors":
-                    var typeName = token?["Type"]?.ToString();
+                    var typeName = token!["Type"]?.ToString();
 
                     if (!string.IsNullOrEmpty(typeName))
                     {
@@ -65,7 +66,7 @@ namespace C4InterFlow.Automation.Readers
 
                     break;
                 case "BusinessProcesses":
-                    var activities = token?["Activities"]?.ToObject<Activity[]>();
+                    var activities = token!["Activities"]?.ToObject<Activity[]>();
 
                     if (activities != null)
                     {
@@ -76,7 +77,7 @@ namespace C4InterFlow.Automation.Readers
                     }
                     break;
                 case "Interfaces":
-                    var interfaceFlow = token?["Flow"]?.ToObject<Flow>();
+                    var interfaceFlow = token!["Flow"]?.ToObject<Flow>();
                     var protocol = token?["Protocol"]?.ToString() ?? string.Empty;
                     if (interfaceFlow != null)
                     {
@@ -94,7 +95,7 @@ namespace C4InterFlow.Automation.Readers
                     } as T;
                     break;
                 case "SoftwareSystems":
-                    var softwareSystemsBoundaryName = token?["Boundary"]?.ToString();
+                    var softwareSystemsBoundaryName = token!["Boundary"]?.ToString();
                     result = new SoftwareSystem(alias, label, description)
                     {
                         Boundary = !string.IsNullOrEmpty(softwareSystemsBoundaryName) &&
@@ -104,8 +105,8 @@ namespace C4InterFlow.Automation.Readers
                     } as T;
                     break;
                 case "Containers":
-                    var containerTypeName = token?["ContainerType"]?.ToString();
-                    var containerTechnology = token?["Technology"]?.ToString();
+                    var containerTypeName = token!["ContainerType"]?.ToString();
+                    var containerTechnology = token!["Technology"]?.ToString();
                     result = new Container(ownerToken.Path, alias, label)
                     {
                         ContainerType = !string.IsNullOrEmpty(containerTypeName) &&
@@ -116,7 +117,7 @@ namespace C4InterFlow.Automation.Readers
                     } as T;
                     break;
                 case "Components":
-                    var componentTypeName = token?["ComponentType"]?.ToString();
+                    var componentTypeName = token!["ComponentType"]?.ToString();
                     var componentTechnology = token?["Technology"]?.ToString();
                     result = new Component(ownerToken.Path, alias, label)
                     {
@@ -132,6 +133,28 @@ namespace C4InterFlow.Automation.Readers
                     {
                         Description = description
                     } as T;
+                    break;
+                case "Attributes":
+                    var valueToken = token!["Value"];
+                    object? value = null;
+
+                    if(valueToken != null)
+                    {
+                        if (valueToken.Type == JTokenType.Object)
+                        {
+                            value = valueToken.ToObject<Dictionary<string, object>>();
+                        }
+                        else if (valueToken.Type == JTokenType.Array)
+                        {
+                            value = valueToken.ToObject<Dictionary<string, object>[]>();
+                        }
+                        else
+                        {
+                            value = valueToken.ToString();
+                        }
+                    }
+
+                    result = new StructureAttribute(alias, label, value) as T;
                     break;
                 default:
                     break;

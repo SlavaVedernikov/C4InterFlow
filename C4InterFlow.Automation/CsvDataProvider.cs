@@ -14,15 +14,18 @@ namespace C4InterFlow.Automation
             Write
         }
         protected const string FILE_SOFTWARE_SYSTEMS = "Software Systems";
+        protected const string FILE_SOFTWARE_SYSTEM_ATTRIBUTES = "Software System Attributes";
         protected const string FILE_SOFTWARE_SYSTEM_INTERFACES = "Software System Interfaces";
         protected const string FILE_SOFTWARE_SYSTEM_INTERFACE_FLOWS = "Software System Interface Flows";
         protected const string FILE_CONTAINERS = "Containers";
+        protected const string FILE_CONTAINER_ATTRIBUTES = "Container Attributes";
         protected const string FILE_CONTAINER_INTERFACES = "Container Interfaces";
         protected const string FILE_CONTAINER_INTERFACE_FLOWS = "Container Interface Flows";
         protected const string FILE_ACTORS = "Actors";
         protected const string FILE_ACTOR_TYPES = "Actor Types";
         protected const string FILE_BUSINESS_PROCESSES = "Business Processes";
         protected const string FILE_ACTIVITIES = "Activities";
+        protected const string FILE_ATTRIBUTES = "Attributes";
 
         private string DataPath { get; set; }
         public CsvDataProvider(string dataPath, Mode mode = Mode.Read) {
@@ -33,13 +36,16 @@ namespace C4InterFlow.Automation
                 ActorRecords = new List<Actor>();
                 ActorTypeRecords = new List<ActorType>();
                 SoftwareSystemRecords = new List<SoftwareSystem>();
+                SoftwareSystemAttributeRecords = new List<SoftwareSystemAttribute>();
                 SoftwareSystemInterfaceRecords = new List<SoftwareSystemInterface>();
                 SoftwareSystemInterfaceFlowRecords = new List<SoftwareSystemInterfaceFlow>();
                 ContainerRecords = new List<Container>();
+                ContainerAttributeRecords = new List<ContainerAttribute>();
                 ContainerInterfaceRecords = new List<ContainerInterface>();
                 ContainerInterfaceFlowRecords = new List<ContainerInterfaceFlow>();
                 BusinessProcessRecords = new List<BusinessProcess>();
                 ActivityRecords = new List<Activity>();
+                AttributeRecords = new List<Attribute>();
             }
             else
             {
@@ -61,6 +67,12 @@ namespace C4InterFlow.Automation
                     SoftwareSystemRecords = csv.GetRecords<SoftwareSystem>().ToList();
                 }
 
+                using (var reader = new StreamReader(@$"{DataPath}\{FILE_SOFTWARE_SYSTEM_ATTRIBUTES}.csv"))
+                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                {
+                    SoftwareSystemAttributeRecords = csv.GetRecords<SoftwareSystemAttribute>().ToList();
+                }
+
                 using (var reader = new StreamReader(@$"{DataPath}\{FILE_SOFTWARE_SYSTEM_INTERFACES}.csv"))
                 using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                 {
@@ -77,6 +89,12 @@ namespace C4InterFlow.Automation
                 using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                 {
                     ContainerRecords = csv.GetRecords<Container>().ToList();
+                }
+
+                using (var reader = new StreamReader(@$"{DataPath}\{FILE_CONTAINER_ATTRIBUTES}.csv"))
+                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                {
+                    ContainerAttributeRecords = csv.GetRecords<ContainerAttribute>().ToList();
                 }
 
                 using (var reader = new StreamReader(@$"{DataPath}\{FILE_CONTAINER_INTERFACES}.csv"))
@@ -108,19 +126,27 @@ namespace C4InterFlow.Automation
                 {
                     ActivityRecords = csv.GetRecords<Activity>().ToList();
                 }
+
+                using (var reader = new StreamReader(@$"{DataPath}\{FILE_ATTRIBUTES}.csv"))
+                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                {
+                    AttributeRecords = csv.GetRecords<Attribute>().ToList();
+                }
             }
         }
         public IList<Actor> ActorRecords { get; init; }
         public IList<ActorType> ActorTypeRecords { get; init; }
         public IList<SoftwareSystem> SoftwareSystemRecords { get; init; }
+        public IList<SoftwareSystemAttribute> SoftwareSystemAttributeRecords { get; init; }
         public IList<SoftwareSystemInterface> SoftwareSystemInterfaceRecords { get; init; }
         public IList<SoftwareSystemInterfaceFlow> SoftwareSystemInterfaceFlowRecords { get; init; }
         public IList<Container> ContainerRecords { get; init; }
+        public IList<ContainerAttribute> ContainerAttributeRecords { get; init; }
         public IList<ContainerInterface> ContainerInterfaceRecords { get; init; }
         public IList<ContainerInterfaceFlow> ContainerInterfaceFlowRecords { get; init; }
         public IList<BusinessProcess> BusinessProcessRecords { get; init; }
         public IList<Activity> ActivityRecords { get; init; }
-
+        public IList<Attribute> AttributeRecords { get; init; }
         public void WriteData()
         {
             using (var writer = new StreamWriter(@$"{DataPath}\{FILE_ACTORS}.csv"))
@@ -133,6 +159,12 @@ namespace C4InterFlow.Automation
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
                 csv.WriteRecords(SoftwareSystemRecords);
+            }
+
+            using (var writer = new StreamWriter(@$"{DataPath}\{FILE_SOFTWARE_SYSTEM_ATTRIBUTES}.csv"))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                csv.WriteRecords(SoftwareSystemAttributeRecords);
             }
 
             using (var writer = new StreamWriter(@$"{DataPath}\{FILE_SOFTWARE_SYSTEM_INTERFACES}.csv"))
@@ -151,6 +183,12 @@ namespace C4InterFlow.Automation
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
                 csv.WriteRecords(ContainerRecords);
+            }
+
+            using (var writer = new StreamWriter(@$"{DataPath}\{FILE_CONTAINER_ATTRIBUTES}.csv"))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                csv.WriteRecords(ContainerAttributeRecords);
             }
 
             using (var writer = new StreamWriter(@$"{DataPath}\{FILE_CONTAINER_INTERFACES}.csv"))
@@ -176,6 +214,12 @@ namespace C4InterFlow.Automation
             {
                 csv.WriteRecords(ActivityRecords);
             }
+
+            using (var writer = new StreamWriter(@$"{DataPath}\{FILE_ATTRIBUTES}.csv"))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                csv.WriteRecords(AttributeRecords);
+            }
         }
 
         public record SoftwareSystem
@@ -199,6 +243,12 @@ namespace C4InterFlow.Automation
                 return IsExternal ? "External" : "Internal";
             }
 
+            public IEnumerable<SoftwareSystemAttribute> WithAttributes(CsvDataProvider dataProvider)
+            {
+                return dataProvider.SoftwareSystemAttributeRecords.Where(x => !string.IsNullOrEmpty(x.SoftwareSystem.Trim()) &&
+                    x.SoftwareSystem == Alias);
+            }
+
             public IEnumerable<SoftwareSystemInterface> WithInterfaces(CsvDataProvider dataProvider)
             {
                 return dataProvider.SoftwareSystemInterfaceRecords.Where(x => !string.IsNullOrEmpty(x.SoftwareSystem.Trim()) &&
@@ -209,6 +259,27 @@ namespace C4InterFlow.Automation
             {
                 return dataProvider.ContainerRecords.Where(x => !string.IsNullOrEmpty(x.SoftwareSystem.Trim()) &&
                     x.SoftwareSystem == Alias);
+            }
+        }
+
+        public record SoftwareSystemAttribute
+        {
+            [Name("Software System")]
+            [Index(1)]
+            public string SoftwareSystem { get; set; }
+
+            [Name("Attribute")]
+            [Index(2)]
+            public string Attribute { get; set; }
+
+            [Name("Value")]
+            [Index(3)]
+            public string Value { get; set; }
+
+            public bool TryGetAttributeName(CsvDataProvider dataProvider, out string? name)
+            {
+                name = dataProvider.AttributeRecords.FirstOrDefault(x => x.Alias == Attribute)?.Name;
+                return name != null;
             }
         }
 
@@ -270,9 +341,35 @@ namespace C4InterFlow.Automation
             [Index(4)]
             public string Alias { get; set; }
 
+            public IEnumerable<ContainerAttribute> WithAttributes(CsvDataProvider dataProvider)
+            {
+                return dataProvider.ContainerAttributeRecords.Where(x => !string.IsNullOrEmpty(x.Container.Trim()) &&
+                    x.Container == Alias);
+            }
             public IEnumerable<ContainerInterface> WithInterfaces(CsvDataProvider dataProvider)
             {
                 return dataProvider.ContainerInterfaceRecords.Where(x => x.Container == Alias);
+            }
+        }
+
+        public record ContainerAttribute
+        {
+            [Name("Container")]
+            [Index(1)]
+            public string Container { get; set; }
+
+            [Name("Attribute")]
+            [Index(2)]
+            public string Attribute { get; set; }
+
+            [Name("Value")]
+            [Index(3)]
+            public string Value { get; set; }
+
+            public bool TryGetAttributeName(CsvDataProvider dataProvider, out string? name)
+            {
+                name = dataProvider.AttributeRecords.FirstOrDefault(x => x.Alias == Attribute)?.Name;
+                return name != null;
             }
         }
 
@@ -386,6 +483,17 @@ namespace C4InterFlow.Automation
             public string UsesSoftwareSystemInterface { get; set; }
 
 
+        }
+
+        public record Attribute
+        {
+            [Name("Name")]
+            [Index(1)]
+            public string Name { get; set; }
+
+            [Name("Alias")]
+            [Index(2)]
+            public string Alias { get; set; }
         }
     }
 }

@@ -46,6 +46,10 @@ namespace C4InterFlow.Automation.Writers
                         .ToList().ForEach(x => x.AddFlowToContainerInterfaceObject(
                             writer));
 
+                        writer.WithSoftwareSystemObjects()
+                        .ToList().ForEach(x => x.AddAttributesToSoftwareSystemObject(
+                            writer));
+
                         writer.WriteArchitecture(Path.Combine(ArchitectureOutputPath, "SoftwareSystems"), s.Alias);
 
                     });

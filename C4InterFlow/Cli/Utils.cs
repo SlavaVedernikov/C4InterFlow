@@ -64,6 +64,11 @@ namespace C4InterFlow.Cli
         public static void SetArchitectureAsCodeReaderContext(string[] architectureAsCodeInputPaths, string architectureAsCodeReaderStrategyType)
         {
             Type strategyType = Type.GetType(architectureAsCodeReaderStrategyType);
+
+            if (strategyType == null)
+            {
+                throw new ArgumentException($"Cannot load AaC Reader Strategy Type '{architectureAsCodeReaderStrategyType}'");
+            }
             object strategyTypeInstance = Activator.CreateInstance(strategyType);
             var strategyInstance = strategyTypeInstance as IAaCReaderStrategy;
 

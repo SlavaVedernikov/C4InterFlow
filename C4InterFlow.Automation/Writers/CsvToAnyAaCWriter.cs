@@ -6,6 +6,7 @@ namespace C4InterFlow.Automation.Writers
     {
         protected string? ArchitectureInputPath { get; set; }
         public string ArchitectureNamespace { get; protected set; }
+        public Dictionary<string, CsvDataProvider.SoftwareSystem> SoftwareSystemAaCPathToCsvRecordMap { get; private set; } = new Dictionary<string, CsvDataProvider.SoftwareSystem>();
         public Dictionary<string, CsvDataProvider.SoftwareSystemInterface> SoftwareSystemInterfaceAaCPathToCsvRecordMap { get; private set; } = new Dictionary<string, CsvDataProvider.SoftwareSystemInterface>();
         public Dictionary<string, CsvDataProvider.ContainerInterface> ContainerInterfaceAaCPathToCsvRecordMap { get; private set; } = new Dictionary<string, CsvDataProvider.ContainerInterface>();
 

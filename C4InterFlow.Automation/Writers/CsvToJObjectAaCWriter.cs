@@ -164,6 +164,15 @@ namespace C4InterFlow.Automation.Writers
                     };
 
                 softwareSystemsObject.Add(name, softwareSystemObject);
+
+                if (!SoftwareSystemAaCPathToCsvRecordMap.Keys.Contains(softwareSystemObject.Path))
+                {
+                    var softwareSystem = DataProvider.SoftwareSystemRecords.FirstOrDefault(x => x.Alias == softwareSystemObject.Path.Replace($"{ArchitectureNamespace}.SoftwareSystems.", string.Empty));
+                    if (softwareSystem != null)
+                    {
+                        SoftwareSystemAaCPathToCsvRecordMap.Add(softwareSystemObject.Path, softwareSystem);
+                    }
+                }
             }
             return this;
         }
@@ -282,6 +291,13 @@ namespace C4InterFlow.Automation.Writers
             }
 
             return this;
+        }
+
+        public IEnumerable<JObject> WithSoftwareSystemObjects()
+        {
+            var result = JsonArchitectureAsCode.SelectTokens($"{ArchitectureNamespace}.SoftwareSystems.*").Select(x => x as JObject);
+
+            return result;
         }
 
         public IEnumerable<JObject> WithSoftwareSystemInterfaceObjects(string softwareSystemName)
