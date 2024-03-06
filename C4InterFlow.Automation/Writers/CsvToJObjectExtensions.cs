@@ -1,6 +1,7 @@
 ﻿using Microsoft.CodeAnalysis;
 using Newtonsoft.Json.Linq;
 using System.Reflection.Metadata;
+using System.Text.Json.Nodes;
 
 namespace C4InterFlow.Automation.Writers
 {
@@ -10,9 +11,9 @@ namespace C4InterFlow.Automation.Writers
             CsvToJObjectAaCWriter writer)
         {
             var softwareSystem = writer.SoftwareSystemAaCPathToCsvRecordMap.GetValueOrDefault(jsonObject.Path);
-            if (softwareSystem == null || !softwareSystem.WithAttributes(writer.DataProvider).Any()) return jsonObject;
+            if (softwareSystem == null) return jsonObject;
 
-            var attributes = new JObject();
+            var softwareSystemAttributes = new JObject();
 
             softwareSystem.WithAttributes(writer.DataProvider)
             .ToList().ForEach(a =>
@@ -25,10 +26,40 @@ namespace C4InterFlow.Automation.Writers
                 }
                 attribute.Add("Value", a.Value);
 
-                attributes.Add(a.Attribute, attribute);
+                softwareSystemAttributes.Add(a.Attribute, attribute);
             });
 
-            jsonObject.Add("Attributes", attributes);
+            if(softwareSystemAttributes.Children().Any())
+            {
+                jsonObject.Add("Attributes", softwareSystemAttributes);
+            }
+
+            softwareSystem.WithContainers(writer.DataProvider)
+            .ToList().ForEach(c =>
+            {
+                var containerAttributes = new JObject();
+
+                c.WithAttributes(writer.DataProvider)
+                .ToList().ForEach(a =>
+                {
+                    var attribute = new JObject();
+
+                    if (a.TryGetAttributeName(writer.DataProvider, out var name))
+                    {
+                        attribute.Add("Label", name);
+                    }
+                    attribute.Add("Value", a.Value);
+
+                    containerAttributes.Add(a.Attribute, attribute);
+                });
+
+                var containerJObject = jsonObject.SelectToken($"Containers.{c.Alias.Split('.').Last()}") as JObject;
+
+                if (containerJObject != null && containerAttributes.Children().Any())
+                {
+                    containerJObject.Add("Attributes", containerAttributes);
+                }
+            });
 
             return jsonObject;
         }
