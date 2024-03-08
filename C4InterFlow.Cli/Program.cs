@@ -11,6 +11,7 @@ var root = RootCommandBuilder
         context.Add<QueryUseFlowsCommand>();
         context.Add<QueryByInputCommand>();
         context.Add<ExecuteAaCStrategyCommand>();
+        context.Add<GenerateDocumentationCommand>();
     });
 
 await root.Run();

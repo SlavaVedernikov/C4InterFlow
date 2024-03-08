@@ -1,0 +1,13 @@
+# About
+
+## Description
+{{Description}}
+
+{% if Containers != blank and Containers != empty %}
+## Containers
+
+| Name | Description | Type | Technology |
+| ---- | ----------- | ---- | ---------- |
+{% for container in Containers %}| [{{container[1].Label}}](./Containers/{{container[1].Label | replace: ' ', '%20'}}/About.md) | {{container[1].Description | default: '-'}} | {{container[1].ContainerType | default: '-' | replace: 'None', '-'}} | {{container[1].Technology | default: '-'}} |
+{% endfor %}
+{% endif %}
