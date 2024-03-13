@@ -1,0 +1,31 @@
+@startuml
+!include ..\..\..\..\..\..\.c4s\C4_Container.puml
+
+AddElementTag("state:new", $bgColor=green, $fontColor=#ffffff, $borderColor=green, $shadowing="False")
+AddElementTag("state:changed", $bgColor=orange, $fontColor=#ffffff, $borderColor=orange, $shadowing="False")
+AddElementTag("state:removed", $bgColor=red, $fontColor=#ffffff, $borderColor=red, $shadowing="False")
+
+AddRelTag("state:new", $textColor=green, $lineColor=green)
+AddRelTag("state:changed", $textColor=orange, $lineColor=orange)
+AddRelTag("state:removed", $textColor=red, $lineColor=red)
+
+SHOW_PERSON_PORTRAIT()
+LAYOUT_TOP_DOWN()
+
+skinparam linetype polyline
+
+title Fulfilment Service - Api - Post Order Shipped Event - CONTAINER level
+
+
+System_Boundary(ECommercePlatform.SoftwareSystems.FulfilmentService, "Fulfilment Service") {
+    Container(ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Api, "Api", "", "")
+    Container(ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Database, "Database", "", "")
+    Container(ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Messaging, "Messaging", "", "")
+}
+
+Rel(ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Api, ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Database, "Update Order Status")
+Rel(ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Api, ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Messaging, "Send Order Shipped Event")
+
+
+SHOW_LEGEND()
+@enduml

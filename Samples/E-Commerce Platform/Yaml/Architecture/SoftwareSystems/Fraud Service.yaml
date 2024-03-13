@@ -1,0 +1,43 @@
+ECommercePlatform:
+  SoftwareSystems:
+    FraudService:
+      Containers:
+        Api:
+          Interfaces:
+            GetHighRiskOrders:
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.FraudService.Containers.Database.Interfaces.SelectHighRiskOrders
+            UpdateOrderFraudCheckResult:
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.FraudService.Containers.Database.Interfaces.UpdateFraudCheckResult
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.FraudService.Containers.Messaging.Interfaces.SendFraudCheckResultEvent
+        Database:
+          Interfaces:
+            InsertOrder: {}
+            SelectHighRiskOrders: {}
+            InsertFraudCheckResult: {}
+            UpdateFraudCheckResult: {}
+        Messaging:
+          Interfaces:
+            SendFraudCheckResultEvent: {}
+            ReceiveFraudCheckResultEvent: {}
+        MessageHandler:
+          Interfaces:
+            HandleOrderCreatedEvent:
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.OrderService.Containers.Messaging.Interfaces.ReceiveOrderCreatedEvent
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.FraudService.Containers.Database.Interfaces.InsertOrder
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.FraudEngine.Interfaces.GetFraudCheckResult
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.FraudService.Containers.Database.Interfaces.InsertFraudCheckResult
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.FraudService.Containers.Messaging.Interfaces.SendFraudCheckResultEvent

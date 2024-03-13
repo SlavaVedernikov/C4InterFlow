@@ -1,0 +1,12 @@
+@startuml
+!include ..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Basket Service - Api - Delete Item - CONTEXT level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+System(ECommercePlatform.SoftwareSystems.BasketService, "Basket Service", "")
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.BasketService, "Delete Item")
+
+
+@enduml

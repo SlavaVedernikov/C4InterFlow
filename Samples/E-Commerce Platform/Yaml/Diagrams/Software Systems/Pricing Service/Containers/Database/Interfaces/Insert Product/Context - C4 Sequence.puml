@@ -1,0 +1,12 @@
+@startuml
+!include ..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Pricing Service - Database - Insert Product - CONTEXT level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+System(ECommercePlatform.SoftwareSystems.PricingService, "Pricing Service", "")
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.PricingService, "Insert Product")
+
+
+@enduml

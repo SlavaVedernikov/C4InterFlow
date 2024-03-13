@@ -1,0 +1,21 @@
+@startuml
+
+title Buying Service - Message Handler - Handle Purchase Order Updated Event - CONTAINER level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Buying Service" #White
+    participant "Message Handler" as ECommercePlatform.SoftwareSystems.BuyingService.Containers.MessageHandler
+    participant "Messaging" as ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging
+end box
+
+participant "WMS" as ECommercePlatform.SoftwareSystems.WMS
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.SoftwareSystems.BuyingService.Containers.MessageHandler : Handle Purchase Order Updated Event
+group Handle Purchase Order Updated Event
+ECommercePlatform.SoftwareSystems.BuyingService.Containers.MessageHandler -> ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging : Receive Purchase Order Updated Event
+ECommercePlatform.SoftwareSystems.BuyingService.Containers.MessageHandler -> ECommercePlatform.SoftwareSystems.WMS : Update Purchase Order
+end
+
+
+@enduml

@@ -1,0 +1,42 @@
+ECommercePlatform:
+  SoftwareSystems:
+    StorefrontBff:
+      Interfaces:
+        GetProducts:
+          Flow:
+            Flows:
+            - Type: Use
+              Expression: ECommercePlatform.SoftwareSystems.ProductService.Containers.Api.Interfaces.GetProducts
+        SearchProducts:
+          Flow:
+            Flows:
+            - Type: Use
+              Expression: ECommercePlatform.SoftwareSystems.SearchService.Containers.Api.Interfaces.SearchProducts
+        GetBasket:
+          Flow:
+            Flows:
+            - Type: Use
+              Expression: ECommercePlatform.SoftwareSystems.BasketService.Containers.Api.Interfaces.GetItems
+        AddBasketItem:
+          Flow:
+            Flows:
+            - Type: Use
+              Expression: ECommercePlatform.SoftwareSystems.BasketService.Containers.Api.Interfaces.AddItem
+        UpdateBasketItem:
+          Flow:
+            Flows:
+            - Type: Use
+              Expression: ECommercePlatform.SoftwareSystems.BasketService.Containers.Api.Interfaces.UpdateItem
+        DeleteBasketItem:
+          Flow:
+            Flows:
+            - Type: Use
+              Expression: ECommercePlatform.SoftwareSystems.BasketService.Containers.Api.Interfaces.DeleteItem
+        Checkout:
+          Flow:
+            Flows:
+            - Type: Use
+              Expression: ECommercePlatform.SoftwareSystems.OrderService.Containers.Api.Interfaces.CreateOrder
+            - Type: Use
+              Expression: ECommercePlatform.SoftwareSystems.BasketService.Containers.Api.Interfaces.DeleteBasket
+        

@@ -1,0 +1,18 @@
+@startuml
+!include ..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Payment Service - Message Handler - Handle Order Status Changed Event - CONTEXT level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+System(ECommercePlatform.SoftwareSystems.PaymentService, "Payment Service", "")
+System(ECommercePlatform.SoftwareSystems.OrderService, "Order Service", "")
+System(ECommercePlatform.SoftwareSystems.PaymentProvider, "Payment Provider", "")
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.PaymentService, "Handle Order Status Changed Event")
+group Handle Order Status Changed Event
+Rel(ECommercePlatform.SoftwareSystems.PaymentService, ECommercePlatform.SoftwareSystems.OrderService, "Receive Order Status Changed Event")
+Rel(ECommercePlatform.SoftwareSystems.PaymentService, ECommercePlatform.SoftwareSystems.PaymentProvider, "Process Payment")
+end
+
+
+@enduml

@@ -1,0 +1,15 @@
+@startuml
+
+title Fulfilment Service - Database - Insert Order - CONTAINER level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Fulfilment Service" #White
+    participant "Database" as ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Database
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Database : Insert Order
+
+
+@enduml

@@ -1,0 +1,16 @@
+@startuml
+!include ..\..\..\..\.c4s\C4_Sequence.puml
+
+title PIM App - View Products - CONTEXT level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+System(ECommercePlatform.SoftwareSystems.PIMApp, "PIM App", "")
+System(ECommercePlatform.SoftwareSystems.ProductService, "Product Service", "")
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.PIMApp, "View Products")
+group View Products
+Rel(ECommercePlatform.SoftwareSystems.PIMApp, ECommercePlatform.SoftwareSystems.ProductService, "Get Products")
+end
+
+
+@enduml

@@ -1,0 +1,48 @@
+ECommercePlatform:
+  SoftwareSystems:
+    SearchService:
+      Containers:
+        Api:
+          Interfaces:
+            SearchProducts:
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.SearchService.Containers.Database.Interfaces.SelectProducts
+        Database:
+          Interfaces:
+            SelectProducts: {}
+            InsertProduct: {}
+            UpdateProduct: {}
+            DeleteProduct: {}
+            UpdateProductPrices: {}
+        MessageHandler:
+          Interfaces:
+            HandleProductPriceChangedEvent:
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.PricingService.Containers.Messaging.Interfaces.ReceiveProductPriceChangedEvent
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.SearchService.Containers.Database.Interfaces.UpdateProductPrices
+            HandleProductCreatedEvent:
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.ProductService.Containers.Messaging.Interfaces.ReceiveProductCreatedEvent
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.SearchService.Containers.Database.Interfaces.InsertProduct
+            HandleProductUpdatedEvent:
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.ProductService.Containers.Messaging.Interfaces.ReceiveProductUpdatedEvent
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.SearchService.Containers.Database.Interfaces.UpdateProduct
+            HandleProductDeletedEvent:
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.ProductService.Containers.Messaging.Interfaces.ReceiveProductDeletedEvent
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.SearchService.Containers.Database.Interfaces.DeleteProduct

@@ -42,14 +42,16 @@ powershell.exe -Command "if (Test-Path '%diagrams-dir%\*') { Remove-Item -Path '
 powershell.exe -Command "if (Test-Path '%diagrams-dir%\*') { Get-ChildItem -Path '%diagrams-dir%' -Recurse | Where-Object { $_.Extension -eq '.puml' } | ForEach-Object { Remove-Item -Path $_.FullName -Force } }"
 )
 
+powershell.exe -Command  "Get-ChildItem -Path "%diagrams-dir%" -Recurse -Directory | Where-Object { !(Get-ChildItem -Path $_.FullName) } | ForEach-Object { Remove-Item -Path $_.FullName;}"
+
 echo Draw Diagrams with '%aac-reader-strategy%' AaC reader strategy and '%aac-input-paths%' AaC input path
 pause
 
 echo Drawing Diagrams...
 if %redraw-all%==TRUE (
-%cli-output-dir%\%cli-exe% draw-diagrams --interfaces  %aac-root-namespace%.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes ECommercePlatform.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy "%aac-reader-strategy%" --aac-input-paths "%aac-input-paths%" --output-dir "%diagrams-dir%" --formats png svg
+%cli-output-dir%\%cli-exe% draw-diagrams --interfaces %aac-root-namespace%.SoftwareSystems.*.Interfaces.* %aac-root-namespace%.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes ECommercePlatform.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy "%aac-reader-strategy%" --aac-input-paths "%aac-input-paths%" --output-dir "%diagrams-dir%" --formats png svg
 ) else (
-%cli-output-dir%\%cli-exe% draw-diagrams --interfaces  %aac-root-namespace%.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes ECommercePlatform.BusinessProcesses.* --aac-reader-strategy "%aac-reader-strategy%" --aac-input-paths "%aac-input-paths%" --output-dir "%diagrams-dir%" 
+%cli-output-dir%\%cli-exe% draw-diagrams --interfaces %aac-root-namespace%.SoftwareSystems.*.Interfaces.* %aac-root-namespace%.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes ECommercePlatform.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy "%aac-reader-strategy%" --aac-input-paths "%aac-input-paths%" --output-dir "%diagrams-dir%" 
 )
 pause 
 :end  

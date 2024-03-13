@@ -1,0 +1,11 @@
+@startuml
+
+title Buying Service - Messaging - Send Purchase Order Created Event - CONTEXT level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "Buying Service" as ECommercePlatform.SoftwareSystems.BuyingService
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.SoftwareSystems.BuyingService : Send Purchase Order Created Event
+
+
+@enduml

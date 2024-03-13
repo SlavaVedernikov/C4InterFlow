@@ -17,9 +17,9 @@ skinparam linetype polyline
 title C4 Static - CONTEXT level
 
 System(ECommercePlatform.SoftwareSystems.ProductService, "Product Service", "")
-System(ECommercePlatform.SoftwareSystems.WMS, "WMS", "")
+System(ECommercePlatform.SoftwareSystems.BuyingService, "Buying Service", "")
 
-Rel(ECommercePlatform.SoftwareSystems.ProductService, ECommercePlatform.SoftwareSystems.WMS, "Uses")
+Rel(ECommercePlatform.SoftwareSystems.ProductService, ECommercePlatform.SoftwareSystems.BuyingService, "Uses")
 
 
 SHOW_LEGEND()

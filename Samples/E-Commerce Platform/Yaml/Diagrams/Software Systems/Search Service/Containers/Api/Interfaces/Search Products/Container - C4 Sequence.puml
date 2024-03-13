@@ -1,0 +1,19 @@
+@startuml
+!include ..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Search Service - Api - Search Products - CONTAINER level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(ECommercePlatform.SoftwareSystems.SearchService, "Search Service")
+    Container(ECommercePlatform.SoftwareSystems.SearchService.Containers.Api, "Api", "", "")
+    Container(ECommercePlatform.SoftwareSystems.SearchService.Containers.Database, "Database", "", "")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.SearchService.Containers.Api, "Search Products")
+group Search Products
+Rel(ECommercePlatform.SoftwareSystems.SearchService.Containers.Api, ECommercePlatform.SoftwareSystems.SearchService.Containers.Database, "Select Products")
+end
+
+
+@enduml

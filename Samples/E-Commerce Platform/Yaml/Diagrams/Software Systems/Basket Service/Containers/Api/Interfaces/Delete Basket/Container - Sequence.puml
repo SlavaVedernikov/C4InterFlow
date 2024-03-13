@@ -1,0 +1,19 @@
+@startuml
+
+title Basket Service - Api - Delete Basket - CONTAINER level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Basket Service" #White
+    participant "Api" as ECommercePlatform.SoftwareSystems.BasketService.Containers.Api
+    participant "Database" as ECommercePlatform.SoftwareSystems.BasketService.Containers.Database
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.SoftwareSystems.BasketService.Containers.Api : Delete Basket
+group Delete Basket
+ECommercePlatform.SoftwareSystems.BasketService.Containers.Api -> ECommercePlatform.SoftwareSystems.BasketService.Containers.Database : Delete Basket
+end
+
+
+@enduml

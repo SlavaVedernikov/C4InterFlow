@@ -1,0 +1,69 @@
+ECommercePlatform:
+  SoftwareSystems:
+    BuyingService:
+      Containers:
+        Api:
+          Interfaces:
+            GetPurchaseOrders:
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.BuyingService.Containers.Database.Interfaces.SelectPurchaseOrder
+            CreatePurchaseOrder:
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.BuyingService.Containers.Database.Interfaces.InsertPurchaseOrder
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging.Interfaces.SendPurchaseOrderCreatedEvent
+            UpdatePurchaseOrder:
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.BuyingService.Containers.Database.Interfaces.UpdatePurchaseOrder
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging.Interfaces.SendPurchaseOrderUpdatedEvent
+            DeletePurchaseOrder:
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.BuyingService.Containers.Database.Interfaces.DeletePurchaseOrder
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging.Interfaces.SendPurchaseOrderDeletedEvent
+        Database:
+          Interfaces:
+            InsertPurchaseOrder: {}
+            UpdatePurchaseOrder: {}
+            DeletePurchaseOrder: {}
+            SelectPurchaseOrder: {}
+        Messaging:
+          Interfaces:
+            SendPurchaseOrderCreatedEvent: {}
+            SendPurchaseOrderUpdatedEvent: {}
+            SendPurchaseOrderDeletedEvent: {}
+            ReceivePurchaseOrderCreatedEvent: {}
+            ReceivePurchaseOrderUpdatedEvent: {}
+            ReceivePurchaseOrderDeletedEvent: {}
+        MessageHandler:
+          Interfaces:
+            HandlePurchaseOrderCreatedEvent:
+             Flow:
+                Flows:
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging.Interfaces.ReceivePurchaseOrderCreatedEvent
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.WMS.Interfaces.CreatePurchaseOrder
+            HandlePurchaseOrderUpdatedEvent:
+             Flow:
+                Flows:
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging.Interfaces.ReceivePurchaseOrderUpdatedEvent
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.WMS.Interfaces.UpdatePurchaseOrder
+            HandlePurchaseOrderDeletedEvent:
+             Flow:
+                Flows:
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging.Interfaces.ReceivePurchaseOrderDeletedEvent
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.WMS.Interfaces.DeletePurchaseOrder

@@ -1,0 +1,15 @@
+@startuml
+!include ..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Order Service - Messaging - Receive Order Created Event - CONTAINER level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(ECommercePlatform.SoftwareSystems.OrderService, "Order Service")
+    Container(ECommercePlatform.SoftwareSystems.OrderService.Containers.Messaging, "Messaging", "", "")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.OrderService.Containers.Messaging, "Receive Order Created Event")
+
+
+@enduml

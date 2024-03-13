@@ -1,0 +1,16 @@
+@startuml
+!include ..\..\..\..\.c4s\C4_Sequence.puml
+
+title Buying And Merchandising App - View Product Prices - CONTEXT level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+System(ECommercePlatform.SoftwareSystems.BuyingAndMerchandisingApp, "Buying And Merchandising App", "")
+System(ECommercePlatform.SoftwareSystems.PricingService, "Pricing Service", "")
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.BuyingAndMerchandisingApp, "View Product Prices")
+group View Product Prices
+Rel(ECommercePlatform.SoftwareSystems.BuyingAndMerchandisingApp, ECommercePlatform.SoftwareSystems.PricingService, "Get Product Prices")
+end
+
+
+@enduml

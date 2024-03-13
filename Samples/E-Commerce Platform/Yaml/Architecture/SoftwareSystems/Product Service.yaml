@@ -1,0 +1,75 @@
+ECommercePlatform:
+  SoftwareSystems:
+    ProductService:
+      Containers:
+        Api:
+          Interfaces:
+            GetProducts:
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.ProductService.Containers.Database.Interfaces.SelectProducts
+            UpdateProduct:
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.ProductService.Containers.Database.Interfaces.UpdateProduct
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.ProductService.Containers.Messaging.Interfaces.SendProductUpdatedEvent
+            DeleteProduct:
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.ProductService.Containers.Database.Interfaces.DeleteProduct
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.ProductService.Containers.Messaging.Interfaces.SendProductDeletedEvent
+        Database:
+          Interfaces:
+            SelectProducts: {}
+            InsertProduct: {}
+            UpdateProduct: {}
+            DeleteProduct: {}
+        Messaging:
+          Interfaces:
+            SendProductCreatedEvent: {}
+            SendProductUpdatedEvent: {}
+            SendProductDeletedEvent: {}
+            ReceiveProductCreatedEvent: {}
+            ReceiveProductUpdatedEvent: {}
+            ReceiveProductDeletedEvent: {}
+        MessageHandler:
+          Interfaces:
+            HandlePurchaseOrderCreatedEvent:
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging.Interfaces.ReceivePurchaseOrderCreatedEvent
+                - Type: Loop
+                  Expression: For each Product in Purchase Order
+                  Flows:
+                  - Type: Use
+                    Expression: ECommercePlatform.SoftwareSystems.ProductService.Containers.Database.Interfaces.SelectProducts
+                  - Type: If
+                    Expression: Product Not Found
+                    Flows:
+                    - Type: Use
+                      Expression: ECommercePlatform.SoftwareSystems.ProductService.Containers.Database.Interfaces.InsertProduct
+                    - Type: Use
+                      Expression: ECommercePlatform.SoftwareSystems.ProductService.Containers.Messaging.Interfaces.SendProductCreatedEvent
+            HandlePurchaseOrderUpdatedEvent:
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging.Interfaces.ReceivePurchaseOrderUpdatedEvent
+                - Type: Loop
+                  Expression: For each Product in Purchase Order
+                  Flows:
+                  - Type: Use
+                    Expression: ECommercePlatform.SoftwareSystems.ProductService.Containers.Database.Interfaces.SelectProducts
+                  - Type: If
+                    Expression: Product Not Found
+                    Flows:
+                    - Type: Use
+                      Expression: ECommercePlatform.SoftwareSystems.ProductService.Containers.Database.Interfaces.InsertProduct
+                    - Type: Use
+                      Expression: ECommercePlatform.SoftwareSystems.ProductService.Containers.Messaging.Interfaces.SendProductCreatedEvent

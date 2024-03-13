@@ -23,8 +23,8 @@ System_Boundary(ECommercePlatform.SoftwareSystems.ProductService, "Product Servi
     Container(ECommercePlatform.SoftwareSystems.ProductService.Containers.Messaging, "Messaging", "", "")
 }
 
-Rel(ECommercePlatform.SoftwareSystems.ProductService.Containers.Api, ECommercePlatform.SoftwareSystems.ProductService.Containers.Database, "Select Products\nInsert Product\nUpdate Product\nDelete Product")
-Rel(ECommercePlatform.SoftwareSystems.ProductService.Containers.Api, ECommercePlatform.SoftwareSystems.ProductService.Containers.Messaging, "Send Product Created Event\nSend Product Updated Event\nSend Product Deleted Event")
+Rel(ECommercePlatform.SoftwareSystems.ProductService.Containers.Api, ECommercePlatform.SoftwareSystems.ProductService.Containers.Database, "Select Products\nUpdate Product\nDelete Product")
+Rel(ECommercePlatform.SoftwareSystems.ProductService.Containers.Api, ECommercePlatform.SoftwareSystems.ProductService.Containers.Messaging, "Send Product Updated Event\nSend Product Deleted Event")
 
 
 SHOW_LEGEND()

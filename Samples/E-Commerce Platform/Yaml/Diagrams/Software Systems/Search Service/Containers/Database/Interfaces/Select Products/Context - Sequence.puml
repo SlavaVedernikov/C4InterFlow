@@ -1,0 +1,11 @@
+@startuml
+
+title Search Service - Database - Select Products - CONTEXT level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "Search Service" as ECommercePlatform.SoftwareSystems.SearchService
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.SoftwareSystems.SearchService : Select Products
+
+
+@enduml

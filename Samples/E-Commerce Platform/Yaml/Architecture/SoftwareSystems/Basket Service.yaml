@@ -1,0 +1,38 @@
+ECommercePlatform:
+  SoftwareSystems:
+    BasketService:
+      Containers:
+        Api:
+          Interfaces:
+            GetItems:
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.BasketService.Containers.Database.Interfaces.SelectItems
+            AddItem:
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.BasketService.Containers.Database.Interfaces.InsertItem
+            UpdateItem:
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.BasketService.Containers.Database.Interfaces.UpdateItem
+            DeleteItem:
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.BasketService.Containers.Database.Interfaces.DeleteItem
+            DeleteBasket:
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.BasketService.Containers.Database.Interfaces.DeleteBasket
+        Database:
+          Interfaces:
+            InsertItem: {}
+            UpdateItem: {}
+            DeleteItem: {}
+            SelectItems: {}
+            DeleteBasket: {}

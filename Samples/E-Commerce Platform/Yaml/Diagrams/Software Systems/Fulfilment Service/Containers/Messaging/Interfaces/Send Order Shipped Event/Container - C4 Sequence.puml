@@ -1,0 +1,15 @@
+@startuml
+!include ..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Fulfilment Service - Messaging - Send Order Shipped Event - CONTAINER level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(ECommercePlatform.SoftwareSystems.FulfilmentService, "Fulfilment Service")
+    Container(ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Messaging, "Messaging", "", "")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Messaging, "Send Order Shipped Event")
+
+
+@enduml

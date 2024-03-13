@@ -17,9 +17,9 @@ skinparam linetype polyline
 title C4 - CONTEXT level
 
 System(ECommercePlatform.SoftwareSystems.ProductService, "Product Service", "")
-System(ECommercePlatform.SoftwareSystems.WMS, "WMS", "")
+System(ECommercePlatform.SoftwareSystems.BuyingService, "Buying Service", "")
 
-Rel(ECommercePlatform.SoftwareSystems.ProductService, ECommercePlatform.SoftwareSystems.WMS, "Create Product\nUpdate Product\nDelete Product")
+Rel(ECommercePlatform.SoftwareSystems.ProductService, ECommercePlatform.SoftwareSystems.BuyingService, "Receive Purchase Order Created Event\nReceive Purchase Order Updated Event")
 
 
 SHOW_LEGEND()

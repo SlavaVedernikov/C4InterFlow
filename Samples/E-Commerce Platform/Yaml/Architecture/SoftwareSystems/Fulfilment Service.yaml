@@ -1,0 +1,37 @@
+ECommercePlatform:
+  SoftwareSystems:
+    FulfilmentService:
+      Containers:
+        Api:
+          Interfaces:
+            PostOrderShippedEvent:
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Database.Interfaces.UpdateOrderStatus
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Messaging.Interfaces.SendOrderShippedEvent
+        Database:
+          Interfaces:
+            InsertOrder: {}
+            UpdateOrderStatus: {}
+        Messaging:
+          Interfaces:
+            SendOrderShippedEvent: {}
+            ReceiveOrderShippedEvent: {}
+        MessageHandler:
+          Interfaces:
+            HandleOrderStatusChangedEvent:
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.OrderService.Containers.Messaging.Interfaces.ReceiveOrderStatusChangedEvent
+                - Type: If
+                  Expression: Order Status is 'Pending Shipment'
+                  Flows:
+                  - Type: Use
+                    Expression: ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Database.Interfaces.InsertOrder
+                  - Type: Use
+                    Expression: ECommercePlatform.SoftwareSystems.WMS.Interfaces.ShipOrder
+                  - Type: Use
+                    Expression: ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Database.Interfaces.UpdateOrderStatus

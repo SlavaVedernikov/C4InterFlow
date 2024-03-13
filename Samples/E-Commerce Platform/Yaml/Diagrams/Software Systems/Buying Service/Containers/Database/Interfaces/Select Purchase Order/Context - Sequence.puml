@@ -1,0 +1,11 @@
+@startuml
+
+title Buying Service - Database - Select Purchase Order - CONTEXT level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "Buying Service" as ECommercePlatform.SoftwareSystems.BuyingService
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.SoftwareSystems.BuyingService : Select Purchase Order
+
+
+@enduml

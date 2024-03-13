@@ -1,0 +1,18 @@
+@startuml
+!include ..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Fraud Service - Message Handler - Handle Order Created Event - CONTEXT level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+System(ECommercePlatform.SoftwareSystems.FraudService, "Fraud Service", "")
+System(ECommercePlatform.SoftwareSystems.OrderService, "Order Service", "")
+System(ECommercePlatform.SoftwareSystems.FraudEngine, "Fraud Engine", "")
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.FraudService, "Handle Order Created Event")
+group Handle Order Created Event
+Rel(ECommercePlatform.SoftwareSystems.FraudService, ECommercePlatform.SoftwareSystems.OrderService, "Receive Order Created Event")
+Rel(ECommercePlatform.SoftwareSystems.FraudService, ECommercePlatform.SoftwareSystems.FraudEngine, "Get Fraud Check Result")
+end
+
+
+@enduml

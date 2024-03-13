@@ -1,0 +1,16 @@
+@startuml
+!include ..\..\..\..\.c4s\C4_Sequence.puml
+
+title Storefront Bff - Search Products - CONTEXT level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+System(ECommercePlatform.SoftwareSystems.StorefrontBff, "Storefront Bff", "")
+System(ECommercePlatform.SoftwareSystems.SearchService, "Search Service", "")
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.StorefrontBff, "Search Products")
+group Search Products
+Rel(ECommercePlatform.SoftwareSystems.StorefrontBff, ECommercePlatform.SoftwareSystems.SearchService, "Search Products")
+end
+
+
+@enduml

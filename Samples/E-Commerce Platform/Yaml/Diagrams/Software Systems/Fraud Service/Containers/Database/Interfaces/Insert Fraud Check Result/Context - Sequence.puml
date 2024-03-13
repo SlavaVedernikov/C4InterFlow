@@ -1,0 +1,11 @@
+@startuml
+
+title Fraud Service - Database - Insert Fraud Check Result - CONTEXT level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "Fraud Service" as ECommercePlatform.SoftwareSystems.FraudService
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.SoftwareSystems.FraudService : Insert Fraud Check Result
+
+
+@enduml

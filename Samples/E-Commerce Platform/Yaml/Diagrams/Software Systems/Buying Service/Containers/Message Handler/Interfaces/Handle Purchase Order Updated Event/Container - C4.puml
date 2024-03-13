@@ -1,0 +1,31 @@
+@startuml
+!include ..\..\..\..\..\..\.c4s\C4_Container.puml
+
+AddElementTag("state:new", $bgColor=green, $fontColor=#ffffff, $borderColor=green, $shadowing="False")
+AddElementTag("state:changed", $bgColor=orange, $fontColor=#ffffff, $borderColor=orange, $shadowing="False")
+AddElementTag("state:removed", $bgColor=red, $fontColor=#ffffff, $borderColor=red, $shadowing="False")
+
+AddRelTag("state:new", $textColor=green, $lineColor=green)
+AddRelTag("state:changed", $textColor=orange, $lineColor=orange)
+AddRelTag("state:removed", $textColor=red, $lineColor=red)
+
+SHOW_PERSON_PORTRAIT()
+LAYOUT_TOP_DOWN()
+
+skinparam linetype polyline
+
+title Buying Service - Message Handler - Handle Purchase Order Updated Event - CONTAINER level
+
+
+System_Boundary(ECommercePlatform.SoftwareSystems.BuyingService, "Buying Service") {
+    Container(ECommercePlatform.SoftwareSystems.BuyingService.Containers.MessageHandler, "Message Handler", "", "")
+    Container(ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging, "Messaging", "", "")
+}
+System(ECommercePlatform.SoftwareSystems.WMS, "WMS", "")
+
+Rel(ECommercePlatform.SoftwareSystems.BuyingService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging, "Receive Purchase Order Updated Event")
+Rel(ECommercePlatform.SoftwareSystems.BuyingService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.WMS, "Update Purchase Order")
+
+
+SHOW_LEGEND()
+@enduml

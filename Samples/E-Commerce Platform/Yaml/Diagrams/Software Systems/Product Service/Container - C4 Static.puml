@@ -23,12 +23,16 @@ System_Boundary(ECommercePlatform.SoftwareSystems.ProductService, "Product Servi
     Container(ECommercePlatform.SoftwareSystems.ProductService.Containers.Messaging, "Messaging", "", "")
     Container(ECommercePlatform.SoftwareSystems.ProductService.Containers.MessageHandler, "Message Handler", "", "")
 }
-System(ECommercePlatform.SoftwareSystems.WMS, "WMS", "")
+
+System_Boundary(ECommercePlatform.SoftwareSystems.BuyingService, "Buying Service") {
+    Container(ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging, "Messaging", "", "")
+}
 
 Rel(ECommercePlatform.SoftwareSystems.ProductService.Containers.Api, ECommercePlatform.SoftwareSystems.ProductService.Containers.Database, "Uses")
 Rel(ECommercePlatform.SoftwareSystems.ProductService.Containers.Api, ECommercePlatform.SoftwareSystems.ProductService.Containers.Messaging, "Uses")
+Rel(ECommercePlatform.SoftwareSystems.ProductService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging, "Uses")
+Rel(ECommercePlatform.SoftwareSystems.ProductService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.ProductService.Containers.Database, "Uses")
 Rel(ECommercePlatform.SoftwareSystems.ProductService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.ProductService.Containers.Messaging, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.ProductService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.WMS, "Uses")
 
 
 SHOW_LEGEND()

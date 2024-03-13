@@ -19,12 +19,17 @@ title C4 Static - CONTAINER level
 
 System_Boundary(ECommercePlatform.SoftwareSystems.ProductService, "Product Service") {
     Container(ECommercePlatform.SoftwareSystems.ProductService.Containers.MessageHandler, "Message Handler", "", "")
+    Container(ECommercePlatform.SoftwareSystems.ProductService.Containers.Database, "Database", "", "")
     Container(ECommercePlatform.SoftwareSystems.ProductService.Containers.Messaging, "Messaging", "", "")
 }
-System(ECommercePlatform.SoftwareSystems.WMS, "WMS", "")
 
+System_Boundary(ECommercePlatform.SoftwareSystems.BuyingService, "Buying Service") {
+    Container(ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging, "Messaging", "", "")
+}
+
+Rel(ECommercePlatform.SoftwareSystems.ProductService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging, "Uses")
+Rel(ECommercePlatform.SoftwareSystems.ProductService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.ProductService.Containers.Database, "Uses")
 Rel(ECommercePlatform.SoftwareSystems.ProductService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.ProductService.Containers.Messaging, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.ProductService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.WMS, "Uses")
 
 
 SHOW_LEGEND()

@@ -1,0 +1,11 @@
+@startuml
+
+title Pricing Service - Api - Get Product Prices - CONTEXT level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "Pricing Service" as ECommercePlatform.SoftwareSystems.PricingService
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.SoftwareSystems.PricingService : Get Product Prices
+
+
+@enduml
