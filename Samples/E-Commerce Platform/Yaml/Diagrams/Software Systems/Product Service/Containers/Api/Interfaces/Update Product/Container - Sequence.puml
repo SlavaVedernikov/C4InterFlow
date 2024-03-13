@@ -1,0 +1,21 @@
+@startuml
+
+title Product Service - Api - Update Product - CONTAINER level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Product Service" #White
+    participant "Api" as ECommercePlatform.SoftwareSystems.ProductService.Containers.Api
+    participant "Database" as ECommercePlatform.SoftwareSystems.ProductService.Containers.Database
+    participant "Messaging" as ECommercePlatform.SoftwareSystems.ProductService.Containers.Messaging
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.SoftwareSystems.ProductService.Containers.Api : Update Product
+group Update Product
+ECommercePlatform.SoftwareSystems.ProductService.Containers.Api -> ECommercePlatform.SoftwareSystems.ProductService.Containers.Database : Update Product
+ECommercePlatform.SoftwareSystems.ProductService.Containers.Api -> ECommercePlatform.SoftwareSystems.ProductService.Containers.Messaging : Send Product Updated Event
+end
+
+
+@enduml

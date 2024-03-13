@@ -1,0 +1,7 @@
+ECommercePlatform:
+  SoftwareSystems:
+    WMS:
+      Interfaces:
+        CreateProduct: {}
+        UpdateProduct: {}
+        DeleteProduct: {}

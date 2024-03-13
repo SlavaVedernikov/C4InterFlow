@@ -1,0 +1,16 @@
+@startuml
+!include ..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Product Service - Message Handler - Handle Product Deleted Event - CONTEXT level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+System(ECommercePlatform.SoftwareSystems.ProductService, "Product Service", "")
+System(ECommercePlatform.SoftwareSystems.WMS, "WMS", "")
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.ProductService, "Handle Product Deleted Event")
+group Handle Product Deleted Event
+Rel(ECommercePlatform.SoftwareSystems.ProductService, ECommercePlatform.SoftwareSystems.WMS, "Delete Product")
+end
+
+
+@enduml
