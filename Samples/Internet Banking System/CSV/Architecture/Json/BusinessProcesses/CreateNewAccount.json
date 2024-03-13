@@ -11,11 +11,9 @@
               "Flows": [
                 {
                   "Type": "Use",
-                  "Owner": "BigBankPlc.Actors.Customer",
                   "Expression": "BigBankPlc.SoftwareSystems.InternetBanking.Containers.WebApplication.Interfaces.Navigate"
                 }
-              ],
-              "Owner": "BigBankPlc.Actors.Customer"
+              ]
             }
           },
           {
@@ -25,16 +23,13 @@
               "Flows": [
                 {
                   "Type": "Use",
-                  "Owner": "BigBankPlc.Actors.Customer",
                   "Expression": "BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.SignIn"
                 },
                 {
                   "Type": "Use",
-                  "Owner": "BigBankPlc.Actors.Customer",
                   "Expression": "BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.ViewCustomerDetails"
                 }
-              ],
-              "Owner": "BigBankPlc.Actors.Customer"
+              ]
             }
           },
           {
@@ -44,11 +39,9 @@
               "Flows": [
                 {
                   "Type": "Use",
-                  "Owner": "BigBankPlc.Actors.Customer",
                   "Expression": "BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.CreateAccount"
                 }
-              ],
-              "Owner": "BigBankPlc.Actors.Customer"
+              ]
             }
           },
           {
@@ -58,11 +51,9 @@
               "Flows": [
                 {
                   "Type": "Use",
-                  "Owner": "BigBankPlc.Actors.Customer",
                   "Expression": "BigBankPlc.SoftwareSystems.EMailSystem.Interfaces.ReceiveNewAccountCreatedNotificationEMail"
                 }
-              ],
-              "Owner": "BigBankPlc.Actors.Customer"
+              ]
             }
           }
         ]
