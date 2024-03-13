@@ -1,0 +1,25 @@
+@startuml
+
+title Search Service - Message Handler - Handle Product Price Changed Event - CONTAINER level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Search Service" #White
+    participant "Message Handler" as ECommercePlatform.SoftwareSystems.SearchService.Containers.MessageHandler
+    participant "Database" as ECommercePlatform.SoftwareSystems.SearchService.Containers.Database
+end box
+
+
+box "Pricing Service" #White
+    participant "Messaging" as ECommercePlatform.SoftwareSystems.PricingService.Containers.Messaging
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.SoftwareSystems.SearchService.Containers.MessageHandler : Handle Product Price Changed Event
+group Handle Product Price Changed Event
+ECommercePlatform.SoftwareSystems.SearchService.Containers.MessageHandler -> ECommercePlatform.SoftwareSystems.PricingService.Containers.Messaging : Receive Product Price Changed Event
+ECommercePlatform.SoftwareSystems.SearchService.Containers.MessageHandler -> ECommercePlatform.SoftwareSystems.SearchService.Containers.Database : Update Product Prices
+end
+
+
+@enduml

@@ -1,0 +1,21 @@
+@startuml
+
+title Buying Service - Message Handler - Handle Purchase Order Deleted Event - CONTAINER level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Buying Service" #White
+    participant "Message Handler" as ECommercePlatform.SoftwareSystems.BuyingService.Containers.MessageHandler
+    participant "Messaging" as ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging
+end box
+
+participant "WMS" as ECommercePlatform.SoftwareSystems.WMS
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.SoftwareSystems.BuyingService.Containers.MessageHandler : Handle Purchase Order Deleted Event
+group Handle Purchase Order Deleted Event
+ECommercePlatform.SoftwareSystems.BuyingService.Containers.MessageHandler -> ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging : Receive Purchase Order Deleted Event
+ECommercePlatform.SoftwareSystems.BuyingService.Containers.MessageHandler -> ECommercePlatform.SoftwareSystems.WMS : Delete Purchase Order
+end
+
+
+@enduml

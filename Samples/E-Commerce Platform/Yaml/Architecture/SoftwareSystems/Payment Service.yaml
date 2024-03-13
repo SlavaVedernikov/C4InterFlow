@@ -1,0 +1,35 @@
+ECommercePlatform:
+  SoftwareSystems:
+    PaymentService:
+      Containers:
+        Api:
+          Interfaces:
+            PostPaymentResultEvent:
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.PaymentService.Containers.Database.Interfaces.InsertPaymentResult
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.PaymentService.Containers.Messaging.Interfaces.SendPaymentResultEvent
+        Database:
+          Interfaces:
+            InsertPaymentResult: {}
+            InsertOrder: {}
+        Messaging:
+          Interfaces:
+            SendPaymentResultEvent: {}
+            ReceivePaymentResultEvent: {}
+        MessageHandler:
+          Interfaces:
+            HandleOrderStatusChangedEvent:
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: ECommercePlatform.SoftwareSystems.OrderService.Containers.Messaging.Interfaces.ReceiveOrderStatusChangedEvent
+                - Type: If
+                  Expression: Order Status is 'Pending Payment'
+                  Flows:
+                  - Type: Use
+                    Expression: ECommercePlatform.SoftwareSystems.PaymentService.Containers.Database.Interfaces.InsertOrder
+                  - Type: Use
+                    Expression: ECommercePlatform.SoftwareSystems.PaymentProvider.Interfaces.ProcessPayment

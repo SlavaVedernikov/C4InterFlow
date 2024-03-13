@@ -1,0 +1,11 @@
+@startuml
+
+title Product Service - Messaging - Send Product Updated Event - CONTEXT level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "Product Service" as ECommercePlatform.SoftwareSystems.ProductService
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.SoftwareSystems.ProductService : Send Product Updated Event
+
+
+@enduml

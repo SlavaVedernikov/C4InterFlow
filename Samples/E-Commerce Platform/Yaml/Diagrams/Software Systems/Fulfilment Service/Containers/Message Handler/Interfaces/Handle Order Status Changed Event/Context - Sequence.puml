@@ -1,0 +1,17 @@
+@startuml
+
+title Fulfilment Service - Message Handler - Handle Order Status Changed Event - CONTEXT level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "Fulfilment Service" as ECommercePlatform.SoftwareSystems.FulfilmentService
+participant "Order Service" as ECommercePlatform.SoftwareSystems.OrderService
+participant "WMS" as ECommercePlatform.SoftwareSystems.WMS
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.SoftwareSystems.FulfilmentService : Handle Order Status Changed Event
+group Handle Order Status Changed Event
+ECommercePlatform.SoftwareSystems.FulfilmentService -> ECommercePlatform.SoftwareSystems.OrderService : Receive Order Status Changed Event
+ECommercePlatform.SoftwareSystems.FulfilmentService -> ECommercePlatform.SoftwareSystems.WMS : Ship Order
+end
+
+
+@enduml

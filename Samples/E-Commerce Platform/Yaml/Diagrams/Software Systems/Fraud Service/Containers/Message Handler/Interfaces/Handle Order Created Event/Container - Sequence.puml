@@ -1,0 +1,30 @@
+@startuml
+
+title Fraud Service - Message Handler - Handle Order Created Event - CONTAINER level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Fraud Service" #White
+    participant "Message Handler" as ECommercePlatform.SoftwareSystems.FraudService.Containers.MessageHandler
+    participant "Database" as ECommercePlatform.SoftwareSystems.FraudService.Containers.Database
+    participant "Messaging" as ECommercePlatform.SoftwareSystems.FraudService.Containers.Messaging
+end box
+
+
+box "Order Service" #White
+    participant "Messaging" as ECommercePlatform.SoftwareSystems.OrderService.Containers.Messaging
+end box
+
+participant "Fraud Engine" as ECommercePlatform.SoftwareSystems.FraudEngine
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.SoftwareSystems.FraudService.Containers.MessageHandler : Handle Order Created Event
+group Handle Order Created Event
+ECommercePlatform.SoftwareSystems.FraudService.Containers.MessageHandler -> ECommercePlatform.SoftwareSystems.OrderService.Containers.Messaging : Receive Order Created Event
+ECommercePlatform.SoftwareSystems.FraudService.Containers.MessageHandler -> ECommercePlatform.SoftwareSystems.FraudService.Containers.Database : Insert Order
+ECommercePlatform.SoftwareSystems.FraudService.Containers.MessageHandler -> ECommercePlatform.SoftwareSystems.FraudEngine : Get Fraud Check Result
+ECommercePlatform.SoftwareSystems.FraudService.Containers.MessageHandler -> ECommercePlatform.SoftwareSystems.FraudService.Containers.Database : Insert Fraud Check Result
+ECommercePlatform.SoftwareSystems.FraudService.Containers.MessageHandler -> ECommercePlatform.SoftwareSystems.FraudService.Containers.Messaging : Send Fraud Check Result Event
+end
+
+
+@enduml

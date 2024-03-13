@@ -1,0 +1,29 @@
+@startuml
+
+title Payment Service - Message Handler - Handle Order Status Changed Event - CONTAINER level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Payment Service" #White
+    participant "Message Handler" as ECommercePlatform.SoftwareSystems.PaymentService.Containers.MessageHandler
+    participant "Database" as ECommercePlatform.SoftwareSystems.PaymentService.Containers.Database
+end box
+
+
+box "Order Service" #White
+    participant "Messaging" as ECommercePlatform.SoftwareSystems.OrderService.Containers.Messaging
+end box
+
+participant "Payment Provider" as ECommercePlatform.SoftwareSystems.PaymentProvider
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.SoftwareSystems.PaymentService.Containers.MessageHandler : Handle Order Status Changed Event
+group Handle Order Status Changed Event
+ECommercePlatform.SoftwareSystems.PaymentService.Containers.MessageHandler -> ECommercePlatform.SoftwareSystems.OrderService.Containers.Messaging : Receive Order Status Changed Event
+alt Order Status is 'Pending Payment'
+ECommercePlatform.SoftwareSystems.PaymentService.Containers.MessageHandler -> ECommercePlatform.SoftwareSystems.PaymentService.Containers.Database : Insert Order
+ECommercePlatform.SoftwareSystems.PaymentService.Containers.MessageHandler -> ECommercePlatform.SoftwareSystems.PaymentProvider : Process Payment
+end
+end
+
+
+@enduml

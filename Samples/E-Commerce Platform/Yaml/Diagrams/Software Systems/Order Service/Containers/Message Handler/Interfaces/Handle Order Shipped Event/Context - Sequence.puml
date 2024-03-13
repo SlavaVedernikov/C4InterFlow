@@ -1,0 +1,15 @@
+@startuml
+
+title Order Service - Message Handler - Handle Order Shipped Event - CONTEXT level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "Order Service" as ECommercePlatform.SoftwareSystems.OrderService
+participant "Fulfilment Service" as ECommercePlatform.SoftwareSystems.FulfilmentService
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.SoftwareSystems.OrderService : Handle Order Shipped Event
+group Handle Order Shipped Event
+ECommercePlatform.SoftwareSystems.OrderService -> ECommercePlatform.SoftwareSystems.FulfilmentService : Receive Order Shipped Event
+end
+
+
+@enduml

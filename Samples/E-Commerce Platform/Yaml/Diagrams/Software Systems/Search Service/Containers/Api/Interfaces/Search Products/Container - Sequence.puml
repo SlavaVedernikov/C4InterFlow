@@ -1,0 +1,19 @@
+@startuml
+
+title Search Service - Api - Search Products - CONTAINER level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Search Service" #White
+    participant "Api" as ECommercePlatform.SoftwareSystems.SearchService.Containers.Api
+    participant "Database" as ECommercePlatform.SoftwareSystems.SearchService.Containers.Database
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.SoftwareSystems.SearchService.Containers.Api : Search Products
+group Search Products
+ECommercePlatform.SoftwareSystems.SearchService.Containers.Api -> ECommercePlatform.SoftwareSystems.SearchService.Containers.Database : Select Products
+end
+
+
+@enduml

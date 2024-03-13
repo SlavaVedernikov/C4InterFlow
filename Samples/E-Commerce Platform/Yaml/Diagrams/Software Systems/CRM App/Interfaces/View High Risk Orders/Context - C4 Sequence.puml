@@ -1,0 +1,16 @@
+@startuml
+!include ..\..\..\..\.c4s\C4_Sequence.puml
+
+title CRM App - View High Risk Orders - CONTEXT level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+System(ECommercePlatform.SoftwareSystems.CRMApp, "CRM App", "")
+System(ECommercePlatform.SoftwareSystems.FraudService, "Fraud Service", "")
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.CRMApp, "View High Risk Orders")
+group View High Risk Orders
+Rel(ECommercePlatform.SoftwareSystems.CRMApp, ECommercePlatform.SoftwareSystems.FraudService, "Get High Risk Orders")
+end
+
+
+@enduml

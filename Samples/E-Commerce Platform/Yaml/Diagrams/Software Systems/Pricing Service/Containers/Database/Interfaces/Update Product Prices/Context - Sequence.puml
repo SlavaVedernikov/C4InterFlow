@@ -1,0 +1,11 @@
+@startuml
+
+title Pricing Service - Database - Update Product Prices - CONTEXT level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "Pricing Service" as ECommercePlatform.SoftwareSystems.PricingService
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.SoftwareSystems.PricingService : Update Product Prices
+
+
+@enduml

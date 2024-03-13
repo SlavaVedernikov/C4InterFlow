@@ -1,0 +1,8 @@
+ECommercePlatform:
+  SoftwareSystems:
+    WMS:
+      Interfaces:
+        CreatePurchaseOrder: {}
+        UpdatePurchaseOrder: {}
+        DeletePurchaseOrder: {}
+        ShipOrder: {}

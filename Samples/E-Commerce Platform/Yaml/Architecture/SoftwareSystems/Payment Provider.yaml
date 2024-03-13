@@ -1,0 +1,5 @@
+ECommercePlatform:
+  SoftwareSystems:
+    PaymentProvider:
+      Interfaces:
+        ProcessPayment: {}

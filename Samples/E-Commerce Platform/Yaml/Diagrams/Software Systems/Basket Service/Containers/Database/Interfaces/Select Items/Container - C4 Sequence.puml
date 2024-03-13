@@ -1,0 +1,15 @@
+@startuml
+!include ..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Basket Service - Database - Select Items - CONTAINER level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(ECommercePlatform.SoftwareSystems.BasketService, "Basket Service")
+    Container(ECommercePlatform.SoftwareSystems.BasketService.Containers.Database, "Database", "", "")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.BasketService.Containers.Database, "Select Items")
+
+
+@enduml

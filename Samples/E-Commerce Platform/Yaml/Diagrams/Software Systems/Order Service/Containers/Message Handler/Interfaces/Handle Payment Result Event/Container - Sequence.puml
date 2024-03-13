@@ -1,0 +1,27 @@
+@startuml
+
+title Order Service - Message Handler - Handle Payment Result Event - CONTAINER level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Order Service" #White
+    participant "Message Handler" as ECommercePlatform.SoftwareSystems.OrderService.Containers.MessageHandler
+    participant "Database" as ECommercePlatform.SoftwareSystems.OrderService.Containers.Database
+    participant "Messaging" as ECommercePlatform.SoftwareSystems.OrderService.Containers.Messaging
+end box
+
+
+box "Payment Service" #White
+    participant "Messaging" as ECommercePlatform.SoftwareSystems.PaymentService.Containers.Messaging
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.SoftwareSystems.OrderService.Containers.MessageHandler : Handle Payment Result Event
+group Handle Payment Result Event
+ECommercePlatform.SoftwareSystems.OrderService.Containers.MessageHandler -> ECommercePlatform.SoftwareSystems.PaymentService.Containers.Messaging : Receive Payment Result Event
+ECommercePlatform.SoftwareSystems.OrderService.Containers.MessageHandler -> ECommercePlatform.SoftwareSystems.OrderService.Containers.Database : Update Order Status
+ECommercePlatform.SoftwareSystems.OrderService.Containers.MessageHandler -> ECommercePlatform.SoftwareSystems.OrderService.Containers.Messaging : Send Order Status Changed Event
+end
+
+
+@enduml

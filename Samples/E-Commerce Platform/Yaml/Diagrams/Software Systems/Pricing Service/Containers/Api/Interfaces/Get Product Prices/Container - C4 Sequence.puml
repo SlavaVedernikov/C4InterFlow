@@ -1,0 +1,19 @@
+@startuml
+!include ..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Pricing Service - Api - Get Product Prices - CONTAINER level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(ECommercePlatform.SoftwareSystems.PricingService, "Pricing Service")
+    Container(ECommercePlatform.SoftwareSystems.PricingService.Containers.Api, "Api", "", "")
+    Container(ECommercePlatform.SoftwareSystems.PricingService.Containers.Database, "Database", "", "")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.PricingService.Containers.Api, "Get Product Prices")
+group Get Product Prices
+Rel(ECommercePlatform.SoftwareSystems.PricingService.Containers.Api, ECommercePlatform.SoftwareSystems.PricingService.Containers.Database, "Select Product Prices")
+end
+
+
+@enduml

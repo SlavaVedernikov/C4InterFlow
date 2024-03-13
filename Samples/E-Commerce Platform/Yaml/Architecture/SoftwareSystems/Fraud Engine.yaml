@@ -1,0 +1,5 @@
+ECommercePlatform:
+  SoftwareSystems:
+    FraudEngine:
+      Interfaces:
+        GetFraudCheckResult: {}

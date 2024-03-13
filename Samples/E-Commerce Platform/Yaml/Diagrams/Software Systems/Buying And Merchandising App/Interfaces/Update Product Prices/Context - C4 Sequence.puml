@@ -1,0 +1,16 @@
+@startuml
+!include ..\..\..\..\.c4s\C4_Sequence.puml
+
+title Buying And Merchandising App - Update Product Prices - CONTEXT level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+System(ECommercePlatform.SoftwareSystems.BuyingAndMerchandisingApp, "Buying And Merchandising App", "")
+System(ECommercePlatform.SoftwareSystems.PricingService, "Pricing Service", "")
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.BuyingAndMerchandisingApp, "Update Product Prices")
+group Update Product Prices
+Rel(ECommercePlatform.SoftwareSystems.BuyingAndMerchandisingApp, ECommercePlatform.SoftwareSystems.PricingService, "Update Product Prices")
+end
+
+
+@enduml

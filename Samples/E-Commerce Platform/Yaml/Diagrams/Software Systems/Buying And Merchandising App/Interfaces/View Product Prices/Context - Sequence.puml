@@ -1,0 +1,15 @@
+@startuml
+
+title Buying And Merchandising App - View Product Prices - CONTEXT level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "Buying And Merchandising App" as ECommercePlatform.SoftwareSystems.BuyingAndMerchandisingApp
+participant "Pricing Service" as ECommercePlatform.SoftwareSystems.PricingService
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.SoftwareSystems.BuyingAndMerchandisingApp : View Product Prices
+group View Product Prices
+ECommercePlatform.SoftwareSystems.BuyingAndMerchandisingApp -> ECommercePlatform.SoftwareSystems.PricingService : Get Product Prices
+end
+
+
+@enduml

@@ -1,0 +1,15 @@
+@startuml
+!include ..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Buying Service - Database - Delete Purchase Order - CONTAINER level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(ECommercePlatform.SoftwareSystems.BuyingService, "Buying Service")
+    Container(ECommercePlatform.SoftwareSystems.BuyingService.Containers.Database, "Database", "", "")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.BuyingService.Containers.Database, "Delete Purchase Order")
+
+
+@enduml

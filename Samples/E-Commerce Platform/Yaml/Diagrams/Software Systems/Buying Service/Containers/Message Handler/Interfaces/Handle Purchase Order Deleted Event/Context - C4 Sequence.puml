@@ -1,0 +1,16 @@
+@startuml
+!include ..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Buying Service - Message Handler - Handle Purchase Order Deleted Event - CONTEXT level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+System(ECommercePlatform.SoftwareSystems.BuyingService, "Buying Service", "")
+System(ECommercePlatform.SoftwareSystems.WMS, "WMS", "")
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.BuyingService, "Handle Purchase Order Deleted Event")
+group Handle Purchase Order Deleted Event
+Rel(ECommercePlatform.SoftwareSystems.BuyingService, ECommercePlatform.SoftwareSystems.WMS, "Delete Purchase Order")
+end
+
+
+@enduml

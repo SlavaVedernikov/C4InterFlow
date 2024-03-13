@@ -1,0 +1,19 @@
+@startuml
+
+title Fraud Service - Api - Get High Risk Orders - CONTAINER level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Fraud Service" #White
+    participant "Api" as ECommercePlatform.SoftwareSystems.FraudService.Containers.Api
+    participant "Database" as ECommercePlatform.SoftwareSystems.FraudService.Containers.Database
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.SoftwareSystems.FraudService.Containers.Api : Get High Risk Orders
+group Get High Risk Orders
+ECommercePlatform.SoftwareSystems.FraudService.Containers.Api -> ECommercePlatform.SoftwareSystems.FraudService.Containers.Database : Select High Risk Orders
+end
+
+
+@enduml
