@@ -67,10 +67,18 @@ namespace C4InterFlow.Automation
                     SoftwareSystemRecords = csv.GetRecords<SoftwareSystem>().ToList();
                 }
 
-                using (var reader = new StreamReader(@$"{DataPath}\{FILE_SOFTWARE_SYSTEM_ATTRIBUTES}.csv"))
-                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                var filePath = @$"{DataPath}\{FILE_SOFTWARE_SYSTEM_ATTRIBUTES}.csv";
+                if (File.Exists(filePath))
                 {
-                    SoftwareSystemAttributeRecords = csv.GetRecords<SoftwareSystemAttribute>().ToList();
+                    using (var reader = new StreamReader(filePath))
+                    using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                    {
+                        SoftwareSystemAttributeRecords = csv.GetRecords<SoftwareSystemAttribute>().ToList();
+                    }
+                }
+                else
+                {
+                    SoftwareSystemAttributeRecords = new List<SoftwareSystemAttribute>();
                 }
 
                 using (var reader = new StreamReader(@$"{DataPath}\{FILE_SOFTWARE_SYSTEM_INTERFACES}.csv"))
@@ -91,10 +99,20 @@ namespace C4InterFlow.Automation
                     ContainerRecords = csv.GetRecords<Container>().ToList();
                 }
 
-                using (var reader = new StreamReader(@$"{DataPath}\{FILE_CONTAINER_ATTRIBUTES}.csv"))
-                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                filePath = @$"{DataPath}\{FILE_CONTAINER_ATTRIBUTES}.csv";
+                if (File.Exists(filePath))
                 {
-                    ContainerAttributeRecords = csv.GetRecords<ContainerAttribute>().ToList();
+                    using (var reader = new StreamReader(filePath))
+                    using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                    {
+                        ContainerAttributeRecords = csv.GetRecords<ContainerAttribute>().ToList();
+                    }
+                }
+                else
+                {
+                    {
+                        ContainerAttributeRecords = new List<ContainerAttribute>();
+                    }
                 }
 
                 using (var reader = new StreamReader(@$"{DataPath}\{FILE_CONTAINER_INTERFACES}.csv"))
@@ -127,10 +145,18 @@ namespace C4InterFlow.Automation
                     ActivityRecords = csv.GetRecords<Activity>().ToList();
                 }
 
-                using (var reader = new StreamReader(@$"{DataPath}\{FILE_ATTRIBUTES}.csv"))
-                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                filePath = @$"{DataPath}\{FILE_ATTRIBUTES}.csv";
+                if (File.Exists(filePath))
                 {
-                    AttributeRecords = csv.GetRecords<Attribute>().ToList();
+                    using (var reader = new StreamReader(filePath))
+                    using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                    {
+                        AttributeRecords = csv.GetRecords<Attribute>().ToList();
+                    }
+                }
+                else
+                {
+                    AttributeRecords = new List<Attribute>();
                 }
             }
         }

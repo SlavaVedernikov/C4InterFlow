@@ -7,21 +7,21 @@
 		<Deterministic>true</Deterministic>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-		<Version>0.35.0</Version>
+		<Version>0.36.0-rc</Version>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<PackageId>C4InterFlow.Automation</PackageId>
-		<PackageVersion>0.35.0</PackageVersion>
+		<PackageVersion>0.36.0-rc</PackageVersion>
 		<Authors>Slava Vedernikov</Authors>
-		<Description>Revolutionize your Application Architecture Documentation with C4InterFlow. Designed for Architects and Engineers, this tool leverages the widely-recognized C4 Model notation, enhanced with unique features like Interface and Flow, to describe your Application Architecture as code. Experience an intuitive, efficient way to document complex systems, ensuring clarity and consistency across your teams and products.</Description>
+		<Description>Revolutionise your Application Architecture Documentation with C4InterFlow. Designed for Architects and Engineers, this tool leverages the widely-recognised C4 Model (Architecture Visualisation framework), enhanced with unique features like Interface and Flow, to describe your Application Architecture as Code. Experience an intuitive, efficient way to document complex systems, ensuring clarity and consistency across your teams and products.</Description>
 		<Copyright>Copyright 2024 Slava Vedernikov</Copyright>
-		<PackageProjectUrl>https://github.com/SlavaVedernikov/C4InterFlow/wiki</PackageProjectUrl>
+		<PackageProjectUrl>https://www.c4interflow.com/</PackageProjectUrl>
 		<PackageIcon>icon.png</PackageIcon>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/SlavaVedernikov/C4InterFlow</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<PackageTags>architecture-as-code c4-model architecture-as-code-dsl architecture-diagrams-generation plantuml-diagrams architecture-as-code-tools architecture-as-code-toolchain application-architecture business-process-as-code</PackageTags>
+		<PackageTags>Architecture as Code DSL C4 Model Tools Diagrams Generation</PackageTags>
 		<PackageReleaseNotes>Initial Release Candidate</PackageReleaseNotes>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>

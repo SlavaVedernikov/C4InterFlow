@@ -31,7 +31,7 @@ set "aac-writer-strategy=C4InterFlow.Automation.Writers.CsvToJsonAaCGenerator,C4
 echo Clearing AaC at '%aac-output-path%'...
 :: pause
 
-powershell.exe -Command "if (Test-Path '%aac-project-name%\Yaml\*') { Remove-Item -Path '%aac-project-name%\Yaml\*' -Recurse -Force }"
+powershell.exe -Command "if (Test-Path '%aac-output-path%\*') { Remove-Item -Path '%aac-output-path%\*' -Recurse -Force }"
 
 echo AaC is cleared
 :: pause
@@ -48,7 +48,7 @@ set "aac-writer-strategy=C4InterFlow.Automation.Writers.CsvToYamlAaCGenerator,C4
 echo Clearing AaC at '%aac-output-path%'...
 :: pause
 
-powershell.exe -Command "if (Test-Path '%aac-project-name%\Yaml\*') { Remove-Item -Path '%aac-project-name%\Yaml\*' -Recurse -Force }"
+powershell.exe -Command "if (Test-Path '%aac-output-path%\*') { Remove-Item -Path '%aac-output-path%\*' -Recurse -Force }"
 
 echo AaC is cleared
 :: pause
