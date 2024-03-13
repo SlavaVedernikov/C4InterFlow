@@ -106,7 +106,7 @@ BigBankPlc:
         APIApplication:
           Label: API Application
           Description: 'Provides Internet banking functionality via API'
-          ContainerType: Spa
+          ContainerType: Api
           Boundary: Internal
           Technology: Java, Docker Container
           Interfaces:
