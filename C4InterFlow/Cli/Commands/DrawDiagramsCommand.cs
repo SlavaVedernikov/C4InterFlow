@@ -70,7 +70,17 @@ public class DrawDiagramsCommand : Command
             {
                 Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
             }
+            AaCReaderContext.Strategy.Validate(out var errors);
 
+            if(errors.Any())
+            {
+                foreach(var error in errors)
+                {
+                    Console.WriteLine(error);
+                }
+
+                throw new InvalidDataException("AaC has errors. Please resolve and retry.");
+            }
             var resolvedInterfaceAliases = new List<string>();
             resolvedInterfaceAliases.AddRange(Utils.ResolveStructures(interfaceAliases));
 

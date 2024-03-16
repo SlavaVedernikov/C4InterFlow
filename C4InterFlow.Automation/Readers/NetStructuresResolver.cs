@@ -313,5 +313,11 @@ namespace C4InterFlow.Automation.Readers
 
             return result;
         }
+
+        public void Validate(out IEnumerable<string> errors)
+        {
+            //TODO: Implement Use Flow Expressions validation
+            errors = new List<string>();
+        }
     }
 }

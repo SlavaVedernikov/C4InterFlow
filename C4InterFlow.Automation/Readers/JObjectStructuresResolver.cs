@@ -233,5 +233,52 @@ namespace C4InterFlow.Automation.Readers
 
             return result;
         }
+
+        public void Validate(out IEnumerable<string> errors)
+        {
+            var errorsInternal = new List<string>();
+            
+            var interfaces = RootJObject.SelectTokens("..Interfaces.*");
+
+            foreach (var @interface in interfaces)
+            {
+                var useFlows = @interface.SelectTokens("..[?(@.Type=='Use')]");
+
+                foreach(var useFlow in  useFlows)
+                {
+                    var usesInterfaceAlias = useFlow["Expression"].ToString();
+                    var usesInterface = RootJObject.SelectToken(usesInterfaceAlias);
+
+                    if (usesInterface == null)
+                    {
+                        errorsInternal.Add($"Cannot resolve Interface '{usesInterfaceAlias}' referenced in Use Flow(s) of '{@interface.Path}' Interface.");
+                    }
+                }
+            }
+
+            var activitiesTokens = RootJObject.SelectTokens("..Activities");
+
+            foreach (var activities in activitiesTokens)
+            {
+                foreach(var activity in activities)
+                {
+                    var useFlows = activity.SelectTokens("..[?(@.Type=='Use')]");
+
+                    foreach (var useFlow in useFlows)
+                    {
+                        var usesInterfaceAlias = useFlow["Expression"].ToString();
+                        var usesInterface = RootJObject.SelectToken(usesInterfaceAlias);
+
+                        if (usesInterface == null)
+                        {
+                            errorsInternal.Add($"Cannot resolve Interface '{usesInterfaceAlias}' referenced in Use Flow(s) of '{activity.Path} - {activity["Label"]}' Activity.");
+                        }
+                    }
+                }
+                
+            }
+
+            errors = errorsInternal;
+        }
     }
 }
