@@ -8,9 +8,9 @@ ECommercePlatform:
               Flow:
                 Flows:
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Database.Interfaces.UpdateOrderStatus
+                  Expression: Database.Interfaces.UpdateOrderStatus
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Messaging.Interfaces.SendOrderShippedEvent
+                  Expression: Messaging.Interfaces.SendOrderShippedEvent
         Database:
           Interfaces:
             InsertOrder: {}
@@ -25,13 +25,13 @@ ECommercePlatform:
               Flow:
                 Flows:
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.OrderService.Containers.Messaging.Interfaces.ReceiveOrderStatusChangedEvent
+                  Expression: OrderService.Containers.Messaging.Interfaces.ReceiveOrderStatusChangedEvent
                 - Type: If
                   Expression: Order Status is 'Pending Shipment'
                   Flows:
                   - Type: Use
-                    Expression: ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Database.Interfaces.InsertOrder
+                    Expression: Database.Interfaces.InsertOrder
                   - Type: Use
-                    Expression: ECommercePlatform.SoftwareSystems.WMS.Interfaces.ShipOrder
+                    Expression: WMS.Interfaces.ShipOrder
                   - Type: Use
-                    Expression: ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Database.Interfaces.UpdateOrderStatus
+                    Expression: Database.Interfaces.UpdateOrderStatus

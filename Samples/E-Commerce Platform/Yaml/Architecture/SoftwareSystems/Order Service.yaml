@@ -8,9 +8,9 @@ ECommercePlatform:
               Flow:
                 Flows:
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.OrderService.Containers.Database.Interfaces.InsertOrder
+                  Expression: Database.Interfaces.InsertOrder
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.OrderService.Containers.Messaging.Interfaces.SendOrderCreatedEvent
+                  Expression: Messaging.Interfaces.SendOrderCreatedEvent
         Database:
           Interfaces:
             InsertOrder: {}
@@ -27,26 +27,26 @@ ECommercePlatform:
               Flow:
                 Flows:
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.FraudService.Containers.Messaging.Interfaces.ReceiveFraudCheckResultEvent
+                  Expression: FraudService.Containers.Messaging.Interfaces.ReceiveFraudCheckResultEvent
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.OrderService.Containers.Database.Interfaces.UpdateOrderStatus
+                  Expression: Database.Interfaces.UpdateOrderStatus
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.OrderService.Containers.Messaging.Interfaces.SendOrderStatusChangedEvent
+                  Expression: Messaging.Interfaces.SendOrderStatusChangedEvent
             HandlePaymentResultEvent:
               Flow:
                 Flows:
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.PaymentService.Containers.Messaging.Interfaces.ReceivePaymentResultEvent
+                  Expression: PaymentService.Containers.Messaging.Interfaces.ReceivePaymentResultEvent
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.OrderService.Containers.Database.Interfaces.UpdateOrderStatus
+                  Expression: Database.Interfaces.UpdateOrderStatus
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.OrderService.Containers.Messaging.Interfaces.SendOrderStatusChangedEvent
+                  Expression: Messaging.Interfaces.SendOrderStatusChangedEvent
             HandleOrderShippedEvent:
               Flow:
                 Flows:
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Messaging.Interfaces.ReceiveOrderShippedEvent
+                  Expression: FulfilmentService.Containers.Messaging.Interfaces.ReceiveOrderShippedEvent
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.OrderService.Containers.Database.Interfaces.UpdateOrderStatus
+                  Expression: Database.Interfaces.UpdateOrderStatus
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.OrderService.Containers.Messaging.Interfaces.SendOrderStatusChangedEvent
+                  Expression: Messaging.Interfaces.SendOrderStatusChangedEvent

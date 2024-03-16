@@ -8,7 +8,7 @@ ECommercePlatform:
               Flow:
                 Flows:
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.SearchService.Containers.Database.Interfaces.SelectProducts
+                  Expression: Database.Interfaces.SelectProducts
         Database:
           Interfaces:
             SelectProducts: {}
@@ -22,27 +22,27 @@ ECommercePlatform:
               Flow:
                 Flows:
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.PricingService.Containers.Messaging.Interfaces.ReceiveProductPriceChangedEvent
+                  Expression: PricingService.Containers.Messaging.Interfaces.ReceiveProductPriceChangedEvent
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.SearchService.Containers.Database.Interfaces.UpdateProductPrices
+                  Expression: Database.Interfaces.UpdateProductPrices
             HandleProductCreatedEvent:
               Flow:
                 Flows:
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.ProductService.Containers.Messaging.Interfaces.ReceiveProductCreatedEvent
+                  Expression: ProductService.Containers.Messaging.Interfaces.ReceiveProductCreatedEvent
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.SearchService.Containers.Database.Interfaces.InsertProduct
+                  Expression: Database.Interfaces.InsertProduct
             HandleProductUpdatedEvent:
               Flow:
                 Flows:
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.ProductService.Containers.Messaging.Interfaces.ReceiveProductUpdatedEvent
+                  Expression: ProductService.Containers.Messaging.Interfaces.ReceiveProductUpdatedEvent
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.SearchService.Containers.Database.Interfaces.UpdateProduct
+                  Expression: Database.Interfaces.UpdateProduct
             HandleProductDeletedEvent:
               Flow:
                 Flows:
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.ProductService.Containers.Messaging.Interfaces.ReceiveProductDeletedEvent
+                  Expression: ProductService.Containers.Messaging.Interfaces.ReceiveProductDeletedEvent
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.SearchService.Containers.Database.Interfaces.DeleteProduct
+                  Expression: Database.Interfaces.DeleteProduct

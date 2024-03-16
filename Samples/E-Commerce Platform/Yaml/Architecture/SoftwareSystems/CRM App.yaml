@@ -6,9 +6,9 @@ ECommercePlatform:
           Flow:
             Flows:
             - Type: Use
-              Expression: ECommercePlatform.SoftwareSystems.FraudService.Containers.Api.Interfaces.GetHighRiskOrders
+              Expression: FraudService.Containers.Api.Interfaces.GetHighRiskOrders
         UpdateOrderFraudCheckResult:
           Flow:
             Flows:
             - Type: Use
-              Expression: ECommercePlatform.SoftwareSystems.FraudService.Containers.Api.Interfaces.UpdateOrderFraudCheckResult
+              Expression: FraudService.Containers.Api.Interfaces.UpdateOrderFraudCheckResult

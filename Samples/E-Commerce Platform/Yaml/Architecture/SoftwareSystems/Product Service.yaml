@@ -8,21 +8,21 @@ ECommercePlatform:
               Flow:
                 Flows:
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.ProductService.Containers.Database.Interfaces.SelectProducts
+                  Expression: Database.Interfaces.SelectProducts
             UpdateProduct:
               Flow:
                 Flows:
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.ProductService.Containers.Database.Interfaces.UpdateProduct
+                  Expression: Database.Interfaces.UpdateProduct
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.ProductService.Containers.Messaging.Interfaces.SendProductUpdatedEvent
+                  Expression: Messaging.Interfaces.SendProductUpdatedEvent
             DeleteProduct:
               Flow:
                 Flows:
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.ProductService.Containers.Database.Interfaces.DeleteProduct
+                  Expression: Database.Interfaces.DeleteProduct
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.ProductService.Containers.Messaging.Interfaces.SendProductDeletedEvent
+                  Expression: Messaging.Interfaces.SendProductDeletedEvent
         Database:
           Interfaces:
             SelectProducts: {}
@@ -43,33 +43,33 @@ ECommercePlatform:
               Flow:
                 Flows:
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging.Interfaces.ReceivePurchaseOrderCreatedEvent
+                  Expression: BuyingService.Containers.Messaging.Interfaces.ReceivePurchaseOrderCreatedEvent
                 - Type: Loop
                   Expression: For each Product in Purchase Order
                   Flows:
                   - Type: Use
-                    Expression: ECommercePlatform.SoftwareSystems.ProductService.Containers.Database.Interfaces.SelectProducts
+                    Expression: Database.Interfaces.SelectProducts
                   - Type: If
                     Expression: Product Not Found
                     Flows:
                     - Type: Use
-                      Expression: ECommercePlatform.SoftwareSystems.ProductService.Containers.Database.Interfaces.InsertProduct
+                      Expression: Database.Interfaces.InsertProduct
                     - Type: Use
-                      Expression: ECommercePlatform.SoftwareSystems.ProductService.Containers.Messaging.Interfaces.SendProductCreatedEvent
+                      Expression: Messaging.Interfaces.SendProductCreatedEvent
             HandlePurchaseOrderUpdatedEvent:
               Flow:
                 Flows:
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging.Interfaces.ReceivePurchaseOrderUpdatedEvent
+                  Expression: BuyingService.Containers.Messaging.Interfaces.ReceivePurchaseOrderUpdatedEvent
                 - Type: Loop
                   Expression: For each Product in Purchase Order
                   Flows:
                   - Type: Use
-                    Expression: ECommercePlatform.SoftwareSystems.ProductService.Containers.Database.Interfaces.SelectProducts
+                    Expression: Database.Interfaces.SelectProducts
                   - Type: If
                     Expression: Product Not Found
                     Flows:
                     - Type: Use
-                      Expression: ECommercePlatform.SoftwareSystems.ProductService.Containers.Database.Interfaces.InsertProduct
+                      Expression: Database.Interfaces.InsertProduct
                     - Type: Use
-                      Expression: ECommercePlatform.SoftwareSystems.ProductService.Containers.Messaging.Interfaces.SendProductCreatedEvent
+                      Expression: Messaging.Interfaces.SendProductCreatedEvent

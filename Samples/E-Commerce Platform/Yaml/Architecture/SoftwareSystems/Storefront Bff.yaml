@@ -6,37 +6,37 @@ ECommercePlatform:
           Flow:
             Flows:
             - Type: Use
-              Expression: ECommercePlatform.SoftwareSystems.ProductService.Containers.Api.Interfaces.GetProducts
+              Expression: ProductService.Containers.Api.Interfaces.GetProducts
         SearchProducts:
           Flow:
             Flows:
             - Type: Use
-              Expression: ECommercePlatform.SoftwareSystems.SearchService.Containers.Api.Interfaces.SearchProducts
+              Expression: SearchService.Containers.Api.Interfaces.SearchProducts
         GetBasket:
           Flow:
             Flows:
             - Type: Use
-              Expression: ECommercePlatform.SoftwareSystems.BasketService.Containers.Api.Interfaces.GetItems
+              Expression: BasketService.Containers.Api.Interfaces.GetItems
         AddBasketItem:
           Flow:
             Flows:
             - Type: Use
-              Expression: ECommercePlatform.SoftwareSystems.BasketService.Containers.Api.Interfaces.AddItem
+              Expression: BasketService.Containers.Api.Interfaces.AddItem
         UpdateBasketItem:
           Flow:
             Flows:
             - Type: Use
-              Expression: ECommercePlatform.SoftwareSystems.BasketService.Containers.Api.Interfaces.UpdateItem
+              Expression: BasketService.Containers.Api.Interfaces.UpdateItem
         DeleteBasketItem:
           Flow:
             Flows:
             - Type: Use
-              Expression: ECommercePlatform.SoftwareSystems.BasketService.Containers.Api.Interfaces.DeleteItem
+              Expression: BasketService.Containers.Api.Interfaces.DeleteItem
         Checkout:
           Flow:
             Flows:
             - Type: Use
-              Expression: ECommercePlatform.SoftwareSystems.OrderService.Containers.Api.Interfaces.CreateOrder
+              Expression: OrderService.Containers.Api.Interfaces.CreateOrder
             - Type: Use
-              Expression: ECommercePlatform.SoftwareSystems.BasketService.Containers.Api.Interfaces.DeleteBasket
+              Expression: BasketService.Containers.Api.Interfaces.DeleteBasket
         

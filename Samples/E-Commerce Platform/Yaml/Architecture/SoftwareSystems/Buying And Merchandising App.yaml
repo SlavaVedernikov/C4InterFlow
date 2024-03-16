@@ -6,29 +6,29 @@ ECommercePlatform:
           Flow:
             Flows:
             - Type: Use
-              Expression: ECommercePlatform.SoftwareSystems.BuyingService.Containers.Api.Interfaces.GetPurchaseOrders
+              Expression: BuyingService.Containers.Api.Interfaces.GetPurchaseOrders
         CreatePurchaseOrder:
           Flow:
             Flows:
             - Type: Use
-              Expression: ECommercePlatform.SoftwareSystems.BuyingService.Containers.Api.Interfaces.CreatePurchaseOrder
+              Expression: BuyingService.Containers.Api.Interfaces.CreatePurchaseOrder
         UpdatePurchaseOrder:
           Flow:
             Flows:
             - Type: Use
-              Expression: ECommercePlatform.SoftwareSystems.BuyingService.Containers.Api.Interfaces.UpdatePurchaseOrder
+              Expression: BuyingService.Containers.Api.Interfaces.UpdatePurchaseOrder
         DeletePurchaseOrder:
           Flow:
             Flows:
             - Type: Use
-              Expression: ECommercePlatform.SoftwareSystems.BuyingService.Containers.Api.Interfaces.DeletePurchaseOrder
+              Expression: BuyingService.Containers.Api.Interfaces.DeletePurchaseOrder
         ViewProductPrices:
           Flow:
             Flows:
             - Type: Use
-              Expression: ECommercePlatform.SoftwareSystems.PricingService.Containers.Api.Interfaces.GetProductPrices
+              Expression: PricingService.Containers.Api.Interfaces.GetProductPrices
         UpdateProductPrices:
           Flow:
             Flows:
             - Type: Use
-              Expression: ECommercePlatform.SoftwareSystems.PricingService.Containers.Api.Interfaces.UpdateProductPrices
+              Expression: PricingService.Containers.Api.Interfaces.UpdateProductPrices
