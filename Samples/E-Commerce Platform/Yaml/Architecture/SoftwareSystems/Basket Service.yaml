@@ -8,27 +8,27 @@ ECommercePlatform:
               Flow:
                 Flows:
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.BasketService.Containers.Database.Interfaces.SelectItems
+                  Expression: Database.Interfaces.SelectItems
             AddItem:
               Flow:
                 Flows:
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.BasketService.Containers.Database.Interfaces.InsertItem
+                  Expression: Database.Interfaces.InsertItem
             UpdateItem:
               Flow:
                 Flows:
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.BasketService.Containers.Database.Interfaces.UpdateItem
+                  Expression: Database.Interfaces.UpdateItem
             DeleteItem:
               Flow:
                 Flows:
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.BasketService.Containers.Database.Interfaces.DeleteItem
+                  Expression: Database.Interfaces.DeleteItem
             DeleteBasket:
               Flow:
                 Flows:
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.BasketService.Containers.Database.Interfaces.DeleteBasket
+                  Expression: Database.Interfaces.DeleteBasket
         Database:
           Interfaces:
             InsertItem: {}

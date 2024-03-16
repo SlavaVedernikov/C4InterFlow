@@ -6,34 +6,34 @@ ECommercePlatform:
           Flow:
             Flows:
             - Type: Use
-              Expression: ECommercePlatform.SoftwareSystems.StorefrontBff.Interfaces.GetProducts
+              Expression: StorefrontBff.Interfaces.GetProducts
         SearchProducts:
           Flow:
             Flows:
             - Type: Use
-              Expression: ECommercePlatform.SoftwareSystems.StorefrontBff.Interfaces.SearchProducts
+              Expression: StorefrontBff.Interfaces.SearchProducts
         ViewBasket:
           Flow:
             Flows:
             - Type: Use
-              Expression: ECommercePlatform.SoftwareSystems.StorefrontBff.Interfaces.GetBasket
+              Expression: StorefrontBff.Interfaces.GetBasket
         AddProductToBasket:
           Flow:
             Flows:
             - Type: Use
-              Expression: ECommercePlatform.SoftwareSystems.StorefrontBff.Interfaces.AddBasketItem
+              Expression: StorefrontBff.Interfaces.AddBasketItem
         UpdateBasketItem:
           Flow:
             Flows:
             - Type: Use
-              Expression: ECommercePlatform.SoftwareSystems.StorefrontBff.Interfaces.UpdateBasketItem
+              Expression: StorefrontBff.Interfaces.UpdateBasketItem
         DeleteBasketItem:
           Flow:
             Flows:
             - Type: Use
-              Expression: ECommercePlatform.SoftwareSystems.StorefrontBff.Interfaces.DeleteBasketItem
+              Expression: StorefrontBff.Interfaces.DeleteBasketItem
         Checkout :
           Flow:
             Flows:
             - Type: Use
-              Expression: ECommercePlatform.SoftwareSystems.StorefrontBff.Interfaces.Checkout
+              Expression: StorefrontBff.Interfaces.Checkout

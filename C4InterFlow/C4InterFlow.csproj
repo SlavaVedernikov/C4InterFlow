@@ -7,12 +7,12 @@
 		<Deterministic>true</Deterministic>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-		<Version>0.37.0</Version>
+		<Version>0.38.0</Version>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<PackageId>C4InterFlow</PackageId>
-		<PackageVersion>0.37.0</PackageVersion>
+		<PackageVersion>0.38.0</PackageVersion>
 		<Authors>Slava Vedernikov</Authors>
     <Description>Revolutionise your Application Architecture Documentation with C4InterFlow. Designed for Architects and Engineers, this tool leverages the widely-recognised C4 Model (Architecture Visualisation framework), enhanced with unique features like Interface and Flow, to describe your Application Architecture as Code. Experience an intuitive, efficient way to document complex systems, ensuring clarity and consistency across your teams and products.</Description>
 		<Copyright>Copyright 2024 Slava Vedernikov</Copyright>

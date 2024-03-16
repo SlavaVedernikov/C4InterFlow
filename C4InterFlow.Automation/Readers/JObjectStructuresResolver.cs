@@ -19,6 +19,7 @@ namespace C4InterFlow.Automation.Readers
         public JObjectStructuresResolver(JObject rootJObject)
         {
             RootJObject = rootJObject;
+            CompletePartialUseFlowExpressions();
         }
 
         public T? GetInstance<T>(string? alias) where T : Structure
@@ -232,6 +233,37 @@ namespace C4InterFlow.Automation.Readers
             }
 
             return result;
+        }
+
+        public void CompletePartialUseFlowExpressions()
+        {
+            var interfaces = RootJObject.SelectTokens("..Interfaces.*");
+
+            foreach (var @interface in interfaces)
+            {
+                var useFlows = @interface.SelectTokens("..[?(@.Type=='Use')]");
+
+                foreach (var useFlow in useFlows)
+                {
+                    var usesInterfaceAlias = useFlow["Expression"].ToString();
+                    var usesInterface = RootJObject.SelectToken(usesInterfaceAlias);
+
+                    if (usesInterface == null)
+                    {
+                        var parent = @interface;
+                        do
+                        {
+                            parent = parent.Parent;
+                            usesInterface = parent.SelectToken(usesInterfaceAlias);
+                        } while (usesInterface == null && parent.Parent != null);
+
+                        if(usesInterface != null)
+                        {
+                            useFlow["Expression"] = usesInterface.Path;
+                        }
+                    }
+                }
+            }
         }
 
         public void Validate(out IEnumerable<string> errors)

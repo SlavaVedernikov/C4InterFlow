@@ -8,9 +8,9 @@ ECommercePlatform:
               Flow:
                 Flows:
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.PaymentService.Containers.Database.Interfaces.InsertPaymentResult
+                  Expression: Database.Interfaces.InsertPaymentResult
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.PaymentService.Containers.Messaging.Interfaces.SendPaymentResultEvent
+                  Expression: Messaging.Interfaces.SendPaymentResultEvent
         Database:
           Interfaces:
             InsertPaymentResult: {}
@@ -25,11 +25,11 @@ ECommercePlatform:
               Flow:
                 Flows:
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.OrderService.Containers.Messaging.Interfaces.ReceiveOrderStatusChangedEvent
+                  Expression: OrderService.Containers.Messaging.Interfaces.ReceiveOrderStatusChangedEvent
                 - Type: If
                   Expression: Order Status is 'Pending Payment'
                   Flows:
                   - Type: Use
-                    Expression: ECommercePlatform.SoftwareSystems.PaymentService.Containers.Database.Interfaces.InsertOrder
+                    Expression: Database.Interfaces.InsertOrder
                   - Type: Use
-                    Expression: ECommercePlatform.SoftwareSystems.PaymentProvider.Interfaces.ProcessPayment
+                    Expression: PaymentProvider.Interfaces.ProcessPayment

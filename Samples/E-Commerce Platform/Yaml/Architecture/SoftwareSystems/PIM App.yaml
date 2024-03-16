@@ -6,14 +6,14 @@ ECommercePlatform:
           Flow:
             Flows:
             - Type: Use
-              Expression: ECommercePlatform.SoftwareSystems.ProductService.Containers.Api.Interfaces.GetProducts
+              Expression: ProductService.Containers.Api.Interfaces.GetProducts
         UpdateProduct:
           Flow:
             Flows:
             - Type: Use
-              Expression: ECommercePlatform.SoftwareSystems.ProductService.Containers.Api.Interfaces.UpdateProduct
+              Expression: ProductService.Containers.Api.Interfaces.UpdateProduct
         DeleteProduct:
           Flow:
             Flows:
             - Type: Use
-              Expression: ECommercePlatform.SoftwareSystems.ProductService.Containers.Api.Interfaces.DeleteProduct
+              Expression: ProductService.Containers.Api.Interfaces.DeleteProduct

@@ -8,28 +8,28 @@ ECommercePlatform:
               Flow:
                 Flows:
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.BuyingService.Containers.Database.Interfaces.SelectPurchaseOrder
+                  Expression: Database.Interfaces.SelectPurchaseOrder
             CreatePurchaseOrder:
               Flow:
                 Flows:
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.BuyingService.Containers.Database.Interfaces.InsertPurchaseOrder
+                  Expression: Database.Interfaces.InsertPurchaseOrder
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging.Interfaces.SendPurchaseOrderCreatedEvent
+                  Expression: Messaging.Interfaces.SendPurchaseOrderCreatedEvent
             UpdatePurchaseOrder:
               Flow:
                 Flows:
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.BuyingService.Containers.Database.Interfaces.UpdatePurchaseOrder
+                  Expression: Database.Interfaces.UpdatePurchaseOrder
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging.Interfaces.SendPurchaseOrderUpdatedEvent
+                  Expression: Messaging.Interfaces.SendPurchaseOrderUpdatedEvent
             DeletePurchaseOrder:
               Flow:
                 Flows:
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.BuyingService.Containers.Database.Interfaces.DeletePurchaseOrder
+                  Expression: Database.Interfaces.DeletePurchaseOrder
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging.Interfaces.SendPurchaseOrderDeletedEvent
+                  Expression: Messaging.Interfaces.SendPurchaseOrderDeletedEvent
         Database:
           Interfaces:
             InsertPurchaseOrder: {}
@@ -50,20 +50,20 @@ ECommercePlatform:
              Flow:
                 Flows:
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging.Interfaces.ReceivePurchaseOrderCreatedEvent
+                  Expression: Messaging.Interfaces.ReceivePurchaseOrderCreatedEvent
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.WMS.Interfaces.CreatePurchaseOrder
+                  Expression: WMS.Interfaces.CreatePurchaseOrder
             HandlePurchaseOrderUpdatedEvent:
              Flow:
                 Flows:
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging.Interfaces.ReceivePurchaseOrderUpdatedEvent
+                  Expression: Messaging.Interfaces.ReceivePurchaseOrderUpdatedEvent
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.WMS.Interfaces.UpdatePurchaseOrder
+                  Expression: WMS.Interfaces.UpdatePurchaseOrder
             HandlePurchaseOrderDeletedEvent:
              Flow:
                 Flows:
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging.Interfaces.ReceivePurchaseOrderDeletedEvent
+                  Expression: Messaging.Interfaces.ReceivePurchaseOrderDeletedEvent
                 - Type: Use
-                  Expression: ECommercePlatform.SoftwareSystems.WMS.Interfaces.DeletePurchaseOrder
+                  Expression: WMS.Interfaces.DeletePurchaseOrder
