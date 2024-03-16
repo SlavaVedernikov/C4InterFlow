@@ -2,7 +2,7 @@
   "profiles": {
     "C4InterFlow.Cli": {
       "commandName": "Project",
-      "commandLineArgs": "draw-diagrams --aac-input-paths \"C:\\C4InterFlow\\Samples\\E-Commerce Platform\\Yaml\\Architecture\" --aac-reader-strategy \"C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation\" --interfaces ECommercePlatform.SoftwareSystems.*.Containers.*.Interfaces.* --output-dir \"C:\\C4InterFlow\\Samples\\E-Commerce Platform\\Yaml\\Diagrams\"\r\n",
+      "commandLineArgs": "draw-diagrams --aac-input-paths \"C:\\C4InterFlow\\Samples\\Internet Banking System\\CSV\\Architecture\\Yaml\" --aac-reader-strategy \"C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation\" --interfaces BigBankPlc.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes BigBankPlc.BusinessProcesses.* --levels-of-details context container --output-dir \"C:\\C4InterFlow\\Samples\\Internet Banking System\\CSV\\Diagrams\"\r\n",
       "workingDirectory": "C:\\C4InterFlow\\Samples\\Internet Banking System\\CSV"
     }
   }
