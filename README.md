@@ -6,8 +6,9 @@ Transform the landscape of **Application Architecture** by bridging the **gap** 
 # Mission 🎯
  Provide a **comprehensive** Application Architecture **framework** for IT Professionals to
  1. Effortlessly express Application **Architecture as Code** (AaC)
- 2. Automatically **generate** Application Architecture **diagrams** from AaC
- 3. Intuitively **analyse** Application Architecture by issuing simple **queries** against AaC
+ 2. Use AaC to build **Business Processes as Code** (BPaC)
+ 3. Automatically **generate** Application and Business Architecture **diagrams** and other **documentation** from AaC and BPaC
+ 4. Intuitively **analyse** Application Architecture by issuing simple **queries** against AaC
  
 # Overview
 
@@ -42,8 +43,8 @@ The table below maps Problems to Possible Solutions and C4InterFlow Capabilities
 | ❗ Problem | 💡 Proposed solution | 🌟 C4Interflow Capability |
 |---------|-------------------|------------------------|
 | **Complexity Management** |  **Modular Architecture Definitions**: define **architecture in code**, so that it can be modularised into smaller, manageable components, making complex systems easier to understand and manage. | Definition of **Architecture as Code** in **C#** or **YAML** at any level of modularity e.g. Software System, Container, Component, Interface etc. |
-| **Complexity Management** | **Adaptive Visualization**: allow the user to **adjust the number of structures and their relationships** (boxes and lines) they see and at what **level of detail** when they visualise Application Architecture, based on the user's **context**, **focus**, or specific **task at hand**, thereby managing complexity by displaying only relevant information. | Generation of Architecture diagrams of different **scopes** (e.g. all Software Systems, Software System, Container, Interface(s), Business Process etc.) and at different **levels of details** (e.g. Context, Container and Component) |
-| **Dynamic and Evolving Architectures** | **Continuous Integration/Continuous Deployment (CI/CD) for Architecture**: implement of CI/CD pipelines for architecture code, managing evolving architecture through automated integration, and deployment processes. | Using **Command Line Interface** (CLI) for automating AaC **generation**, AaC **querying** and **diagrams generation** in CI/CD pipelines|
+| **Complexity Management** | **Adaptive Visualization**: allow the user to **adjust the number of structures and their relationships** (boxes and lines) they see, and at what **level of detail** when they visualise Application Architecture. Manage complexity by displaying only relevant informationcan based on the user's **context**, **focus**, or specific **task at hand**. | Generation of Architecture diagrams of different **Types** (e.g. C4, C4 Static and Sequence), of different **Scopes** (e.g. all Software Systems, Software System, Container, Interface(s), Business Process etc.) and at different **Levels of Details** (e.g. Context, Container and Component) |
+| **Dynamic and Evolving Architectures** | **Continuous Integration/Continuous Deployment (CI/CD) for Architecture**: implement of CI/CD pipelines for architecture code, managing evolving architecture through automated integration, and deployment processes. | Using **Command Line Interface** (CLI) in CI/CD pipelines for automating AaC **generation**, AaC **querying** and **diagrams** and other documentation  **generation**|
 | **Architecture Model - Code gap** | **Code-driven Architecture and Diangams generation**: generate architecture diagrams directly from metadata in the codebase, using code analysis and other techniques. | Automatic generation of Architecture as Code in **C#** or **YAML** from **.NET (C#) source code**. Extensible C4InterFlow architecture allows generation of Architecture as Code from codebases in **other languages** as well as from **Infrastructure as Code** (IaC) |
 | **Standardization and Consistency** | **Architecture Domain-Specific Languages (DSLs)**: create standardized DSLs for defining architectures, ensuring **consistency** in how architectures are described and understood across tools and teams. | Use C4InterFlow **Architecture as Code DSL**, inspired by C4 Model and ArchiMate, to express architecture **Structures** and **Behaviours** in **C#** and **YAML**  |
 | **Standardization and Consistency** | **Adopt Standards for Diagramming**: work towards a **widely adopted standard(s)** for software architecture diagramming that includes symbols, notation, and abstraction levels, similar to UML. | Automatic generation of **C4 Model** and UML **Sequence** diagrams using a single **Visualisation Engine** that guaranties **consistency** in visual architecture represenattions |
@@ -93,12 +94,13 @@ The table below maps Problems to Possible Solutions and C4InterFlow Capabilities
 
 # Getting Started
 
-- Choose an approach for expressing Architecture as Code (AaC) i.e. **C#** or **YAML**
+- Choose an **approach** for expressing Architecture as Code (AaC) i.e. **C#** or **YAML**
 - Choose the [C4InterFlow toolchain Track](#toolchain-tracks) you'd like use to eventually arrive to the Application Architecture Diagrams
 - Check out the [Samples](https://github.com/SlavaVedernikov/C4InterFlow/wiki/Samples)
-- Explore the [CLI capabilities](https://github.com/SlavaVedernikov/C4InterFlow/wiki/Command-Line-Interface-(CLI)) available out-of-the-box with C4InterFlow
-- Learn more on the [wiki](https://github.com/SlavaVedernikov/C4InterFlow/wiki)
-- Have a question or any other enquiries, [let's talk](https://www.c4interflow.com/letstalk).
+- Explore the [CLI capabilities](https://github.com/SlavaVedernikov/C4InterFlow/wiki/Command-Line-Interface-(CLI)) available **out-of-the-box** with C4InterFlow
+- **Learn** more on the [wiki](https://github.com/SlavaVedernikov/C4InterFlow/wiki)
+- Have a **question** or any other **enquiries**, [let's talk](https://www.c4interflow.com/letstalk).
+- Want to **work together** on **your** implementation of **Architecture as Code**, [let's talk](https://www.c4interflow.com/letstalk).
 
 # System Requirements
 
