@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Catalog Api - Api - Catalog Api - Get Image Mime Type From Image File Extension - COMPONENT level
+title Catalog Api - Api - Catalog Api - Get Image Mime Type From Image File Extension - C4 Static - Component level
 
 
 System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi, "Catalog Api") {

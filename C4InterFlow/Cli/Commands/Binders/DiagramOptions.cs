@@ -54,7 +54,7 @@ namespace C4InterFlow.Cli.Commands.Binders
 
             switch (scope)
             {
-                case DiagramScopesOption.SOFTWARE_SYSTEMS:
+                case DiagramScopesOption.ALL_SOFTWARE_SYSTEMS:
                 {
                     supportedLevelsOfDetail.AddRange(new[] {
                         DiagramLevelsOfDetailsOption.CONTEXT,

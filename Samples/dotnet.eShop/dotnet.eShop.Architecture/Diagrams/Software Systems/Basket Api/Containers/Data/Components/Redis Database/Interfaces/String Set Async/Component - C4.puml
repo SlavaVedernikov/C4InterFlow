@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Basket Api - Data - Redis Database - String Set Async - COMPONENT level
+title Basket Api - Data - Redis Database - String Set Async - C4 - Component level
 
 
 System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.BasketApi, "Basket Api") {

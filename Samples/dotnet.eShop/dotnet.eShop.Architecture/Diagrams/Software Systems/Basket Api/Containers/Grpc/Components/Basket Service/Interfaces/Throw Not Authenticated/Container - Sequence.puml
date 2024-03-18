@@ -1,6 +1,6 @@
 @startuml
 
-title Basket Api - Grpc - Basket Service - Throw Not Authenticated - CONTAINER level
+title Basket Api - Grpc - Basket Service - Throw Not Authenticated - Sequence - Container level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 

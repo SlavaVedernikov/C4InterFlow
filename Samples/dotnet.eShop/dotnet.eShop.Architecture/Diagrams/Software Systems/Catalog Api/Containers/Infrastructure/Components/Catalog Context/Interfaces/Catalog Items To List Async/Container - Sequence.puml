@@ -1,6 +1,6 @@
 @startuml
 
-title Catalog Api - Infrastructure - Catalog Context - Catalog Items To List Async - CONTAINER level
+title Catalog Api - Infrastructure - Catalog Context - Catalog Items To List Async - Sequence - Container level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 

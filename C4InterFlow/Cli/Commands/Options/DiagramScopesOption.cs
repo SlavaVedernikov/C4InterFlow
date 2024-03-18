@@ -5,7 +5,7 @@ namespace C4InterFlow.Cli.Commands.Options;
 
 public static class DiagramScopesOption
 {
-    public const string SOFTWARE_SYSTEMS = "software-systems";
+    public const string ALL_SOFTWARE_SYSTEMS = "all-software-systems";
     public const string SOFTWARE_SYSTEM = "software-system";
     public const string SOFTWARE_SYSTEM_INTERFACE = "software-system-interface";
     public const string CONTAINER = "container";
@@ -24,7 +24,7 @@ public static class DiagramScopesOption
             AllowMultipleArgumentsPerToken = true
         };
         option.FromAmong(
-            SOFTWARE_SYSTEMS,
+            ALL_SOFTWARE_SYSTEMS,
             SOFTWARE_SYSTEM,
             SOFTWARE_SYSTEM_INTERFACE,
             CONTAINER,
@@ -41,7 +41,7 @@ public static class DiagramScopesOption
     public static string[] GetAllScopes()
     {
         return new[] {
-            SOFTWARE_SYSTEMS,
+            ALL_SOFTWARE_SYSTEMS,
             SOFTWARE_SYSTEM,
             SOFTWARE_SYSTEM_INTERFACE,
             CONTAINER,

@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
 
-title Basket Api - Data - Redis Basket Repository - Get Basket Key - CONTEXT level
+title Basket Api - Data - Redis Basket Repository - Get Basket Key - C4 Sequence - Context level
 
 System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 System(dotnet.eShop.Architecture.SoftwareSystems.BasketApi, "Basket Api", "")

@@ -1,6 +1,6 @@
 @startuml
 
-title Catalog Api - Infrastructure - Catalog Context - Catalog Types Remove - COMPONENT level
+title Catalog Api - Infrastructure - Catalog Context - Catalog Types Remove - Sequence - Component level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 

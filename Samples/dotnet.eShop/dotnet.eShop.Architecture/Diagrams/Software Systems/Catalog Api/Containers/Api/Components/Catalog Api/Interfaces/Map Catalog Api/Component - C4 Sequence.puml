@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
 
-title Catalog Api - Api - Catalog Api - Map Catalog Api - COMPONENT level
+title Catalog Api - Api - Catalog Api - Map Catalog Api - C4 Sequence - Component level
 
 System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 

@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Basket Api - Grpc - Basket Service - Update Basket - CONTAINER level
+title Basket Api - Grpc - Basket Service - Update Basket - C4 - Container level
 
 
 System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.BasketApi, "Basket Api") {

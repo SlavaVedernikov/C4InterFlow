@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\C4InterFlow\C4InterFlow\C4InterFlow.csproj" />
+    <ProjectReference Include="..\..\..\C4InterFlow\C4InterFlow.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
 
-title Catalog Api - Infrastructure - Catalog Context - Catalog Items First Or Default Async - CONTEXT level
+title Catalog Api - Infrastructure - Catalog Context - Catalog Items First Or Default Async - C4 Sequence - Context level
 
 System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 System(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi, "Catalog Api", "")
