@@ -47,7 +47,7 @@ namespace C4InterFlow.Automation.Writers
             return this;
         }
 
-        public override JsonToCSharpAaCWriter AddSoftwareSystem(string name, string? boundary = null, string? label = null)
+        public override JsonToCSharpAaCWriter AddSoftwareSystem(string name, string? boundary = null, string? label = null, string? description = null)
         {
             var documentName = $"{name}.{FileExtension}";
             var fileDirectory = ArchitectureProject.FilePath.Replace($"{ArchitectureProject.Name}.csproj", string.Empty);
@@ -64,7 +64,8 @@ namespace C4InterFlow.Automation.Writers
             var sourceCode = CSharpToAnyCodeGenerator<CSharpCodeWriter>.GetSoftwareSystemCode(
                 ArchitectureNamespace,
                 name,
-                label ?? CSharpCodeWriter.GetLabel(name));
+                label ?? CSharpCodeWriter.GetLabel(name),
+                description);
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
             var root = tree.GetRoot();
@@ -82,6 +83,7 @@ namespace C4InterFlow.Automation.Writers
             string softwareSystemName,
             string name,
             string? label = null,
+            string? description = null,
             string? input = null,
             string? output = null,
             string? protocol = null,
@@ -114,7 +116,9 @@ namespace C4InterFlow.Automation.Writers
                 ArchitectureNamespace,
                 softwareSystemName,
                 name,
-                label ?? CSharpCodeWriter.GetLabel(name));
+                label ?? CSharpCodeWriter.GetLabel(name),
+                description,
+                protocol);
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
             var root = tree.GetRoot();
@@ -129,7 +133,7 @@ namespace C4InterFlow.Automation.Writers
             return this;
         }
 
-        public override JsonToCSharpAaCWriter AddContainer(string softwareSystemName, string name, string? containerType = null, string? label = null)
+        public override JsonToCSharpAaCWriter AddContainer(string softwareSystemName, string name, string? containerType = null, string? label = null, string? description = null)
         {
             var documentName = $"{name}.{FileExtension}";
 
@@ -150,7 +154,8 @@ namespace C4InterFlow.Automation.Writers
                 softwareSystemName,
                 name,
                 label ?? CSharpCodeWriter.GetLabel(name),
-                containerType);
+                containerType,
+                description);
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
             var root = tree.GetRoot();
@@ -170,6 +175,7 @@ namespace C4InterFlow.Automation.Writers
             string containerName,
             string name,
             string? label = null,
+            string? description = null,
             string? input = null,
             string? output = null,
             string? protocol = null,
@@ -202,7 +208,9 @@ namespace C4InterFlow.Automation.Writers
                 softwareSystemName,
                 containerName,
                 name,
-                label ?? CSharpCodeWriter.GetLabel(name));
+                label ?? CSharpCodeWriter.GetLabel(name),
+                description,
+                protocol);
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
             var root = tree.GetRoot();

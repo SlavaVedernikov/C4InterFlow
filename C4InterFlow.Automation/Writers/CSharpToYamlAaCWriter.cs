@@ -19,7 +19,7 @@ namespace C4InterFlow.Automation.Writers
             ArchitectureOutputPath = architectureOutputPath;
         }
 
-        public override CSharpToYamlAaCWriter AddSoftwareSystem(string name, string? boundary = null, string? label = null)
+        public override CSharpToYamlAaCWriter AddSoftwareSystem(string name, string? boundary = null, string? label = null, string? description = null)
         {
             var documentName = $"{name}.{FileExtension}";
             var fileDirectory = Path.Combine(ArchitectureOutputPath, CSharpToAnyCodeGenerator<YamlCodeWriter>.GetSoftwareSystemsDirectory());
@@ -36,7 +36,8 @@ namespace C4InterFlow.Automation.Writers
             var sourceCode = CSharpToAnyCodeGenerator<YamlCodeWriter>.GetSoftwareSystemCode(
                 ArchitectureNamespace,
                 name,
-                YamlCodeWriter.GetLabel(name));
+                YamlCodeWriter.GetLabel(name),
+                description);
 
 
             if (!File.Exists(filePath))
@@ -47,7 +48,7 @@ namespace C4InterFlow.Automation.Writers
             return this;
         }
 
-        public override CSharpToYamlAaCWriter AddContainer(string softwareSystemName, string name, string? containerType = null, string? label = null)
+        public override CSharpToYamlAaCWriter AddContainer(string softwareSystemName, string name, string? containerType = null, string? label = null, string? description = null)
         {
             var documentName = $"{name}.{FileExtension}";
 
@@ -66,7 +67,9 @@ namespace C4InterFlow.Automation.Writers
                 ArchitectureNamespace,
                 softwareSystemName,
                 name,
-                YamlCodeWriter.GetLabel(name));
+                YamlCodeWriter.GetLabel(name),
+                containerType,
+                description);
 
             if (!File.Exists(filePath))
             {

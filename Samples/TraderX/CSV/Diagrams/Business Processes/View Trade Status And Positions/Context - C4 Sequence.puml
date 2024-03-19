@@ -1,0 +1,12 @@
+@startuml
+!include ..\..\.c4s\C4_Sequence.puml
+
+title View Trade Status And Positions - C4 Sequence - Context level)
+
+Person(TraderX.Actors.Trader, "Trader", "")
+System(TraderX.SoftwareSystems.TraderX, "TraderX", "TraderX")
+
+Rel(TraderX.Actors.Trader, TraderX.SoftwareSystems.TraderX, "View Trade Status And Positions")
+
+
+@enduml

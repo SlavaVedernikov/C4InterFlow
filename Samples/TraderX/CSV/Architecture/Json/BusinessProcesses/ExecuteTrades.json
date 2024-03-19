@@ -1,0 +1,59 @@
+{
+  "TraderX": {
+    "BusinessProcesses": {
+      "ExecuteTrades": {
+        "Label": "Execute Trades",
+        "Activities": [
+          {
+            "Label": "Create Trade Request",
+            "Actor": "TraderX.Actors.Trader",
+            "Flow": {
+              "Flows": [
+                {
+                  "Type": "Use",
+                  "Expression": "TraderX.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.CreateTrade"
+                }
+              ]
+            }
+          },
+          {
+            "Label": "Process Trade Request",
+            "Actor": "TraderX.Actors.MessageBus",
+            "Flow": {
+              "Flows": [
+                {
+                  "Type": "Use",
+                  "Expression": "TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor.Interfaces.ProcessTrade"
+                }
+              ]
+            }
+          },
+          {
+            "Label": "Refresh Web Client",
+            "Actor": "TraderX.Actors.WebSockets",
+            "Flow": {
+              "Flows": [
+                {
+                  "Type": "Use",
+                  "Expression": "TraderX.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.UpdateWebClient"
+                }
+              ]
+            }
+          },
+          {
+            "Label": "Cancel Trade",
+            "Actor": "TraderX.Actors.Trader",
+            "Flow": {
+              "Flows": [
+                {
+                  "Type": "Use",
+                  "Expression": "TraderX.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.CancelTrade"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

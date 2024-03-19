@@ -1,0 +1,5 @@
+TraderX:
+  Actors:
+    WebSockets:
+      Type: SoftwareSystem
+      Label: Web Sockets

@@ -1,0 +1,11 @@
+@startuml
+
+title TraderX - Web GUI - Cancel Trade - Sequence - Context level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "TraderX" as TraderX.SoftwareSystems.TraderX
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> TraderX.SoftwareSystems.TraderX : Cancel Trade
+
+
+@enduml

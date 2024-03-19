@@ -1,0 +1,33 @@
+@startuml
+!include ..\..\..\..\..\..\.c4s\C4_Container.puml
+
+AddElementTag("state:new", $bgColor=green, $fontColor=#ffffff, $borderColor=green, $shadowing="False")
+AddElementTag("state:changed", $bgColor=orange, $fontColor=#ffffff, $borderColor=orange, $shadowing="False")
+AddElementTag("state:removed", $bgColor=red, $fontColor=#ffffff, $borderColor=red, $shadowing="False")
+
+AddRelTag("state:new", $textColor=green, $lineColor=green)
+AddRelTag("state:changed", $textColor=orange, $lineColor=orange)
+AddRelTag("state:removed", $textColor=red, $lineColor=red)
+
+SHOW_PERSON_PORTRAIT()
+LAYOUT_TOP_DOWN()
+
+skinparam linetype polyline
+
+title TraderX - Web GUI - Cancel Trade - C4 - Container level
+
+
+System_Boundary(TraderX.SoftwareSystems.TraderX, "TraderX") {
+    Container(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, "Web GUI", "", "Allows employees to manage accounts and book trades")
+    Container(TraderX.SoftwareSystems.TraderX.Containers.TradingServices, "Trading Services", "", "Service which provides trading services")
+    ContainerDb(TraderX.SoftwareSystems.TraderX.Containers.TraderXDB, "TraderX DB", "", "Database which stores account")
+    ContainerQueue(TraderX.SoftwareSystems.TraderX.Containers.TradeFeed, "Trade Feed", "", "Message bus for streaming updates to trades and positions")
+}
+
+Rel(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, TraderX.SoftwareSystems.TraderX.Containers.TradingServices, "Cancel Trade\n[HTTPS]", $tags='protocol:https')
+Rel(TraderX.SoftwareSystems.TraderX.Containers.TradingServices, TraderX.SoftwareSystems.TraderX.Containers.TraderXDB, "Update Trade Status\n[JDBC]", $tags='protocol:jdbc')
+Rel(TraderX.SoftwareSystems.TraderX.Containers.TradingServices, TraderX.SoftwareSystems.TraderX.Containers.TradeFeed, "Send Updates To Trades\n[HTTPS]", $tags='protocol:https')
+
+
+SHOW_LEGEND()
+@enduml

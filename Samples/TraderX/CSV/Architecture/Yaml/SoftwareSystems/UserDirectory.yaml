@@ -1,0 +1,12 @@
+TraderX:
+  SoftwareSystems:
+    UserDirectory:
+      Label: User Directory
+      Boundary: Internal
+      Interfaces:
+        SelectPeopleData:
+          Label: Select People Data
+      Attributes:
+        DataClassification:
+          Label: Data Classification
+          Value: PII

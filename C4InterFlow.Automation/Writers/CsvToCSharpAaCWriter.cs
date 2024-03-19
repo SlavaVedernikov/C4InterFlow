@@ -140,7 +140,7 @@ namespace C4InterFlow.Automation.Writers
             return this;
         }
 
-        public override CsvToCSharpAaCWriter AddSoftwareSystem(string name, string? boundary = null, string? label = null)
+        public override CsvToCSharpAaCWriter AddSoftwareSystem(string name, string? boundary = null, string? label = null, string? description = null)
         {
             var documentName = $"{name}.{FileExtension}";
             var projectDirectory = ArchitectureProject.FilePath.Replace($"{ArchitectureProject.Name}.csproj", string.Empty);
@@ -159,7 +159,8 @@ namespace C4InterFlow.Automation.Writers
                 ArchitectureNamespace,
                 name,
                 string.IsNullOrEmpty(label) ? CSharpCodeWriter.GetLabel(name) : label,
-                boundary: boundary);
+                description,
+                boundary);
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
             var root = tree.GetRoot();
@@ -177,6 +178,7 @@ namespace C4InterFlow.Automation.Writers
             string softwareSystemName,
             string name,
             string? label = null,
+            string? description = null,
             string? input = null,
             string? output = null,
             string? protocol = null,
@@ -208,7 +210,9 @@ namespace C4InterFlow.Automation.Writers
                 ArchitectureNamespace,
                 softwareSystemName,
                 name,
-                string.IsNullOrEmpty(label) ? CSharpCodeWriter.GetLabel(name) : label);
+                string.IsNullOrEmpty(label) ? CSharpCodeWriter.GetLabel(name) : label,
+                description,
+                protocol);
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
             var root = tree.GetRoot();
@@ -223,7 +227,7 @@ namespace C4InterFlow.Automation.Writers
             return this;
         }
 
-        public override CsvToCSharpAaCWriter AddContainer(string softwareSystemName, string name, string? containerType = null, string? label = null)
+        public override CsvToCSharpAaCWriter AddContainer(string softwareSystemName, string name, string? containerType = null, string? label = null, string? description = null)
         {
             var documentName = $"{name}.{FileExtension}";
 
@@ -245,7 +249,8 @@ namespace C4InterFlow.Automation.Writers
                 softwareSystemName,
                 name,
                 string.IsNullOrEmpty(label) ? CSharpCodeWriter.GetLabel(name) : label,
-                containerType);
+                containerType,
+                description);
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
             var root = tree.GetRoot();
@@ -265,6 +270,7 @@ namespace C4InterFlow.Automation.Writers
             string containerName,
             string name,
             string? label = null,
+            string? description = null,
             string? input = null,
             string? output = null,
             string? protocol = null,
@@ -297,7 +303,9 @@ namespace C4InterFlow.Automation.Writers
                 softwareSystemName,
                 containerName,
                 name,
-                label ?? CSharpCodeWriter.GetLabel(name));
+                label ?? CSharpCodeWriter.GetLabel(name),
+                description,
+                protocol);
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
             var root = tree.GetRoot();

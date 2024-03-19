@@ -1,0 +1,44 @@
+Container,Name,Alias,Description,Protocol
+TraderX.Containers.AccountsService,Get Accounts,TraderX.Containers.AccountsService.Interfaces.GetAccounts,,HTTPS
+TraderX.Containers.AccountsService,Create Account,TraderX.Containers.AccountsService.Interfaces.CreateAccount,,HTTPS
+TraderX.Containers.AccountsService,Update Account,TraderX.Containers.AccountsService.Interfaces.UpdateAccount,,HTTPS
+TraderX.Containers.AccountsService,Validate Accounts,TraderX.Containers.AccountsService.Interfaces.ValidateAccounts,,HTTPS
+TraderX.Containers.PeopleService,Get People Data,TraderX.Containers.PeopleService.Interfaces.GetPeopleData,,HTTPS
+TraderX.Containers.PositionService,Get Positions For Account,TraderX.Containers.PositionService.Interfaces.GetPositionsForAccount,,HTTPS
+TraderX.Containers.PositionService,Get Trades For Account,TraderX.Containers.PositionService.Interfaces.GetTradesForAccount,,HTTPS
+TraderX.Containers.ReferenceDataService,Get Securities,TraderX.Containers.ReferenceDataService.Interfaces.GetSecurities,,HTTPS
+TraderX.Containers.ReferenceDataService,Validate Securities,TraderX.Containers.ReferenceDataService.Interfaces.ValidateSecurities,,HTTPS
+TraderX.Containers.TradeFeed,Send Updates To Trades,TraderX.Containers.TradeFeed.Interfaces.SendUpdatesToTrades,,HTTPS
+TraderX.Containers.TradeFeed,Send Updates To Positions,TraderX.Containers.TradeFeed.Interfaces.SendUpdatesToPositions,,HTTPS
+TraderX.Containers.TradeFeed,Receive Updates To Trades,TraderX.Containers.TradeFeed.Interfaces.ReceiveUpdatesToTrades,,HTTPS
+TraderX.Containers.TradeFeed,Receive Updates To Positions,TraderX.Containers.TradeFeed.Interfaces.ReceiveUpdatesToPositions,,HTTPS
+TraderX.Containers.TradeFeed,Send Trade Request,TraderX.Containers.TradeFeed.Interfaces.SendTradeRequest,,HTTPS
+TraderX.Containers.TradeFeed,Receive Trade Request,TraderX.Containers.TradeFeed.Interfaces.ReceiveTradeRequest,,HTTPS
+TraderX.Containers.TradeProcessor,Process Trade,TraderX.Containers.TradeProcessor.Interfaces.ProcessTrade,,SocketIO
+TraderX.Containers.TraderXDB,Select Default Positions For Account,TraderX.Containers.TraderXDB.Interfaces.SelectDefaultPositionsForAccount,,JDBC
+TraderX.Containers.TraderXDB,Select All Trades For Account,TraderX.Containers.TraderXDB.Interfaces.SelectAllTradesForAccount,,JDBC
+TraderX.Containers.TraderXDB,Select Current Positions,TraderX.Containers.TraderXDB.Interfaces.SelectCurrentPositions,,JDBC
+TraderX.Containers.TraderXDB,Save Trade State,TraderX.Containers.TraderXDB.Interfaces.SaveTradeState,,JDBC
+TraderX.Containers.TraderXDB,Save Position State,TraderX.Containers.TraderXDB.Interfaces.SavePositionState,,JDBC
+TraderX.Containers.TraderXDB,Insert Trade Request,TraderX.Containers.TraderXDB.Interfaces.InsertTradeRequest,,JDBC
+TraderX.Containers.TraderXDB,Update Trade Status,TraderX.Containers.TraderXDB.Interfaces.UpdateTradeStatus,,JDBC
+TraderX.Containers.TradingServices,Create Trade,TraderX.Containers.TradingServices.Interfaces.CreateTrade,,HTTPS
+TraderX.Containers.TradingServices,Cancel Trade,TraderX.Containers.TradingServices.Interfaces.CancelTrade,,HTTPS
+TraderX.Containers.WebClient,Create Trade,TraderX.Containers.WebClient.Interfaces.CreateTrade,,HTTPS
+TraderX.Containers.WebClient,Cancel Trade,TraderX.Containers.WebClient.Interfaces.CancelTrade,,HTTPS
+TraderX.Containers.WebClient,View Account,TraderX.Containers.WebClient.Interfaces.ViewAccount,,HTTPS
+TraderX.Containers.WebClient,Create Account,TraderX.Containers.WebClient.Interfaces.CreateAccount,,HTTPS
+TraderX.Containers.WebClient,Update Account,TraderX.Containers.WebClient.Interfaces.UpdateAccount,,HTTPS
+TraderX.Containers.WebClient,View Trade Status And Positions,TraderX.Containers.WebClient.Interfaces.ViewTradeStatusAndPositions,,HTTPS
+TraderX.Containers.WebClient,Type Ahead People Search,TraderX.Containers.WebClient.Interfaces.TypeAheadPeopleSearch,,HTTPS
+TraderX.Containers.WebClient,Update Trade And Position Status View,TraderX.Containers.WebClient.Interfaces.UpdateTradeAndPositionStatusView,,HTTPS
+TraderX.Containers.WebClient,Send Trade And Position Status Updates,TraderX.Containers.WebClient.Interfaces.SendTradeAndPositionStatusUpdates,,HTTPS
+TraderX.Containers.WebGUI,Load Account,TraderX.Containers.WebGUI.Interfaces.LoadAccount,,HTTPS
+TraderX.Containers.WebGUI,Create Account,TraderX.Containers.WebGUI.Interfaces.CreateAccount,,HTTPS
+TraderX.Containers.WebGUI,Update Account,TraderX.Containers.WebGUI.Interfaces.UpdateAccount,,HTTPS
+TraderX.Containers.WebGUI,Load Positions For Account,TraderX.Containers.WebGUI.Interfaces.LoadPositionsForAccount,,HTTPS
+TraderX.Containers.WebGUI,Load Trades For Account,TraderX.Containers.WebGUI.Interfaces.LoadTradesForAccount,,HTTPS
+TraderX.Containers.WebGUI,Create Trade,TraderX.Containers.WebGUI.Interfaces.CreateTrade,,HTTPS
+TraderX.Containers.WebGUI,Cancel Trade,TraderX.Containers.WebGUI.Interfaces.CancelTrade,,HTTPS
+TraderX.Containers.WebGUI,Type Ahead People Search,TraderX.Containers.WebGUI.Interfaces.TypeAheadPeopleSearch,,HTTPS
+TraderX.Containers.WebGUI,Update Web Client,TraderX.Containers.WebGUI.Interfaces.UpdateWebClient,,WebSocket

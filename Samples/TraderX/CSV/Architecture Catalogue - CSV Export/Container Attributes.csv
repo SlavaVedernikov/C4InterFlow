@@ -1,0 +1,12 @@
+Container,Attribute,Value
+TraderX.Containers.WebClient,DataClassification,Confidential
+TraderX.Containers.WebGUI,DataClassification,Confidential
+TraderX.Containers.PositionService,DataClassification,Confidential
+TraderX.Containers.TraderXDB,DataClassification,Confidential
+TraderX.Containers.ReferenceDataService,DataClassification,Confidential
+TraderX.Containers.TradingServices,DataClassification,Confidential
+TraderX.Containers.TradeFeed,DataClassification,Confidential
+TraderX.Containers.TradeProcessor,DataClassification,Confidential
+TraderX.Containers.AccountsService,DataClassification,Confidential
+TraderX.Containers.PeopleService,DataClassification,Confidential
+,,

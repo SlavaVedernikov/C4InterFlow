@@ -61,13 +61,14 @@ namespace C4InterFlow.Automation.Writers
             return this;
         }
 
-        public override IAaCWriter AddSoftwareSystem(string name, string? boundary = null, string? label = null)
+        public override IAaCWriter AddSoftwareSystem(string name, string? boundary = null, string? label = null, string? description = null)
         {
             DataProvider.SoftwareSystemRecords.Add(new CsvDataProvider.SoftwareSystem()
             {
                 Alias = name,
                 Name = label ?? AnyCodeWriter.GetLabel(name) ?? string.Empty,
                 IsExternal = Enum.TryParse<Boundary>(boundary, out var boundaryValue) ? boundaryValue == Boundary.External : false,
+                Description = description
             });
             return this;
         }
@@ -76,6 +77,7 @@ namespace C4InterFlow.Automation.Writers
             string softwareSystemName,
             string name,
             string? label = null,
+            string? description = null,
             string? input = null,
             string? output = null,
             string? protocol = null,
@@ -86,6 +88,8 @@ namespace C4InterFlow.Automation.Writers
                 SoftwareSystem = softwareSystemName,
                 Alias = $"{softwareSystemName}.Interfaces.{name}",
                 Name = label ?? AnyCodeWriter.GetLabel(name) ?? string.Empty,
+                Description = description ?? string.Empty,
+                Protocol = protocol ?? string.Empty,
             });
             return this;
         }
@@ -106,13 +110,14 @@ namespace C4InterFlow.Automation.Writers
             return this;
         }
 
-        public override IAaCWriter AddContainer(string softwareSystemName, string name, string? containerType = null, string? label = null)
+        public override IAaCWriter AddContainer(string softwareSystemName, string name, string? containerType = null, string? label = null, string? description = null)
         {
             DataProvider.ContainerRecords.Add(new CsvDataProvider.Container()
             {
                 Alias = $"{softwareSystemName}.Containers.{name}",
                 SoftwareSystem = softwareSystemName,
                 Name = label ?? AnyCodeWriter.GetLabel(name) ?? string.Empty,
+                Description = description ?? string.Empty,
                 Type = Enum.TryParse<ContainerType>((containerType ?? string.Empty), out var containerTypeValue) ?
                 Enum.GetName(typeof(ContainerType), containerTypeValue)!:
                 Enum.GetName(typeof(ContainerType), ContainerType.None)!
@@ -125,6 +130,7 @@ namespace C4InterFlow.Automation.Writers
             string containerName,
             string name,
             string? label = null,
+            string? description = null,
             string? input = null,
             string? output = null,
             string? protocol = null,
@@ -134,7 +140,9 @@ namespace C4InterFlow.Automation.Writers
             {
                 Alias = $"{softwareSystemName}.Containers.{containerName}.Interfaces.{name}",
                 Container = $"{softwareSystemName}.Containers.{containerName}",
-                Name = label ?? AnyCodeWriter.GetLabel(name) ?? string.Empty
+                Name = label ?? AnyCodeWriter.GetLabel(name) ?? string.Empty,
+                Description = description ?? string.Empty,
+                Protocol = protocol ?? string.Empty
             });
             return this;
         }

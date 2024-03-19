@@ -1,0 +1,9 @@
+Business Process,Name,Actor,Uses Container Interface,Uses Software System Interface
+ExecuteTrades,Create Trade Request,Trader,TraderX.Containers.WebClient.Interfaces.CreateTrade,
+ExecuteTrades,Process Trade Request,MessageBus,TraderX.Containers.TradeProcessor.Interfaces.ProcessTrade,
+ExecuteTrades,Refresh Web Client,WebSockets,TraderX.Containers.WebGUI.Interfaces.UpdateWebClient,
+ExecuteTrades,Cancel Trade,Trader,TraderX.Containers.WebClient.Interfaces.CancelTrade,
+ManageAccounts,View Account,Trader,TraderX.Containers.WebClient.Interfaces.ViewAccount,
+ManageAccounts,Create Account,Trader,TraderX.Containers.WebClient.Interfaces.CreateAccount,
+ManageAccounts,Update Account,Trader,TraderX.Containers.WebClient.Interfaces.UpdateAccount,
+ViewTradeStatusAndPositions,View Trade Status / Positions,Trader,TraderX.Containers.WebClient.Interfaces.ViewTradeStatusAndPositions,

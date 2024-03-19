@@ -1,0 +1,22 @@
+@startuml
+
+title TraderX - Web GUI - Update Web Client - Sequence - Container level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "TraderX" #White
+    participant "Web GUI" as TraderX.SoftwareSystems.TraderX.Containers.WebGUI
+    participant "Trade Feed" as TraderX.SoftwareSystems.TraderX.Containers.TradeFeed
+    participant "Web Client" as TraderX.SoftwareSystems.TraderX.Containers.WebClient
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> TraderX.SoftwareSystems.TraderX.Containers.WebGUI : Update Web Client
+group Update Web Client
+TraderX.SoftwareSystems.TraderX.Containers.WebGUI -> TraderX.SoftwareSystems.TraderX.Containers.TradeFeed : Receive Updates To Trades
+TraderX.SoftwareSystems.TraderX.Containers.WebGUI -> TraderX.SoftwareSystems.TraderX.Containers.TradeFeed : Receive Updates To Positions
+TraderX.SoftwareSystems.TraderX.Containers.WebGUI -> TraderX.SoftwareSystems.TraderX.Containers.WebClient : Send Trade And Position Status Updates
+end
+
+
+@enduml
