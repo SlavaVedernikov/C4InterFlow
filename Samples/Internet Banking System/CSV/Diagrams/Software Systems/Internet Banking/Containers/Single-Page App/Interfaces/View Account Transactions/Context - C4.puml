@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Internet Banking - Single-Page App - View Account Transactions - CONTEXT level
+title Internet Banking - Single-Page App - View Account Transactions - C4 - Context level
 
 System(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking", "")
 System_Ext(BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Mainframe Banking System", "")

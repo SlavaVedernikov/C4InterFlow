@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Buying Service - Messaging - Receive Purchase Order Updated Event - CONTAINER level
+title Buying Service - Messaging - Receive Purchase Order Updated Event - C4 - Container level
 
 
 System_Boundary(ECommercePlatform.SoftwareSystems.BuyingService, "Buying Service") {

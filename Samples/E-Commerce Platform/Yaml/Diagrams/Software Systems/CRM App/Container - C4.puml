@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title C4 - CONTAINER level
+title CRM App - C4 - Container level
 
 System(ECommercePlatform.SoftwareSystems.CRMApp, "CRM App", "")
 

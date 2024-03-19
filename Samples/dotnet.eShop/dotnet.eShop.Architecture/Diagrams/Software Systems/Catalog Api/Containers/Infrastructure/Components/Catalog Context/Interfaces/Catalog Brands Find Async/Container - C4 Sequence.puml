@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
 
-title Catalog Api - Infrastructure - Catalog Context - Catalog Brands Find Async - CONTAINER level
+title Catalog Api - Infrastructure - Catalog Context - Catalog Brands Find Async - C4 Sequence - Container level
 
 System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 

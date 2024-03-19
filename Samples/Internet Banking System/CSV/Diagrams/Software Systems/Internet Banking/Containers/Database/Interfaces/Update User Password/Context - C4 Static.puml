@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Internet Banking - Database - Update User Password - CONTEXT level
+title Internet Banking - Database - Update User Password - C4 Static - Context level
 
 System(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking", "")
 

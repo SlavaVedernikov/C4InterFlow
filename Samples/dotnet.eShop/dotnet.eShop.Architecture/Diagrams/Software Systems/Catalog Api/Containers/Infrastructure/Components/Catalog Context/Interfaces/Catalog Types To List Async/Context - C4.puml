@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Catalog Api - Infrastructure - Catalog Context - Catalog Types To List Async - CONTEXT level
+title Catalog Api - Infrastructure - Catalog Context - Catalog Types To List Async - C4 - Context level
 
 System(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi, "Catalog Api", "")
 

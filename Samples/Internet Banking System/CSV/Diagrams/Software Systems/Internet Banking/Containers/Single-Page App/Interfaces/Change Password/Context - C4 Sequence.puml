@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\..\..\..\..\.c4s\C4_Sequence.puml
 
-title Internet Banking - Single-Page App - Change Password - CONTEXT level
+title Internet Banking - Single-Page App - Change Password - C4 Sequence - Context level
 
 System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 System(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking", "")

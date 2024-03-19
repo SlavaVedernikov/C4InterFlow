@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\..\..\..\..\.c4s\C4_Sequence.puml
 
-title Payment Service - Database - Insert Order - CONTAINER level
+title Payment Service - Database - Insert Order - C4 Sequence - Container level
 
 System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 

@@ -1,6 +1,6 @@
 @startuml
 
-title Payment Provider - Process Payment - CONTEXT level
+title Payment Provider - Process Payment - Sequence - Context level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 participant "Payment Provider" as ECommercePlatform.SoftwareSystems.PaymentProvider

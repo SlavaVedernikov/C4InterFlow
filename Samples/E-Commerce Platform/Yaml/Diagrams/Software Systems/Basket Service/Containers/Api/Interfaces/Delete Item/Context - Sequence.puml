@@ -1,6 +1,6 @@
 @startuml
 
-title Basket Service - Api - Delete Item - CONTEXT level
+title Basket Service - Api - Delete Item - Sequence - Context level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 participant "Basket Service" as ECommercePlatform.SoftwareSystems.BasketService

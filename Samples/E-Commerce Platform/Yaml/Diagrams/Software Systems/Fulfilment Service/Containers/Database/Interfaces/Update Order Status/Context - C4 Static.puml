@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Fulfilment Service - Database - Update Order Status - CONTEXT level
+title Fulfilment Service - Database - Update Order Status - C4 Static - Context level
 
 System(ECommercePlatform.SoftwareSystems.FulfilmentService, "Fulfilment Service", "")
 

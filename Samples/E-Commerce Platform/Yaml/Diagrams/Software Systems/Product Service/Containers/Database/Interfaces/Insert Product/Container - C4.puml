@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Product Service - Database - Insert Product - CONTAINER level
+title Product Service - Database - Insert Product - C4 - Container level
 
 
 System_Boundary(ECommercePlatform.SoftwareSystems.ProductService, "Product Service") {

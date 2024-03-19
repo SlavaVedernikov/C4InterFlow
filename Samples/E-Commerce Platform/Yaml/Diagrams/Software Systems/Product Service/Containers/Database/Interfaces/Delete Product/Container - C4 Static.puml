@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Product Service - Database - Delete Product - CONTAINER level
+title Product Service - Database - Delete Product - C4 Static - Container level
 
 
 System_Boundary(ECommercePlatform.SoftwareSystems.ProductService, "Product Service") {

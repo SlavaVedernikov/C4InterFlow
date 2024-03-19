@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\.c4s\C4_Sequence.puml
 
-title Create New Account - CONTAINER level)
+title Create New Account - C4 Sequence - Container level)
 
 Person(BigBankPlc.Actors.Customer, "Customer", "")
 

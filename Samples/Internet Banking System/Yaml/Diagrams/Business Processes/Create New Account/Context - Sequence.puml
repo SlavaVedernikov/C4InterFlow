@@ -1,6 +1,6 @@
 @startuml
 
-title Create New Account - CONTEXT level)
+title Create New Account - Sequence - Context level)
 
 participant "Customer" as BigBankPlc.Actors.Customer
 participant "Internet Banking" as BigBankPlc.SoftwareSystems.InternetBanking

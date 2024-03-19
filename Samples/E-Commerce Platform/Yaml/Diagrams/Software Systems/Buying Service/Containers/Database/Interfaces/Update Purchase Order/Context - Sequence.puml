@@ -1,6 +1,6 @@
 @startuml
 
-title Buying Service - Database - Update Purchase Order - CONTEXT level
+title Buying Service - Database - Update Purchase Order - Sequence - Context level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 participant "Buying Service" as ECommercePlatform.SoftwareSystems.BuyingService

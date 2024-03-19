@@ -1,6 +1,6 @@
 @startuml
 
-title Fraud Service - Api - Get High Risk Orders - CONTAINER level
+title Fraud Service - Api - Get High Risk Orders - Sequence - Container level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 

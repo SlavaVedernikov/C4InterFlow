@@ -1,6 +1,6 @@
 @startuml
 
-title Buying And Merchandising App - Create Purchase Order - CONTEXT level
+title Buying And Merchandising App - Create Purchase Order - Sequence - Context level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 participant "Buying And Merchandising App" as ECommercePlatform.SoftwareSystems.BuyingAndMerchandisingApp

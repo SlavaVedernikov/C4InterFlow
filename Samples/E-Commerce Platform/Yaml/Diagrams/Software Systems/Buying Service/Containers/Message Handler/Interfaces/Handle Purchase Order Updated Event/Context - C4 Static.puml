@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Buying Service - Message Handler - Handle Purchase Order Updated Event - CONTEXT level
+title Buying Service - Message Handler - Handle Purchase Order Updated Event - C4 Static - Context level
 
 System(ECommercePlatform.SoftwareSystems.BuyingService, "Buying Service", "")
 System(ECommercePlatform.SoftwareSystems.WMS, "WMS", "")

@@ -1,6 +1,6 @@
 @startuml
 
-title Fraud Service - Database - Update Fraud Check Result - CONTAINER level
+title Fraud Service - Database - Update Fraud Check Result - Sequence - Container level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 

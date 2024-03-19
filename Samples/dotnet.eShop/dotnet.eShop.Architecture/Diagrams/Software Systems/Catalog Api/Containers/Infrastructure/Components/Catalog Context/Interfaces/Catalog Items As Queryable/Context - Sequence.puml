@@ -1,6 +1,6 @@
 @startuml
 
-title Catalog Api - Infrastructure - Catalog Context - Catalog Items As Queryable - CONTEXT level
+title Catalog Api - Infrastructure - Catalog Context - Catalog Items As Queryable - Sequence - Context level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 participant "Catalog Api" as dotnet.eShop.Architecture.SoftwareSystems.CatalogApi

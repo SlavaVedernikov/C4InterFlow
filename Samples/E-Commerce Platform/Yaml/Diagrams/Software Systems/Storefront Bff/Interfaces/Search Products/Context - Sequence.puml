@@ -1,6 +1,6 @@
 @startuml
 
-title Storefront Bff - Search Products - CONTEXT level
+title Storefront Bff - Search Products - Sequence - Context level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 participant "Storefront Bff" as ECommercePlatform.SoftwareSystems.StorefrontBff

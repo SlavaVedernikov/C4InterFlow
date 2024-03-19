@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Pricing Service - Api - Update Product Prices - CONTEXT level
+title Pricing Service - Api - Update Product Prices - C4 Static - Context level
 
 System(ECommercePlatform.SoftwareSystems.PricingService, "Pricing Service", "")
 

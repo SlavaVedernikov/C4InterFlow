@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Buying Service - Api - Delete Purchase Order - CONTAINER level
+title Buying Service - Api - Delete Purchase Order - C4 Static - Container level
 
 
 System_Boundary(ECommercePlatform.SoftwareSystems.BuyingService, "Buying Service") {

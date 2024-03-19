@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Storefront App - Add Product To Basket - CONTEXT level
+title Storefront App - Add Product To Basket - C4 - Context level
 
 System(ECommercePlatform.SoftwareSystems.StorefrontApp, "Storefront App", "")
 System(ECommercePlatform.SoftwareSystems.StorefrontBff, "Storefront Bff", "")

@@ -1,6 +1,6 @@
 @startuml
 
-title Catalog Api - Api - Catalog Api - Get Items By Ids - COMPONENT level
+title Catalog Api - Api - Catalog Api - Get Items By Ids - Sequence - Component level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 

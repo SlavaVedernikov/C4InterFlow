@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Fraud Service - Message Handler - Handle Order Created Event - CONTAINER level
+title Fraud Service - Message Handler - Handle Order Created Event - C4 - Container level
 
 
 System_Boundary(ECommercePlatform.SoftwareSystems.FraudService, "Fraud Service") {

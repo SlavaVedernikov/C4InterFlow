@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Catalog Api - Api - Catalog Api - Get Item Picture By Id - CONTEXT level
+title Catalog Api - Api - Catalog Api - Get Item Picture By Id - C4 - Context level
 
 System(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi, "Catalog Api", "")
 

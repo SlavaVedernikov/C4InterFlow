@@ -243,7 +243,7 @@ public class DrawDiagramsCommand : Command
 
         switch (scope)
         {
-            case DiagramScopesOption.SOFTWARE_SYSTEMS:
+            case DiagramScopesOption.ALL_SOFTWARE_SYSTEMS:
             case DiagramScopesOption.SOFTWARE_SYSTEM:
                 {
                     // Matches any string that ends with ".Interfaces.<word>"
@@ -301,11 +301,11 @@ public class DrawDiagramsCommand : Command
         return result;
     }
 
-    private static Diagram GetDiagram(string levelOfDetails, BusinessProcess businessProcess, bool showBoundaries, bool showInterfaceInputAndOutput, bool isStatic = false)
+    private static Diagram GetDiagram(string diagramType, string levelOfDetails, BusinessProcess businessProcess, bool showBoundaries, bool showInterfaceInputAndOutput, bool isStatic = false)
     {
         var result = default(Diagram);
 
-        var diagramTitle = GetDiagramTitle(businessProcess, levelOfDetails);
+        var diagramTitle = GetDiagramTitle(businessProcess, levelOfDetails, diagramType);
         if (diagramTitle != null)
         {
             switch (levelOfDetails)
@@ -349,11 +349,22 @@ public class DrawDiagramsCommand : Command
         return result;
     }
 
-    private static Diagram GetDiagram(string levelOfDetails, Interface[] interfaces, bool showBoundaries, bool showInterfaceInputAndOutput, bool isStatic = false)
+    private static Diagram GetDiagram(string scope, string levelOfDetails, Interface[] interfaces, bool showBoundaries, bool showInterfaceInputAndOutput, bool isStatic = false, string? scopedStructureAlias = null)
     {
         var result = default(Diagram);
 
-        var diagramTitle = $"C4{(isStatic ? " Static" : string.Empty)} - {levelOfDetails.ToUpper()} level";
+        var diagramType = isStatic ? DiagramTypesOption.C4_STATIC : DiagramTypesOption.C4;
+
+        var scopedStructureFullName = string.Empty;
+        if(scopedStructureAlias != null &&
+            TryParseStructureAlias(scopedStructureAlias, out var system, out var container, out var component))
+        {
+            scopedStructureFullName = $"{(system != null ? system.Label : string.Empty)}";
+            scopedStructureFullName = $"{scopedStructureFullName}{(!string.IsNullOrEmpty(scopedStructureFullName) && container != null ? $" - {container.Label}" : string.Empty)}";
+            scopedStructureFullName = $"{scopedStructureFullName}{(!string.IsNullOrEmpty(scopedStructureFullName) && component != null ? $" - {component.Label}" : string.Empty)}";
+        }
+
+        var diagramTitle = $"{(!string.IsNullOrEmpty(scopedStructureFullName) ? scopedStructureFullName : ToPrettyName(scope))} - {ToPrettyName(diagramType)} - {ToPrettyName(levelOfDetails)} level";
 
         var flow = new Flow();
 
@@ -403,11 +414,11 @@ public class DrawDiagramsCommand : Command
         return result;
     }
 
-    private static Diagram GetDiagram(string levelOfDetails, Interface @interface, bool showBoundaries, bool showInterfaceInputAndOutput, bool isStatic = false)
+    private static Diagram GetDiagram(string diagramType, string levelOfDetails, Interface @interface, bool showBoundaries, bool showInterfaceInputAndOutput, bool isStatic = false)
     {
         var result = default(Diagram);
 
-        var diagramTitle = GetDiagramTitle(@interface, levelOfDetails);
+        var diagramTitle = GetDiagramTitle(@interface, levelOfDetails, diagramType);
         if (diagramTitle != null)
         {
             var process = new BusinessProcess(
@@ -476,16 +487,22 @@ public class DrawDiagramsCommand : Command
             context.UseDiagramMdDocumentBuilder();
         }
 
+        var diagramType = (style!.Value == SequenceDiagramStyle.C4 ? DiagramTypesOption.C4_SEQUENCE : DiagramTypesOption.SEQUENCE);
         var progress = new ConcurrentProgress(businessProcesses.Count());
 
         Parallel.ForEach(businessProcesses, businessProcess =>
         {
-            var diagram = GetDiagram(levelOfDetails, businessProcess, showBoundaries, showInterfaceInputAndOutput);
+            var diagram = GetDiagram(
+                diagramType, 
+                levelOfDetails, 
+                businessProcess, 
+                showBoundaries, 
+                showInterfaceInputAndOutput);
 
             if (TryGetDiagramPath(
                     scope,
                     levelOfDetails,
-                    (style!.Value == SequenceDiagramStyle.C4 ? DiagramTypesOption.C4_SEQUENCE : DiagramTypesOption.SEQUENCE),
+                    diagramType,
                     businessProcess,
                     out var path,
                     out var fileName,
@@ -518,16 +535,23 @@ public class DrawDiagramsCommand : Command
             context.UseDiagramMdDocumentBuilder();
         }
 
+        var diagramType = isStatic ? DiagramTypesOption.C4_STATIC : DiagramTypesOption.C4;
         var progress = new ConcurrentProgress(businessProcesses.Count());
 
         Parallel.ForEach(businessProcesses, businessProcess =>
         {
-            var diagram = GetDiagram(levelOfDetails, businessProcess, showBoundaries, showInterfaceInputAndOutput, isStatic);
+            var diagram = GetDiagram(
+                diagramType,
+                levelOfDetails,
+                businessProcess,
+                showBoundaries,
+                showInterfaceInputAndOutput,
+                isStatic);
 
             if (TryGetDiagramPath(
                     scope,
                     levelOfDetails,
-                    isStatic ? DiagramTypesOption.C4_STATIC : DiagramTypesOption.C4,
+                    diagramType,
                     businessProcess,
                     out var path,
                     out var fileName,
@@ -559,16 +583,22 @@ public class DrawDiagramsCommand : Command
             context.UseDiagramMdDocumentBuilder();
         }
 
+        var diagramType = (style!.Value == SequenceDiagramStyle.C4 ? DiagramTypesOption.C4_SEQUENCE : DiagramTypesOption.SEQUENCE);
         var progress = new ConcurrentProgress(interfaces.Count());
 
         Parallel.ForEach(interfaces, @interface =>
         {
-            var diagram = GetDiagram(levelOfDetails, @interface, showBoundaries, showInterfaceInputAndOutput);
+            var diagram = GetDiagram(
+                diagramType,
+                levelOfDetails,
+                @interface,
+                showBoundaries,
+                showInterfaceInputAndOutput);
 
             if (TryGetDiagramPath(
                     scope,
                     levelOfDetails,
-                    (style!.Value == SequenceDiagramStyle.C4 ? DiagramTypesOption.C4_SEQUENCE : DiagramTypesOption.SEQUENCE),
+                    diagramType,
                     @interface,
                     out var path,
                     out var fileName,
@@ -600,9 +630,9 @@ public class DrawDiagramsCommand : Command
             context.UseDiagramMdDocumentBuilder();
         }
 
-        if (scope == DiagramScopesOption.SOFTWARE_SYSTEMS)
+        if (scope == DiagramScopesOption.ALL_SOFTWARE_SYSTEMS)
         {
-            var diagram = GetDiagram(levelOfDetails, interfaces, showBoundaries, showInterfaceInputAndOutput, isStatic);
+            var diagram = GetDiagram(scope, levelOfDetails, interfaces, showBoundaries, showInterfaceInputAndOutput, isStatic);
             if (TryGetDiagramPath(
                     scope,
                     levelOfDetails,
@@ -629,7 +659,15 @@ public class DrawDiagramsCommand : Command
             Parallel.ForEach(softwareSystemAliases, softwareSystemAlias =>
             {
                 var systemInterfaces = interfaces.Where(x => x.Alias.StartsWith($"{softwareSystemAlias}.")).ToArray();
-                var diagram = GetDiagram(levelOfDetails, systemInterfaces, showBoundaries, showInterfaceInputAndOutput, isStatic);
+                var diagram = GetDiagram(
+                    scope,
+                    levelOfDetails,
+                    systemInterfaces,
+                    showBoundaries,
+                    showInterfaceInputAndOutput,
+                    isStatic,
+                    softwareSystemAlias);
+
                 if (TryGetDiagramPath(
                         scope,
                         levelOfDetails,
@@ -662,7 +700,15 @@ public class DrawDiagramsCommand : Command
             Parallel.ForEach(containerAliases, containerAlias =>
             {
                 var containerInterfaces = interfaces.Where(x => x.Alias.StartsWith($"{containerAlias}.")).ToArray();
-                var diagram = GetDiagram(levelOfDetails, containerInterfaces, showBoundaries, showInterfaceInputAndOutput, isStatic);
+                var diagram = GetDiagram(
+                    scope,
+                    levelOfDetails,
+                    containerInterfaces,
+                    showBoundaries,
+                    showInterfaceInputAndOutput,
+                    isStatic,
+                    containerAlias);
+
                 if (TryGetDiagramPath(
                         scope,
                         levelOfDetails,
@@ -695,7 +741,15 @@ public class DrawDiagramsCommand : Command
             Parallel.ForEach(componentAliases, componentAlias =>
             {
                 var componentInterfaces = interfaces.Where(x => x.Alias.StartsWith($"{componentAlias}.")).ToArray();
-                var diagram = GetDiagram(levelOfDetails, componentInterfaces, showBoundaries, showInterfaceInputAndOutput, isStatic);
+                var diagram = GetDiagram(
+                    scope,
+                    levelOfDetails,
+                    componentInterfaces,
+                    showBoundaries,
+                    showInterfaceInputAndOutput,
+                    isStatic,
+                    componentAlias);
+
                 if (TryGetDiagramPath(
                         scope,
                         levelOfDetails,
@@ -717,16 +771,23 @@ public class DrawDiagramsCommand : Command
         }
         else
         {
+            var diagramType = isStatic ? DiagramTypesOption.C4_STATIC : DiagramTypesOption.C4;
             var progress = new ConcurrentProgress(interfaces.Count());
 
             Parallel.ForEach(interfaces, @interface =>
             {
-                var diagram = GetDiagram(levelOfDetails, @interface, showBoundaries, showInterfaceInputAndOutput, isStatic);
+                var diagram = GetDiagram(
+                    diagramType,
+                    levelOfDetails,
+                    @interface,
+                    showBoundaries,
+                    showInterfaceInputAndOutput,
+                    isStatic);
 
                 if (TryGetDiagramPath(
                     scope,
                     levelOfDetails,
-                    isStatic ? DiagramTypesOption.C4_STATIC : DiagramTypesOption.C4,
+                    diagramType,
                     @interface,
                     out var path,
                     out var fileName,
@@ -741,20 +802,20 @@ public class DrawDiagramsCommand : Command
         }
     }
 
-    private static string? GetDiagramTitle(BusinessProcess? businessProcess, string levelOfDetails)
+    private static string? GetDiagramTitle(BusinessProcess? businessProcess, string levelOfDetails, string diagramType)
     {
         if (string.IsNullOrEmpty(businessProcess?.Label))
             return null;
 
         else  
-            return $"{businessProcess.Label} - {levelOfDetails.ToUpper()} level)";
+            return $"{businessProcess.Label} - {ToPrettyName(diagramType)} - {ToPrettyName(levelOfDetails)} level)";
     }
 
     private static bool TryGetDiagramPath(string scope, string levelOfDetails, string diagramType, out string path, out string fileName, string? outputSubDirectory = null, string? diagramNamePrefix = null)
     {
         switch (scope)
         {
-            case DiagramScopesOption.SOFTWARE_SYSTEMS:
+            case DiagramScopesOption.ALL_SOFTWARE_SYSTEMS:
             {
                 if (!string.IsNullOrEmpty(outputSubDirectory))
                 {
@@ -925,14 +986,14 @@ public class DrawDiagramsCommand : Command
 
         return !string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(fileName);
     }
-    private static string? GetDiagramTitle(Interface? @interface, string levelOfDetails)
+    private static string? GetDiagramTitle(Interface? @interface, string levelOfDetails, string diagramType)
     {
         if (string.IsNullOrEmpty(@interface?.Alias))
             return null;
 
         if (TryParseInterface(@interface, out var system, out var container, out var component))
         {
-            return $"{system.Label}{(container != null ? $" - {container.Label}" : string.Empty)}{(component != null ? $" - {component.Label}" : string.Empty)} - {@interface.Label} - {levelOfDetails.ToUpper()} level";
+            return $"{system.Label}{(container != null ? $" - {container.Label}" : string.Empty)}{(component != null ? $" - {component.Label}" : string.Empty)} - {@interface.Label} - {ToPrettyName(diagramType)} - {ToPrettyName(levelOfDetails)} level";
         }
 
         return null;
@@ -940,26 +1001,62 @@ public class DrawDiagramsCommand : Command
 
     private static bool TryParseInterface(Interface @interface, out SoftwareSystem? system, out Container? container, out Component? component)
     {
-        TryParseAlias(@interface.Alias, out system, out container, out component);
+        TryParseInterfaceAlias(@interface.Alias, out system, out container, out component);
 
         return (system as Structure ?? container as Structure ?? component as Structure) != null;
     }
 
     private static bool TryParseInterface(Interface @interface, out SoftwareSystem? system, out Container? container)
     {
-        TryParseAlias(@interface.Alias, out system, out container, out var tempComponent);
+        TryParseInterfaceAlias(@interface.Alias, out system, out container, out var tempComponent);
 
         return (system as Structure ?? container as Structure) != null;
     }
 
     private static bool TryParseInterface(Interface @interface, out SoftwareSystem? system)
     {
-        TryParseAlias(@interface.Alias, out system, out var tempContainer, out var tempComponent);
+        TryParseInterfaceAlias(@interface.Alias, out system, out var tempContainer, out var tempComponent);
 
         return (system as Structure) != null;
     }
 
-    private static bool TryParseAlias(string interfaceAlias, out SoftwareSystem? system, out Container? container, out Component? component)
+    private static bool TryParseStructureAlias(string structureAlias, out SoftwareSystem? system, out Container? container, out Component? component)
+    {
+        container = default(Container);
+        system = default(SoftwareSystem);
+        component = default(Component);
+
+        var interfacesSegment = ".Interfaces.";
+        if (structureAlias == null || structureAlias.Contains(interfacesSegment)) return false;
+
+        try
+        {
+            if (structureAlias.Contains("Components"))
+            {
+                component = C4InterFlow.Utils.GetInstance<Component>(structureAlias);
+                container = C4InterFlow.Utils.GetInstance<Container>(component?.Container);
+                system = C4InterFlow.Utils.GetInstance<SoftwareSystem>(container?.SoftwareSystem);
+            }
+            else if (structureAlias.Contains("Containers"))
+            {
+                container = C4InterFlow.Utils.GetInstance<Container>(structureAlias);
+                system = C4InterFlow.Utils.GetInstance<SoftwareSystem>(container?.SoftwareSystem);
+            }
+            else if ((structureAlias.Contains("SoftwareSystems")))
+            {
+                system = C4InterFlow.Utils.GetInstance<SoftwareSystem>(structureAlias);
+            }
+
+            return (system as Structure ?? container as Structure ?? component as Structure) != null;
+        }
+        catch
+        {
+            return false;
+        }
+
+    }
+
+    private static bool TryParseInterfaceAlias(string interfaceAlias, out SoftwareSystem? system, out Container? container, out Component? component)
     {
         container = default(Container);
         system = default(SoftwareSystem);

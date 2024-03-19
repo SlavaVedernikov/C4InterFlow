@@ -1,6 +1,6 @@
 @startuml
 
-title Complete (End-To-End) - CONTEXT level)
+title Complete (End-To-End) - Sequence - Context level)
 
 participant "Customer" as BigBankPlc.Actors.Customer
 participant "Internet Banking" as BigBankPlc.SoftwareSystems.InternetBanking

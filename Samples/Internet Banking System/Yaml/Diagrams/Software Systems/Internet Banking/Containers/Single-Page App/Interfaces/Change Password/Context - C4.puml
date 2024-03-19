@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Internet Banking - Single-Page App - Change Password - CONTEXT level
+title Internet Banking - Single-Page App - Change Password - C4 - Context level
 
 System(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking", "Provided Internet Banking services")
 System_Ext(BigBankPlc.SoftwareSystems.EMailSystem, "E-Mail System", "The internal Microsoft Exchange system")

@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Fraud Service - Api - Update Order Fraud Check Result - CONTEXT level
+title Fraud Service - Api - Update Order Fraud Check Result - C4 - Context level
 
 System(ECommercePlatform.SoftwareSystems.FraudService, "Fraud Service", "")
 

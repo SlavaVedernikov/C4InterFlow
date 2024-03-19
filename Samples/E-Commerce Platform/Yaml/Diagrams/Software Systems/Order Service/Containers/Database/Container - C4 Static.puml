@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title C4 Static - CONTAINER level
+title Order Service - Database - C4 Static - Container level
 
 
 System_Boundary(ECommercePlatform.SoftwareSystems.OrderService, "Order Service") {

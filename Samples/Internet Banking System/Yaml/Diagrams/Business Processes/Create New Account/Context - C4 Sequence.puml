@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\.c4s\C4_Sequence.puml
 
-title Create New Account - CONTEXT level)
+title Create New Account - C4 Sequence - Context level)
 
 Person(BigBankPlc.Actors.Customer, "Customer", "A customer of the bank, with personal bank accounts")
 System(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking", "Provided Internet Banking services")

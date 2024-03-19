@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Order Service - Message Handler - Handle Payment Result Event - CONTEXT level
+title Order Service - Message Handler - Handle Payment Result Event - C4 Static - Context level
 
 System(ECommercePlatform.SoftwareSystems.OrderService, "Order Service", "")
 System(ECommercePlatform.SoftwareSystems.PaymentService, "Payment Service", "")

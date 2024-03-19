@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Complete (End-To-End) - CONTAINER level)
+title Complete (End-To-End) - C4 - Container level)
 
 Person(BigBankPlc.Actors.Customer, "Customer", "")
 

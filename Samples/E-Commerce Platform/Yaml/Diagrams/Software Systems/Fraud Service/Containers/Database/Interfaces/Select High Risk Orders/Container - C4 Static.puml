@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Fraud Service - Database - Select High Risk Orders - CONTAINER level
+title Fraud Service - Database - Select High Risk Orders - C4 Static - Container level
 
 
 System_Boundary(ECommercePlatform.SoftwareSystems.FraudService, "Fraud Service") {

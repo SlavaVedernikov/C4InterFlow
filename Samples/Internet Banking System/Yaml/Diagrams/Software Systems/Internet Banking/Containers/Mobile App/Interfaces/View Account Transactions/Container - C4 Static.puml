@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Internet Banking - Mobile App - View Account Transactions - CONTAINER level
+title Internet Banking - Mobile App - View Account Transactions - C4 Static - Container level
 
 
 System_Boundary(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking") {

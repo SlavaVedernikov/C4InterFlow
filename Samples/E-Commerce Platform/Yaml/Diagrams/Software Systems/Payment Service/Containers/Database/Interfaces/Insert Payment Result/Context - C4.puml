@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Payment Service - Database - Insert Payment Result - CONTEXT level
+title Payment Service - Database - Insert Payment Result - C4 - Context level
 
 System(ECommercePlatform.SoftwareSystems.PaymentService, "Payment Service", "")
 

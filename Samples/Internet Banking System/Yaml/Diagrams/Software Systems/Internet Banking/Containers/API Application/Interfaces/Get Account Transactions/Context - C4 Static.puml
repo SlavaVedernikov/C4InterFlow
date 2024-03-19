@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Internet Banking - API Application - Get Account Transactions - CONTEXT level
+title Internet Banking - API Application - Get Account Transactions - C4 Static - Context level
 
 System(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking", "Provided Internet Banking services")
 System_Ext(BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Mainframe Banking System", "")

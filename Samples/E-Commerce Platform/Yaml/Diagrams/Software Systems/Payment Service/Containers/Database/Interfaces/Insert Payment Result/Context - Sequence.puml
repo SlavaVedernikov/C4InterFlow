@@ -1,6 +1,6 @@
 @startuml
 
-title Payment Service - Database - Insert Payment Result - CONTEXT level
+title Payment Service - Database - Insert Payment Result - Sequence - Context level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 participant "Payment Service" as ECommercePlatform.SoftwareSystems.PaymentService

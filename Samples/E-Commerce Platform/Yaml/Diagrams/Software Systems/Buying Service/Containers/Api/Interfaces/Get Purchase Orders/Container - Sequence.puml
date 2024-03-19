@@ -1,6 +1,6 @@
 @startuml
 
-title Buying Service - Api - Get Purchase Orders - CONTAINER level
+title Buying Service - Api - Get Purchase Orders - Sequence - Container level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 

@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\..\..\.c4s\C4_Sequence.puml
 
-title Storefront App - Add Product To Basket - CONTEXT level
+title Storefront App - Add Product To Basket - C4 Sequence - Context level
 
 System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 System(ECommercePlatform.SoftwareSystems.StorefrontApp, "Storefront App", "")
