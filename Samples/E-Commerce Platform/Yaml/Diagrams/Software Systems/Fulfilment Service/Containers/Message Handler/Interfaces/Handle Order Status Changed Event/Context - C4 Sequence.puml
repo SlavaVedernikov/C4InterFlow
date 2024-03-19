@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\..\..\..\..\.c4s\C4_Sequence.puml
 
-title Fulfilment Service - Message Handler - Handle Order Status Changed Event - CONTEXT level
+title Fulfilment Service - Message Handler - Handle Order Status Changed Event - C4 Sequence - Context level
 
 System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 System(ECommercePlatform.SoftwareSystems.FulfilmentService, "Fulfilment Service", "")

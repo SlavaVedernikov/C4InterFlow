@@ -1,10 +1,10 @@
 @echo off
 :: Possible values: TRUE, FALSE
-set "redraw-all=FALSE"
+set "redraw-all=TRUE"
 :::::::::::::::::::::::::::::::
 
 :: Possible values: CSharp, Yaml
-set "aac-type=Yaml"
+set "aac-type=CSharp"
 ::::::::::::::::::::::::::::::::
 
 set "build-configuration=Debug"

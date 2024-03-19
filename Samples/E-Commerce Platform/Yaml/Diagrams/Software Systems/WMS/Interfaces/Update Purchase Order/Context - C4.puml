@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title WMS - Update Purchase Order - CONTEXT level
+title WMS - Update Purchase Order - C4 - Context level
 
 System(ECommercePlatform.SoftwareSystems.WMS, "WMS", "")
 

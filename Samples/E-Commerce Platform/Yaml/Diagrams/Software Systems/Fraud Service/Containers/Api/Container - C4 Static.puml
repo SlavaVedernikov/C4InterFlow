@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title C4 Static - CONTAINER level
+title Fraud Service - Api - C4 Static - Container level
 
 
 System_Boundary(ECommercePlatform.SoftwareSystems.FraudService, "Fraud Service") {

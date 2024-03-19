@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Order Service - Messaging - Receive Order Status Changed Event - CONTAINER level
+title Order Service - Messaging - Receive Order Status Changed Event - C4 - Container level
 
 
 System_Boundary(ECommercePlatform.SoftwareSystems.OrderService, "Order Service") {

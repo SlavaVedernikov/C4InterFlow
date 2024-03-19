@@ -1,6 +1,6 @@
 @startuml
 
-title Internet Banking - Single-Page App - Change Password - CONTAINER level
+title Internet Banking - Single-Page App - Change Password - Sequence - Container level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 

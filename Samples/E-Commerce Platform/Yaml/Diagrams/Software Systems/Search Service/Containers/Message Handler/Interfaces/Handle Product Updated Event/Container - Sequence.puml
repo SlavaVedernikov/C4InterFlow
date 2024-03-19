@@ -1,6 +1,6 @@
 @startuml
 
-title Search Service - Message Handler - Handle Product Updated Event - CONTAINER level
+title Search Service - Message Handler - Handle Product Updated Event - Sequence - Container level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 

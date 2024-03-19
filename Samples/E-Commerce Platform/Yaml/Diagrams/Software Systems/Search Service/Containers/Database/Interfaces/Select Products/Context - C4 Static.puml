@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Search Service - Database - Select Products - CONTEXT level
+title Search Service - Database - Select Products - C4 Static - Context level
 
 System(ECommercePlatform.SoftwareSystems.SearchService, "Search Service", "")
 

@@ -1,6 +1,6 @@
 @startuml
 
-title Payment Service - Messaging - Receive Payment Result Event - CONTEXT level
+title Payment Service - Messaging - Receive Payment Result Event - Sequence - Context level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 participant "Payment Service" as ECommercePlatform.SoftwareSystems.PaymentService

@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Fulfilment Service - Database - Insert Order - CONTAINER level
+title Fulfilment Service - Database - Insert Order - C4 Static - Container level
 
 
 System_Boundary(ECommercePlatform.SoftwareSystems.FulfilmentService, "Fulfilment Service") {

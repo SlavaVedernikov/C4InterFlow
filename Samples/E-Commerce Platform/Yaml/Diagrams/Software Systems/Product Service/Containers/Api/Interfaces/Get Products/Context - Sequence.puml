@@ -1,6 +1,6 @@
 @startuml
 
-title Product Service - Api - Get Products - CONTEXT level
+title Product Service - Api - Get Products - Sequence - Context level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 participant "Product Service" as ECommercePlatform.SoftwareSystems.ProductService

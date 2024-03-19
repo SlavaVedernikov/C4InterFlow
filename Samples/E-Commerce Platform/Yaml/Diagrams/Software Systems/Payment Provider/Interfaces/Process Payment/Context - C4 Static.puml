@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Payment Provider - Process Payment - CONTEXT level
+title Payment Provider - Process Payment - C4 Static - Context level
 
 System(ECommercePlatform.SoftwareSystems.PaymentProvider, "Payment Provider", "")
 

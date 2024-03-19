@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Fraud Service - Database - Update Fraud Check Result - CONTAINER level
+title Fraud Service - Database - Update Fraud Check Result - C4 - Container level
 
 
 System_Boundary(ECommercePlatform.SoftwareSystems.FraudService, "Fraud Service") {

@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Search Service - Database - Update Product Prices - CONTAINER level
+title Search Service - Database - Update Product Prices - C4 - Container level
 
 
 System_Boundary(ECommercePlatform.SoftwareSystems.SearchService, "Search Service") {

@@ -524,14 +524,14 @@ namespace C4InterFlow.Structures
             }
 
             var flow = new Flow(flowType, parent, condition);
-            AddFlow(flow);
+            parent.AddFlow(flow);
             return flow;
         }
 
         public Flow Else()
         {
             var flowType = FlowType.Else;
-            var parent = Parent;
+            var parent = this;
 
             if (!IsAllowed(parent.Type, flowType, out var message))
             {
@@ -548,7 +548,7 @@ namespace C4InterFlow.Structures
             if (Type != FlowType.If && Type != FlowType.ElseIf && Type != FlowType.Else)
                 throw new Exception("EndIf has to have the corresponding If");
 
-            return Parent;
+            return Type == FlowType.If ? Parent : Parent.Parent;
         }
 
         public Flow Try()

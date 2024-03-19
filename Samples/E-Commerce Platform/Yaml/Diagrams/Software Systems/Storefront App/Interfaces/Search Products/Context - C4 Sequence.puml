@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\..\..\.c4s\C4_Sequence.puml
 
-title Storefront App - Search Products - CONTEXT level
+title Storefront App - Search Products - C4 Sequence - Context level
 
 System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 System(ECommercePlatform.SoftwareSystems.StorefrontApp, "Storefront App", "")

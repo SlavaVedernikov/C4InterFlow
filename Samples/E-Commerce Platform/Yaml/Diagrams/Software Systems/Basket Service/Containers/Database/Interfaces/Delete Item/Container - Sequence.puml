@@ -1,6 +1,6 @@
 @startuml
 
-title Basket Service - Database - Delete Item - CONTAINER level
+title Basket Service - Database - Delete Item - Sequence - Container level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 

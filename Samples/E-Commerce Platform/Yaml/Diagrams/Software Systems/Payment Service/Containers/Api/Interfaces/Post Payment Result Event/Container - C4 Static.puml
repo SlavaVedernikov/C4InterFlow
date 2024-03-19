@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Payment Service - Api - Post Payment Result Event - CONTAINER level
+title Payment Service - Api - Post Payment Result Event - C4 Static - Container level
 
 
 System_Boundary(ECommercePlatform.SoftwareSystems.PaymentService, "Payment Service") {

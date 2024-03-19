@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Storefront Bff - Search Products - CONTEXT level
+title Storefront Bff - Search Products - C4 Static - Context level
 
 System(ECommercePlatform.SoftwareSystems.StorefrontBff, "Storefront Bff", "")
 System(ECommercePlatform.SoftwareSystems.SearchService, "Search Service", "")

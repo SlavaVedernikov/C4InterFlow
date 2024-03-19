@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Payment Service - Message Handler - Handle Order Status Changed Event - CONTAINER level
+title Payment Service - Message Handler - Handle Order Status Changed Event - C4 - Container level
 
 
 System_Boundary(ECommercePlatform.SoftwareSystems.PaymentService, "Payment Service") {

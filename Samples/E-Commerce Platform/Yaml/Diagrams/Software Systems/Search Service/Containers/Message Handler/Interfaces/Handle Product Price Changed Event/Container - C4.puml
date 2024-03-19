@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Search Service - Message Handler - Handle Product Price Changed Event - CONTAINER level
+title Search Service - Message Handler - Handle Product Price Changed Event - C4 - Container level
 
 
 System_Boundary(ECommercePlatform.SoftwareSystems.SearchService, "Search Service") {

@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\..\..\..\..\.c4s\C4_Sequence.puml
 
-title Buying Service - Messaging - Receive Purchase Order Created Event - CONTEXT level
+title Buying Service - Messaging - Receive Purchase Order Created Event - C4 Sequence - Context level
 
 System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 System(ECommercePlatform.SoftwareSystems.BuyingService, "Buying Service", "")

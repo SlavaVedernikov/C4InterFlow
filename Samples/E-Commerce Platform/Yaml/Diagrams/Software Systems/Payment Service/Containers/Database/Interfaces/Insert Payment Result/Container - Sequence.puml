@@ -1,6 +1,6 @@
 @startuml
 
-title Payment Service - Database - Insert Payment Result - CONTAINER level
+title Payment Service - Database - Insert Payment Result - Sequence - Container level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 

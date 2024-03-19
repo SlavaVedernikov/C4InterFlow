@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\..\..\..\..\.c4s\C4_Sequence.puml
 
-title Fraud Service - Database - Update Fraud Check Result - CONTEXT level
+title Fraud Service - Database - Update Fraud Check Result - C4 Sequence - Context level
 
 System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 System(ECommercePlatform.SoftwareSystems.FraudService, "Fraud Service", "")

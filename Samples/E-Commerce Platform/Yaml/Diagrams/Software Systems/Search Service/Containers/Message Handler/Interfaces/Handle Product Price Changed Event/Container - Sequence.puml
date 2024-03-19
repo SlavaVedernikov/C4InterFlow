@@ -1,6 +1,6 @@
 @startuml
 
-title Search Service - Message Handler - Handle Product Price Changed Event - CONTAINER level
+title Search Service - Message Handler - Handle Product Price Changed Event - Sequence - Container level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 
