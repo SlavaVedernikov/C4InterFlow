@@ -1,4 +1,3 @@
 Name,Type,Alias
 Trader,Person or Team,Trader
-Message Bus,System,MessageBus
-Web Sockets,System,WebSockets
+External Process,System,ExternalProcess

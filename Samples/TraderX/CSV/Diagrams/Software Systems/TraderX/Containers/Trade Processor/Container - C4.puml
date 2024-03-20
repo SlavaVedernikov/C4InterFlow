@@ -23,7 +23,7 @@ System_Boundary(TraderX.SoftwareSystems.TraderX, "TraderX") {
     ContainerDb(TraderX.SoftwareSystems.TraderX.Containers.TraderXDB, "TraderX DB", "", "Database which stores account")
 }
 
-Rel(TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderX.SoftwareSystems.TraderX.Containers.TradeFeed, "Receive Trade Request\nSend Updates To Trades\nSend Updates To Positions\n[HTTPS]", $tags='protocol:https')
+Rel(TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderX.SoftwareSystems.TraderX.Containers.TradeFeed, "Receive Trade Request\nSend Updates To Trades\nSend Updates To Positions\n[SocketIO]", $tags='protocol:socketio')
 Rel(TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderX.SoftwareSystems.TraderX.Containers.TraderXDB, "Select Current Positions\nSave Trade State\nSave Position State\n[JDBC]", $tags='protocol:jdbc')
 
 

@@ -19,7 +19,7 @@ title TraderX - Web Client - Type Ahead People Search - C4 - Context level
 System(TraderX.SoftwareSystems.TraderX, "TraderX", "TraderX")
 System(TraderX.SoftwareSystems.UserDirectory, "User Directory", "")
 
-Rel(TraderX.SoftwareSystems.TraderX, TraderX.SoftwareSystems.UserDirectory, "Select People Data")
+Rel(TraderX.SoftwareSystems.TraderX, TraderX.SoftwareSystems.UserDirectory, "Select People Data\n[LDAP]", $tags='protocol:ldap')
 
 
 SHOW_LEGEND()

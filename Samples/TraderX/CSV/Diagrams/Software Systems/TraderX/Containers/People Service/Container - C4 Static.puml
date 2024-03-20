@@ -22,7 +22,7 @@ System_Boundary(TraderX.SoftwareSystems.TraderX, "TraderX") {
 }
 System(TraderX.SoftwareSystems.UserDirectory, "User Directory", "")
 
-Rel(TraderX.SoftwareSystems.TraderX.Containers.PeopleService, TraderX.SoftwareSystems.UserDirectory, "Uses")
+Rel(TraderX.SoftwareSystems.TraderX.Containers.PeopleService, TraderX.SoftwareSystems.UserDirectory, "Uses\n[LDAP]", $tags='protocol:ldap')
 
 
 SHOW_LEGEND()

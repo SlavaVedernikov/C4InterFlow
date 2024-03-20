@@ -3,8 +3,7 @@
 
 title Execute Trades - C4 Sequence - Container level)
 
-System(TraderX.Actors.MessageBus, "Message Bus", "")
-System(TraderX.Actors.WebSockets, "Web Sockets", "")
+System(TraderX.Actors.ExternalProcess, "External Process", "")
 Person(TraderX.Actors.Trader, "Trader", "")
 
 System_Boundary(TraderX.SoftwareSystems.TraderX, "TraderX")
@@ -31,9 +30,9 @@ end
 end
 end
 end
-group Message Bus - Process Trade Request
-Rel(TraderX.Actors.MessageBus, TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor, "Process Trade")
-group Process Trade
+group External Process - Process Trade Request
+Rel(TraderX.Actors.ExternalProcess, TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor, "Start")
+group Start
 Rel(TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderX.SoftwareSystems.TraderX.Containers.TradeFeed, "Receive Trade Request")
 Rel(TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderX.SoftwareSystems.TraderX.Containers.TraderXDB, "Select Current Positions")
 Rel(TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderX.SoftwareSystems.TraderX.Containers.TraderXDB, "Save Trade State")
@@ -42,9 +41,9 @@ Rel(TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderX.SoftwareS
 Rel(TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderX.SoftwareSystems.TraderX.Containers.TradeFeed, "Send Updates To Positions")
 end
 end
-group Web Sockets - Refresh Web Client
-Rel(TraderX.Actors.WebSockets, TraderX.SoftwareSystems.TraderX.Containers.WebGUI, "Update Web Client")
-group Update Web Client
+group External Process - Refresh Web Client
+Rel(TraderX.Actors.ExternalProcess, TraderX.SoftwareSystems.TraderX.Containers.WebGUI, "Start")
+group Start
 Rel(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, TraderX.SoftwareSystems.TraderX.Containers.TradeFeed, "Receive Updates To Trades")
 Rel(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, TraderX.SoftwareSystems.TraderX.Containers.TradeFeed, "Receive Updates To Positions")
 Rel(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, TraderX.SoftwareSystems.TraderX.Containers.WebClient, "Send Trade And Position Status Updates")

@@ -24,7 +24,7 @@ System_Boundary(TraderX.SoftwareSystems.TraderX, "TraderX") {
 }
 
 Rel(TraderX.SoftwareSystems.TraderX.Containers.TradingServices, TraderX.SoftwareSystems.TraderX.Containers.TraderXDB, "Uses\n[JDBC]", $tags='protocol:jdbc')
-Rel(TraderX.SoftwareSystems.TraderX.Containers.TradingServices, TraderX.SoftwareSystems.TraderX.Containers.TradeFeed, "Uses\n[HTTPS]", $tags='protocol:https')
+Rel(TraderX.SoftwareSystems.TraderX.Containers.TradingServices, TraderX.SoftwareSystems.TraderX.Containers.TradeFeed, "Uses\n[SocketIO]", $tags='protocol:socketio')
 
 
 SHOW_LEGEND()

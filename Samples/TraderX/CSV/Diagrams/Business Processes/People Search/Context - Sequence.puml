@@ -1,0 +1,15 @@
+@startuml
+
+title People Search - Sequence - Context level)
+
+participant "Trader" as TraderX.Actors.Trader
+participant "TraderX" as TraderX.SoftwareSystems.TraderX
+participant "User Directory" as TraderX.SoftwareSystems.UserDirectory
+
+TraderX.Actors.Trader -> TraderX.SoftwareSystems.TraderX : Type Ahead People Search
+group Type Ahead People Search
+TraderX.SoftwareSystems.TraderX -> TraderX.SoftwareSystems.UserDirectory : Select People Data
+end
+
+
+@enduml

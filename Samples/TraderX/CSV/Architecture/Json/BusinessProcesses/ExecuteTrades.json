@@ -18,24 +18,24 @@
           },
           {
             "Label": "Process Trade Request",
-            "Actor": "TraderX.Actors.MessageBus",
+            "Actor": "TraderX.Actors.ExternalProcess",
             "Flow": {
               "Flows": [
                 {
                   "Type": "Use",
-                  "Expression": "TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor.Interfaces.ProcessTrade"
+                  "Expression": "TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor.Interfaces.Start"
                 }
               ]
             }
           },
           {
             "Label": "Refresh Web Client",
-            "Actor": "TraderX.Actors.WebSockets",
+            "Actor": "TraderX.Actors.ExternalProcess",
             "Flow": {
               "Flows": [
                 {
                   "Type": "Use",
-                  "Expression": "TraderX.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.UpdateWebClient"
+                  "Expression": "TraderX.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.Start"
                 }
               ]
             }

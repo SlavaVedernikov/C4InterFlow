@@ -1,0 +1,5 @@
+TraderX:
+  Actors:
+    ExternalProcess:
+      Type: SoftwareSystem
+      Label: External Process

@@ -3,19 +3,18 @@
 
 title Execute Trades - C4 Sequence - Context level)
 
-System(TraderX.Actors.MessageBus, "Message Bus", "")
-System(TraderX.Actors.WebSockets, "Web Sockets", "")
+System(TraderX.Actors.ExternalProcess, "External Process", "")
 Person(TraderX.Actors.Trader, "Trader", "")
 System(TraderX.SoftwareSystems.TraderX, "TraderX", "TraderX")
 
 group Trader - Create Trade Request
 Rel(TraderX.Actors.Trader, TraderX.SoftwareSystems.TraderX, "Create Trade")
 end
-group Message Bus - Process Trade Request
-Rel(TraderX.Actors.MessageBus, TraderX.SoftwareSystems.TraderX, "Process Trade")
+group External Process - Process Trade Request
+Rel(TraderX.Actors.ExternalProcess, TraderX.SoftwareSystems.TraderX, "Start")
 end
-group Web Sockets - Refresh Web Client
-Rel(TraderX.Actors.WebSockets, TraderX.SoftwareSystems.TraderX, "Update Web Client")
+group External Process - Refresh Web Client
+Rel(TraderX.Actors.ExternalProcess, TraderX.SoftwareSystems.TraderX, "Start")
 end
 group Trader - Cancel Trade
 Rel(TraderX.Actors.Trader, TraderX.SoftwareSystems.TraderX, "Cancel Trade")

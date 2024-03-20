@@ -2,19 +2,18 @@
 
 title Execute Trades - Sequence - Context level)
 
-participant "Message Bus" as TraderX.Actors.MessageBus
-participant "Web Sockets" as TraderX.Actors.WebSockets
+participant "External Process" as TraderX.Actors.ExternalProcess
 participant "Trader" as TraderX.Actors.Trader
 participant "TraderX" as TraderX.SoftwareSystems.TraderX
 
 group Trader - Create Trade Request
 TraderX.Actors.Trader -> TraderX.SoftwareSystems.TraderX : Create Trade
 end
-group Message Bus - Process Trade Request
-TraderX.Actors.MessageBus -> TraderX.SoftwareSystems.TraderX : Process Trade
+group External Process - Process Trade Request
+TraderX.Actors.ExternalProcess -> TraderX.SoftwareSystems.TraderX : Start
 end
-group Web Sockets - Refresh Web Client
-TraderX.Actors.WebSockets -> TraderX.SoftwareSystems.TraderX : Update Web Client
+group External Process - Refresh Web Client
+TraderX.Actors.ExternalProcess -> TraderX.SoftwareSystems.TraderX : Start
 end
 group Trader - Cancel Trade
 TraderX.Actors.Trader -> TraderX.SoftwareSystems.TraderX : Cancel Trade

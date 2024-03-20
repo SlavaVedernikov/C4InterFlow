@@ -48,27 +48,27 @@
             "Interfaces": {
               "SendUpdatesToTrades": {
                 "Label": "Send Updates To Trades",
-                "Protocol": "HTTPS"
+                "Protocol": "SocketIO"
               },
               "SendUpdatesToPositions": {
                 "Label": "Send Updates To Positions",
-                "Protocol": "HTTPS"
+                "Protocol": "SocketIO"
               },
               "ReceiveUpdatesToTrades": {
                 "Label": "Receive Updates To Trades",
-                "Protocol": "HTTPS"
+                "Protocol": "WebSocket"
               },
               "ReceiveUpdatesToPositions": {
                 "Label": "Receive Updates To Positions",
-                "Protocol": "HTTPS"
+                "Protocol": "WebSocket"
               },
               "SendTradeRequest": {
                 "Label": "Send Trade Request",
-                "Protocol": "HTTPS"
+                "Protocol": "SocketIO"
               },
               "ReceiveTradeRequest": {
                 "Label": "Receive Trade Request",
-                "Protocol": "HTTPS"
+                "Protocol": "SocketIO"
               }
             }
           },
@@ -77,9 +77,8 @@
             "ContainerType": "ServerConsole",
             "Description": "Process incoming trade requests",
             "Interfaces": {
-              "ProcessTrade": {
-                "Label": "Process Trade",
-                "Protocol": "SocketIO",
+              "Start": {
+                "Label": "Start",
                 "Flow": {
                   "Flows": [
                     {
@@ -218,7 +217,7 @@
               },
               "SendTradeAndPositionStatusUpdates": {
                 "Label": "Send Trade And Position Status Updates",
-                "Protocol": "HTTPS",
+                "Protocol": "WebSocket",
                 "Flow": {
                   "Flows": [
                     {
@@ -335,9 +334,8 @@
                   ]
                 }
               },
-              "UpdateWebClient": {
-                "Label": "Update Web Client",
-                "Protocol": "WebSocket",
+              "Start": {
+                "Label": "Start",
                 "Flow": {
                   "Flows": [
                     {

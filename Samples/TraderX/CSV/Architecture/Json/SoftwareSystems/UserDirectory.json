@@ -6,7 +6,8 @@
         "Boundary": "Internal",
         "Interfaces": {
           "SelectPeopleData": {
-            "Label": "Select People Data"
+            "Label": "Select People Data",
+            "Protocol": "LDAP"
           }
         }
       }

@@ -1,0 +1,28 @@
+@startuml
+!include ..\..\.c4s\C4_Context.puml
+
+AddElementTag("state:new", $bgColor=green, $fontColor=#ffffff, $borderColor=green, $shadowing="False")
+AddElementTag("state:changed", $bgColor=orange, $fontColor=#ffffff, $borderColor=orange, $shadowing="False")
+AddElementTag("state:removed", $bgColor=red, $fontColor=#ffffff, $borderColor=red, $shadowing="False")
+
+AddRelTag("state:new", $textColor=green, $lineColor=green)
+AddRelTag("state:changed", $textColor=orange, $lineColor=orange)
+AddRelTag("state:removed", $textColor=red, $lineColor=red)
+
+SHOW_PERSON_PORTRAIT()
+LAYOUT_TOP_DOWN()
+
+skinparam linetype polyline
+
+title People Search - C4 Static - Context level)
+
+Person(TraderX.Actors.Trader, "Trader", "")
+System(TraderX.SoftwareSystems.TraderX, "TraderX", "TraderX")
+System(TraderX.SoftwareSystems.UserDirectory, "User Directory", "")
+
+Rel(TraderX.Actors.Trader, TraderX.SoftwareSystems.TraderX, "Uses\n[HTTPS]", $tags='protocol:https')
+Rel(TraderX.SoftwareSystems.TraderX, TraderX.SoftwareSystems.UserDirectory, "Uses\n[LDAP]", $tags='protocol:ldap')
+
+
+SHOW_LEGEND()
+@enduml

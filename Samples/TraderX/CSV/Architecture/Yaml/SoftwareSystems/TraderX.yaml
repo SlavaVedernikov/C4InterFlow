@@ -42,22 +42,22 @@ TraderX:
           Interfaces:
             SendUpdatesToTrades:
               Label: Send Updates To Trades
-              Protocol: HTTPS
+              Protocol: SocketIO
             SendUpdatesToPositions:
               Label: Send Updates To Positions
-              Protocol: HTTPS
+              Protocol: SocketIO
             ReceiveUpdatesToTrades:
               Label: Receive Updates To Trades
-              Protocol: HTTPS
+              Protocol: WebSocket
             ReceiveUpdatesToPositions:
               Label: Receive Updates To Positions
-              Protocol: HTTPS
+              Protocol: WebSocket
             SendTradeRequest:
               Label: Send Trade Request
-              Protocol: HTTPS
+              Protocol: SocketIO
             ReceiveTradeRequest:
               Label: Receive Trade Request
-              Protocol: HTTPS
+              Protocol: SocketIO
           Attributes:
             DataClassification:
               Label: Data Classification
@@ -67,9 +67,8 @@ TraderX:
           ContainerType: ServerConsole
           Description: Process incoming trade requests
           Interfaces:
-            ProcessTrade:
-              Label: Process Trade
-              Protocol: SocketIO
+            Start:
+              Label: Start
               Flow:
                 Flows:
                 - Type: Use
@@ -153,7 +152,7 @@ TraderX:
               Protocol: HTTPS
             SendTradeAndPositionStatusUpdates:
               Label: Send Trade And Position Status Updates
-              Protocol: HTTPS
+              Protocol: WebSocket
               Flow:
                 Flows:
                 - Type: Use
@@ -225,9 +224,8 @@ TraderX:
                 Flows:
                 - Type: Use
                   Expression: TraderX.SoftwareSystems.TraderX.Containers.PeopleService.Interfaces.GetPeopleData
-            UpdateWebClient:
-              Label: Update Web Client
-              Protocol: WebSocket
+            Start:
+              Label: Start
               Flow:
                 Flows:
                 - Type: Use

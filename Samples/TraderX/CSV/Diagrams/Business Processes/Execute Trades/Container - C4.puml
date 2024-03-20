@@ -33,11 +33,11 @@ Rel(TraderX.SoftwareSystems.TraderX.Containers.WebClient, TraderX.SoftwareSystem
 Rel(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, TraderX.SoftwareSystems.TraderX.Containers.ReferenceDataService, "Get Securities\n[HTTPS]", $tags='protocol:https')
 Rel(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, TraderX.SoftwareSystems.TraderX.Containers.TradingServices, "Create Trade\nCancel Trade\n[HTTPS]", $tags='protocol:https')
 Rel(TraderX.SoftwareSystems.TraderX.Containers.TradingServices, TraderX.SoftwareSystems.TraderX.Containers.TraderXDB, "Insert Trade Request\nUpdate Trade Status\n[JDBC]", $tags='protocol:jdbc')
-Rel(TraderX.SoftwareSystems.TraderX.Containers.TradingServices, TraderX.SoftwareSystems.TraderX.Containers.TradeFeed, "Send Trade Request\nSend Updates To Trades\n[HTTPS]", $tags='protocol:https')
-Rel(TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderX.SoftwareSystems.TraderX.Containers.TradeFeed, "Receive Trade Request\nSend Updates To Trades\nSend Updates To Positions\n[HTTPS]", $tags='protocol:https')
+Rel(TraderX.SoftwareSystems.TraderX.Containers.TradingServices, TraderX.SoftwareSystems.TraderX.Containers.TradeFeed, "Send Trade Request\nSend Updates To Trades\n[SocketIO]", $tags='protocol:socketio')
+Rel(TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderX.SoftwareSystems.TraderX.Containers.TradeFeed, "Receive Trade Request\nSend Updates To Trades\nSend Updates To Positions\n[SocketIO]", $tags='protocol:socketio')
 Rel(TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderX.SoftwareSystems.TraderX.Containers.TraderXDB, "Select Current Positions\nSave Trade State\nSave Position State\n[JDBC]", $tags='protocol:jdbc')
-Rel(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, TraderX.SoftwareSystems.TraderX.Containers.TradeFeed, "Receive Updates To Trades\nReceive Updates To Positions\n[HTTPS]", $tags='protocol:https')
-Rel(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, TraderX.SoftwareSystems.TraderX.Containers.WebClient, "Send Trade And Position Status Updates\n[HTTPS]", $tags='protocol:https')
+Rel(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, TraderX.SoftwareSystems.TraderX.Containers.TradeFeed, "Receive Updates To Trades\nReceive Updates To Positions\n[WebSocket]", $tags='protocol:websocket')
+Rel(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, TraderX.SoftwareSystems.TraderX.Containers.WebClient, "Send Trade And Position Status Updates\n[WebSocket]", $tags='protocol:websocket')
 
 
 SHOW_LEGEND()

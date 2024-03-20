@@ -1,5 +1,0 @@
-TraderX:
-  Actors:
-    MessageBus:
-      Type: SoftwareSystem
-      Label: Message Bus
