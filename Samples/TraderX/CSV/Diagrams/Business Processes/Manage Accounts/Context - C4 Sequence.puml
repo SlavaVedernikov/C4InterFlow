@@ -1,0 +1,20 @@
+@startuml
+!include ..\..\.c4s\C4_Sequence.puml
+
+title Manage Accounts - C4 Sequence - Context level)
+
+Person(TraderX.Actors.Trader, "Trader", "")
+System(TraderX.SoftwareSystems.TraderX, "TraderX", "TraderX")
+
+group Trader - View Account
+Rel(TraderX.Actors.Trader, TraderX.SoftwareSystems.TraderX, "View Account")
+end
+group Trader - Create Account
+Rel(TraderX.Actors.Trader, TraderX.SoftwareSystems.TraderX, "Create Account")
+end
+group Trader - Update Account
+Rel(TraderX.Actors.Trader, TraderX.SoftwareSystems.TraderX, "Update Account")
+end
+
+
+@enduml

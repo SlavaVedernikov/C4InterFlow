@@ -167,7 +167,7 @@ namespace C4InterFlow.Automation.Writers
             return this;
         }
 
-        public virtual IAaCWriter AddSoftwareSystem(string name, string? boundary = null, string? label = null)
+        public virtual IAaCWriter AddSoftwareSystem(string name, string? boundary = null, string? label = null, string? description = null)
         {
             return this;
         }
@@ -176,6 +176,7 @@ namespace C4InterFlow.Automation.Writers
             string softwareSystemName,
             string name,
             string? label = null,
+            string? description = null,
             string? input = null,
             string? output = null,
             string? protocol = null,
@@ -184,7 +185,7 @@ namespace C4InterFlow.Automation.Writers
             return this;
         }
 
-        public virtual IAaCWriter AddContainer(string softwareSystemName, string name, string? containerType = null, string? label = null)
+        public virtual IAaCWriter AddContainer(string softwareSystemName, string name, string? containerType = null, string? label = null, string? description = null)
         {
             return this;
         }
@@ -194,6 +195,7 @@ namespace C4InterFlow.Automation.Writers
             string containerName,
             string name,
             string? label = null,
+            string? description = null,
             string? input = null,
             string? output = null,
             string? protocol = null,

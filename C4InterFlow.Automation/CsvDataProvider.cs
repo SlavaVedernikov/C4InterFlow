@@ -264,6 +264,10 @@ namespace C4InterFlow.Automation
             [Index(3)]
             public string Alias { get; set; }
 
+            [Name("Description")]
+            [Index(4)]
+            public string Description { get; set; }
+
             public string GetBoundary()
             {
                 return IsExternal ? "External" : "Internal";
@@ -323,6 +327,14 @@ namespace C4InterFlow.Automation
             [Index(3)]
             public string Alias { get; set; }
 
+            [Name("Description")]
+            [Index(4)]
+            public string Description { get; set; }
+
+            [Name("Protocol")]
+            [Index(5)]
+            public string Protocol { get; set; }
+
             public IEnumerable<SoftwareSystemInterfaceFlow> WithUses(CsvDataProvider dataProvider)
             {
                 return dataProvider.SoftwareSystemInterfaceFlowRecords.Where(x => !string.IsNullOrEmpty(x.SoftwareSystemInterface.Trim()) &&
@@ -366,6 +378,10 @@ namespace C4InterFlow.Automation
             [Name("Alias")]
             [Index(4)]
             public string Alias { get; set; }
+
+            [Name("Description")]
+            [Index(5)]
+            public string Description { get; set; }
 
             public IEnumerable<ContainerAttribute> WithAttributes(CsvDataProvider dataProvider)
             {
@@ -412,7 +428,15 @@ namespace C4InterFlow.Automation
             [Name("Alias")]
             [Index(3)]
             public string Alias { get; set; }
-            
+
+            [Name("Description")]
+            [Index(4)]
+            public string Description { get; set; }
+
+            [Name("Protocol")]
+            [Index(5)]
+            public string Protocol { get; set; }
+
 
             public IEnumerable<ContainerInterfaceFlow> WithUses(CsvDataProvider dataProvider)
             {

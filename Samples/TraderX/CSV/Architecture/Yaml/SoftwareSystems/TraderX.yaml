@@ -1,0 +1,334 @@
+TraderX:
+  SoftwareSystems:
+    TraderX:
+      Label: TraderX
+      Boundary: Internal
+      Description: TraderX
+      Containers:
+        TraderXDB:
+          Label: TraderX DB
+          ContainerType: Database
+          Description: Database which stores account
+          Interfaces:
+            SelectDefaultPositionsForAccount:
+              Label: Select Default Positions For Account
+              Protocol: JDBC
+            SelectAllTradesForAccount:
+              Label: Select All Trades For Account
+              Protocol: JDBC
+            SelectCurrentPositions:
+              Label: Select Current Positions
+              Protocol: JDBC
+            SaveTradeState:
+              Label: Save Trade State
+              Protocol: JDBC
+            SavePositionState:
+              Label: Save Position State
+              Protocol: JDBC
+            InsertTradeRequest:
+              Label: Insert Trade Request
+              Protocol: JDBC
+            UpdateTradeStatus:
+              Label: Update Trade Status
+              Protocol: JDBC
+          Attributes:
+            DataClassification:
+              Label: Data Classification
+              Value: Confidential
+        TradeFeed:
+          Label: Trade Feed
+          ContainerType: Queue
+          Description: Message bus for streaming updates to trades and positions
+          Interfaces:
+            SendUpdatesToTrades:
+              Label: Send Updates To Trades
+              Protocol: SocketIO
+            SendUpdatesToPositions:
+              Label: Send Updates To Positions
+              Protocol: SocketIO
+            ReceiveUpdatesToTrades:
+              Label: Receive Updates To Trades
+              Protocol: WebSocket
+            ReceiveUpdatesToPositions:
+              Label: Receive Updates To Positions
+              Protocol: WebSocket
+            SendTradeRequest:
+              Label: Send Trade Request
+              Protocol: SocketIO
+            ReceiveTradeRequest:
+              Label: Receive Trade Request
+              Protocol: SocketIO
+          Attributes:
+            DataClassification:
+              Label: Data Classification
+              Value: Confidential
+        TradeProcessor:
+          Label: Trade Processor
+          ContainerType: ServerConsole
+          Description: Process incoming trade requests
+          Interfaces:
+            Start:
+              Label: Start
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.ReceiveTradeRequest
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.TraderX.Containers.TraderXDB.Interfaces.SelectCurrentPositions
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.TraderX.Containers.TraderXDB.Interfaces.SaveTradeState
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.TraderX.Containers.TraderXDB.Interfaces.SavePositionState
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.SendUpdatesToTrades
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.SendUpdatesToPositions
+          Attributes:
+            DataClassification:
+              Label: Data Classification
+              Value: Confidential
+        WebClient:
+          Label: Web Client
+          ContainerType: Spa
+          Description: Browser based web interface for TraderX
+          Interfaces:
+            CreateTrade:
+              Label: Create Trade
+              Protocol: HTTPS
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.CreateTrade
+            CancelTrade:
+              Label: Cancel Trade
+              Protocol: HTTPS
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.CancelTrade
+            ViewAccount:
+              Label: View Account
+              Protocol: HTTPS
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.LoadAccount
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.LoadTradesForAccount
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.LoadPositionsForAccount
+            CreateAccount:
+              Label: Create Account
+              Protocol: HTTPS
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.CreateAccount
+            UpdateAccount:
+              Label: Update Account
+              Protocol: HTTPS
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.UpdateAccount
+            ViewTradeStatusAndPositions:
+              Label: View Trade Status And Positions
+              Protocol: HTTPS
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.LoadTradesForAccount
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.LoadPositionsForAccount
+            TypeAheadPeopleSearch:
+              Label: Type Ahead People Search
+              Protocol: HTTPS
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.TypeAheadPeopleSearch
+            UpdateTradeAndPositionStatusView:
+              Label: Update Trade And Position Status View
+              Protocol: HTTPS
+            SendTradeAndPositionStatusUpdates:
+              Label: Send Trade And Position Status Updates
+              Protocol: WebSocket
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.UpdateTradeAndPositionStatusView
+          Attributes:
+            DataClassification:
+              Label: Data Classification
+              Value: Confidential
+        WebGUI:
+          Label: Web GUI
+          ContainerType: WebApplication
+          Description: Allows employees to manage accounts and book trades
+          Interfaces:
+            LoadAccount:
+              Label: Load Account
+              Protocol: HTTPS
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.TraderX.Containers.AccountsService.Interfaces.GetAccounts
+            CreateAccount:
+              Label: Create Account
+              Protocol: HTTPS
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.TraderX.Containers.AccountsService.Interfaces.CreateAccount
+            UpdateAccount:
+              Label: Update Account
+              Protocol: HTTPS
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.TraderX.Containers.AccountsService.Interfaces.UpdateAccount
+            LoadPositionsForAccount:
+              Label: Load Positions For Account
+              Protocol: HTTPS
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.TraderX.Containers.PositionService.Interfaces.GetPositionsForAccount
+            LoadTradesForAccount:
+              Label: Load Trades For Account
+              Protocol: HTTPS
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.TraderX.Containers.PositionService.Interfaces.GetTradesForAccount
+            CreateTrade:
+              Label: Create Trade
+              Protocol: HTTPS
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.TraderX.Containers.ReferenceDataService.Interfaces.GetSecurities
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.TraderX.Containers.TradingServices.Interfaces.CreateTrade
+            CancelTrade:
+              Label: Cancel Trade
+              Protocol: HTTPS
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.TraderX.Containers.TradingServices.Interfaces.CancelTrade
+            TypeAheadPeopleSearch:
+              Label: Type Ahead People Search
+              Protocol: HTTPS
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.TraderX.Containers.PeopleService.Interfaces.GetPeopleData
+            Start:
+              Label: Start
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.ReceiveUpdatesToTrades
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.ReceiveUpdatesToPositions
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.SendTradeAndPositionStatusUpdates
+          Attributes:
+            DataClassification:
+              Label: Data Classification
+              Value: Confidential
+        PositionService:
+          Label: Position Service
+          ContainerType: Api
+          Description: Server process which processes trading activity and updates positions
+          Interfaces:
+            GetPositionsForAccount:
+              Label: Get Positions For Account
+              Protocol: HTTPS
+            GetTradesForAccount:
+              Label: Get Trades For Account
+              Protocol: HTTPS
+          Attributes:
+            DataClassification:
+              Label: Data Classification
+              Value: Confidential
+        ReferenceDataService:
+          Label: Reference Data Service
+          ContainerType: Api
+          Description: Service which provides reference data
+          Interfaces:
+            GetSecurities:
+              Label: Get Securities
+              Protocol: HTTPS
+            ValidateSecurities:
+              Label: Validate Securities
+              Protocol: HTTPS
+          Attributes:
+            DataClassification:
+              Label: Data Classification
+              Value: Confidential
+        TradingServices:
+          Label: Trading Services
+          ContainerType: Api
+          Description: Service which provides trading services
+          Interfaces:
+            CreateTrade:
+              Label: Create Trade
+              Protocol: HTTPS
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.TraderX.Containers.TraderXDB.Interfaces.InsertTradeRequest
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.SendTradeRequest
+            CancelTrade:
+              Label: Cancel Trade
+              Protocol: HTTPS
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.TraderX.Containers.TraderXDB.Interfaces.UpdateTradeStatus
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.SendUpdatesToTrades
+          Attributes:
+            DataClassification:
+              Label: Data Classification
+              Value: Confidential
+        AccountsService:
+          Label: Accounts Service
+          ContainerType: Api
+          Description: Service which provides account management
+          Interfaces:
+            GetAccounts:
+              Label: Get Accounts
+              Protocol: HTTPS
+            CreateAccount:
+              Label: Create Account
+              Protocol: HTTPS
+            UpdateAccount:
+              Label: Update Account
+              Protocol: HTTPS
+            ValidateAccounts:
+              Label: Validate Accounts
+              Protocol: HTTPS
+          Attributes:
+            DataClassification:
+              Label: Data Classification
+              Value: Confidential
+        PeopleService:
+          Label: People Service
+          ContainerType: Api
+          Description: Service which provides user details management
+          Interfaces:
+            GetPeopleData:
+              Label: Get People Data
+              Protocol: HTTPS
+              Flow:
+                Flows:
+                - Type: Use
+                  Expression: TraderX.SoftwareSystems.UserDirectory.Interfaces.SelectPeopleData
+          Attributes:
+            DataClassification:
+              Label: Data Classification
+              Value: Confidential

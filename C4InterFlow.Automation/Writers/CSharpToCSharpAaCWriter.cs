@@ -27,7 +27,7 @@ namespace C4InterFlow.Automation.Writers
             ArchitectureWorkspace.OpenProjectAsync(architectureProjectPath).Wait();
             return this;
         }
-        public override CSharpToCSharpAaCWriter AddSoftwareSystem(string name, string? boundary = null, string? label = null)
+        public override CSharpToCSharpAaCWriter AddSoftwareSystem(string name, string? boundary = null, string? label = null, string? description = null)
         {
             var project = ArchitectureWorkspace.CurrentSolution.Projects.FirstOrDefault(x => x.Name == ArchitectureNamespace);
 
@@ -54,7 +54,8 @@ namespace C4InterFlow.Automation.Writers
             var sourceCode = CSharpToAnyCodeGenerator<CSharpCodeWriter>.GetSoftwareSystemCode(
                 ArchitectureNamespace,
                 name,
-                CSharpCodeWriter.GetLabel(name));
+                CSharpCodeWriter.GetLabel(name),
+                description);
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
             var root = tree.GetRoot();
@@ -69,7 +70,7 @@ namespace C4InterFlow.Automation.Writers
             return this;
         }
 
-        public override CSharpToCSharpAaCWriter AddContainer(string softwareSystemName, string name, string? containerType = null, string? label = null)
+        public override CSharpToCSharpAaCWriter AddContainer(string softwareSystemName, string name, string? containerType = null, string? label = null, string? description = null)
         {
             var project = ArchitectureWorkspace.CurrentSolution.Projects.FirstOrDefault(x => x.Name == ArchitectureNamespace);
 
@@ -97,7 +98,9 @@ namespace C4InterFlow.Automation.Writers
                 ArchitectureNamespace,
                 softwareSystemName,
                 name,
-                CSharpCodeWriter.GetLabel(name));
+                CSharpCodeWriter.GetLabel(name),
+                containerType,
+                description);
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
             var root = tree.GetRoot();

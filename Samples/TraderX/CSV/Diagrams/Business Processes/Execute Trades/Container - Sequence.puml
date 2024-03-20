@@ -1,0 +1,67 @@
+@startuml
+
+title Execute Trades - Sequence - Container level)
+
+participant "External Process" as TraderX.Actors.ExternalProcess
+participant "Trader" as TraderX.Actors.Trader
+
+box "TraderX" #White
+    participant "Web Client" as TraderX.SoftwareSystems.TraderX.Containers.WebClient
+    participant "Web GUI" as TraderX.SoftwareSystems.TraderX.Containers.WebGUI
+    participant "Reference Data Service" as TraderX.SoftwareSystems.TraderX.Containers.ReferenceDataService
+    participant "Trading Services" as TraderX.SoftwareSystems.TraderX.Containers.TradingServices
+    database "TraderX DB" as TraderX.SoftwareSystems.TraderX.Containers.TraderXDB
+    participant "Trade Feed" as TraderX.SoftwareSystems.TraderX.Containers.TradeFeed
+    participant "Trade Processor" as TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor
+end box
+
+
+group Trader - Create Trade Request
+TraderX.Actors.Trader -> TraderX.SoftwareSystems.TraderX.Containers.WebClient : Create Trade
+group Create Trade
+TraderX.SoftwareSystems.TraderX.Containers.WebClient -> TraderX.SoftwareSystems.TraderX.Containers.WebGUI : Create Trade
+group Create Trade
+TraderX.SoftwareSystems.TraderX.Containers.WebGUI -> TraderX.SoftwareSystems.TraderX.Containers.ReferenceDataService : Get Securities
+TraderX.SoftwareSystems.TraderX.Containers.WebGUI -> TraderX.SoftwareSystems.TraderX.Containers.TradingServices : Create Trade
+group Create Trade
+TraderX.SoftwareSystems.TraderX.Containers.TradingServices -> TraderX.SoftwareSystems.TraderX.Containers.TraderXDB : Insert Trade Request
+TraderX.SoftwareSystems.TraderX.Containers.TradingServices -> TraderX.SoftwareSystems.TraderX.Containers.TradeFeed : Send Trade Request
+end
+end
+end
+end
+group External Process - Process Trade Request
+TraderX.Actors.ExternalProcess -> TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor : Start
+group Start
+TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderX.SoftwareSystems.TraderX.Containers.TradeFeed : Receive Trade Request
+TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderX.SoftwareSystems.TraderX.Containers.TraderXDB : Select Current Positions
+TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderX.SoftwareSystems.TraderX.Containers.TraderXDB : Save Trade State
+TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderX.SoftwareSystems.TraderX.Containers.TraderXDB : Save Position State
+TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderX.SoftwareSystems.TraderX.Containers.TradeFeed : Send Updates To Trades
+TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderX.SoftwareSystems.TraderX.Containers.TradeFeed : Send Updates To Positions
+end
+end
+group External Process - Refresh Web Client
+TraderX.Actors.ExternalProcess -> TraderX.SoftwareSystems.TraderX.Containers.WebGUI : Start
+group Start
+TraderX.SoftwareSystems.TraderX.Containers.WebGUI -> TraderX.SoftwareSystems.TraderX.Containers.TradeFeed : Receive Updates To Trades
+TraderX.SoftwareSystems.TraderX.Containers.WebGUI -> TraderX.SoftwareSystems.TraderX.Containers.TradeFeed : Receive Updates To Positions
+TraderX.SoftwareSystems.TraderX.Containers.WebGUI -> TraderX.SoftwareSystems.TraderX.Containers.WebClient : Send Trade And Position Status Updates
+end
+end
+group Trader - Cancel Trade
+TraderX.Actors.Trader -> TraderX.SoftwareSystems.TraderX.Containers.WebClient : Cancel Trade
+group Cancel Trade
+TraderX.SoftwareSystems.TraderX.Containers.WebClient -> TraderX.SoftwareSystems.TraderX.Containers.WebGUI : Cancel Trade
+group Cancel Trade
+TraderX.SoftwareSystems.TraderX.Containers.WebGUI -> TraderX.SoftwareSystems.TraderX.Containers.TradingServices : Cancel Trade
+group Cancel Trade
+TraderX.SoftwareSystems.TraderX.Containers.TradingServices -> TraderX.SoftwareSystems.TraderX.Containers.TraderXDB : Update Trade Status
+TraderX.SoftwareSystems.TraderX.Containers.TradingServices -> TraderX.SoftwareSystems.TraderX.Containers.TradeFeed : Send Updates To Trades
+end
+end
+end
+end
+
+
+@enduml

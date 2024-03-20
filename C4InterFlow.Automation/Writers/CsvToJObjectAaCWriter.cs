@@ -151,7 +151,7 @@ namespace C4InterFlow.Automation.Writers
             return this;
         }
 
-        public override CsvToJObjectAaCWriter AddSoftwareSystem(string name, string? boundary = null, string? label = null)
+        public override CsvToJObjectAaCWriter AddSoftwareSystem(string name, string? boundary = null, string? label = null, string? description = null)
         {
             var softwareSystemsObject = JsonArchitectureAsCode.SelectToken($"{ArchitectureNamespace}.SoftwareSystems") as JObject;
 
@@ -163,6 +163,11 @@ namespace C4InterFlow.Automation.Writers
                         { "Boundary", boundary != null ? boundary : "Internal" }
                     };
 
+                if(!string.IsNullOrEmpty(description))
+                {
+                    softwareSystemObject.Add("Description", description);
+                }
+                    
                 softwareSystemsObject.Add(name, softwareSystemObject);
 
                 if (!SoftwareSystemAaCPathToCsvRecordMap.Keys.Contains(softwareSystemObject.Path))
@@ -180,6 +185,7 @@ namespace C4InterFlow.Automation.Writers
             string softwareSystemName,
             string name,
             string? label = null,
+            string? description = null,
             string? input = null,
             string? output = null,
             string? protocol = null,
@@ -205,6 +211,16 @@ namespace C4InterFlow.Automation.Writers
                     { "Label", GetLabel(name, label) }
                 };
 
+                if (!string.IsNullOrEmpty(description))
+                {
+                    softwareSystemInterfaceObject.Add("Description", description);
+                }
+
+                if (!string.IsNullOrEmpty(protocol))
+                {
+                    softwareSystemInterfaceObject.Add("Protocol", protocol);
+                }
+
                 softwareSystemInterfacesObject.Add(name, softwareSystemInterfaceObject);
 
                 if (!SoftwareSystemInterfaceAaCPathToCsvRecordMap.Keys.Contains(softwareSystemInterfaceObject.Path))
@@ -220,7 +236,7 @@ namespace C4InterFlow.Automation.Writers
             return this;
         }
 
-        public override CsvToJObjectAaCWriter AddContainer(string softwareSystemName, string name, string? containerType = null, string? label = null)
+        public override CsvToJObjectAaCWriter AddContainer(string softwareSystemName, string name, string? containerType = null, string? label = null, string? description = null)
         {
             var containersObject = JsonArchitectureAsCode.SelectToken($"{ArchitectureNamespace}.SoftwareSystems.{softwareSystemName}.Containers") as JObject;
             if (containersObject == null)
@@ -242,6 +258,11 @@ namespace C4InterFlow.Automation.Writers
                         { "ContainerType", containerType != null ? containerType : "None" },
                     };
 
+                if (!string.IsNullOrEmpty(description))
+                {
+                    containerObject.Add("Description", description);
+                }
+
                 containersObject.Add(name, containerObject);
             }
 
@@ -253,6 +274,7 @@ namespace C4InterFlow.Automation.Writers
             string containerName,
             string name,
             string? label = null,
+            string? description = null,
             string? input = null,
             string? output = null,
             string? protocol = null,
@@ -277,6 +299,16 @@ namespace C4InterFlow.Automation.Writers
                 {
                     { "Label", GetLabel(name, label) }
                 };
+
+                if (!string.IsNullOrEmpty(description))
+                {
+                    containerInterfaceObject.Add("Description", description);
+                }
+
+                if (!string.IsNullOrEmpty(protocol))
+                {
+                    containerInterfaceObject.Add("Protocol", protocol);
+                }
 
                 containerInterfacesObject.Add(name, containerInterfaceObject);
 

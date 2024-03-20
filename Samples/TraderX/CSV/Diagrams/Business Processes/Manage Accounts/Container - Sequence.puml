@@ -1,0 +1,52 @@
+@startuml
+
+title Manage Accounts - Sequence - Container level)
+
+participant "Trader" as TraderX.Actors.Trader
+
+box "TraderX" #White
+    participant "Web Client" as TraderX.SoftwareSystems.TraderX.Containers.WebClient
+    participant "Web GUI" as TraderX.SoftwareSystems.TraderX.Containers.WebGUI
+    participant "Accounts Service" as TraderX.SoftwareSystems.TraderX.Containers.AccountsService
+    participant "Position Service" as TraderX.SoftwareSystems.TraderX.Containers.PositionService
+end box
+
+
+group Trader - View Account
+TraderX.Actors.Trader -> TraderX.SoftwareSystems.TraderX.Containers.WebClient : View Account
+group View Account
+TraderX.SoftwareSystems.TraderX.Containers.WebClient -> TraderX.SoftwareSystems.TraderX.Containers.WebGUI : Load Account
+group Load Account
+TraderX.SoftwareSystems.TraderX.Containers.WebGUI -> TraderX.SoftwareSystems.TraderX.Containers.AccountsService : Get Accounts
+end
+TraderX.SoftwareSystems.TraderX.Containers.WebClient -> TraderX.SoftwareSystems.TraderX.Containers.WebGUI : Load Trades For Account
+group Load Trades For Account
+TraderX.SoftwareSystems.TraderX.Containers.WebGUI -> TraderX.SoftwareSystems.TraderX.Containers.PositionService : Get Trades For Account
+end
+TraderX.SoftwareSystems.TraderX.Containers.WebClient -> TraderX.SoftwareSystems.TraderX.Containers.WebGUI : Load Positions For Account
+group Load Positions For Account
+TraderX.SoftwareSystems.TraderX.Containers.WebGUI -> TraderX.SoftwareSystems.TraderX.Containers.PositionService : Get Positions For Account
+end
+end
+end
+group Trader - Create Account
+TraderX.Actors.Trader -> TraderX.SoftwareSystems.TraderX.Containers.WebClient : Create Account
+group Create Account
+TraderX.SoftwareSystems.TraderX.Containers.WebClient -> TraderX.SoftwareSystems.TraderX.Containers.WebGUI : Create Account
+group Create Account
+TraderX.SoftwareSystems.TraderX.Containers.WebGUI -> TraderX.SoftwareSystems.TraderX.Containers.AccountsService : Create Account
+end
+end
+end
+group Trader - Update Account
+TraderX.Actors.Trader -> TraderX.SoftwareSystems.TraderX.Containers.WebClient : Update Account
+group Update Account
+TraderX.SoftwareSystems.TraderX.Containers.WebClient -> TraderX.SoftwareSystems.TraderX.Containers.WebGUI : Update Account
+group Update Account
+TraderX.SoftwareSystems.TraderX.Containers.WebGUI -> TraderX.SoftwareSystems.TraderX.Containers.AccountsService : Update Account
+end
+end
+end
+
+
+@enduml

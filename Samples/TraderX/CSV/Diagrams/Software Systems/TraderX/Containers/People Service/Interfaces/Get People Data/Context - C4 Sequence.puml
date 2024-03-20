@@ -1,0 +1,16 @@
+@startuml
+!include ..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title TraderX - People Service - Get People Data - C4 Sequence - Context level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+System(TraderX.SoftwareSystems.TraderX, "TraderX", "TraderX")
+System(TraderX.SoftwareSystems.UserDirectory, "User Directory", "")
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, TraderX.SoftwareSystems.TraderX, "Get People Data")
+group Get People Data
+Rel(TraderX.SoftwareSystems.TraderX, TraderX.SoftwareSystems.UserDirectory, "Select People Data")
+end
+
+
+@enduml

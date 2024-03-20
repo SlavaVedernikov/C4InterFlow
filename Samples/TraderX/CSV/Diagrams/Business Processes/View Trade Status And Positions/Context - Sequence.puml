@@ -1,0 +1,11 @@
+@startuml
+
+title View Trade Status And Positions - Sequence - Context level)
+
+participant "Trader" as TraderX.Actors.Trader
+participant "TraderX" as TraderX.SoftwareSystems.TraderX
+
+TraderX.Actors.Trader -> TraderX.SoftwareSystems.TraderX : View Trade Status And Positions
+
+
+@enduml

@@ -1,0 +1,27 @@
+@startuml
+
+title People Search - Sequence - Container level)
+
+participant "Trader" as TraderX.Actors.Trader
+
+box "TraderX" #White
+    participant "Web Client" as TraderX.SoftwareSystems.TraderX.Containers.WebClient
+    participant "Web GUI" as TraderX.SoftwareSystems.TraderX.Containers.WebGUI
+    participant "People Service" as TraderX.SoftwareSystems.TraderX.Containers.PeopleService
+end box
+
+participant "User Directory" as TraderX.SoftwareSystems.UserDirectory
+
+TraderX.Actors.Trader -> TraderX.SoftwareSystems.TraderX.Containers.WebClient : Type Ahead People Search
+group Type Ahead People Search
+TraderX.SoftwareSystems.TraderX.Containers.WebClient -> TraderX.SoftwareSystems.TraderX.Containers.WebGUI : Type Ahead People Search
+group Type Ahead People Search
+TraderX.SoftwareSystems.TraderX.Containers.WebGUI -> TraderX.SoftwareSystems.TraderX.Containers.PeopleService : Get People Data
+group Get People Data
+TraderX.SoftwareSystems.TraderX.Containers.PeopleService -> TraderX.SoftwareSystems.UserDirectory : Select People Data
+end
+end
+end
+
+
+@enduml

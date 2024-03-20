@@ -1,0 +1,10 @@
+{
+  "TraderX": {
+    "Actors": {
+      "Trader": {
+        "Type": "Person",
+        "Label": "Trader"
+      }
+    }
+  }
+}

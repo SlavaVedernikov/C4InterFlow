@@ -1,0 +1,15 @@
+@startuml
+
+title TraderX - Accounts Service - Validate Accounts - Sequence - Container level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "TraderX" #White
+    participant "Accounts Service" as TraderX.SoftwareSystems.TraderX.Containers.AccountsService
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> TraderX.SoftwareSystems.TraderX.Containers.AccountsService : Validate Accounts
+
+
+@enduml

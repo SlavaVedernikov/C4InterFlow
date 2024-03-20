@@ -1,0 +1,32 @@
+@startuml
+
+title TraderX - Web Client - View Account - Sequence - Container level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "TraderX" #White
+    participant "Web Client" as TraderX.SoftwareSystems.TraderX.Containers.WebClient
+    participant "Web GUI" as TraderX.SoftwareSystems.TraderX.Containers.WebGUI
+    participant "Accounts Service" as TraderX.SoftwareSystems.TraderX.Containers.AccountsService
+    participant "Position Service" as TraderX.SoftwareSystems.TraderX.Containers.PositionService
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> TraderX.SoftwareSystems.TraderX.Containers.WebClient : View Account
+group View Account
+TraderX.SoftwareSystems.TraderX.Containers.WebClient -> TraderX.SoftwareSystems.TraderX.Containers.WebGUI : Load Account
+group Load Account
+TraderX.SoftwareSystems.TraderX.Containers.WebGUI -> TraderX.SoftwareSystems.TraderX.Containers.AccountsService : Get Accounts
+end
+TraderX.SoftwareSystems.TraderX.Containers.WebClient -> TraderX.SoftwareSystems.TraderX.Containers.WebGUI : Load Trades For Account
+group Load Trades For Account
+TraderX.SoftwareSystems.TraderX.Containers.WebGUI -> TraderX.SoftwareSystems.TraderX.Containers.PositionService : Get Trades For Account
+end
+TraderX.SoftwareSystems.TraderX.Containers.WebClient -> TraderX.SoftwareSystems.TraderX.Containers.WebGUI : Load Positions For Account
+group Load Positions For Account
+TraderX.SoftwareSystems.TraderX.Containers.WebGUI -> TraderX.SoftwareSystems.TraderX.Containers.PositionService : Get Positions For Account
+end
+end
+
+
+@enduml

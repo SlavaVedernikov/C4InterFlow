@@ -1,0 +1,25 @@
+@startuml
+
+title TraderX - Trade Processor - Start - Sequence - Container level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "TraderX" #White
+    participant "Trade Processor" as TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor
+    participant "Trade Feed" as TraderX.SoftwareSystems.TraderX.Containers.TradeFeed
+    database "TraderX DB" as TraderX.SoftwareSystems.TraderX.Containers.TraderXDB
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor : Start
+group Start
+TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderX.SoftwareSystems.TraderX.Containers.TradeFeed : Receive Trade Request
+TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderX.SoftwareSystems.TraderX.Containers.TraderXDB : Select Current Positions
+TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderX.SoftwareSystems.TraderX.Containers.TraderXDB : Save Trade State
+TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderX.SoftwareSystems.TraderX.Containers.TraderXDB : Save Position State
+TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderX.SoftwareSystems.TraderX.Containers.TradeFeed : Send Updates To Trades
+TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderX.SoftwareSystems.TraderX.Containers.TradeFeed : Send Updates To Positions
+end
+
+
+@enduml

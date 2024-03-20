@@ -1,0 +1,11 @@
+@startuml
+
+title TraderX - Position Service - Get Trades For Account - Sequence - Context level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "TraderX" as TraderX.SoftwareSystems.TraderX
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> TraderX.SoftwareSystems.TraderX : Get Trades For Account
+
+
+@enduml

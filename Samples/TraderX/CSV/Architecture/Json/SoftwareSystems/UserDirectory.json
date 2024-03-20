@@ -1,0 +1,16 @@
+{
+  "TraderX": {
+    "SoftwareSystems": {
+      "UserDirectory": {
+        "Label": "User Directory",
+        "Boundary": "Internal",
+        "Interfaces": {
+          "SelectPeopleData": {
+            "Label": "Select People Data",
+            "Protocol": "LDAP"
+          }
+        }
+      }
+    }
+  }
+}

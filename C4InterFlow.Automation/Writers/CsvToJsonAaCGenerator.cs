@@ -20,21 +20,21 @@ namespace C4InterFlow.Automation.Writers
                             .WithSoftwareSystemsCollection();
 
                         var softwareSystemName = s.Alias;
-                        writer.AddSoftwareSystem(softwareSystemName, s.GetBoundary(), s.Name);
+                        writer.AddSoftwareSystem(softwareSystemName, s.GetBoundary(), s.Name, s.Description);
 
                         s.WithInterfaces(writer.DataProvider).ToList().ForEach(i =>
                         {
-                            writer.AddSoftwareSystemInterface(softwareSystemName, i.Alias.Split('.').Last(), i.Name);
+                            writer.AddSoftwareSystemInterface(softwareSystemName, i.Alias.Split('.').Last(), i.Name, i.Description, protocol: i.Protocol);
                         });
 
                         s.WithContainers(writer.DataProvider).ToList().ForEach(c =>
                         {
                             var containerName = c.Alias.Split('.').Last();
-                            writer.AddContainer(softwareSystemName, containerName, c.Type, c.Name);
+                            writer.AddContainer(softwareSystemName, containerName, c.Type, c.Name, c.Description);
 
                             c.WithInterfaces(writer.DataProvider).ToList().ForEach(i =>
                             {
-                                writer.AddContainerInterface(softwareSystemName, containerName, i.Alias.Split('.').Last(), i.Name);
+                                writer.AddContainerInterface(softwareSystemName, containerName, i.Alias.Split('.').Last(), i.Name, i.Description, protocol: i.Protocol);
                             });
                         });
 

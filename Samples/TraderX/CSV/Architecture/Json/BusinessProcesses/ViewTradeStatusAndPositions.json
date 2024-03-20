@@ -1,0 +1,23 @@
+{
+  "TraderX": {
+    "BusinessProcesses": {
+      "ViewTradeStatusAndPositions": {
+        "Label": "View Trade Status And Positions",
+        "Activities": [
+          {
+            "Label": "View Trade Status / Positions",
+            "Actor": "TraderX.Actors.Trader",
+            "Flow": {
+              "Flows": [
+                {
+                  "Type": "Use",
+                  "Expression": "TraderX.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.ViewTradeStatusAndPositions"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}
