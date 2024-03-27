@@ -3,14 +3,18 @@
 set "redraw-all=FALSE"
 :::::::::::::::::::::::::::::::
 
+:: Possible values: Yaml, Json
+set "aac-type=Yaml"
+:::::::::::::::::::::::::::::::
+
 set "build-configuration=Debug"
 set "aac-root-namespace=BigBankPlc"
 set "cli-project-path=..\..\..\C4InterFlow.Cli\C4InterFlow.Cli.csproj"
 set "cli-output-dir=..\..\..\C4InterFlow.Cli\bin\%build-configuration%\net6.0\win-x64"
 set "cli-exe=C4InterFlow.Cli.exe"
 set "diagrams-dir=.\Diagrams"
-set "aac-reader-strategy=C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation"
-set "aac-input-paths=.\Architecture\Yaml"
+set "aac-reader-strategy=C4InterFlow.Automation.Readers.%aac-type%AaCReaderStrategy,C4InterFlow.Automation"
+set "aac-input-paths=.\Architecture\%aac-type%"
 
 echo redraw-all: %redraw-all%
 echo aac-root-namespace: %aac-root-namespace%
