@@ -14,7 +14,7 @@ dotnet:
                       Path: ''
                       IsPrivate: false
                       Protocol: ''
-                      Flow: {}
+                      Flows: []
                       Input: ''
                       InputTemplate: ''
                       Output: ''

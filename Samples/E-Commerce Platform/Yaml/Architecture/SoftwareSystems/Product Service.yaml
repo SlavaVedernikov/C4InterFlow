@@ -5,24 +5,21 @@ ECommercePlatform:
         Api:
           Interfaces:
             GetProducts:
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: Database.Interfaces.SelectProducts
+              Flows:
+              - Type: Use
+                Expression: Database.Interfaces.SelectProducts
             UpdateProduct:
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: Database.Interfaces.UpdateProduct
-                - Type: Use
-                  Expression: Messaging.Interfaces.SendProductUpdatedEvent
+              Flows:
+              - Type: Use
+                Expression: Database.Interfaces.UpdateProduct
+              - Type: Use
+                Expression: Messaging.Interfaces.SendProductUpdatedEvent
             DeleteProduct:
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: Database.Interfaces.DeleteProduct
-                - Type: Use
-                  Expression: Messaging.Interfaces.SendProductDeletedEvent
+              Flows:
+              - Type: Use
+                Expression: Database.Interfaces.DeleteProduct
+              - Type: Use
+                Expression: Messaging.Interfaces.SendProductDeletedEvent
         Database:
           Interfaces:
             SelectProducts: {}
@@ -40,36 +37,34 @@ ECommercePlatform:
         MessageHandler:
           Interfaces:
             HandlePurchaseOrderCreatedEvent:
-              Flow:
+              Flows:
+              - Type: Use
+                Expression: BuyingService.Containers.Messaging.Interfaces.ReceivePurchaseOrderCreatedEvent
+              - Type: Loop
+                Expression: For each Product in Purchase Order
                 Flows:
                 - Type: Use
-                  Expression: BuyingService.Containers.Messaging.Interfaces.ReceivePurchaseOrderCreatedEvent
-                - Type: Loop
-                  Expression: For each Product in Purchase Order
+                  Expression: Database.Interfaces.SelectProducts
+                - Type: If
+                  Expression: Product Not Found
                   Flows:
                   - Type: Use
-                    Expression: Database.Interfaces.SelectProducts
-                  - Type: If
-                    Expression: Product Not Found
-                    Flows:
-                    - Type: Use
-                      Expression: Database.Interfaces.InsertProduct
-                    - Type: Use
-                      Expression: Messaging.Interfaces.SendProductCreatedEvent
+                    Expression: Database.Interfaces.InsertProduct
+                  - Type: Use
+                    Expression: Messaging.Interfaces.SendProductCreatedEvent
             HandlePurchaseOrderUpdatedEvent:
-              Flow:
+              Flows:
+              - Type: Use
+                Expression: BuyingService.Containers.Messaging.Interfaces.ReceivePurchaseOrderUpdatedEvent
+              - Type: Loop
+                Expression: For each Product in Purchase Order
                 Flows:
                 - Type: Use
-                  Expression: BuyingService.Containers.Messaging.Interfaces.ReceivePurchaseOrderUpdatedEvent
-                - Type: Loop
-                  Expression: For each Product in Purchase Order
+                  Expression: Database.Interfaces.SelectProducts
+                - Type: If
+                  Expression: Product Not Found
                   Flows:
                   - Type: Use
-                    Expression: Database.Interfaces.SelectProducts
-                  - Type: If
-                    Expression: Product Not Found
-                    Flows:
-                    - Type: Use
-                      Expression: Database.Interfaces.InsertProduct
-                    - Type: Use
-                      Expression: Messaging.Interfaces.SendProductCreatedEvent
+                    Expression: Database.Interfaces.InsertProduct
+                  - Type: Use
+                    Expression: Messaging.Interfaces.SendProductCreatedEvent

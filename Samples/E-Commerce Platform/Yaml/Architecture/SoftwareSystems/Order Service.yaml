@@ -5,12 +5,11 @@ ECommercePlatform:
         Api:
           Interfaces:
             CreateOrder:
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: Database.Interfaces.InsertOrder
-                - Type: Use
-                  Expression: Messaging.Interfaces.SendOrderCreatedEvent
+              Flows:
+              - Type: Use
+                Expression: Database.Interfaces.InsertOrder
+              - Type: Use
+                Expression: Messaging.Interfaces.SendOrderCreatedEvent
         Database:
           Interfaces:
             InsertOrder: {}
@@ -24,29 +23,26 @@ ECommercePlatform:
         MessageHandler:
           Interfaces:
             HandleFraudCheckResultEvent:
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: FraudService.Containers.Messaging.Interfaces.ReceiveFraudCheckResultEvent
-                - Type: Use
-                  Expression: Database.Interfaces.UpdateOrderStatus
-                - Type: Use
-                  Expression: Messaging.Interfaces.SendOrderStatusChangedEvent
+              Flows:
+              - Type: Use
+                Expression: FraudService.Containers.Messaging.Interfaces.ReceiveFraudCheckResultEvent
+              - Type: Use
+                Expression: Database.Interfaces.UpdateOrderStatus
+              - Type: Use
+                Expression: Messaging.Interfaces.SendOrderStatusChangedEvent
             HandlePaymentResultEvent:
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: PaymentService.Containers.Messaging.Interfaces.ReceivePaymentResultEvent
-                - Type: Use
-                  Expression: Database.Interfaces.UpdateOrderStatus
-                - Type: Use
-                  Expression: Messaging.Interfaces.SendOrderStatusChangedEvent
+              Flows:
+              - Type: Use
+                Expression: PaymentService.Containers.Messaging.Interfaces.ReceivePaymentResultEvent
+              - Type: Use
+                Expression: Database.Interfaces.UpdateOrderStatus
+              - Type: Use
+                Expression: Messaging.Interfaces.SendOrderStatusChangedEvent
             HandleOrderShippedEvent:
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: FulfilmentService.Containers.Messaging.Interfaces.ReceiveOrderShippedEvent
-                - Type: Use
-                  Expression: Database.Interfaces.UpdateOrderStatus
-                - Type: Use
-                  Expression: Messaging.Interfaces.SendOrderStatusChangedEvent
+              Flows:
+              - Type: Use
+                Expression: FulfilmentService.Containers.Messaging.Interfaces.ReceiveOrderShippedEvent
+              - Type: Use
+                Expression: Database.Interfaces.UpdateOrderStatus
+              - Type: Use
+                Expression: Messaging.Interfaces.SendOrderStatusChangedEvent

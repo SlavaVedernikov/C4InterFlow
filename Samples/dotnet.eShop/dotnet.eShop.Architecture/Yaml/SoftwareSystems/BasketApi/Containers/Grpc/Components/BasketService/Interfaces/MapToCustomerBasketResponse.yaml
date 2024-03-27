@@ -14,10 +14,9 @@ dotnet:
                       Path: ''
                       IsPrivate: true
                       Protocol: ''
-                      Flow:
-                        Flows:
-                        - Type: Return
-                          Expression: response
+                      Flows:
+                      - Type: Return
+                        Expression: response
                       Input: ''
                       InputTemplate: ''
                       Output: ''

@@ -3,40 +3,33 @@ ECommercePlatform:
     StorefrontBff:
       Interfaces:
         GetProducts:
-          Flow:
-            Flows:
-            - Type: Use
-              Expression: ProductService.Containers.Api.Interfaces.GetProducts
+          Flows:
+          - Type: Use
+            Expression: ProductService.Containers.Api.Interfaces.GetProducts
         SearchProducts:
-          Flow:
-            Flows:
-            - Type: Use
-              Expression: SearchService.Containers.Api.Interfaces.SearchProducts
+          Flows:
+          - Type: Use
+            Expression: SearchService.Containers.Api.Interfaces.SearchProducts
         GetBasket:
-          Flow:
-            Flows:
-            - Type: Use
-              Expression: BasketService.Containers.Api.Interfaces.GetItems
+          Flows:
+          - Type: Use
+            Expression: BasketService.Containers.Api.Interfaces.GetItems
         AddBasketItem:
-          Flow:
-            Flows:
-            - Type: Use
-              Expression: BasketService.Containers.Api.Interfaces.AddItem
+          Flows:
+          - Type: Use
+            Expression: BasketService.Containers.Api.Interfaces.AddItem
         UpdateBasketItem:
-          Flow:
-            Flows:
-            - Type: Use
-              Expression: BasketService.Containers.Api.Interfaces.UpdateItem
+          Flows:
+          - Type: Use
+            Expression: BasketService.Containers.Api.Interfaces.UpdateItem
         DeleteBasketItem:
-          Flow:
-            Flows:
-            - Type: Use
-              Expression: BasketService.Containers.Api.Interfaces.DeleteItem
+          Flows:
+          - Type: Use
+            Expression: BasketService.Containers.Api.Interfaces.DeleteItem
         Checkout:
-          Flow:
-            Flows:
-            - Type: Use
-              Expression: OrderService.Containers.Api.Interfaces.CreateOrder
-            - Type: Use
-              Expression: BasketService.Containers.Api.Interfaces.DeleteBasket
+          Flows:
+          - Type: Use
+            Expression: OrderService.Containers.Api.Interfaces.CreateOrder
+          - Type: Use
+            Expression: BasketService.Containers.Api.Interfaces.DeleteBasket
         

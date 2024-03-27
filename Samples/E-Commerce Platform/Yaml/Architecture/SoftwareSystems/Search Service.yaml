@@ -5,10 +5,9 @@ ECommercePlatform:
         Api:
           Interfaces:
             SearchProducts:
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: Database.Interfaces.SelectProducts
+              Flows:
+              - Type: Use
+                Expression: Database.Interfaces.SelectProducts
         Database:
           Interfaces:
             SelectProducts: {}
@@ -19,30 +18,26 @@ ECommercePlatform:
         MessageHandler:
           Interfaces:
             HandleProductPriceChangedEvent:
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: PricingService.Containers.Messaging.Interfaces.ReceiveProductPriceChangedEvent
-                - Type: Use
-                  Expression: Database.Interfaces.UpdateProductPrices
+              Flows:
+              - Type: Use
+                Expression: PricingService.Containers.Messaging.Interfaces.ReceiveProductPriceChangedEvent
+              - Type: Use
+                Expression: Database.Interfaces.UpdateProductPrices
             HandleProductCreatedEvent:
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: ProductService.Containers.Messaging.Interfaces.ReceiveProductCreatedEvent
-                - Type: Use
-                  Expression: Database.Interfaces.InsertProduct
+              Flows:
+              - Type: Use
+                Expression: ProductService.Containers.Messaging.Interfaces.ReceiveProductCreatedEvent
+              - Type: Use
+                Expression: Database.Interfaces.InsertProduct
             HandleProductUpdatedEvent:
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: ProductService.Containers.Messaging.Interfaces.ReceiveProductUpdatedEvent
-                - Type: Use
-                  Expression: Database.Interfaces.UpdateProduct
+              Flows:
+              - Type: Use
+                Expression: ProductService.Containers.Messaging.Interfaces.ReceiveProductUpdatedEvent
+              - Type: Use
+                Expression: Database.Interfaces.UpdateProduct
             HandleProductDeletedEvent:
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: ProductService.Containers.Messaging.Interfaces.ReceiveProductDeletedEvent
-                - Type: Use
-                  Expression: Database.Interfaces.DeleteProduct
+              Flows:
+              - Type: Use
+                Expression: ProductService.Containers.Messaging.Interfaces.ReceiveProductDeletedEvent
+              - Type: Use
+                Expression: Database.Interfaces.DeleteProduct

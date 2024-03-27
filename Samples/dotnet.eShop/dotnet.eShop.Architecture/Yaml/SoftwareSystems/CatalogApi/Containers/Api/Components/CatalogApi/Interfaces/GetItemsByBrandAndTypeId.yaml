@@ -14,12 +14,11 @@ dotnet:
                       Path: ''
                       IsPrivate: false
                       Protocol: ''
-                      Flow:
-                        Flows:
-                        - Type: Use
-                          Expression: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.Interfaces.ChangeUriPlaceholder
-                        - Type: Return
-                          Expression: TypedResults.Ok
+                      Flows:
+                      - Type: Use
+                        Expression: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.Interfaces.ChangeUriPlaceholder
+                      - Type: Return
+                        Expression: TypedResults.Ok
                       Input: ''
                       InputTemplate: ''
                       Output: ''

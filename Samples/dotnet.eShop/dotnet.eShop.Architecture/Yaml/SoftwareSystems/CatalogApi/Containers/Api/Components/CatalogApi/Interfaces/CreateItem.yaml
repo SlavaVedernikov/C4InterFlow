@@ -14,14 +14,13 @@ dotnet:
                       Path: ''
                       IsPrivate: false
                       Protocol: ''
-                      Flow:
-                        Flows:
-                        - Type: Use
-                          Expression: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.CatalogItemsAdd
-                        - Type: Use
-                          Expression: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.SaveChangesAsync
-                        - Type: Return
-                          Expression: TypedResults.CreatedAtRoute
+                      Flows:
+                      - Type: Use
+                        Expression: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.CatalogItemsAdd
+                      - Type: Use
+                        Expression: dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.SaveChangesAsync
+                      - Type: Return
+                        Expression: TypedResults.CreatedAtRoute
                       Input: ''
                       InputTemplate: ''
                       Output: ''

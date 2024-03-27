@@ -3,32 +3,26 @@ ECommercePlatform:
     BuyingAndMerchandisingApp:
       Interfaces:
         ViewPurchaseOrders:
-          Flow:
-            Flows:
-            - Type: Use
-              Expression: BuyingService.Containers.Api.Interfaces.GetPurchaseOrders
+          Flows:
+          - Type: Use
+            Expression: BuyingService.Containers.Api.Interfaces.GetPurchaseOrders
         CreatePurchaseOrder:
-          Flow:
-            Flows:
-            - Type: Use
-              Expression: BuyingService.Containers.Api.Interfaces.CreatePurchaseOrder
+          Flows:
+          - Type: Use
+            Expression: BuyingService.Containers.Api.Interfaces.CreatePurchaseOrder
         UpdatePurchaseOrder:
-          Flow:
-            Flows:
-            - Type: Use
-              Expression: BuyingService.Containers.Api.Interfaces.UpdatePurchaseOrder
+          Flows:
+          - Type: Use
+            Expression: BuyingService.Containers.Api.Interfaces.UpdatePurchaseOrder
         DeletePurchaseOrder:
-          Flow:
-            Flows:
-            - Type: Use
-              Expression: BuyingService.Containers.Api.Interfaces.DeletePurchaseOrder
+          Flows:
+          - Type: Use
+            Expression: BuyingService.Containers.Api.Interfaces.DeletePurchaseOrder
         ViewProductPrices:
-          Flow:
-            Flows:
-            - Type: Use
-              Expression: PricingService.Containers.Api.Interfaces.GetProductPrices
+          Flows:
+          - Type: Use
+            Expression: PricingService.Containers.Api.Interfaces.GetProductPrices
         UpdateProductPrices:
-          Flow:
-            Flows:
-            - Type: Use
-              Expression: PricingService.Containers.Api.Interfaces.UpdateProductPrices
+          Flows:
+          - Type: Use
+            Expression: PricingService.Containers.Api.Interfaces.UpdateProductPrices

@@ -183,7 +183,11 @@ namespace C4InterFlow.Automation.Writers
 
             var componentInterfaceJsonObject = architectureObject.SelectToken("..SoftwareSystems.*.Containers.*.Components.*.Interfaces.*") as JObject;
 
-            componentInterfaceJsonObject["Flow"] = flowJsonObject["Flow"];
+            var flows = flowJsonObject["Flow"]?["Flows"];
+            if(flows != null)
+            {
+                componentInterfaceJsonObject["Flows"] = flows;
+            }
 
             var json = JsonConvert.SerializeObject(architectureObject, Formatting.Indented);
             var yaml = new SerializerBuilder().Build().Serialize(JsonConvert.DeserializeObject<ExpandoObject>(json));

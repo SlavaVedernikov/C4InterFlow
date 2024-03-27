@@ -5,12 +5,11 @@ ECommercePlatform:
         Api:
           Interfaces:
             PostPaymentResultEvent:
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: Database.Interfaces.InsertPaymentResult
-                - Type: Use
-                  Expression: Messaging.Interfaces.SendPaymentResultEvent
+              Flows:
+              - Type: Use
+                Expression: Database.Interfaces.InsertPaymentResult
+              - Type: Use
+                Expression: Messaging.Interfaces.SendPaymentResultEvent
         Database:
           Interfaces:
             InsertPaymentResult: {}
@@ -22,14 +21,13 @@ ECommercePlatform:
         MessageHandler:
           Interfaces:
             HandleOrderStatusChangedEvent:
-              Flow:
+              Flows:
+              - Type: Use
+                Expression: OrderService.Containers.Messaging.Interfaces.ReceiveOrderStatusChangedEvent
+              - Type: If
+                Expression: Order Status is 'Pending Payment'
                 Flows:
                 - Type: Use
-                  Expression: OrderService.Containers.Messaging.Interfaces.ReceiveOrderStatusChangedEvent
-                - Type: If
-                  Expression: Order Status is 'Pending Payment'
-                  Flows:
-                  - Type: Use
-                    Expression: Database.Interfaces.InsertOrder
-                  - Type: Use
-                    Expression: PaymentProvider.Interfaces.ProcessPayment
+                  Expression: Database.Interfaces.InsertOrder
+                - Type: Use
+                  Expression: PaymentProvider.Interfaces.ProcessPayment

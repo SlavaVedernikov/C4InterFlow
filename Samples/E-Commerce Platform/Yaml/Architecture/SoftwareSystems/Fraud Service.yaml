@@ -5,17 +5,15 @@ ECommercePlatform:
         Api:
           Interfaces:
             GetHighRiskOrders:
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: Database.Interfaces.SelectHighRiskOrders
+              Flows:
+              - Type: Use
+                Expression: Database.Interfaces.SelectHighRiskOrders
             UpdateOrderFraudCheckResult:
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: Database.Interfaces.UpdateFraudCheckResult
-                - Type: Use
-                  Expression: Messaging.Interfaces.SendFraudCheckResultEvent
+              Flows:
+              - Type: Use
+                Expression: Database.Interfaces.UpdateFraudCheckResult
+              - Type: Use
+                Expression: Messaging.Interfaces.SendFraudCheckResultEvent
         Database:
           Interfaces:
             InsertOrder: {}
@@ -29,15 +27,14 @@ ECommercePlatform:
         MessageHandler:
           Interfaces:
             HandleOrderCreatedEvent:
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: OrderService.Containers.Messaging.Interfaces.ReceiveOrderCreatedEvent
-                - Type: Use
-                  Expression: Database.Interfaces.InsertOrder
-                - Type: Use
-                  Expression: FraudEngine.Interfaces.GetFraudCheckResult
-                - Type: Use
-                  Expression: Database.Interfaces.InsertFraudCheckResult
-                - Type: Use
-                  Expression: Messaging.Interfaces.SendFraudCheckResultEvent
+              Flows:
+              - Type: Use
+                Expression: OrderService.Containers.Messaging.Interfaces.ReceiveOrderCreatedEvent
+              - Type: Use
+                Expression: Database.Interfaces.InsertOrder
+              - Type: Use
+                Expression: FraudEngine.Interfaces.GetFraudCheckResult
+              - Type: Use
+                Expression: Database.Interfaces.InsertFraudCheckResult
+              - Type: Use
+                Expression: Messaging.Interfaces.SendFraudCheckResultEvent
