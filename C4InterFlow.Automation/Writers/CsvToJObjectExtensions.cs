@@ -111,10 +111,7 @@ namespace C4InterFlow.Automation.Writers
                 }
             });
 
-            jsonObject.Add("Flow", new JObject
-                        {
-                            { "Flows", flows }
-                        });
+            jsonObject.Add("Flows", flows);
 
             return jsonObject;
         }
@@ -168,10 +165,7 @@ namespace C4InterFlow.Automation.Writers
                     }
                 });
 
-            jsonObject.Add("Flow", new JObject
-                        {
-                            { "Flows", flows }
-                        });
+            jsonObject.Add("Flows", flows);
 
             return jsonObject;
         }

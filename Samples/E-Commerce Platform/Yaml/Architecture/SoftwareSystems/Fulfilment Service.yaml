@@ -5,12 +5,11 @@ ECommercePlatform:
         Api:
           Interfaces:
             PostOrderShippedEvent:
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: Database.Interfaces.UpdateOrderStatus
-                - Type: Use
-                  Expression: Messaging.Interfaces.SendOrderShippedEvent
+              Flows:
+              - Type: Use
+                Expression: Database.Interfaces.UpdateOrderStatus
+              - Type: Use
+                Expression: Messaging.Interfaces.SendOrderShippedEvent
         Database:
           Interfaces:
             InsertOrder: {}
@@ -22,16 +21,15 @@ ECommercePlatform:
         MessageHandler:
           Interfaces:
             HandleOrderStatusChangedEvent:
-              Flow:
+              Flows:
+              - Type: Use
+                Expression: OrderService.Containers.Messaging.Interfaces.ReceiveOrderStatusChangedEvent
+              - Type: If
+                Expression: Order Status is 'Pending Shipment'
                 Flows:
                 - Type: Use
-                  Expression: OrderService.Containers.Messaging.Interfaces.ReceiveOrderStatusChangedEvent
-                - Type: If
-                  Expression: Order Status is 'Pending Shipment'
-                  Flows:
-                  - Type: Use
-                    Expression: Database.Interfaces.InsertOrder
-                  - Type: Use
-                    Expression: WMS.Interfaces.ShipOrder
-                  - Type: Use
-                    Expression: Database.Interfaces.UpdateOrderStatus
+                  Expression: Database.Interfaces.InsertOrder
+                - Type: Use
+                  Expression: WMS.Interfaces.ShipOrder
+                - Type: Use
+                  Expression: Database.Interfaces.UpdateOrderStatus

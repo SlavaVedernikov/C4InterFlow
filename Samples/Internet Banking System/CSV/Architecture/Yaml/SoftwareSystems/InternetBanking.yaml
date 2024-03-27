@@ -10,10 +10,9 @@ BigBankPlc:
           Interfaces:
             Navigate:
               Label: Navigate
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.LoadAndStart
+              Flows:
+              - Type: Use
+                Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.LoadAndStart
         SinglePageApp:
           Label: Single-Page App
           ContainerType: Spa
@@ -22,110 +21,95 @@ BigBankPlc:
               Label: Load And Start
             SignIn:
               Label: Sign In
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.SignIn
+              Flows:
+              - Type: Use
+                Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.SignIn
             ChangePassword:
               Label: Change Password
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.ChangePassword
+              Flows:
+              - Type: Use
+                Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.ChangePassword
             ViewCustomerDetails:
               Label: View Customer Details
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.GetCustomer
-                - Type: Use
-                  Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.GetCustomerAccounts
+              Flows:
+              - Type: Use
+                Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.GetCustomer
+              - Type: Use
+                Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.GetCustomerAccounts
             ViewAccountTransactions:
               Label: View Account Transactions
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.GetAccountTransactions
+              Flows:
+              - Type: Use
+                Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.GetAccountTransactions
             CreateAccount:
               Label: Create Account
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.CreateAccount
+              Flows:
+              - Type: Use
+                Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.CreateAccount
         MobileApp:
           Label: Mobile App
           ContainerType: Mobile
           Interfaces:
             SignIn:
               Label: Sign In
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.SignIn
+              Flows:
+              - Type: Use
+                Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.SignIn
             ChangePassword:
               Label: Change Password
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.ChangePassword
+              Flows:
+              - Type: Use
+                Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.ChangePassword
             ViewCustomerDetails:
               Label: View Customer Details
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.GetCustomer
-                - Type: Use
-                  Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.GetCustomerAccounts
+              Flows:
+              - Type: Use
+                Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.GetCustomer
+              - Type: Use
+                Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.GetCustomerAccounts
             ViewAccountTransactions:
               Label: View Account Transactions
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.GetAccountTransactions
+              Flows:
+              - Type: Use
+                Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.GetAccountTransactions
         APIApplication:
           Label: API Application
           ContainerType: Spa
           Interfaces:
             SignIn:
               Label: Sign In
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database.Interfaces.AuthenticateUser
+              Flows:
+              - Type: Use
+                Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database.Interfaces.AuthenticateUser
             ChangePassword:
               Label: Change Password
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database.Interfaces.UpdateUserPassword
-                - Type: Use
-                  Expression: BigBankPlc.SoftwareSystems.EMailSystem.Interfaces.SendPasswordChangedNotificationEMail
+              Flows:
+              - Type: Use
+                Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database.Interfaces.UpdateUserPassword
+              - Type: Use
+                Expression: BigBankPlc.SoftwareSystems.EMailSystem.Interfaces.SendPasswordChangedNotificationEMail
             GetCustomer:
               Label: Get Customer
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: BigBankPlc.SoftwareSystems.MainframeBankingSystem.Interfaces.GetCustomer
+              Flows:
+              - Type: Use
+                Expression: BigBankPlc.SoftwareSystems.MainframeBankingSystem.Interfaces.GetCustomer
             GetCustomerAccounts:
               Label: Get Customer Accounts
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: BigBankPlc.SoftwareSystems.MainframeBankingSystem.Interfaces.GetCustomerAccounts
+              Flows:
+              - Type: Use
+                Expression: BigBankPlc.SoftwareSystems.MainframeBankingSystem.Interfaces.GetCustomerAccounts
             GetAccountTransactions:
               Label: Get Account Transactions
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: BigBankPlc.SoftwareSystems.MainframeBankingSystem.Interfaces.GetAccountTransactions
+              Flows:
+              - Type: Use
+                Expression: BigBankPlc.SoftwareSystems.MainframeBankingSystem.Interfaces.GetAccountTransactions
             CreateAccount:
               Label: Create Account
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: BigBankPlc.SoftwareSystems.MainframeBankingSystem.Interfaces.CreateAccount
-                - Type: Use
-                  Expression: BigBankPlc.SoftwareSystems.EMailSystem.Interfaces.SendNewAccountCreatedNotificationEMail
+              Flows:
+              - Type: Use
+                Expression: BigBankPlc.SoftwareSystems.MainframeBankingSystem.Interfaces.CreateAccount
+              - Type: Use
+                Expression: BigBankPlc.SoftwareSystems.EMailSystem.Interfaces.SendNewAccountCreatedNotificationEMail
         Database:
           Label: Database
           ContainerType: Database

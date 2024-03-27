@@ -5,30 +5,25 @@ ECommercePlatform:
         Api:
           Interfaces:
             GetItems:
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: Database.Interfaces.SelectItems
+              Flows:
+              - Type: Use
+                Expression: Database.Interfaces.SelectItems
             AddItem:
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: Database.Interfaces.InsertItem
+              Flows:
+              - Type: Use
+                Expression: Database.Interfaces.InsertItem
             UpdateItem:
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: Database.Interfaces.UpdateItem
+              Flows:
+              - Type: Use
+                Expression: Database.Interfaces.UpdateItem
             DeleteItem:
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: Database.Interfaces.DeleteItem
+              Flows:
+              - Type: Use
+                Expression: Database.Interfaces.DeleteItem
             DeleteBasket:
-              Flow:
-                Flows:
-                - Type: Use
-                  Expression: Database.Interfaces.DeleteBasket
+              Flows:
+              - Type: Use
+                Expression: Database.Interfaces.DeleteBasket
         Database:
           Interfaces:
             InsertItem: {}

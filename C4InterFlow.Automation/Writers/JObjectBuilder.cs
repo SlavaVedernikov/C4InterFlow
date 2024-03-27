@@ -141,7 +141,7 @@ namespace C4InterFlow.Automation.Writers
             currentObject.Add("Path", path != null ? path : string.Empty);
             currentObject.Add("IsPrivate", isPrivate != null ? isPrivate.Value : false);
             currentObject.Add("Protocol", protocol != null ? protocol : string.Empty);
-            currentObject.Add("Flow", new JObject());
+            currentObject.Add("Flows", new JArray());
             currentObject.Add("Input", input != null ? input : string.Empty);
             currentObject.Add("InputTemplate", inputTemplate != null ? inputTemplate : string.Empty);
             currentObject.Add("Output", output != null ? output : string.Empty);
@@ -159,7 +159,7 @@ namespace C4InterFlow.Automation.Writers
             currentObject.Add("Label", label);
             currentObject.Add("Description", description != null ? description : string.Empty);
             currentObject.Add("Protocol", protocol != null ? protocol : string.Empty);
-            currentObject.Add("Flow", new JObject());
+            currentObject.Add("Flows", new JArray());
             currentObject.Add("Input", input != null ? input : string.Empty);
             currentObject.Add("InputTemplate", inputTemplate != null ? inputTemplate : string.Empty);
             currentObject.Add("Output", output != null ? output : string.Empty);
@@ -177,7 +177,7 @@ namespace C4InterFlow.Automation.Writers
             currentObject.Add("Label", label);
             currentObject.Add("Description", description != null ? description : string.Empty);
             currentObject.Add("Protocol", protocol != null ? protocol : string.Empty);
-            currentObject.Add("Flow", new JObject());
+            currentObject.Add("Flows", new JArray());
             currentObject.Add("Input", input != null ? input : string.Empty);
             currentObject.Add("InputTemplate", inputTemplate != null ? inputTemplate : string.Empty);
             currentObject.Add("Output", output != null ? output : string.Empty);

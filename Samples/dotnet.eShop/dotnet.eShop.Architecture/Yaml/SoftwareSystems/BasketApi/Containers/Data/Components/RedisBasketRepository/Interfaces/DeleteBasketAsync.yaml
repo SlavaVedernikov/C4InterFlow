@@ -14,10 +14,9 @@ dotnet:
                       Path: ''
                       IsPrivate: false
                       Protocol: ''
-                      Flow:
-                        Flows:
-                        - Type: Use
-                          Expression: dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase.Interfaces.KeyDeleteAsync
+                      Flows:
+                      - Type: Use
+                        Expression: dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase.Interfaces.KeyDeleteAsync
                       Input: ''
                       InputTemplate: ''
                       Output: ''

@@ -3,12 +3,10 @@ ECommercePlatform:
     CRMApp:
       Interfaces:
         ViewHighRiskOrders:
-          Flow:
-            Flows:
-            - Type: Use
-              Expression: FraudService.Containers.Api.Interfaces.GetHighRiskOrders
+          Flows:
+          - Type: Use
+            Expression: FraudService.Containers.Api.Interfaces.GetHighRiskOrders
         UpdateOrderFraudCheckResult:
-          Flow:
-            Flows:
-            - Type: Use
-              Expression: FraudService.Containers.Api.Interfaces.UpdateOrderFraudCheckResult
+          Flows:
+          - Type: Use
+            Expression: FraudService.Containers.Api.Interfaces.UpdateOrderFraudCheckResult

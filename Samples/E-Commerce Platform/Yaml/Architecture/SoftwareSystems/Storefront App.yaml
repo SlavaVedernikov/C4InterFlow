@@ -3,37 +3,30 @@ ECommercePlatform:
     StorefrontApp:
       Interfaces:
         ViewProducts:
-          Flow:
-            Flows:
-            - Type: Use
-              Expression: StorefrontBff.Interfaces.GetProducts
+          Flows:
+          - Type: Use
+            Expression: StorefrontBff.Interfaces.GetProducts
         SearchProducts:
-          Flow:
-            Flows:
-            - Type: Use
-              Expression: StorefrontBff.Interfaces.SearchProducts
+          Flows:
+          - Type: Use
+            Expression: StorefrontBff.Interfaces.SearchProducts
         ViewBasket:
-          Flow:
-            Flows:
-            - Type: Use
-              Expression: StorefrontBff.Interfaces.GetBasket
+          Flows:
+          - Type: Use
+            Expression: StorefrontBff.Interfaces.GetBasket
         AddProductToBasket:
-          Flow:
-            Flows:
-            - Type: Use
-              Expression: StorefrontBff.Interfaces.AddBasketItem
+          Flows:
+          - Type: Use
+            Expression: StorefrontBff.Interfaces.AddBasketItem
         UpdateBasketItem:
-          Flow:
-            Flows:
-            - Type: Use
-              Expression: StorefrontBff.Interfaces.UpdateBasketItem
+          Flows:
+          - Type: Use
+            Expression: StorefrontBff.Interfaces.UpdateBasketItem
         DeleteBasketItem:
-          Flow:
-            Flows:
-            - Type: Use
-              Expression: StorefrontBff.Interfaces.DeleteBasketItem
+          Flows:
+          - Type: Use
+            Expression: StorefrontBff.Interfaces.DeleteBasketItem
         Checkout :
-          Flow:
-            Flows:
-            - Type: Use
-              Expression: StorefrontBff.Interfaces.Checkout
+          Flows:
+          - Type: Use
+            Expression: StorefrontBff.Interfaces.Checkout

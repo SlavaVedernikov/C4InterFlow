@@ -87,6 +87,11 @@ namespace C4InterFlow.Automation.Readers
                     else
                     {
                         interfaceFlow = new Flow(alias);
+                        var interfaceFlows = token!["Flows"]?.ToObject<List<Flow>>();
+                        if(interfaceFlows != null)
+                        {
+                            interfaceFlow.AddFlowsRange(interfaceFlows);
+                        }
                     }
 
                     result = new Interface(ownerToken.Path, alias, label)
