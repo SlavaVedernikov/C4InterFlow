@@ -102,6 +102,12 @@ The table below maps Problems to Possible Solutions and C4InterFlow Capabilities
 - Have a **question** or any other **enquiries**, [let's talk](https://www.c4interflow.com/letstalk).
 - Want to **work together** on **your** implementation of **Architecture as Code**, [let's talk](https://www.c4interflow.com/letstalk).
 
+# Feedback
+
+If you've tried using C4InterFlow, we would love to hear from you.  
+What were your expectations? What were you trying to achieve? Did it work for you? What was missing?  
+Leave us [your feedback](https://github.com/SlavaVedernikov/C4InterFlow/discussions/73).  We'll learn from it and try our best to make C4InterFlow better for you.
+
 # System Requirements
 
 - **Java** and `plantuml.jar` (embedded as a resource).
