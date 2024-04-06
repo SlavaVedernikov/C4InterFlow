@@ -1,0 +1,23 @@
+@startuml
+
+title To Do App - Mobile App - Delete Task - Sequence - Container level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "To Do App" #White
+    participant "Mobile App" as ToDoAppExample.SoftwareSystems.ToDoApp.Containers.MobileApp
+    participant "Web Api" as ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi
+    participant "Database" as ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ToDoAppExample.SoftwareSystems.ToDoApp.Containers.MobileApp : Delete Task
+group Delete Task
+ToDoAppExample.SoftwareSystems.ToDoApp.Containers.MobileApp -> ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi : Delete Task
+group Delete Task
+ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi -> ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database : Delete Task
+end
+end
+
+
+@enduml

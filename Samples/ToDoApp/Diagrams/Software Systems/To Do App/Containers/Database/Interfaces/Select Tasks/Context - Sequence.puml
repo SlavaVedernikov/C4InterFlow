@@ -1,0 +1,11 @@
+@startuml
+
+title To Do App - Database - Select Tasks - Sequence - Context level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "To Do App" as ToDoAppExample.SoftwareSystems.ToDoApp
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ToDoAppExample.SoftwareSystems.ToDoApp : Select Tasks
+
+
+@enduml
