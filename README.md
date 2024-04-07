@@ -101,6 +101,9 @@ The table below maps Problems to Possible Solutions and C4InterFlow Capabilities
 - **Learn** more on the [wiki](https://github.com/SlavaVedernikov/C4InterFlow/wiki)
 - Have a **question** or any other **enquiries**, [let's talk](https://www.c4interflow.com/letstalk).
 - Want to **work together** on **your** implementation of **Architecture as Code**, [let's talk](https://www.c4interflow.com/letstalk).
+- Want to discuss the best place to start, [Book a FREE 30 minutes consultation](https://scheduler.zoom.us/c4interflow/getting-started-consultation)
+
+<a href="https://scheduler.zoom.us/c4interflow/getting-started-consultation"><img src="\Documentation/Images/Consultation Booking.png" /></a>
 
 # Feedback
 
