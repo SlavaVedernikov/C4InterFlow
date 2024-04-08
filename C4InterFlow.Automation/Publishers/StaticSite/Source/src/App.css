@@ -1,0 +1,95 @@
+/* Spli- */
+.split-pane {
+  display: flex;
+  height: 100vh;
+}
+
+.pane {
+  overflow: auto;
+  width: 50%; /* adjust this as needed */
+}
+
+.pane-left {
+  overflow-x: auto;
+}
+
+.gutter {
+  background-color: #ccc;
+  background-repeat: no-repeat;
+  background-position: 50%;
+}
+.gutter.gutter-horizontal {
+  background-image: url('data:image/png;base64,...'); /* add a vertical line image or gradient for the splitter */
+  cursor: col-resize;
+}
+
+/* Tree View */
+.tree-view,
+.tree-view ul {
+  list-style: none;
+  padding-left: 1em;
+}
+
+.tree-view li {
+  margin-bottom: 0.5em;
+}
+
+.tree-view button {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0px;
+  margin-bottom: 2px;
+  text-align: left;
+  cursor: pointer;
+  outline: inherit;
+}
+
+.node {
+  display: flex;
+  align-items: center;
+}
+
+.chevron {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 7px;
+  border-right: 2px solid;
+  border-bottom: 2px solid;
+  transform: rotate(-45deg);
+}
+
+.chevron.expanded {
+  transform: rotate(45deg) translateY(-3px);
+  margin-right: 7px;
+}
+
+.node.selected {
+  font-weight: bold;
+}
+
+
+/* Controls */
+.controls-container {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 1024px) {
+  .controls-container {
+    flex-direction: row;
+  }
+}
+
+fieldset {
+  margin: 10px;
+}
+
+/* Diagrams */
+
+.diagrams-container {
+  margin: 10px;
+}
+
+
