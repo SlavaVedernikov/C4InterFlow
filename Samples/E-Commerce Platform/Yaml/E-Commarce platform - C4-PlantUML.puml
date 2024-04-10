@@ -1,0 +1,130 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+skinparam linetype polyline
+
+title E-Commerce Platform - C4 - Container level
+
+System(BuyingAndMerchandisingApp, "Buying And Merchandising App", "")
+
+System_Boundary(BuyingService, "Buying Service") {
+    Container(BuyingService.Api, "Api", "", "")
+    Container(BuyingService.Database, "Database", "", "")
+    Container(BuyingService.Messaging, "Messaging", "", "")
+    Container(BuyingService.MessageHandler, "Message Handler", "", "")
+}
+
+System_Boundary(PricingService, "Pricing Service") {
+    Container(PricingService.Api, "Api", "", "")
+    Container(PricingService.Database, "Database", "", "")
+    Container(PricingService.Messaging, "Messaging", "", "")
+    Container(PricingService.MessageHandler, "Message Handler", "", "")
+}
+System(CRMApp, "CRM App", "")
+
+System_Boundary(FraudService, "Fraud Service") {
+    Container(FraudService.Api, "Api", "", "")
+    Container(FraudService.Database, "Database", "", "")
+    Container(FraudService.Messaging, "Messaging", "", "")
+    Container(FraudService.MessageHandler, "Message Handler", "", "")
+}
+System(FraudEngine, "Fraud Engine", "")
+System(PaymentProvider, "Payment Provider", "")
+System(PIMApp, "PIM App", "")
+
+System_Boundary(ProductService, "Product Service") {
+    Container(ProductService.Api, "Api", "", "")
+    Container(ProductService.Database, "Database", "", "")
+    Container(ProductService.Messaging, "Messaging", "", "")
+    Container(ProductService.MessageHandler, "Message Handler", "", "")
+}
+System(StorefrontApp, "Storefront App", "")
+System(StorefrontBff, "Storefront Bff", "")
+
+System_Boundary(SearchService, "Search Service") {
+    Container(SearchService.Api, "Api", "", "")
+    Container(SearchService.Database, "Database", "", "")
+    Container(SearchService.MessageHandler, "Message Handler", "", "")
+}
+
+System_Boundary(BasketService, "Basket Service") {
+    Container(BasketService.Api, "Api", "", "")
+    Container(BasketService.Database, "Database", "", "")
+}
+
+System_Boundary(OrderService, "Order Service") {
+    Container(OrderService.Api, "Api", "", "")
+    Container(OrderService.Database, "Database", "", "")
+    Container(OrderService.Messaging, "Messaging", "", "")
+    Container(OrderService.MessageHandler, "Message Handler", "", "")
+}
+System(WMS, "WMS", "")
+
+System_Boundary(FulfilmentService, "Fulfilment Service") {
+    Container(FulfilmentService.Api, "Api", "", "")
+    Container(FulfilmentService.Database, "Database", "", "")
+    Container(FulfilmentService.Messaging, "Messaging", "", "")
+    Container(FulfilmentService.MessageHandler, "Message Handler", "", "")
+}
+
+System_Boundary(PaymentService, "Payment Service") {
+    Container(PaymentService.Messaging, "Messaging", "", "")
+    Container(PaymentService.Api, "Api", "", "")
+    Container(PaymentService.Database, "Database", "", "")
+    Container(PaymentService.MessageHandler, "Message Handler", "", "")
+}
+
+Rel(BuyingAndMerchandisingApp, BuyingService.Api, "Get Purchase Orders\nCreate Purchase Order\nUpdate Purchase Order\nDelete Purchase Order")
+Rel(BuyingService.Api, BuyingService.Database, "Select Purchase Order\nInsert Purchase Order\nUpdate Purchase Order\nDelete Purchase Order")
+Rel(BuyingService.Api, BuyingService.Messaging, "Send Purchase Order Created Event\nSend Purchase Order Updated Event\nSend Purchase Order Deleted Event")
+Rel(BuyingAndMerchandisingApp, PricingService.Api, "Get Product Prices\nUpdate Product Prices")
+Rel(PricingService.Api, PricingService.Database, "Select Product Prices\nUpdate Product Prices")
+Rel(PricingService.Api, PricingService.Messaging, "Send Product Price Changed Event")
+Rel(CRMApp, FraudService.Api, "Get High Risk Orders\nUpdate Order Fraud Check Result")
+Rel(FraudService.Api, FraudService.Database, "Select High Risk Orders\nUpdate Fraud Check Result")
+Rel(FraudService.Api, FraudService.Messaging, "Send Fraud Check Result Event")
+Rel(PIMApp, ProductService.Api, "Get Products\nUpdate Product\nDelete Product")
+Rel(ProductService.Api, ProductService.Database, "Select Products\nUpdate Product\nDelete Product")
+Rel(ProductService.Api, ProductService.Messaging, "Send Product Updated Event\nSend Product Deleted Event")
+Rel(StorefrontApp, StorefrontBff, "Get Products\nSearch Products\nGet Basket\nAdd Basket Item\nUpdate Basket Item\nDelete Basket Item\nCheckout")
+Rel(StorefrontBff, ProductService.Api, "Get Products")
+Rel(StorefrontBff, SearchService.Api, "Search Products")
+Rel(SearchService.Api, SearchService.Database, "Select Products")
+Rel(StorefrontBff, BasketService.Api, "Get Items\nAdd Item\nUpdate Item\nDelete Item\nDelete Basket")
+Rel(BasketService.Api, BasketService.Database, "Select Items\nInsert Item\nUpdate Item\nDelete Item\nDelete Basket")
+Rel(StorefrontBff, OrderService.Api, "Create Order")
+Rel(OrderService.Api, OrderService.Database, "Insert Order")
+Rel(OrderService.Api, OrderService.Messaging, "Send Order Created Event")
+Rel(BuyingService.MessageHandler, BuyingService.Messaging, "Receive Purchase Order Created Event\nReceive Purchase Order Updated Event\nReceive Purchase Order Deleted Event")
+Rel(BuyingService.MessageHandler, WMS, "Create Purchase Order\nUpdate Purchase Order\nDelete Purchase Order")
+Rel(FraudService.MessageHandler, OrderService.Messaging, "Receive Order Created Event")
+Rel(FraudService.MessageHandler, FraudService.Database, "Insert Order\nInsert Fraud Check Result")
+Rel(FraudService.MessageHandler, FraudEngine, "Get Fraud Check Result")
+Rel(FraudService.MessageHandler, FraudService.Messaging, "Send Fraud Check Result Event")
+Rel(FulfilmentService.Api, FulfilmentService.Database, "Update Order Status")
+Rel(FulfilmentService.Api, FulfilmentService.Messaging, "Send Order Shipped Event")
+Rel(FulfilmentService.MessageHandler, OrderService.Messaging, "Receive Order Status Changed Event")
+Rel(FulfilmentService.MessageHandler, FulfilmentService.Database, "Insert Order\nUpdate Order Status")
+Rel(FulfilmentService.MessageHandler, WMS, "Ship Order")
+Rel(OrderService.MessageHandler, FraudService.Messaging, "Receive Fraud Check Result Event")
+Rel(OrderService.MessageHandler, OrderService.Database, "Update Order Status")
+Rel(OrderService.MessageHandler, OrderService.Messaging, "Send Order Status Changed Event")
+Rel(OrderService.MessageHandler, PaymentService.Messaging, "Receive Payment Result Event")
+Rel(OrderService.MessageHandler, FulfilmentService.Messaging, "Receive Order Shipped Event")
+Rel(PaymentService.Api, PaymentService.Database, "Insert Payment Result")
+Rel(PaymentService.Api, PaymentService.Messaging, "Send Payment Result Event")
+Rel(PaymentService.MessageHandler, OrderService.Messaging, "Receive Order Status Changed Event")
+Rel(PaymentService.MessageHandler, PaymentService.Database, "Insert Order")
+Rel(PaymentService.MessageHandler, PaymentProvider, "Process Payment")
+Rel(PricingService.MessageHandler, BuyingService.Messaging, "Receive Purchase Order Created Event\nReceive Purchase Order Updated Event")
+Rel(PricingService.MessageHandler, PricingService.Database, "Select Products\nInsert Product")
+Rel(ProductService.MessageHandler, BuyingService.Messaging, "Receive Purchase Order Created Event\nReceive Purchase Order Updated Event")
+Rel(ProductService.MessageHandler, ProductService.Database, "Select Products\nInsert Product")
+Rel(ProductService.MessageHandler, ProductService.Messaging, "Send Product Created Event")
+Rel(SearchService.MessageHandler, PricingService.Messaging, "Receive Product Price Changed Event")
+Rel(SearchService.MessageHandler, SearchService.Database, "Update Product Prices\nInsert Product\nUpdate Product\nDelete Product")
+Rel(SearchService.MessageHandler, ProductService.Messaging, "Receive Product Created Event\nReceive Product Updated Event\nReceive Product Deleted Event")
+
+
+SHOW_LEGEND()
+@enduml
