@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Split from 'react-split';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { solarizedlight } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { oneLight as PrismStyle} from 'react-syntax-highlighter/dist/esm/styles/prism';
 import classNames from 'classnames';
 import './App.css';
 
@@ -104,7 +104,7 @@ const DiagramView = ({ selectedNode, levelOfDetail, type, format }) => {
     if (format === 'png' || format === 'svg') {
       return <img src={diagramUrl} alt="Diagram" />;
     } else if (format === 'puml') {
-      return <SyntaxHighlighter language="plantuml" style={solarizedlight}>{plantUMLCode}</SyntaxHighlighter>;
+      return <SyntaxHighlighter language="yang" style={PrismStyle} showLineNumbers="true">{plantUMLCode}</SyntaxHighlighter>;
     }
   };
 
