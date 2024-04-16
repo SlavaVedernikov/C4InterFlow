@@ -59,7 +59,7 @@ public class ExecuteAaCStrategyCommand: Command
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Architecture As Code automation Strategy execution failed: '{e.Message}'");
+            Console.WriteLine($"'{COMMAND_NAME}' command execution failed: '{e.Message}'");
             return 1;
         }
     }

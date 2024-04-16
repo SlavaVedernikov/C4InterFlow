@@ -1,2 +1,2 @@
-set NODE_OPTIONS=--openssl-legacy-provider
-npm start
+@echo off
+call npm start

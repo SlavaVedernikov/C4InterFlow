@@ -1,2 +1,4 @@
-set NODE_OPTIONS=--openssl-legacy-provider
-npm run build
+@echo off
+call npm install
+call npm run build
+pause

@@ -1,3 +1,4 @@
+using C4InterFlow.Structures;
 using System.CommandLine;
 
 namespace C4InterFlow.Cli.Commands.Options;
@@ -22,5 +23,10 @@ public static class DiagramFormatsOption
         option.FromAmong(SVG, PNG, MD);
 
         return option;
+    }
+
+    public static string[] GetAllDiagramFormats()
+    {
+        return new[] { PUML, SVG, PNG, MD };
     }
 }

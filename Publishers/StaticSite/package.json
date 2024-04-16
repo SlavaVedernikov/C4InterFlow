@@ -1,5 +1,5 @@
 {
-  "name": "diagrams-visualiser",
+  "name": "c4interflow-diagrams-visualiser",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
