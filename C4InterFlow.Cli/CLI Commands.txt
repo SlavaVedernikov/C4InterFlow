@@ -7,3 +7,14 @@ draw-diagrams --aac-input-paths "C:\C4InterFlow\Samples\Internet Banking System\
 draw-diagrams --aac-input-paths "C:\C4InterFlow\Samples\E-Commerce Platform\Yaml\Architecture" --aac-reader-strategy "C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation" --interfaces ECommercePlatform.SoftwareSystems.*.Interfaces.* ECommercePlatform.SoftwareSystems.*.Containers.*.Interfaces.* --levels-of-details context container --output-dir "C:\C4InterFlow\Samples\E-Commerce Platform\Yaml\Diagrams"
 
 publish-site --site-source-dir "C:\C4InterFlow\Publishers\StaticSite" --output-dir "C:\C4InterFlow\Samples\E-Commerce Platform\Yaml\Diagrams"
+
+
+publish-site --site-source-dir "C:\C4InterFlow\Publishers\StaticSite" --output-dir "C:\architecture-as-code-samples-visualiser\e-commerce-platform" --environment-variables "HOMEPAGE=architecture-as-code-samples-visualiser/e-commerce-platform"
+
+publish-site --site-source-dir "C:\C4InterFlow\Publishers\StaticSite" --output-dir "C:\architecture-as-code-samples-visualiser\dotnet-eshop" --environment-variables "HOMEPAGE=architecture-as-code-samples-visualiser/dotnet-eshop"
+
+publish-site --site-source-dir "C:\C4InterFlow\Publishers\StaticSite" --output-dir "C:\architecture-as-code-samples-visualiser\internet-banking-system" --environment-variables "HOMEPAGE=architecture-as-code-samples-visualiser/internet-banking-system"
+
+publish-site --site-source-dir "C:\C4InterFlow\Publishers\StaticSite" --output-dir "C:\architecture-as-code-samples-visualiser\todo-app" --environment-variables "HOMEPAGE=architecture-as-code-samples-visualiser/todo-app"
+
+publish-site --site-source-dir "C:\C4InterFlow\Publishers\StaticSite" --output-dir "C:\architecture-as-code-samples-visualiser\trader-x" --environment-variables "HOMEPAGE=architecture-as-code-samples-visualiser/trader-x"

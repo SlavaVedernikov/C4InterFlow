@@ -16,20 +16,22 @@ public class PublishSiteCommand : Command
         var batchFileOption = BatchFileOption.Get();
         var siteBuildDirectoryOption = SiteBuildDirectoryOption.Get();
         var diagramFormatsOption = DiagramFormatsOption.Get();
+        var environmentVariablesOption = EnvironmentVariablesOption.Get();
 
         AddOption(siteSourceDirectoryOption);
         AddOption(outputDirectoryOption);
         AddOption(batchFileOption);
         AddOption(siteBuildDirectoryOption);
+        AddOption(environmentVariablesOption);
 
-        this.SetHandler(async (siteSourceDirectory, outputDirectory, batchFile, siteBuildDirectory, diagramFormats) =>
+        this.SetHandler(async (siteSourceDirectory, outputDirectory, batchFile, siteBuildDirectory, diagramFormats, environmentVariables) =>
             {
-                await Execute(siteSourceDirectory, outputDirectory, batchFile, siteBuildDirectory, diagramFormats);
+                await Execute(siteSourceDirectory, outputDirectory, batchFile, siteBuildDirectory, diagramFormats, environmentVariables);
             },
-            siteSourceDirectoryOption, outputDirectoryOption, batchFileOption, siteBuildDirectoryOption, diagramFormatsOption);
+            siteSourceDirectoryOption, outputDirectoryOption, batchFileOption, siteBuildDirectoryOption, diagramFormatsOption, environmentVariablesOption);
     }
 
-    private static async Task<int> Execute(string siteSourceDirectory, string outputDirectory, string? batchFile = null, string? siteBuildDirectory = null, string[]? diagramFormats = null)
+    private static async Task<int> Execute(string siteSourceDirectory, string outputDirectory, string? batchFile = null, string? siteBuildDirectory = null, string[]? diagramFormats = null, string[]? environmentVariables = null)
     {
 
         diagramFormats = diagramFormats?.Length > 0  ? diagramFormats : DiagramFormatsOption.GetAllDiagramFormats();
@@ -48,7 +50,7 @@ public class PublishSiteCommand : Command
             File.WriteAllText(Path.Join(outputDirectory, "sitemap.json"), json);
 
 
-            RunBatchFile(Path.Join(siteSourceDirectory, batchFile.Replace(siteSourceDirectory, "").TrimStart('\\')));
+            RunBatchFile(Path.Join(siteSourceDirectory, batchFile.Replace(siteSourceDirectory, "").TrimStart('\\')), environmentVariables);
 
             CopyFilesRecursively(Path.Join(siteSourceDirectory, siteBuildDirectory.Replace(siteSourceDirectory, "").TrimStart('\\')), outputDirectory);
 
@@ -105,7 +107,7 @@ public class PublishSiteCommand : Command
         }
     }
 
-    private static void RunBatchFile(string batchFile)
+    private static void RunBatchFile(string batchFile, string[]? environmentVariables = null)
     {
         string currentDirectory = Directory.GetCurrentDirectory();
 
@@ -116,34 +118,27 @@ public class PublishSiteCommand : Command
 
         process.StartInfo.FileName = "cmd.exe";
         process.StartInfo.Arguments = $"/c \"{batchFile}\"";
-        process.StartInfo.UseShellExecute = false;
-        process.StartInfo.RedirectStandardOutput = !process.StartInfo.UseShellExecute;
-        process.StartInfo.RedirectStandardError = !process.StartInfo.UseShellExecute;
+
+        if(environmentVariables != null)
+        {
+            foreach(var environmentVariable in environmentVariables)
+            {
+                var segments = environmentVariable.Split('=');
+                if(segments.Length == 2)
+                {
+                    process.StartInfo.EnvironmentVariables[segments[0].Trim()] = segments[1].Trim();
+                }
+            }
+            
+        }
+        
 
         process.Start();
 
         var output = string.Empty;
         var error = string.Empty;
 
-        if (!process.StartInfo.UseShellExecute)
-        {
-            //output = process.StandardOutput.ReadToEnd();
-            //error = process.StandardError.ReadToEnd();
-        }
-
         process.WaitForExit();
-
-        if(!string.IsNullOrEmpty(output))
-        {
-            Console.WriteLine("Batch File Output: " + output);
-        }
-        
-        if(!string.IsNullOrEmpty(error))
-        {
-            Console.WriteLine("Batch File Error: " + error);
-        }
-        
-        Console.WriteLine("Batch File execution exited with code: " + process.ExitCode.ToString());
 
         // Change the current directory back to the original one
         Directory.SetCurrentDirectory(currentDirectory);

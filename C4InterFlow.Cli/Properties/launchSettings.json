@@ -2,7 +2,7 @@
   "profiles": {
     "C4InterFlow.Cli": {
       "commandName": "Project",
-      "commandLineArgs": "publish-site --site-source-dir \"C:\\C4InterFlow\\Publishers\\StaticSite\" --output-dir \"C:\\C4InterFlow\\Samples\\E-Commerce Platform\\Yaml\\Diagrams\""
+      "commandLineArgs": "publish-site --site-source-dir \"C:\\C4InterFlow\\Publishers\\StaticSite\" --output-dir \"C:\\architecture-as-code-samples-visualiser\\trader-x\" --environment-variables \"HOMEPAGE=architecture-as-code-samples-visualiser/trader-x\""
     }
   }
 }
