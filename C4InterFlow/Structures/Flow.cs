@@ -5,6 +5,9 @@ namespace C4InterFlow.Structures
 {    
     public record Flow
     {
+        private static readonly Regex ComponentsRegex = new Regex(@"\.Components\.[^.]*");
+        private static readonly Regex ContainersRegex = new Regex(@"\.Containers\.[^.]*");
+
         public enum FlowType
         {
             None,
@@ -191,7 +194,7 @@ namespace C4InterFlow.Structures
 
             flows.ForEach(x =>
             {
-                if(x.Flows == null || x.Flows.Count == 0 || x.Owner.Contains(".Components."))
+                if(x.Flows == null || x.Flows.Count == 0 || ComponentsRegex.IsMatch(x.Owner))
                 {
                     x.Type = FlowType.None;
                 }
@@ -230,9 +233,9 @@ namespace C4InterFlow.Structures
             flows.ForEach(x =>
             {
                 if (x.Flows == null || 
-                x.Flows.Count == 0 || 
-                x.Owner.Contains(".Components.") || 
-                x.Owner.Contains(".Containers."))
+                x.Flows.Count == 0 ||
+                ComponentsRegex.IsMatch(x.Owner) ||
+                ContainersRegex.IsMatch(x.Owner))
                 {
                     x.Type = FlowType.None;
                 }
@@ -240,10 +243,26 @@ namespace C4InterFlow.Structures
         }
         private void InferContainerInterfaces(Flow flow, string currentScope)
         {
-            if(flow.Type == FlowType.Use)
+            if (flow.Type == FlowType.Use)
             {
-                flow.Expression = new Regex(@"\.Components\.[^.]*").Replace(flow.Expression, string.Empty);
-                flow.SetOwner(new Regex(@"\.Components\.[^.]*").Replace(flow.Owner, string.Empty), true);
+                var inferredExpression = ComponentsRegex.Replace(flow.Expression, string.Empty);
+                var inferredOwner = ComponentsRegex.Replace(flow.Owner, string.Empty);
+
+                if (flow.Expression.Equals(inferredExpression) && flow.Owner.Equals(inferredOwner))
+                {
+                    if (flow.Flows != null)
+                    {
+                        foreach (var segment in flow.Flows)
+                        {
+                            InferContainerInterfaces(segment, currentScope);
+                        }
+                    }
+
+                    return;
+                }
+
+                flow.Expression = inferredExpression;
+                flow.SetOwner(inferredOwner, true);
 
                 var newScope = Utils.GetContainerAlias(flow.Expression);
 
@@ -272,7 +291,7 @@ namespace C4InterFlow.Structures
             }
             else if (flow.Type == FlowType.Return || flow.Type == FlowType.ThrowException) 
             {
-                if(flow.Owner.Contains(".Components."))
+                if(ComponentsRegex.IsMatch(flow.Owner))
                 {
                     flow.Type = FlowType.None;
                 }
@@ -293,11 +312,28 @@ namespace C4InterFlow.Structures
         {
             if (flow.Type == FlowType.Use)
             {
-                flow.Expression = new Regex(@"\.Components\.[^.]*").Replace(flow.Expression, string.Empty);
-                flow.SetOwner(new Regex(@"\.Components\.[^.]*").Replace(flow.Owner, string.Empty), true);
+                var inferredExpression = ComponentsRegex.Replace(flow.Expression, string.Empty);
+                var inferredOwner = ComponentsRegex.Replace(flow.Owner, string.Empty);
 
-                flow.Expression = new Regex(@"\.Containers\.[^.]*").Replace(flow.Expression, string.Empty);
-                flow.SetOwner(new Regex(@"\.Containers\.[^.]*").Replace(flow.Owner, string.Empty), true);
+                inferredExpression = ContainersRegex.Replace(inferredExpression, string.Empty);
+                inferredOwner = ContainersRegex.Replace(inferredOwner, string.Empty);
+
+                if (flow.Expression.Equals(inferredExpression) && flow.Owner.Equals(inferredOwner))
+                {
+                    if (flow.Flows != null)
+                    {
+                        foreach (var segment in flow.Flows)
+                        {
+                            InferSoftwareSystemInterfaces(segment, currentScope);
+                        }
+                    }
+
+                    return;
+                }
+                    
+                flow.Expression = inferredExpression;
+                flow.SetOwner(inferredOwner, true);
+
 
                 var newScope = Utils.GetSoftwareSystemAlias(flow.Expression);
 
@@ -321,7 +357,7 @@ namespace C4InterFlow.Structures
             }
             else if (flow.Type == FlowType.Return || flow.Type == FlowType.ThrowException)
             {
-                if (flow.Owner.Contains(".Components.") || flow.Owner.Contains(".Containers."))
+                if (ComponentsRegex.IsMatch(flow.Owner) || ContainersRegex.IsMatch(flow.Owner))
                 {
                     flow.Type = FlowType.None;
                 }

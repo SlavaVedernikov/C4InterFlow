@@ -47,6 +47,9 @@ group Start
 Rel(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, TraderX.SoftwareSystems.TraderX.Containers.TradeFeed, "Receive Updates To Trades")
 Rel(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, TraderX.SoftwareSystems.TraderX.Containers.TradeFeed, "Receive Updates To Positions")
 Rel(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, TraderX.SoftwareSystems.TraderX.Containers.WebClient, "Send Trade And Position Status Updates")
+group Send Trade And Position Status Updates
+Rel(TraderX.SoftwareSystems.TraderX.Containers.WebClient, TraderX.SoftwareSystems.TraderX.Containers.WebClient, "Update Trade And Position Status View")
+end
 end
 end
 group Trader - Cancel Trade
