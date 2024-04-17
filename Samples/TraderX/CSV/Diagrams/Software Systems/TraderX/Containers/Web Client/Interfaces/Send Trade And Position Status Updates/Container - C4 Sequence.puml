@@ -10,6 +10,9 @@ System_Boundary(TraderX.SoftwareSystems.TraderX, "TraderX")
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, TraderX.SoftwareSystems.TraderX.Containers.WebClient, "Send Trade And Position Status Updates")
+group Send Trade And Position Status Updates
+Rel(TraderX.SoftwareSystems.TraderX.Containers.WebClient, TraderX.SoftwareSystems.TraderX.Containers.WebClient, "Update Trade And Position Status View")
+end
 
 
 @enduml

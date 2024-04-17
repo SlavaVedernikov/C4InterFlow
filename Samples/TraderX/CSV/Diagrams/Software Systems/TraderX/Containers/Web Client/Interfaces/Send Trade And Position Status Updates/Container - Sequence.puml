@@ -10,6 +10,9 @@ end box
 
 
 C4InterFlow.SoftwareSystems.ExternalSystem -> TraderX.SoftwareSystems.TraderX.Containers.WebClient : Send Trade And Position Status Updates
+group Send Trade And Position Status Updates
+TraderX.SoftwareSystems.TraderX.Containers.WebClient -> TraderX.SoftwareSystems.TraderX.Containers.WebClient : Update Trade And Position Status View
+end
 
 
 @enduml
