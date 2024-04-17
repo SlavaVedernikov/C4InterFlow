@@ -4,4 +4,9 @@ draw-diagrams --aac-input-paths "C:\C4InterFlow\Samples\Internet Banking System\
 
 draw-diagrams --aac-input-paths "C:\C4InterFlow\Samples\Internet Banking System\CSV\Architecture\Json" --aac-reader-strategy "C4InterFlow.Automation.Readers.JsonAaCReaderStrategy,C4InterFlow.Automation" --interfaces BigBankPlc.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes BigBankPlc.BusinessProcesses.* --levels-of-details context container --output-dir "C:\C4InterFlow\Samples\Internet Banking System\CSV\Diagrams"
 
+
+
+
 draw-diagrams --aac-input-paths "C:\C4InterFlow\Samples\E-Commerce Platform\Yaml\Architecture" --aac-reader-strategy "C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation" --interfaces ECommercePlatform.SoftwareSystems.*.Interfaces.* ECommercePlatform.SoftwareSystems.*.Containers.*.Interfaces.* --levels-of-details context container --output-dir "C:\C4InterFlow\Samples\E-Commerce Platform\Yaml\Diagrams"
+
+draw-diagrams --aac-input-paths "C:\C4InterFlow\Samples\E-Commerce Platform\Yaml\Architecture" --aac-reader-strategy "C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation" --interfaces ECommercePlatform.SoftwareSystems.BuyingAndMerchandisingApp.Interfaces.CreatePurchaseOrder --levels-of-details context --scopes software-system-interface --types c4-sequence --output-dir "C:\C4InterFlow\Samples\E-Commerce Platform\Yaml\Diagrams"
