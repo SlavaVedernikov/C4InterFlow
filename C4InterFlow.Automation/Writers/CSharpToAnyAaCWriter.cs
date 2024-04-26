@@ -190,23 +190,25 @@ namespace C4InterFlow.Automation.Writers
 
                                     // Get the symbol info for the method
                                     var methodSymbolInfo = semanticModel.GetSymbolInfo(invocation.Expression);
-                                    var methodSymbol = (IMethodSymbol)methodSymbolInfo.Symbol;
+                                    var methodSymbol = (IMethodSymbol)(methodSymbolInfo.Symbol ?? methodSymbolInfo.CandidateSymbols.FirstOrDefault());
 
                                     // Get the type arguments
-                                    var typeArguments = methodSymbol.TypeArguments;
-
-                                    if (typeArguments.Count() == 2)
+                                    if (methodSymbol != null)
                                     {
-                                        var interfaceName = typeArguments[0].ToDisplayString();
-                                        var implementationName = typeArguments[1].ToDisplayString();
+                                        var typeArguments = methodSymbol.TypeArguments;
 
-                                        if (!result.ContainsKey(interfaceName))
+                                        if (typeArguments.Count() == 2)
                                         {
-                                            result.Add(interfaceName, implementationName);
+                                            var interfaceName = typeArguments[0].ToDisplayString();
+                                            var implementationName = typeArguments[1].ToDisplayString();
+
+                                            if (!result.ContainsKey(interfaceName))
+                                            {
+                                                result.Add(interfaceName, implementationName);
+                                            }
+
                                         }
-
                                     }
-
                                 }
                             }
                         }

@@ -51,6 +51,7 @@ namespace C4InterFlow.Visualisation.Plantuml
         private static StringBuilder BuildSequenceBody(this StringBuilder stream, Diagram diagram, SequenceDiagramStyle style)
         {
             var flowParticipants = diagram.Flow?.Flows?
+                .Where(x => x.Type != Structures.Flow.FlowType.None)
                 .Select(x => Utils.GetInstance<Structures.Structure>(x.Owner))
                 .Where(x => x != null && !diagram.Structures.Any(s => s.Alias == x.Alias)).Distinct();
 

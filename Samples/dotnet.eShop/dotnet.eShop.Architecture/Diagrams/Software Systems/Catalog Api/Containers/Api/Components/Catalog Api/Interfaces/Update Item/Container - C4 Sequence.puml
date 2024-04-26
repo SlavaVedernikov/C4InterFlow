@@ -11,9 +11,7 @@ System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi, "Catalog A
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api, "Update Item")
-group Update Item
 Rel(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Save Changes Async")
-end
 
 
 @enduml

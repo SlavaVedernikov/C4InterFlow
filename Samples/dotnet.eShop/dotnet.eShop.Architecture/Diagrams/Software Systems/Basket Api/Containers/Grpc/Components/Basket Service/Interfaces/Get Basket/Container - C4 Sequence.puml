@@ -11,9 +11,7 @@ System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.BasketApi, "Basket Api
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc, "Get Basket")
-group Get Basket
 Rel(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data, "Get Basket Async")
-end
 
 
 @enduml

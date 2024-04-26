@@ -11,9 +11,7 @@ System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi, "Catalog A
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api, "Get Items By Ids")
-group Get Items By Ids
 Rel(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Catalog Items To List Async")
-end
 
 
 @enduml

@@ -2,7 +2,7 @@
   "profiles": {
     "C4InterFlow.Cli": {
       "commandName": "Project",
-      "commandLineArgs": "draw-diagrams --aac-input-paths \"C:\\C4InterFlow\\Samples\\E-Commerce Platform\\Yaml\\Architecture\" --aac-reader-strategy \"C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation\" --interfaces ECommercePlatform.SoftwareSystems.BuyingAndMerchandisingApp.Interfaces.CreatePurchaseOrder --levels-of-details context --scopes software-system-interface --types c4-sequence --output-dir \"C:\\C4InterFlow\\Samples\\E-Commerce Platform\\Yaml\\Diagrams\""
+      "commandLineArgs": "draw-diagrams --business-processes BtcTurk.BusinessProcesses.* --levels-of-details container --types c4-sequence --aac-reader-strategy \"C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"C:\\Data\\Work\\BtcTurk\\Architecture\\Borsa Istanbul\\BIST Integration\\Architecture\" --output-dir \"C:\\Data\\Work\\BtcTurk\\Architecture\\Borsa Istanbul\\BIST Integration\\Diagrams\""
     }
   }
 }

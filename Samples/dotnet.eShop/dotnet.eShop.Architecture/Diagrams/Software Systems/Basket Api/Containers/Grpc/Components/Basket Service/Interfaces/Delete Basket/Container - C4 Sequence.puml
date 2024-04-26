@@ -11,9 +11,7 @@ System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.BasketApi, "Basket Api
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc, "Delete Basket")
-group Delete Basket
 Rel(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data, "Delete Basket Async")
-end
 
 
 @enduml
