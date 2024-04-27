@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\.c4s\C4_Sequence.puml
 
-title People Search - C4 Sequence - Container level)
+title People Search - C4 Sequence - Container level
 
 Person(TraderX.Actors.Trader, "Trader", "")
 
@@ -13,15 +13,9 @@ Boundary_End()
 System(TraderX.SoftwareSystems.UserDirectory, "User Directory", "")
 
 Rel(TraderX.Actors.Trader, TraderX.SoftwareSystems.TraderX.Containers.WebClient, "Type Ahead People Search")
-group Type Ahead People Search
 Rel(TraderX.SoftwareSystems.TraderX.Containers.WebClient, TraderX.SoftwareSystems.TraderX.Containers.WebGUI, "Type Ahead People Search")
-group Type Ahead People Search
 Rel(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, TraderX.SoftwareSystems.TraderX.Containers.PeopleService, "Get People Data")
-group Get People Data
 Rel(TraderX.SoftwareSystems.TraderX.Containers.PeopleService, TraderX.SoftwareSystems.UserDirectory, "Select People Data")
-end
-end
-end
 
 
 @enduml

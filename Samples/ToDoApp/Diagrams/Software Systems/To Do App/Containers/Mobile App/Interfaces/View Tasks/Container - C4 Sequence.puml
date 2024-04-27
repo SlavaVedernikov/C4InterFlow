@@ -12,12 +12,8 @@ System_Boundary(ToDoAppExample.SoftwareSystems.ToDoApp, "To Do App")
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ToDoAppExample.SoftwareSystems.ToDoApp.Containers.MobileApp, "View Tasks")
-group View Tasks
 Rel(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.MobileApp, ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, "Get Tasks")
-group Get Tasks
 Rel(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database, "Select Tasks")
-end
-end
 
 
 @enduml

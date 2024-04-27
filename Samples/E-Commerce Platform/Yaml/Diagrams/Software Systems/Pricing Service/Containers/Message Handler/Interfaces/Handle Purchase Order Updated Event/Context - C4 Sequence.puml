@@ -8,9 +8,7 @@ System(ECommercePlatform.SoftwareSystems.PricingService, "Pricing Service", "")
 System(ECommercePlatform.SoftwareSystems.BuyingService, "Buying Service", "")
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.PricingService, "Handle Purchase Order Updated Event")
-group Handle Purchase Order Updated Event
 Rel(ECommercePlatform.SoftwareSystems.PricingService, ECommercePlatform.SoftwareSystems.BuyingService, "Receive Purchase Order Updated Event")
-end
 
 
 @enduml

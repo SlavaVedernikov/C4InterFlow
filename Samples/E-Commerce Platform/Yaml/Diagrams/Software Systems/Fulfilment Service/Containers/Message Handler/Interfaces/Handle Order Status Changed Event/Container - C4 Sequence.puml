@@ -16,13 +16,11 @@ Boundary_End()
 System(ECommercePlatform.SoftwareSystems.WMS, "WMS", "")
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.MessageHandler, "Handle Order Status Changed Event")
-group Handle Order Status Changed Event
 Rel(ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.OrderService.Containers.Messaging, "Receive Order Status Changed Event")
 alt Order Status is 'Pending Shipment'
 Rel(ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Database, "Insert Order")
 Rel(ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.WMS, "Ship Order")
 Rel(ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Database, "Update Order Status")
-end
 end
 
 

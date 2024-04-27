@@ -13,13 +13,9 @@ System_Ext(BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Mainframe Banking
 System_Ext(BigBankPlc.SoftwareSystems.EMailSystem, "E-Mail System", "")
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "Create Account")
-group Create Account
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "Create Account")
-group Create Account
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Create Account")
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.EMailSystem, "Send New Account Created Notification E-Mail")
-end
-end
 
 
 @enduml

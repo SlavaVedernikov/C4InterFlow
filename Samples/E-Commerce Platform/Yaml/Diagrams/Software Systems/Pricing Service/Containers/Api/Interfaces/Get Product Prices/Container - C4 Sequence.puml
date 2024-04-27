@@ -11,9 +11,7 @@ System_Boundary(ECommercePlatform.SoftwareSystems.PricingService, "Pricing Servi
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.PricingService.Containers.Api, "Get Product Prices")
-group Get Product Prices
 Rel(ECommercePlatform.SoftwareSystems.PricingService.Containers.Api, ECommercePlatform.SoftwareSystems.PricingService.Containers.Database, "Select Product Prices")
-end
 
 
 @enduml

@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Complete (End-To-End) - C4 Static - Context level)
+title Complete (End-To-End) - C4 Static - Context level
 
 Person(BigBankPlc.Actors.Customer, "Customer", "A customer of the bank, with personal bank accounts")
 System(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking", "Provided Internet Banking services")

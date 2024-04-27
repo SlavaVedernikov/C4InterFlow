@@ -12,10 +12,8 @@ System_Boundary(ECommercePlatform.SoftwareSystems.OrderService, "Order Service")
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.OrderService.Containers.Api, "Create Order")
-group Create Order
 Rel(ECommercePlatform.SoftwareSystems.OrderService.Containers.Api, ECommercePlatform.SoftwareSystems.OrderService.Containers.Database, "Insert Order")
 Rel(ECommercePlatform.SoftwareSystems.OrderService.Containers.Api, ECommercePlatform.SoftwareSystems.OrderService.Containers.Messaging, "Send Order Created Event")
-end
 
 
 @enduml

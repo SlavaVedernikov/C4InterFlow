@@ -16,11 +16,9 @@ System_Boundary(ECommercePlatform.SoftwareSystems.FraudService, "Fraud Service")
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.OrderService.Containers.MessageHandler, "Handle Fraud Check Result Event")
-group Handle Fraud Check Result Event
 Rel(ECommercePlatform.SoftwareSystems.OrderService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.FraudService.Containers.Messaging, "Receive Fraud Check Result Event")
 Rel(ECommercePlatform.SoftwareSystems.OrderService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.OrderService.Containers.Database, "Update Order Status")
 Rel(ECommercePlatform.SoftwareSystems.OrderService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.OrderService.Containers.Messaging, "Send Order Status Changed Event")
-end
 
 
 @enduml

@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title People Search - C4 Static - Container level)
+title People Search - C4 Static - Container level
 
 Person(TraderX.Actors.Trader, "Trader", "")
 

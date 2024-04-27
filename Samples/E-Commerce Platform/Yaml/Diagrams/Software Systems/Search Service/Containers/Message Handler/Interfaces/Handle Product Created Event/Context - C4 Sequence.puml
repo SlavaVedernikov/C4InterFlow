@@ -8,9 +8,7 @@ System(ECommercePlatform.SoftwareSystems.SearchService, "Search Service", "")
 System(ECommercePlatform.SoftwareSystems.ProductService, "Product Service", "")
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.SearchService, "Handle Product Created Event")
-group Handle Product Created Event
 Rel(ECommercePlatform.SoftwareSystems.SearchService, ECommercePlatform.SoftwareSystems.ProductService, "Receive Product Created Event")
-end
 
 
 @enduml

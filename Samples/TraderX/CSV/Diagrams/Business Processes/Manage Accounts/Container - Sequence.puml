@@ -1,6 +1,6 @@
 @startuml
 
-title Manage Accounts - Sequence - Container level)
+title Manage Accounts - Sequence - Container level
 
 participant "Trader" as TraderX.Actors.Trader
 

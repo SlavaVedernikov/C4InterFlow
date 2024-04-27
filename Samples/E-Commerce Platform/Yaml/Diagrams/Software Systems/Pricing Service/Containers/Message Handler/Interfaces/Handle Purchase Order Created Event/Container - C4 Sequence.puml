@@ -15,13 +15,11 @@ System_Boundary(ECommercePlatform.SoftwareSystems.BuyingService, "Buying Service
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.PricingService.Containers.MessageHandler, "Handle Purchase Order Created Event")
-group Handle Purchase Order Created Event
 Rel(ECommercePlatform.SoftwareSystems.PricingService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging, "Receive Purchase Order Created Event")
 loop For each Product in Purchase Order
 Rel(ECommercePlatform.SoftwareSystems.PricingService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.PricingService.Containers.Database, "Select Products")
 alt Product Not Found
 Rel(ECommercePlatform.SoftwareSystems.PricingService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.PricingService.Containers.Database, "Insert Product")
-end
 end
 end
 

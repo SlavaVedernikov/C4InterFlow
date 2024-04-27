@@ -8,9 +8,7 @@ System(TraderX.SoftwareSystems.TraderX, "TraderX", "TraderX")
 System(TraderX.SoftwareSystems.UserDirectory, "User Directory", "")
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, TraderX.SoftwareSystems.TraderX, "Type Ahead People Search")
-group Type Ahead People Search
 Rel(TraderX.SoftwareSystems.TraderX, TraderX.SoftwareSystems.UserDirectory, "Select People Data")
-end
 
 
 @enduml

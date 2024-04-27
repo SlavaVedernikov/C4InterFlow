@@ -8,9 +8,7 @@ System(ECommercePlatform.SoftwareSystems.SearchService, "Search Service", "")
 System(ECommercePlatform.SoftwareSystems.PricingService, "Pricing Service", "")
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.SearchService, "Handle Product Price Changed Event")
-group Handle Product Price Changed Event
 Rel(ECommercePlatform.SoftwareSystems.SearchService, ECommercePlatform.SoftwareSystems.PricingService, "Receive Product Price Changed Event")
-end
 
 
 @enduml

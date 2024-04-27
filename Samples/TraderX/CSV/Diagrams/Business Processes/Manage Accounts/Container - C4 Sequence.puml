@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\.c4s\C4_Sequence.puml
 
-title Manage Accounts - C4 Sequence - Container level)
+title Manage Accounts - C4 Sequence - Container level
 
 Person(TraderX.Actors.Trader, "Trader", "")
 
@@ -14,38 +14,22 @@ Boundary_End()
 
 group Trader - View Account
 Rel(TraderX.Actors.Trader, TraderX.SoftwareSystems.TraderX.Containers.WebClient, "View Account")
-group View Account
 Rel(TraderX.SoftwareSystems.TraderX.Containers.WebClient, TraderX.SoftwareSystems.TraderX.Containers.WebGUI, "Load Account")
-group Load Account
 Rel(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, TraderX.SoftwareSystems.TraderX.Containers.AccountsService, "Get Accounts")
-end
 Rel(TraderX.SoftwareSystems.TraderX.Containers.WebClient, TraderX.SoftwareSystems.TraderX.Containers.WebGUI, "Load Trades For Account")
-group Load Trades For Account
 Rel(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, TraderX.SoftwareSystems.TraderX.Containers.PositionService, "Get Trades For Account")
-end
 Rel(TraderX.SoftwareSystems.TraderX.Containers.WebClient, TraderX.SoftwareSystems.TraderX.Containers.WebGUI, "Load Positions For Account")
-group Load Positions For Account
 Rel(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, TraderX.SoftwareSystems.TraderX.Containers.PositionService, "Get Positions For Account")
-end
-end
 end
 group Trader - Create Account
 Rel(TraderX.Actors.Trader, TraderX.SoftwareSystems.TraderX.Containers.WebClient, "Create Account")
-group Create Account
 Rel(TraderX.SoftwareSystems.TraderX.Containers.WebClient, TraderX.SoftwareSystems.TraderX.Containers.WebGUI, "Create Account")
-group Create Account
 Rel(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, TraderX.SoftwareSystems.TraderX.Containers.AccountsService, "Create Account")
-end
-end
 end
 group Trader - Update Account
 Rel(TraderX.Actors.Trader, TraderX.SoftwareSystems.TraderX.Containers.WebClient, "Update Account")
-group Update Account
 Rel(TraderX.SoftwareSystems.TraderX.Containers.WebClient, TraderX.SoftwareSystems.TraderX.Containers.WebGUI, "Update Account")
-group Update Account
 Rel(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, TraderX.SoftwareSystems.TraderX.Containers.AccountsService, "Update Account")
-end
-end
 end
 
 

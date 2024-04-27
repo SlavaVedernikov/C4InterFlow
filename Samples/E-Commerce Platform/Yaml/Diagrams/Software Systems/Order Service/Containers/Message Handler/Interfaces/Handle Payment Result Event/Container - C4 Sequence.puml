@@ -16,11 +16,9 @@ System_Boundary(ECommercePlatform.SoftwareSystems.PaymentService, "Payment Servi
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.OrderService.Containers.MessageHandler, "Handle Payment Result Event")
-group Handle Payment Result Event
 Rel(ECommercePlatform.SoftwareSystems.OrderService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.PaymentService.Containers.Messaging, "Receive Payment Result Event")
 Rel(ECommercePlatform.SoftwareSystems.OrderService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.OrderService.Containers.Database, "Update Order Status")
 Rel(ECommercePlatform.SoftwareSystems.OrderService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.OrderService.Containers.Messaging, "Send Order Status Changed Event")
-end
 
 
 @enduml

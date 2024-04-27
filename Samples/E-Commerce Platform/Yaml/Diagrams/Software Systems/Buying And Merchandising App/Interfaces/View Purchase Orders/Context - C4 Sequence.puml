@@ -8,9 +8,7 @@ System(ECommercePlatform.SoftwareSystems.BuyingAndMerchandisingApp, "Buying And 
 System(ECommercePlatform.SoftwareSystems.BuyingService, "Buying Service", "")
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.BuyingAndMerchandisingApp, "View Purchase Orders")
-group View Purchase Orders
 Rel(ECommercePlatform.SoftwareSystems.BuyingAndMerchandisingApp, ECommercePlatform.SoftwareSystems.BuyingService, "Get Purchase Orders")
-end
 
 
 @enduml

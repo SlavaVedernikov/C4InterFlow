@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Create New Account - C4 Static - Context level)
+title Create New Account - C4 Static - Context level
 
 Person(BigBankPlc.Actors.Customer, "Customer", "")
 System(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking", "")
