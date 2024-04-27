@@ -8,9 +8,7 @@ System(ECommercePlatform.SoftwareSystems.OrderService, "Order Service", "")
 System(ECommercePlatform.SoftwareSystems.PaymentService, "Payment Service", "")
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.OrderService, "Handle Payment Result Event")
-group Handle Payment Result Event
 Rel(ECommercePlatform.SoftwareSystems.OrderService, ECommercePlatform.SoftwareSystems.PaymentService, "Receive Payment Result Event")
-end
 
 
 @enduml

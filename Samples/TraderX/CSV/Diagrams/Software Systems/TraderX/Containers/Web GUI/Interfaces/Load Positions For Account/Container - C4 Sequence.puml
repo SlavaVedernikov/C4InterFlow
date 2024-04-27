@@ -11,9 +11,7 @@ System_Boundary(TraderX.SoftwareSystems.TraderX, "TraderX")
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, TraderX.SoftwareSystems.TraderX.Containers.WebGUI, "Load Positions For Account")
-group Load Positions For Account
 Rel(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, TraderX.SoftwareSystems.TraderX.Containers.PositionService, "Get Positions For Account")
-end
 
 
 @enduml

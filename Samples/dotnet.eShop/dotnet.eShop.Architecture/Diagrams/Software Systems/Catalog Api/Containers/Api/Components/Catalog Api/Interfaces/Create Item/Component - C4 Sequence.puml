@@ -17,11 +17,9 @@ Boundary_End()
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, "Create Item")
-group Create Item
 Rel(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext, "Catalog Items Add")
 Rel(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext, "Save Changes Async")
 Rel(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, "Retun (TypedResults.CreatedAtRoute)")
-end
 
 
 @enduml

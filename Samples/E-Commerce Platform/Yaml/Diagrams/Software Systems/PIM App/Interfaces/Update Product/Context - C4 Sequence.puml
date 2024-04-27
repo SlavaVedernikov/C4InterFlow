@@ -8,9 +8,7 @@ System(ECommercePlatform.SoftwareSystems.PIMApp, "PIM App", "")
 System(ECommercePlatform.SoftwareSystems.ProductService, "Product Service", "")
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.PIMApp, "Update Product")
-group Update Product
 Rel(ECommercePlatform.SoftwareSystems.PIMApp, ECommercePlatform.SoftwareSystems.ProductService, "Update Product")
-end
 
 
 @enduml

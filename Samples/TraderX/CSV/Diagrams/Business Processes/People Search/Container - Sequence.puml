@@ -1,6 +1,6 @@
 @startuml
 
-title People Search - Sequence - Container level)
+title People Search - Sequence - Container level
 
 participant "Trader" as TraderX.Actors.Trader
 

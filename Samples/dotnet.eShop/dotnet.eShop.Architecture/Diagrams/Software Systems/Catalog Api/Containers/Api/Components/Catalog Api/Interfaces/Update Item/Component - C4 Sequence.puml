@@ -17,7 +17,6 @@ Boundary_End()
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, "Update Item")
-group Update Item
 alt catalogItem == null
 Rel(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, "Retun (TypedResults.NotFound)")
 end
@@ -26,7 +25,6 @@ else
 Rel(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext, "Save Changes Async")
 end
 Rel(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, "Retun (TypedResults.Created)")
-end
 
 
 @enduml

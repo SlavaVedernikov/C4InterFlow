@@ -12,10 +12,8 @@ Boundary_End()
 System(ECommercePlatform.SoftwareSystems.WMS, "WMS", "")
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.BuyingService.Containers.MessageHandler, "Handle Purchase Order Deleted Event")
-group Handle Purchase Order Deleted Event
 Rel(ECommercePlatform.SoftwareSystems.BuyingService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging, "Receive Purchase Order Deleted Event")
 Rel(ECommercePlatform.SoftwareSystems.BuyingService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.WMS, "Delete Purchase Order")
-end
 
 
 @enduml

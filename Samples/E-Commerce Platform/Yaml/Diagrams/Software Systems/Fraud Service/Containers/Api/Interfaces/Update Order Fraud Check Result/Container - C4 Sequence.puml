@@ -12,10 +12,8 @@ System_Boundary(ECommercePlatform.SoftwareSystems.FraudService, "Fraud Service")
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.FraudService.Containers.Api, "Update Order Fraud Check Result")
-group Update Order Fraud Check Result
 Rel(ECommercePlatform.SoftwareSystems.FraudService.Containers.Api, ECommercePlatform.SoftwareSystems.FraudService.Containers.Database, "Update Fraud Check Result")
 Rel(ECommercePlatform.SoftwareSystems.FraudService.Containers.Api, ECommercePlatform.SoftwareSystems.FraudService.Containers.Messaging, "Send Fraud Check Result Event")
-end
 
 
 @enduml

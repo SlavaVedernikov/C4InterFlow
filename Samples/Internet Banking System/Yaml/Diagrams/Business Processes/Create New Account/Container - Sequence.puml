@@ -1,6 +1,6 @@
 @startuml
 
-title Create New Account - Sequence - Container level)
+title Create New Account - Sequence - Container level
 
 participant "Customer" as BigBankPlc.Actors.Customer
 

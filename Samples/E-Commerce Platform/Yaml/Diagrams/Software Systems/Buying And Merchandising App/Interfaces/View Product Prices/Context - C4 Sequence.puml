@@ -8,9 +8,7 @@ System(ECommercePlatform.SoftwareSystems.BuyingAndMerchandisingApp, "Buying And 
 System(ECommercePlatform.SoftwareSystems.PricingService, "Pricing Service", "")
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.BuyingAndMerchandisingApp, "View Product Prices")
-group View Product Prices
 Rel(ECommercePlatform.SoftwareSystems.BuyingAndMerchandisingApp, ECommercePlatform.SoftwareSystems.PricingService, "Get Product Prices")
-end
 
 
 @enduml

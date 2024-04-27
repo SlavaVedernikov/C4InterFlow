@@ -8,9 +8,7 @@ System(ECommercePlatform.SoftwareSystems.OrderService, "Order Service", "")
 System(ECommercePlatform.SoftwareSystems.FraudService, "Fraud Service", "")
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.OrderService, "Handle Fraud Check Result Event")
-group Handle Fraud Check Result Event
 Rel(ECommercePlatform.SoftwareSystems.OrderService, ECommercePlatform.SoftwareSystems.FraudService, "Receive Fraud Check Result Event")
-end
 
 
 @enduml

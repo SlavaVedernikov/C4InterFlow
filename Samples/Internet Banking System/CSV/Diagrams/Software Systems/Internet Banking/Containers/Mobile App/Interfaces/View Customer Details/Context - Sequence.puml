@@ -7,10 +7,8 @@ participant "Internet Banking" as BigBankPlc.SoftwareSystems.InternetBanking
 participant "Mainframe Banking System" as BigBankPlc.SoftwareSystems.MainframeBankingSystem
 
 C4InterFlow.SoftwareSystems.ExternalSystem -> BigBankPlc.SoftwareSystems.InternetBanking : View Customer Details
-group View Customer Details
 BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer
 BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer Accounts
-end
 
 
 @enduml

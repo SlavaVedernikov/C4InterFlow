@@ -12,10 +12,8 @@ System_Boundary(ECommercePlatform.SoftwareSystems.ProductService, "Product Servi
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.ProductService.Containers.Api, "Delete Product")
-group Delete Product
 Rel(ECommercePlatform.SoftwareSystems.ProductService.Containers.Api, ECommercePlatform.SoftwareSystems.ProductService.Containers.Database, "Delete Product")
 Rel(ECommercePlatform.SoftwareSystems.ProductService.Containers.Api, ECommercePlatform.SoftwareSystems.ProductService.Containers.Messaging, "Send Product Deleted Event")
-end
 
 
 @enduml

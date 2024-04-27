@@ -1,6 +1,6 @@
 @startuml
 
-title Execute Trades - Sequence - Context level)
+title Execute Trades - Sequence - Context level
 
 participant "External Process" as TraderX.Actors.ExternalProcess
 participant "Trader" as TraderX.Actors.Trader

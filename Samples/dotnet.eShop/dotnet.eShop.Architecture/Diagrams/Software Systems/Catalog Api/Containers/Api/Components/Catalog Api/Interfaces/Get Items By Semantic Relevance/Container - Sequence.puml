@@ -11,11 +11,9 @@ end box
 
 
 C4InterFlow.SoftwareSystems.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api : Get Items By Semantic Relevance
-group Get Items By Semantic Relevance
 dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure : Catalog Items To List Async
 dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure : Catalog Items To List Async
 dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure : Catalog Items To List Async
-end
 
 
 @enduml

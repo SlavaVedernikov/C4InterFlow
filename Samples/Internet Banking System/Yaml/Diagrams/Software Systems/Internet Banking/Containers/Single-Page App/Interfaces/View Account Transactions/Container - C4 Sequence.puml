@@ -12,12 +12,8 @@ Boundary_End()
 System_Ext(BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Mainframe Banking System", "")
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "View Account Transactions")
-group View Account Transactions
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "Get Account Transactions")
-group Get Account Transactions
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Account Transactions")
-end
-end
 
 
 @enduml

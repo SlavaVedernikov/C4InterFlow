@@ -1,6 +1,6 @@
 @startuml
 
-title Manage Accounts - Sequence - Context level)
+title Manage Accounts - Sequence - Context level
 
 participant "Trader" as TraderX.Actors.Trader
 participant "TraderX" as TraderX.SoftwareSystems.TraderX

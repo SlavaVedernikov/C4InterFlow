@@ -12,10 +12,8 @@ System_Boundary(ECommercePlatform.SoftwareSystems.FulfilmentService, "Fulfilment
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Api, "Post Order Shipped Event")
-group Post Order Shipped Event
 Rel(ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Api, ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Database, "Update Order Status")
 Rel(ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Api, ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Messaging, "Send Order Shipped Event")
-end
 
 
 @enduml

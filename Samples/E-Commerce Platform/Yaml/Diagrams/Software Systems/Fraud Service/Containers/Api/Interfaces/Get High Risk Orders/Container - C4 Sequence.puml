@@ -11,9 +11,7 @@ System_Boundary(ECommercePlatform.SoftwareSystems.FraudService, "Fraud Service")
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.FraudService.Containers.Api, "Get High Risk Orders")
-group Get High Risk Orders
 Rel(ECommercePlatform.SoftwareSystems.FraudService.Containers.Api, ECommercePlatform.SoftwareSystems.FraudService.Containers.Database, "Select High Risk Orders")
-end
 
 
 @enduml

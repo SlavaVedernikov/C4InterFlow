@@ -12,10 +12,8 @@ System_Boundary(ECommercePlatform.SoftwareSystems.BuyingService, "Buying Service
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.BuyingService.Containers.Api, "Create Purchase Order")
-group Create Purchase Order
 Rel(ECommercePlatform.SoftwareSystems.BuyingService.Containers.Api, ECommercePlatform.SoftwareSystems.BuyingService.Containers.Database, "Insert Purchase Order")
 Rel(ECommercePlatform.SoftwareSystems.BuyingService.Containers.Api, ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging, "Send Purchase Order Created Event")
-end
 
 
 @enduml

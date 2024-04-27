@@ -12,10 +12,8 @@ Boundary_End()
 System(ECommercePlatform.SoftwareSystems.WMS, "WMS", "")
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.BuyingService.Containers.MessageHandler, "Handle Purchase Order Updated Event")
-group Handle Purchase Order Updated Event
 Rel(ECommercePlatform.SoftwareSystems.BuyingService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging, "Receive Purchase Order Updated Event")
 Rel(ECommercePlatform.SoftwareSystems.BuyingService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.WMS, "Update Purchase Order")
-end
 
 
 @enduml

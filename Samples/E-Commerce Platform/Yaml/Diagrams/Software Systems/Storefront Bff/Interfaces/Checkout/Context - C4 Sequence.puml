@@ -9,10 +9,8 @@ System(ECommercePlatform.SoftwareSystems.OrderService, "Order Service", "")
 System(ECommercePlatform.SoftwareSystems.BasketService, "Basket Service", "")
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.StorefrontBff, "Checkout")
-group Checkout
 Rel(ECommercePlatform.SoftwareSystems.StorefrontBff, ECommercePlatform.SoftwareSystems.OrderService, "Create Order")
 Rel(ECommercePlatform.SoftwareSystems.StorefrontBff, ECommercePlatform.SoftwareSystems.BasketService, "Delete Basket")
-end
 
 
 @enduml

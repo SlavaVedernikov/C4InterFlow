@@ -808,7 +808,7 @@ public class DrawDiagramsCommand : Command
             return null;
 
         else  
-            return $"{businessProcess.Label} - {ToPrettyName(diagramType)} - {ToPrettyName(levelOfDetails)} level)";
+            return $"{businessProcess.Label} - {ToPrettyName(diagramType)} - {ToPrettyName(levelOfDetails)} level";
     }
 
     private static bool TryGetDiagramPath(string scope, string levelOfDetails, string diagramType, out string path, out string fileName, string? outputSubDirectory = null, string? diagramNamePrefix = null)

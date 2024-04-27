@@ -12,10 +12,8 @@ System_Boundary(ECommercePlatform.SoftwareSystems.PricingService, "Pricing Servi
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.PricingService.Containers.Api, "Update Product Prices")
-group Update Product Prices
 Rel(ECommercePlatform.SoftwareSystems.PricingService.Containers.Api, ECommercePlatform.SoftwareSystems.PricingService.Containers.Database, "Update Product Prices")
 Rel(ECommercePlatform.SoftwareSystems.PricingService.Containers.Api, ECommercePlatform.SoftwareSystems.PricingService.Containers.Messaging, "Send Product Price Changed Event")
-end
 
 
 @enduml

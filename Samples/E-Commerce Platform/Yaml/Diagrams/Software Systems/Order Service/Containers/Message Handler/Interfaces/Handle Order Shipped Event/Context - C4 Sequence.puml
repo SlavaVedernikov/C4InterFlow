@@ -8,9 +8,7 @@ System(ECommercePlatform.SoftwareSystems.OrderService, "Order Service", "")
 System(ECommercePlatform.SoftwareSystems.FulfilmentService, "Fulfilment Service", "")
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.OrderService, "Handle Order Shipped Event")
-group Handle Order Shipped Event
 Rel(ECommercePlatform.SoftwareSystems.OrderService, ECommercePlatform.SoftwareSystems.FulfilmentService, "Receive Order Shipped Event")
-end
 
 
 @enduml

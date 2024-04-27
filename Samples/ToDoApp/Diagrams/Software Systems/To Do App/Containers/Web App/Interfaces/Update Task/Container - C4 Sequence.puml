@@ -12,12 +12,8 @@ System_Boundary(ToDoAppExample.SoftwareSystems.ToDoApp, "To Do App")
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApp, "Update Task")
-group Update Task
 Rel(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApp, ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, "Update Task")
-group Update Task
 Rel(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database, "Update Task")
-end
-end
 
 
 @enduml

@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\.c4s\C4_Sequence.puml
 
-title Execute Trades - C4 Sequence - Context level)
+title Execute Trades - C4 Sequence - Context level
 
 System(TraderX.Actors.ExternalProcess, "External Process", "")
 Person(TraderX.Actors.Trader, "Trader", "")

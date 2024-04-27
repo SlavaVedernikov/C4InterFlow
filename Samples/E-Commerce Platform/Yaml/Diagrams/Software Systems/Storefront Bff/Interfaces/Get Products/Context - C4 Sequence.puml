@@ -8,9 +8,7 @@ System(ECommercePlatform.SoftwareSystems.StorefrontBff, "Storefront Bff", "")
 System(ECommercePlatform.SoftwareSystems.ProductService, "Product Service", "")
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.StorefrontBff, "Get Products")
-group Get Products
 Rel(ECommercePlatform.SoftwareSystems.StorefrontBff, ECommercePlatform.SoftwareSystems.ProductService, "Get Products")
-end
 
 
 @enduml

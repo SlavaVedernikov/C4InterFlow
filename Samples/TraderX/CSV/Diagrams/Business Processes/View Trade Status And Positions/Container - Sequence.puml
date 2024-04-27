@@ -1,6 +1,6 @@
 @startuml
 
-title View Trade Status And Positions - Sequence - Container level)
+title View Trade Status And Positions - Sequence - Container level
 
 participant "Trader" as TraderX.Actors.Trader
 

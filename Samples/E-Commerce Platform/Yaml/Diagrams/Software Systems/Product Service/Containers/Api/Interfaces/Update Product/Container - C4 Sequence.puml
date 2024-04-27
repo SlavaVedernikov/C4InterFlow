@@ -12,10 +12,8 @@ System_Boundary(ECommercePlatform.SoftwareSystems.ProductService, "Product Servi
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.ProductService.Containers.Api, "Update Product")
-group Update Product
 Rel(ECommercePlatform.SoftwareSystems.ProductService.Containers.Api, ECommercePlatform.SoftwareSystems.ProductService.Containers.Database, "Update Product")
 Rel(ECommercePlatform.SoftwareSystems.ProductService.Containers.Api, ECommercePlatform.SoftwareSystems.ProductService.Containers.Messaging, "Send Product Updated Event")
-end
 
 
 @enduml

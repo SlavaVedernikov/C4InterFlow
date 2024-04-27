@@ -113,7 +113,7 @@ namespace C4InterFlow.Structures
             return result.ToArray();
         }
 
-        internal Flow[] GetFlowsByType(Flow flow, FlowType type)
+        internal Flow[] GetFlowsByType(Flow flow, FlowType type, bool isRecursive = true)
         {
             var result = new List<Flow>();
 
@@ -130,14 +130,21 @@ namespace C4InterFlow.Structures
                     
                     if (segment.Flows == null) continue;
 
-                    foreach (var useSegment in segment.Flows)
+                    if(isRecursive)
                     {
-                        result.AddRange(GetFlowsByType(useSegment, type));
+                        foreach (var useSegment in segment.Flows)
+                        {
+                            result.AddRange(GetFlowsByType(useSegment, type));
+                        }
                     }
                 }
                 else
                 {
-                    result.AddRange(GetFlowsByType(segment, type));
+                    if (isRecursive)
+                    {
+                        result.AddRange(GetFlowsByType(segment, type));
+                    }
+                        
                 }
             }
 
@@ -552,7 +559,7 @@ namespace C4InterFlow.Structures
         public Flow ElseIf(string condition)
         {
             var flowType = FlowType.ElseIf;
-            var parent = Parent;
+            var parent = Type == FlowType.ElseIf ? Parent : this;
 
             if (!IsAllowed(parent.Type, flowType, out var message))
             {
@@ -567,7 +574,7 @@ namespace C4InterFlow.Structures
         public Flow Else()
         {
             var flowType = FlowType.Else;
-            var parent = this;
+            var parent = Type == FlowType.ElseIf ? Parent : this;
 
             if (!IsAllowed(parent.Type, flowType, out var message))
             {
