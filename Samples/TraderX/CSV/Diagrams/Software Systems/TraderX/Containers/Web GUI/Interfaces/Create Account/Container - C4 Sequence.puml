@@ -11,9 +11,7 @@ System_Boundary(TraderX.SoftwareSystems.TraderX, "TraderX")
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, TraderX.SoftwareSystems.TraderX.Containers.WebGUI, "Create Account")
-group Create Account
 Rel(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, TraderX.SoftwareSystems.TraderX.Containers.AccountsService, "Create Account")
-end
 
 
 @enduml

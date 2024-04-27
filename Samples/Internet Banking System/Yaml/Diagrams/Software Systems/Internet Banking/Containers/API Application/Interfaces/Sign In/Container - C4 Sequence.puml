@@ -11,9 +11,7 @@ System_Boundary(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking")
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "Sign In")
-group Sign In
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Authenticate User")
-end
 
 
 @enduml

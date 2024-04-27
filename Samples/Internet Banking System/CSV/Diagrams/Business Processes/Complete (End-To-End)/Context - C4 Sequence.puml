@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\.c4s\C4_Sequence.puml
 
-title Complete (End-To-End) - C4 Sequence - Context level)
+title Complete (End-To-End) - C4 Sequence - Context level
 
 Person(BigBankPlc.Actors.Customer, "Customer", "")
 System(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking", "")
@@ -12,31 +12,21 @@ group Customer - Banking via Web App
 Rel(BigBankPlc.Actors.Customer, BigBankPlc.SoftwareSystems.InternetBanking, "Navigate")
 Rel(BigBankPlc.Actors.Customer, BigBankPlc.SoftwareSystems.InternetBanking, "Sign In")
 Rel(BigBankPlc.Actors.Customer, BigBankPlc.SoftwareSystems.InternetBanking, "View Customer Details")
-group View Customer Details
 Rel(BigBankPlc.SoftwareSystems.InternetBanking, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Customer")
 Rel(BigBankPlc.SoftwareSystems.InternetBanking, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Customer Accounts")
-end
 Rel(BigBankPlc.Actors.Customer, BigBankPlc.SoftwareSystems.InternetBanking, "View Account Transactions")
-group View Account Transactions
 Rel(BigBankPlc.SoftwareSystems.InternetBanking, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Account Transactions")
-end
 Rel(BigBankPlc.Actors.Customer, BigBankPlc.SoftwareSystems.InternetBanking, "Create Account")
-group Create Account
 Rel(BigBankPlc.SoftwareSystems.InternetBanking, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Create Account")
 Rel(BigBankPlc.SoftwareSystems.InternetBanking, BigBankPlc.SoftwareSystems.EMailSystem, "Send New Account Created Notification E-Mail")
-end
 end
 group Customer - Banking via Mobile App
 Rel(BigBankPlc.Actors.Customer, BigBankPlc.SoftwareSystems.InternetBanking, "Sign In")
 Rel(BigBankPlc.Actors.Customer, BigBankPlc.SoftwareSystems.InternetBanking, "View Customer Details")
-group View Customer Details
 Rel(BigBankPlc.SoftwareSystems.InternetBanking, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Customer")
 Rel(BigBankPlc.SoftwareSystems.InternetBanking, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Customer Accounts")
-end
 Rel(BigBankPlc.Actors.Customer, BigBankPlc.SoftwareSystems.InternetBanking, "View Account Transactions")
-group View Account Transactions
 Rel(BigBankPlc.SoftwareSystems.InternetBanking, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Account Transactions")
-end
 end
 group Customer - Receive E-Mail Notifications
 Rel(BigBankPlc.Actors.Customer, BigBankPlc.SoftwareSystems.EMailSystem, "Receive Password Changed Notification E-Mail")

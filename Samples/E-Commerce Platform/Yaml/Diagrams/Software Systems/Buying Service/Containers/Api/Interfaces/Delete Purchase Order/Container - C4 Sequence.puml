@@ -12,10 +12,8 @@ System_Boundary(ECommercePlatform.SoftwareSystems.BuyingService, "Buying Service
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.BuyingService.Containers.Api, "Delete Purchase Order")
-group Delete Purchase Order
 Rel(ECommercePlatform.SoftwareSystems.BuyingService.Containers.Api, ECommercePlatform.SoftwareSystems.BuyingService.Containers.Database, "Delete Purchase Order")
 Rel(ECommercePlatform.SoftwareSystems.BuyingService.Containers.Api, ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging, "Send Purchase Order Deleted Event")
-end
 
 
 @enduml

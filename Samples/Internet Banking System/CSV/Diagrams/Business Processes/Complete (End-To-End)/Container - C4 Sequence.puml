@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\.c4s\C4_Sequence.puml
 
-title Complete (End-To-End) - C4 Sequence - Container level)
+title Complete (End-To-End) - C4 Sequence - Container level
 
 Person(BigBankPlc.Actors.Customer, "Customer", "")
 
@@ -17,69 +17,35 @@ System_Ext(BigBankPlc.SoftwareSystems.EMailSystem, "E-Mail System", "")
 
 group Customer - Banking via Web App
 Rel(BigBankPlc.Actors.Customer, BigBankPlc.SoftwareSystems.InternetBanking.Containers.WebApplication, "Navigate")
-group Navigate
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.WebApplication, BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "Load And Start")
-end
 Rel(BigBankPlc.Actors.Customer, BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "Sign In")
-group Sign In
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "Sign In")
-group Sign In
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Authenticate User")
-end
-end
 Rel(BigBankPlc.Actors.Customer, BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "View Customer Details")
-group View Customer Details
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "Get Customer")
-group Get Customer
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Customer")
-end
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "Get Customer Accounts")
-group Get Customer Accounts
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Customer Accounts")
-end
-end
 Rel(BigBankPlc.Actors.Customer, BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "View Account Transactions")
-group View Account Transactions
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "Get Account Transactions")
-group Get Account Transactions
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Account Transactions")
-end
-end
 Rel(BigBankPlc.Actors.Customer, BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "Create Account")
-group Create Account
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "Create Account")
-group Create Account
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Create Account")
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.EMailSystem, "Send New Account Created Notification E-Mail")
 end
-end
-end
 group Customer - Banking via Mobile App
 Rel(BigBankPlc.Actors.Customer, BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp, "Sign In")
-group Sign In
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp, BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "Sign In")
-group Sign In
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Authenticate User")
-end
-end
 Rel(BigBankPlc.Actors.Customer, BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp, "View Customer Details")
-group View Customer Details
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp, BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "Get Customer")
-group Get Customer
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Customer")
-end
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp, BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "Get Customer Accounts")
-group Get Customer Accounts
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Customer Accounts")
-end
-end
 Rel(BigBankPlc.Actors.Customer, BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp, "View Account Transactions")
-group View Account Transactions
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp, BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "Get Account Transactions")
-group Get Account Transactions
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Account Transactions")
-end
-end
 end
 group Customer - Receive E-Mail Notifications
 Rel(BigBankPlc.Actors.Customer, BigBankPlc.SoftwareSystems.EMailSystem, "Receive Password Changed Notification E-Mail")

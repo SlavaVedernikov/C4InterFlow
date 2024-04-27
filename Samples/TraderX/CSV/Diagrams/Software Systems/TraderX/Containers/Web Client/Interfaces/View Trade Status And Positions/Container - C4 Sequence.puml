@@ -12,16 +12,10 @@ System_Boundary(TraderX.SoftwareSystems.TraderX, "TraderX")
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, TraderX.SoftwareSystems.TraderX.Containers.WebClient, "View Trade Status And Positions")
-group View Trade Status And Positions
 Rel(TraderX.SoftwareSystems.TraderX.Containers.WebClient, TraderX.SoftwareSystems.TraderX.Containers.WebGUI, "Load Trades For Account")
-group Load Trades For Account
 Rel(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, TraderX.SoftwareSystems.TraderX.Containers.PositionService, "Get Trades For Account")
-end
 Rel(TraderX.SoftwareSystems.TraderX.Containers.WebClient, TraderX.SoftwareSystems.TraderX.Containers.WebGUI, "Load Positions For Account")
-group Load Positions For Account
 Rel(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, TraderX.SoftwareSystems.TraderX.Containers.PositionService, "Get Positions For Account")
-end
-end
 
 
 @enduml

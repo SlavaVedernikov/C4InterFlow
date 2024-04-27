@@ -4,7 +4,6 @@ using C4InterFlow.Structures;
 using C4InterFlow.Structures.Boundaries;
 using C4InterFlow.Structures.Relationships;
 using C4InterFlow.Visualisation.Plantuml.Style;
-using C4InterFlow.Commons.Extensions;
 
 namespace C4InterFlow.Visualisation
 {
@@ -192,10 +191,36 @@ namespace C4InterFlow.Visualisation
             {
                 structures.Add(interfaceOwner);
             }
-            else if (interfaceOwner is Container &&
-                !structures.OfType<Container>().Any(x => x.Alias == interfaceOwner.Alias))
+            else if (interfaceOwner is Container)
             {
-                structures.Add(interfaceOwner);
+                if (ShowBoundaries)
+                {
+                    var container = (Container)interfaceOwner;
+                    var softwareSystem = Utils.GetInstance<SoftwareSystem>(container.SoftwareSystem);
+                    var softwareSystemBoundary = structures.OfType<SoftwareSystemBoundary>().FirstOrDefault(x => x.Alias == softwareSystem.Alias);
+
+                    if (softwareSystemBoundary == null)
+                    {
+                        softwareSystemBoundary = new SoftwareSystemBoundary(softwareSystem.Alias, softwareSystem.Label)
+                        {
+                            Structures = new List<Structure>()
+                        };
+
+                        structures.Add(softwareSystemBoundary);
+                    }
+
+                    if (!softwareSystemBoundary.Structures.Any(x => x.Alias == container.Alias))
+                    {
+                        ((List<Structure>)softwareSystemBoundary.Structures).Add(container);
+                    }
+                }
+                else
+                {
+                    if(!structures.OfType<Container>().Any(x => x.Alias == interfaceOwner.Alias))
+                    {
+                        structures.Add(interfaceOwner);
+                    }
+                }
             }
             else if (interfaceOwner is Component)
             {
@@ -238,18 +263,16 @@ namespace C4InterFlow.Visualisation
                 }
                 else
                 {
-                    if (!structures.Any(x => x.Alias == interfaceOwner.Alias))
+                    if (!structures.OfType<Component>().Any(x => x.Alias == interfaceOwner.Alias))
                     {
                         structures.Add(interfaceOwner);
                     }
                 }
+            }
 
-
-                foreach (var usesInterface in @interface.Flow.GetUsesInterfaces())
-                {
-                    PopulateStructures(structures, usesInterface);
-                }
-
+            foreach (var usesInterface in @interface.Flow.GetUsesInterfaces())
+            {
+                PopulateStructures(structures, usesInterface);
             }
         }
 

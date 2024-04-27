@@ -17,13 +17,11 @@ Boundary_End()
 System(ECommercePlatform.SoftwareSystems.FraudEngine, "Fraud Engine", "")
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.FraudService.Containers.MessageHandler, "Handle Order Created Event")
-group Handle Order Created Event
 Rel(ECommercePlatform.SoftwareSystems.FraudService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.OrderService.Containers.Messaging, "Receive Order Created Event")
 Rel(ECommercePlatform.SoftwareSystems.FraudService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.FraudService.Containers.Database, "Insert Order")
 Rel(ECommercePlatform.SoftwareSystems.FraudService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.FraudEngine, "Get Fraud Check Result")
 Rel(ECommercePlatform.SoftwareSystems.FraudService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.FraudService.Containers.Database, "Insert Fraud Check Result")
 Rel(ECommercePlatform.SoftwareSystems.FraudService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.FraudService.Containers.Messaging, "Send Fraud Check Result Event")
-end
 
 
 @enduml

@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title View Trade Status And Positions - C4 - Container level)
+title View Trade Status And Positions - C4 - Container level
 
 Person(TraderX.Actors.Trader, "Trader", "")
 

@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Execute Trades - C4 - Container level)
+title Execute Trades - C4 - Container level
 
 Person(TraderX.Actors.Trader, "Trader", "")
 

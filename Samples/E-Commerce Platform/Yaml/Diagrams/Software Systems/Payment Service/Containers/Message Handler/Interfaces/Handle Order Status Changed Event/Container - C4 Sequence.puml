@@ -16,12 +16,10 @@ Boundary_End()
 System(ECommercePlatform.SoftwareSystems.PaymentProvider, "Payment Provider", "")
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.PaymentService.Containers.MessageHandler, "Handle Order Status Changed Event")
-group Handle Order Status Changed Event
 Rel(ECommercePlatform.SoftwareSystems.PaymentService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.OrderService.Containers.Messaging, "Receive Order Status Changed Event")
 alt Order Status is 'Pending Payment'
 Rel(ECommercePlatform.SoftwareSystems.PaymentService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.PaymentService.Containers.Database, "Insert Order")
 Rel(ECommercePlatform.SoftwareSystems.PaymentService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.PaymentProvider, "Process Payment")
-end
 end
 
 

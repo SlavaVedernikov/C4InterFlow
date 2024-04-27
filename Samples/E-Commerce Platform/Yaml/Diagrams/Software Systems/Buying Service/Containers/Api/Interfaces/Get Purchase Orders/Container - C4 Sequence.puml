@@ -11,9 +11,7 @@ System_Boundary(ECommercePlatform.SoftwareSystems.BuyingService, "Buying Service
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.BuyingService.Containers.Api, "Get Purchase Orders")
-group Get Purchase Orders
 Rel(ECommercePlatform.SoftwareSystems.BuyingService.Containers.Api, ECommercePlatform.SoftwareSystems.BuyingService.Containers.Database, "Select Purchase Order")
-end
 
 
 @enduml

@@ -101,13 +101,16 @@ namespace C4InterFlow.Visualisation.Plantuml
                     sb.AppendLine(flowRelationship.ToPumlSequenceString(style));
                 }
 
-
-                innerFlows.AddRange(flow.GetFlowsByType(flow, Flow.FlowType.Use));
-                innerFlows.AddRange(flow.GetFlowsByType(flow, Flow.FlowType.Return));
-                innerFlows.AddRange(flow.GetFlowsByType(flow, Flow.FlowType.ThrowException));
-                if (innerFlows.Any())
+                // TODO: Investigate why doing this in C4 sequence diagrams doesn't seem to work (out of memory java error when rendering)
+                if (style == SequenceDiagramStyle.PlantUML)
                 {
-                    sb.AppendLine($"group {label}");
+                    innerFlows.AddRange(flow.GetFlowsByType(flow, Flow.FlowType.Use, false));
+                    innerFlows.AddRange(flow.GetFlowsByType(flow, Flow.FlowType.Return, false));
+                    innerFlows.AddRange(flow.GetFlowsByType(flow, Flow.FlowType.ThrowException, false));
+                    if (innerFlows.Any())
+                    {
+                        sb.AppendLine($"group {label}");
+                    }
                 }
             }
 
@@ -121,10 +124,18 @@ namespace C4InterFlow.Visualisation.Plantuml
 
             if (flow.Type == Flow.FlowType.If || 
                 flow.Type == Flow.FlowType.Loop || 
-                flow.Type == Flow.FlowType.Group ||
-                (flow.Type == Flow.FlowType.Use && innerFlows.Any()))
+                flow.Type == Flow.FlowType.Group)
             {
                 sb.AppendLine("end");
+            }
+
+            // TODO: Investigate why doing this in C4 sequence diagrams doesn't seem to work (out of memory java error when rendering)
+            if (style == SequenceDiagramStyle.PlantUML)
+            {
+                if (flow.Type == Flow.FlowType.Use && innerFlows.Any())
+                {
+                    sb.AppendLine("end");
+                }
             }
 
             return sb.ToString();

@@ -8,9 +8,7 @@ System(ECommercePlatform.SoftwareSystems.CRMApp, "CRM App", "")
 System(ECommercePlatform.SoftwareSystems.FraudService, "Fraud Service", "")
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.CRMApp, "View High Risk Orders")
-group View High Risk Orders
 Rel(ECommercePlatform.SoftwareSystems.CRMApp, ECommercePlatform.SoftwareSystems.FraudService, "Get High Risk Orders")
-end
 
 
 @enduml

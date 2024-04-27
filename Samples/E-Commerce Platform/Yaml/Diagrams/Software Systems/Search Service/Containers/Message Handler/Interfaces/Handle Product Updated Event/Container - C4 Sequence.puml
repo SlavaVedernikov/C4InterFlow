@@ -15,10 +15,8 @@ System_Boundary(ECommercePlatform.SoftwareSystems.ProductService, "Product Servi
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.SearchService.Containers.MessageHandler, "Handle Product Updated Event")
-group Handle Product Updated Event
 Rel(ECommercePlatform.SoftwareSystems.SearchService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.ProductService.Containers.Messaging, "Receive Product Updated Event")
 Rel(ECommercePlatform.SoftwareSystems.SearchService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.SearchService.Containers.Database, "Update Product")
-end
 
 
 @enduml
