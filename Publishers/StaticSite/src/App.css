@@ -1,4 +1,4 @@
-/* Spli- */
+/* Split- */
 .split-pane {
   display: flex;
   height: 100vh;
@@ -17,11 +17,19 @@
   background-color: #ccc;
   background-repeat: no-repeat;
   background-position: 50%;
+  transition: width 0.1s ease;
 }
+
+.gutter:hover {
+  background-color: #aaa;
+  width: 5px !important; /* Increase width on hover and ensure it's applied */
+}
+
 .gutter.gutter-horizontal {
-  background-image: url('data:image/png;base64,...'); /* add a vertical line image or gradient for the splitter */
-  cursor: col-resize;
+  background-image: url('data:image/png;base64,...'); 
+  cursor: col-resize; 
 }
+
 
 /* Tree View */
 .tree-view,

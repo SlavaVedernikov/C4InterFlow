@@ -96,7 +96,7 @@ namespace C4InterFlow.Visualisation
                         foreach (var activity in Process.Activities)
                         {
                             var actor = activity.GetActorInstance();
-                            if (actor != null && !_structures.Any(i => i.Alias != actor.Alias))
+                            if (actor != null && !_structures.Any(i => i.Alias == actor.Alias))
                             {
                                 if(actor is Interface @interface)
                                 {
@@ -247,11 +247,8 @@ namespace C4InterFlow.Visualisation
                 }
             }
 
-            if (usesInterfaceOwner is Container)
-            {
-                newToScope = usesInterfaceOwner.Alias;
-            }
-            else if (usesInterfaceOwner is Component)
+            
+            if (usesInterfaceOwner is Component)
             {
                 var usesContainer = Utils.GetInstance<Structure>(((Component)usesInterfaceOwner).Container);
                 if (usesContainer != null)
@@ -260,13 +257,17 @@ namespace C4InterFlow.Visualisation
                     usesInterfaceOwner = usesContainer;
                 }
             }
+            else if (usesInterfaceOwner is Container || usesInterfaceOwner is SoftwareSystem)
+            {
+                newToScope = usesInterfaceOwner.Alias;
+            }
 
             var label = $"{usesInterface.Label}";
 
             if (relationships.Where(x => x.From == (actor).Alias &&
                                         x.To == usesInterfaceOwner.Alias &&
                                         x.Label == label).FirstOrDefault() == null &&
-                (!(fromScope ?? string.Empty).Equals(newToScope)))
+                (!(newFromScope ?? string.Empty).Equals(newToScope)))
             {
 
 

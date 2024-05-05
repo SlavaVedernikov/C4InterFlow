@@ -2,7 +2,7 @@
   "profiles": {
     "C4InterFlow.Cli": {
       "commandName": "Project",
-      "commandLineArgs": "publish-site --site-source-dir \"C:\\C4InterFlow\\Publishers\\StaticSite\" --output-dir \"C:\\architecture-as-code-samples-visualiser\\trader-x\" --environment-variables \"HOMEPAGE=architecture-as-code-samples-visualiser/trader-x\""
+      "commandLineArgs": "publish-site --site-source-dir \"C:\\C4InterFlow\\Publishers\\StaticSite\" --output-dir \"C:\\architecture-as-code-samples-visualiser\\e-commerce-platform\" --environment-variables \"HOMEPAGE=architecture-as-code-samples-visualiser/e-commerce-platform\" --site-content-sub-dirs \"Software Systems\" \".c4s\" --site-no-sitemap-sub-dirs \".c4s\""
     }
   }
 }

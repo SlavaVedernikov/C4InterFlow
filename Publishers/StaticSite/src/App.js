@@ -46,7 +46,9 @@ const TreeView = ({ sitemap, onNodeSelect, levelOfDetail, setLevelOfDetail, type
 
 // Controls Component
 const Controls = ({ selectedNode, levelOfDetail, setLevelOfDetail, type, setType, format, setFormat }) => {
-  if (!selectedNode || !selectedNode.levelsOfDetails || !selectedNode.types || !selectedNode.formats) return null;
+  if (!selectedNode || 
+      !selectedNode.levelsOfDetails || !selectedNode.types || !selectedNode.formats ||
+      selectedNode.levelsOfDetails.length == 0 || selectedNode.types.length == 0 || selectedNode.formats.length == 0) return null;
 
   return (
     <div className="controls-container">
@@ -96,7 +98,14 @@ const DiagramView = ({ selectedNode, levelOfDetail, type, format }) => {
     }
   }, [selectedNode, levelOfDetail, type, format]);
 
-  if (!selectedNode || !selectedNode.levelsOfDetails || !selectedNode.types || !selectedNode.formats) return null;
+  if (!selectedNode ||
+    !selectedNode.levelsOfDetails || !selectedNode.types || !selectedNode.formats ||
+    selectedNode.levelsOfDetails.length == 0 || selectedNode.types.length == 0 || selectedNode.formats.length == 0)
+    return (
+      <div className="diagrams-container">
+        <p>No diagrams found for selected node</p>
+      </div>
+    );
 
   const diagramUrl = `${selectedNode.loc}/${levelOfDetail} - ${type}.${format}`;
 
@@ -110,7 +119,6 @@ const DiagramView = ({ selectedNode, levelOfDetail, type, format }) => {
 
   return (
     <div className="diagrams-container">
-      <h2>Diagram</h2>
       {renderDiagram()}
     </div>
   );
@@ -143,7 +151,7 @@ const App = () => {
   }, []);
 
   return (
-    <Split sizes={[25, 75]} minSize={100} expandToMin={false} gutterSize={5} gutterAlign="center" snapOffset={30} dragInterval={1} direction="horizontal" className="split-pane" gutterClassName="gutter">
+    <Split sizes={[25, 75]} minSize={100} expandToMin={false} gutterSize={3} gutterAlign="center" snapOffset={30} dragInterval={1} direction="horizontal" className="split-pane" gutterClassName="gutter">
       <div className="pane pane-left">
         <TreeView sitemap={sitemap} onNodeSelect={setSelectedNode} levelOfDetail={levelOfDetail} setLevelOfDetail={setLevelOfDetail} type={type} setType={setType} format={format} setFormat={setFormat} />
       </div>
