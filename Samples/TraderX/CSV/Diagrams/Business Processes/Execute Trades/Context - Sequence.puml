@@ -2,9 +2,9 @@
 
 title Execute Trades - Sequence - Context level
 
-participant "External Process" as TraderX.Actors.ExternalProcess
 participant "Trader" as TraderX.Actors.Trader
 participant "TraderX" as TraderX.SoftwareSystems.TraderX
+participant "External Process" as TraderX.Actors.ExternalProcess
 
 group Trader - Create Trade Request
 TraderX.Actors.Trader -> TraderX.SoftwareSystems.TraderX : Create Trade

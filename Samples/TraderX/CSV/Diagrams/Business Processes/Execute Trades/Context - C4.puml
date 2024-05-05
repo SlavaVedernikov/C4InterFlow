@@ -18,8 +18,10 @@ title Execute Trades - C4 - Context level
 
 Person(TraderX.Actors.Trader, "Trader", "")
 System(TraderX.SoftwareSystems.TraderX, "TraderX", "TraderX")
+System(TraderX.Actors.ExternalProcess, "External Process", "")
 
 Rel(TraderX.Actors.Trader, TraderX.SoftwareSystems.TraderX, "Create Trade\nCancel Trade\n[HTTPS]", $tags='protocol:https')
+Rel(TraderX.Actors.ExternalProcess, TraderX.SoftwareSystems.TraderX, "Start")
 
 
 SHOW_LEGEND()

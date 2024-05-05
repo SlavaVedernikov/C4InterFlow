@@ -2,7 +2,6 @@
 
 title Execute Trades - Sequence - Container level
 
-participant "External Process" as TraderX.Actors.ExternalProcess
 participant "Trader" as TraderX.Actors.Trader
 
 box "TraderX" #White
@@ -15,6 +14,7 @@ box "TraderX" #White
     participant "Trade Processor" as TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor
 end box
 
+participant "External Process" as TraderX.Actors.ExternalProcess
 
 group Trader - Create Trade Request
 TraderX.Actors.Trader -> TraderX.SoftwareSystems.TraderX.Containers.WebClient : Create Trade

@@ -7,7 +7,9 @@ participant "TraderX" as TraderX.SoftwareSystems.TraderX
 participant "User Directory" as TraderX.SoftwareSystems.UserDirectory
 
 C4InterFlow.SoftwareSystems.ExternalSystem -> TraderX.SoftwareSystems.TraderX : Type Ahead People Search
+group Type Ahead People Search
 TraderX.SoftwareSystems.TraderX -> TraderX.SoftwareSystems.UserDirectory : Select People Data
+end
 
 
 @enduml

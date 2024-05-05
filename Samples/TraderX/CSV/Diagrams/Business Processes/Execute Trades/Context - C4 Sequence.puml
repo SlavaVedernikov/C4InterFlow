@@ -3,9 +3,9 @@
 
 title Execute Trades - C4 Sequence - Context level
 
-System(TraderX.Actors.ExternalProcess, "External Process", "")
 Person(TraderX.Actors.Trader, "Trader", "")
 System(TraderX.SoftwareSystems.TraderX, "TraderX", "TraderX")
+System(TraderX.Actors.ExternalProcess, "External Process", "")
 
 group Trader - Create Trade Request
 Rel(TraderX.Actors.Trader, TraderX.SoftwareSystems.TraderX, "Create Trade")
