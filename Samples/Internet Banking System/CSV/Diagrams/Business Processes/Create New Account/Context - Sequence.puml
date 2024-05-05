@@ -13,13 +13,17 @@ end
 group Customer - Sign In and View Home Page
 BigBankPlc.Actors.Customer -> BigBankPlc.SoftwareSystems.InternetBanking : Sign In
 BigBankPlc.Actors.Customer -> BigBankPlc.SoftwareSystems.InternetBanking : View Customer Details
+group View Customer Details
 BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer
 BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer Accounts
 end
+end
 group Customer - Create New Account
 BigBankPlc.Actors.Customer -> BigBankPlc.SoftwareSystems.InternetBanking : Create Account
+group Create Account
 BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Create Account
 BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.EMailSystem : Send New Account Created Notification E-Mail
+end
 end
 group Customer - Receive New Account Created Notification E-Mail
 BigBankPlc.Actors.Customer -> BigBankPlc.SoftwareSystems.EMailSystem : Receive New Account Created Notification E-Mail

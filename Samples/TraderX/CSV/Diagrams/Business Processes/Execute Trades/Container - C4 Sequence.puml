@@ -3,7 +3,6 @@
 
 title Execute Trades - C4 Sequence - Container level
 
-System(TraderX.Actors.ExternalProcess, "External Process", "")
 Person(TraderX.Actors.Trader, "Trader", "")
 
 System_Boundary(TraderX.SoftwareSystems.TraderX, "TraderX")
@@ -15,6 +14,7 @@ System_Boundary(TraderX.SoftwareSystems.TraderX, "TraderX")
     ContainerQueue(TraderX.SoftwareSystems.TraderX.Containers.TradeFeed, "Trade Feed", "", "Message bus for streaming updates to trades and positions")
     Container(TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor, "Trade Processor", "", "Process incoming trade requests")
 Boundary_End()
+System(TraderX.Actors.ExternalProcess, "External Process", "")
 
 group Trader - Create Trade Request
 Rel(TraderX.Actors.Trader, TraderX.SoftwareSystems.TraderX.Containers.WebClient, "Create Trade")
