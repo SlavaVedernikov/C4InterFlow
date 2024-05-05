@@ -8,7 +8,7 @@ public static class OutputSubDirectoryOption
     public static Option<string> Get()
     {
         const string description =
-            "The sub-directory where the Diagram(s) should be saved.";
+            "The output sub-directory for the current command";
 
         var option = new Option<string>(new[] { "--output-sub-dir", "-osd" }, description);
 

@@ -61,11 +61,11 @@ public class QueryUseFlowsCommand : Command
             if (!string.IsNullOrEmpty(queryOutputFile))
             {
                 Utils.WriteLines(result, queryOutputFile, append);
-                Console.WriteLine($"{COMMAND_NAME} command completed. See query results in '{queryOutputFile}'.");
+                Console.WriteLine($"'{COMMAND_NAME}' command completed. See query results in '{queryOutputFile}'.");
             }
             else
             {
-                Console.WriteLine($"{COMMAND_NAME} command completed. See query results below.");
+                Console.WriteLine($"'{COMMAND_NAME}' command completed. See query results below.");
                 Console.Write($"{string.Join(Environment.NewLine, result.Distinct().ToArray())}");
             }
 
@@ -73,7 +73,7 @@ public class QueryUseFlowsCommand : Command
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Querying interfaces failed with exception '{e.Message}'");
+            Console.WriteLine($"'{COMMAND_NAME}' command failed with exception '{e.Message}'");
             return 1;
         }
     }

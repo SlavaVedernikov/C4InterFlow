@@ -205,13 +205,13 @@ public class DrawDiagramsCommand : Command
                 }
             }
             
-            Console.WriteLine($"{COMMAND_NAME} command completed.");
+            Console.WriteLine($"'{COMMAND_NAME}' command completed.");
             Console.WriteLine($"See diagram(s) in '{Path.GetFullPath(outputOptions.OutputDirectory)}'");
             return 0;
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Diagram(s) generation failed with exception(s) '{e.Message}'{(e.InnerException !=null ? $", '{e.InnerException}'" : string.Empty)}.");
+            Console.WriteLine($"'{COMMAND_NAME}' command failed failed with exception(s) '{e.Message}'{(e.InnerException !=null ? $", '{e.InnerException}'" : string.Empty)}.");
             return 1;
         }
     }

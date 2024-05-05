@@ -104,7 +104,7 @@ namespace C4InterFlow.Visualisation.Plantuml
                 // TODO: Investigate why doing this in C4 sequence diagrams doesn't seem to work (out of memory java error when rendering)
                 if (style == SequenceDiagramStyle.PlantUML)
                 {
-                    innerFlows.AddRange(flow.GetFlowsByType(flow, Flow.FlowType.Use, false));
+                    innerFlows.AddRange(flow.GetFlowsByType(flow, Flow.FlowType.Use, true));
                     innerFlows.AddRange(flow.GetFlowsByType(flow, Flow.FlowType.Return, false));
                     innerFlows.AddRange(flow.GetFlowsByType(flow, Flow.FlowType.ThrowException, false));
                     if (innerFlows.Any())

@@ -2,7 +2,7 @@
   "profiles": {
     "C4InterFlow.Cli": {
       "commandName": "Project",
-      "commandLineArgs": "draw-diagrams --business-processes BtcTurk.BusinessProcesses.* --levels-of-details container --types c4-sequence --aac-reader-strategy \"C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"C:\\Data\\Work\\BtcTurk\\Architecture\\Borsa Istanbul\\BIST Integration\\Architecture\" --output-dir \"C:\\Data\\Work\\BtcTurk\\Architecture\\Borsa Istanbul\\BIST Integration\\Diagrams\""
+      "commandLineArgs": "publish-site --site-source-dir \"C:\\C4InterFlow\\Publishers\\StaticSite\" --output-dir \"C:\\architecture-as-code-samples-visualiser\\e-commerce-platform\" --environment-variables \"HOMEPAGE=architecture-as-code-samples-visualiser/e-commerce-platform\" --site-content-sub-dirs \"Software Systems\" \".c4s\" --site-no-sitemap-sub-dirs \".c4s\""
     }
   }
 }

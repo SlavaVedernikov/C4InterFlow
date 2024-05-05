@@ -12,6 +12,7 @@ var root = RootCommandBuilder
         context.Add<QueryByInputCommand>();
         context.Add<ExecuteAaCStrategyCommand>();
         context.Add<GenerateDocumentationCommand>();
+        context.Add<PublishSiteCommand>();
     });
 
 await root.Run();

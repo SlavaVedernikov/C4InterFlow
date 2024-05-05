@@ -94,7 +94,7 @@ namespace C4InterFlow.Visualisation
                         foreach (var activity in Process.Activities)
                         {
                             var actor = activity.GetActorInstance();
-                            if (actor != null && !_structures.Any(i => i.Alias != actor.Alias))
+                            if (actor != null && !_structures.Any(i => i.Alias == actor.Alias))
                             {
                                 _structures.Add(actor);
                             }
@@ -246,7 +246,7 @@ namespace C4InterFlow.Visualisation
                                         x.To == usesInterfaceOwner.Alias &&
                                         x.Label == label &&
                                         x.Protocol == protocol).FirstOrDefault() == null &&
-                (!(fromScope ?? string.Empty).Equals(newToScope)))
+                (!(newFromScope ?? string.Empty).Equals(newToScope)))
             {
                 relationships.Add(((actor) > usesInterfaceOwner)[
                     label,

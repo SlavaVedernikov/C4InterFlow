@@ -189,12 +189,12 @@ public class GenerateDocumentationCommand : Command
                 }
             }
 
-            Console.WriteLine($"{COMMAND_NAME} command completed.");
+            Console.WriteLine($"'{COMMAND_NAME}' command completed.");
             return 0;
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Documentation generation failed with exception(s) '{e.Message}'{(e.InnerException != null ? $", '{e.InnerException}'" : string.Empty)}.");
+            Console.WriteLine($"'{COMMAND_NAME}' command failed with exception(s) '{e.Message}'{(e.InnerException != null ? $", '{e.InnerException}'" : string.Empty)}.");
             return 1;
         }
     }
