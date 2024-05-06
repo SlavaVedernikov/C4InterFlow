@@ -1,6 +1,6 @@
 @echo off
 :: Possible values: TRUE, FALSE
-set "redraw-all=TRUE"
+set "redraw-all=FALSE"
 :::::::::::::::::::::::::::::::
 
 :: Possible values: Yaml, Json

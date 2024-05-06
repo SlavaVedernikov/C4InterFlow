@@ -84,7 +84,9 @@ namespace C4InterFlow.Cli.Commands.Binders
                 case DiagramScopesOption.SOFTWARE_SYSTEM_INTERFACE:
                 {
                     supportedLevelsOfDetail.AddRange(new[] {
-                        DiagramLevelsOfDetailsOption.CONTEXT
+                        DiagramLevelsOfDetailsOption.CONTEXT,
+                        DiagramLevelsOfDetailsOption.CONTAINER,
+                        DiagramLevelsOfDetailsOption.COMPONENT
                         });
                     supportedTypes.AddRange(new[] {
                         DiagramTypesOption.C4_STATIC,
@@ -112,7 +114,8 @@ namespace C4InterFlow.Cli.Commands.Binders
                 {
                     supportedLevelsOfDetail.AddRange(new[] {
                         DiagramLevelsOfDetailsOption.CONTEXT,
-                        DiagramLevelsOfDetailsOption.CONTAINER
+                        DiagramLevelsOfDetailsOption.CONTAINER,
+                        DiagramLevelsOfDetailsOption.COMPONENT
                         });
                         supportedTypes.AddRange(new[] {
                             DiagramTypesOption.C4_STATIC,

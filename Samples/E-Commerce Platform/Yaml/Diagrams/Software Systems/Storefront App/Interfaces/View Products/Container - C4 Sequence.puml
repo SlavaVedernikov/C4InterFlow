@@ -1,0 +1,21 @@
+@startuml
+!include ..\..\..\..\.c4s\C4_Sequence.puml
+
+title Storefront App - View Products - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+System(ECommercePlatform.SoftwareSystems.StorefrontApp, "Storefront App", "")
+System(ECommercePlatform.SoftwareSystems.StorefrontBff, "Storefront Bff", "")
+
+System_Boundary(ECommercePlatform.SoftwareSystems.ProductService, "Product Service")
+    Container(ECommercePlatform.SoftwareSystems.ProductService.Containers.Api, "Api", "", "")
+    Container(ECommercePlatform.SoftwareSystems.ProductService.Containers.Database, "Database", "", "")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.StorefrontApp, "View Products")
+Rel(ECommercePlatform.SoftwareSystems.StorefrontApp, ECommercePlatform.SoftwareSystems.StorefrontBff, "Get Products")
+Rel(ECommercePlatform.SoftwareSystems.StorefrontBff, ECommercePlatform.SoftwareSystems.ProductService.Containers.Api, "Get Products")
+Rel(ECommercePlatform.SoftwareSystems.ProductService.Containers.Api, ECommercePlatform.SoftwareSystems.ProductService.Containers.Database, "Select Products")
+
+
+@enduml
