@@ -1,4 +1,4 @@
-![C4 InterFlow - Logo](Documentation/Images/Logo%20-%20with%20text%20180x180.png)
+<a href="#"><img src="Documentation/Images/Logo%20-%20with%20text%20180x180.png" alt="C4 InterFlow - Logo"></a>
 
 # Vision 💡
 Transform the landscape of **Application Architecture** by bridging the **gap** between **Architecture Model** and **Code**.
@@ -59,11 +59,11 @@ The table below maps Problems to Possible Solutions and C4InterFlow Capabilities
 
 ## Capabilities map
 
-![C4InterFlow - Overview](Documentation/Images/C4InterFlow%20-%20overview.gif)
+<a href="#"><img src="Documentation/Images/C4InterFlow%20-%20overview.gif" alt="C4 InterFlow - Overview"></a>
 
 ## Toolchain Tracks
 
-![C4InterFlow - Toolchain Tracks](<Documentation/Images/C4InterFlow - toolchain tracks.png>)
+<a href="#"><img src="Documentation/Images/C4InterFlow - toolchain tracks.png" alt="C4 InterFlow - Overview"></a>
 
 - **Track 1**
   - User populates Architecture/Business Processes Catalogue
