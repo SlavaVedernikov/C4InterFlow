@@ -1,0 +1,27 @@
+@startuml
+
+title Storefront App - Search Products - Sequence - Container level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "Storefront App" as ECommercePlatform.SoftwareSystems.StorefrontApp
+participant "Storefront Bff" as ECommercePlatform.SoftwareSystems.StorefrontBff
+
+box "Search Service" #White
+    participant "Api" as ECommercePlatform.SoftwareSystems.SearchService.Containers.Api
+    participant "Database" as ECommercePlatform.SoftwareSystems.SearchService.Containers.Database
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.SoftwareSystems.StorefrontApp : Search Products
+group Search Products
+ECommercePlatform.SoftwareSystems.StorefrontApp -> ECommercePlatform.SoftwareSystems.StorefrontBff : Search Products
+group Search Products
+ECommercePlatform.SoftwareSystems.StorefrontBff -> ECommercePlatform.SoftwareSystems.SearchService.Containers.Api : Search Products
+group Search Products
+ECommercePlatform.SoftwareSystems.SearchService.Containers.Api -> ECommercePlatform.SoftwareSystems.SearchService.Containers.Database : Select Products
+end
+end
+end
+
+
+@enduml

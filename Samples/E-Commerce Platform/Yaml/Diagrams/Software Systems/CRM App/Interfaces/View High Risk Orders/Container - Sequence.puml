@@ -1,0 +1,23 @@
+@startuml
+
+title CRM App - View High Risk Orders - Sequence - Container level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "CRM App" as ECommercePlatform.SoftwareSystems.CRMApp
+
+box "Fraud Service" #White
+    participant "Api" as ECommercePlatform.SoftwareSystems.FraudService.Containers.Api
+    participant "Database" as ECommercePlatform.SoftwareSystems.FraudService.Containers.Database
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.SoftwareSystems.CRMApp : View High Risk Orders
+group View High Risk Orders
+ECommercePlatform.SoftwareSystems.CRMApp -> ECommercePlatform.SoftwareSystems.FraudService.Containers.Api : Get High Risk Orders
+group Get High Risk Orders
+ECommercePlatform.SoftwareSystems.FraudService.Containers.Api -> ECommercePlatform.SoftwareSystems.FraudService.Containers.Database : Select High Risk Orders
+end
+end
+
+
+@enduml
