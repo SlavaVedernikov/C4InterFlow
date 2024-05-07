@@ -281,22 +281,5 @@ namespace C4InterFlow.Visualisation
                 PopulateRelationships(relationships, usesInterface, usesAnotherInterface, newFromScope, newToScope);
             }
         }
-
-
-        protected override IElementTag? SetTags()
-        {
-            return new ElementTag()
-                .AddElementTag(Tags.STATE_NEW, bgColor: "green", borderColor: "green")
-                .AddElementTag(Tags.STATE_CHANGED, bgColor: "orange", borderColor: "orange")
-                .AddElementTag(Tags.STATE_REMOVED, bgColor: "red", borderColor: "red");
-        }
-
-        protected override IRelationshipTag? SetRelTags()
-        {
-            return new RelationshipTag()
-                .AddRelTag(Tags.STATE_NEW, "green", "green")
-                .AddRelTag(Tags.STATE_CHANGED, "orange", "orange")
-                .AddRelTag(Tags.STATE_REMOVED, "red", "red");
-        }
     }
 }

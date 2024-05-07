@@ -8,22 +8,27 @@ ECommercePlatform:
               Flows:
               - Type: Use
                 Expression: Database.Interfaces.SelectItems
+              Path: GET v1/baskets/{basketId}/items
             AddItem:
               Flows:
               - Type: Use
                 Expression: Database.Interfaces.InsertItem
+              Path: POST v1/baskets/{basketId}/items
             UpdateItem:
               Flows:
               - Type: Use
                 Expression: Database.Interfaces.UpdateItem
+              Path: PATCH v1/baskets/{basketId}/items/{itemId}
             DeleteItem:
               Flows:
               - Type: Use
                 Expression: Database.Interfaces.DeleteItem
+              Path: DELETE v1/baskets/{basketId}/items/{itemId}
             DeleteBasket:
               Flows:
               - Type: Use
                 Expression: Database.Interfaces.DeleteBasket
+              Path: DELETE v1/baskets/{basketId}
         Database:
           Interfaces:
             InsertItem: {}
