@@ -44,7 +44,10 @@ namespace C4InterFlow.Automation.Readers
 
             var label = token!["Label"]?.ToString() ?? Utils.GetLabel(alias.Split('.').Last()) ?? string.Empty;
             var description = token?["Description"]?.ToString() ?? string.Empty;
+            var tagsToken = token?["Tags"];
+            var tags = tagsToken?.Type == JTokenType.Array && tagsToken.All(x => x.Type == JTokenType.String) ? tagsToken.ToObject<string[]>() : new string[] { };
 
+            token!["Tags"]?.ToObject<string[]>();
             switch (collectionToken.Path.Split('.').Last())
             {
                 case "Actors":
@@ -80,6 +83,7 @@ namespace C4InterFlow.Automation.Readers
                 case "Interfaces":
                     var interfaceFlow = token!["Flow"]?.ToObject<Flow>();
                     var protocol = token?["Protocol"]?.ToString() ?? string.Empty;
+                    var path = token?["Path"]?.ToString() ?? string.Empty;
                     if (interfaceFlow != null)
                     {
                         interfaceFlow.Owner = alias;
@@ -97,41 +101,46 @@ namespace C4InterFlow.Automation.Readers
                     result = new Interface(ownerToken.Path, alias, label)
                     {
                         Flow = interfaceFlow,
-                        Protocol = protocol
+                        Protocol = protocol,
+                        Path = path,
+                        Description = description
                     } as T;
                     break;
                 case "SoftwareSystems":
-                    var softwareSystemsBoundaryName = token!["Boundary"]?.ToString();
+                    var softwareSystemsBoundaryName = token!["Boundary"]?.ToString() ?? string.Empty;
                     result = new SoftwareSystem(alias, label, description)
                     {
                         Boundary = !string.IsNullOrEmpty(softwareSystemsBoundaryName) &&
-                        Enum.TryParse(softwareSystemsBoundaryName, out Boundary softwareSystemsBoundary) ?
-                        softwareSystemsBoundary : Boundary.Internal,
+                            Enum.TryParse(softwareSystemsBoundaryName, out Boundary softwareSystemsBoundary) ?
+                            softwareSystemsBoundary : Boundary.Internal,
+                        Tags = tags ?? new string[] { }
                   
                     } as T;
                     break;
                 case "Containers":
-                    var containerTypeName = token!["ContainerType"]?.ToString();
-                    var containerTechnology = token!["Technology"]?.ToString();
+                    var containerTypeName = token!["ContainerType"]?.ToString() ?? string.Empty;
+                    var containerTechnology = token!["Technology"]?.ToString() ?? string.Empty;
                     result = new Container(ownerToken.Path, alias, label)
                     {
                         ContainerType = !string.IsNullOrEmpty(containerTypeName) &&
-                        Enum.TryParse(containerTypeName, out ContainerType containerType) ?
-                        containerType : ContainerType.None,
+                            Enum.TryParse(containerTypeName, out ContainerType containerType) ?
+                            containerType : ContainerType.None,
                         Description = description,
-                        Technology = containerTechnology
+                        Technology = containerTechnology,
+                        Tags = tags ?? new string[] { }
                     } as T;
                     break;
                 case "Components":
-                    var componentTypeName = token!["ComponentType"]?.ToString();
-                    var componentTechnology = token?["Technology"]?.ToString();
+                    var componentTypeName = token!["ComponentType"]?.ToString() ?? string.Empty;
+                    var componentTechnology = token?["Technology"]?.ToString() ?? string.Empty;
                     result = new Component(ownerToken.Path, alias, label)
                     {
                         ComponentType = !string.IsNullOrEmpty(componentTypeName) &&
-                        Enum.TryParse(componentTypeName, out ComponentType componentType) ?
-                        componentType : ComponentType.None,
+                            Enum.TryParse(componentTypeName, out ComponentType componentType) ?
+                            componentType : ComponentType.None,
                         Description = description,
-                        Technology = componentTechnology
+                        Technology = componentTechnology,
+                        Tags = tags ?? new string[] { }
                     } as T;
                     break;
                 case "Entities":

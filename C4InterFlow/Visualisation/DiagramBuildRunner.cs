@@ -1,7 +1,7 @@
 using C4InterFlow.Visualisation.Interfaces;
 using C4InterFlow.Structures;
 using C4InterFlow.Structures.Relationships;
-using System.Linq;
+using C4InterFlow.Visualisation.Plantuml.Style;
 
 namespace C4InterFlow.Visualisation;
 
@@ -47,8 +47,22 @@ public abstract class DiagramBuildRunner : IDiagramBuildRunner
            ?? throw new KeyNotFoundException($"Structure {key} not found");
 
     protected virtual IElementStyle? SetStyle() => null;
-    protected virtual IElementTag? SetTags() => null;
-    protected virtual IRelationshipTag? SetRelTags() => null;
+
+    protected virtual IElementTag? SetTags()
+    {
+        return new ElementTag()
+            .AddElementTag(Tags.LIFECYCLE_NEW, bgColor: "green", borderColor: "green")
+            .AddElementTag(Tags.LIFECYCLE_CHANGED, bgColor: "orange", borderColor: "orange")
+            .AddElementTag(Tags.LIFECYCLE_REMOVED, bgColor: "red", borderColor: "red");
+    }
+
+    protected virtual IRelationshipTag? SetRelTags()
+    {
+        return new RelationshipTag()
+            .AddRelTag(Tags.LIFECYCLE_NEW, "green", "green")
+            .AddRelTag(Tags.LIFECYCLE_CHANGED, "orange", "orange")
+            .AddRelTag(Tags.LIFECYCLE_REMOVED, "red", "red");
+    }
 
     public Diagram Build()
     {
