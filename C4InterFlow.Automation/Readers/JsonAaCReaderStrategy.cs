@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
-using YamlDotNet.Serialization.NamingConventions;
-using YamlDotNet.Serialization;
-using System.Reflection;
-using System.Text;
-using YamlDotNet.RepresentationModel;
+using Newtonsoft.Json;
 
 namespace C4InterFlow.Automation.Readers
 {
@@ -18,8 +14,45 @@ namespace C4InterFlow.Automation.Readers
             return JObject.Parse(json);
         }
 
+        private bool ValidateFiles(string[] paths)
+        {
+            var result = true;
+
+            foreach (var path in paths)
+            {
+                string[] jsonFiles = Directory.GetFiles(path, "*.json", SearchOption.AllDirectories);
+
+                foreach (string jsonFile in jsonFiles)
+                {
+                    var json = File.ReadAllText(jsonFile);
+
+                    try
+                    {
+                        var jsonObject = JsonConvert.DeserializeObject(json);
+                    }
+                    catch (JsonReaderException ex)
+                    {
+                        Console.WriteLine($"File '{jsonFile}' has error at line {ex.LineNumber}, column {ex.LinePosition}: {ex.Message}");
+                        result = false;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"File '{jsonFile}' has error: {ex.Message}");
+                        result = false;
+                    }
+                }
+            }
+
+            return result;
+        }
+
         protected override JObject GetJsonObjectFromFiles(string[] paths)
         {
+            if (!ValidateFiles(paths))
+            {
+                throw new InvalidDataException("Input file(s) have errors.");
+            }
+
             JObject rootNode = null;
 
             foreach (var path in paths)

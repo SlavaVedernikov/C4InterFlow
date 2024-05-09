@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json.Linq;
 using YamlDotNet.Serialization.NamingConventions;
 using YamlDotNet.Serialization;
-using System.Reflection;
 using System.Text;
 using YamlDotNet.RepresentationModel;
+using YamlDotNet.Core;
 
 namespace C4InterFlow.Automation.Readers
 {
@@ -33,8 +33,47 @@ namespace C4InterFlow.Automation.Readers
             return JObject.Parse(json);
         }
 
+        private bool ValidateFiles(string[] paths)
+        {
+            var result = true;
+
+            foreach (var path in paths)
+            {
+                string[] yamlFiles = Directory.GetFiles(path, "*.yaml", SearchOption.AllDirectories);
+
+                foreach (string yamlFile in yamlFiles)
+                {
+                    var yaml = File.ReadAllText(yamlFile);
+                    var input = new StringReader(yaml);
+                    var deserializer = new DeserializerBuilder().Build();
+                    try
+                    {
+                        var yamlObject = deserializer.Deserialize(input);
+                    }
+                    catch (YamlException ex)
+                    {
+                        Console.WriteLine($"File '{yamlFile}' has error at line {ex.Start.Line}, column {ex.Start.Column}: {ex.Message}");
+                        result = false;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"File '{yamlFile}' has error: {ex.Message}");
+                        result = false;
+                    }
+                }
+            }
+
+            return result;
+        }
+
         protected override JObject GetJsonObjectFromFiles(string[] paths)
         {
+
+            if(!ValidateFiles(paths))
+            {
+                throw new InvalidDataException("Input file(s) have errors.");
+            }
+
             YamlMappingNode rootNode = null;
 
             foreach (var path in paths)
