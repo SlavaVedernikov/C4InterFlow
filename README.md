@@ -1,4 +1,10 @@
-<a href="#"><img src="Documentation/Images/Logo%20-%20with%20text%20180x180.png" alt="C4 InterFlow - Logo"></a>
+<div align="center">
+    <a href="#"><img src="Documentation/Images/Logo%20-%20with%20text%20180x180.png" alt="C4 InterFlow - Logo"></a>
+</div>
+<div align="center">
+    <strong>C4InterFlow</strong> = <strong>C4</strong> Model + <strong>Inter</strong>faces + <strong>Flow</strong>s</h1>
+</div>
+
 
 # Vision 💡
 Transform the landscape of **Application Architecture** by bridging the **gap** between **Architecture Model** and **Code**.
