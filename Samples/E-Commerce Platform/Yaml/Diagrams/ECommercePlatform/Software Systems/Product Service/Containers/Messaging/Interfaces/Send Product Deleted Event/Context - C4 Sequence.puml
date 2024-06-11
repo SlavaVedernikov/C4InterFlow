@@ -1,0 +1,12 @@
+@startuml
+!include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Product Service - Messaging - Send Product Deleted Event - C4 Sequence - Context level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+System(ECommercePlatform.SoftwareSystems.ProductService, "Product Service", "")
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.ProductService, "Send Product Deleted Event")
+
+
+@enduml

@@ -1,0 +1,29 @@
+@startuml
+!include ..\..\..\..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Catalog Api - Api - Catalog Api - Delete Item By Id - C4 Sequence - Component level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi, "Catalog Api")
+    
+Container_Boundary(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api, "Api")
+    Component(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, "Catalog Api", "", "")
+Boundary_End()
+    
+Container_Boundary(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Infrastructure")
+    Component(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext, "Catalog Context", "", "")
+Boundary_End()
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, "Delete Item By Id")
+Rel(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext, "Catalog Items Single Or Default")
+alt item is null
+Rel(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, "Retun (TypedResults.NotFound)")
+end
+Rel(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext, "Catalog Items Remove")
+Rel(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext, "Save Changes Async")
+Rel(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, "Retun (TypedResults.NoContent)")
+
+
+@enduml

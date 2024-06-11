@@ -1,0 +1,14 @@
+@startuml
+!include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title TraderX - Web GUI - Type Ahead People Search - C4 Sequence - Context level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+System(TraderX.SoftwareSystems.TraderX, "TraderX", "TraderX")
+System(TraderX.SoftwareSystems.UserDirectory, "User Directory", "")
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, TraderX.SoftwareSystems.TraderX, "Type Ahead People Search")
+Rel(TraderX.SoftwareSystems.TraderX, TraderX.SoftwareSystems.UserDirectory, "Select People Data")
+
+
+@enduml

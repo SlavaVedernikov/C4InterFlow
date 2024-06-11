@@ -52,5 +52,29 @@ namespace C4InterFlow
             var match = Regex.Match(alias, @"^(.*?)(?:\.Interfaces|\.Containers)");
             return match.Success ? match.Groups[1].Value : string.Empty;
         }
+
+        public static bool TryGetNamespaceAlias(string alias, out string? namespaceAlias)
+        {
+            namespaceAlias = null;
+
+            int index = alias.IndexOf("SoftwareSystems");
+
+            if (index < 0)
+            {
+                index = alias.IndexOf("BusinessProcesses");
+            }
+
+            if (index < 0)
+            {
+                index = alias.IndexOf("Actors");
+            }
+
+            if (index >= 0)
+            {
+                namespaceAlias = alias.Substring(0, index - 1);
+            }
+
+            return namespaceAlias != null;
+        }
     }
 }

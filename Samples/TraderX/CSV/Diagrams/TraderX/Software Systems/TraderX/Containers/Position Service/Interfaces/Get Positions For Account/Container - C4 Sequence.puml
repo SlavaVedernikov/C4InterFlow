@@ -1,0 +1,15 @@
+@startuml
+!include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title TraderX - Position Service - Get Positions For Account - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(TraderX.SoftwareSystems.TraderX, "TraderX")
+    Container(TraderX.SoftwareSystems.TraderX.Containers.PositionService, "Position Service", "", "Server process which processes trading activity and updates positions")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, TraderX.SoftwareSystems.TraderX.Containers.PositionService, "Get Positions For Account")
+
+
+@enduml

@@ -1,0 +1,24 @@
+@startuml
+!include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Order Service - Message Handler - Handle Order Shipped Event - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(ECommercePlatform.SoftwareSystems.OrderService, "Order Service")
+    Container(ECommercePlatform.SoftwareSystems.OrderService.Containers.MessageHandler, "Message Handler", "", "")
+    Container(ECommercePlatform.SoftwareSystems.OrderService.Containers.Database, "Database", "", "")
+    Container(ECommercePlatform.SoftwareSystems.OrderService.Containers.Messaging, "Messaging", "", "")
+Boundary_End()
+
+System_Boundary(ECommercePlatform.SoftwareSystems.FulfilmentService, "Fulfilment Service")
+    Container(ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Messaging, "Messaging", "", "")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.OrderService.Containers.MessageHandler, "Handle Order Shipped Event")
+Rel(ECommercePlatform.SoftwareSystems.OrderService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Messaging, "Receive Order Shipped Event")
+Rel(ECommercePlatform.SoftwareSystems.OrderService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.OrderService.Containers.Database, "Update Order Status")
+Rel(ECommercePlatform.SoftwareSystems.OrderService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.OrderService.Containers.Messaging, "Send Order Status Changed Event")
+
+
+@enduml

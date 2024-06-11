@@ -1,0 +1,12 @@
+@startuml
+!include ..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Fraud Engine - Get Fraud Check Result - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+System(ECommercePlatform.SoftwareSystems.FraudEngine, "Fraud Engine", "")
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.FraudEngine, "Get Fraud Check Result")
+
+
+@enduml

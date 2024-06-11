@@ -1,0 +1,14 @@
+@startuml
+!include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Buying Service - Message Handler - Handle Purchase Order Updated Event - C4 Sequence - Context level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+System(ECommercePlatform.SoftwareSystems.BuyingService, "Buying Service", "")
+System(ECommercePlatform.SoftwareSystems.WMS, "WMS", "")
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.BuyingService, "Handle Purchase Order Updated Event")
+Rel(ECommercePlatform.SoftwareSystems.BuyingService, ECommercePlatform.SoftwareSystems.WMS, "Update Purchase Order")
+
+
+@enduml

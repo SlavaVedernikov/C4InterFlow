@@ -1,0 +1,63 @@
+@startuml
+!include .c4s\C4_Context.puml
+
+AddElementTag("c4interflow:lifecycle:new", $bgColor=green, $fontColor=#ffffff, $borderColor=green, $shadowing="False")
+AddElementTag("c4interflow:lifecycle:changed", $bgColor=orange, $fontColor=#ffffff, $borderColor=orange, $shadowing="False")
+AddElementTag("c4interflow:lifecycle:removed", $bgColor=red, $fontColor=#ffffff, $borderColor=red, $shadowing="False")
+
+AddRelTag("c4interflow:lifecycle:new", $textColor=green, $lineColor=green)
+AddRelTag("c4interflow:lifecycle:changed", $textColor=orange, $lineColor=orange)
+AddRelTag("c4interflow:lifecycle:removed", $textColor=red, $lineColor=red)
+
+SHOW_PERSON_PORTRAIT()
+LAYOUT_TOP_DOWN()
+
+skinparam linetype polyline
+
+title All Software Systems - C4 - Context level
+
+System(ECommercePlatform.SoftwareSystems.BuyingAndMerchandisingApp, "Buying And Merchandising App", "")
+System(ECommercePlatform.SoftwareSystems.BuyingService, "Buying Service", "")
+System(ECommercePlatform.SoftwareSystems.PricingService, "Pricing Service", "")
+System(ECommercePlatform.SoftwareSystems.CRMApp, "CRM App", "")
+System(ECommercePlatform.SoftwareSystems.FraudService, "Fraud Service", "")
+System(ECommercePlatform.SoftwareSystems.FraudEngine, "Fraud Engine", "")
+System(ECommercePlatform.SoftwareSystems.PaymentProvider, "Payment Provider", "")
+System(ECommercePlatform.SoftwareSystems.PIMApp, "PIM App", "")
+System(ECommercePlatform.SoftwareSystems.ProductService, "Product Service", "")
+System(ECommercePlatform.SoftwareSystems.StorefrontApp, "Storefront App", "")
+System(ECommercePlatform.SoftwareSystems.StorefrontBff, "Storefront Bff", "")
+System(ECommercePlatform.SoftwareSystems.SearchService, "Search Service", "")
+System(ECommercePlatform.SoftwareSystems.BasketService, "Basket Service", "")
+System(ECommercePlatform.SoftwareSystems.OrderService, "Order Service", "")
+System(ECommercePlatform.SoftwareSystems.WMS, "WMS", "")
+System(ECommercePlatform.SoftwareSystems.FulfilmentService, "Fulfilment Service", "")
+System(ECommercePlatform.SoftwareSystems.PaymentService, "Payment Service", "")
+
+Rel(ECommercePlatform.SoftwareSystems.BuyingAndMerchandisingApp, ECommercePlatform.SoftwareSystems.BuyingService, "Get Purchase Orders\nCreate Purchase Order\nUpdate Purchase Order\nDelete Purchase Order")
+Rel(ECommercePlatform.SoftwareSystems.BuyingAndMerchandisingApp, ECommercePlatform.SoftwareSystems.PricingService, "Get Product Prices\nUpdate Product Prices")
+Rel(ECommercePlatform.SoftwareSystems.CRMApp, ECommercePlatform.SoftwareSystems.FraudService, "Get High Risk Orders\nUpdate Order Fraud Check Result")
+Rel(ECommercePlatform.SoftwareSystems.PIMApp, ECommercePlatform.SoftwareSystems.ProductService, "Get Products\nUpdate Product\nDelete Product")
+Rel(ECommercePlatform.SoftwareSystems.StorefrontApp, ECommercePlatform.SoftwareSystems.StorefrontBff, "Get Products\nSearch Products\nGet Basket\nAdd Basket Item\nUpdate Basket Item\nDelete Basket Item\nCheckout")
+Rel(ECommercePlatform.SoftwareSystems.StorefrontBff, ECommercePlatform.SoftwareSystems.ProductService, "Get Products")
+Rel(ECommercePlatform.SoftwareSystems.StorefrontBff, ECommercePlatform.SoftwareSystems.SearchService, "Search Products")
+Rel(ECommercePlatform.SoftwareSystems.StorefrontBff, ECommercePlatform.SoftwareSystems.BasketService, "Get Items\nAdd Item\nUpdate Item\nDelete Item\nDelete Basket")
+Rel(ECommercePlatform.SoftwareSystems.StorefrontBff, ECommercePlatform.SoftwareSystems.OrderService, "Create Order")
+Rel(ECommercePlatform.SoftwareSystems.BuyingService, ECommercePlatform.SoftwareSystems.WMS, "Create Purchase Order\nUpdate Purchase Order\nDelete Purchase Order")
+Rel(ECommercePlatform.SoftwareSystems.FraudService, ECommercePlatform.SoftwareSystems.OrderService, "Receive Order Created Event")
+Rel(ECommercePlatform.SoftwareSystems.FraudService, ECommercePlatform.SoftwareSystems.FraudEngine, "Get Fraud Check Result")
+Rel(ECommercePlatform.SoftwareSystems.FulfilmentService, ECommercePlatform.SoftwareSystems.OrderService, "Receive Order Status Changed Event")
+Rel(ECommercePlatform.SoftwareSystems.FulfilmentService, ECommercePlatform.SoftwareSystems.WMS, "Ship Order")
+Rel(ECommercePlatform.SoftwareSystems.OrderService, ECommercePlatform.SoftwareSystems.FraudService, "Receive Fraud Check Result Event")
+Rel(ECommercePlatform.SoftwareSystems.OrderService, ECommercePlatform.SoftwareSystems.PaymentService, "Receive Payment Result Event")
+Rel(ECommercePlatform.SoftwareSystems.OrderService, ECommercePlatform.SoftwareSystems.FulfilmentService, "Receive Order Shipped Event")
+Rel(ECommercePlatform.SoftwareSystems.PaymentService, ECommercePlatform.SoftwareSystems.OrderService, "Receive Order Status Changed Event")
+Rel(ECommercePlatform.SoftwareSystems.PaymentService, ECommercePlatform.SoftwareSystems.PaymentProvider, "Process Payment")
+Rel(ECommercePlatform.SoftwareSystems.PricingService, ECommercePlatform.SoftwareSystems.BuyingService, "Receive Purchase Order Created Event\nReceive Purchase Order Updated Event")
+Rel(ECommercePlatform.SoftwareSystems.ProductService, ECommercePlatform.SoftwareSystems.BuyingService, "Receive Purchase Order Created Event\nReceive Purchase Order Updated Event")
+Rel(ECommercePlatform.SoftwareSystems.SearchService, ECommercePlatform.SoftwareSystems.PricingService, "Receive Product Price Changed Event")
+Rel(ECommercePlatform.SoftwareSystems.SearchService, ECommercePlatform.SoftwareSystems.ProductService, "Receive Product Created Event\nReceive Product Updated Event\nReceive Product Deleted Event")
+
+
+SHOW_LEGEND()
+@enduml

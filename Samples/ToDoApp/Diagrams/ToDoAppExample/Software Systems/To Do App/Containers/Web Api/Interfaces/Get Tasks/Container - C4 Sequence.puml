@@ -1,0 +1,17 @@
+@startuml
+!include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title To Do App - Web Api - Get Tasks - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(ToDoAppExample.SoftwareSystems.ToDoApp, "To Do App")
+    Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, "Web Api", "", "")
+    Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database, "Database", "", "")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, "Get Tasks")
+Rel(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database, "Select Tasks")
+
+
+@enduml

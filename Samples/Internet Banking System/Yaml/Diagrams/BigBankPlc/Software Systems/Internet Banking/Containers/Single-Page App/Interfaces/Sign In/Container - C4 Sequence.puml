@@ -1,0 +1,19 @@
+@startuml
+!include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Internet Banking - Single-Page App - Sign In - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking")
+    Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "Single-Page App", "JavaScript, Angular", "Provides all the Internet banking functionality to customers via their web browser")
+    Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "API Application", "Java, Docker Container", "Provides Internet banking functionality via API")
+    ContainerDb(BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Database", "SQL Server Database", "Stores user registration information, hashed auth credentials, access logs, etc.")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "Sign In")
+Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "Sign In")
+Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Authenticate User")
+
+
+@enduml

@@ -11,8 +11,14 @@ internal static class C4Directory
     /// </summary>
     public static string GetRelativeResourcesDirectoryPath(string diagramPath)
     {
-        var diagramPathSegments = diagramPath.Split(@"\");
-
-        return Path.Join(string.Join("", Enumerable.Repeat(@"..\", diagramPathSegments.Length)), ResourcesDirectoryName);
+        if (string.IsNullOrEmpty(diagramPath))
+        {
+            return ResourcesDirectoryName;
+        }
+        else
+        {
+            var diagramPathSegments = diagramPath.Split(@"\");
+            return Path.Join(string.Join("", Enumerable.Repeat(@"..\", diagramPathSegments.Length)), ResourcesDirectoryName);
+        }
     }
 }

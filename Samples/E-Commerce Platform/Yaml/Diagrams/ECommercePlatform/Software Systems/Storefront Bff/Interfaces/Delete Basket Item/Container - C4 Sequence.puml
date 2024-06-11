@@ -1,0 +1,19 @@
+@startuml
+!include ..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Storefront Bff - Delete Basket Item - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+System(ECommercePlatform.SoftwareSystems.StorefrontBff, "Storefront Bff", "")
+
+System_Boundary(ECommercePlatform.SoftwareSystems.BasketService, "Basket Service")
+    Container(ECommercePlatform.SoftwareSystems.BasketService.Containers.Api, "Api", "", "")
+    Container(ECommercePlatform.SoftwareSystems.BasketService.Containers.Database, "Database", "", "")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.StorefrontBff, "Delete Basket Item")
+Rel(ECommercePlatform.SoftwareSystems.StorefrontBff, ECommercePlatform.SoftwareSystems.BasketService.Containers.Api, "Delete Item")
+Rel(ECommercePlatform.SoftwareSystems.BasketService.Containers.Api, ECommercePlatform.SoftwareSystems.BasketService.Containers.Database, "Delete Item")
+
+
+@enduml

@@ -1,0 +1,17 @@
+@startuml
+!include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Internet Banking - Web Application - Navigate - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking")
+    Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.WebApplication, "Web Application", "Java, Spring MVC", "Delivers the static content and the Internet banking SPA")
+    Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "Single-Page App", "JavaScript, Angular", "Provides all the Internet banking functionality to customers via their web browser")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, BigBankPlc.SoftwareSystems.InternetBanking.Containers.WebApplication, "Navigate")
+Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.WebApplication, BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "Load And Start")
+
+
+@enduml

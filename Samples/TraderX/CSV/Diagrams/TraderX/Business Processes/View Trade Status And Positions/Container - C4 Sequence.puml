@@ -1,0 +1,21 @@
+@startuml
+!include ..\..\..\.c4s\C4_Sequence.puml
+
+title View Trade Status And Positions - C4 Sequence - Container level
+
+Person(TraderX.Actors.Trader, "Trader", "")
+
+System_Boundary(TraderX.SoftwareSystems.TraderX, "TraderX")
+    Container(TraderX.SoftwareSystems.TraderX.Containers.WebClient, "Web Client", "", "Browser based web interface for TraderX")
+    Container(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, "Web GUI", "", "Allows employees to manage accounts and book trades")
+    Container(TraderX.SoftwareSystems.TraderX.Containers.PositionService, "Position Service", "", "Server process which processes trading activity and updates positions")
+Boundary_End()
+
+Rel(TraderX.Actors.Trader, TraderX.SoftwareSystems.TraderX.Containers.WebClient, "View Trade Status And Positions")
+Rel(TraderX.SoftwareSystems.TraderX.Containers.WebClient, TraderX.SoftwareSystems.TraderX.Containers.WebGUI, "Load Trades For Account")
+Rel(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, TraderX.SoftwareSystems.TraderX.Containers.PositionService, "Get Trades For Account")
+Rel(TraderX.SoftwareSystems.TraderX.Containers.WebClient, TraderX.SoftwareSystems.TraderX.Containers.WebGUI, "Load Positions For Account")
+Rel(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, TraderX.SoftwareSystems.TraderX.Containers.PositionService, "Get Positions For Account")
+
+
+@enduml

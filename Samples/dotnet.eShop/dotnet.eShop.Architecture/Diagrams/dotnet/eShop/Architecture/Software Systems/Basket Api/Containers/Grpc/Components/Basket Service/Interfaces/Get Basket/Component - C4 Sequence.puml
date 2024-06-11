@@ -1,0 +1,31 @@
+@startuml
+!include ..\..\..\..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Basket Api - Grpc - Basket Service - Get Basket - C4 Sequence - Component level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.BasketApi, "Basket Api")
+    
+Container_Boundary(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc, "Grpc")
+    Component(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, "Basket Service", "", "")
+Boundary_End()
+    
+Container_Boundary(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data, "Data")
+    Component(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, "Redis Basket Repository", "", "")
+    Component(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase, "Redis Database", "", "")
+Boundary_End()
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, "Get Basket")
+Rel(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, "Get Basket Async")
+Rel(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase, "String Get Lease Async")
+Rel(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, "Get Basket Key")
+Rel(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, "Retun (JsonSerializer.Deserialize)")
+alt data is not null
+Rel(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, "Map To Customer Basket Response")
+Rel(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, "Retun (response)")
+end
+
+
+@enduml

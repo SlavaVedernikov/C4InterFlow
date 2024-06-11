@@ -1,0 +1,19 @@
+@startuml
+!include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Order Service - Api - Create Order - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(ECommercePlatform.SoftwareSystems.OrderService, "Order Service")
+    Container(ECommercePlatform.SoftwareSystems.OrderService.Containers.Api, "Api", "", "")
+    Container(ECommercePlatform.SoftwareSystems.OrderService.Containers.Database, "Database", "", "")
+    Container(ECommercePlatform.SoftwareSystems.OrderService.Containers.Messaging, "Messaging", "", "")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.OrderService.Containers.Api, "Create Order")
+Rel(ECommercePlatform.SoftwareSystems.OrderService.Containers.Api, ECommercePlatform.SoftwareSystems.OrderService.Containers.Database, "Insert Order")
+Rel(ECommercePlatform.SoftwareSystems.OrderService.Containers.Api, ECommercePlatform.SoftwareSystems.OrderService.Containers.Messaging, "Send Order Created Event")
+
+
+@enduml

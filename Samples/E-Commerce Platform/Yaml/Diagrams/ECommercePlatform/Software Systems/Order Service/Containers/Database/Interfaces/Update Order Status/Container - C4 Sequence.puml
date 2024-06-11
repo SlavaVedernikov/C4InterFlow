@@ -1,0 +1,15 @@
+@startuml
+!include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Order Service - Database - Update Order Status - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(ECommercePlatform.SoftwareSystems.OrderService, "Order Service")
+    Container(ECommercePlatform.SoftwareSystems.OrderService.Containers.Database, "Database", "", "")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.OrderService.Containers.Database, "Update Order Status")
+
+
+@enduml
