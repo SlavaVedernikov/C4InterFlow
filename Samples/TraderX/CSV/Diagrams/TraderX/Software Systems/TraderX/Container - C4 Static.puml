@@ -1,0 +1,50 @@
+@startuml
+!include ..\..\..\.c4s\C4_Container.puml
+
+AddElementTag("c4interflow:lifecycle:new", $bgColor=green, $fontColor=#ffffff, $borderColor=green, $shadowing="False")
+AddElementTag("c4interflow:lifecycle:changed", $bgColor=orange, $fontColor=#ffffff, $borderColor=orange, $shadowing="False")
+AddElementTag("c4interflow:lifecycle:removed", $bgColor=red, $fontColor=#ffffff, $borderColor=red, $shadowing="False")
+
+AddRelTag("c4interflow:lifecycle:new", $textColor=green, $lineColor=green)
+AddRelTag("c4interflow:lifecycle:changed", $textColor=orange, $lineColor=orange)
+AddRelTag("c4interflow:lifecycle:removed", $textColor=red, $lineColor=red)
+
+SHOW_PERSON_PORTRAIT()
+LAYOUT_TOP_DOWN()
+
+skinparam linetype polyline
+
+title TraderX - C4 Static - Container level
+
+
+System_Boundary(TraderX.SoftwareSystems.TraderX, "TraderX") {
+    ContainerDb(TraderX.SoftwareSystems.TraderX.Containers.TraderXDB, "TraderX DB", "", "Database which stores account")
+    ContainerQueue(TraderX.SoftwareSystems.TraderX.Containers.TradeFeed, "Trade Feed", "", "Message bus for streaming updates to trades and positions")
+    Container(TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor, "Trade Processor", "", "Process incoming trade requests")
+    Container(TraderX.SoftwareSystems.TraderX.Containers.WebClient, "Web Client", "", "Browser based web interface for TraderX")
+    Container(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, "Web GUI", "", "Allows employees to manage accounts and book trades")
+    Container(TraderX.SoftwareSystems.TraderX.Containers.ReferenceDataService, "Reference Data Service", "", "Service which provides reference data")
+    Container(TraderX.SoftwareSystems.TraderX.Containers.TradingServices, "Trading Services", "", "Service which provides trading services")
+    Container(TraderX.SoftwareSystems.TraderX.Containers.AccountsService, "Accounts Service", "", "Service which provides account management")
+    Container(TraderX.SoftwareSystems.TraderX.Containers.PositionService, "Position Service", "", "Server process which processes trading activity and updates positions")
+    Container(TraderX.SoftwareSystems.TraderX.Containers.PeopleService, "People Service", "", "Service which provides user details management")
+}
+System(TraderX.SoftwareSystems.UserDirectory, "User Directory", "")
+
+Rel(TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderX.SoftwareSystems.TraderX.Containers.TradeFeed, "Uses\n[SocketIO]", $tags='protocol:socketio')
+Rel(TraderX.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderX.SoftwareSystems.TraderX.Containers.TraderXDB, "Uses\n[JDBC]", $tags='protocol:jdbc')
+Rel(TraderX.SoftwareSystems.TraderX.Containers.WebClient, TraderX.SoftwareSystems.TraderX.Containers.WebGUI, "Uses\n[HTTPS]", $tags='protocol:https')
+Rel(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, TraderX.SoftwareSystems.TraderX.Containers.ReferenceDataService, "Uses\n[HTTPS]", $tags='protocol:https')
+Rel(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, TraderX.SoftwareSystems.TraderX.Containers.TradingServices, "Uses\n[HTTPS]", $tags='protocol:https')
+Rel(TraderX.SoftwareSystems.TraderX.Containers.TradingServices, TraderX.SoftwareSystems.TraderX.Containers.TraderXDB, "Uses\n[JDBC]", $tags='protocol:jdbc')
+Rel(TraderX.SoftwareSystems.TraderX.Containers.TradingServices, TraderX.SoftwareSystems.TraderX.Containers.TradeFeed, "Uses\n[SocketIO]", $tags='protocol:socketio')
+Rel(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, TraderX.SoftwareSystems.TraderX.Containers.AccountsService, "Uses\n[HTTPS]", $tags='protocol:https')
+Rel(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, TraderX.SoftwareSystems.TraderX.Containers.PositionService, "Uses\n[HTTPS]", $tags='protocol:https')
+Rel(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, TraderX.SoftwareSystems.TraderX.Containers.PeopleService, "Uses\n[HTTPS]", $tags='protocol:https')
+Rel(TraderX.SoftwareSystems.TraderX.Containers.PeopleService, TraderX.SoftwareSystems.UserDirectory, "Uses\n[LDAP]", $tags='protocol:ldap')
+Rel(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, TraderX.SoftwareSystems.TraderX.Containers.TradeFeed, "Uses\n[WebSocket]", $tags='protocol:websocket')
+Rel(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, TraderX.SoftwareSystems.TraderX.Containers.WebClient, "Uses\n[WebSocket]", $tags='protocol:websocket')
+
+
+SHOW_LEGEND()
+@enduml

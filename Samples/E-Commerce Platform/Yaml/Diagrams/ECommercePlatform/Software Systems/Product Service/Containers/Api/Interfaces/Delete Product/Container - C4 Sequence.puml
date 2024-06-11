@@ -1,0 +1,19 @@
+@startuml
+!include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Product Service - Api - Delete Product - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(ECommercePlatform.SoftwareSystems.ProductService, "Product Service")
+    Container(ECommercePlatform.SoftwareSystems.ProductService.Containers.Api, "Api", "", "")
+    Container(ECommercePlatform.SoftwareSystems.ProductService.Containers.Database, "Database", "", "")
+    Container(ECommercePlatform.SoftwareSystems.ProductService.Containers.Messaging, "Messaging", "", "")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.ProductService.Containers.Api, "Delete Product")
+Rel(ECommercePlatform.SoftwareSystems.ProductService.Containers.Api, ECommercePlatform.SoftwareSystems.ProductService.Containers.Database, "Delete Product")
+Rel(ECommercePlatform.SoftwareSystems.ProductService.Containers.Api, ECommercePlatform.SoftwareSystems.ProductService.Containers.Messaging, "Send Product Deleted Event")
+
+
+@enduml

@@ -1,0 +1,15 @@
+@startuml
+!include ..\..\..\..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Basket Api - Data - Redis Database - String Get Lease Async - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.BasketApi, "Basket Api")
+    Container(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data, "Data", "", "")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data, "String Get Lease Async")
+
+
+@enduml

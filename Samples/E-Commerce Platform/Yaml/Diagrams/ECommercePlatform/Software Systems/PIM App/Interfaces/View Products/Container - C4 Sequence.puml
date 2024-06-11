@@ -1,0 +1,19 @@
+@startuml
+!include ..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title PIM App - View Products - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+System(ECommercePlatform.SoftwareSystems.PIMApp, "PIM App", "")
+
+System_Boundary(ECommercePlatform.SoftwareSystems.ProductService, "Product Service")
+    Container(ECommercePlatform.SoftwareSystems.ProductService.Containers.Api, "Api", "", "")
+    Container(ECommercePlatform.SoftwareSystems.ProductService.Containers.Database, "Database", "", "")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.PIMApp, "View Products")
+Rel(ECommercePlatform.SoftwareSystems.PIMApp, ECommercePlatform.SoftwareSystems.ProductService.Containers.Api, "Get Products")
+Rel(ECommercePlatform.SoftwareSystems.ProductService.Containers.Api, ECommercePlatform.SoftwareSystems.ProductService.Containers.Database, "Select Products")
+
+
+@enduml

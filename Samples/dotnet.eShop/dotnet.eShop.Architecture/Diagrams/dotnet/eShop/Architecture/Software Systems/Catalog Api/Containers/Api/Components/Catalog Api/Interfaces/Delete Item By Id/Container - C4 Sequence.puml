@@ -1,0 +1,19 @@
+@startuml
+!include ..\..\..\..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Catalog Api - Api - Catalog Api - Delete Item By Id - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi, "Catalog Api")
+    Container(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api, "Api", "", "")
+    Container(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Infrastructure", "", "")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api, "Delete Item By Id")
+Rel(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Catalog Items Single Or Default")
+Rel(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Catalog Items Remove")
+Rel(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Save Changes Async")
+
+
+@enduml

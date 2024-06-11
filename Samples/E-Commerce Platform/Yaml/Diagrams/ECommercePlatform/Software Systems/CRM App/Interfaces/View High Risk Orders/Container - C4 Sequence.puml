@@ -1,0 +1,19 @@
+@startuml
+!include ..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title CRM App - View High Risk Orders - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+System(ECommercePlatform.SoftwareSystems.CRMApp, "CRM App", "")
+
+System_Boundary(ECommercePlatform.SoftwareSystems.FraudService, "Fraud Service")
+    Container(ECommercePlatform.SoftwareSystems.FraudService.Containers.Api, "Api", "", "")
+    Container(ECommercePlatform.SoftwareSystems.FraudService.Containers.Database, "Database", "", "")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.CRMApp, "View High Risk Orders")
+Rel(ECommercePlatform.SoftwareSystems.CRMApp, ECommercePlatform.SoftwareSystems.FraudService.Containers.Api, "Get High Risk Orders")
+Rel(ECommercePlatform.SoftwareSystems.FraudService.Containers.Api, ECommercePlatform.SoftwareSystems.FraudService.Containers.Database, "Select High Risk Orders")
+
+
+@enduml

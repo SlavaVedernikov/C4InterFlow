@@ -1,0 +1,33 @@
+@startuml
+!include ..\..\..\..\..\.c4s\C4_Container.puml
+
+AddElementTag("c4interflow:lifecycle:new", $bgColor=green, $fontColor=#ffffff, $borderColor=green, $shadowing="False")
+AddElementTag("c4interflow:lifecycle:changed", $bgColor=orange, $fontColor=#ffffff, $borderColor=orange, $shadowing="False")
+AddElementTag("c4interflow:lifecycle:removed", $bgColor=red, $fontColor=#ffffff, $borderColor=red, $shadowing="False")
+
+AddRelTag("c4interflow:lifecycle:new", $textColor=green, $lineColor=green)
+AddRelTag("c4interflow:lifecycle:changed", $textColor=orange, $lineColor=orange)
+AddRelTag("c4interflow:lifecycle:removed", $textColor=red, $lineColor=red)
+
+SHOW_PERSON_PORTRAIT()
+LAYOUT_TOP_DOWN()
+
+skinparam linetype polyline
+
+title Storefront App - Delete Basket Item - C4 - Container level
+
+System(ECommercePlatform.SoftwareSystems.StorefrontApp, "Storefront App", "")
+System(ECommercePlatform.SoftwareSystems.StorefrontBff, "Storefront Bff", "")
+
+System_Boundary(ECommercePlatform.SoftwareSystems.BasketService, "Basket Service") {
+    Container(ECommercePlatform.SoftwareSystems.BasketService.Containers.Api, "Api", "", "")
+    Container(ECommercePlatform.SoftwareSystems.BasketService.Containers.Database, "Database", "", "")
+}
+
+Rel(ECommercePlatform.SoftwareSystems.StorefrontApp, ECommercePlatform.SoftwareSystems.StorefrontBff, "Delete Basket Item")
+Rel(ECommercePlatform.SoftwareSystems.StorefrontBff, ECommercePlatform.SoftwareSystems.BasketService.Containers.Api, "Delete Item")
+Rel(ECommercePlatform.SoftwareSystems.BasketService.Containers.Api, ECommercePlatform.SoftwareSystems.BasketService.Containers.Database, "Delete Item")
+
+
+SHOW_LEGEND()
+@enduml

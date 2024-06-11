@@ -1,0 +1,12 @@
+@startuml
+!include ..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title WMS - Ship Order - C4 Sequence - Context level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+System(ECommercePlatform.SoftwareSystems.WMS, "WMS", "")
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.WMS, "Ship Order")
+
+
+@enduml

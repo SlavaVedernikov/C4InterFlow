@@ -1,0 +1,19 @@
+@startuml
+!include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Payment Service - Api - Post Payment Result Event - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(ECommercePlatform.SoftwareSystems.PaymentService, "Payment Service")
+    Container(ECommercePlatform.SoftwareSystems.PaymentService.Containers.Api, "Api", "", "")
+    Container(ECommercePlatform.SoftwareSystems.PaymentService.Containers.Database, "Database", "", "")
+    Container(ECommercePlatform.SoftwareSystems.PaymentService.Containers.Messaging, "Messaging", "", "")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.PaymentService.Containers.Api, "Post Payment Result Event")
+Rel(ECommercePlatform.SoftwareSystems.PaymentService.Containers.Api, ECommercePlatform.SoftwareSystems.PaymentService.Containers.Database, "Insert Payment Result")
+Rel(ECommercePlatform.SoftwareSystems.PaymentService.Containers.Api, ECommercePlatform.SoftwareSystems.PaymentService.Containers.Messaging, "Send Payment Result Event")
+
+
+@enduml

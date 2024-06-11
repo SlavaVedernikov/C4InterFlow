@@ -1,0 +1,18 @@
+@startuml
+!include ..\..\..\..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Catalog Api - Infrastructure - Catalog Context - Catalog Types Add - C4 Sequence - Component level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi, "Catalog Api")
+    
+Container_Boundary(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Infrastructure")
+    Component(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext, "Catalog Context", "", "")
+Boundary_End()
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext, "Catalog Types Add")
+
+
+@enduml

@@ -811,8 +811,11 @@ public class DrawDiagramsCommand : Command
             return $"{businessProcess.Label} - {ToPrettyName(diagramType)} - {ToPrettyName(levelOfDetails)} level";
     }
 
-    private static bool TryGetDiagramPath(string scope, string levelOfDetails, string diagramType, out string path, out string fileName, string? outputSubDirectory = null, string? diagramNamePrefix = null)
+    private static bool TryGetDiagramPath(string scope, string levelOfDetails, string diagramType, out string? path, out string? fileName, string? outputSubDirectory = null, string? diagramNamePrefix = null)
     {
+        path = null;
+        fileName = null;
+
         switch (scope)
         {
             case DiagramScopesOption.ALL_SOFTWARE_SYSTEMS:
@@ -823,7 +826,7 @@ public class DrawDiagramsCommand : Command
                 }
                 else
                 {
-                    path = "Software Systems";
+                    path = string.Empty;
                 }
 
                 fileName = $"{(!string.IsNullOrEmpty(diagramNamePrefix) ? $"{diagramNamePrefix} - " : string.Empty)}{ToPrettyName(levelOfDetails)} - {ToPrettyName(diagramType)}.puml";
@@ -839,7 +842,7 @@ public class DrawDiagramsCommand : Command
                 
         }
 
-        return !string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(fileName);
+        return path != null && !string.IsNullOrEmpty(fileName);
     }
     private static bool TryGetDiagramPath(string scope, string levelOfDetails, string diagramType, Interface @interface, out string path, out string fileName, string? outputSubDirectory = null, string? diagramNamePrefix = null)
     {
@@ -849,7 +852,17 @@ public class DrawDiagramsCommand : Command
         }
         else
         {
-            path = "Software Systems";
+            path = string.Empty;
+
+            if (C4InterFlow.Utils.TryGetNamespaceAlias(@interface.Alias, out var namespaceAlias))
+            {
+                foreach (var segment in namespaceAlias!.Split('.'))
+                {
+                    path = Path.Join(path, segment);
+                }
+            }
+
+            path = Path.Join(path, "Software Systems");
         }
 
         fileName = $"{(!string.IsNullOrEmpty(diagramNamePrefix) ? $"{diagramNamePrefix} - " : string.Empty)}{ToPrettyName(levelOfDetails)} - {ToPrettyName(diagramType)}.puml";
@@ -965,7 +978,17 @@ public class DrawDiagramsCommand : Command
         }
         else
         {
-            path = $"Business Processes";
+            path = string.Empty;
+
+            if (C4InterFlow.Utils.TryGetNamespaceAlias(businessProcess.Alias, out var namespaceAlias))
+            {
+                foreach (var segment in namespaceAlias!.Split('.'))
+                {
+                    path = Path.Join(path, segment);
+                }
+            }
+
+            path = Path.Join(path, "Business Processes");
         }
 
         fileName = $"{(!string.IsNullOrEmpty(diagramNamePrefix) ? $"{diagramNamePrefix} - " : string.Empty)}{ToPrettyName(levelOfDetails)} - {ToPrettyName(diagramType)}.puml";

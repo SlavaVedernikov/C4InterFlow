@@ -1,0 +1,14 @@
+@startuml
+!include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Internet Banking - API Application - Get Customer - C4 Sequence - Context level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+System(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking", "")
+System_Ext(BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Mainframe Banking System", "")
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, BigBankPlc.SoftwareSystems.InternetBanking, "Get Customer")
+Rel(BigBankPlc.SoftwareSystems.InternetBanking, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Customer")
+
+
+@enduml

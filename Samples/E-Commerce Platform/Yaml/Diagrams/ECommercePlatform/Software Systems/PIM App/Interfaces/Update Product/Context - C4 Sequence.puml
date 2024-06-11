@@ -1,0 +1,14 @@
+@startuml
+!include ..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title PIM App - Update Product - C4 Sequence - Context level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+System(ECommercePlatform.SoftwareSystems.PIMApp, "PIM App", "")
+System(ECommercePlatform.SoftwareSystems.ProductService, "Product Service", "")
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.SoftwareSystems.PIMApp, "Update Product")
+Rel(ECommercePlatform.SoftwareSystems.PIMApp, ECommercePlatform.SoftwareSystems.ProductService, "Update Product")
+
+
+@enduml

@@ -1,0 +1,21 @@
+@startuml
+!include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title TraderX - Web GUI - Cancel Trade - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(TraderX.SoftwareSystems.TraderX, "TraderX")
+    Container(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, "Web GUI", "", "Allows employees to manage accounts and book trades")
+    Container(TraderX.SoftwareSystems.TraderX.Containers.TradingServices, "Trading Services", "", "Service which provides trading services")
+    ContainerDb(TraderX.SoftwareSystems.TraderX.Containers.TraderXDB, "TraderX DB", "", "Database which stores account")
+    ContainerQueue(TraderX.SoftwareSystems.TraderX.Containers.TradeFeed, "Trade Feed", "", "Message bus for streaming updates to trades and positions")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, TraderX.SoftwareSystems.TraderX.Containers.WebGUI, "Cancel Trade")
+Rel(TraderX.SoftwareSystems.TraderX.Containers.WebGUI, TraderX.SoftwareSystems.TraderX.Containers.TradingServices, "Cancel Trade")
+Rel(TraderX.SoftwareSystems.TraderX.Containers.TradingServices, TraderX.SoftwareSystems.TraderX.Containers.TraderXDB, "Update Trade Status")
+Rel(TraderX.SoftwareSystems.TraderX.Containers.TradingServices, TraderX.SoftwareSystems.TraderX.Containers.TradeFeed, "Send Updates To Trades")
+
+
+@enduml
