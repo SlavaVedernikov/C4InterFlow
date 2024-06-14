@@ -644,6 +644,38 @@ public class DrawDiagramsCommand : Command
             {
                 context.Export(outputDirectory, diagram, path, fileName);
             }
+
+            string pattern = @"^(.*?)(?:\.SoftwareSystems)";
+
+            var namespaceAliases = interfaces.Select(x => Regex.Match(x.Alias, pattern))
+                  .Where(m => m.Success)
+                  .Select(m => m.Groups[1].Value)
+                  .Distinct();
+
+            var progress = new ConcurrentProgress(namespaceAliases.Count());
+
+            Parallel.ForEach(namespaceAliases, namespaceAliase =>
+            {
+                var namespaceInterfaces = interfaces.Where(x => x.Alias.StartsWith($"{namespaceAliase}.")).ToArray();
+                var diagram = GetDiagram(scope, levelOfDetails, namespaceInterfaces, showBoundaries, showInterfaceInputAndOutput, isStatic);
+
+                if (TryGetDiagramPath(
+                        scope,
+                        levelOfDetails,
+                        isStatic ? DiagramTypesOption.C4_STATIC : DiagramTypesOption.C4,
+                        namespaceInterfaces.First(),
+                        out var path,
+                        out var fileName,
+                        outputSubDirectory,
+                        diagramNamePrefix))
+                {
+                    context.Export(outputDirectory, diagram, path, fileName);
+                }
+                progress.Increment();
+
+            });
+
+            progress.Complete();
         }
         else if (scope == DiagramScopesOption.SOFTWARE_SYSTEM)
         {
@@ -950,6 +982,8 @@ public class DrawDiagramsCommand : Command
                     }
                     break;
                 }
+            case DiagramScopesOption.ALL_SOFTWARE_SYSTEMS:
+                break;
             default:
                 {
                     path = fileName = null;

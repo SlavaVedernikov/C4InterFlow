@@ -74,7 +74,7 @@ namespace C4InterFlow.Visualisation.Plantuml
             }
             else if (flow.Type == Flow.FlowType.Return)
             {
-                var flowRelationship = new Relationship(actor.Alias, actor.Alias, $"Retun{(!string.IsNullOrEmpty(flow.Expression) ? $" ({flow.Expression.Replace("\n", @"\n")})" : string.Empty)}");
+                var flowRelationship = new Relationship(actor.Alias, actor.Alias, $"Return{(!string.IsNullOrEmpty(flow.Expression) ? $" ({flow.Expression.Replace("\n", @"\n")})" : string.Empty)}");
                 sb.AppendLine(flowRelationship.ToPumlSequenceString(style));
             }
             else if(flow.Type == Flow.FlowType.Use)
