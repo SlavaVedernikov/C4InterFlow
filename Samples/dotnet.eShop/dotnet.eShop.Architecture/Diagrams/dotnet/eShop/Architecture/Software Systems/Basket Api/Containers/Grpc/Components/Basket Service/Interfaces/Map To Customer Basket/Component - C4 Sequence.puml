@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\..\..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
 
-title Basket Api - Grpc - Basket Service - Map To Customer Basket - C4 Sequence - Component level
+title dotnet - eShop - Architecture - Basket Api - Grpc - Basket Service - Map To Customer Basket - C4 Sequence - Component level
 
 System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 
@@ -13,7 +13,7 @@ Boundary_End()
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, "Map To Customer Basket")
-Rel(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, "Retun (response)")
+Rel(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, "Return (response)")
 
 
 @enduml

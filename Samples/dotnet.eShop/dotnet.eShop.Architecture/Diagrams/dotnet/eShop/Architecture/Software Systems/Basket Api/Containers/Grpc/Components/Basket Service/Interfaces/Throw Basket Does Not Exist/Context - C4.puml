@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Basket Api - Grpc - Basket Service - Throw Basket Does Not Exist - C4 - Context level
+title dotnet - eShop - Architecture - Basket Api - Grpc - Basket Service - Throw Basket Does Not Exist - C4 - Context level
 
 System(dotnet.eShop.Architecture.SoftwareSystems.BasketApi, "Basket Api", "")
 

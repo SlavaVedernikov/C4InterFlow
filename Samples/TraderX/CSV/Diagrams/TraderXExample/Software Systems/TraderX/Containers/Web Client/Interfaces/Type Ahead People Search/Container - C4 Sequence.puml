@@ -1,0 +1,21 @@
+@startuml
+!include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title TraderXExample - TraderX - Web Client - Type Ahead People Search - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(TraderXExample.SoftwareSystems.TraderX, "TraderX")
+    Container(TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Web Client", "", "Browser based web interface for TraderX")
+    Container(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, "Web GUI", "", "Allows employees to manage accounts and book trades")
+    Container(TraderXExample.SoftwareSystems.TraderX.Containers.PeopleService, "People Service", "", "Service which provides user details management")
+Boundary_End()
+System(TraderXExample.SoftwareSystems.UserDirectory, "User Directory", "")
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Type Ahead People Search")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, "Type Ahead People Search")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.PeopleService, "Get People Data")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.PeopleService, TraderXExample.SoftwareSystems.UserDirectory, "Select People Data")
+
+
+@enduml

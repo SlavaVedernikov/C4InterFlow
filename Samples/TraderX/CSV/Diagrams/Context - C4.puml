@@ -16,10 +16,10 @@ skinparam linetype polyline
 
 title All Software Systems - C4 - Context level
 
-System(TraderX.SoftwareSystems.TraderX, "TraderX", "TraderX")
-System(TraderX.SoftwareSystems.UserDirectory, "User Directory", "")
+System(TraderXExample.SoftwareSystems.TraderX, "TraderX", "TraderX")
+System(TraderXExample.SoftwareSystems.UserDirectory, "User Directory", "")
 
-Rel(TraderX.SoftwareSystems.TraderX, TraderX.SoftwareSystems.UserDirectory, "Select People Data\n[LDAP]", $tags='protocol:ldap')
+Rel(TraderXExample.SoftwareSystems.TraderX, TraderXExample.SoftwareSystems.UserDirectory, "Select People Data\n[LDAP]", $tags='protocol:ldap')
 
 
 SHOW_LEGEND()

@@ -1,0 +1,25 @@
+@startuml
+!include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title TraderXExample - TraderX - Web Client - Create Trade - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(TraderXExample.SoftwareSystems.TraderX, "TraderX")
+    Container(TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Web Client", "", "Browser based web interface for TraderX")
+    Container(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, "Web GUI", "", "Allows employees to manage accounts and book trades")
+    Container(TraderXExample.SoftwareSystems.TraderX.Containers.ReferenceDataService, "Reference Data Service", "", "Service which provides reference data")
+    Container(TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices, "Trading Services", "", "Service which provides trading services")
+    ContainerDb(TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB, "TraderX DB", "", "Database which stores account")
+    ContainerQueue(TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Trade Feed", "", "Message bus for streaming updates to trades and positions")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Create Trade")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, "Create Trade")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.ReferenceDataService, "Get Securities")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices, "Create Trade")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices, TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB, "Insert Trade Request")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices, TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Send Trade Request")
+
+
+@enduml

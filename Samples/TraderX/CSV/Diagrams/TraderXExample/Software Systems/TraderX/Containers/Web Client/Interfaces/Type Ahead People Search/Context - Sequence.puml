@@ -1,0 +1,15 @@
+@startuml
+
+title TraderXExample - TraderX - Web Client - Type Ahead People Search - Sequence - Context level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "TraderX" as TraderXExample.SoftwareSystems.TraderX
+participant "User Directory" as TraderXExample.SoftwareSystems.UserDirectory
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> TraderXExample.SoftwareSystems.TraderX : Type Ahead People Search
+group Type Ahead People Search
+TraderXExample.SoftwareSystems.TraderX -> TraderXExample.SoftwareSystems.UserDirectory : Select People Data
+end
+
+
+@enduml

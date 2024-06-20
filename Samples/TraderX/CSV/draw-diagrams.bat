@@ -1,10 +1,10 @@
 @echo off
 :: Possible values: TRUE, FALSE
-set "redraw-all=FALSE"
+set "redraw-all=TRUE"
 :::::::::::::::::::::::::::::::
 
 set "build-configuration=Debug"
-set "aac-root-namespace=TraderX"
+set "aac-root-namespace=TraderXExample"
 set "cli-project-path=..\..\..\C4InterFlow.Cli\C4InterFlow.Cli.csproj"
 set "cli-output-dir=..\..\..\C4InterFlow.Cli\bin\%build-configuration%\net6.0\win-x64"
 set "cli-exe=C4InterFlow.Cli.exe"

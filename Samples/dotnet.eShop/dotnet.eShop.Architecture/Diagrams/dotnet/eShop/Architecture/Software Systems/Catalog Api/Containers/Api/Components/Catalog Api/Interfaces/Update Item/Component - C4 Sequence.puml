@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\..\..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
 
-title Catalog Api - Api - Catalog Api - Update Item - C4 Sequence - Component level
+title dotnet - eShop - Architecture - Catalog Api - Api - Catalog Api - Update Item - C4 Sequence - Component level
 
 System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 
@@ -18,13 +18,13 @@ Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, "Update Item")
 alt catalogItem == null
-Rel(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, "Retun (TypedResults.NotFound)")
+Rel(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, "Return (TypedResults.NotFound)")
 end
 alt priceEntry.IsModified
 else 
 Rel(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext, "Save Changes Async")
 end
-Rel(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, "Retun (TypedResults.Created)")
+Rel(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, "Return (TypedResults.Created)")
 
 
 @enduml

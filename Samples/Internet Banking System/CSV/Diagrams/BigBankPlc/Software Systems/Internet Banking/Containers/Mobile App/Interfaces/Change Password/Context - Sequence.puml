@@ -1,6 +1,6 @@
 @startuml
 
-title Internet Banking - Mobile App - Change Password - Sequence - Context level
+title BigBankPlc - Internet Banking - Mobile App - Change Password - Sequence - Context level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 participant "Internet Banking" as BigBankPlc.SoftwareSystems.InternetBanking

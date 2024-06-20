@@ -1,6 +1,6 @@
 @startuml
 
-title To Do App - Mobile App - Update Task - Sequence - Context level
+title ToDoAppExample - To Do App - Mobile App - Update Task - Sequence - Context level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 participant "To Do App" as ToDoAppExample.SoftwareSystems.ToDoApp

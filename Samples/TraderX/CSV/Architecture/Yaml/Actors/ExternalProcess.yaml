@@ -1,4 +1,4 @@
-TraderX:
+TraderXExample:
   Actors:
     ExternalProcess:
       Type: SoftwareSystem

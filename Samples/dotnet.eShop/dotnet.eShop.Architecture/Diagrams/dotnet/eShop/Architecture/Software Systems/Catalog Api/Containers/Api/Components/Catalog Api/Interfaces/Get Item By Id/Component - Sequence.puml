@@ -1,6 +1,6 @@
 @startuml
 
-title Catalog Api - Api - Catalog Api - Get Item By Id - Sequence - Component level
+title dotnet - eShop - Architecture - Catalog Api - Api - Catalog Api - Get Item By Id - Sequence - Component level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 
@@ -16,12 +16,12 @@ end box
 C4InterFlow.SoftwareSystems.ExternalSystem -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Get Item By Id
 group Get Item By Id
 alt id <= 0
-dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Retun (TypedResults.BadRequest)
+dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Return (TypedResults.BadRequest)
 end
 alt item == null
-dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Retun (TypedResults.NotFound)
+dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Return (TypedResults.NotFound)
 end
-dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Retun (TypedResults.Ok)
+dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Return (TypedResults.Ok)
 end
 
 

@@ -1,0 +1,21 @@
+@startuml
+!include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title TraderXExample - TraderX - Web GUI - Start - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(TraderXExample.SoftwareSystems.TraderX, "TraderX")
+    Container(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, "Web GUI", "", "Allows employees to manage accounts and book trades")
+    ContainerQueue(TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Trade Feed", "", "Message bus for streaming updates to trades and positions")
+    Container(TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Web Client", "", "Browser based web interface for TraderX")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, "Start")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Receive Updates To Trades")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Receive Updates To Positions")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Send Trade And Position Status Updates")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Update Trade And Position Status View")
+
+
+@enduml

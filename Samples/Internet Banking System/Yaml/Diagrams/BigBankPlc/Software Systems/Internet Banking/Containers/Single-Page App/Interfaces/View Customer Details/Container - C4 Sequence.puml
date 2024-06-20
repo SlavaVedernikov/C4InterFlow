@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
 
-title Internet Banking - Single-Page App - View Customer Details - C4 Sequence - Container level
+title BigBankPlc - Internet Banking - Single-Page App - View Customer Details - C4 Sequence - Container level
 
 System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 

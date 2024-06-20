@@ -73,6 +73,10 @@ namespace C4InterFlow
             {
                 namespaceAlias = alias.Substring(0, index - 1);
             }
+            else
+            {
+                namespaceAlias = alias;
+            }
 
             return namespaceAlias != null;
         }

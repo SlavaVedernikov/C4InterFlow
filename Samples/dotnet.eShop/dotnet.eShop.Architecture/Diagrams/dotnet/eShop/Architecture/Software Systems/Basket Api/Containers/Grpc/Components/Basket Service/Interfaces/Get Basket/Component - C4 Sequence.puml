@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\..\..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
 
-title Basket Api - Grpc - Basket Service - Get Basket - C4 Sequence - Component level
+title dotnet - eShop - Architecture - Basket Api - Grpc - Basket Service - Get Basket - C4 Sequence - Component level
 
 System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 
@@ -21,10 +21,10 @@ Rel(C4InterFlow.SoftwareSystems.ExternalSystem, dotnet.eShop.Architecture.Softwa
 Rel(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, "Get Basket Async")
 Rel(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase, "String Get Lease Async")
 Rel(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, "Get Basket Key")
-Rel(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, "Retun (JsonSerializer.Deserialize)")
+Rel(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, "Return (JsonSerializer.Deserialize)")
 alt data is not null
 Rel(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, "Map To Customer Basket Response")
-Rel(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, "Retun (response)")
+Rel(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, "Return (response)")
 end
 
 

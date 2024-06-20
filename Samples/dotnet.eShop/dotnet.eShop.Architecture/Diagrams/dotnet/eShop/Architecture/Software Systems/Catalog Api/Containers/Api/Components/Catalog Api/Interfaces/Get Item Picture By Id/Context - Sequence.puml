@@ -1,6 +1,6 @@
 @startuml
 
-title Catalog Api - Api - Catalog Api - Get Item Picture By Id - Sequence - Context level
+title dotnet - eShop - Architecture - Catalog Api - Api - Catalog Api - Get Item Picture By Id - Sequence - Context level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 participant "Catalog Api" as dotnet.eShop.Architecture.SoftwareSystems.CatalogApi

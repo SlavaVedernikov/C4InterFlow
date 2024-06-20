@@ -1,5 +1,5 @@
 {
-  "TraderX": {
+  "TraderXExample": {
     "SoftwareSystems": {
       "TraderX": {
         "Label": "TraderX",
@@ -82,27 +82,27 @@
                 "Flows": [
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.ReceiveTradeRequest"
+                    "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.ReceiveTradeRequest"
                   },
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.TraderX.Containers.TraderXDB.Interfaces.SelectCurrentPositions"
+                    "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB.Interfaces.SelectCurrentPositions"
                   },
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.TraderX.Containers.TraderXDB.Interfaces.SaveTradeState"
+                    "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB.Interfaces.SaveTradeState"
                   },
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.TraderX.Containers.TraderXDB.Interfaces.SavePositionState"
+                    "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB.Interfaces.SavePositionState"
                   },
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.SendUpdatesToTrades"
+                    "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.SendUpdatesToTrades"
                   },
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.SendUpdatesToPositions"
+                    "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.SendUpdatesToPositions"
                   }
                 ]
               }
@@ -119,7 +119,7 @@
                 "Flows": [
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.CreateTrade"
+                    "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.CreateTrade"
                   }
                 ]
               },
@@ -129,7 +129,7 @@
                 "Flows": [
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.CancelTrade"
+                    "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.CancelTrade"
                   }
                 ]
               },
@@ -139,15 +139,15 @@
                 "Flows": [
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.LoadAccount"
+                    "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.LoadAccount"
                   },
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.LoadTradesForAccount"
+                    "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.LoadTradesForAccount"
                   },
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.LoadPositionsForAccount"
+                    "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.LoadPositionsForAccount"
                   }
                 ]
               },
@@ -157,7 +157,7 @@
                 "Flows": [
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.CreateAccount"
+                    "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.CreateAccount"
                   }
                 ]
               },
@@ -167,7 +167,7 @@
                 "Flows": [
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.UpdateAccount"
+                    "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.UpdateAccount"
                   }
                 ]
               },
@@ -177,11 +177,11 @@
                 "Flows": [
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.LoadTradesForAccount"
+                    "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.LoadTradesForAccount"
                   },
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.LoadPositionsForAccount"
+                    "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.LoadPositionsForAccount"
                   }
                 ]
               },
@@ -191,7 +191,7 @@
                 "Flows": [
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.TypeAheadPeopleSearch"
+                    "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.TypeAheadPeopleSearch"
                   }
                 ]
               },
@@ -205,7 +205,7 @@
                 "Flows": [
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.UpdateTradeAndPositionStatusView"
+                    "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.UpdateTradeAndPositionStatusView"
                   }
                 ]
               }
@@ -222,7 +222,7 @@
                 "Flows": [
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.TraderX.Containers.AccountsService.Interfaces.GetAccounts"
+                    "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.AccountsService.Interfaces.GetAccounts"
                   }
                 ]
               },
@@ -232,7 +232,7 @@
                 "Flows": [
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.TraderX.Containers.AccountsService.Interfaces.CreateAccount"
+                    "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.AccountsService.Interfaces.CreateAccount"
                   }
                 ]
               },
@@ -242,7 +242,7 @@
                 "Flows": [
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.TraderX.Containers.AccountsService.Interfaces.UpdateAccount"
+                    "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.AccountsService.Interfaces.UpdateAccount"
                   }
                 ]
               },
@@ -252,7 +252,7 @@
                 "Flows": [
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.TraderX.Containers.PositionService.Interfaces.GetPositionsForAccount"
+                    "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.PositionService.Interfaces.GetPositionsForAccount"
                   }
                 ]
               },
@@ -262,7 +262,7 @@
                 "Flows": [
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.TraderX.Containers.PositionService.Interfaces.GetTradesForAccount"
+                    "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.PositionService.Interfaces.GetTradesForAccount"
                   }
                 ]
               },
@@ -272,11 +272,11 @@
                 "Flows": [
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.TraderX.Containers.ReferenceDataService.Interfaces.GetSecurities"
+                    "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.ReferenceDataService.Interfaces.GetSecurities"
                   },
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.TraderX.Containers.TradingServices.Interfaces.CreateTrade"
+                    "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices.Interfaces.CreateTrade"
                   }
                 ]
               },
@@ -286,7 +286,7 @@
                 "Flows": [
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.TraderX.Containers.TradingServices.Interfaces.CancelTrade"
+                    "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices.Interfaces.CancelTrade"
                   }
                 ]
               },
@@ -296,7 +296,7 @@
                 "Flows": [
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.TraderX.Containers.PeopleService.Interfaces.GetPeopleData"
+                    "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.PeopleService.Interfaces.GetPeopleData"
                   }
                 ]
               },
@@ -305,15 +305,15 @@
                 "Flows": [
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.ReceiveUpdatesToTrades"
+                    "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.ReceiveUpdatesToTrades"
                   },
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.ReceiveUpdatesToPositions"
+                    "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.ReceiveUpdatesToPositions"
                   },
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.SendTradeAndPositionStatusUpdates"
+                    "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.SendTradeAndPositionStatusUpdates"
                   }
                 ]
               }
@@ -360,11 +360,11 @@
                 "Flows": [
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.TraderX.Containers.TraderXDB.Interfaces.InsertTradeRequest"
+                    "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB.Interfaces.InsertTradeRequest"
                   },
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.SendTradeRequest"
+                    "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.SendTradeRequest"
                   }
                 ]
               },
@@ -374,11 +374,11 @@
                 "Flows": [
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.TraderX.Containers.TraderXDB.Interfaces.UpdateTradeStatus"
+                    "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB.Interfaces.UpdateTradeStatus"
                   },
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.SendUpdatesToTrades"
+                    "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.SendUpdatesToTrades"
                   }
                 ]
               }
@@ -418,7 +418,7 @@
                 "Flows": [
                   {
                     "Type": "Use",
-                    "Expression": "TraderX.SoftwareSystems.UserDirectory.Interfaces.SelectPeopleData"
+                    "Expression": "TraderXExample.SoftwareSystems.UserDirectory.Interfaces.SelectPeopleData"
                   }
                 ]
               }

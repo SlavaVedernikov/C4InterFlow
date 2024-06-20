@@ -1,4 +1,4 @@
-TraderX:
+TraderXExample:
   SoftwareSystems:
     TraderX:
       Label: TraderX
@@ -71,17 +71,17 @@ TraderX:
               Label: Start
               Flows:
               - Type: Use
-                Expression: TraderX.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.ReceiveTradeRequest
+                Expression: TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.ReceiveTradeRequest
               - Type: Use
-                Expression: TraderX.SoftwareSystems.TraderX.Containers.TraderXDB.Interfaces.SelectCurrentPositions
+                Expression: TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB.Interfaces.SelectCurrentPositions
               - Type: Use
-                Expression: TraderX.SoftwareSystems.TraderX.Containers.TraderXDB.Interfaces.SaveTradeState
+                Expression: TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB.Interfaces.SaveTradeState
               - Type: Use
-                Expression: TraderX.SoftwareSystems.TraderX.Containers.TraderXDB.Interfaces.SavePositionState
+                Expression: TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB.Interfaces.SavePositionState
               - Type: Use
-                Expression: TraderX.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.SendUpdatesToTrades
+                Expression: TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.SendUpdatesToTrades
               - Type: Use
-                Expression: TraderX.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.SendUpdatesToPositions
+                Expression: TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.SendUpdatesToPositions
           Attributes:
             DataClassification:
               Label: Data Classification
@@ -96,49 +96,49 @@ TraderX:
               Protocol: HTTPS
               Flows:
               - Type: Use
-                Expression: TraderX.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.CreateTrade
+                Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.CreateTrade
             CancelTrade:
               Label: Cancel Trade
               Protocol: HTTPS
               Flows:
               - Type: Use
-                Expression: TraderX.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.CancelTrade
+                Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.CancelTrade
             ViewAccount:
               Label: View Account
               Protocol: HTTPS
               Flows:
               - Type: Use
-                Expression: TraderX.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.LoadAccount
+                Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.LoadAccount
               - Type: Use
-                Expression: TraderX.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.LoadTradesForAccount
+                Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.LoadTradesForAccount
               - Type: Use
-                Expression: TraderX.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.LoadPositionsForAccount
+                Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.LoadPositionsForAccount
             CreateAccount:
               Label: Create Account
               Protocol: HTTPS
               Flows:
               - Type: Use
-                Expression: TraderX.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.CreateAccount
+                Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.CreateAccount
             UpdateAccount:
               Label: Update Account
               Protocol: HTTPS
               Flows:
               - Type: Use
-                Expression: TraderX.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.UpdateAccount
+                Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.UpdateAccount
             ViewTradeStatusAndPositions:
               Label: View Trade Status And Positions
               Protocol: HTTPS
               Flows:
               - Type: Use
-                Expression: TraderX.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.LoadTradesForAccount
+                Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.LoadTradesForAccount
               - Type: Use
-                Expression: TraderX.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.LoadPositionsForAccount
+                Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.LoadPositionsForAccount
             TypeAheadPeopleSearch:
               Label: Type Ahead People Search
               Protocol: HTTPS
               Flows:
               - Type: Use
-                Expression: TraderX.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.TypeAheadPeopleSearch
+                Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.TypeAheadPeopleSearch
             UpdateTradeAndPositionStatusView:
               Label: Update Trade And Position Status View
               Protocol: HTTPS
@@ -147,7 +147,7 @@ TraderX:
               Protocol: WebSocket
               Flows:
               - Type: Use
-                Expression: TraderX.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.UpdateTradeAndPositionStatusView
+                Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.UpdateTradeAndPositionStatusView
           Attributes:
             DataClassification:
               Label: Data Classification
@@ -162,60 +162,60 @@ TraderX:
               Protocol: HTTPS
               Flows:
               - Type: Use
-                Expression: TraderX.SoftwareSystems.TraderX.Containers.AccountsService.Interfaces.GetAccounts
+                Expression: TraderXExample.SoftwareSystems.TraderX.Containers.AccountsService.Interfaces.GetAccounts
             CreateAccount:
               Label: Create Account
               Protocol: HTTPS
               Flows:
               - Type: Use
-                Expression: TraderX.SoftwareSystems.TraderX.Containers.AccountsService.Interfaces.CreateAccount
+                Expression: TraderXExample.SoftwareSystems.TraderX.Containers.AccountsService.Interfaces.CreateAccount
             UpdateAccount:
               Label: Update Account
               Protocol: HTTPS
               Flows:
               - Type: Use
-                Expression: TraderX.SoftwareSystems.TraderX.Containers.AccountsService.Interfaces.UpdateAccount
+                Expression: TraderXExample.SoftwareSystems.TraderX.Containers.AccountsService.Interfaces.UpdateAccount
             LoadPositionsForAccount:
               Label: Load Positions For Account
               Protocol: HTTPS
               Flows:
               - Type: Use
-                Expression: TraderX.SoftwareSystems.TraderX.Containers.PositionService.Interfaces.GetPositionsForAccount
+                Expression: TraderXExample.SoftwareSystems.TraderX.Containers.PositionService.Interfaces.GetPositionsForAccount
             LoadTradesForAccount:
               Label: Load Trades For Account
               Protocol: HTTPS
               Flows:
               - Type: Use
-                Expression: TraderX.SoftwareSystems.TraderX.Containers.PositionService.Interfaces.GetTradesForAccount
+                Expression: TraderXExample.SoftwareSystems.TraderX.Containers.PositionService.Interfaces.GetTradesForAccount
             CreateTrade:
               Label: Create Trade
               Protocol: HTTPS
               Flows:
               - Type: Use
-                Expression: TraderX.SoftwareSystems.TraderX.Containers.ReferenceDataService.Interfaces.GetSecurities
+                Expression: TraderXExample.SoftwareSystems.TraderX.Containers.ReferenceDataService.Interfaces.GetSecurities
               - Type: Use
-                Expression: TraderX.SoftwareSystems.TraderX.Containers.TradingServices.Interfaces.CreateTrade
+                Expression: TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices.Interfaces.CreateTrade
             CancelTrade:
               Label: Cancel Trade
               Protocol: HTTPS
               Flows:
               - Type: Use
-                Expression: TraderX.SoftwareSystems.TraderX.Containers.TradingServices.Interfaces.CancelTrade
+                Expression: TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices.Interfaces.CancelTrade
             TypeAheadPeopleSearch:
               Label: Type Ahead People Search
               Protocol: HTTPS
               Flows:
               - Type: Use
-                Expression: TraderX.SoftwareSystems.TraderX.Containers.PeopleService.Interfaces.GetPeopleData
+                Expression: TraderXExample.SoftwareSystems.TraderX.Containers.PeopleService.Interfaces.GetPeopleData
             Start:
               Label: Start
               Flows:
               - Type: Use
-                Expression: TraderX.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.ReceiveUpdatesToTrades
+                Expression: TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.ReceiveUpdatesToTrades
               - Type: Use
-                Expression: TraderX.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.ReceiveUpdatesToPositions
+                Expression: TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.ReceiveUpdatesToPositions
               - Type: Use
-                Expression: TraderX.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.SendTradeAndPositionStatusUpdates
+                Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.SendTradeAndPositionStatusUpdates
           Attributes:
             DataClassification:
               Label: Data Classification
@@ -260,17 +260,17 @@ TraderX:
               Protocol: HTTPS
               Flows:
               - Type: Use
-                Expression: TraderX.SoftwareSystems.TraderX.Containers.TraderXDB.Interfaces.InsertTradeRequest
+                Expression: TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB.Interfaces.InsertTradeRequest
               - Type: Use
-                Expression: TraderX.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.SendTradeRequest
+                Expression: TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.SendTradeRequest
             CancelTrade:
               Label: Cancel Trade
               Protocol: HTTPS
               Flows:
               - Type: Use
-                Expression: TraderX.SoftwareSystems.TraderX.Containers.TraderXDB.Interfaces.UpdateTradeStatus
+                Expression: TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB.Interfaces.UpdateTradeStatus
               - Type: Use
-                Expression: TraderX.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.SendUpdatesToTrades
+                Expression: TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed.Interfaces.SendUpdatesToTrades
           Attributes:
             DataClassification:
               Label: Data Classification
@@ -306,7 +306,7 @@ TraderX:
               Protocol: HTTPS
               Flows:
               - Type: Use
-                Expression: TraderX.SoftwareSystems.UserDirectory.Interfaces.SelectPeopleData
+                Expression: TraderXExample.SoftwareSystems.UserDirectory.Interfaces.SelectPeopleData
           Attributes:
             DataClassification:
               Label: Data Classification

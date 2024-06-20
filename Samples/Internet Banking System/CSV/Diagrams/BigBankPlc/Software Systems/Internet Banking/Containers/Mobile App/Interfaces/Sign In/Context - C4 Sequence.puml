@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
 
-title Internet Banking - Mobile App - Sign In - C4 Sequence - Context level
+title BigBankPlc - Internet Banking - Mobile App - Sign In - C4 Sequence - Context level
 
 System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 System(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking", "")

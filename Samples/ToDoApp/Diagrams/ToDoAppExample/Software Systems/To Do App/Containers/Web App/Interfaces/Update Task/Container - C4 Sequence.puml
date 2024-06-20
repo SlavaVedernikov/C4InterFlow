@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
 
-title To Do App - Web App - Update Task - C4 Sequence - Container level
+title ToDoAppExample - To Do App - Web App - Update Task - C4 Sequence - Container level
 
 System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 

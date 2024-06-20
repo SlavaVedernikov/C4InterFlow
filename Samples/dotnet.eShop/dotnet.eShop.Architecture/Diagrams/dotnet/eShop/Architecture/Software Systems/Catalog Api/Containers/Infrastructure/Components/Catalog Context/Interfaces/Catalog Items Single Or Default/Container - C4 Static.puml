@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Catalog Api - Infrastructure - Catalog Context - Catalog Items Single Or Default - C4 Static - Container level
+title dotnet - eShop - Architecture - Catalog Api - Infrastructure - Catalog Context - Catalog Items Single Or Default - C4 Static - Container level
 
 
 System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi, "Catalog Api") {
