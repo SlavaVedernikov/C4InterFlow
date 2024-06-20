@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Buying And Merchandising App - Update Purchase Order - C4 Static - Container level
+title ECommercePlatform - Buying And Merchandising App - Update Purchase Order - C4 Static - Container level
 
 System(ECommercePlatform.SoftwareSystems.BuyingAndMerchandisingApp, "Buying And Merchandising App", "")
 

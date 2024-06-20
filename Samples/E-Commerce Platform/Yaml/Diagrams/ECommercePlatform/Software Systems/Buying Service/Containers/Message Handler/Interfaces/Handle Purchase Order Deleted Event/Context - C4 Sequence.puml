@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
 
-title Buying Service - Message Handler - Handle Purchase Order Deleted Event - C4 Sequence - Context level
+title ECommercePlatform - Buying Service - Message Handler - Handle Purchase Order Deleted Event - C4 Sequence - Context level
 
 System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 System(ECommercePlatform.SoftwareSystems.BuyingService, "Buying Service", "")

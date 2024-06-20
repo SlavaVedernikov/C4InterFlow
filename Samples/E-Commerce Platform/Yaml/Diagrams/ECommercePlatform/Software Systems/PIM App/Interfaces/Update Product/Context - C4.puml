@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title PIM App - Update Product - C4 - Context level
+title ECommercePlatform - PIM App - Update Product - C4 - Context level
 
 System(ECommercePlatform.SoftwareSystems.PIMApp, "PIM App", "")
 System(ECommercePlatform.SoftwareSystems.ProductService, "Product Service", "")

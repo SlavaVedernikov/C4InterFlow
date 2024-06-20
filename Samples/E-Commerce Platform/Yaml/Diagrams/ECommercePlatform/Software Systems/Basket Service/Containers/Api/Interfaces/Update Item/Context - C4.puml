@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Basket Service - Api - Update Item - C4 - Context level
+title ECommercePlatform - Basket Service - Api - Update Item - C4 - Context level
 
 System(ECommercePlatform.SoftwareSystems.BasketService, "Basket Service", "")
 

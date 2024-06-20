@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\..\..\..\.c4s\C4_Sequence.puml
 
-title Storefront Bff - Delete Basket Item - C4 Sequence - Context level
+title ECommercePlatform - Storefront Bff - Delete Basket Item - C4 Sequence - Context level
 
 System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 System(ECommercePlatform.SoftwareSystems.StorefrontBff, "Storefront Bff", "")

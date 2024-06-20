@@ -1,6 +1,6 @@
 @startuml
 
-title Storefront Bff - Get Basket - Sequence - Context level
+title ECommercePlatform - Storefront Bff - Get Basket - Sequence - Context level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 participant "Storefront Bff" as ECommercePlatform.SoftwareSystems.StorefrontBff

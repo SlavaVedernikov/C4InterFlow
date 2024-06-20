@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title WMS - C4 - Container level
+title ECommercePlatform - WMS - C4 - Container level
 
 System(ECommercePlatform.SoftwareSystems.WMS, "WMS", "")
 

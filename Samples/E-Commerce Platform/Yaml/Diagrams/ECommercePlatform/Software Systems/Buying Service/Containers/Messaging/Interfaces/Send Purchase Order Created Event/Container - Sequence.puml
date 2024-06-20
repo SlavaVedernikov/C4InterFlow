@@ -1,6 +1,6 @@
 @startuml
 
-title Buying Service - Messaging - Send Purchase Order Created Event - Sequence - Container level
+title ECommercePlatform - Buying Service - Messaging - Send Purchase Order Created Event - Sequence - Container level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 

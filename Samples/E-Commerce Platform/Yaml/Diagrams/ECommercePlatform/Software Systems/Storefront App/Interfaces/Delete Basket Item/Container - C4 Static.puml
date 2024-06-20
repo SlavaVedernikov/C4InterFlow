@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Storefront App - Delete Basket Item - C4 Static - Container level
+title ECommercePlatform - Storefront App - Delete Basket Item - C4 Static - Container level
 
 System(ECommercePlatform.SoftwareSystems.StorefrontApp, "Storefront App", "")
 System(ECommercePlatform.SoftwareSystems.StorefrontBff, "Storefront Bff", "")

@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\..\..\..\.c4s\C4_Sequence.puml
 
-title PIM App - Update Product - C4 Sequence - Context level
+title ECommercePlatform - PIM App - Update Product - C4 Sequence - Context level
 
 System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 System(ECommercePlatform.SoftwareSystems.PIMApp, "PIM App", "")

@@ -1,6 +1,6 @@
 @startuml
 
-title CRM App - View High Risk Orders - Sequence - Context level
+title ECommercePlatform - CRM App - View High Risk Orders - Sequence - Context level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 participant "CRM App" as ECommercePlatform.SoftwareSystems.CRMApp

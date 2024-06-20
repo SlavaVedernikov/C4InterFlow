@@ -1,6 +1,6 @@
 @startuml
 
-title Product Service - Message Handler - Handle Purchase Order Updated Event - Sequence - Context level
+title ECommercePlatform - Product Service - Message Handler - Handle Purchase Order Updated Event - Sequence - Context level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 participant "Product Service" as ECommercePlatform.SoftwareSystems.ProductService

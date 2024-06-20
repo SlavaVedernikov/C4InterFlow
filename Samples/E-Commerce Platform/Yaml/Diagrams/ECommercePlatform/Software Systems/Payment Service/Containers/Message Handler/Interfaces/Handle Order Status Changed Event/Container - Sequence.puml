@@ -1,6 +1,6 @@
 @startuml
 
-title Payment Service - Message Handler - Handle Order Status Changed Event - Sequence - Container level
+title ECommercePlatform - Payment Service - Message Handler - Handle Order Status Changed Event - Sequence - Container level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 

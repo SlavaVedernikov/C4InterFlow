@@ -1,6 +1,6 @@
 @startuml
 
-title WMS - Delete Purchase Order - Sequence - Context level
+title ECommercePlatform - WMS - Delete Purchase Order - Sequence - Context level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 participant "WMS" as ECommercePlatform.SoftwareSystems.WMS

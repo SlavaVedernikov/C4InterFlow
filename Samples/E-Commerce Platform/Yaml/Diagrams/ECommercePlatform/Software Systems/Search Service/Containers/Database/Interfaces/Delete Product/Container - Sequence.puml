@@ -1,6 +1,6 @@
 @startuml
 
-title Search Service - Database - Delete Product - Sequence - Container level
+title ECommercePlatform - Search Service - Database - Delete Product - Sequence - Container level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 

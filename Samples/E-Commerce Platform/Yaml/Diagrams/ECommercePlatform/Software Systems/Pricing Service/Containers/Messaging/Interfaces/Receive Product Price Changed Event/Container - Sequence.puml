@@ -1,6 +1,6 @@
 @startuml
 
-title Pricing Service - Messaging - Receive Product Price Changed Event - Sequence - Container level
+title ECommercePlatform - Pricing Service - Messaging - Receive Product Price Changed Event - Sequence - Container level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 

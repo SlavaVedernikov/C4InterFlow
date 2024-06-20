@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Storefront App - View Products - C4 - Container level
+title ECommercePlatform - Storefront App - View Products - C4 - Container level
 
 System(ECommercePlatform.SoftwareSystems.StorefrontApp, "Storefront App", "")
 System(ECommercePlatform.SoftwareSystems.StorefrontBff, "Storefront Bff", "")

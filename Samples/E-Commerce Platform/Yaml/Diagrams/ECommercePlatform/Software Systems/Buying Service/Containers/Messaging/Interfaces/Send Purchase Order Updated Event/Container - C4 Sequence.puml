@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
 
-title Buying Service - Messaging - Send Purchase Order Updated Event - C4 Sequence - Container level
+title ECommercePlatform - Buying Service - Messaging - Send Purchase Order Updated Event - C4 Sequence - Container level
 
 System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 

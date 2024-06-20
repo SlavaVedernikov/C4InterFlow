@@ -1,6 +1,6 @@
 @startuml
 
-title Pricing Service - Api - Update Product Prices - Sequence - Context level
+title ECommercePlatform - Pricing Service - Api - Update Product Prices - Sequence - Context level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 participant "Pricing Service" as ECommercePlatform.SoftwareSystems.PricingService

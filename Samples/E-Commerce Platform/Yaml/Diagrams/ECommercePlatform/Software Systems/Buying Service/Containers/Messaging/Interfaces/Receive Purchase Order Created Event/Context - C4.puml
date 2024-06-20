@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Buying Service - Messaging - Receive Purchase Order Created Event - C4 - Context level
+title ECommercePlatform - Buying Service - Messaging - Receive Purchase Order Created Event - C4 - Context level
 
 System(ECommercePlatform.SoftwareSystems.BuyingService, "Buying Service", "")
 
