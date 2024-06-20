@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title To Do App - Web Api - Update Task - C4 - Context level
+title ToDoAppExample - To Do App - Web Api - Update Task - C4 - Context level
 
 System(ToDoAppExample.SoftwareSystems.ToDoApp, "To Do App", "")
 

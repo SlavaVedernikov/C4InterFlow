@@ -1,11 +1,11 @@
-TraderX:
+TraderXExample:
   BusinessProcesses:
     PeopleSearch:
       Label: People Search
       Activities:
       - Label: Type Ahead People Search
-        Actor: TraderX.Actors.Trader
+        Actor: TraderXExample.Actors.Trader
         Flow:
           Flows:
           - Type: Use
-            Expression: TraderX.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.TypeAheadPeopleSearch
+            Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.TypeAheadPeopleSearch

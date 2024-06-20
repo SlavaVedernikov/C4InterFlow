@@ -1,6 +1,6 @@
 @startuml
 
-title Basket Api - Grpc - Basket Service - Update Basket - Sequence - Component level
+title dotnet - eShop - Architecture - Basket Api - Grpc - Basket Service - Update Basket - Sequence - Component level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 
@@ -26,7 +26,7 @@ dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.B
 end
 dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService : Map To Customer Basket
 group Map To Customer Basket
-dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService : Retun (response)
+dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService : Return (response)
 end
 dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository : Update Basket Async
 group Update Basket Async
@@ -36,7 +36,7 @@ dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.R
 group Get Basket Async
 dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase : String Get Lease Async
 dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository : Get Basket Key
-dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository : Retun (JsonSerializer.Deserialize)
+dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository : Return (JsonSerializer.Deserialize)
 end
 end
 alt response is null
@@ -44,7 +44,7 @@ dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.B
 end
 dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService : Map To Customer Basket Response
 group Map To Customer Basket Response
-dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService : Retun (response)
+dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService -> dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService : Return (response)
 end
 end
 

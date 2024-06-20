@@ -1,6 +1,6 @@
 @startuml
 
-title Catalog Api - Api - Catalog Api - Get Items By Brand And Type Id - Sequence - Component level
+title dotnet - eShop - Architecture - Catalog Api - Api - Catalog Api - Get Items By Brand And Type Id - Sequence - Component level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 
@@ -17,9 +17,9 @@ C4InterFlow.SoftwareSystems.ExternalSystem -> dotnet.eShop.Architecture.Software
 group Get Items By Brand And Type Id
 dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Change Uri Placeholder
 group Change Uri Placeholder
-dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Retun (items)
+dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Return (items)
 end
-dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Retun (TypedResults.Ok)
+dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Return (TypedResults.Ok)
 end
 
 

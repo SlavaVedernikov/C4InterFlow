@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Catalog Api - Infrastructure - Catalog Context - Catalog Types Remove - C4 Static - Context level
+title dotnet - eShop - Architecture - Catalog Api - Infrastructure - Catalog Context - Catalog Types Remove - C4 Static - Context level
 
 System(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi, "Catalog Api", "")
 

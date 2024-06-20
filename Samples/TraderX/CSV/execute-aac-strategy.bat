@@ -1,7 +1,7 @@
 @echo off
 
 set "build-configuration=Debug"
-set "aac-root-namespace=TraderX"
+set "aac-root-namespace=TraderXExample"
 set "aac-project-name=Architecture"
 set "cli-project-path=..\..\..\C4InterFlow.Cli\C4InterFlow.Cli.csproj"
 set "cli-output-dir=..\..\..\C4InterFlow.Cli\bin\%build-configuration%\net6.0"

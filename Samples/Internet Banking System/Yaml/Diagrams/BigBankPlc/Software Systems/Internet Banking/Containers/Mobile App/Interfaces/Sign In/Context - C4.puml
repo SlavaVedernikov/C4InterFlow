@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Internet Banking - Mobile App - Sign In - C4 - Context level
+title BigBankPlc - Internet Banking - Mobile App - Sign In - C4 - Context level
 
 System(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking", "Provided Internet Banking services")
 

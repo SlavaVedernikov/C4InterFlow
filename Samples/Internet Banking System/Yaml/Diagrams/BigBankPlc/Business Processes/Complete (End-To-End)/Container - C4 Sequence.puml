@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\..\.c4s\C4_Sequence.puml
 
-title Complete (End-To-End) - C4 Sequence - Container level
+title BigBankPlc - Complete (End-To-End) - C4 Sequence - Container level
 
 Person(BigBankPlc.Actors.Customer, "Customer", "A customer of the bank, with personal bank accounts")
 

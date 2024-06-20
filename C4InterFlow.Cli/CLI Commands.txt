@@ -6,8 +6,10 @@ draw-diagrams --aac-input-paths "C:\C4InterFlow\Samples\Internet Banking System\
 
 draw-diagrams --aac-input-paths "C:\C4InterFlow\Samples\E-Commerce Platform\Yaml\Architecture" --aac-reader-strategy "C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation" --interfaces ECommercePlatform.SoftwareSystems.*.Interfaces.* ECommercePlatform.SoftwareSystems.*.Containers.*.Interfaces.* --levels-of-details context container --output-dir "C:\C4InterFlow\Samples\E-Commerce Platform\Yaml\Diagrams"
 
-publish-site --site-source-dir "C:\C4InterFlow\Publishers\StaticSite" --output-dir "C:\C4InterFlow\Samples\E-Commerce Platform\Yaml\Diagrams"
+draw-diagrams --interfaces  TraderX.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes TraderX.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy "C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation" --aac-input-paths "C:\C4InterFlow\Samples\TraderX\CSV\Architecture\Yaml" --output-dir "C:\C4InterFlow\Samples\TraderX\CSV\Diagrams"
 
+
+publish-site --site-source-dir "C:\C4InterFlow\Publishers\StaticSite" --output-dir "C:\C4InterFlow\Samples\E-Commerce Platform\Yaml\Diagrams"
 
 publish-site --site-source-dir "C:\C4InterFlow\Publishers\StaticSite" --output-dir "C:\architecture-as-code-samples-visualiser\e-commerce-platform" --environment-variables "HOMEPAGE=architecture-as-code-samples-visualiser/e-commerce-platform"
 

@@ -1,6 +1,6 @@
 @startuml
 
-title Catalog Api - Infrastructure - Catalog Context - Catalog Items Find Async - Sequence - Component level
+title dotnet - eShop - Architecture - Catalog Api - Infrastructure - Catalog Context - Catalog Items Find Async - Sequence - Component level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 

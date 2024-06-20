@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Internet Banking - API Application - Get Customer - C4 Static - Container level
+title BigBankPlc - Internet Banking - API Application - Get Customer - C4 Static - Container level
 
 
 System_Boundary(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking") {

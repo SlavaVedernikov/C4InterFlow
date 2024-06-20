@@ -1,17 +1,17 @@
 {
-  "TraderX": {
+  "TraderXExample": {
     "BusinessProcesses": {
       "ViewTradeStatusAndPositions": {
         "Label": "View Trade Status And Positions",
         "Activities": [
           {
             "Label": "View Trade Status / Positions",
-            "Actor": "TraderX.Actors.Trader",
+            "Actor": "TraderXExample.Actors.Trader",
             "Flow": {
               "Flows": [
                 {
                   "Type": "Use",
-                  "Expression": "TraderX.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.ViewTradeStatusAndPositions"
+                  "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.ViewTradeStatusAndPositions"
                 }
               ]
             }

@@ -1,0 +1,15 @@
+@startuml
+!include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title TraderXExample - TraderX - Web Client - Update Trade And Position Status View - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(TraderXExample.SoftwareSystems.TraderX, "TraderX")
+    Container(TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Web Client", "", "Browser based web interface for TraderX")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Update Trade And Position Status View")
+
+
+@enduml

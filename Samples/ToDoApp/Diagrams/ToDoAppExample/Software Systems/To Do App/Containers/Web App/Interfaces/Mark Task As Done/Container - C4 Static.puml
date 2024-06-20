@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title To Do App - Web App - Mark Task As Done - C4 Static - Container level
+title ToDoAppExample - To Do App - Web App - Mark Task As Done - C4 Static - Container level
 
 
 System_Boundary(ToDoAppExample.SoftwareSystems.ToDoApp, "To Do App") {

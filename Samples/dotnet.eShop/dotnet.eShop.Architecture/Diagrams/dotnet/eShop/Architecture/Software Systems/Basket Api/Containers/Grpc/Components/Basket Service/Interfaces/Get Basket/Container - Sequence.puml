@@ -1,6 +1,6 @@
 @startuml
 
-title Basket Api - Grpc - Basket Service - Get Basket - Sequence - Container level
+title dotnet - eShop - Architecture - Basket Api - Grpc - Basket Service - Get Basket - Sequence - Container level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 

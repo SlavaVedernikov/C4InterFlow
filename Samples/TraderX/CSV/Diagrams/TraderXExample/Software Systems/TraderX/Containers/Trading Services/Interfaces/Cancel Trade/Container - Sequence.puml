@@ -1,0 +1,21 @@
+@startuml
+
+title TraderXExample - TraderX - Trading Services - Cancel Trade - Sequence - Container level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "TraderX" #White
+    participant "Trading Services" as TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices
+    database "TraderX DB" as TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB
+    participant "Trade Feed" as TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices : Cancel Trade
+group Cancel Trade
+TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices -> TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB : Update Trade Status
+TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Send Updates To Trades
+end
+
+
+@enduml

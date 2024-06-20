@@ -1,23 +1,23 @@
-TraderX:
+TraderXExample:
   BusinessProcesses:
     ManageAccounts:
       Label: Manage Accounts
       Activities:
       - Label: View Account
-        Actor: TraderX.Actors.Trader
+        Actor: TraderXExample.Actors.Trader
         Flow:
           Flows:
           - Type: Use
-            Expression: TraderX.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.ViewAccount
+            Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.ViewAccount
       - Label: Create Account
-        Actor: TraderX.Actors.Trader
+        Actor: TraderXExample.Actors.Trader
         Flow:
           Flows:
           - Type: Use
-            Expression: TraderX.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.CreateAccount
+            Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.CreateAccount
       - Label: Update Account
-        Actor: TraderX.Actors.Trader
+        Actor: TraderXExample.Actors.Trader
         Flow:
           Flows:
           - Type: Use
-            Expression: TraderX.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.UpdateAccount
+            Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.UpdateAccount
