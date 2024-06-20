@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
 
-title Product Service - Api - Update Product - C4 Sequence - Context level
+title ECommercePlatform - Product Service - Api - Update Product - C4 Sequence - Context level
 
 System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 System(ECommercePlatform.SoftwareSystems.ProductService, "Product Service", "")

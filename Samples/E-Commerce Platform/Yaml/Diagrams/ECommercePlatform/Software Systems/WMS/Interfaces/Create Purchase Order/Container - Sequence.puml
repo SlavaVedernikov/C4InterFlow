@@ -1,6 +1,6 @@
 @startuml
 
-title WMS - Create Purchase Order - Sequence - Container level
+title ECommercePlatform - WMS - Create Purchase Order - Sequence - Container level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 participant "WMS" as ECommercePlatform.SoftwareSystems.WMS

@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
 
-title Order Service - Database - Update Order Status - C4 Sequence - Container level
+title ECommercePlatform - Order Service - Database - Update Order Status - C4 Sequence - Container level
 
 System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 

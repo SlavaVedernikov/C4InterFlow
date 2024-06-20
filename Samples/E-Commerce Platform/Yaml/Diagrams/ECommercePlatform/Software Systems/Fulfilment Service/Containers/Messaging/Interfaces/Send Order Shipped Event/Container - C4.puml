@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Fulfilment Service - Messaging - Send Order Shipped Event - C4 - Container level
+title ECommercePlatform - Fulfilment Service - Messaging - Send Order Shipped Event - C4 - Container level
 
 
 System_Boundary(ECommercePlatform.SoftwareSystems.FulfilmentService, "Fulfilment Service") {

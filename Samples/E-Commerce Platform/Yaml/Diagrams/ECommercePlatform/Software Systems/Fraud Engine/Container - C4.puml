@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Fraud Engine - C4 - Container level
+title ECommercePlatform - Fraud Engine - C4 - Container level
 
 System(ECommercePlatform.SoftwareSystems.FraudEngine, "Fraud Engine", "")
 

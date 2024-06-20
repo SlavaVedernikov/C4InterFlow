@@ -1,6 +1,6 @@
 @startuml
 
-title Fulfilment Service - Database - Update Order Status - Sequence - Container level
+title ECommercePlatform - Fulfilment Service - Database - Update Order Status - Sequence - Container level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 

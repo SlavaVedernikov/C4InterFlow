@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Payment Service - Message Handler - C4 Static - Container level
+title ECommercePlatform - Payment Service - Message Handler - C4 Static - Container level
 
 
 System_Boundary(ECommercePlatform.SoftwareSystems.PaymentService, "Payment Service") {

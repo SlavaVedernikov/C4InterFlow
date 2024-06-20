@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
 
-title Basket Service - Database - Update Item - C4 Sequence - Context level
+title ECommercePlatform - Basket Service - Database - Update Item - C4 Sequence - Context level
 
 System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 System(ECommercePlatform.SoftwareSystems.BasketService, "Basket Service", "")

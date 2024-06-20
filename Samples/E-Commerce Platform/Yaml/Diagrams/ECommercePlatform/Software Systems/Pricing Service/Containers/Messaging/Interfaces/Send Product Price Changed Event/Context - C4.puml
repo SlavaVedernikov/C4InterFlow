@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Pricing Service - Messaging - Send Product Price Changed Event - C4 - Context level
+title ECommercePlatform - Pricing Service - Messaging - Send Product Price Changed Event - C4 - Context level
 
 System(ECommercePlatform.SoftwareSystems.PricingService, "Pricing Service", "")
 

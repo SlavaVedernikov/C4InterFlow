@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Storefront Bff - Delete Basket Item - C4 - Context level
+title ECommercePlatform - Storefront Bff - Delete Basket Item - C4 - Context level
 
 System(ECommercePlatform.SoftwareSystems.StorefrontBff, "Storefront Bff", "")
 System(ECommercePlatform.SoftwareSystems.BasketService, "Basket Service", "")

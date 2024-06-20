@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Pricing Service - Messaging - C4 Static - Container level
+title ECommercePlatform - Pricing Service - Messaging - C4 Static - Container level
 
 
 System_Boundary(ECommercePlatform.SoftwareSystems.PricingService, "Pricing Service") {

@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\..\..\..\.c4s\C4_Sequence.puml
 
-title Storefront Bff - Checkout - C4 Sequence - Container level
+title ECommercePlatform - Storefront Bff - Checkout - C4 Sequence - Container level
 
 System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 System(ECommercePlatform.SoftwareSystems.StorefrontBff, "Storefront Bff", "")

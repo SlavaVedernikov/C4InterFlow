@@ -1,6 +1,6 @@
 @startuml
 
-title Storefront App - Update Basket Item - Sequence - Container level
+title ECommercePlatform - Storefront App - Update Basket Item - Sequence - Container level
 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 participant "Storefront App" as ECommercePlatform.SoftwareSystems.StorefrontApp

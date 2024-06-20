@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
 
-title Payment Service - Messaging - Send Payment Result Event - C4 Sequence - Context level
+title ECommercePlatform - Payment Service - Messaging - Send Payment Result Event - C4 Sequence - Context level
 
 System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 System(ECommercePlatform.SoftwareSystems.PaymentService, "Payment Service", "")

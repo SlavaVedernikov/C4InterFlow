@@ -1,7 +1,7 @@
 @startuml
 !include ..\..\..\..\..\.c4s\C4_Sequence.puml
 
-title CRM App - Update Order Fraud Check Result - C4 Sequence - Context level
+title ECommercePlatform - CRM App - Update Order Fraud Check Result - C4 Sequence - Context level
 
 System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 System(ECommercePlatform.SoftwareSystems.CRMApp, "CRM App", "")

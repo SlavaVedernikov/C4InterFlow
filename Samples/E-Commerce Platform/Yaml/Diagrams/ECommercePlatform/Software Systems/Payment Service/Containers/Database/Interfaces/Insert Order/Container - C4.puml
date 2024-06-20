@@ -14,7 +14,7 @@ LAYOUT_TOP_DOWN()
 
 skinparam linetype polyline
 
-title Payment Service - Database - Insert Order - C4 - Container level
+title ECommercePlatform - Payment Service - Database - Insert Order - C4 - Container level
 
 
 System_Boundary(ECommercePlatform.SoftwareSystems.PaymentService, "Payment Service") {
