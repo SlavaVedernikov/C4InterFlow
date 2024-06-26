@@ -247,6 +247,7 @@ public class DrawDiagramsCommand : Command
         switch (scope)
         {
             case DiagramScopesOption.ALL_SOFTWARE_SYSTEMS:
+            case DiagramScopesOption.NAMESPACE:
             case DiagramScopesOption.SOFTWARE_SYSTEM:
                 {
                     // Matches any string that ends with ".Interfaces.<word>"
@@ -664,7 +665,9 @@ public class DrawDiagramsCommand : Command
             {
                 context.Export(outputDirectory, diagram, path, fileName);
             }
-
+        }
+        else if (scope == DiagramScopesOption.NAMESPACE)
+        {
             string pattern = @"^(.*?)(?:\.SoftwareSystems)";
 
             var namespaceAliases = interfaces.Select(x => Regex.Match(x.Alias, pattern))
@@ -680,11 +683,11 @@ public class DrawDiagramsCommand : Command
                 if (namespaceInterfaces.Any())
                 {
                     var diagram = GetDiagram(
-                        scope, 
-                        levelOfDetails, 
-                        namespaceInterfaces, 
-                        showBoundaries, 
-                        showInterfaceInputAndOutput, 
+                        scope,
+                        levelOfDetails,
+                        namespaceInterfaces,
+                        showBoundaries,
+                        showInterfaceInputAndOutput,
                         isStatic,
                         namespaceAlias);
 
@@ -707,6 +710,7 @@ public class DrawDiagramsCommand : Command
             });
 
             progress.Complete();
+
         }
         else if (scope == DiagramScopesOption.SOFTWARE_SYSTEM)
         {
@@ -894,7 +898,8 @@ public class DrawDiagramsCommand : Command
         fileName = $"{(!string.IsNullOrEmpty(diagramNamePrefix) ? $"{diagramNamePrefix} - " : string.Empty)}{ToPrettyName(levelOfDetails)} - {ToPrettyName(diagramType)}.puml";
 
 
-        if(scope == DiagramScopesOption.ALL_SOFTWARE_SYSTEMS)
+        if(scope == DiagramScopesOption.ALL_SOFTWARE_SYSTEMS ||
+            scope == DiagramScopesOption.NAMESPACE)
         {
             return !string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(fileName);
         }
