@@ -1,0 +1,1488 @@
+ECommercePlatform:
+  FrontEnd:
+    SoftwareSystems:
+      StorefrontApp:
+        Label: Storefront App
+        Boundary: Internal
+        Description: ''
+        Containers: {}
+        Interfaces:
+          UpdateBasketItem:
+            Label: Update Basket Item
+            Description: ''
+            Protocol: ''
+            Flows:
+            - Flows: []
+              Type: Use
+              Owner: ECommercePlatform.FrontEnd.SoftwareSystems.StorefrontApp.Interfaces.UpdateBasketItem
+              Expression: ECommercePlatform.FrontEnd.SoftwareSystems.StorefrontBff.Interfaces.UpdateBasketItem
+          AddProductToBasket:
+            Label: Add Product To Basket
+            Description: ''
+            Protocol: ''
+            Flows:
+            - Flows: []
+              Type: Use
+              Owner: ECommercePlatform.FrontEnd.SoftwareSystems.StorefrontApp.Interfaces.AddProductToBasket
+              Expression: ECommercePlatform.FrontEnd.SoftwareSystems.StorefrontBff.Interfaces.AddBasketItem
+          ViewBasket:
+            Label: View Basket
+            Description: ''
+            Protocol: ''
+            Flows:
+            - Flows: []
+              Type: Use
+              Owner: ECommercePlatform.FrontEnd.SoftwareSystems.StorefrontApp.Interfaces.ViewBasket
+              Expression: ECommercePlatform.FrontEnd.SoftwareSystems.StorefrontBff.Interfaces.GetBasket
+          ViewProducts:
+            Label: View Products
+            Description: ''
+            Protocol: ''
+            Flows:
+            - Flows: []
+              Type: Use
+              Owner: ECommercePlatform.FrontEnd.SoftwareSystems.StorefrontApp.Interfaces.ViewProducts
+              Expression: ECommercePlatform.FrontEnd.SoftwareSystems.StorefrontBff.Interfaces.GetProducts
+          SearchProducts:
+            Label: Search Products
+            Description: ''
+            Protocol: ''
+            Flows:
+            - Flows: []
+              Type: Use
+              Owner: ECommercePlatform.FrontEnd.SoftwareSystems.StorefrontApp.Interfaces.SearchProducts
+              Expression: ECommercePlatform.FrontEnd.SoftwareSystems.StorefrontBff.Interfaces.SearchProducts
+          Checkout:
+            Label: Checkout
+            Description: ''
+            Protocol: ''
+            Flows:
+            - Flows: []
+              Type: Use
+              Owner: ECommercePlatform.FrontEnd.SoftwareSystems.StorefrontApp.Interfaces.Checkout
+              Expression: ECommercePlatform.FrontEnd.SoftwareSystems.StorefrontBff.Interfaces.Checkout
+          DeleteBasketItem:
+            Label: Delete Basket Item
+            Description: ''
+            Protocol: ''
+            Flows:
+            - Flows: []
+              Type: Use
+              Owner: ECommercePlatform.FrontEnd.SoftwareSystems.StorefrontApp.Interfaces.DeleteBasketItem
+              Expression: ECommercePlatform.FrontEnd.SoftwareSystems.StorefrontBff.Interfaces.DeleteBasketItem
+      StorefrontBff:
+        Label: Storefront Bff
+        Boundary: Internal
+        Description: ''
+        Containers: {}
+        Interfaces:
+          GetProducts:
+            Label: Get Products
+            Description: ''
+            Protocol: ''
+            Flows:
+            - Flows: []
+              Type: Use
+              Owner: ECommercePlatform.FrontEnd.SoftwareSystems.StorefrontBff.Interfaces.GetProducts
+              Expression: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.Api.Interfaces.GetProducts
+          DeleteBasketItem:
+            Label: Delete Basket Item
+            Description: ''
+            Protocol: ''
+            Flows:
+            - Flows: []
+              Type: Use
+              Owner: ECommercePlatform.FrontEnd.SoftwareSystems.StorefrontBff.Interfaces.DeleteBasketItem
+              Expression: ECommercePlatform.BackEnd.SoftwareSystems.BasketService.Containers.Api.Interfaces.DeleteItem
+          SearchProducts:
+            Label: Search Products
+            Description: ''
+            Protocol: ''
+            Flows:
+            - Flows: []
+              Type: Use
+              Owner: ECommercePlatform.FrontEnd.SoftwareSystems.StorefrontBff.Interfaces.SearchProducts
+              Expression: ECommercePlatform.BackEnd.SoftwareSystems.SearchService.Containers.Api.Interfaces.SearchProducts
+          AddBasketItem:
+            Label: Add Basket Item
+            Description: ''
+            Protocol: ''
+            Flows:
+            - Flows: []
+              Type: Use
+              Owner: ECommercePlatform.FrontEnd.SoftwareSystems.StorefrontBff.Interfaces.AddBasketItem
+              Expression: ECommercePlatform.BackEnd.SoftwareSystems.BasketService.Containers.Api.Interfaces.AddItem
+          GetBasket:
+            Label: Get Basket
+            Description: ''
+            Protocol: ''
+            Flows:
+            - Flows: []
+              Type: Use
+              Owner: ECommercePlatform.FrontEnd.SoftwareSystems.StorefrontBff.Interfaces.GetBasket
+              Expression: ECommercePlatform.BackEnd.SoftwareSystems.BasketService.Containers.Api.Interfaces.GetItems
+          Checkout:
+            Label: Checkout
+            Description: ''
+            Protocol: ''
+            Flows:
+            - Flows: []
+              Type: Use
+              Owner: ECommercePlatform.FrontEnd.SoftwareSystems.StorefrontBff.Interfaces.Checkout
+              Expression: ECommercePlatform.BackEnd.SoftwareSystems.OrderService.Containers.Api.Interfaces.CreateOrder
+            - Flows: []
+              Type: Use
+              Owner: ECommercePlatform.FrontEnd.SoftwareSystems.StorefrontBff.Interfaces.Checkout
+              Expression: ECommercePlatform.BackEnd.SoftwareSystems.BasketService.Containers.Api.Interfaces.DeleteBasket
+          UpdateBasketItem:
+            Label: Update Basket Item
+            Description: ''
+            Protocol: ''
+            Flows:
+            - Flows: []
+              Type: Use
+              Owner: ECommercePlatform.FrontEnd.SoftwareSystems.StorefrontBff.Interfaces.UpdateBasketItem
+              Expression: ECommercePlatform.BackEnd.SoftwareSystems.BasketService.Containers.Api.Interfaces.UpdateItem
+  BackEnd:
+    SoftwareSystems:
+      OrderService:
+        Label: Order Service
+        Boundary: Internal
+        Description: ''
+        Containers:
+          Database:
+            Label: Database
+            Description: ''
+            ContainerType: Database
+            Boundary: Internal
+            Technology: ''
+            Components: {}
+            Interfaces:
+              InsertOrder:
+                Label: Insert Order
+                Description: ''
+                Protocol: ''
+                Flows: []
+              UpdateOrderStatus:
+                Label: Update OrderStatus
+                Description: ''
+                Protocol: ''
+                Flows: []
+            Entities: {}
+          MessageHandler:
+            Label: Message Handler
+            Description: ''
+            ContainerType: Server Console
+            Boundary: Internal
+            Technology: ''
+            Components: {}
+            Interfaces:
+              HandlePaymentResultEvent:
+                Label: Handle Payment Result Event
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.OrderService.Containers.MessageHandler.Interfaces.HandlePaymentResultEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.PaymentService.Containers.Messaging.Interfaces.ReceivePaymentResultEvent
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.OrderService.Containers.MessageHandler.Interfaces.HandlePaymentResultEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.OrderService.Containers.Database.Interfaces.UpdateOrderStatus
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.OrderService.Containers.MessageHandler.Interfaces.HandlePaymentResultEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.OrderService.Containers.Messaging.Interfaces.SendOrderStatusChangedEvent
+              HandleOrderShippedEvent:
+                Label: Handle Order Shipped Event
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.OrderService.Containers.MessageHandler.Interfaces.HandleOrderShippedEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.FulfilmentService.Containers.Messaging.Interfaces.ReceiveOrderShippedEvent
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.OrderService.Containers.MessageHandler.Interfaces.HandleOrderShippedEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.OrderService.Containers.Database.Interfaces.UpdateOrderStatus
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.OrderService.Containers.MessageHandler.Interfaces.HandleOrderShippedEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.OrderService.Containers.Messaging.Interfaces.SendOrderStatusChangedEvent
+              HandleFraudCheckResultEvent:
+                Label: Handle Fraud Check Result Event
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.OrderService.Containers.MessageHandler.Interfaces.HandleFraudCheckResultEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.FraudService.Containers.Messaging.Interfaces.ReceiveFraudCheckResultEvent
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.OrderService.Containers.MessageHandler.Interfaces.HandleFraudCheckResultEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.OrderService.Containers.Database.Interfaces.UpdateOrderStatus
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.OrderService.Containers.MessageHandler.Interfaces.HandleFraudCheckResultEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.OrderService.Containers.Messaging.Interfaces.SendOrderStatusChangedEvent
+            Entities: {}
+          Messaging:
+            Label: Messaging
+            Description: ''
+            ContainerType: Queue
+            Boundary: Internal
+            Technology: ''
+            Components: {}
+            Interfaces:
+              SendOrderCreatedEvent:
+                Label: Send Order Created Event
+                Description: ''
+                Protocol: ''
+                Flows: []
+              ReceiveOrderStatusChangedEvent:
+                Label: Receive Order Status Changed Event
+                Description: ''
+                Protocol: ''
+                Flows: []
+              SendOrderStatusChangedEvent:
+                Label: Send Order Status Changed Event
+                Description: ''
+                Protocol: ''
+                Flows: []
+              ReceiveOrderCreatedEvent:
+                Label: Receive Order Created Event
+                Description: ''
+                Protocol: ''
+                Flows: []
+            Entities: {}
+          Api:
+            Label: Api
+            Description: ''
+            ContainerType: Api
+            Boundary: Internal
+            Technology: ''
+            Components: {}
+            Interfaces:
+              CreateOrder:
+                Label: Create Order
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.OrderService.Containers.Api.Interfaces.CreateOrder
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.OrderService.Containers.Database.Interfaces.InsertOrder
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.OrderService.Containers.Api.Interfaces.CreateOrder
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.OrderService.Containers.Messaging.Interfaces.SendOrderCreatedEvent
+            Entities: {}
+        Interfaces: {}
+      PaymentService:
+        Label: Payment Service
+        Boundary: Internal
+        Description: ''
+        Containers:
+          MessageHandler:
+            Label: Message Handler
+            Description: ''
+            ContainerType: Server Console
+            Boundary: Internal
+            Technology: ''
+            Components: {}
+            Interfaces:
+              HandleOrderStatusChangedEvent:
+                Label: Handle Order Status Changed Event
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.PaymentService.Containers.MessageHandler.Interfaces.HandleOrderStatusChangedEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.OrderService.Containers.Messaging.Interfaces.ReceiveOrderStatusChangedEvent
+                - Flows:
+                  - Flows: []
+                    Type: Use
+                    Owner: ECommercePlatform.BackEnd.SoftwareSystems.PaymentService.Containers.MessageHandler.Interfaces.HandleOrderStatusChangedEvent
+                    Expression: ECommercePlatform.BackEnd.SoftwareSystems.PaymentService.Containers.Database.Interfaces.InsertOrder
+                  - Flows: []
+                    Type: Use
+                    Owner: ECommercePlatform.BackEnd.SoftwareSystems.PaymentService.Containers.MessageHandler.Interfaces.HandleOrderStatusChangedEvent
+                    Expression: ECommercePlatform.External.SoftwareSystems.PaymentProvider.Interfaces.ProcessPayment
+                  Type: If
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.PaymentService.Containers.MessageHandler.Interfaces.HandleOrderStatusChangedEvent
+                  Expression: Order Status is 'Pending Payment'
+            Entities: {}
+          Messaging:
+            Label: Messaging
+            Description: ''
+            ContainerType: Queue
+            Boundary: Internal
+            Technology: ''
+            Components: {}
+            Interfaces:
+              ReceivePaymentResultEvent:
+                Label: Receive Payment Result Event
+                Description: ''
+                Protocol: ''
+                Flows: []
+              SendPaymentResultEvent:
+                Label: Send Payment Result Event
+                Description: ''
+                Protocol: ''
+                Flows: []
+            Entities: {}
+          Api:
+            Label: Api
+            Description: ''
+            ContainerType: Api
+            Boundary: Internal
+            Technology: ''
+            Components: {}
+            Interfaces:
+              PostPaymentResultEvent:
+                Label: Post Payment Result Event
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.PaymentService.Containers.Api.Interfaces.PostPaymentResultEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.PaymentService.Containers.Database.Interfaces.InsertPaymentResult
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.PaymentService.Containers.Api.Interfaces.PostPaymentResultEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.PaymentService.Containers.Messaging.Interfaces.SendPaymentResultEvent
+            Entities: {}
+          Database:
+            Label: Database
+            Description: ''
+            ContainerType: Database
+            Boundary: Internal
+            Technology: ''
+            Components: {}
+            Interfaces:
+              InsertOrder:
+                Label: Insert Order
+                Description: ''
+                Protocol: ''
+                Flows: []
+              InsertPaymentResult:
+                Label: Insert Payment Result
+                Description: ''
+                Protocol: ''
+                Flows: []
+            Entities: {}
+        Interfaces: {}
+      PricingService:
+        Label: Pricing Service
+        Boundary: Internal
+        Description: ''
+        Containers:
+          Database:
+            Label: Database
+            Description: ''
+            ContainerType: Database
+            Boundary: Internal
+            Technology: ''
+            Components: {}
+            Interfaces:
+              SelectProducts:
+                Label: Select Products
+                Description: ''
+                Protocol: ''
+                Flows: []
+              SelectProductPrices:
+                Label: Select Product Prices
+                Description: ''
+                Protocol: ''
+                Flows: []
+              UpdateProductPrices:
+                Label: Update Product Prices
+                Description: ''
+                Protocol: ''
+                Flows: []
+              InsertProduct:
+                Label: Insert Product
+                Description: ''
+                Protocol: ''
+                Flows: []
+            Entities: {}
+          MessageHandler:
+            Label: Message Handler
+            Description: ''
+            ContainerType: Server Console
+            Boundary: Internal
+            Technology: ''
+            Components: {}
+            Interfaces:
+              HandlePurchaseOrderUpdatedEvent:
+                Label: Handle Purchase Order Updated Event
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.PricingService.Containers.MessageHandler.Interfaces.HandlePurchaseOrderUpdatedEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.BuyingService.Containers.Messaging.Interfaces.ReceivePurchaseOrderUpdatedEvent
+                - Flows:
+                  - Flows: []
+                    Type: Use
+                    Owner: ECommercePlatform.BackEnd.SoftwareSystems.PricingService.Containers.MessageHandler.Interfaces.HandlePurchaseOrderUpdatedEvent
+                    Expression: ECommercePlatform.BackEnd.SoftwareSystems.PricingService.Containers.Database.Interfaces.SelectProducts
+                  - Flows:
+                    - Flows: []
+                      Type: Use
+                      Owner: ECommercePlatform.BackEnd.SoftwareSystems.PricingService.Containers.MessageHandler.Interfaces.HandlePurchaseOrderUpdatedEvent
+                      Expression: ECommercePlatform.BackEnd.SoftwareSystems.PricingService.Containers.Database.Interfaces.InsertProduct
+                    Type: If
+                    Owner: ECommercePlatform.BackEnd.SoftwareSystems.PricingService.Containers.MessageHandler.Interfaces.HandlePurchaseOrderUpdatedEvent
+                    Expression: Product Not Found
+                  Type: Loop
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.PricingService.Containers.MessageHandler.Interfaces.HandlePurchaseOrderUpdatedEvent
+                  Expression: For each Product in Purchase Order
+              HandlePurchaseOrderCreatedEvent:
+                Label: Handle Purchase Order Created Event
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.PricingService.Containers.MessageHandler.Interfaces.HandlePurchaseOrderCreatedEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.BuyingService.Containers.Messaging.Interfaces.ReceivePurchaseOrderCreatedEvent
+                - Flows:
+                  - Flows: []
+                    Type: Use
+                    Owner: ECommercePlatform.BackEnd.SoftwareSystems.PricingService.Containers.MessageHandler.Interfaces.HandlePurchaseOrderCreatedEvent
+                    Expression: ECommercePlatform.BackEnd.SoftwareSystems.PricingService.Containers.Database.Interfaces.SelectProducts
+                  - Flows:
+                    - Flows: []
+                      Type: Use
+                      Owner: ECommercePlatform.BackEnd.SoftwareSystems.PricingService.Containers.MessageHandler.Interfaces.HandlePurchaseOrderCreatedEvent
+                      Expression: ECommercePlatform.BackEnd.SoftwareSystems.PricingService.Containers.Database.Interfaces.InsertProduct
+                    Type: If
+                    Owner: ECommercePlatform.BackEnd.SoftwareSystems.PricingService.Containers.MessageHandler.Interfaces.HandlePurchaseOrderCreatedEvent
+                    Expression: Product Not Found
+                  Type: Loop
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.PricingService.Containers.MessageHandler.Interfaces.HandlePurchaseOrderCreatedEvent
+                  Expression: For each Product in Purchase Order
+            Entities: {}
+          Api:
+            Label: Api
+            Description: ''
+            ContainerType: Api
+            Boundary: Internal
+            Technology: ''
+            Components: {}
+            Interfaces:
+              GetProductPrices:
+                Label: Get Product Prices
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.PricingService.Containers.Api.Interfaces.GetProductPrices
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.PricingService.Containers.Database.Interfaces.SelectProductPrices
+              UpdateProductPrices:
+                Label: Update Product Prices
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.PricingService.Containers.Api.Interfaces.UpdateProductPrices
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.PricingService.Containers.Database.Interfaces.UpdateProductPrices
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.PricingService.Containers.Api.Interfaces.UpdateProductPrices
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.PricingService.Containers.Messaging.Interfaces.SendProductPriceChangedEvent
+            Entities: {}
+          Messaging:
+            Label: Messaging
+            Description: ''
+            ContainerType: Queue
+            Boundary: Internal
+            Technology: ''
+            Components: {}
+            Interfaces:
+              SendProductPriceChangedEvent:
+                Label: Send Product Price Changed Event
+                Description: ''
+                Protocol: ''
+                Flows: []
+              ReceiveProductPriceChangedEvent:
+                Label: Receive Product Price Changed Event
+                Description: ''
+                Protocol: ''
+                Flows: []
+            Entities: {}
+        Interfaces: {}
+      ProductService:
+        Label: Product Service
+        Boundary: Internal
+        Description: ''
+        Containers:
+          MessageHandler:
+            Label: Message Handler
+            Description: ''
+            ContainerType: Server Console
+            Boundary: Internal
+            Technology: ''
+            Components: {}
+            Interfaces:
+              HandlePurchaseOrderUpdatedEvent:
+                Label: Handle Purchase Order Updated Event
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.MessageHandler.Interfaces.HandlePurchaseOrderUpdatedEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.BuyingService.Containers.Messaging.Interfaces.ReceivePurchaseOrderUpdatedEvent
+                - Flows:
+                  - Flows: []
+                    Type: Use
+                    Owner: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.MessageHandler.Interfaces.HandlePurchaseOrderUpdatedEvent
+                    Expression: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.Database.Interfaces.SelectProducts
+                  - Flows:
+                    - Flows: []
+                      Type: Use
+                      Owner: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.MessageHandler.Interfaces.HandlePurchaseOrderUpdatedEvent
+                      Expression: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.Database.Interfaces.InsertProduct
+                    - Flows: []
+                      Type: Use
+                      Owner: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.MessageHandler.Interfaces.HandlePurchaseOrderUpdatedEvent
+                      Expression: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.Messaging.Interfaces.SendProductCreatedEvent
+                    Type: If
+                    Owner: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.MessageHandler.Interfaces.HandlePurchaseOrderUpdatedEvent
+                    Expression: Product Not Found
+                  Type: Loop
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.MessageHandler.Interfaces.HandlePurchaseOrderUpdatedEvent
+                  Expression: For each Product in Purchase Order
+              HandlePurchaseOrderCreatedEvent:
+                Label: Handle Purchase Order Created Event
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.MessageHandler.Interfaces.HandlePurchaseOrderCreatedEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.BuyingService.Containers.Messaging.Interfaces.ReceivePurchaseOrderCreatedEvent
+                - Flows:
+                  - Flows: []
+                    Type: Use
+                    Owner: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.MessageHandler.Interfaces.HandlePurchaseOrderCreatedEvent
+                    Expression: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.Database.Interfaces.SelectProducts
+                  - Flows:
+                    - Flows: []
+                      Type: Use
+                      Owner: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.MessageHandler.Interfaces.HandlePurchaseOrderCreatedEvent
+                      Expression: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.Database.Interfaces.InsertProduct
+                    - Flows: []
+                      Type: Use
+                      Owner: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.MessageHandler.Interfaces.HandlePurchaseOrderCreatedEvent
+                      Expression: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.Messaging.Interfaces.SendProductCreatedEvent
+                    Type: If
+                    Owner: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.MessageHandler.Interfaces.HandlePurchaseOrderCreatedEvent
+                    Expression: Product Not Found
+                  Type: Loop
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.MessageHandler.Interfaces.HandlePurchaseOrderCreatedEvent
+                  Expression: For each Product in Purchase Order
+            Entities: {}
+          Messaging:
+            Label: Messaging
+            Description: ''
+            ContainerType: Queue
+            Boundary: Internal
+            Technology: ''
+            Components: {}
+            Interfaces:
+              ReceiveProductCreatedEvent:
+                Label: Receive Product Created Event
+                Description: ''
+                Protocol: ''
+                Flows: []
+              SendProductDeletedEvent:
+                Label: Send Product Deleted Event
+                Description: ''
+                Protocol: ''
+                Flows: []
+              ReceiveProductDeletedEvent:
+                Label: Receive Product Deleted Event
+                Description: ''
+                Protocol: ''
+                Flows: []
+              ReceiveProductUpdatedEvent:
+                Label: Receive Product Updated Event
+                Description: ''
+                Protocol: ''
+                Flows: []
+              SendProductUpdatedEvent:
+                Label: Send Product Updated Event
+                Description: ''
+                Protocol: ''
+                Flows: []
+              SendProductCreatedEvent:
+                Label: Send Product Created Event
+                Description: ''
+                Protocol: ''
+                Flows: []
+            Entities: {}
+          Database:
+            Label: Database
+            Description: ''
+            ContainerType: Database
+            Boundary: Internal
+            Technology: ''
+            Components: {}
+            Interfaces:
+              SelectProducts:
+                Label: Select Products
+                Description: ''
+                Protocol: ''
+                Flows: []
+              UpdateProduct:
+                Label: Update Product
+                Description: ''
+                Protocol: ''
+                Flows: []
+              InsertProduct:
+                Label: Insert Product
+                Description: ''
+                Protocol: ''
+                Flows: []
+              DeleteProduct:
+                Label: Delete Product
+                Description: ''
+                Protocol: ''
+                Flows: []
+            Entities: {}
+          Api:
+            Label: Api
+            Description: ''
+            ContainerType: Api
+            Boundary: Internal
+            Technology: ''
+            Components: {}
+            Interfaces:
+              UpdateProduct:
+                Label: Update Product
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.Api.Interfaces.UpdateProduct
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.Database.Interfaces.UpdateProduct
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.Api.Interfaces.UpdateProduct
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.Messaging.Interfaces.SendProductUpdatedEvent
+              DeleteProduct:
+                Label: Delete Product
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.Api.Interfaces.DeleteProduct
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.Database.Interfaces.DeleteProduct
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.Api.Interfaces.DeleteProduct
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.Messaging.Interfaces.SendProductDeletedEvent
+              GetProducts:
+                Label: Get Products
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.Api.Interfaces.GetProducts
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.Database.Interfaces.SelectProducts
+            Entities: {}
+        Interfaces: {}
+      SearchService:
+        Label: Search Service
+        Boundary: Internal
+        Description: ''
+        Containers:
+          Api:
+            Label: Api
+            Description: ''
+            ContainerType: Api
+            Boundary: Internal
+            Technology: ''
+            Components: {}
+            Interfaces:
+              SearchProducts:
+                Label: Search Products
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.SearchService.Containers.Api.Interfaces.SearchProducts
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.SearchService.Containers.Database.Interfaces.SelectProducts
+            Entities: {}
+          MessageHandler:
+            Label: Message Handler
+            Description: ''
+            ContainerType: Server Console
+            Boundary: Internal
+            Technology: ''
+            Components: {}
+            Interfaces:
+              HandleProductCreatedEvent:
+                Label: Handle Product Created Event
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.SearchService.Containers.MessageHandler.Interfaces.HandleProductCreatedEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.Messaging.Interfaces.ReceiveProductCreatedEvent
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.SearchService.Containers.MessageHandler.Interfaces.HandleProductCreatedEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.SearchService.Containers.Database.Interfaces.InsertProduct
+              HandleProductPriceChangedEvent:
+                Label: Handle Product Price Changed Event
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.SearchService.Containers.MessageHandler.Interfaces.HandleProductPriceChangedEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.PricingService.Containers.Messaging.Interfaces.ReceiveProductPriceChangedEvent
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.SearchService.Containers.MessageHandler.Interfaces.HandleProductPriceChangedEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.SearchService.Containers.Database.Interfaces.UpdateProductPrices
+              HandleProductUpdatedEvent:
+                Label: Handle Product Updated Event
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.SearchService.Containers.MessageHandler.Interfaces.HandleProductUpdatedEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.Messaging.Interfaces.ReceiveProductUpdatedEvent
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.SearchService.Containers.MessageHandler.Interfaces.HandleProductUpdatedEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.SearchService.Containers.Database.Interfaces.UpdateProduct
+              HandleProductDeletedEvent:
+                Label: Handle Product Deleted Event
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.SearchService.Containers.MessageHandler.Interfaces.HandleProductDeletedEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.Messaging.Interfaces.ReceiveProductDeletedEvent
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.SearchService.Containers.MessageHandler.Interfaces.HandleProductDeletedEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.SearchService.Containers.Database.Interfaces.DeleteProduct
+            Entities: {}
+          Database:
+            Label: Database
+            Description: ''
+            ContainerType: Database
+            Boundary: Internal
+            Technology: ''
+            Components: {}
+            Interfaces:
+              UpdateProduct:
+                Label: Update Product
+                Description: ''
+                Protocol: ''
+                Flows: []
+              DeleteProduct:
+                Label: Delete Product
+                Description: ''
+                Protocol: ''
+                Flows: []
+              InsertProduct:
+                Label: Insert Product
+                Description: ''
+                Protocol: ''
+                Flows: []
+              SelectProducts:
+                Label: Select Products
+                Description: ''
+                Protocol: ''
+                Flows: []
+              UpdateProductPrices:
+                Label: Update Product Prices
+                Description: ''
+                Protocol: ''
+                Flows: []
+            Entities: {}
+        Interfaces: {}
+      FulfilmentService:
+        Label: Fulfilment Service
+        Boundary: Internal
+        Description: ''
+        Containers:
+          Database:
+            Label: Database
+            Description: ''
+            ContainerType: Database
+            Boundary: Internal
+            Technology: ''
+            Components: {}
+            Interfaces:
+              UpdateOrderStatus:
+                Label: Update Order Status
+                Description: ''
+                Protocol: ''
+                Flows: []
+              InsertOrder:
+                Label: Insert Order
+                Description: ''
+                Protocol: ''
+                Flows: []
+            Entities: {}
+          Api:
+            Label: Api
+            Description: ''
+            ContainerType: Api
+            Boundary: Internal
+            Technology: ''
+            Components: {}
+            Interfaces:
+              PostOrderShippedEvent:
+                Label: Post Order Shipped Event
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.FulfilmentService.Containers.Api.Interfaces.PostOrderShippedEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.FulfilmentService.Containers.Database.Interfaces.UpdateOrderStatus
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.FulfilmentService.Containers.Api.Interfaces.PostOrderShippedEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.FulfilmentService.Containers.Messaging.Interfaces.SendOrderShippedEvent
+            Entities: {}
+          Messaging:
+            Label: Messaging
+            Description: ''
+            ContainerType: Queue
+            Boundary: Internal
+            Technology: ''
+            Components: {}
+            Interfaces:
+              SendOrderShippedEvent:
+                Label: Send Order Shipped Event
+                Description: ''
+                Protocol: ''
+                Flows: []
+              ReceiveOrderShippedEvent:
+                Label: Receive Order Shipped Event
+                Description: ''
+                Protocol: ''
+                Flows: []
+            Entities: {}
+          MessageHandler:
+            Label: Message Handler
+            Description: ''
+            ContainerType: Server Console
+            Boundary: Internal
+            Technology: ''
+            Components: {}
+            Interfaces:
+              HandleOrderStatusChangedEvent:
+                Label: Handle Order Status Changed Event
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.FulfilmentService.Containers.MessageHandler.Interfaces.HandleOrderStatusChangedEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.OrderService.Containers.Messaging.Interfaces.ReceiveOrderStatusChangedEvent
+                - Flows:
+                  - Flows: []
+                    Type: Use
+                    Owner: ECommercePlatform.BackEnd.SoftwareSystems.FulfilmentService.Containers.MessageHandler.Interfaces.HandleOrderStatusChangedEvent
+                    Expression: ECommercePlatform.BackEnd.SoftwareSystems.FulfilmentService.Containers.Database.Interfaces.InsertOrder
+                  - Flows: []
+                    Type: Use
+                    Owner: ECommercePlatform.BackEnd.SoftwareSystems.FulfilmentService.Containers.MessageHandler.Interfaces.HandleOrderStatusChangedEvent
+                    Expression: ECommercePlatform.BackOffice.SoftwareSystems.WMS.Interfaces.ShipOrder
+                  - Flows: []
+                    Type: Use
+                    Owner: ECommercePlatform.BackEnd.SoftwareSystems.FulfilmentService.Containers.MessageHandler.Interfaces.HandleOrderStatusChangedEvent
+                    Expression: ECommercePlatform.BackEnd.SoftwareSystems.FulfilmentService.Containers.Database.Interfaces.UpdateOrderStatus
+                  Type: If
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.FulfilmentService.Containers.MessageHandler.Interfaces.HandleOrderStatusChangedEvent
+                  Expression: Order Status is 'Pending Shipment'
+            Entities: {}
+        Interfaces: {}
+      BuyingService:
+        Label: Buying Service
+        Boundary: Internal
+        Description: ''
+        Containers:
+          MessageHandler:
+            Label: Message Handler
+            Description: ''
+            ContainerType: Server Console
+            Boundary: Internal
+            Technology: ''
+            Components: {}
+            Interfaces:
+              HandlePurchaseOrderUpdatedEvent:
+                Label: Handle Purchase Order Updated Event
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.BuyingService.Containers.MessageHandler.Interfaces.HandlePurchaseOrderUpdatedEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.BuyingService.Containers.Messaging.Interfaces.ReceivePurchaseOrderUpdatedEvent
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.BuyingService.Containers.MessageHandler.Interfaces.HandlePurchaseOrderUpdatedEvent
+                  Expression: ECommercePlatform.BackOffice.SoftwareSystems.WMS.Interfaces.UpdatePurchaseOrder
+              HandlePurchaseOrderCreatedEvent:
+                Label: Handle Purchase Order Created Event
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.BuyingService.Containers.MessageHandler.Interfaces.HandlePurchaseOrderCreatedEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.BuyingService.Containers.Messaging.Interfaces.ReceivePurchaseOrderCreatedEvent
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.BuyingService.Containers.MessageHandler.Interfaces.HandlePurchaseOrderCreatedEvent
+                  Expression: ECommercePlatform.BackOffice.SoftwareSystems.WMS.Interfaces.CreatePurchaseOrder
+              HandlePurchaseOrderDeletedEvent:
+                Label: Handle Purchase Order Deleted Event
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.BuyingService.Containers.MessageHandler.Interfaces.HandlePurchaseOrderDeletedEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.BuyingService.Containers.Messaging.Interfaces.ReceivePurchaseOrderDeletedEvent
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.BuyingService.Containers.MessageHandler.Interfaces.HandlePurchaseOrderDeletedEvent
+                  Expression: ECommercePlatform.BackOffice.SoftwareSystems.WMS.Interfaces.DeletePurchaseOrder
+            Entities: {}
+          Database:
+            Label: Database
+            Description: ''
+            ContainerType: Database
+            Boundary: Internal
+            Technology: ''
+            Components: {}
+            Interfaces:
+              DeletePurchaseOrder:
+                Label: Delete Purchase Order
+                Description: ''
+                Protocol: ''
+                Flows: []
+              InsertPurchaseOrder:
+                Label: Insert Purchase Order
+                Description: ''
+                Protocol: ''
+                Flows: []
+              SelectPurchaseOrder:
+                Label: Select Purchase Order
+                Description: ''
+                Protocol: ''
+                Flows: []
+              UpdatePurchaseOrder:
+                Label: Update Purchase Order
+                Description: ''
+                Protocol: ''
+                Flows: []
+            Entities: {}
+          Messaging:
+            Label: Messaging
+            Description: ''
+            ContainerType: Queue
+            Boundary: Internal
+            Technology: ''
+            Components: {}
+            Interfaces:
+              SendPurchaseOrderDeletedEvent:
+                Label: Send Purchase Order Deleted Event
+                Description: ''
+                Protocol: ''
+                Flows: []
+              ReceivePurchaseOrderCreatedEvent:
+                Label: Receive Purchase Order Created Event
+                Description: ''
+                Protocol: ''
+                Flows: []
+              SendPurchaseOrderUpdatedEvent:
+                Label: Send Purchase Order Updated Event
+                Description: ''
+                Protocol: ''
+                Flows: []
+              ReceivePurchaseOrderUpdatedEvent:
+                Label: Receive Purchase Order Updated Event
+                Description: ''
+                Protocol: ''
+                Flows: []
+              ReceivePurchaseOrderDeletedEvent:
+                Label: Receive Purchase Order Deleted Event
+                Description: ''
+                Protocol: ''
+                Flows: []
+              SendPurchaseOrderCreatedEvent:
+                Label: Send Purchase Order Created Event
+                Description: ''
+                Protocol: ''
+                Flows: []
+            Entities: {}
+          Api:
+            Label: Api
+            Description: ''
+            ContainerType: Api
+            Boundary: Internal
+            Technology: ''
+            Components: {}
+            Interfaces:
+              UpdatePurchaseOrder:
+                Label: Update Purchase Order
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.BuyingService.Containers.Api.Interfaces.UpdatePurchaseOrder
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.BuyingService.Containers.Database.Interfaces.UpdatePurchaseOrder
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.BuyingService.Containers.Api.Interfaces.UpdatePurchaseOrder
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.BuyingService.Containers.Messaging.Interfaces.SendPurchaseOrderUpdatedEvent
+              CreatePurchaseOrder:
+                Label: Create Purchase Order
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.BuyingService.Containers.Api.Interfaces.CreatePurchaseOrder
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.BuyingService.Containers.Database.Interfaces.InsertPurchaseOrder
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.BuyingService.Containers.Api.Interfaces.CreatePurchaseOrder
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.BuyingService.Containers.Messaging.Interfaces.SendPurchaseOrderCreatedEvent
+              GetPurchaseOrders:
+                Label: Get Purchase Orders
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.BuyingService.Containers.Api.Interfaces.GetPurchaseOrders
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.BuyingService.Containers.Database.Interfaces.SelectPurchaseOrder
+              DeletePurchaseOrder:
+                Label: Delete Purchase Order
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.BuyingService.Containers.Api.Interfaces.DeletePurchaseOrder
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.BuyingService.Containers.Database.Interfaces.DeletePurchaseOrder
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.BuyingService.Containers.Api.Interfaces.DeletePurchaseOrder
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.BuyingService.Containers.Messaging.Interfaces.SendPurchaseOrderDeletedEvent
+            Entities: {}
+        Interfaces: {}
+      BasketService:
+        Label: Basket Service
+        Boundary: Internal
+        Description: ''
+        Containers:
+          Api:
+            Label: Api
+            Description: ''
+            ContainerType: Api
+            Boundary: Internal
+            Technology: ''
+            Components: {}
+            Interfaces:
+              GetItems:
+                Label: Get Items
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.BasketService.Containers.Api.Interfaces.GetItems
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.BasketService.Containers.Database.Interfaces.SelectItems
+              DeleteItem:
+                Label: Delete Item
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.BasketService.Containers.Api.Interfaces.DeleteItem
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.BasketService.Containers.Database.Interfaces.DeleteItem
+              UpdateItem:
+                Label: Update Item
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.BasketService.Containers.Api.Interfaces.UpdateItem
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.BasketService.Containers.Database.Interfaces.UpdateItem
+              DeleteBasket:
+                Label: Delete Basket
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.BasketService.Containers.Api.Interfaces.DeleteBasket
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.BasketService.Containers.Database.Interfaces.DeleteBasket
+              AddItem:
+                Label: Add Item
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.BasketService.Containers.Api.Interfaces.AddItem
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.BasketService.Containers.Database.Interfaces.InsertItem
+            Entities: {}
+          Database:
+            Label: Database
+            Description: ''
+            ContainerType: Database
+            Boundary: Internal
+            Technology: ''
+            Components: {}
+            Interfaces:
+              SelectItems:
+                Label: Select Items
+                Description: ''
+                Protocol: ''
+                Flows: []
+              DeleteItem:
+                Label: Delete Item
+                Description: ''
+                Protocol: ''
+                Flows: []
+              InsertItem:
+                Label: Insert Item
+                Description: ''
+                Protocol: ''
+                Flows: []
+              DeleteBasket:
+                Label: Delete Basket
+                Description: ''
+                Protocol: ''
+                Flows: []
+              UpdateItem:
+                Label: Update Item
+                Description: ''
+                Protocol: ''
+                Flows: []
+            Entities: {}
+        Interfaces: {}
+      FraudService:
+        Label: Fraud Service
+        Boundary: Internal
+        Description: ''
+        Containers:
+          Api:
+            Label: Api
+            Description: ''
+            ContainerType: Api
+            Boundary: Internal
+            Technology: ''
+            Components: {}
+            Interfaces:
+              UpdateOrderFraudCheckResult:
+                Label: Update Order Fraud Check Result
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.FraudService.Containers.Api.Interfaces.UpdateOrderFraudCheckResult
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.FraudService.Containers.Database.Interfaces.UpdateFraudCheckResult
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.FraudService.Containers.Api.Interfaces.UpdateOrderFraudCheckResult
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.FraudService.Containers.Messaging.Interfaces.SendFraudCheckResultEvent
+              GetHighRiskOrders:
+                Label: Get High Risk Orders
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.FraudService.Containers.Api.Interfaces.GetHighRiskOrders
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.FraudService.Containers.Database.Interfaces.SelectHighRiskOrders
+            Entities: {}
+          MessageHandler:
+            Label: Message Handler
+            Description: ''
+            ContainerType: Server Console
+            Boundary: Internal
+            Technology: ''
+            Components: {}
+            Interfaces:
+              HandleOrderCreatedEvent:
+                Label: Handle Order Created Event
+                Description: ''
+                Protocol: ''
+                Flows:
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.FraudService.Containers.MessageHandler.Interfaces.HandleOrderCreatedEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.OrderService.Containers.Messaging.Interfaces.ReceiveOrderCreatedEvent
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.FraudService.Containers.MessageHandler.Interfaces.HandleOrderCreatedEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.FraudService.Containers.Database.Interfaces.InsertOrder
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.FraudService.Containers.MessageHandler.Interfaces.HandleOrderCreatedEvent
+                  Expression: ECommercePlatform.External.SoftwareSystems.FraudEngine.Interfaces.GetFraudCheckResult
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.FraudService.Containers.MessageHandler.Interfaces.HandleOrderCreatedEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.FraudService.Containers.Database.Interfaces.InsertFraudCheckResult
+                - Flows: []
+                  Type: Use
+                  Owner: ECommercePlatform.BackEnd.SoftwareSystems.FraudService.Containers.MessageHandler.Interfaces.HandleOrderCreatedEvent
+                  Expression: ECommercePlatform.BackEnd.SoftwareSystems.FraudService.Containers.Messaging.Interfaces.SendFraudCheckResultEvent
+            Entities: {}
+          Messaging:
+            Label: Messaging
+            Description: ''
+            ContainerType: Queue
+            Boundary: Internal
+            Technology: ''
+            Components: {}
+            Interfaces:
+              SendFraudCheckResultEvent:
+                Label: Send Fraud Check Result Event
+                Description: ''
+                Protocol: ''
+                Flows: []
+              ReceiveFraudCheckResultEvent:
+                Label: Receive Fraud Check Result Event
+                Description: ''
+                Protocol: ''
+                Flows: []
+            Entities: {}
+          Database:
+            Label: Database
+            Description: ''
+            ContainerType: Database
+            Boundary: Internal
+            Technology: ''
+            Components: {}
+            Interfaces:
+              UpdateFraudCheckResult:
+                Label: Update Fraud Check Result
+                Description: ''
+                Protocol: ''
+                Flows: []
+              InsertFraudCheckResult:
+                Label: Insert Fraud Check Result
+                Description: ''
+                Protocol: ''
+                Flows: []
+              InsertOrder:
+                Label: Insert Order
+                Description: ''
+                Protocol: ''
+                Flows: []
+              SelectHighRiskOrders:
+                Label: Select High Risk Orders
+                Description: ''
+                Protocol: ''
+                Flows: []
+            Entities: {}
+        Interfaces: {}
+  BackOffice:
+    SoftwareSystems:
+      BuyingAndMerchandisingApp:
+        Label: Buying And Merchandising App
+        Boundary: Internal
+        Description: ''
+        Containers: {}
+        Interfaces:
+          UpdateProductPrices:
+            Label: Update Product Prices
+            Description: ''
+            Protocol: ''
+            Flows:
+            - Flows: []
+              Type: Use
+              Owner: ECommercePlatform.BackOffice.SoftwareSystems.BuyingAndMerchandisingApp.Interfaces.UpdateProductPrices
+              Expression: ECommercePlatform.BackEnd.SoftwareSystems.PricingService.Containers.Api.Interfaces.UpdateProductPrices
+          ViewProductPrices:
+            Label: View Product Prices
+            Description: ''
+            Protocol: ''
+            Flows:
+            - Flows: []
+              Type: Use
+              Owner: ECommercePlatform.BackOffice.SoftwareSystems.BuyingAndMerchandisingApp.Interfaces.ViewProductPrices
+              Expression: ECommercePlatform.BackEnd.SoftwareSystems.PricingService.Containers.Api.Interfaces.GetProductPrices
+          DeletePurchaseOrder:
+            Label: Delete Purchase Order
+            Description: ''
+            Protocol: ''
+            Flows:
+            - Flows: []
+              Type: Use
+              Owner: ECommercePlatform.BackOffice.SoftwareSystems.BuyingAndMerchandisingApp.Interfaces.DeletePurchaseOrder
+              Expression: ECommercePlatform.BackEnd.SoftwareSystems.BuyingService.Containers.Api.Interfaces.DeletePurchaseOrder
+          ViewPurchaseOrders:
+            Label: View Purchase Orders
+            Description: ''
+            Protocol: ''
+            Flows:
+            - Flows: []
+              Type: Use
+              Owner: ECommercePlatform.BackOffice.SoftwareSystems.BuyingAndMerchandisingApp.Interfaces.ViewPurchaseOrders
+              Expression: ECommercePlatform.BackEnd.SoftwareSystems.BuyingService.Containers.Api.Interfaces.GetPurchaseOrders
+          CreatePurchaseOrder:
+            Label: Create Purchase Order
+            Description: ''
+            Protocol: ''
+            Flows:
+            - Flows: []
+              Type: Use
+              Owner: ECommercePlatform.BackOffice.SoftwareSystems.BuyingAndMerchandisingApp.Interfaces.CreatePurchaseOrder
+              Expression: ECommercePlatform.BackEnd.SoftwareSystems.BuyingService.Containers.Api.Interfaces.CreatePurchaseOrder
+          UpdatePurchaseOrder:
+            Label: Update Purchase Order
+            Description: ''
+            Protocol: ''
+            Flows:
+            - Flows: []
+              Type: Use
+              Owner: ECommercePlatform.BackOffice.SoftwareSystems.BuyingAndMerchandisingApp.Interfaces.UpdatePurchaseOrder
+              Expression: ECommercePlatform.BackEnd.SoftwareSystems.BuyingService.Containers.Api.Interfaces.UpdatePurchaseOrder
+      PIMApp:
+        Label: PIM App
+        Boundary: Internal
+        Description: ''
+        Containers: {}
+        Interfaces:
+          ViewProducts:
+            Label: View Products
+            Description: ''
+            Protocol: ''
+            Flows:
+            - Flows: []
+              Type: Use
+              Owner: ECommercePlatform.BackOffice.SoftwareSystems.PIMApp.Interfaces.ViewProducts
+              Expression: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.Api.Interfaces.GetProducts
+          DeleteProduct:
+            Label: Delete Product
+            Description: ''
+            Protocol: ''
+            Flows:
+            - Flows: []
+              Type: Use
+              Owner: ECommercePlatform.BackOffice.SoftwareSystems.PIMApp.Interfaces.DeleteProduct
+              Expression: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.Api.Interfaces.DeleteProduct
+          UpdateProduct:
+            Label: Update Product
+            Description: ''
+            Protocol: ''
+            Flows:
+            - Flows: []
+              Type: Use
+              Owner: ECommercePlatform.BackOffice.SoftwareSystems.PIMApp.Interfaces.UpdateProduct
+              Expression: ECommercePlatform.BackEnd.SoftwareSystems.ProductService.Containers.Api.Interfaces.UpdateProduct
+      WMS:
+        Label: WMS
+        Boundary: Internal
+        Description: ''
+        Containers: {}
+        Interfaces:
+          CreatePurchaseOrder:
+            Label: Create Purchase Order
+            Description: ''
+            Protocol: ''
+            Flows: []
+          DeletePurchaseOrder:
+            Label: Delete Purchase Order
+            Description: ''
+            Protocol: ''
+            Flows: []
+          UpdatePurchaseOrder:
+            Label: Update Purchase Order
+            Description: ''
+            Protocol: ''
+            Flows: []
+          ShipOrder:
+            Label: Ship Order
+            Description: ''
+            Protocol: ''
+            Flows: []
+      CRMApp:
+        Label: CRM App
+        Boundary: Internal
+        Description: ''
+        Containers: {}
+        Interfaces:
+          ViewHighRiskOrders:
+            Label: View High Risk Orders
+            Description: ''
+            Protocol: ''
+            Flows:
+            - Flows: []
+              Type: Use
+              Owner: ECommercePlatform.BackOffice.SoftwareSystems.CRMApp.Interfaces.ViewHighRiskOrders
+              Expression: ECommercePlatform.BackEnd.SoftwareSystems.FraudService.Containers.Api.Interfaces.GetHighRiskOrders
+          UpdateOrderFraudCheckResult:
+            Label: Update Order Fraud Check Result
+            Description: ''
+            Protocol: ''
+            Flows:
+            - Flows: []
+              Type: Use
+              Owner: ECommercePlatform.BackOffice.SoftwareSystems.CRMApp.Interfaces.UpdateOrderFraudCheckResult
+              Expression: ECommercePlatform.BackEnd.SoftwareSystems.FraudService.Containers.Api.Interfaces.UpdateOrderFraudCheckResult
+  External:
+    SoftwareSystems:
+      FraudEngine:
+        Label: Fraud Engine
+        Boundary: External
+        Description: ''
+        Containers: {}
+        Interfaces:
+          GetFraudCheckResult:
+            Label: Get Fraud Check Result
+            Description: ''
+            Protocol: ''
+            Flows: []
+      PaymentProvider:
+        Label: Payment Provider
+        Boundary: External
+        Description: ''
+        Containers: {}
+        Interfaces:
+          ProcessPayment:
+            Label: Process Payment
+            Description: ''
+            Protocol: ''
+            Flows: []

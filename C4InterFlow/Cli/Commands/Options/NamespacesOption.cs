@@ -3,14 +3,14 @@ using System.CommandLine.Parsing;
 
 namespace C4InterFlow.Cli.Commands.Options;
 
-public static class BusinessProcesesOption
+public static class NamespacesOption
 {
     public static Option<string[]> Get()
     {
         const string description =
-            "The aliases of Business Processes for which to draw the Diagram(s).";
+            "The aliases of Namespaces for which to draw the Diagram(s).";
 
-        var option = new Option<string[]>(new[] { "--business-processes", "-bp" }, description)
+        var option = new Option<string[]>(new[] { "--namespaces", "-ns" }, description)
         {
             AllowMultipleArgumentsPerToken = true
         };

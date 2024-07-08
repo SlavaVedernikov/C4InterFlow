@@ -7,6 +7,7 @@ public static class DiagramScopesOption
 {
     public const string ALL_SOFTWARE_SYSTEMS = "all-software-systems";
     public const string NAMESPACE = "namespace";
+    public const string NAMESPACE_SOFTWARE_SYSTEMS = "namespace-software-systems";
     public const string SOFTWARE_SYSTEM = "software-system";
     public const string SOFTWARE_SYSTEM_INTERFACE = "software-system-interface";
     public const string CONTAINER = "container";
@@ -27,6 +28,7 @@ public static class DiagramScopesOption
         option.FromAmong(
             ALL_SOFTWARE_SYSTEMS,
             NAMESPACE,
+            NAMESPACE_SOFTWARE_SYSTEMS,
             SOFTWARE_SYSTEM,
             SOFTWARE_SYSTEM_INTERFACE,
             CONTAINER,
@@ -45,6 +47,7 @@ public static class DiagramScopesOption
         return new[] {
             ALL_SOFTWARE_SYSTEMS,
             NAMESPACE,
+            NAMESPACE_SOFTWARE_SYSTEMS,
             SOFTWARE_SYSTEM,
             SOFTWARE_SYSTEM_INTERFACE,
             CONTAINER,
