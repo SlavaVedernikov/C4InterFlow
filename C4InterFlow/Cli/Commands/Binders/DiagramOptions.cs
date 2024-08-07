@@ -82,6 +82,20 @@ namespace C4InterFlow.Cli.Commands.Binders
 
                     break;
                 }
+                case DiagramScopesOption.NAMESPACE_SOFTWARE_SYSTEMS:
+                {
+                    supportedLevelsOfDetail.AddRange(new[] {
+                    DiagramLevelsOfDetailsOption.CONTEXT,
+                    DiagramLevelsOfDetailsOption.CONTAINER,
+                    DiagramLevelsOfDetailsOption.COMPONENT
+                });
+                    supportedTypes.AddRange(new[] {
+                    DiagramTypesOption.C4_STATIC,
+                    DiagramTypesOption.C4
+                });
+
+                    break;
+                }
                 case DiagramScopesOption.SOFTWARE_SYSTEM:
                 {
                     supportedLevelsOfDetail.AddRange(new[] {

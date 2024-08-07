@@ -234,7 +234,7 @@ public partial class PlantumlContext
             : $"-t{generatedImageFormat}";
 
         return
-            $"-jar \"{PlantumlJarPath}\" {resourcesOriginArg} {imageFormatOutputArg} -Playout=smetana -o \"{directory}\" -charset UTF-8";
+            $"-jar \"{PlantumlJarPath}\" {resourcesOriginArg} {imageFormatOutputArg} -o \"{directory}\" -charset UTF-8";
     }
 
     /// <summary>

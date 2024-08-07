@@ -8,7 +8,7 @@ public static class BusinessProcesesOption
     public static Option<string[]> Get()
     {
         const string description =
-            "The full names of Business Process types for which to draw the Diagram(s).";
+            "The aliases of Business Processes for which to draw the Diagram(s).";
 
         var option = new Option<string[]>(new[] { "--business-processes", "-bp" }, description)
         {

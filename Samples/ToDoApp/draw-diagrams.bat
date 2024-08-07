@@ -1,6 +1,6 @@
 @echo off
 :: Possible values: TRUE, FALSE
-set "redraw-all=FALSE"
+set "redraw-all=TRUE"
 :::::::::::::::::::::::::::::::
 
 set "aac-root-namespace=ToDoAppExample"
