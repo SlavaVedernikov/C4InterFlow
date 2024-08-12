@@ -4,6 +4,10 @@ using C4InterFlow.Structures.Interfaces;
 using C4InterFlow.Cli.Commands.Options;
 using System.Reflection;
 using C4InterFlow.Automation;
+using C4InterFlow.Cli.Commands.Binders;
+using C4InterFlow.Commons.Extensions;
+using Serilog;
+using Serilog.Events;
 
 namespace C4InterFlow.Cli.Commands;
 
@@ -16,23 +20,29 @@ public class QueryByInputCommand : Command
         var entitiesOption = EntitiesOption.Get();
         var architectureAsCodeInputPathsOption = AaCInputPathsOption.Get();
         var architectureAsCodeReaderStrategyTypeOption = AaCReaderStrategyTypeOption.Get();
-
+        var loggingLevelOption = LoggingLevelOptions.Get();
+        var loggingOutputOptions = LoggingOutputOptions.Get();
+        
         AddOption(entitiesOption);
         AddOption(architectureAsCodeInputPathsOption);
         AddOption(architectureAsCodeReaderStrategyTypeOption);
-
-        this.SetHandler(async (entityAliases, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType) =>
+        AddOption(loggingLevelOption);
+        AddOption(loggingOutputOptions);
+        
+        this.SetHandler(async (entityAliases, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType, loggingOption) =>
             {
-                await Execute(entityAliases, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
+                await Execute(entityAliases, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType, loggingOption);
             },
-            entitiesOption, architectureAsCodeInputPathsOption, architectureAsCodeReaderStrategyTypeOption);
+            entitiesOption, architectureAsCodeInputPathsOption, architectureAsCodeReaderStrategyTypeOption, new LoggingOptionsBinder(loggingOutputOptions, loggingLevelOption));
     }
 
-    private static async Task<int> Execute(string[] entityAliases, string[] architectureAsCodeInputPaths, string architectureAsCodeReaderStrategyType)
+    private static async Task<int> Execute(string[] entityAliases, string[] architectureAsCodeInputPaths, string architectureAsCodeReaderStrategyType, LoggingOptions loggingOptions)
     {
         try
         {
-            Console.WriteLine($"'{COMMAND_NAME}' command is executing...");
+            Log.Logger = new LoggerConfiguration().CreateLogger(loggingOptions);
+            
+            Log.Information("{Name} command is executing", COMMAND_NAME);
 
             if(!AaCReaderContext.HasStrategy)
             {
@@ -47,13 +57,15 @@ public class QueryByInputCommand : Command
             {
                 result.AddRange(GetByInput(interfaces, entityAlias));
             }
-            Console.WriteLine($"'{COMMAND_NAME}' command completed. See query results below.");
-            Console.Write($"{string.Join(Environment.NewLine, result.Distinct().ToArray())}");
+            Log.Information("{Name} command completed. Query results: {Results}", COMMAND_NAME, result.Distinct().ToArray());
+            // Console.WriteLine($"'{COMMAND_NAME}' command completed. See query results below.");
+            // Console.Write($"{string.Join(Environment.NewLine, result.Distinct().ToArray())}");
             return 0;
         }
         catch (Exception e)
         {
-            Console.WriteLine($"'{COMMAND_NAME}' command failed with exception '{e.Message}'");
+            Log.Error(e, "{Name} command failed with execption: {Error}", COMMAND_NAME, e.Message);
+
             return 1;
         }
     }

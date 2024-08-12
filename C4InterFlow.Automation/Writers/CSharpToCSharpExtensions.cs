@@ -3,6 +3,8 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis;
 using System.Reflection;
 using C4InterFlow.Automation.Readers;
+using Serilog;
+
 namespace C4InterFlow.Automation.Writers
 {
     public static class CSharpToCSharpExtensions
@@ -57,11 +59,12 @@ namespace C4InterFlow.Automation.Writers
         {
             if (documents.Count() == 0) return documents;
 
-            Console.WriteLine($"The following documents were selected for {action} action:");
-            foreach (var document in documents)
-            {
-                Console.WriteLine(document.FilePath);
-            }
+            Log.Information("The following {@Documents} were selected for {Action}", documents, action);
+            // Console.WriteLine($"The following documents were selected for {action} action:");
+            // foreach (var document in documents)
+            // {
+            //     Console.WriteLine(document.FilePath);
+            // }
 
             if (GetConfirmation())
             {
@@ -73,7 +76,8 @@ namespace C4InterFlow.Automation.Writers
             }
         }
 
-        private static string GetInterfaceAlias(string architectureRootNamespace, string containerAlias, string componentAlias, string interfaceAlias)
+        private static string GetInterfaceAlias(string architectureRootNamespace, string containerAlias,
+            string componentAlias, string interfaceAlias)
         {
             containerAlias = containerAlias.Substring(containerAlias.IndexOf(".Containers."));
             componentAlias = componentAlias.Substring(componentAlias.IndexOf(".Components."));
@@ -93,7 +97,7 @@ namespace C4InterFlow.Automation.Writers
             if (!compilationUnit.Usings.Any(u => u.Name.ToString() == namespaceToAdd))
             {
                 var usingDirective = SyntaxFactory.UsingDirective(SyntaxFactory.ParseName($" {namespaceToAdd}"))
-                .WithTrailingTrivia(SyntaxFactory.CarriageReturnLineFeed);
+                    .WithTrailingTrivia(SyntaxFactory.CarriageReturnLineFeed);
                 var newUsings = compilationUnit.Usings.Add(usingDirective);
                 var newCompilationUnit = compilationUnit.WithUsings(newUsings);
 
@@ -112,16 +116,17 @@ namespace C4InterFlow.Automation.Writers
             }
         }
 
-        public static ITypeSymbol GetReceiverType(this InvocationExpressionSyntax invocationExpression, SemanticModel semanticModel)
+        public static ITypeSymbol GetReceiverType(this InvocationExpressionSyntax invocationExpression,
+            SemanticModel semanticModel)
         {
             var expression = invocationExpression.Expression;
 
             if (expression is IdentifierNameSyntax)
             {
                 var methodSymbol = (semanticModel.GetSymbolInfo(expression).Symbol ??
-                    (semanticModel.GetSymbolInfo(expression).CandidateSymbols != null ?
-                    semanticModel.GetSymbolInfo(expression).CandidateSymbols.FirstOrDefault() :
-                    default)
+                                    (semanticModel.GetSymbolInfo(expression).CandidateSymbols != null
+                                        ? semanticModel.GetSymbolInfo(expression).CandidateSymbols.FirstOrDefault()
+                                        : default)
                     ) as IMethodSymbol;
                 return methodSymbol?.ReceiverType;
             }
@@ -156,17 +161,20 @@ namespace C4InterFlow.Automation.Writers
             return classDeclaration.DescendantNodes().OfType<MethodDeclarationSyntax>();
         }
 
-        public static IEnumerable<PropertyDeclarationSyntax> WithProperties(this ClassDeclarationSyntax classDeclaration)
+        public static IEnumerable<PropertyDeclarationSyntax> WithProperties(
+            this ClassDeclarationSyntax classDeclaration)
         {
             return classDeclaration.DescendantNodes().OfType<PropertyDeclarationSyntax>();
         }
 
-        public static IEnumerable<MethodDeclarationSyntax> WithMethods(this InterfaceDeclarationSyntax interfaceDeclaration)
+        public static IEnumerable<MethodDeclarationSyntax> WithMethods(
+            this InterfaceDeclarationSyntax interfaceDeclaration)
         {
             return interfaceDeclaration.DescendantNodes().OfType<MethodDeclarationSyntax>();
         }
 
-        public static ClassDeclarationSyntax AddFlowToComponentInterfaceClass(this ClassDeclarationSyntax classDeclaration,
+        public static ClassDeclarationSyntax AddFlowToComponentInterfaceClass(
+            this ClassDeclarationSyntax classDeclaration,
             CSharpToCSharpAaCWriter writer,
             IEnumerable<CSharpToAnyMethodTriggerMapper>? methodTriggerMappers = null,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
@@ -174,11 +182,14 @@ namespace C4InterFlow.Automation.Writers
             var architectureWorkspace = writer.ArchitectureWorkspace;
             var architectureClassSyntaxTree = classDeclaration.SyntaxTree;
             var architectureClassRoot = architectureClassSyntaxTree.GetRoot();
-            var architectureProject = architectureWorkspace.CurrentSolution.Projects.FirstOrDefault(p => p.Documents.Any(d => d.FilePath == architectureClassSyntaxTree.FilePath));
+            var architectureProject = architectureWorkspace.CurrentSolution.Projects.FirstOrDefault(p =>
+                p.Documents.Any(d => d.FilePath == architectureClassSyntaxTree.FilePath));
             var architectureCompilation = architectureProject.GetCompilationAsync().Result;
             var architectureSemanticModel = architectureCompilation.GetSemanticModel(architectureClassSyntaxTree);
 
-            var systemMethodDeclaration = writer.ComponentInterfaceAaCFileToCSharpMethodDeclarationMap.GetValueOrDefault(architectureClassSyntaxTree.FilePath);
+            var systemMethodDeclaration =
+                writer.ComponentInterfaceAaCFileToCSharpMethodDeclarationMap.GetValueOrDefault(
+                    architectureClassSyntaxTree.FilePath);
 
             if (systemMethodDeclaration == null) return classDeclaration;
 
@@ -198,7 +209,8 @@ namespace C4InterFlow.Automation.Writers
                 if (flowSyntaxNode != null)
                 {
                     var newFlowSyntaxNode =
-                        SyntaxFactory.ParseExpression($"{leadingTrivia}Flow = {string.Join($"{Environment.NewLine}{leadingTrivia}", flowCode.Split(Environment.NewLine).Where(x => !string.IsNullOrEmpty(x)))}");
+                        SyntaxFactory.ParseExpression(
+                            $"{leadingTrivia}Flow = {string.Join($"{Environment.NewLine}{leadingTrivia}", flowCode.Split(Environment.NewLine).Where(x => !string.IsNullOrEmpty(x)))}");
 
                     architectureClassRoot = architectureClassRoot.ReplaceNode(flowSyntaxNode, newFlowSyntaxNode);
 
@@ -210,15 +222,18 @@ namespace C4InterFlow.Automation.Writers
             return classDeclaration;
         }
 
-        public static IEnumerable<MethodDeclarationSyntax> WithConfirmation(this IEnumerable<MethodDeclarationSyntax> methodDeclarations, string action)
+        public static IEnumerable<MethodDeclarationSyntax> WithConfirmation(
+            this IEnumerable<MethodDeclarationSyntax> methodDeclarations, string action)
         {
             if (methodDeclarations.Count() == 0) return methodDeclarations;
 
-            Console.WriteLine($"The following methods were selected for {action} action:");
-            foreach (var methodDeclaration in methodDeclarations)
-            {
-                Console.WriteLine(methodDeclaration.Identifier.ValueText);
-            }
+            
+            Log.Information("The following methods were selected for {Action} action: {Methods}", action, methodDeclarations.Select(x=>x.Identifier.ValueText));
+            // Console.WriteLine($"The following methods were selected for {action} action:");
+            // foreach (var methodDeclaration in methodDeclarations)
+            // {
+            //     Console.WriteLine(methodDeclaration.Identifier.ValueText);
+            // }
 
             if (GetConfirmation())
             {
@@ -230,7 +245,8 @@ namespace C4InterFlow.Automation.Writers
             }
         }
 
-        public static IEnumerable<InvocationExpressionSyntax> WithInvocations(this MethodDeclarationSyntax methodDeclaration, string[] codeSnippets)
+        public static IEnumerable<InvocationExpressionSyntax> WithInvocations(
+            this MethodDeclarationSyntax methodDeclaration, string[] codeSnippets)
         {
             return methodDeclaration.DescendantNodes().OfType<InvocationExpressionSyntax>()
                 .Where(n => codeSnippets.Any(n.ToFullString().Contains));
@@ -238,27 +254,36 @@ namespace C4InterFlow.Automation.Writers
 
         public static MethodDeclarationSyntax AddComponentInterfaceClass(this MethodDeclarationSyntax methodDeclaration,
             string softwareSystemName, string containerName, string componentName, CSharpToCSharpAaCWriter writer,
-            Func<MethodDeclarationSyntax, SemanticModel, CSharpToCSharpAaCWriter, string?, string?, string?, string>? pathMapper = null,
+            Func<MethodDeclarationSyntax, SemanticModel, CSharpToCSharpAaCWriter, string?, string?, string?, string>?
+                pathMapper = null,
             string? protocol = null)
         {
             var architectureNamespace = writer.ArchitectureNamespace;
-            var architectureProject = writer.ArchitectureWorkspace.CurrentSolution.Projects.FirstOrDefault(x => x.Name == architectureNamespace);
+            var architectureProject =
+                writer.ArchitectureWorkspace.CurrentSolution.Projects.FirstOrDefault(x =>
+                    x.Name == architectureNamespace);
             var systemSyntaxTree = methodDeclaration.SyntaxTree;
-            var systemProject = writer.SoftwareSystemWorkspace.CurrentSolution.Projects.FirstOrDefault(p => p.Documents.Any(d => d.FilePath == systemSyntaxTree.FilePath));
+            var systemProject =
+                writer.SoftwareSystemWorkspace.CurrentSolution.Projects.FirstOrDefault(p =>
+                    p.Documents.Any(d => d.FilePath == systemSyntaxTree.FilePath));
             var systemCompilation = systemProject.GetCompilationAsync().Result;
             var systemSemanticModel = systemCompilation.GetSemanticModel(systemSyntaxTree);
 
             if (architectureProject == null)
             {
-                Console.WriteLine($"Project '{architectureNamespace}' was not found in '{writer.ArchitectureWorkspace.CurrentSolution.FilePath}' Solution.");
+                Log.Warning("Project {Name} was not found in {Solution} solution", architectureNamespace, writer.ArchitectureWorkspace.CurrentSolution.FilePath);
+                
                 return methodDeclaration;
             }
 
             var interfaceName = methodDeclaration.Identifier.Text;
             var documentName = $"{interfaceName}.cs";
 
-            var projectDirectory = architectureProject.FilePath.Replace($"{architectureProject.Name}.csproj", string.Empty);
-            var fileDirectory = Path.Combine(projectDirectory, CSharpToAnyCodeGenerator<CSharpCodeWriter>.GetComponentInterfacesDirectory(softwareSystemName, containerName, componentName));
+            var projectDirectory =
+                architectureProject.FilePath.Replace($"{architectureProject.Name}.csproj", string.Empty);
+            var fileDirectory = Path.Combine(projectDirectory,
+                CSharpToAnyCodeGenerator<CSharpCodeWriter>.GetComponentInterfacesDirectory(softwareSystemName,
+                    containerName, componentName));
             var filePath = Path.Combine(fileDirectory, documentName);
 
             Directory.CreateDirectory(fileDirectory);
@@ -282,7 +307,8 @@ namespace C4InterFlow.Automation.Writers
 
             if (architectureProject.Documents.Any(x => x.FilePath == filePath))
             {
-                Console.WriteLine($"Document '{filePath}' already exists in '{architectureProject.Name}' Project.");
+                Log.Warning("Document {Name} already exists in {Project} project", filePath, architectureProject.Name);
+
                 return methodDeclaration;
             }
 
@@ -322,21 +348,27 @@ namespace C4InterFlow.Automation.Writers
             return methodDeclaration;
         }
 
-        public static PropertyDeclarationSyntax AddComponentInterfaceClass(this PropertyDeclarationSyntax propertyDeclaration,
+        public static PropertyDeclarationSyntax AddComponentInterfaceClass(
+            this PropertyDeclarationSyntax propertyDeclaration,
             string softwareSystemName, string containerName, string componentName, CSharpToCSharpAaCWriter writer,
             string[] interfaces,
             string? protocol = null)
         {
             var architectureNamespace = writer.ArchitectureNamespace;
-            var architectureProject = writer.ArchitectureWorkspace.CurrentSolution.Projects.FirstOrDefault(x => x.Name == architectureNamespace);
+            var architectureProject =
+                writer.ArchitectureWorkspace.CurrentSolution.Projects.FirstOrDefault(x =>
+                    x.Name == architectureNamespace);
             var systemSyntaxTree = propertyDeclaration.SyntaxTree;
-            var systemProject = writer.SoftwareSystemWorkspace.CurrentSolution.Projects.FirstOrDefault(p => p.Documents.Any(d => d.FilePath == systemSyntaxTree.FilePath));
+            var systemProject =
+                writer.SoftwareSystemWorkspace.CurrentSolution.Projects.FirstOrDefault(p =>
+                    p.Documents.Any(d => d.FilePath == systemSyntaxTree.FilePath));
             var systemCompilation = systemProject.GetCompilationAsync().Result;
             var systemSemanticModel = systemCompilation.GetSemanticModel(systemSyntaxTree);
 
             if (architectureProject == null)
             {
-                Console.WriteLine($"Project '{architectureNamespace}' was not found in '{writer.ArchitectureWorkspace.CurrentSolution.FilePath}' Solution.");
+                Log.Warning( "Project {Name} was not found in {Solution} solution", architectureNamespace, writer.ArchitectureWorkspace.CurrentSolution.FilePath);
+
                 return propertyDeclaration;
             }
 
@@ -345,8 +377,11 @@ namespace C4InterFlow.Automation.Writers
                 var interfaceName = $"{propertyDeclaration.Identifier.Text}{@interface}";
                 var documentName = $"{interfaceName}.cs";
 
-                var projectDirectory = architectureProject.FilePath.Replace($"{architectureProject.Name}.csproj", string.Empty);
-                var fileDirectory = Path.Combine(projectDirectory, CSharpToAnyCodeGenerator<CSharpCodeWriter>.GetComponentInterfacesDirectory(softwareSystemName, containerName, componentName));
+                var projectDirectory =
+                    architectureProject.FilePath.Replace($"{architectureProject.Name}.csproj", string.Empty);
+                var fileDirectory = Path.Combine(projectDirectory,
+                    CSharpToAnyCodeGenerator<CSharpCodeWriter>.GetComponentInterfacesDirectory(softwareSystemName,
+                        containerName, componentName));
                 var filePath = Path.Combine(fileDirectory, documentName);
 
                 Directory.CreateDirectory(fileDirectory);
@@ -358,7 +393,8 @@ namespace C4InterFlow.Automation.Writers
 
                 if (architectureProject.Documents.Any(x => x.FilePath == filePath))
                 {
-                    Console.WriteLine($"Document '{filePath}' already exists in '{architectureProject.Name}' Project.");
+                    Log.Warning("Document {Name} already exists in {Project} project", filePath, architectureProject.Name);
+
                     continue;
                 }
 
@@ -381,37 +417,47 @@ namespace C4InterFlow.Automation.Writers
 
             return propertyDeclaration;
         }
-        public static InterfaceDeclarationSyntax AddEntityClass(this InterfaceDeclarationSyntax interfaceDeclaration, string softwareSystemName, string containerName, CSharpToCSharpAaCWriter writer)
+
+        public static InterfaceDeclarationSyntax AddEntityClass(this InterfaceDeclarationSyntax interfaceDeclaration,
+            string softwareSystemName, string containerName, CSharpToCSharpAaCWriter writer)
         {
             var systemWorkspace = writer.SoftwareSystemWorkspace;
             var systemSyntaxTree = interfaceDeclaration.SyntaxTree;
-            var systemProject = systemWorkspace.CurrentSolution.Projects.FirstOrDefault(p => p.Documents.Any(d => d.FilePath == systemSyntaxTree.FilePath));
+            var systemProject = systemWorkspace.CurrentSolution.Projects.FirstOrDefault(p =>
+                p.Documents.Any(d => d.FilePath == systemSyntaxTree.FilePath));
             var systemCompilation = systemProject.GetCompilationAsync().Result;
             var systemSemanticModel = systemCompilation.GetSemanticModel(systemSyntaxTree);
 
             var architectureNamespace = writer.ArchitectureNamespace;
-            var architectureProject = writer.ArchitectureWorkspace.CurrentSolution.Projects.FirstOrDefault(x => x.Name == architectureNamespace);
+            var architectureProject =
+                writer.ArchitectureWorkspace.CurrentSolution.Projects.FirstOrDefault(x =>
+                    x.Name == architectureNamespace);
 
             if (architectureProject == null)
             {
-                Console.WriteLine($"Project '{architectureNamespace}' was not found in '{writer.ArchitectureWorkspace.CurrentSolution.FilePath}' Solution.");
+                Log.Warning("Project {Name} was not found in {Solution} solution", architectureNamespace, writer.ArchitectureWorkspace.CurrentSolution.FilePath);
+
                 return interfaceDeclaration;
             }
 
             var entityName = interfaceDeclaration.Identifier.Text;
             var entityTypeSymbol = systemSemanticModel.GetDeclaredSymbol(interfaceDeclaration) as ITypeSymbol;
-            var entityAlias = AnyCodeWriter.GetEntityAlias(architectureNamespace, softwareSystemName, containerName, entityName);
+            var entityAlias =
+                AnyCodeWriter.GetEntityAlias(architectureNamespace, softwareSystemName, containerName, entityName);
             var documentName = $"{entityName}.cs";
 
-            var projectDirectory = architectureProject.FilePath.Replace($"{architectureProject.Name}.csproj", string.Empty);
-            var fileDirectory = Path.Combine(projectDirectory, CSharpToAnyCodeGenerator<CSharpCodeWriter>.GetEntitiesDirectory(softwareSystemName, containerName));
+            var projectDirectory =
+                architectureProject.FilePath.Replace($"{architectureProject.Name}.csproj", string.Empty);
+            var fileDirectory = Path.Combine(projectDirectory,
+                CSharpToAnyCodeGenerator<CSharpCodeWriter>.GetEntitiesDirectory(softwareSystemName, containerName));
             var filePath = Path.Combine(fileDirectory, documentName);
 
             Directory.CreateDirectory(fileDirectory);
 
             if (architectureProject.Documents.Any(x => x.FilePath == filePath))
             {
-                Console.WriteLine($"Document '{filePath}' already exists in '{architectureProject.Name}' Project.");
+                Log.Warning("Document {Name} already exists in {Project} project", filePath, architectureProject.Name);
+                
                 writer.AddEntityTypeMapping(entityTypeSymbol, entityAlias);
                 return interfaceDeclaration;
             }
@@ -435,41 +481,49 @@ namespace C4InterFlow.Automation.Writers
 
             writer.AddEntityTypeMapping(entityTypeSymbol, entityAlias);
             return interfaceDeclaration;
-
         }
 
-        public static RecordDeclarationSyntax AddEntityClass(this RecordDeclarationSyntax recordDeclaration, string softwareSystemName, string containerName, CSharpToCSharpAaCWriter writer)
+        public static RecordDeclarationSyntax AddEntityClass(this RecordDeclarationSyntax recordDeclaration,
+            string softwareSystemName, string containerName, CSharpToCSharpAaCWriter writer)
         {
             var systemWorkspace = writer.SoftwareSystemWorkspace;
             var systemSyntaxTree = recordDeclaration.SyntaxTree;
-            var systemProject = systemWorkspace.CurrentSolution.Projects.FirstOrDefault(p => p.Documents.Any(d => d.FilePath == systemSyntaxTree.FilePath));
+            var systemProject = systemWorkspace.CurrentSolution.Projects.FirstOrDefault(p =>
+                p.Documents.Any(d => d.FilePath == systemSyntaxTree.FilePath));
             var systemCompilation = systemProject.GetCompilationAsync().Result;
             var systemSemanticModel = systemCompilation.GetSemanticModel(systemSyntaxTree);
 
             var architectureNamespace = writer.ArchitectureNamespace;
-            var architectureProject = writer.ArchitectureWorkspace.CurrentSolution.Projects.FirstOrDefault(x => x.Name == architectureNamespace);
+            var architectureProject =
+                writer.ArchitectureWorkspace.CurrentSolution.Projects.FirstOrDefault(x =>
+                    x.Name == architectureNamespace);
 
             if (architectureProject == null)
             {
-                Console.WriteLine($"Project '{architectureNamespace}' was not found in '{writer.ArchitectureWorkspace.CurrentSolution.FilePath}' Solution.");
+                Log.Warning( "Project {Name} was not found in {Solution} solution", architectureNamespace, writer.ArchitectureWorkspace.CurrentSolution.FilePath);
+
                 return recordDeclaration;
             }
 
             var entityName = recordDeclaration.Identifier.Text;
             var entityTypeSymbol = systemSemanticModel.GetDeclaredSymbol(recordDeclaration) as ITypeSymbol;
-            var entityAlias = AnyCodeWriter.GetEntityAlias(architectureNamespace, softwareSystemName, containerName, entityName);
+            var entityAlias =
+                AnyCodeWriter.GetEntityAlias(architectureNamespace, softwareSystemName, containerName, entityName);
 
             var documentName = $"{entityName}.cs";
 
-            var projectDirectory = architectureProject.FilePath.Replace($"{architectureProject.Name}.csproj", string.Empty);
-            var fileDirectory = Path.Combine(projectDirectory, CSharpToAnyCodeGenerator<CSharpCodeWriter>.GetEntitiesDirectory(softwareSystemName, containerName));
+            var projectDirectory =
+                architectureProject.FilePath.Replace($"{architectureProject.Name}.csproj", string.Empty);
+            var fileDirectory = Path.Combine(projectDirectory,
+                CSharpToAnyCodeGenerator<CSharpCodeWriter>.GetEntitiesDirectory(softwareSystemName, containerName));
             var filePath = Path.Combine(fileDirectory, documentName);
 
             Directory.CreateDirectory(fileDirectory);
 
             if (architectureProject.Documents.Any(x => x.FilePath == filePath))
             {
-                Console.WriteLine($"Document '{filePath}' already exists in '{architectureProject.Name}' Project.");
+                Log.Warning("Document {Name} already exists in {Project} project", filePath, architectureProject.Name);
+
                 writer.AddEntityTypeMapping(entityTypeSymbol, entityAlias);
                 return recordDeclaration;
             }
@@ -493,7 +547,6 @@ namespace C4InterFlow.Automation.Writers
 
             writer.AddEntityTypeMapping(entityTypeSymbol, entityAlias);
             return recordDeclaration;
-
         }
 
         public static string GetAliasFieldValue(this ClassDeclarationSyntax classDeclaration)
@@ -516,14 +569,19 @@ namespace C4InterFlow.Automation.Writers
 
             return result;
         }
-        public static ClassDeclarationSyntax AddComponentClass(this ClassDeclarationSyntax classDeclaration, string softwareSystemName, string containerName, CSharpToCSharpAaCWriter writer)
+
+        public static ClassDeclarationSyntax AddComponentClass(this ClassDeclarationSyntax classDeclaration,
+            string softwareSystemName, string containerName, CSharpToCSharpAaCWriter writer)
         {
             var architectureNamespace = writer.ArchitectureNamespace;
-            var project = writer.ArchitectureWorkspace.CurrentSolution.Projects.FirstOrDefault(x => x.Name == architectureNamespace);
+            var project =
+                writer.ArchitectureWorkspace.CurrentSolution.Projects.FirstOrDefault(x =>
+                    x.Name == architectureNamespace);
 
             if (project == null)
             {
-                Console.WriteLine($"Project '{architectureNamespace}' was not found in '{writer.ArchitectureWorkspace.CurrentSolution.FilePath}' Solution.");
+                Log.Warning( "Project {Name} was not found in {Solution} solution", architectureNamespace, writer.ArchitectureWorkspace.CurrentSolution.FilePath);
+
                 return classDeclaration;
             }
 
@@ -531,14 +589,17 @@ namespace C4InterFlow.Automation.Writers
             var documentName = $"{componentName}.cs";
 
             var projectDirectory = project.FilePath.Replace($"{project.Name}.csproj", string.Empty);
-            var fileDirectory = Path.Combine(projectDirectory, CSharpToAnyCodeGenerator<CSharpCodeWriter>.GetComponentsDirectory(softwareSystemName, containerName)); ;
+            var fileDirectory = Path.Combine(projectDirectory,
+                CSharpToAnyCodeGenerator<CSharpCodeWriter>.GetComponentsDirectory(softwareSystemName, containerName));
+            ;
             var filePath = Path.Combine(fileDirectory, documentName);
 
             Directory.CreateDirectory(fileDirectory);
 
             if (project.Documents.Any(x => x.FilePath == filePath))
             {
-                Console.WriteLine($"Document '{filePath}' already exists in '{project.Name}' Project.");
+                Log.Warning("Document {Name} already exists in {Project} project", filePath, project.Name);
+
                 return classDeclaration;
             }
 
@@ -560,17 +621,20 @@ namespace C4InterFlow.Automation.Writers
             }
 
             return classDeclaration;
-
         }
 
-        public static InterfaceDeclarationSyntax AddComponentClass(this InterfaceDeclarationSyntax interfaceDeclaration, string softwareSystemName, string containerName, CSharpToCSharpAaCWriter writer)
+        public static InterfaceDeclarationSyntax AddComponentClass(this InterfaceDeclarationSyntax interfaceDeclaration,
+            string softwareSystemName, string containerName, CSharpToCSharpAaCWriter writer)
         {
             var architectureNamespace = writer.ArchitectureNamespace;
-            var project = writer.ArchitectureWorkspace.CurrentSolution.Projects.FirstOrDefault(x => x.Name == architectureNamespace);
+            var project =
+                writer.ArchitectureWorkspace.CurrentSolution.Projects.FirstOrDefault(x =>
+                    x.Name == architectureNamespace);
 
             if (project == null)
             {
-                Console.WriteLine($"Project '{architectureNamespace}' was not found in '{writer.ArchitectureWorkspace.CurrentSolution.FilePath}' Solution.");
+                Log.Warning( "Project {Name} was not found in {Solution} solution", architectureNamespace, writer.ArchitectureWorkspace.CurrentSolution.FilePath);
+
                 return interfaceDeclaration;
             }
 
@@ -578,14 +642,16 @@ namespace C4InterFlow.Automation.Writers
             var documentName = $"{componentName}.cs";
 
             var projectDirectory = project.FilePath.Replace($"{project.Name}.csproj", string.Empty);
-            var fileDirectory = Path.Combine(projectDirectory, CSharpToAnyCodeGenerator<CSharpCodeWriter>.GetComponentsDirectory(softwareSystemName, containerName));
+            var fileDirectory = Path.Combine(projectDirectory,
+                CSharpToAnyCodeGenerator<CSharpCodeWriter>.GetComponentsDirectory(softwareSystemName, containerName));
             var filePath = Path.Combine(fileDirectory, documentName);
 
             Directory.CreateDirectory(fileDirectory);
 
             if (project.Documents.Any(x => x.FilePath == filePath))
             {
-                Console.WriteLine($"Document '{filePath}' already exists in '{project.Name}' Project.");
+                Log.Warning("Document {Name} already exists in {Project} project", filePath, project.Name);
+
                 return interfaceDeclaration;
             }
 
@@ -607,18 +673,19 @@ namespace C4InterFlow.Automation.Writers
             }
 
             return interfaceDeclaration;
-
         }
 
-        public static IEnumerable<ClassDeclarationSyntax> WithConfirmation(this IEnumerable<ClassDeclarationSyntax> classDeclarations, string action)
+        public static IEnumerable<ClassDeclarationSyntax> WithConfirmation(
+            this IEnumerable<ClassDeclarationSyntax> classDeclarations, string action)
         {
             if (classDeclarations.Count() == 0) return classDeclarations;
 
-            Console.WriteLine($"The following classes were selected for {action} action:");
-            foreach (var classDeclaration in classDeclarations)
-            {
-                Console.WriteLine(classDeclaration.Identifier.ValueText);
-            }
+            Log.Information("The following classes {Classes} were selected for {Action} action", classDeclarations.Select(x=>x.Identifier.ValueText), action);
+            //Console.WriteLine($"The following classes were selected for {action} action:");
+            // foreach (var classDeclaration in classDeclarations)
+            // {
+            //     Console.WriteLine(classDeclaration.Identifier.ValueText);
+            // }
 
             if (GetConfirmation())
             {
@@ -673,6 +740,7 @@ namespace C4InterFlow.Automation.Writers
 
             return root.DescendantNodes().OfType<InterfaceDeclarationSyntax>();
         }
+
         public static IEnumerable<RecordDeclarationSyntax> WithRecords(this Document document)
         {
             var syntaxTree = document.GetSyntaxTreeAsync().Result;
@@ -681,7 +749,8 @@ namespace C4InterFlow.Automation.Writers
             return root.DescendantNodes().OfType<RecordDeclarationSyntax>();
         }
 
-        public static IEnumerable<ITypeSymbol> GetGenericInvocationTypes(this InvocationExpressionSyntax invocationExpression, Project project)
+        public static IEnumerable<ITypeSymbol> GetGenericInvocationTypes(
+            this InvocationExpressionSyntax invocationExpression, Project project)
         {
             var result = new List<ITypeSymbol>();
 
@@ -691,7 +760,6 @@ namespace C4InterFlow.Automation.Writers
             {
                 if (memberAccess.Name is GenericNameSyntax genericName)
                 {
-
                     var arguments = genericName.TypeArgumentList?.Arguments;
 
                     if (arguments != null)
@@ -701,14 +769,14 @@ namespace C4InterFlow.Automation.Writers
                             result.Add(semanticModel.GetTypeInfo(argument).Type);
                         }
                     }
-
                 }
             }
 
             return result;
         }
 
-        public static IEnumerable<ITypeSymbol> GetGenericInvocationTypes(this InvocationExpressionSyntax invocationExpression, Document document)
+        public static IEnumerable<ITypeSymbol> GetGenericInvocationTypes(
+            this InvocationExpressionSyntax invocationExpression, Document document)
         {
             var result = new List<ITypeSymbol>();
 
@@ -718,7 +786,6 @@ namespace C4InterFlow.Automation.Writers
             {
                 if (memberAccess.Name is GenericNameSyntax genericName)
                 {
-
                     var arguments = genericName.TypeArgumentList?.Arguments;
 
                     if (arguments != null)
@@ -728,12 +795,10 @@ namespace C4InterFlow.Automation.Writers
                             result.Add(semanticModel.GetTypeInfo(argument).Type);
                         }
                     }
-
                 }
             }
 
             return result;
         }
     }
-
 }

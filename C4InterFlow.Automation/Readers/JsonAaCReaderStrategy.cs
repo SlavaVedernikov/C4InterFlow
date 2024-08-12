@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using Serilog;
 
 namespace C4InterFlow.Automation.Readers
 {
@@ -32,12 +33,12 @@ namespace C4InterFlow.Automation.Readers
                     }
                     catch (JsonReaderException ex)
                     {
-                        Console.WriteLine($"File '{jsonFile}' has error at line {ex.LineNumber}, column {ex.LinePosition}: {ex.Message}");
+                        Log.Error(ex, "File {File} has error at line {LineNumber}, column {LinePosition}: {Error}", jsonFile, ex.LineNumber, ex.LinePosition, ex.Message);
                         result = false;
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"File '{jsonFile}' has error: {ex.Message}");
+                        Log.Error(ex, "File {File} has error: {Error}", jsonFile, ex.Message);
                         result = false;
                     }
                 }

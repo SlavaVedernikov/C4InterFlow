@@ -7,6 +7,7 @@ using YamlDotNet.Serialization;
 using Newtonsoft.Json;
 using System.Dynamic;
 using C4InterFlow.Automation.Readers;
+using Serilog;
 
 namespace C4InterFlow.Automation.Writers
 {
@@ -29,7 +30,8 @@ namespace C4InterFlow.Automation.Writers
 
             if (File.Exists(filePath))
             {
-                Console.WriteLine($"Document '{filePath}' already exists.");
+                Log.Warning("Document {Name} already exists", filePath);
+
                 return this;
             }
 
@@ -59,7 +61,8 @@ namespace C4InterFlow.Automation.Writers
 
             if (File.Exists(filePath))
             {
-                Console.WriteLine($"Document '{filePath}' already exists.");
+                Log.Warning("Document {Name} already exists", filePath);
+
                 return this;
             }
 
@@ -90,7 +93,8 @@ namespace C4InterFlow.Automation.Writers
 
             if (File.Exists(filePath))
             {
-                Console.WriteLine($"Document '{filePath}' already exists.");
+                Log.Warning("Document {Name} already exists", filePath);
+
                 return this;
             }
 
@@ -131,7 +135,8 @@ namespace C4InterFlow.Automation.Writers
 
             if (File.Exists(filePath))
             {
-                Console.WriteLine($"Document '{filePath}' already exists.");
+                Log.Warning("Document {Name} already exists", filePath);
+
                 return this;
             }
 
@@ -248,7 +253,7 @@ namespace C4InterFlow.Automation.Writers
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Could not get Alias from file pattern '{filePathPattern}'. Error: '{ex.Message}'");
+                    Log.Warning("Could not get Alias from file pattern {Pattern}. Error: {Error}", filePathPattern, ex.Message);
                 }
             }
             return result;

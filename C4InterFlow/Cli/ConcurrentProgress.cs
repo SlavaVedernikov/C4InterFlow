@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
+using Serilog;
 
 namespace C4InterFlow.Cli
 {
@@ -20,7 +21,7 @@ namespace C4InterFlow.Cli
             ItemsCount = itemsCount;
             Progress = new Progress<int>(i =>
             {
-                Console.WriteLine($"Processed {i} out of {ItemsCount} items");
+                Log.Debug("Processed {ItemNumber} of {ItemsCount} items", i, ItemsCount);
             });
 
             Counter = new ConcurrentCounter();

@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.MSBuild;
 using C4InterFlow.Structures;
 using System.Text;
 using System.Text.RegularExpressions;
+using Serilog;
 
 namespace C4InterFlow.Automation.Writers
 {
@@ -33,7 +34,7 @@ namespace C4InterFlow.Automation.Writers
 
             if (project == null)
             {
-                Console.WriteLine($"Project '{ArchitectureNamespace}' was not found in '{ArchitectureWorkspace.CurrentSolution.FilePath}' Solution.");
+                Log.Warning("Project {Name} was not found in {Solution} solution", ArchitectureNamespace, ArchitectureWorkspace.CurrentSolution.FilePath);
                 return this;
             }
 
@@ -47,7 +48,7 @@ namespace C4InterFlow.Automation.Writers
 
             if (project.Documents.Any(x => x.FilePath == filePath))
             {
-                Console.WriteLine($"Document '{filePath}' already exists in '{project.Name}' Project.");
+                Log.Warning("Document {Name} already exists in {Project} project", filePath, project.Name);
                 return this;
             }
 
@@ -76,7 +77,7 @@ namespace C4InterFlow.Automation.Writers
 
             if (project == null)
             {
-                Console.WriteLine($"Project '{ArchitectureNamespace}' was not found in '{ArchitectureWorkspace.CurrentSolution.FilePath}' Solution.");
+                Log.Warning("Project {Name} was not found in {Solution} solution", ArchitectureNamespace, ArchitectureWorkspace.CurrentSolution.FilePath);
                 return this;
             }
 
@@ -90,7 +91,7 @@ namespace C4InterFlow.Automation.Writers
 
             if (project.Documents.Any(x => x.FilePath == filePath))
             {
-                Console.WriteLine($"Document '{filePath}' already exists in '{project.Name}' Project.");
+                Log.Warning("Document {Name} already exists in {Project} project", filePath, project.Name);
                 return this;
             }
 
@@ -121,7 +122,8 @@ namespace C4InterFlow.Automation.Writers
 
             if (project == null)
             {
-                Console.WriteLine($"Project '{ArchitectureNamespace}' was not found in '{ArchitectureWorkspace.CurrentSolution.FilePath}' Solution.");
+              
+                Log.Warning("Project {Name} was not found in {Solution} solution", ArchitectureNamespace, ArchitectureWorkspace.CurrentSolution.FilePath);
                 return this;
             }
 
@@ -135,7 +137,7 @@ namespace C4InterFlow.Automation.Writers
 
             if (project.Documents.Any(x => x.FilePath == filePath))
             {
-                Console.WriteLine($"Document '{filePath}' already exists in '{project.Name}' Project.");
+                Log.Warning("Document {Name} already exists in {Project} project", filePath, project.Name);
                 return this;
             }
 
@@ -176,7 +178,7 @@ namespace C4InterFlow.Automation.Writers
 
             if (architectureProject == null)
             {
-                Console.WriteLine($"Project '{ArchitectureNamespace}' was not found in '{ArchitectureWorkspace.CurrentSolution.FilePath}' Solution.");
+                Log.Warning("Project {Name} was not found in {Solution} solution", ArchitectureNamespace, ArchitectureWorkspace.CurrentSolution.FilePath);
                 return this;
             }
 
@@ -190,7 +192,7 @@ namespace C4InterFlow.Automation.Writers
 
             if (architectureProject.Documents.Any(x => x.FilePath == filePath))
             {
-                Console.WriteLine($"Document '{filePath}' already exists in '{architectureProject.Name}' Project.");
+                Log.Warning("Document {Name} already exists in {Project} project", filePath, architectureProject.Name);
                 return this;
             }
 

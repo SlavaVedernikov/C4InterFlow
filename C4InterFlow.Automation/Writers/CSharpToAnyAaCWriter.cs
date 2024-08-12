@@ -3,6 +3,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.MSBuild;
 using C4InterFlow.Structures;
+using Serilog;
 
 namespace C4InterFlow.Automation.Writers
 {
@@ -27,7 +28,7 @@ namespace C4InterFlow.Automation.Writers
 
         public CSharpToAnyAaCWriter(string softwareSystemSourcePath, string architectureRootNamespace)
         {
-            Console.WriteLine($"Loading Software System source from '{softwareSystemSourcePath}'...");
+            Log.Information("Loading Software System source from {Path}", softwareSystemSourcePath);
             RegisterInstanceVisualStudioInstance();
             var softwareSystemWorkspace = MSBuildWorkspace.Create(new Dictionary<string, string>()
             {

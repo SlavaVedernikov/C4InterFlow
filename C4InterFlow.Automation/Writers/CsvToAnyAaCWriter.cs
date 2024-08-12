@@ -1,4 +1,5 @@
 ﻿using C4InterFlow.Structures;
+using Serilog;
 
 namespace C4InterFlow.Automation.Writers
 {
@@ -15,7 +16,7 @@ namespace C4InterFlow.Automation.Writers
         {
             ArchitectureInputPath = architectureInputPath;
 
-            Console.WriteLine($"Reading data from '{ArchitectureInputPath}'...");
+            Log.Information("Reading data from {Path}", ArchitectureInputPath);
 
             DataProvider = new CsvDataProvider(ArchitectureInputPath);
         }

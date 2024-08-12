@@ -10,6 +10,7 @@ using System.Reflection;
 using System.Runtime.Loader;
 using System.Text;
 using System.Threading.Tasks;
+using Serilog;
 using static C4InterFlow.Automation.Writers.CsvToAnyAaCWriter;
 
 namespace C4InterFlow.Automation.Readers
@@ -110,7 +111,8 @@ namespace C4InterFlow.Automation.Readers
                 }
                 else
                 {
-                    Console.WriteLine($"Resolving wildcard Structures for '{item}'.");
+                    Log.Debug("Resolving wildcard Structures for {Structure}", item);
+
                     var types = new List<string>();
                     var supersededTypes = new List<string>();
                     foreach (var segmentItem in segments)
@@ -258,7 +260,7 @@ namespace C4InterFlow.Automation.Readers
                 }
                 catch(Exception ex)
                 {
-                    Console.WriteLine($"Failed to load an assembly from path '{path}': {ex.Message}");
+                    Log.Error(ex, "Failed to load an assembly from path {AssemblyPath}: {Error}", path, ex.Message);
                 }
             }
             return result;

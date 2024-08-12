@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using System.Collections.Concurrent;
 using System.Reflection;
 using System.Security.Cryptography;
+using Serilog;
 
 namespace C4InterFlow.Automation.Readers
 {
@@ -193,7 +194,7 @@ namespace C4InterFlow.Automation.Readers
             {
                 if (item.Contains(".*"))
                 {
-                    Console.WriteLine($"Resolving wildcard Structures for '{item}'.");
+                    Log.Information("Resolving wildcard Structure for {Structure}", item);
                 }
 
                 result.AddRange(RootJObject.SelectTokens(item).Select(x => x.Path));

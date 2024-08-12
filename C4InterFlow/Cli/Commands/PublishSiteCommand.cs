@@ -1,7 +1,12 @@
 using System.CommandLine;
+using System.CommandLine.Invocation;
 using System.Diagnostics;
+using C4InterFlow.Cli.Commands.Binders;
 using C4InterFlow.Cli.Commands.Options;
+using C4InterFlow.Commons.Extensions;
 using Newtonsoft.Json;
+using Serilog;
+using Serilog.Events;
 
 namespace C4InterFlow.Cli.Commands;
 
@@ -19,7 +24,9 @@ public class PublishSiteCommand : Command
         var environmentVariablesOption = EnvironmentVariablesOption.Get();
         var siteContentSubDirectoriesOption = SiteContentSubDirectoriesOption.Get();
         var siteNoSitemapSubDirectoriesOption = SiteNoSitemapSubDirectoriesOption.Get();
-
+        var loggingLevelOption = LoggingLevelOptions.Get();
+        var loggingOutputOptions = LoggingOutputOptions.Get();
+        
         AddOption(siteSourceDirectoryOption);
         AddOption(outputDirectoryOption);
         AddOption(batchFileOption);
@@ -28,24 +35,45 @@ public class PublishSiteCommand : Command
         AddOption(environmentVariablesOption);
         AddOption(siteContentSubDirectoriesOption);
         AddOption(siteNoSitemapSubDirectoriesOption);
+        AddOption(loggingOutputOptions);
+        AddOption(loggingLevelOption);
 
-        this.SetHandler(async (siteSourceDirectory, outputDirectory, siteContentSubDirectories, batchFile, siteBuildDirectory, diagramFormats, environmentVariables, siteNoSitemapSubDirectories) =>
-            {
-                await Execute(siteSourceDirectory, outputDirectory, siteContentSubDirectories, batchFile, siteBuildDirectory, diagramFormats, environmentVariables, siteNoSitemapSubDirectories);
-            },
-            siteSourceDirectoryOption, outputDirectoryOption, siteContentSubDirectoriesOption, batchFileOption, siteBuildDirectoryOption, diagramFormatsOption, environmentVariablesOption, siteNoSitemapSubDirectoriesOption);
+        this.SetHandler(async context =>
+        {
+            var siteSourceDirectory = context.BindingContext.ParseResult.GetValueForOption(siteSourceDirectoryOption);
+            var outputDirectory = context.BindingContext.ParseResult.GetValueForOption(outputDirectoryOption);
+            var batchFile =context.BindingContext.ParseResult.GetValueForOption(batchFileOption);
+            var siteBuildDirectory = context.BindingContext.ParseResult.GetValueForOption(siteBuildDirectoryOption);
+            var diagramFormats = context.BindingContext.ParseResult.GetValueForOption(diagramFormatsOption);
+            var environmentVariables = context.BindingContext.ParseResult.GetValueForOption(environmentVariablesOption);
+            var siteContentSubDirectories = context.BindingContext.ParseResult.GetValueForOption(siteContentSubDirectoriesOption);
+            var siteNoSitemapSubDirectories = context.BindingContext.ParseResult.GetValueForOption(siteNoSitemapSubDirectoriesOption);
+            var loggingLevel = context.BindingContext.ParseResult.GetValueForOption(loggingLevelOption);
+            var loggingOutput = context.BindingContext.ParseResult.GetValueForOption(loggingOutputOptions);
+
+           await Execute(new LoggingOptions(loggingOutput, loggingLevel),
+                siteSourceDirectory,
+                outputDirectory,
+                siteContentSubDirectories,
+                batchFile,
+                siteBuildDirectory,
+                diagramFormats,
+                environmentVariables,
+                siteNoSitemapSubDirectories);
+        });
     }
 
-    private static async Task<int> Execute(string siteSourceDirectory, string outputDirectory, string[] siteContentSubDirectories, string ? batchFile = null, string? siteBuildDirectory = null, string[]? diagramFormats = null, string[]? environmentVariables = null, string[]? siteNoSitemapSubDirectories = null)
+    private static async Task<int> Execute(LoggingOptions loggingOptions, string siteSourceDirectory, string outputDirectory, string[] siteContentSubDirectories, string ? batchFile = null, string? siteBuildDirectory = null, string[]? diagramFormats = null, string[]? environmentVariables = null, string[]? siteNoSitemapSubDirectories = null)
     {
-
+        Log.Logger = new LoggerConfiguration().CreateLogger(loggingOptions); 
+        
         diagramFormats = diagramFormats?.Length > 0  ? diagramFormats : DiagramFormatsOption.GetAllDiagramFormats();
         batchFile = batchFile ?? "build.bat";
         siteBuildDirectory = siteBuildDirectory ?? "build";
 
         try
         {
-            Console.WriteLine($"'{COMMAND_NAME}' command is executing...");
+            Log.Information("{Name} command is executing", COMMAND_NAME);
 
             ClearDirectory(outputDirectory, siteContentSubDirectories.Select(x => Path.Join(outputDirectory, x)).ToArray());
 
@@ -62,12 +90,14 @@ public class PublishSiteCommand : Command
 
             CopyFiles(Path.Join(siteSourceDirectory, siteBuildDirectory.Replace(siteSourceDirectory, "").TrimStart('\\')), outputDirectory);
 
-            Console.WriteLine($"'{COMMAND_NAME}' command completed.");
+            Log.Information("{Name} command completed", COMMAND_NAME);
+
             return 0;
         }
         catch (Exception e)
         {
-            Console.WriteLine($"'{COMMAND_NAME}' command failed with exception(s) '{e.Message}'{(e.InnerException != null ? $", '{e.InnerException}'" : string.Empty)}.");
+            Log.Error(e, "{Name} command failed with exception(s): {Error}", COMMAND_NAME,$"{e.Message}{(e.InnerException != null ? $", {e.InnerException}" : string.Empty)}");
+
             return 1;
         }
     }

@@ -4,6 +4,9 @@ using C4InterFlow.Cli.Commands.Options;
 using C4InterFlow.Automation;
 using System.Reflection;
 using C4InterFlow.Cli.Commands.Binders;
+using C4InterFlow.Commons.Extensions;
+using Serilog;
+using Serilog.Events;
 
 namespace C4InterFlow.Cli.Commands;
 
@@ -17,24 +20,30 @@ public class ExecuteAaCStrategyCommand: Command
         var architectureOutputPathOption = AaCOutputPathOption.Get();
         var architectureAsCodeWriterStrategyTypeOption = AaCWriterStrategyTypeOption.Get();
         var paramsOption = ParamsOption.Get();
-
+        var loggingLevelOption = LoggingLevelOptions.Get();
+        var loggingOutputOptions = LoggingOutputOptions.Get();
+        
         AddOption(architectureRootNamespaceOption);
         AddOption(architectureOutputPathOption);
         AddOption(architectureAsCodeWriterStrategyTypeOption);
         AddOption(paramsOption);
+        AddOption(loggingLevelOption);
+        AddOption(loggingOutputOptions);
 
-        this.SetHandler(async (architectureRootNamespace, architectureOutputPath, architectureAsCodeWriterStrategyType, paramsOption) =>
+        this.SetHandler(async (architectureRootNamespace, architectureOutputPath, architectureAsCodeWriterStrategyType, paramsOption, loggingOption) =>
             {
-                await Execute(architectureRootNamespace, architectureOutputPath, architectureAsCodeWriterStrategyType, paramsOption);
+                await Execute(architectureRootNamespace, architectureOutputPath, architectureAsCodeWriterStrategyType, paramsOption, loggingOption);
             },
-            architectureRootNamespaceOption, architectureOutputPathOption, architectureAsCodeWriterStrategyTypeOption, new ParametersBinder(paramsOption));
+            architectureRootNamespaceOption, architectureOutputPathOption, architectureAsCodeWriterStrategyTypeOption, new ParametersBinder(paramsOption), new LoggingOptionsBinder(loggingOutputOptions, loggingLevelOption));
     }
 
-    private static async Task<int> Execute(string architectureRootNamespace, string architectureOutputPath, string architectureAsCodeWriterStrategyType, Dictionary<string, string> architectureAsCodeParams)
+    private static async Task<int> Execute(string architectureRootNamespace, string architectureOutputPath, string architectureAsCodeWriterStrategyType, Dictionary<string, string> architectureAsCodeParams, LoggingOptions loggingOptions)
     {
         try
         {
-            Console.WriteLine($"'{COMMAND_NAME}' command is executing...");
+            Log.Logger = new LoggerConfiguration().CreateLogger(loggingOptions);
+
+            Log.Information("{Name} command is executing", COMMAND_NAME);
 
             Type strategyType = Type.GetType(architectureAsCodeWriterStrategyType);
 
@@ -59,7 +68,8 @@ public class ExecuteAaCStrategyCommand: Command
         }
         catch (Exception e)
         {
-            Console.WriteLine($"'{COMMAND_NAME}' command execution failed: '{e.Message}'");
+            Log.Error(e, "{Name} command execution failed: {Error}", COMMAND_NAME, e.Message);
+
             return 1;
         }
     }

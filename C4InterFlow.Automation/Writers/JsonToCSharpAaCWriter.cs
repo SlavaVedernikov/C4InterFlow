@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json.Linq;
+using Serilog;
 
 namespace C4InterFlow.Automation.Writers
 {
@@ -57,7 +58,8 @@ namespace C4InterFlow.Automation.Writers
 
             if (ArchitectureProject.Documents.Any(x => x.FilePath == filePath))
             {
-                Console.WriteLine($"Document '{filePath}' already exists in '{ArchitectureProject.Name}' Project.");
+                Log.Warning("Document {Name} already exists in {Project} project", filePath, ArchitectureProject.Name);
+
                 return this;
             }
 
@@ -108,7 +110,8 @@ namespace C4InterFlow.Automation.Writers
 
             if (ArchitectureProject.Documents.Any(x => x.FilePath == filePath))
             {
-                Console.WriteLine($"Document '{filePath}' already exists in '{ArchitectureProject.Name}' Project.");
+                Log.Warning("Document {Name} already exists in {Project} project", filePath, ArchitectureProject.Name);
+
                 return this;
             }
 
@@ -145,7 +148,8 @@ namespace C4InterFlow.Automation.Writers
 
             if (ArchitectureProject.Documents.Any(x => x.FilePath == filePath))
             {
-                Console.WriteLine($"Document '{filePath}' already exists in '{ArchitectureProject.Name}' Project.");
+                Log.Warning("Document {Name} already exists in {Project} project", filePath, ArchitectureProject.Name);
+
                 return this;
             }
 
@@ -199,7 +203,8 @@ namespace C4InterFlow.Automation.Writers
 
             if (ArchitectureProject.Documents.Any(x => x.FilePath == filePath))
             {
-                Console.WriteLine($"Document '{filePath}' already exists in '{ArchitectureProject.Name}' Project.");
+                Log.Warning("Document {Name} already exists in {Project} project", filePath, ArchitectureProject.Name);
+
                 return this;
             }
 

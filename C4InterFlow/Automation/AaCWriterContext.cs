@@ -1,4 +1,6 @@
-﻿namespace C4InterFlow.Automation
+﻿using Serilog;
+
+namespace C4InterFlow.Automation
 {
     public class AaCWriterContext
     {
@@ -26,7 +28,8 @@
                 throw new Exception("Strategy cannot be executed as it either was not initialised or failed to initialise.");
             }
             Strategy.Execute();
-            Console.WriteLine($"Strategy execution completed.");
+
+            Log.Information("Strategy execution completed");
         }
     }
 }
