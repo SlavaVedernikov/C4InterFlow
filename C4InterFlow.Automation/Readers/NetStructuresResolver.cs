@@ -10,6 +10,7 @@ using System.Reflection;
 using System.Runtime.Loader;
 using System.Text;
 using System.Threading.Tasks;
+using C4InterFlow.Commons;
 using Serilog;
 using static C4InterFlow.Automation.Writers.CsvToAnyAaCWriter;
 
@@ -316,10 +317,10 @@ namespace C4InterFlow.Automation.Readers
             return result;
         }
 
-        public void Validate(out IEnumerable<ValidationError> errors)
+        public void Validate(out IEnumerable<LogMessage> errors)
         {
             //TODO: Implement Use Flow Expressions validation
-            errors = new List<ValidationError>();
+            errors = new List<LogMessage>();
         }
     }
 }

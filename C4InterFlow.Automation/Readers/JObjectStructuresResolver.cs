@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using System.Collections.Concurrent;
 using System.Reflection;
 using System.Security.Cryptography;
+using C4InterFlow.Commons;
 using Serilog;
 
 namespace C4InterFlow.Automation.Readers
@@ -281,9 +282,9 @@ namespace C4InterFlow.Automation.Readers
             }
         }
 
-        public void Validate(out IEnumerable<ValidationError> errors)
+        public void Validate(out IEnumerable<LogMessage> errors)
         {
-            var errorsInternal = new List<ValidationError>();
+            var errorsInternal = new List<LogMessage>();
             
             var interfaces = RootJObject.SelectTokens("..Interfaces.*");
 
@@ -298,7 +299,7 @@ namespace C4InterFlow.Automation.Readers
 
                     if (usesInterface == null)
                     {
-                        var error = new ValidationError(
+                        var error = new LogMessage(
                             "Cannot resolve Interface {InterfaceAlias} referenced in Use Flow(s) of {Interface} Interface.", usesInterfaceAlias, @interface.Path);
                         errorsInternal.Add(error);
                     }
@@ -320,7 +321,7 @@ namespace C4InterFlow.Automation.Readers
 
                         if (usesInterface == null)
                         {
-                            var error = new ValidationError(
+                            var error = new LogMessage(
                                 "Cannot resolve Interface {InterfaceAlias} referenced in Use Flow(s) of {Activity} Activity.", usesInterfaceAlias, $"{activity.Path} - {activity["Label"]}");
                             errorsInternal.Add(error);
                         }

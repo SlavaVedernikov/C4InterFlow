@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using C4InterFlow.Commons;
 
 namespace C4InterFlow.Automation
 {
@@ -61,7 +62,7 @@ namespace C4InterFlow.Automation
             return ElementsResolver.GetNestedInstances<T>(alias);
         }
 
-        public void Validate(out IEnumerable<ValidationError> errors)
+        public void Validate(out IEnumerable<LogMessage> errors)
         {
             ElementsResolver.Validate(out errors);
         }

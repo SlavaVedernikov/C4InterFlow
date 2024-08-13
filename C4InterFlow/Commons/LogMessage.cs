@@ -1,11 +1,11 @@
-namespace C4InterFlow.Structures;
+namespace C4InterFlow.Commons;
 
-public struct ValidationError
+public class LogMessage
 {
     public string Template { get; }
     public object[] Args { get; }
 
-    public ValidationError(string template, params object[] args)
+    public LogMessage(string template, params object[] args)
     {
         Template = template;
         Args = args;
