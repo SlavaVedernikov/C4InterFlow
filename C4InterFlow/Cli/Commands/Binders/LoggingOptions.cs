@@ -7,12 +7,10 @@ namespace C4InterFlow.Cli.Commands.Binders;
 
 public class LoggingOptions
 {
-    private readonly LoggingOutput[] _defaultLoggingOutputs = { LoggingOutput.Console };
-
     public LoggingOptions(IEnumerable<LoggingOutput>? loggingOutputs, LogEventLevel? logLevel)
     {
-        LoggingOutputs = loggingOutputs?.Concat(_defaultLoggingOutputs).Distinct().ToArray() ?? _defaultLoggingOutputs;
-        LogEventLevel = logLevel ?? LogEventLevel.Information;
+        LoggingOutputs = loggingOutputs?.Concat(LoggingOutputOptions.DefaultOutputs).Distinct().ToArray() ?? LoggingOutputOptions.DefaultOutputs;
+        LogEventLevel = logLevel ?? LoggingLevelOptions.DefaultEventLevel;
     }
 
     public LogEventLevel LogEventLevel { get; private set; }

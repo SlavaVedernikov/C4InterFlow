@@ -15,9 +15,6 @@ public static class CommandLineBuilderExtensions
             var loggingOutput = context.BindingContext.ParseResult.GetValueForOption(LoggingOutputOptions.Get());
             var loggingLevel = context.BindingContext.ParseResult.GetValueForOption(LoggingLevelOptions.Get());
 
-            Console.WriteLine($"Logging level: {loggingLevel}");
-            Console.WriteLine($"Logging outputs: {string.Join(',', loggingOutput ?? Array.Empty<LoggingOutput>())}");
-
             var loggingOptions = new LoggingOptions(loggingOutput, loggingLevel);
             Log.Logger = new LoggerConfiguration().CreateLogger(loggingOptions);
 

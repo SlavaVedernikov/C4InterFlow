@@ -4,23 +4,26 @@ namespace C4InterFlow.Cli.Commands.Options;
 
 public static class LoggingOutputOptions
 {
-    private static Option<IEnumerable<LoggingOutput>>? _isntance; 
+    private static Option<IEnumerable<LoggingOutput>>? _instance;
+
+    public static LoggingOutput[] DefaultOutputs => new[] { LoggingOutput.Console };
+
     public static Option<IEnumerable<LoggingOutput>> Get()
     {
-        if (_isntance is not null)
-            return _isntance;
-        
+        if (_instance is not null)
+            return _instance;
+
         const string description = "Specify logging output destinations.";
 
-        _isntance = new Option<IEnumerable<LoggingOutput>>(new[] { "--log-out", "-lo" }, description)
+        _instance = new Option<IEnumerable<LoggingOutput>>(new[] { "--log-out", "-lo" }, description)
         {
             AllowMultipleArgumentsPerToken = true,
             IsRequired = false,
         };
-        _isntance.FromAmong(GetAllSupported());
-        _isntance.SetDefaultValue(LoggingOutput.Console);
+        _instance.FromAmong(GetAllSupported());
+        _instance.SetDefaultValue(DefaultOutputs);
 
-        return _isntance;
+        return _instance;
     }
 
     private static string[] GetAllSupported()

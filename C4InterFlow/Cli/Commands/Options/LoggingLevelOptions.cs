@@ -7,7 +7,7 @@ namespace C4InterFlow.Cli.Commands.Options;
 public static class LoggingLevelOptions
 {
     private static Option<LogEventLevel>? _instance;
-
+    public static LogEventLevel DefaultEventLevel => LogEventLevel.Information;
     public static Option<LogEventLevel> Get()
     {
         if (_instance is not null)
@@ -20,7 +20,7 @@ public static class LoggingLevelOptions
         };
 
         _instance.FromAmong(GetAllSupported());
-        _instance.SetDefaultValue(LogEventLevel.Information);
+        _instance.SetDefaultValue(DefaultEventLevel);
 
         return _instance;
     }
