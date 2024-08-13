@@ -11,7 +11,7 @@ public class LoggingOptions
 
     public LoggingOptions(IEnumerable<LoggingOutput>? loggingOutputs, LogEventLevel? logLevel)
     {
-        LoggingOutputs = loggingOutputs?.Concat(_defaultLoggingOutputs).ToArray() ?? _defaultLoggingOutputs;
+        LoggingOutputs = loggingOutputs?.Concat(_defaultLoggingOutputs).Distinct().ToArray() ?? _defaultLoggingOutputs;
         LogEventLevel = logLevel ?? LogEventLevel.Information;
     }
 

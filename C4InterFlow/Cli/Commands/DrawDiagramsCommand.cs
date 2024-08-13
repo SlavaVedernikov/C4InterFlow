@@ -86,7 +86,10 @@ public class DrawDiagramsCommand : Command
 
             if(errors.Any())
             {
-                Log.Error("AaC has next errors: {Errors}. Please resolve and retry", errors);
+                foreach (var validationError in errors)
+                {
+                    Log.Error(validationError.Template, validationError.Args);
+                }
                 
                 throw new InvalidDataException("AaC has errors. Please resolve and retry.");
             }

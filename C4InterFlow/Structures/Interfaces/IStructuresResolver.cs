@@ -12,6 +12,6 @@ namespace C4InterFlow.Structures.Interfaces
         public T? GetInstance<T>(string? alias) where T : Structure;
         public IEnumerable<string> ResolveStructures(IEnumerable<string> structures);
         public IEnumerable<Interface> GetAllInterfaces();
-        public void Validate(out IEnumerable<string> errors);
+        public void Validate(out IEnumerable<ValidationError> errors);
     }
 }

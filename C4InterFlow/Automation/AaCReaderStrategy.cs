@@ -61,7 +61,7 @@ namespace C4InterFlow.Automation
             return ElementsResolver.GetNestedInstances<T>(alias);
         }
 
-        public void Validate(out IEnumerable<string> errors)
+        public void Validate(out IEnumerable<ValidationError> errors)
         {
             ElementsResolver.Validate(out errors);
         }
