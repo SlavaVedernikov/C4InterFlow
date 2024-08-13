@@ -20,28 +20,22 @@ public class QueryByInputCommand : Command
         var entitiesOption = EntitiesOption.Get();
         var architectureAsCodeInputPathsOption = AaCInputPathsOption.Get();
         var architectureAsCodeReaderStrategyTypeOption = AaCReaderStrategyTypeOption.Get();
-        var loggingLevelOption = LoggingLevelOptions.Get();
-        var loggingOutputOptions = LoggingOutputOptions.Get();
         
         AddOption(entitiesOption);
         AddOption(architectureAsCodeInputPathsOption);
         AddOption(architectureAsCodeReaderStrategyTypeOption);
-        AddOption(loggingLevelOption);
-        AddOption(loggingOutputOptions);
         
-        this.SetHandler(async (entityAliases, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType, loggingOption) =>
+        this.SetHandler(async (entityAliases, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType) =>
             {
-                await Execute(entityAliases, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType, loggingOption);
+                await Execute(entityAliases, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
             },
-            entitiesOption, architectureAsCodeInputPathsOption, architectureAsCodeReaderStrategyTypeOption, new LoggingOptionsBinder(loggingOutputOptions, loggingLevelOption));
+            entitiesOption, architectureAsCodeInputPathsOption, architectureAsCodeReaderStrategyTypeOption);
     }
 
-    private static async Task<int> Execute(string[] entityAliases, string[] architectureAsCodeInputPaths, string architectureAsCodeReaderStrategyType, LoggingOptions loggingOptions)
+    private static async Task<int> Execute(string[] entityAliases, string[] architectureAsCodeInputPaths, string architectureAsCodeReaderStrategyType)
     {
         try
         {
-            Log.Logger = new LoggerConfiguration().CreateLogger(loggingOptions);
-            
             Log.Information("{Name} command is executing", COMMAND_NAME);
 
             if(!AaCReaderContext.HasStrategy)

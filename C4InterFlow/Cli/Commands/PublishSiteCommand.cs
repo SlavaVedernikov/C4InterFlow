@@ -38,35 +38,15 @@ public class PublishSiteCommand : Command
         AddOption(loggingOutputOptions);
         AddOption(loggingLevelOption);
 
-        this.SetHandler(async context =>
-        {
-            var siteSourceDirectory = context.BindingContext.ParseResult.GetValueForOption(siteSourceDirectoryOption);
-            var outputDirectory = context.BindingContext.ParseResult.GetValueForOption(outputDirectoryOption);
-            var batchFile =context.BindingContext.ParseResult.GetValueForOption(batchFileOption);
-            var siteBuildDirectory = context.BindingContext.ParseResult.GetValueForOption(siteBuildDirectoryOption);
-            var diagramFormats = context.BindingContext.ParseResult.GetValueForOption(diagramFormatsOption);
-            var environmentVariables = context.BindingContext.ParseResult.GetValueForOption(environmentVariablesOption);
-            var siteContentSubDirectories = context.BindingContext.ParseResult.GetValueForOption(siteContentSubDirectoriesOption);
-            var siteNoSitemapSubDirectories = context.BindingContext.ParseResult.GetValueForOption(siteNoSitemapSubDirectoriesOption);
-            var loggingLevel = context.BindingContext.ParseResult.GetValueForOption(loggingLevelOption);
-            var loggingOutput = context.BindingContext.ParseResult.GetValueForOption(loggingOutputOptions);
-
-           await Execute(new LoggingOptions(loggingOutput, loggingLevel),
-                siteSourceDirectory,
-                outputDirectory,
-                siteContentSubDirectories,
-                batchFile,
-                siteBuildDirectory,
-                diagramFormats,
-                environmentVariables,
-                siteNoSitemapSubDirectories);
-        });
+        this.SetHandler(async (siteSourceDirectory, outputDirectory, siteContentSubDirectories, batchFile, siteBuildDirectory, diagramFormats, environmentVariables, siteNoSitemapSubDirectories) =>
+            {
+                await Execute(siteSourceDirectory, outputDirectory, siteContentSubDirectories, batchFile, siteBuildDirectory, diagramFormats, environmentVariables, siteNoSitemapSubDirectories);
+            },
+            siteSourceDirectoryOption, outputDirectoryOption, siteContentSubDirectoriesOption, batchFileOption, siteBuildDirectoryOption, diagramFormatsOption, environmentVariablesOption, siteNoSitemapSubDirectoriesOption);
     }
 
-    private static async Task<int> Execute(LoggingOptions loggingOptions, string siteSourceDirectory, string outputDirectory, string[] siteContentSubDirectories, string ? batchFile = null, string? siteBuildDirectory = null, string[]? diagramFormats = null, string[]? environmentVariables = null, string[]? siteNoSitemapSubDirectories = null)
+    private static async Task<int> Execute(string siteSourceDirectory, string outputDirectory, string[] siteContentSubDirectories, string ? batchFile = null, string? siteBuildDirectory = null, string[]? diagramFormats = null, string[]? environmentVariables = null, string[]? siteNoSitemapSubDirectories = null)
     {
-        Log.Logger = new LoggerConfiguration().CreateLogger(loggingOptions); 
-        
         diagramFormats = diagramFormats?.Length > 0  ? diagramFormats : DiagramFormatsOption.GetAllDiagramFormats();
         batchFile = batchFile ?? "build.bat";
         siteBuildDirectory = siteBuildDirectory ?? "build";

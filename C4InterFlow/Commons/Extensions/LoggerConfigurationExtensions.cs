@@ -1,4 +1,5 @@
 using C4InterFlow.Cli.Commands.Binders;
+using C4InterFlow.Cli.Commands.Options;
 using Serilog;
 using Serilog.Core;
 
@@ -8,19 +9,20 @@ public static class LoggerConfigurationExtensions
 {
     public static Logger CreateLogger(this LoggerConfiguration configuration, LoggingOptions loggingOptions)
     {
-        switch (loggingOptions.LoggingOutput)
-        {
-            case LoggingOutput.File:
-                configuration.WriteTo.File("logs.txt", shared: true);
-                break;
-            case LoggingOutput.Console:
-            default:
-                configuration.WriteTo.Console();
-                break;
-        }
+        foreach (var loggingOutput in loggingOptions.LoggingOutputs)
+            switch (loggingOutput)
+            {
+                case LoggingOutput.Console:
+                    configuration.WriteTo.Console();
+                    break;
+                case LoggingOutput.File:
+                    configuration.WriteTo.File("logs.txt", shared: true);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
 
         configuration.MinimumLevel.Is(loggingOptions.LogEventLevel);
-
         return configuration.CreateLogger();
     }
 }

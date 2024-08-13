@@ -24,8 +24,6 @@ public class QueryUseFlowsCommand : Command
         var architectureAsCodeInputPathsOption = AaCInputPathsOption.Get();
         var architectureAsCodeReaderStrategyTypeOption = AaCReaderStrategyTypeOption.Get();
         var queryIncludeSelfOption = QueryIncludeSelfOption.Get();
-        var loggingLevelOption = LoggingLevelOptions.Get();
-        var loggingOutputOptions = LoggingOutputOptions.Get();
         
         AddOption(interfacesOption);
         AddOption(isRecursiveOption);
@@ -34,22 +32,18 @@ public class QueryUseFlowsCommand : Command
         AddOption(architectureAsCodeInputPathsOption);
         AddOption(architectureAsCodeReaderStrategyTypeOption);
         AddOption(queryIncludeSelfOption);
-        AddOption(loggingOutputOptions);
-        AddOption(loggingLevelOption);
   
-        this.SetHandler(async (interfaceAliases, isRecursive, queryIncludeSelf, queryOutputFile, append, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType, loggingOption) =>
+        this.SetHandler(async (interfaceAliases, isRecursive, queryIncludeSelf, queryOutputFile, append, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType) =>
         {
-            await Execute(interfaceAliases, isRecursive, queryIncludeSelf, queryOutputFile, append, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType, loggingOption);
+            await Execute(interfaceAliases, isRecursive, queryIncludeSelf, queryOutputFile, append, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
         },
-        interfacesOption, isRecursiveOption, queryIncludeSelfOption, queryOutputFileOption, queryAppendOption, architectureAsCodeInputPathsOption, architectureAsCodeReaderStrategyTypeOption, new LoggingOptionsBinder(loggingOutputOptions, loggingLevelOption));
+        interfacesOption, isRecursiveOption, queryIncludeSelfOption, queryOutputFileOption, queryAppendOption, architectureAsCodeInputPathsOption, architectureAsCodeReaderStrategyTypeOption);
     }
 
-    public static async Task<int> Execute(string[] interfaceAliases, bool isRecursive, bool queryIncludeSelf, string queryOutputFile, bool append, string[] architectureAsCodeInputPaths, string architectureAsCodeReaderStrategyType, LoggingOptions loggingOptions)
+    public static async Task<int> Execute(string[] interfaceAliases, bool isRecursive, bool queryIncludeSelf, string queryOutputFile, bool append, string[] architectureAsCodeInputPaths, string architectureAsCodeReaderStrategyType)
     {
         try
         {
-            Log.Logger = new LoggerConfiguration().CreateLogger(loggingOptions);
-            
             Log.Information("{Name} command is executing", COMMAND_NAME);
 
             if (!AaCReaderContext.HasStrategy)

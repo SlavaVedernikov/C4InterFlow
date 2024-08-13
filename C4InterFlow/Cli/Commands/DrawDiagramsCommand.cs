@@ -37,8 +37,6 @@ public class DrawDiagramsCommand : Command
         var diagramNamePrefixOption = DiagramNamePrefixOption.Get();
         var architectureAsCodeInputPathsOption = AaCInputPathsOption.Get();
         var architectureAsCodeReaderStrategyTypeOption = AaCReaderStrategyTypeOption.Get();
-        var loggingLevelOption = LoggingLevelOptions.Get();
-        var loggingOutputOptions = LoggingOutputOptions.Get();
 
         AddOption(diagramScopesOption);
         AddOption(diagramTypesOption);
@@ -54,12 +52,10 @@ public class DrawDiagramsCommand : Command
         AddOption(diagramNamePrefixOption);
         AddOption(architectureAsCodeInputPathsOption);
         AddOption(architectureAsCodeReaderStrategyTypeOption);
-        AddOption(loggingOutputOptions);
-        AddOption(loggingLevelOption);
 
-        this.SetHandler(async (diagramOptions, inputOptions, displayOptions, outputOptions, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType, loggin ) =>
+        this.SetHandler(async (diagramOptions, inputOptions, displayOptions, outputOptions, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType ) =>
             {
-                await Execute(diagramOptions, inputOptions, displayOptions, outputOptions, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType, loggin);
+                await Execute(diagramOptions, inputOptions, displayOptions, outputOptions, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
             },
             new DiagramOptionsBinder(
                 diagramScopesOption, 
@@ -73,17 +69,13 @@ public class DrawDiagramsCommand : Command
             new DisplayOptionsBinder(showInterfaceInputAndOutputOption), 
             new OutputOptionsBinder(outputDirectoryOption, outputSubDirectoryOption, diagramNamePrefixOption, diagramFormatsOption),
             architectureAsCodeInputPathsOption,
-            architectureAsCodeReaderStrategyTypeOption,
-            new LoggingOptionsBinder(loggingOutputOptions,
-                loggingLevelOption));
+            architectureAsCodeReaderStrategyTypeOption);
     }
 
-    public static async Task<int> Execute(DiagramOptions diagramOptions, InputOptions inputOptions, DisplayOptions displayOptions, OutputOptions outputOptions, string[] architectureAsCodeInputPaths, string architectureAsCodeReaderStrategyType, LoggingOptions loggingOptions)
+    public static async Task<int> Execute(DiagramOptions diagramOptions, InputOptions inputOptions, DisplayOptions displayOptions, OutputOptions outputOptions, string[] architectureAsCodeInputPaths, string architectureAsCodeReaderStrategyType)
     {
         try
         {
-            Log.Logger = new LoggerConfiguration().CreateLogger(loggingOptions); 
-                
             Log.Information("{Name} command is executing", COMMAND_NAME);
 
             if (!AaCReaderContext.HasStrategy)

@@ -20,29 +20,23 @@ public class ExecuteAaCStrategyCommand: Command
         var architectureOutputPathOption = AaCOutputPathOption.Get();
         var architectureAsCodeWriterStrategyTypeOption = AaCWriterStrategyTypeOption.Get();
         var paramsOption = ParamsOption.Get();
-        var loggingLevelOption = LoggingLevelOptions.Get();
-        var loggingOutputOptions = LoggingOutputOptions.Get();
         
         AddOption(architectureRootNamespaceOption);
         AddOption(architectureOutputPathOption);
         AddOption(architectureAsCodeWriterStrategyTypeOption);
         AddOption(paramsOption);
-        AddOption(loggingLevelOption);
-        AddOption(loggingOutputOptions);
 
-        this.SetHandler(async (architectureRootNamespace, architectureOutputPath, architectureAsCodeWriterStrategyType, paramsOption, loggingOption) =>
+        this.SetHandler(async (architectureRootNamespace, architectureOutputPath, architectureAsCodeWriterStrategyType, paramsOption) =>
             {
-                await Execute(architectureRootNamespace, architectureOutputPath, architectureAsCodeWriterStrategyType, paramsOption, loggingOption);
+                await Execute(architectureRootNamespace, architectureOutputPath, architectureAsCodeWriterStrategyType, paramsOption);
             },
-            architectureRootNamespaceOption, architectureOutputPathOption, architectureAsCodeWriterStrategyTypeOption, new ParametersBinder(paramsOption), new LoggingOptionsBinder(loggingOutputOptions, loggingLevelOption));
+            architectureRootNamespaceOption, architectureOutputPathOption, architectureAsCodeWriterStrategyTypeOption, new ParametersBinder(paramsOption));
     }
 
-    private static async Task<int> Execute(string architectureRootNamespace, string architectureOutputPath, string architectureAsCodeWriterStrategyType, Dictionary<string, string> architectureAsCodeParams, LoggingOptions loggingOptions)
+    private static async Task<int> Execute(string architectureRootNamespace, string architectureOutputPath, string architectureAsCodeWriterStrategyType, Dictionary<string, string> architectureAsCodeParams)
     {
         try
         {
-            Log.Logger = new LoggerConfiguration().CreateLogger(loggingOptions);
-
             Log.Information("{Name} command is executing", COMMAND_NAME);
 
             Type strategyType = Type.GetType(architectureAsCodeWriterStrategyType);

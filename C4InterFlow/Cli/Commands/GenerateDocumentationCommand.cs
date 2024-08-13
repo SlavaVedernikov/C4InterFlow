@@ -23,8 +23,6 @@ public class GenerateDocumentationCommand : Command
         var fileExtensionOption = FileExtensionOption.Get();
         var architectureAsCodeInputPathsOption = AaCInputPathsOption.Get();
         var architectureAsCodeReaderStrategyTypeOption = AaCReaderStrategyTypeOption.Get();
-        var loggingLevelOption = LoggingLevelOptions.Get();
-        var loggingOutputOptions = LoggingOutputOptions.Get();
         
         AddOption(structuresOption);
         AddOption(templatesDirectoryOption);
@@ -32,22 +30,18 @@ public class GenerateDocumentationCommand : Command
         AddOption(fileExtensionOption);
         AddOption(architectureAsCodeInputPathsOption);
         AddOption(architectureAsCodeReaderStrategyTypeOption);
-        AddOption(loggingLevelOption);
-        AddOption(loggingOutputOptions);
 
-        this.SetHandler(async (structures, templatesDirectory, outputDirectory, fileExtension, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType, logginOption) =>
+        this.SetHandler(async (structures, templatesDirectory, outputDirectory, fileExtension, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType) =>
             {
-                await Execute(structures, templatesDirectory, outputDirectory, fileExtension, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType, logginOption);
+                await Execute(structures, templatesDirectory, outputDirectory, fileExtension, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
             },
-            structuresOption, templatesDirectoryOption, outputDirectoryOption, fileExtensionOption, architectureAsCodeInputPathsOption, architectureAsCodeReaderStrategyTypeOption, new LoggingOptionsBinder(loggingOutputOptions, loggingLevelOption));
+            structuresOption, templatesDirectoryOption, outputDirectoryOption, fileExtensionOption, architectureAsCodeInputPathsOption, architectureAsCodeReaderStrategyTypeOption);
     }
 
-    private static async Task<int> Execute(string[] structures, string templatesDirectory, string outputDirectory, string fileExtension, string[] architectureAsCodeInputPaths, string architectureAsCodeReaderStrategyType, LoggingOptions loggingOptions)
+    private static async Task<int> Execute(string[] structures, string templatesDirectory, string outputDirectory, string fileExtension, string[] architectureAsCodeInputPaths, string architectureAsCodeReaderStrategyType)
     {
         try
         {
-            Log.Logger = new LoggerConfiguration().CreateLogger(loggingOptions);
-            
             Log.Information("{Name} command is executing", COMMAND_NAME);
 
             if (!AaCReaderContext.HasStrategy)
