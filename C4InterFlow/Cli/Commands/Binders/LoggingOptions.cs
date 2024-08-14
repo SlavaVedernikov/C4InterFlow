@@ -7,22 +7,22 @@ namespace C4InterFlow.Cli.Commands.Binders;
 
 public class LoggingOptions
 {
-    public LoggingOptions(IEnumerable<LoggingOutput>? loggingOutputs, LogEventLevel? logLevel)
+    public LoggingOptions(string[]? loggingOutputs, string? logLevel)
     {
         LoggingOutputs = loggingOutputs?.Concat(LoggingOutputsOption.DefaultOutputs).Distinct().ToArray() ?? LoggingOutputsOption.DefaultOutputs;
         LogEventLevel = logLevel ?? LoggingLevelOption.DefaultEventLevel;
     }
 
-    public LogEventLevel LogEventLevel { get; private set; }
-    public LoggingOutput[] LoggingOutputs { get; private set; }
+    public string LogEventLevel { get; private set; }
+    public string[] LoggingOutputs { get; private set; }
 }
 
 public class LoggingOptionsBinder : BinderBase<LoggingOptions>
 {
-    private readonly Option<LoggingOutput[]> _loggingOutput;
-    private readonly Option<LogEventLevel> _loglevel;
+    private readonly Option<string[]> _loggingOutput;
+    private readonly Option<string> _loglevel;
 
-    public LoggingOptionsBinder(Option<LoggingOutput[]> loggingOutput, Option<LogEventLevel> loglevel)
+    public LoggingOptionsBinder(Option<string[]> loggingOutput, Option<string> loglevel)
     {
         _loggingOutput = loggingOutput;
         _loglevel = loglevel;
