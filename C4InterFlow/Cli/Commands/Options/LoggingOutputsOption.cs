@@ -39,9 +39,3 @@ public static class LoggingOutputsOption
         };
     }
 }
-
-public enum LoggingOutput
-{
-    Console = 0,
-    File = 1
-}
