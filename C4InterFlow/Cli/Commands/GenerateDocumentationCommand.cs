@@ -3,7 +3,11 @@ using C4InterFlow.Structures;
 using C4InterFlow.Cli.Commands.Options;
 using C4InterFlow.Automation;
 using System.Text.RegularExpressions;
+using C4InterFlow.Cli.Commands.Binders;
+using C4InterFlow.Commons.Extensions;
 using Fluid;
+using Serilog;
+using Serilog.Events;
 
 namespace C4InterFlow.Cli.Commands;
 
@@ -19,7 +23,7 @@ public class GenerateDocumentationCommand : Command
         var fileExtensionOption = FileExtensionOption.Get();
         var architectureAsCodeInputPathsOption = AaCInputPathsOption.Get();
         var architectureAsCodeReaderStrategyTypeOption = AaCReaderStrategyTypeOption.Get();
-
+        
         AddOption(structuresOption);
         AddOption(templatesDirectoryOption);
         AddOption(outputDirectoryOption);
@@ -38,7 +42,7 @@ public class GenerateDocumentationCommand : Command
     {
         try
         {
-            Console.WriteLine($"'{COMMAND_NAME}' command is executing...");
+            Log.Information("{Name} command is executing", COMMAND_NAME);
 
             if (!AaCReaderContext.HasStrategy)
             {
@@ -188,13 +192,14 @@ public class GenerateDocumentationCommand : Command
                     }
                 }
             }
-
-            Console.WriteLine($"'{COMMAND_NAME}' command completed.");
+            Log.Information("{Name} command completed", COMMAND_NAME);
+            
             return 0;
         }
         catch (Exception e)
         {
-            Console.WriteLine($"'{COMMAND_NAME}' command failed with exception(s) '{e.Message}'{(e.InnerException != null ? $", '{e.InnerException}'" : string.Empty)}.");
+            Log.Error(e, "{Name} command failed with exception(s): {Error}", COMMAND_NAME, $"{e.Message}{(e.InnerException != null ? $", {e.InnerException}" : string.Empty)}");
+
             return 1;
         }
     }
@@ -222,7 +227,7 @@ public class GenerateDocumentationCommand : Command
             }
             else
             {
-                Console.WriteLine($"Error rendering template: {error}");
+                Log.Warning("Error rendering template: {Error}", error);
             }
         }
 

@@ -4,6 +4,10 @@ using C4InterFlow.Structures.Interfaces;
 using C4InterFlow.Cli.Commands.Options;
 using System.Reflection;
 using C4InterFlow.Automation;
+using C4InterFlow.Cli.Commands.Binders;
+using C4InterFlow.Commons.Extensions;
+using Serilog;
+using Serilog.Events;
 
 namespace C4InterFlow.Cli.Commands;
 
@@ -20,7 +24,7 @@ public class QueryUseFlowsCommand : Command
         var architectureAsCodeInputPathsOption = AaCInputPathsOption.Get();
         var architectureAsCodeReaderStrategyTypeOption = AaCReaderStrategyTypeOption.Get();
         var queryIncludeSelfOption = QueryIncludeSelfOption.Get();
-
+        
         AddOption(interfacesOption);
         AddOption(isRecursiveOption);
         AddOption(queryOutputFileOption);
@@ -28,7 +32,7 @@ public class QueryUseFlowsCommand : Command
         AddOption(architectureAsCodeInputPathsOption);
         AddOption(architectureAsCodeReaderStrategyTypeOption);
         AddOption(queryIncludeSelfOption);
-
+  
         this.SetHandler(async (interfaceAliases, isRecursive, queryIncludeSelf, queryOutputFile, append, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType) =>
         {
             await Execute(interfaceAliases, isRecursive, queryIncludeSelf, queryOutputFile, append, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
@@ -40,7 +44,7 @@ public class QueryUseFlowsCommand : Command
     {
         try
         {
-            Console.WriteLine($"'{COMMAND_NAME}' command is executing...");
+            Log.Information("{Name} command is executing", COMMAND_NAME);
 
             if (!AaCReaderContext.HasStrategy)
             {
@@ -61,19 +65,22 @@ public class QueryUseFlowsCommand : Command
             if (!string.IsNullOrEmpty(queryOutputFile))
             {
                 Utils.WriteLines(result, queryOutputFile, append);
-                Console.WriteLine($"'{COMMAND_NAME}' command completed. See query results in '{queryOutputFile}'.");
+
+                Log.Information("{Name} command completed. See query results in {File}", COMMAND_NAME, queryOutputFile);
             }
             else
             {
-                Console.WriteLine($"'{COMMAND_NAME}' command completed. See query results below.");
-                Console.Write($"{string.Join(Environment.NewLine, result.Distinct().ToArray())}");
+                Log.Information("{Name} command completed. Query results: {Results}", COMMAND_NAME, result.Distinct().ToArray());
+                // Console.WriteLine($"'{COMMAND_NAME}' command completed. See query results below.");
+                // Console.Write($"{string.Join(Environment.NewLine, result.Distinct().ToArray())}");
             }
 
             return 0;
         }
         catch (Exception e)
         {
-            Console.WriteLine($"'{COMMAND_NAME}' command failed with exception '{e.Message}'");
+            Log.Error(e, "{Name} command failed with exception: {Error}",COMMAND_NAME,e.Message);
+
             return 1;
         }
     }

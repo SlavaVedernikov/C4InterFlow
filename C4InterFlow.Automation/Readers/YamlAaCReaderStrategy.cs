@@ -2,6 +2,7 @@
 using YamlDotNet.Serialization.NamingConventions;
 using YamlDotNet.Serialization;
 using System.Text;
+using Serilog;
 using YamlDotNet.RepresentationModel;
 using YamlDotNet.Core;
 
@@ -52,12 +53,12 @@ namespace C4InterFlow.Automation.Readers
                     }
                     catch (YamlException ex)
                     {
-                        Console.WriteLine($"File '{yamlFile}' has error at line {ex.Start.Line}, column {ex.Start.Column}: {ex.Message}");
+                        Log.Error(ex, "File {YamlFile} has error at line {LineNumber}, column {ColumnNumber}: {Error}",yamlFile, ex.Start.Line, ex.Start.Column, ex.Message );
                         result = false;
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"File '{yamlFile}' has error: {ex.Message}");
+                        Log.Error("File {YamlFile} has error: {Error}", yamlFile, ex.Message);
                         result = false;
                     }
                 }

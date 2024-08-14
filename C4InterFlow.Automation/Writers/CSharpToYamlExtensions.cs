@@ -1,6 +1,7 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis;
+using Serilog;
 
 namespace C4InterFlow.Automation.Writers
 {
@@ -88,7 +89,8 @@ namespace C4InterFlow.Automation.Writers
 
             if (File.Exists(filePath))
             {
-                Console.WriteLine($"Document '{filePath}' already exists.");
+                Log.Warning("Document {Name} already exists", filePath);
+
                 return methodDeclaration;
             }
 
@@ -152,7 +154,8 @@ namespace C4InterFlow.Automation.Writers
 
                 if (File.Exists(filePath))
                 {
-                    Console.WriteLine($"Document '{filePath}' already exists.");
+                    Log.Warning("Document {Name} already exists", filePath);
+
                     continue;
                 }
 
@@ -192,7 +195,7 @@ namespace C4InterFlow.Automation.Writers
 
             if (File.Exists(filePath))
             {
-                Console.WriteLine($"Document '{filePath}' already exists.");
+                Log.Warning("Document {Name} already exists", filePath);
                 writer.AddEntityTypeMapping(entityTypeSymbol, entityAlias);
                 return interfaceDeclaration;
             }
@@ -237,7 +240,7 @@ namespace C4InterFlow.Automation.Writers
 
             if (File.Exists(filePath))
             {
-                Console.WriteLine($"Document '{filePath}' already exists.");
+                Log.Warning("Document {Name} already exists", filePath);
                 writer.AddEntityTypeMapping(entityTypeSymbol, entityAlias);
                 return recordDeclaration;
             }
@@ -273,7 +276,8 @@ namespace C4InterFlow.Automation.Writers
 
             if (File.Exists(filePath))
             {
-                Console.WriteLine($"Document '{filePath}' already exists.");
+                Log.Warning("Document {Name} already exists", filePath);
+
                 return classDeclaration;
             }
 
@@ -307,7 +311,8 @@ namespace C4InterFlow.Automation.Writers
 
             if (File.Exists(filePath))
             {
-                Console.WriteLine($"Document '{filePath}' already exists.");
+                Log.Warning("Document {Name} already exists", filePath);
+
                 return interfaceDeclaration;
             }
 

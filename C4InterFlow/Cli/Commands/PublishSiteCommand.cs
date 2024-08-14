@@ -1,7 +1,12 @@
 using System.CommandLine;
+using System.CommandLine.Invocation;
 using System.Diagnostics;
+using C4InterFlow.Cli.Commands.Binders;
 using C4InterFlow.Cli.Commands.Options;
+using C4InterFlow.Commons.Extensions;
 using Newtonsoft.Json;
+using Serilog;
+using Serilog.Events;
 
 namespace C4InterFlow.Cli.Commands;
 
@@ -19,7 +24,7 @@ public class PublishSiteCommand : Command
         var environmentVariablesOption = EnvironmentVariablesOption.Get();
         var siteContentSubDirectoriesOption = SiteContentSubDirectoriesOption.Get();
         var siteNoSitemapSubDirectoriesOption = SiteNoSitemapSubDirectoriesOption.Get();
-
+        
         AddOption(siteSourceDirectoryOption);
         AddOption(outputDirectoryOption);
         AddOption(batchFileOption);
@@ -38,14 +43,13 @@ public class PublishSiteCommand : Command
 
     private static async Task<int> Execute(string siteSourceDirectory, string outputDirectory, string[] siteContentSubDirectories, string ? batchFile = null, string? siteBuildDirectory = null, string[]? diagramFormats = null, string[]? environmentVariables = null, string[]? siteNoSitemapSubDirectories = null)
     {
-
         diagramFormats = diagramFormats?.Length > 0  ? diagramFormats : DiagramFormatsOption.GetAllDiagramFormats();
         batchFile = batchFile ?? "build.bat";
         siteBuildDirectory = siteBuildDirectory ?? "build";
 
         try
         {
-            Console.WriteLine($"'{COMMAND_NAME}' command is executing...");
+            Log.Information("{Name} command is executing", COMMAND_NAME);
 
             ClearDirectory(outputDirectory, siteContentSubDirectories.Select(x => Path.Join(outputDirectory, x)).ToArray());
 
@@ -62,12 +66,14 @@ public class PublishSiteCommand : Command
 
             CopyFiles(Path.Join(siteSourceDirectory, siteBuildDirectory.Replace(siteSourceDirectory, "").TrimStart('\\')), outputDirectory);
 
-            Console.WriteLine($"'{COMMAND_NAME}' command completed.");
+            Log.Information("{Name} command completed", COMMAND_NAME);
+
             return 0;
         }
         catch (Exception e)
         {
-            Console.WriteLine($"'{COMMAND_NAME}' command failed with exception(s) '{e.Message}'{(e.InnerException != null ? $", '{e.InnerException}'" : string.Empty)}.");
+            Log.Error(e, "{Name} command failed with exception(s): {Error}", COMMAND_NAME,$"{e.Message}{(e.InnerException != null ? $", {e.InnerException}" : string.Empty)}");
+
             return 1;
         }
     }

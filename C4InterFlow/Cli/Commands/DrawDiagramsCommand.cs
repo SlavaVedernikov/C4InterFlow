@@ -6,9 +6,11 @@ using C4InterFlow.Structures;
 using C4InterFlow.Cli.Commands.Binders;
 using System.Text.RegularExpressions;
 using C4InterFlow.Automation;
+using C4InterFlow.Commons.Extensions;
 using C4InterFlow.Visualisation.Plantuml.Enums;
 using Parlot.Fluent;
 using Fluid.Ast;
+using Serilog;
 using static C4InterFlow.SoftwareSystems.ExternalSystem;
 
 namespace C4InterFlow.Cli.Commands;
@@ -51,7 +53,7 @@ public class DrawDiagramsCommand : Command
         AddOption(architectureAsCodeInputPathsOption);
         AddOption(architectureAsCodeReaderStrategyTypeOption);
 
-        this.SetHandler(async (diagramOptions, inputOptions, displayOptions, outputOptions, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType) =>
+        this.SetHandler(async (diagramOptions, inputOptions, displayOptions, outputOptions, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType ) =>
             {
                 await Execute(diagramOptions, inputOptions, displayOptions, outputOptions, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
             },
@@ -74,7 +76,7 @@ public class DrawDiagramsCommand : Command
     {
         try
         {
-            Console.WriteLine($"'{COMMAND_NAME}' command is executing...");
+            Log.Information("{Name} command is executing", COMMAND_NAME);
 
             if (!AaCReaderContext.HasStrategy)
             {
@@ -84,11 +86,11 @@ public class DrawDiagramsCommand : Command
 
             if(errors.Any())
             {
-                foreach(var error in errors)
+                foreach (var validationError in errors)
                 {
-                    Console.WriteLine(error);
+                    Log.Error(validationError.Template, validationError.Args);
                 }
-
+                
                 throw new InvalidDataException("AaC has errors. Please resolve and retry.");
             }
             var resolvedInterfaceAliases = new List<string>();
@@ -107,13 +109,13 @@ public class DrawDiagramsCommand : Command
 
             foreach (var diagramScope in diagramOptions.Scopes)
             {
-                Console.WriteLine($"Discovering Interfaces for '{diagramScope}' diagram scope.");
+                Log.Information("Discovering Interfaces for {Scope} diagram scope", diagramScope);
                 var interfaces = GetInterfaces(resolvedInterfaceAliases, diagramScope).ToArray();
 
-                Console.WriteLine($"Discovering Business Processes for '{diagramScope}' diagram scope.");
+                Log.Information("Discovering Business Processes for {Scope} diagram scope", diagramScope);
                 var businessProcesses = GetBusinessProcesses(resolvedBusinessProcessTypeNames, diagramScope).ToArray();
 
-                Console.WriteLine($"Found {interfaces.Count()} interface(s) and {businessProcesses.Count()} business processe(s) for '{diagramScope}' scope.");
+                Log.Information("Found {InterfacesCount} interface(s) and {ProcessesCount} business process(es) for {Scope}", interfaces.Length, businessProcesses.Length, diagramScope);
                 
                 if (!interfaces.Any() && !businessProcesses.Any()) continue;
 
@@ -124,7 +126,8 @@ public class DrawDiagramsCommand : Command
                         if (!DiagramOptions.IsSupported(diagramScope, diagramType, levelOfDetails))
                             continue;
 
-                        Console.WriteLine($"Drawing '{diagramType}' diagrams of '{levelOfDetails}' level of details for '{diagramScope}' scope.");
+                        Log.Information("Drawing {DiagramType} diagrams of {Level} level of details for {Scope}", diagramType, levelOfDetails, diagramScope);
+
                         switch (diagramType)
                         {
                             case DiagramTypesOption.SEQUENCE:
@@ -216,13 +219,13 @@ public class DrawDiagramsCommand : Command
                 }
             }
             
-            Console.WriteLine($"'{COMMAND_NAME}' command completed.");
-            Console.WriteLine($"See diagram(s) in '{Path.GetFullPath(outputOptions.OutputDirectory)}'");
+            Log.Information("{Name} command completed", COMMAND_NAME);
+            Log.Information("See diagram(s) in {Path}", Path.GetFullPath(outputOptions.OutputDirectory));
             return 0;
         }
         catch (Exception e)
         {
-            Console.WriteLine($"'{COMMAND_NAME}' command failed with exception(s) '{e.Message}'{(e.InnerException !=null ? $", '{e.InnerException}'" : string.Empty)}.");
+            Log.Error(e,"{Name} command failed with exception(s) {Error}", COMMAND_NAME, $"{e.Message}{(e.InnerException !=null ? $", {e.InnerException}" : string.Empty)}");
             return 1;
         }
     }
@@ -240,7 +243,7 @@ public class DrawDiagramsCommand : Command
             }
             else
             {
-                Console.WriteLine($"Could not load Business Process instance for type with name '{businessProcessTypeName}'.");
+                Log.Warning("Could not load Business Process instance for type with name {ProcessName}", businessProcessTypeName);
             }
         }
 
@@ -305,7 +308,7 @@ public class DrawDiagramsCommand : Command
                 }
                 else
                 {
-                    Console.WriteLine($"Could not load Interface instance for structure with alias '{interfaceAlias}'.");
+                    Log.Warning("Could not load Interface instance for structure with alias {Alias}", interfaceAlias);
                 }
             }
         }
@@ -356,7 +359,7 @@ public class DrawDiagramsCommand : Command
         }
         else
         {
-            Console.WriteLine($"Could not generate diagram title for business process '{businessProcess?.Label}'.");
+            Log.Warning("Could not generate diagram title for business process {Name}", businessProcess.Label);
         }
 
         return result;
@@ -492,7 +495,7 @@ public class DrawDiagramsCommand : Command
         }
         else
         {
-            Console.WriteLine($"Could not generate diagram title for interface with alias '{@interface.Alias}'.");
+            Log.Warning("Could not generate diagram title for interface with alias {Alias}", @interface.Alias);
         }
 
 
@@ -971,7 +974,8 @@ public class DrawDiagramsCommand : Command
                 {
                     if (!TryParseInterface(@interface, out var softwareSystem))
                     {
-                        Console.WriteLine($"Could not get Software System for interface with alias '{@interface.Alias}'.");
+                        Log.Warning("Could not get Software System for interface with {Alias} alias", @interface.Alias);
+
                         path = fileName = null;
                     }
                     else
@@ -984,7 +988,8 @@ public class DrawDiagramsCommand : Command
                 {
                     if (!TryParseInterface(@interface, out var softwareSystem))
                     {
-                        Console.WriteLine($"Could not get Software System for interface with alias '{@interface.Alias}'.");
+                        Log.Warning("Could not get Software System for interface with {Alias} alias", @interface.Alias);
+
                         path = fileName = null;
                     }
                     else
@@ -998,7 +1003,7 @@ public class DrawDiagramsCommand : Command
                 {
                     if (!TryParseInterface(@interface, out var softwareSystem, out var container))
                     {
-                        Console.WriteLine($"Could not get {(softwareSystem == null ? "Software System" : "Container")} for interface with alias '{@interface.Alias}'.");
+                       Log.Warning("Could not get {Type} for interface with {Alias} alias", softwareSystem == null ? "Software System" : "Container", @interface.Alias);
                         path = fileName = null;
                     }
                     else
@@ -1012,7 +1017,8 @@ public class DrawDiagramsCommand : Command
                 {
                     if (!TryParseInterface(@interface, out var softwareSystem, out var container))
                     {
-                        Console.WriteLine($"Could not get {(softwareSystem == null ? "Software System" : "Container")} for interface with alias '{@interface.Alias}'.");
+                        Log.Warning("Could not get {Type} for interface with {Alias} alias", softwareSystem == null ? "Software System" : "Container", @interface.Alias);
+                        
                         path = fileName = null;
                     }
                     else
@@ -1026,7 +1032,8 @@ public class DrawDiagramsCommand : Command
                 {
                     if (!TryParseInterface(@interface, out var softwareSystem, out var container, out var component))
                     {
-                        Console.WriteLine($"Could not get {(softwareSystem == null ? "Software System" : (container == null ? "Container" : "Component"))} for interface with alias '{@interface.Alias}'.");
+                        Log.Warning("Could not get {Type} for interface with {Alias} alias", softwareSystem == null ? "Software System" : container == null ? "Container" : "Component", @interface.Alias);
+
                         path = fileName = null;
                     }
                     else
@@ -1039,7 +1046,7 @@ public class DrawDiagramsCommand : Command
                 {
                     if (!TryParseInterface(@interface, out var softwareSystem, out var container, out var component))
                     {
-                        Console.WriteLine($"Could not get {(softwareSystem == null ? "Software System" : (container == null ? "Container" : "Component"))} for interface with alias '{@interface.Alias}'.");
+                        Log.Warning("Could not get {Type} for interface with {Alias} alias", softwareSystem == null ? "Software System" : container == null ? "Container" : "Component", @interface.Alias);
                         path = fileName = null;
                     }
                     else

@@ -1,4 +1,5 @@
 using System.CommandLine;
+using C4InterFlow.Cli.Commands.Options;
 
 namespace C4InterFlow.Cli.Root;
 
@@ -9,6 +10,14 @@ internal sealed class RootCommandContext: IRootCommandContext
     public RootCommandContext()
     {
         _root = new RootCommand();
+        
+        _root.AddGlobalOption(LoggingOutputsOption.Get());
+        _root.AddGlobalOption(LoggingLevelOption.Get());
+    }
+
+    public RootCommand? GetRootCommand()
+    {
+        return _root;
     }
 
     public IRootCommandContext Add<TCommand>()

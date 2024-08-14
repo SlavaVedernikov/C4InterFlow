@@ -1,4 +1,5 @@
 ﻿using C4InterFlow.Structures;
+using Serilog;
 
 namespace C4InterFlow.Automation.Writers
 {
@@ -18,7 +19,7 @@ namespace C4InterFlow.Automation.Writers
             writer.WithSoftwareSystems()
                     .ToList().ForEach(s =>
                     {
-                        Console.WriteLine($"Generating AaC for '{s.Alias}' Software System");
+                        Log.Information("Generating AaC for {Alias} Software System", s.Alias);
 
                         var softwareSystemName = s.Alias;
                         writer.AddSoftwareSystem(softwareSystemName, s.GetBoundary(), s.Name, s.Description);
@@ -30,7 +31,8 @@ namespace C4InterFlow.Automation.Writers
 
                         s.WithContainers(writer.DataProvider).ToList().ForEach(c =>
                         {
-                            Console.WriteLine($"Generating AaC for '{c.Alias}' Container");
+                            Log.Information("Generating AaC for {Alias} container", c.Alias);
+                            
                             var containerName = c.Alias.Split('.').Last();
                             writer.AddContainer(softwareSystemName, containerName, c.Type, c.Name, c.Description);
 
@@ -40,7 +42,8 @@ namespace C4InterFlow.Automation.Writers
                             });
                         });
 
-                        Console.WriteLine($"Generating AaC flows for '{s.Alias}' Software System");
+                        Log.Information("Generating AaC flows for {Alias} Software System", s.Alias);
+
                         writer.WithSoftwareSystemInterfaceClasses(s.Alias, true)
                         .ToList().ForEach(x => x.AddFlowToSoftwareSystemInterfaceClass(
                             writer));
@@ -51,7 +54,8 @@ namespace C4InterFlow.Automation.Writers
 
                     });
 
-            Console.WriteLine($"Generating Actors");
+            Log.Information("Generating Actors");
+
             writer.WithActors()
                     .ToList().ForEach(a =>
                     {
@@ -61,8 +65,8 @@ namespace C4InterFlow.Automation.Writers
                         }
                         writer.AddActor(a.Alias, type, a.Name);
                     });
-
-            Console.WriteLine($"Generating Business Processes");
+            Log.Information("Generating Business Processes");
+            
             writer.WithBusinessProcesses()
                 .ToList().ForEach(b => writer.AddBusinessProcess(b.Alias, b.Name));
         }

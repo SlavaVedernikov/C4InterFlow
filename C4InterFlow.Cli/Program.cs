@@ -1,9 +1,12 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using C4InterFlow.Cli;
-using C4InterFlow.Cli.Root;
-using C4InterFlow.Cli.Commands;
 
-var root = RootCommandBuilder
+using System.CommandLine.Builder;
+using System.CommandLine.Parsing;
+using C4InterFlow.Cli.Commands;
+using C4InterFlow.Cli.Extensions;
+using C4InterFlow.Cli.Root;
+
+var rootCommandBuilder = RootCommandBuilder
     .CreateDefaultBuilder(args)
     .Configure(context =>
     {
@@ -15,4 +18,8 @@ var root = RootCommandBuilder
         context.Add<PublishSiteCommand>();
     });
 
-await root.Run();
+var rootCommand = rootCommandBuilder.Build();
+
+var cliBuilder = new CommandLineBuilder(rootCommand);
+var parser = cliBuilder.UseDefaults().UseLogging().Build();
+await parser.InvokeAsync(args);

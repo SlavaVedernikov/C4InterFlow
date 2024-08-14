@@ -4,6 +4,9 @@ using C4InterFlow.Cli.Commands.Options;
 using C4InterFlow.Automation;
 using System.Reflection;
 using C4InterFlow.Cli.Commands.Binders;
+using C4InterFlow.Commons.Extensions;
+using Serilog;
+using Serilog.Events;
 
 namespace C4InterFlow.Cli.Commands;
 
@@ -17,7 +20,7 @@ public class ExecuteAaCStrategyCommand: Command
         var architectureOutputPathOption = AaCOutputPathOption.Get();
         var architectureAsCodeWriterStrategyTypeOption = AaCWriterStrategyTypeOption.Get();
         var paramsOption = ParamsOption.Get();
-
+        
         AddOption(architectureRootNamespaceOption);
         AddOption(architectureOutputPathOption);
         AddOption(architectureAsCodeWriterStrategyTypeOption);
@@ -34,7 +37,7 @@ public class ExecuteAaCStrategyCommand: Command
     {
         try
         {
-            Console.WriteLine($"'{COMMAND_NAME}' command is executing...");
+            Log.Information("{Name} command is executing", COMMAND_NAME);
 
             Type strategyType = Type.GetType(architectureAsCodeWriterStrategyType);
 
@@ -59,7 +62,8 @@ public class ExecuteAaCStrategyCommand: Command
         }
         catch (Exception e)
         {
-            Console.WriteLine($"'{COMMAND_NAME}' command execution failed: '{e.Message}'");
+            Log.Error(e, "{Name} command execution failed: {Error}", COMMAND_NAME, e.Message);
+
             return 1;
         }
     }

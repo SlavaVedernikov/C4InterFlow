@@ -3,6 +3,7 @@ using C4InterFlow.Structures;
 using C4InterFlow.Structures.Interfaces;
 using System.Reflection;
 using System.Runtime.Loader;
+using Serilog;
 
 namespace C4InterFlow.Cli
 {
@@ -22,7 +23,8 @@ namespace C4InterFlow.Cli
         {
             if (!File.Exists(filePath))
             {
-                Console.WriteLine($"Could not read lines from a file. The file {filePath} does not exist.");
+                Log.Warning("Could not read lines from a file. The file {Path} does not exist", filePath);
+
                 yield break;
             }
 
@@ -57,7 +59,7 @@ namespace C4InterFlow.Cli
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Could not write lines to a file. An error occurred: {ex.Message}");
+                Log.Warning("Could not write lines to a file. An error occurred: {Error}", ex.Message);
             }
         }
 
