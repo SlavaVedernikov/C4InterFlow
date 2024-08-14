@@ -18,8 +18,5 @@ var rootCommandBuilder = RootCommandBuilder
         context.Add<PublishSiteCommand>();
     });
 
-var rootCommand = rootCommandBuilder.Build();
-
-var cliBuilder = new CommandLineBuilder(rootCommand);
-var parser = cliBuilder.UseDefaults().UseLogging().Build();
-await parser.InvokeAsync(args);
+await new CommandLineBuilder(rootCommandBuilder.Build())
+    .UseDefaults().UseLogging().Build().InvokeAsync(args);
