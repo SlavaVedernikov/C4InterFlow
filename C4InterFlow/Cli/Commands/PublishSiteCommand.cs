@@ -24,8 +24,6 @@ public class PublishSiteCommand : Command
         var environmentVariablesOption = EnvironmentVariablesOption.Get();
         var siteContentSubDirectoriesOption = SiteContentSubDirectoriesOption.Get();
         var siteNoSitemapSubDirectoriesOption = SiteNoSitemapSubDirectoriesOption.Get();
-        var loggingLevelOption = LoggingLevelOptions.Get();
-        var loggingOutputOptions = LoggingOutputOptions.Get();
         
         AddOption(siteSourceDirectoryOption);
         AddOption(outputDirectoryOption);
@@ -35,8 +33,6 @@ public class PublishSiteCommand : Command
         AddOption(environmentVariablesOption);
         AddOption(siteContentSubDirectoriesOption);
         AddOption(siteNoSitemapSubDirectoriesOption);
-        AddOption(loggingOutputOptions);
-        AddOption(loggingLevelOption);
 
         this.SetHandler(async (siteSourceDirectory, outputDirectory, siteContentSubDirectories, batchFile, siteBuildDirectory, diagramFormats, environmentVariables, siteNoSitemapSubDirectories) =>
             {

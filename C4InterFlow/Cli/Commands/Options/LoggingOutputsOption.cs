@@ -2,26 +2,27 @@ using System.CommandLine;
 
 namespace C4InterFlow.Cli.Commands.Options;
 
-public static class LoggingOutputOptions
+public static class LoggingOutputsOption
 {
-    private static Option<IEnumerable<LoggingOutput>>? _instance;
+    private static Option<LoggingOutput[]>? _instance;
 
     public static LoggingOutput[] DefaultOutputs => new[] { LoggingOutput.Console };
 
-    public static Option<IEnumerable<LoggingOutput>> Get()
+    public static Option<LoggingOutput[]> Get()
     {
         if (_instance is not null)
             return _instance;
 
         const string description = "Specify logging output destinations.";
 
-        _instance = new Option<IEnumerable<LoggingOutput>>(new[] { "--log-out", "-lo" }, description)
+        _instance = new Option<LoggingOutput[]>(new[] { "--log-out", "-lo" }, description)
         {
             AllowMultipleArgumentsPerToken = true,
             IsRequired = false,
         };
+
         _instance.FromAmong(GetAllSupported());
-        _instance.SetDefaultValue(DefaultOutputs);
+        _instance.SetDefaultValue(DefaultOutputs.Select(x => Enum.GetName(x)!.ToLowerInvariant()));
 
         return _instance;
     }

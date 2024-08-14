@@ -21,7 +21,7 @@ namespace C4InterFlow.Cli
             ItemsCount = itemsCount;
             Progress = new Progress<int>(i =>
             {
-                Log.Debug("Processed {ItemNumber} of {ItemsCount} items", i, ItemsCount);
+                Log.Information("Processed {ItemNumber} of {ItemsCount} items", i, ItemsCount);
             });
 
             Counter = new ConcurrentCounter();

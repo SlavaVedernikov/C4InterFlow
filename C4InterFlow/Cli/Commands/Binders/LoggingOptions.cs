@@ -9,8 +9,8 @@ public class LoggingOptions
 {
     public LoggingOptions(IEnumerable<LoggingOutput>? loggingOutputs, LogEventLevel? logLevel)
     {
-        LoggingOutputs = loggingOutputs?.Concat(LoggingOutputOptions.DefaultOutputs).Distinct().ToArray() ?? LoggingOutputOptions.DefaultOutputs;
-        LogEventLevel = logLevel ?? LoggingLevelOptions.DefaultEventLevel;
+        LoggingOutputs = loggingOutputs?.Concat(LoggingOutputsOption.DefaultOutputs).Distinct().ToArray() ?? LoggingOutputsOption.DefaultOutputs;
+        LogEventLevel = logLevel ?? LoggingLevelOption.DefaultEventLevel;
     }
 
     public LogEventLevel LogEventLevel { get; private set; }

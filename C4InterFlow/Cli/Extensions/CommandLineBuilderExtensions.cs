@@ -12,8 +12,8 @@ public static class CommandLineBuilderExtensions
     {
         return builder.AddMiddleware(async (context, next) =>
         {
-            var loggingOutput = context.BindingContext.ParseResult.GetValueForOption(LoggingOutputOptions.Get());
-            var loggingLevel = context.BindingContext.ParseResult.GetValueForOption(LoggingLevelOptions.Get());
+            var loggingOutput = context.BindingContext.ParseResult.GetValueForOption(LoggingOutputsOption.Get());
+            var loggingLevel = context.BindingContext.ParseResult.GetValueForOption(LoggingLevelOption.Get());
 
             var loggingOptions = new LoggingOptions(loggingOutput, loggingLevel);
             Log.Logger = new LoggerConfiguration().CreateLogger(loggingOptions);

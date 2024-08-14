@@ -11,8 +11,8 @@ internal sealed class RootCommandContext: IRootCommandContext
     {
         _root = new RootCommand();
         
-        _root.AddGlobalOption(LoggingOutputOptions.Get());
-        _root.AddGlobalOption(LoggingLevelOptions.Get());
+        _root.AddGlobalOption(LoggingOutputsOption.Get());
+        _root.AddGlobalOption(LoggingLevelOption.Get());
     }
 
     public RootCommand? GetRootCommand()

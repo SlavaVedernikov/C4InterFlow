@@ -112,7 +112,7 @@ namespace C4InterFlow.Automation.Readers
                 }
                 else
                 {
-                    Log.Debug("Resolving wildcard Structures for {Structure}", item);
+                    Log.Information("Resolving wildcard Structures for {Path}", item);
 
                     var types = new List<string>();
                     var supersededTypes = new List<string>();
