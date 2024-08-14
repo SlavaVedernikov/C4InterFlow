@@ -18,15 +18,15 @@ namespace C4InterFlow.Automation.Readers
 {
     public class NetStructuresResolver : IStructuresResolver
     {
-        private static ConcurrentDictionary<string, object> _aliasToStructureMap = new ConcurrentDictionary<string, object>();
+        private static ConcurrentDictionary<string, object> _aliasToStructureMap = new();
 
         public NetStructuresResolver()
         {
-        
         }
 
         private string[]? ArchitectureInputPaths { get; set; }
-        private IEnumerable<Assembly> ArchitectureAssemblies  { get; set; }
+        private IEnumerable<Assembly> ArchitectureAssemblies { get; set; }
+
         public NetStructuresResolver(string[] architectureInputPaths)
         {
             var paths = new List<string>();
@@ -59,138 +59,34 @@ namespace C4InterFlow.Automation.Readers
             return result;
         }
 
-        private Type? GetType(string alias)
+        private Type? GetType(string? alias)
         {
             Type? result = null;
 
-            if (alias == null) return result;
+            if (alias == null || ArchitectureAssemblies.Any() == false) return result;
 
-            if(ArchitectureAssemblies?.Any() == false) return result;
-
-            var path = string.Empty;
-
-            foreach (var segment in alias.Split('.'))
-            {
-                if (!string.IsNullOrEmpty(path)) path += ".";
-
-                path += segment;
-
-                if (result == null)
-                {
-                    foreach (var item in ArchitectureAssemblies)
-                    {
-                        result = item.GetType(path);
-                        if (result != null)
-                        {
-                            break;
-                        }
-                    }
-                    continue;
-                }
-
-                if (result != null)
-                {
-                    result = result.GetNestedType(segment);
-                }
-            }
-
-            return result;
+            return ArchitectureAssemblies
+                .SelectMany(x => x.GetTypes())
+                .FirstOrDefault(x => NamespaceMatchesPattern(x.FullName?.Replace('+', '.'), alias));
         }
 
-        public IEnumerable<string> ResolveStructures(IEnumerable<string> aliases)
+        public IEnumerable<string> ResolveStructures(IEnumerable<string>? aliases)
         {
             var result = new List<string>();
 
-            if (aliases == null) return result;
-
-            foreach (var item in aliases)
+            foreach (var item in aliases ?? Enumerable.Empty<string>())
             {
-                var segments = item.Split(".*");
-                if (segments.Length == 1)
-                {
-                    result.Add(item);
-                }
-                else
-                {
-                    Log.Information("Resolving wildcard Structures for {Path}", item);
+                var locatedTypeNames = ArchitectureAssemblies.SelectMany(x => x.GetTypes())
+                    .Where(x => x.FullName != null)
+                    .Select(x => x.FullName!.Replace('+', '.'));
 
-                    var types = new List<string>();
-                    var supersededTypes = new List<string>();
-                    foreach (var segmentItem in segments)
-                    {
-                        var newTypes = new List<string>();
-                        if (string.IsNullOrEmpty(segmentItem))
-                        {
-                            break;
-                        }
+                var locatedTypes = locatedTypeNames
+                    .Where(x => NamespaceMatchesPattern(x, item));
 
-                        if (types.Count == 0 || types.Count > 0 && segmentItem.StartsWith("."))
-                        {
-                            if (types.Count > 0)
-                            {
-                                foreach (var typeItem in types)
-                                {
-                                    supersededTypes.Add(typeItem);
-                                    var newType = GetType(typeItem + segmentItem);
-                                    if (newType != null)
-                                    {
-                                        if (segments.Last().Equals(segmentItem))
-                                        {
-                                            newTypes.Add(typeItem + segmentItem);
-                                        }
-                                        else
-                                        {
-                                            foreach (var nestedType in newType.GetNestedTypes())
-                                            {
-                                                newTypes.Add(nestedType.FullName.Replace("+", "."));
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                var type = GetType(segmentItem);
-                                if (type != null)
-                                {
-                                    var nestedTypes = type.GetNestedTypes();
-
-                                    if (nestedTypes?.Any() == true)
-                                    {
-                                        foreach (var nestedType in nestedTypes)
-                                        {
-                                            newTypes.Add(nestedType.FullName.Replace("+", "."));
-                                        }
-                                    }
-                                    else
-                                    {
-                                        newTypes.Add(type.FullName.Replace("+", "."));
-                                    }
-                                    
-                                }
-                            }
-                        }
-                        else
-                        {
-                            types.RemoveAll(x => !x.EndsWith(segmentItem));
-                        }
-
-                        if (newTypes.Count == 0 && !segmentItem.StartsWith("."))
-                        {
-                            GetTypes(segmentItem)
-                                .Select(x => x.FullName.Replace("+", "."))
-                                .ToList()
-                                .ForEach(x => newTypes.Add(x));
-                        }
-
-                        types.AddRange(newTypes);
-                        types.RemoveAll(x => supersededTypes.Contains(x));
-                    }
+                Log.Debug("Founded types: {Types} for an alias: {Alias}", result, item);
 
 
-                    result.AddRange(types);
-                }
-
+                result.AddRange(locatedTypes.Distinct());
             }
 
             return result.Distinct();
@@ -204,9 +100,8 @@ namespace C4InterFlow.Automation.Readers
 
             foreach (var interfaceClass in interfaceClasses)
             {
-                var interfaceInstance = interfaceClass?.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static)?.GetValue(null, null) as Interface;
-
-                if (interfaceInstance != null)
+                if (interfaceClass?.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static)
+                        ?.GetValue(null, null) is Interface interfaceInstance)
                 {
                     result.Add(interfaceInstance);
                 }
@@ -214,6 +109,7 @@ namespace C4InterFlow.Automation.Readers
 
             return result;
         }
+
         private IEnumerable<Type> GetAllTypesOfInterface<T>()
         {
             var result = new List<Type>();
@@ -223,9 +119,10 @@ namespace C4InterFlow.Automation.Readers
             foreach (var assembly in ArchitectureAssemblies)
             {
                 result.AddRange(assembly
-                .GetTypes()
-                .Where(type => typeof(T).IsAssignableFrom(type) && !type.IsInterface));
+                    .GetTypes()
+                    .Where(type => typeof(T).IsAssignableFrom(type) && !type.IsInterface));
             }
+
             return result;
         }
 
@@ -233,18 +130,16 @@ namespace C4InterFlow.Automation.Readers
         {
             var result = new List<Assembly>();
 
-           
-
             if (ArchitectureInputPaths?.Any() == false) return new List<Assembly>();
-
-            
 
             var paths = new List<string>();
 
             foreach (var path in ArchitectureInputPaths)
             {
-                paths.AddRange(Directory.GetFiles(Directory.GetCurrentDirectory(), path, SearchOption.TopDirectoryOnly));
-                paths.AddRange(Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, path, SearchOption.TopDirectoryOnly));
+                paths.AddRange(Directory.GetFiles(Directory.GetCurrentDirectory(), path,
+                    SearchOption.TopDirectoryOnly));
+                paths.AddRange(Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, path,
+                    SearchOption.TopDirectoryOnly));
             }
 
             foreach (var path in paths.Distinct())
@@ -253,17 +148,17 @@ namespace C4InterFlow.Automation.Readers
                 {
                     var assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(path);
 
-                    if(assembly != null)
+                    if (assembly != null)
                     {
                         result.Add(assembly);
                     }
-                    
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Log.Error(ex, "Failed to load an assembly from path {AssemblyPath}: {Error}", path, ex.Message);
                 }
             }
+
             return result;
         }
 
@@ -286,7 +181,7 @@ namespace C4InterFlow.Automation.Readers
                 foreach (var item in ArchitectureAssemblies)
                 {
                     result.AddRange(item.GetTypes().Where(x =>
-                    x.Namespace == @namespace && !x.IsNested));
+                        x.Namespace == @namespace && !x.IsNested));
                 }
             }
 
@@ -306,7 +201,8 @@ namespace C4InterFlow.Automation.Readers
             {
                 foreach (var type in nestedTypes)
                 {
-                    var instance = type?.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static)?.GetValue(null, null) as T;
+                    var instance = type?.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static)
+                        ?.GetValue(null, null) as T;
                     if (instance != null)
                     {
                         result.Add(instance);
@@ -315,6 +211,36 @@ namespace C4InterFlow.Automation.Readers
             }
 
             return result;
+        }
+
+        private bool NamespaceMatchesPattern(string? namespaceName, string pattern)
+        {
+            if (string.IsNullOrEmpty(namespaceName))
+                return false;
+
+            // Remove leading dots from pattern and split into parts
+            var patternParts = pattern.TrimStart('.').Split('.');
+
+            // Split the namespace into parts
+            var namespaceParts = namespaceName.Split('.');
+
+            // Ensure that the namespace is long enough to match the pattern
+            if (namespaceParts.Length < patternParts.Length)
+                return false;
+
+            // Check if the namespace ends with the pattern
+            for (int i = 0; i < patternParts.Length; i++)
+            {
+                var patternPart = patternParts[patternParts.Length - 1 - i];
+                var namespacePart = namespaceParts[namespaceParts.Length - 1 - i];
+
+                if (patternPart != "*" && patternPart != namespacePart)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         public void Validate(out IEnumerable<LogMessage> errors)
