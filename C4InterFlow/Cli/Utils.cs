@@ -21,7 +21,7 @@ namespace C4InterFlow.Cli
             },
             {
                 "json",
-                Type.GetType("C4InterFlow.Automation.Readers.JObjectAaCReaderStrategy,C4InterFlow.Automation")!
+                Type.GetType("C4InterFlow.Automation.Readers.JsonAaCReaderStrategy,C4InterFlow.Automation")!
             }
         };
         
