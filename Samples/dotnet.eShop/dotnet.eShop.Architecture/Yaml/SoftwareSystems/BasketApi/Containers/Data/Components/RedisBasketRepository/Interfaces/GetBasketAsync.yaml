@@ -16,9 +16,9 @@ dotnet:
                       Protocol: ''
                       Flows:
                       - Type: Use
-                        Expression: dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase.Interfaces.StringGetLeaseAsync
-                      - Type: Use
                         Expression: dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository.Interfaces.GetBasketKey
+                      - Type: Use
+                        Expression: dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase.Interfaces.StringGetLeaseAsync
                       - Type: Return
                         Expression: JsonSerializer.Deserialize
                       Input: ''

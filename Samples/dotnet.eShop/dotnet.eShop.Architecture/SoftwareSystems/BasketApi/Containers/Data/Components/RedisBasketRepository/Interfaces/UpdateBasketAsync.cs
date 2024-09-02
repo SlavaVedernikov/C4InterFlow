@@ -27,6 +27,7 @@ namespace dotnet.eShop.Architecture.SoftwareSystems
                                     Protocol = "",
                                     Flow = new Flow(ALIAS)
                                     	.Use("dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository.Interfaces.GetBasketKey")
+                                    	.Use("dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase.Interfaces.StringSetAsync")
                                     	.Use("dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository.Interfaces.GetBasketAsync"),
                                     Input = "",
                                     InputTemplate = "",

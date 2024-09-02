@@ -16,6 +16,8 @@ dotnet:
                       Protocol: ''
                       Flows:
                       - Type: Use
+                        Expression: dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository.Interfaces.GetBasketKey
+                      - Type: Use
                         Expression: dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase.Interfaces.KeyDeleteAsync
                       Input: ''
                       InputTemplate: ''

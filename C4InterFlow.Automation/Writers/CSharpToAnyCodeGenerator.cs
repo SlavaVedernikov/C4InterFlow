@@ -189,7 +189,7 @@ namespace C4InterFlow.Automation.Writers
             {
                 foreach (var variable in usingStatement.Declaration?.Variables)
                 {
-                    foreach (var invocationExpression in variable.Initializer?.DescendantNodes().OfType<InvocationExpressionSyntax>().ToArray())
+                    foreach (var invocationExpression in variable.Initializer?.DescendantNodes().OfType<InvocationExpressionSyntax>().Reverse())
                     {
                         var invocationExpressionBlockCode = HandleInvocationExpression(
                            invocationExpression,
@@ -283,31 +283,44 @@ namespace C4InterFlow.Automation.Writers
             }
             else
             {
-                foreach (var invocationExpression in returnStatement.DescendantNodes().OfType<InvocationExpressionSyntax>())
+                if (returnStatement.Expression is InvocationExpressionSyntax invocationExpression)
                 {
                     blockCode = HandleInvocationExpression(
-                        invocationExpression,
-                        methodDeclaration,
-                        architectureAsCodeContext,
-                        writer,
-                        alternativeInvocationMappers);
+                            invocationExpression,
+                            methodDeclaration,
+                            architectureAsCodeContext,
+                            writer,
+                            alternativeInvocationMappers);
+
                     if (!string.IsNullOrEmpty(blockCode))
                     {
-                        break;
+                        result.AppendLine(blockCode);
                     }
-                }
-
-                if (!string.IsNullOrEmpty(blockCode))
-                {
-                    result.AppendLine(blockCode);
-                }
-                else if (returnStatement.Expression is InvocationExpressionSyntax invocationExpression)
-                {
-                    result.AppendLine(CodeWriter.GetReturnFlowCode(invocationExpression.Expression.ToFullString()));
+                    else
+                    {
+                        result.AppendLine(CodeWriter.GetReturnFlowCode(invocationExpression.Expression.ToFullString()));
+                    }
                 }
                 else if (returnStatement.Expression is IdentifierNameSyntax identifierNameSyntax)
                 {
                     result.AppendLine(CodeWriter.GetReturnFlowCode(identifierNameSyntax.Identifier.Text));
+                }
+                else
+                {
+                    foreach (var innerInvocationExpression in returnStatement.DescendantNodes().OfType<InvocationExpressionSyntax>().Reverse())
+                    {
+                        blockCode = HandleInvocationExpression(
+                            innerInvocationExpression,
+                            methodDeclaration,
+                            architectureAsCodeContext,
+                            writer,
+                            alternativeInvocationMappers);
+
+                        if (!string.IsNullOrEmpty(blockCode))
+                        {
+                            result.AppendLine(blockCode);
+                        }
+                    }
                 }
             }
         }
@@ -415,7 +428,7 @@ namespace C4InterFlow.Automation.Writers
             CSharpToAnyAaCWriter writer,
             IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
-            foreach (var invocationExpression in statement.DescendantNodes().OfType<InvocationExpressionSyntax>())
+            foreach (var invocationExpression in statement.DescendantNodes().OfType<InvocationExpressionSyntax>().Reverse())
             {
                 var blockCode = HandleInvocationExpression(
                     invocationExpression,
