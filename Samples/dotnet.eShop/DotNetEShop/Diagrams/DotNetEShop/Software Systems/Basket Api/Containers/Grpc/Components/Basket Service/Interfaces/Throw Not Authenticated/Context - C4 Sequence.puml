@@ -1,0 +1,12 @@
+@startuml
+!include ..\..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title DotNetEShop - Basket Api - Grpc - Basket Service - Throw Not Authenticated - C4 Sequence - Context level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+System(DotNetEShop.SoftwareSystems.BasketApi, "Basket Api", "")
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, DotNetEShop.SoftwareSystems.BasketApi, "Throw Not Authenticated")
+
+
+@enduml

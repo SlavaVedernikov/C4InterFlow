@@ -1,0 +1,39 @@
+@startuml
+
+title DotNetEShop - Basket Api - Grpc - Basket Service - Get Basket - Sequence - Component level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Basket Api" #White
+    
+box "Grpc" #White
+    participant "Basket Service" as DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService
+end box
+
+    
+box "Data" #White
+    participant "Redis Basket Repository" as DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository
+    participant "Redis Database" as DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase
+end box
+
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService : Get Basket
+group Get Basket
+DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService -> DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository : Get Basket Async
+group Get Basket Async
+DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository -> DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository : Get Basket Key
+DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository -> DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase : String Get Lease Async
+DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository -> DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository : Return (JsonSerializer.Deserialize)
+end
+alt data is not null
+DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService -> DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService : Map To Customer Basket Response
+group Map To Customer Basket Response
+DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService -> DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService : Return (response)
+end
+end
+end
+
+
+@enduml

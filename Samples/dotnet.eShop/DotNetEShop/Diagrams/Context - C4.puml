@@ -16,8 +16,8 @@ skinparam linetype polyline
 
 title All Software Systems - C4 - Context level
 
-System(dotnet.eShop.Architecture.SoftwareSystems.BasketApi, "Basket Api", "")
-System(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi, "Catalog Api", "")
+System(DotNetEShop.SoftwareSystems.BasketApi, "Basket Api", "")
+System(DotNetEShop.SoftwareSystems.CatalogApi, "Catalog Api", "")
 
 
 

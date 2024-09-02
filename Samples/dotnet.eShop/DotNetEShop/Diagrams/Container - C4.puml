@@ -17,18 +17,18 @@ skinparam linetype polyline
 title All Software Systems - C4 - Container level
 
 
-System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.BasketApi, "Basket Api") {
-    Container(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data, "Data", "", "")
-    Container(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc, "Grpc", "", "")
+System_Boundary(DotNetEShop.SoftwareSystems.BasketApi, "Basket Api") {
+    Container(DotNetEShop.SoftwareSystems.BasketApi.Containers.Data, "Data", "", "")
+    Container(DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc, "Grpc", "", "")
 }
 
-System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi, "Catalog Api") {
-    Container(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api, "Api", "", "")
-    Container(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Infrastructure", "", "")
+System_Boundary(DotNetEShop.SoftwareSystems.CatalogApi, "Catalog Api") {
+    Container(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api, "Api", "", "")
+    Container(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Infrastructure", "", "")
 }
 
-Rel(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data, "Delete Basket Async\nGet Basket Async\nUpdate Basket Async")
-Rel(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Catalog Items Add\nSave Changes Async\nCatalog Items Single Or Default\nCatalog Items Remove\nCatalog Items To List Async")
+Rel(DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc, DotNetEShop.SoftwareSystems.BasketApi.Containers.Data, "Delete Basket Async\nGet Basket Async\nUpdate Basket Async")
+Rel(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api, DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Catalog Items Add\nSave Changes Async\nCatalog Items Single Or Default\nCatalog Items Remove\nCatalog Items To List Async")
 
 
 SHOW_LEGEND()

@@ -17,32 +17,32 @@ skinparam linetype polyline
 title All Software Systems - C4 - Component level
 
 
-System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.BasketApi, "Basket Api") {
+System_Boundary(DotNetEShop.SoftwareSystems.BasketApi, "Basket Api") {
     
-Container_Boundary(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data, "Data") {
-    Component(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, "Redis Basket Repository", "", "")
-    Component(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase, "Redis Database", "", "")
+Container_Boundary(DotNetEShop.SoftwareSystems.BasketApi.Containers.Data, "Data") {
+    Component(DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, "Redis Basket Repository", "", "")
+    Component(DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase, "Redis Database", "", "")
 }
     
-Container_Boundary(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc, "Grpc") {
-    Component(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, "Basket Service", "", "")
+Container_Boundary(DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc, "Grpc") {
+    Component(DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, "Basket Service", "", "")
 }
 }
 
-System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi, "Catalog Api") {
+System_Boundary(DotNetEShop.SoftwareSystems.CatalogApi, "Catalog Api") {
     
-Container_Boundary(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api, "Api") {
-    Component(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, "Catalog Api", "", "")
+Container_Boundary(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api, "Api") {
+    Component(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, "Catalog Api", "", "")
 }
     
-Container_Boundary(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Infrastructure") {
-    Component(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext, "Catalog Context", "", "")
+Container_Boundary(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Infrastructure") {
+    Component(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext, "Catalog Context", "", "")
 }
 }
 
-Rel(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase, "Key Delete Async\nString Get Lease Async\nString Set Async")
-Rel(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, "Delete Basket Async\nGet Basket Async\nUpdate Basket Async")
-Rel(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext, "Catalog Items Add\nSave Changes Async\nCatalog Items Single Or Default\nCatalog Items Remove\nCatalog Items To List Async")
+Rel(DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase, "Key Delete Async\nString Get Lease Async\nString Set Async")
+Rel(DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, "Delete Basket Async\nGet Basket Async\nUpdate Basket Async")
+Rel(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext, "Catalog Items Add\nSave Changes Async\nCatalog Items Single Or Default\nCatalog Items Remove\nCatalog Items To List Async")
 
 
 SHOW_LEGEND()

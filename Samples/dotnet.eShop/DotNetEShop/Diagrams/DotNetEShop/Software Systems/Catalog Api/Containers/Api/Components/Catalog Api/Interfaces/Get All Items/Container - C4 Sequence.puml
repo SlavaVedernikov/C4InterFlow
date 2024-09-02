@@ -1,0 +1,17 @@
+@startuml
+!include ..\..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title DotNetEShop - Catalog Api - Api - Catalog Api - Get All Items - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(DotNetEShop.SoftwareSystems.CatalogApi, "Catalog Api")
+    Container(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api, "Api", "", "")
+    Container(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Infrastructure", "", "")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api, "Get All Items")
+Rel(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api, DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Catalog Items To List Async")
+
+
+@enduml

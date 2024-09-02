@@ -17,32 +17,32 @@ skinparam linetype polyline
 title All Software Systems - C4 Static - Component level
 
 
-System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.BasketApi, "Basket Api") {
+System_Boundary(DotNetEShop.SoftwareSystems.BasketApi, "Basket Api") {
     
-Container_Boundary(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data, "Data") {
-    Component(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, "Redis Basket Repository", "", "")
-    Component(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase, "Redis Database", "", "")
+Container_Boundary(DotNetEShop.SoftwareSystems.BasketApi.Containers.Data, "Data") {
+    Component(DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, "Redis Basket Repository", "", "")
+    Component(DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase, "Redis Database", "", "")
 }
     
-Container_Boundary(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc, "Grpc") {
-    Component(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, "Basket Service", "", "")
+Container_Boundary(DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc, "Grpc") {
+    Component(DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, "Basket Service", "", "")
 }
 }
 
-System_Boundary(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi, "Catalog Api") {
+System_Boundary(DotNetEShop.SoftwareSystems.CatalogApi, "Catalog Api") {
     
-Container_Boundary(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api, "Api") {
-    Component(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, "Catalog Api", "", "")
+Container_Boundary(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api, "Api") {
+    Component(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, "Catalog Api", "", "")
 }
     
-Container_Boundary(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Infrastructure") {
-    Component(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext, "Catalog Context", "", "")
+Container_Boundary(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Infrastructure") {
+    Component(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext, "Catalog Context", "", "")
 }
 }
 
-Rel(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase, "Uses")
-Rel(dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, dotnet.eShop.Architecture.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, "Uses")
-Rel(dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, dotnet.eShop.Architecture.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext, "Uses")
+Rel(DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase, "Uses")
+Rel(DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, "Uses")
+Rel(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext, "Uses")
 
 
 SHOW_LEGEND()

@@ -1,0 +1,11 @@
+@startuml
+
+title DotNetEShop - Catalog Api - Infrastructure - Catalog Context - Save Changes Async - Sequence - Context level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "Catalog Api" as DotNetEShop.SoftwareSystems.CatalogApi
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> DotNetEShop.SoftwareSystems.CatalogApi : Save Changes Async
+
+
+@enduml

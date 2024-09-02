@@ -1,0 +1,25 @@
+@startuml
+!include ..\..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title DotNetEShop - Catalog Api - Api - Catalog Api - Get Item By Id - C4 Sequence - Component level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(DotNetEShop.SoftwareSystems.CatalogApi, "Catalog Api")
+    
+Container_Boundary(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api, "Api")
+    Component(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, "Catalog Api", "", "")
+Boundary_End()
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, "Get Item By Id")
+alt id <= 0
+Rel(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, "Return (TypedResults.BadRequest)")
+end
+alt item == null
+Rel(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, "Return (TypedResults.NotFound)")
+end
+Rel(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, "Return (TypedResults.Ok)")
+
+
+@enduml
