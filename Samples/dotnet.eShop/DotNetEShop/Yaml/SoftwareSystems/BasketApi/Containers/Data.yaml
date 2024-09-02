@@ -1,0 +1,13 @@
+DotNetEShop:
+  SoftwareSystems:
+    BasketApi:
+      Containers:
+        Data:
+          Label: Data
+          Description: ''
+          ContainerType: None
+          Boundary: Internal
+          Technology: ''
+          Components: {}
+          Interfaces: {}
+          Entities: {}

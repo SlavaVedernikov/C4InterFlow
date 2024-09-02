@@ -1,0 +1,37 @@
+DotNetEShop:
+  SoftwareSystems:
+    CatalogApi:
+      Containers:
+        Api:
+          Components:
+            CatalogApi:
+              Interfaces:
+                GetItemsBySemanticRelevance:
+                  Label: Get Items By Semantic Relevance
+                  Description: ''
+                  Path: ''
+                  IsPrivate: false
+                  Protocol: ''
+                  Flows:
+                  - Type: If
+                    Expression: '!services.CatalogAI.IsEnabled'
+                    Flows:
+                    - Type: Use
+                      Expression: DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.Interfaces.GetItemsByName
+                  - Type: If
+                    Expression: services.Logger.IsEnabled(LogLevel.Debug)
+                    Flows:
+                    - Type: Use
+                      Expression: DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.CatalogItemsToListAsync
+                    - Type: Else
+                      Flows:
+                      - Type: Use
+                        Expression: DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.CatalogItemsToListAsync
+                  - Type: Use
+                    Expression: DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.Interfaces.ChangeUriPlaceholder
+                  - Type: Return
+                    Expression: TypedResults.Ok
+                  Input: ''
+                  InputTemplate: ''
+                  Output: ''
+                  OutputTemplate: ''

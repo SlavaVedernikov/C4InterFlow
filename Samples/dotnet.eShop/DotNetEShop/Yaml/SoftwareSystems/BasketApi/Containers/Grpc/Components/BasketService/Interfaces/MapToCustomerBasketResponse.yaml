@@ -1,0 +1,21 @@
+DotNetEShop:
+  SoftwareSystems:
+    BasketApi:
+      Containers:
+        Grpc:
+          Components:
+            BasketService:
+              Interfaces:
+                MapToCustomerBasketResponse:
+                  Label: Map To Customer Basket Response
+                  Description: ''
+                  Path: ''
+                  IsPrivate: true
+                  Protocol: ''
+                  Flows:
+                  - Type: Return
+                    Expression: response
+                  Input: ''
+                  InputTemplate: ''
+                  Output: ''
+                  OutputTemplate: ''

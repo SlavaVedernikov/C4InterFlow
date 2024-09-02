@@ -1,0 +1,13 @@
+DotNetEShop:
+  SoftwareSystems:
+    CatalogApi:
+      Containers:
+        Api:
+          Label: Api
+          Description: ''
+          ContainerType: None
+          Boundary: Internal
+          Technology: ''
+          Components: {}
+          Interfaces: {}
+          Entities: {}

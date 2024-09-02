@@ -1,0 +1,26 @@
+DotNetEShop:
+  SoftwareSystems:
+    BasketApi:
+      Containers:
+        Grpc:
+          Components:
+            BasketService:
+              Interfaces:
+                DeleteBasket:
+                  Label: Delete Basket
+                  Description: ''
+                  Path: ''
+                  IsPrivate: false
+                  Protocol: ''
+                  Flows:
+                  - Type: If
+                    Expression: string.IsNullOrEmpty(userId)
+                    Flows:
+                    - Type: Use
+                      Expression: DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService.Interfaces.ThrowNotAuthenticated
+                  - Type: Use
+                    Expression: DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository.Interfaces.DeleteBasketAsync
+                  Input: ''
+                  InputTemplate: ''
+                  Output: ''
+                  OutputTemplate: ''

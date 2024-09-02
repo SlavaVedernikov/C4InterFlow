@@ -1,0 +1,19 @@
+DotNetEShop:
+  SoftwareSystems:
+    CatalogApi:
+      Containers:
+        Infrastructure:
+          Components:
+            CatalogContext:
+              Interfaces:
+                CatalogItemsAdd:
+                  Label: Catalog Items Add
+                  Description: ''
+                  Path: ''
+                  IsPrivate: false
+                  Protocol: ''
+                  Flows: []
+                  Input: ''
+                  InputTemplate: ''
+                  Output: ''
+                  OutputTemplate: ''

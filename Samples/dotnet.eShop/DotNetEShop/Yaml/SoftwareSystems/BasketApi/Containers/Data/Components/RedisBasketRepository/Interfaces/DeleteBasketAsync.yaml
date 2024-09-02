@@ -1,0 +1,23 @@
+DotNetEShop:
+  SoftwareSystems:
+    BasketApi:
+      Containers:
+        Data:
+          Components:
+            RedisBasketRepository:
+              Interfaces:
+                DeleteBasketAsync:
+                  Label: Delete Basket Async
+                  Description: ''
+                  Path: ''
+                  IsPrivate: false
+                  Protocol: ''
+                  Flows:
+                  - Type: Use
+                    Expression: DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository.Interfaces.GetBasketKey
+                  - Type: Use
+                    Expression: DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase.Interfaces.KeyDeleteAsync
+                  Input: ''
+                  InputTemplate: ''
+                  Output: ''
+                  OutputTemplate: ''

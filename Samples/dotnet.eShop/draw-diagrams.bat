@@ -8,8 +8,8 @@ set "aac-type=Yaml"
 ::::::::::::::::::::::::::::::::
 
 set "build-configuration=Debug"
-set "aac-root-namespace=dotnet.eShop.Architecture"
-set "aac-project-name=dotnet.eShop.Architecture"
+set "aac-root-namespace=DotNetEShop"
+set "aac-project-name=DotNetEShop"
 set "cli-project-path=.\%aac-project-name%.Cli\%aac-project-name%.Cli.csproj"
 set "cli-output-dir=.\%aac-project-name%.Cli\bin\%build-configuration%\net6.0"
 set "cli-exe=%aac-project-name%.Cli.exe"

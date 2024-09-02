@@ -1,0 +1,26 @@
+DotNetEShop:
+  SoftwareSystems:
+    BasketApi:
+      Containers:
+        Grpc:
+          Components:
+            BasketService:
+              Interfaces:
+                GetBasket:
+                  Label: Get Basket
+                  Description: ''
+                  Path: ''
+                  IsPrivate: false
+                  Protocol: ''
+                  Flows:
+                  - Type: Use
+                    Expression: DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository.Interfaces.GetBasketAsync
+                  - Type: If
+                    Expression: data is not null
+                    Flows:
+                    - Type: Use
+                      Expression: DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService.Interfaces.MapToCustomerBasketResponse
+                  Input: ''
+                  InputTemplate: ''
+                  Output: ''
+                  OutputTemplate: ''

@@ -1,0 +1,32 @@
+DotNetEShop:
+  SoftwareSystems:
+    CatalogApi:
+      Containers:
+        Api:
+          Components:
+            CatalogApi:
+              Interfaces:
+                DeleteItemById:
+                  Label: Delete Item By Id
+                  Description: ''
+                  Path: ''
+                  IsPrivate: false
+                  Protocol: ''
+                  Flows:
+                  - Type: Use
+                    Expression: DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.CatalogItemsSingleOrDefault
+                  - Type: If
+                    Expression: item is null
+                    Flows:
+                    - Type: Return
+                      Expression: TypedResults.NotFound
+                  - Type: Use
+                    Expression: DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.CatalogItemsRemove
+                  - Type: Use
+                    Expression: DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.SaveChangesAsync
+                  - Type: Return
+                    Expression: TypedResults.NoContent
+                  Input: ''
+                  InputTemplate: ''
+                  Output: ''
+                  OutputTemplate: ''

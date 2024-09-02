@@ -1,0 +1,25 @@
+DotNetEShop:
+  SoftwareSystems:
+    BasketApi:
+      Containers:
+        Data:
+          Components:
+            RedisBasketRepository:
+              Interfaces:
+                GetBasketAsync:
+                  Label: Get Basket Async
+                  Description: ''
+                  Path: ''
+                  IsPrivate: false
+                  Protocol: ''
+                  Flows:
+                  - Type: Use
+                    Expression: DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository.Interfaces.GetBasketKey
+                  - Type: Use
+                    Expression: DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase.Interfaces.StringGetLeaseAsync
+                  - Type: Return
+                    Expression: JsonSerializer.Deserialize
+                  Input: ''
+                  InputTemplate: ''
+                  Output: ''
+                  OutputTemplate: ''

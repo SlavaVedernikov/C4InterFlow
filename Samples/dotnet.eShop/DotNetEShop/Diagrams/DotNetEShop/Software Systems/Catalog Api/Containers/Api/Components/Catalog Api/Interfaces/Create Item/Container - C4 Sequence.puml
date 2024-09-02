@@ -1,0 +1,18 @@
+@startuml
+!include ..\..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title DotNetEShop - Catalog Api - Api - Catalog Api - Create Item - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(DotNetEShop.SoftwareSystems.CatalogApi, "Catalog Api")
+    Container(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api, "Api", "", "")
+    Container(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Infrastructure", "", "")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api, "Create Item")
+Rel(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api, DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Catalog Items Add")
+Rel(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api, DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Save Changes Async")
+
+
+@enduml
