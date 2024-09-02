@@ -1,0 +1,12 @@
+DotNetEShop:
+  SoftwareSystems:
+    BasketApi:
+      Containers:
+        Grpc:
+          Components:
+            BasketService:
+              Label: Basket Service
+              ComponentType: None
+              Description: ''
+              Technology: ''
+              Interfaces: {}

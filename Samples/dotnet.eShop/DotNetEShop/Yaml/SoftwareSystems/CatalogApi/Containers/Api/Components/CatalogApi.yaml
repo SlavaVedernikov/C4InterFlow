@@ -1,0 +1,12 @@
+DotNetEShop:
+  SoftwareSystems:
+    CatalogApi:
+      Containers:
+        Api:
+          Components:
+            CatalogApi:
+              Label: Catalog Api
+              ComponentType: None
+              Description: ''
+              Technology: ''
+              Interfaces: {}

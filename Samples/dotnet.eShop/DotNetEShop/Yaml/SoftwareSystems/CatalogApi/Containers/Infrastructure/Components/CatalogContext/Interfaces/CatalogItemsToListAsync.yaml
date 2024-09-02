@@ -1,0 +1,19 @@
+DotNetEShop:
+  SoftwareSystems:
+    CatalogApi:
+      Containers:
+        Infrastructure:
+          Components:
+            CatalogContext:
+              Interfaces:
+                CatalogItemsToListAsync:
+                  Label: Catalog Items To List Async
+                  Description: ''
+                  Path: ''
+                  IsPrivate: false
+                  Protocol: ''
+                  Flows: []
+                  Input: ''
+                  InputTemplate: ''
+                  Output: ''
+                  OutputTemplate: ''

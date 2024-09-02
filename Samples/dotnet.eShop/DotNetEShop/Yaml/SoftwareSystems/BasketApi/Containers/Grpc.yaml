@@ -1,0 +1,13 @@
+DotNetEShop:
+  SoftwareSystems:
+    BasketApi:
+      Containers:
+        Grpc:
+          Label: Grpc
+          Description: ''
+          ContainerType: None
+          Boundary: Internal
+          Technology: ''
+          Components: {}
+          Interfaces: {}
+          Entities: {}

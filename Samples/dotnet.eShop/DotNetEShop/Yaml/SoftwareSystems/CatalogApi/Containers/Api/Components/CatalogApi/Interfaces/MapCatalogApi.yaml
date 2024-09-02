@@ -1,0 +1,21 @@
+DotNetEShop:
+  SoftwareSystems:
+    CatalogApi:
+      Containers:
+        Api:
+          Components:
+            CatalogApi:
+              Interfaces:
+                MapCatalogApi:
+                  Label: Map Catalog Api
+                  Description: ''
+                  Path: ''
+                  IsPrivate: false
+                  Protocol: ''
+                  Flows:
+                  - Type: Return
+                    Expression: app
+                  Input: ''
+                  InputTemplate: ''
+                  Output: ''
+                  OutputTemplate: ''

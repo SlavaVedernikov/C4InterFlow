@@ -1,0 +1,19 @@
+DotNetEShop:
+  SoftwareSystems:
+    CatalogApi:
+      Containers:
+        Api:
+          Components:
+            CatalogApi:
+              Interfaces:
+                GetFullPath:
+                  Label: Get Full Path
+                  Description: ''
+                  Path: ''
+                  IsPrivate: false
+                  Protocol: ''
+                  Flows: 
+                  Input: ''
+                  InputTemplate: ''
+                  Output: ''
+                  OutputTemplate: ''
