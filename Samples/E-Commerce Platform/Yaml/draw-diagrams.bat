@@ -49,9 +49,9 @@ pause
 
 echo Drawing Diagrams...
 if %redraw-all%==TRUE (
-%cli-output-dir%\%cli-exe% draw-diagrams --interfaces %aac-root-namespace%.*.SoftwareSystems.*.Interfaces.* %aac-root-namespace%.*.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes %aac-root-namespace%.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy "%aac-reader-strategy%" --aac-input-paths "%aac-input-paths%" --output-dir "%diagrams-dir%" --formats png svg
+%cli-output-dir%\%cli-exe% draw-diagrams --interfaces ..SoftwareSystems.*.Interfaces.* ..SoftwareSystems.*.Containers.*.Interfaces.* --business-processes %aac-root-namespace%.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy "%aac-reader-strategy%" --aac-input-paths "%aac-input-paths%" --output-dir "%diagrams-dir%" --formats png svg
 ) else (
-%cli-output-dir%\%cli-exe% draw-diagrams --interfaces %aac-root-namespace%.*.SoftwareSystems.*.Interfaces.* %aac-root-namespace%.*.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes %aac-root-namespace%.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy "%aac-reader-strategy%" --aac-input-paths "%aac-input-paths%" --output-dir "%diagrams-dir%" 
+%cli-output-dir%\%cli-exe% draw-diagrams --interfaces ..SoftwareSystems.*.Interfaces.* ..SoftwareSystems.*.Containers.*.Interfaces.* --business-processes %aac-root-namespace%.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy "%aac-reader-strategy%" --aac-input-paths "%aac-input-paths%" --output-dir "%diagrams-dir%" 
 )
 pause 
 :end  
