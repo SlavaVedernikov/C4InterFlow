@@ -16,125 +16,126 @@ skinparam linetype polyline
 
 title All Software Systems - C4 Static - Container level
 
-System(ECommercePlatform.SoftwareSystems.BuyingAndMerchandisingApp, "Buying And Merchandising App", "")
+System(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontApp, "Storefront App", "")
+System(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, "Storefront Bff", "")
 
-System_Boundary(ECommercePlatform.SoftwareSystems.BuyingService, "Buying Service") {
-    Container(ECommercePlatform.SoftwareSystems.BuyingService.Containers.Api, "Api", "", "")
-    Container(ECommercePlatform.SoftwareSystems.BuyingService.Containers.Database, "Database", "", "")
-    Container(ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging, "Messaging", "", "")
-    Container(ECommercePlatform.SoftwareSystems.BuyingService.Containers.MessageHandler, "Message Handler", "", "")
+System_Boundary(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService, "Product Service") {
+    Container(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Api, "Api", "", "")
+    Container(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Database, "Database", "", "")
+    Container(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Messaging, "Messaging", "", "")
+    Container(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.MessageHandler, "Message Handler", "", "")
 }
 
-System_Boundary(ECommercePlatform.SoftwareSystems.PricingService, "Pricing Service") {
-    Container(ECommercePlatform.SoftwareSystems.PricingService.Containers.Api, "Api", "", "")
-    Container(ECommercePlatform.SoftwareSystems.PricingService.Containers.Database, "Database", "", "")
-    Container(ECommercePlatform.SoftwareSystems.PricingService.Containers.Messaging, "Messaging", "", "")
-    Container(ECommercePlatform.SoftwareSystems.PricingService.Containers.MessageHandler, "Message Handler", "", "")
-}
-System(ECommercePlatform.SoftwareSystems.CRMApp, "CRM App", "")
-
-System_Boundary(ECommercePlatform.SoftwareSystems.FraudService, "Fraud Service") {
-    Container(ECommercePlatform.SoftwareSystems.FraudService.Containers.Api, "Api", "", "")
-    Container(ECommercePlatform.SoftwareSystems.FraudService.Containers.Database, "Database", "", "")
-    Container(ECommercePlatform.SoftwareSystems.FraudService.Containers.Messaging, "Messaging", "", "")
-    Container(ECommercePlatform.SoftwareSystems.FraudService.Containers.MessageHandler, "Message Handler", "", "")
-}
-System(ECommercePlatform.SoftwareSystems.FraudEngine, "Fraud Engine", "")
-System(ECommercePlatform.SoftwareSystems.PaymentProvider, "Payment Provider", "")
-System(ECommercePlatform.SoftwareSystems.PIMApp, "PIM App", "")
-
-System_Boundary(ECommercePlatform.SoftwareSystems.ProductService, "Product Service") {
-    Container(ECommercePlatform.SoftwareSystems.ProductService.Containers.Api, "Api", "", "")
-    Container(ECommercePlatform.SoftwareSystems.ProductService.Containers.Database, "Database", "", "")
-    Container(ECommercePlatform.SoftwareSystems.ProductService.Containers.Messaging, "Messaging", "", "")
-    Container(ECommercePlatform.SoftwareSystems.ProductService.Containers.MessageHandler, "Message Handler", "", "")
-}
-System(ECommercePlatform.SoftwareSystems.StorefrontApp, "Storefront App", "")
-System(ECommercePlatform.SoftwareSystems.StorefrontBff, "Storefront Bff", "")
-
-System_Boundary(ECommercePlatform.SoftwareSystems.SearchService, "Search Service") {
-    Container(ECommercePlatform.SoftwareSystems.SearchService.Containers.Api, "Api", "", "")
-    Container(ECommercePlatform.SoftwareSystems.SearchService.Containers.Database, "Database", "", "")
-    Container(ECommercePlatform.SoftwareSystems.SearchService.Containers.MessageHandler, "Message Handler", "", "")
+System_Boundary(ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService, "Search Service") {
+    Container(ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService.Containers.Api, "Api", "", "")
+    Container(ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService.Containers.Database, "Database", "", "")
+    Container(ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService.Containers.MessageHandler, "Message Handler", "", "")
 }
 
-System_Boundary(ECommercePlatform.SoftwareSystems.BasketService, "Basket Service") {
-    Container(ECommercePlatform.SoftwareSystems.BasketService.Containers.Api, "Api", "", "")
-    Container(ECommercePlatform.SoftwareSystems.BasketService.Containers.Database, "Database", "", "")
+System_Boundary(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService, "Basket Service") {
+    Container(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Api, "Api", "", "")
+    Container(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Database, "Database", "", "")
 }
 
-System_Boundary(ECommercePlatform.SoftwareSystems.OrderService, "Order Service") {
-    Container(ECommercePlatform.SoftwareSystems.OrderService.Containers.Api, "Api", "", "")
-    Container(ECommercePlatform.SoftwareSystems.OrderService.Containers.Database, "Database", "", "")
-    Container(ECommercePlatform.SoftwareSystems.OrderService.Containers.Messaging, "Messaging", "", "")
-    Container(ECommercePlatform.SoftwareSystems.OrderService.Containers.MessageHandler, "Message Handler", "", "")
+System_Boundary(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Order Service") {
+    Container(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Api, "Api", "", "")
+    Container(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Database, "Database", "", "")
+    Container(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging, "Messaging", "", "")
+    Container(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.MessageHandler, "Message Handler", "", "")
 }
-System(ECommercePlatform.SoftwareSystems.WMS, "WMS", "")
+System(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingAndMerchandisingApp, "Buying And Merchandising App", "")
 
-System_Boundary(ECommercePlatform.SoftwareSystems.FulfilmentService, "Fulfilment Service") {
-    Container(ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Api, "Api", "", "")
-    Container(ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Database, "Database", "", "")
-    Container(ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Messaging, "Messaging", "", "")
-    Container(ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.MessageHandler, "Message Handler", "", "")
-}
-
-System_Boundary(ECommercePlatform.SoftwareSystems.PaymentService, "Payment Service") {
-    Container(ECommercePlatform.SoftwareSystems.PaymentService.Containers.Messaging, "Messaging", "", "")
-    Container(ECommercePlatform.SoftwareSystems.PaymentService.Containers.Api, "Api", "", "")
-    Container(ECommercePlatform.SoftwareSystems.PaymentService.Containers.Database, "Database", "", "")
-    Container(ECommercePlatform.SoftwareSystems.PaymentService.Containers.MessageHandler, "Message Handler", "", "")
+System_Boundary(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService, "Buying Service") {
+    Container(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Api, "Api", "", "")
+    Container(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Database, "Database", "", "")
+    Container(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Messaging, "Messaging", "", "")
+    Container(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.MessageHandler, "Message Handler", "", "")
 }
 
-Rel(ECommercePlatform.SoftwareSystems.BuyingAndMerchandisingApp, ECommercePlatform.SoftwareSystems.BuyingService.Containers.Api, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.BuyingService.Containers.Api, ECommercePlatform.SoftwareSystems.BuyingService.Containers.Database, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.BuyingService.Containers.Api, ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.BuyingAndMerchandisingApp, ECommercePlatform.SoftwareSystems.PricingService.Containers.Api, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.PricingService.Containers.Api, ECommercePlatform.SoftwareSystems.PricingService.Containers.Database, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.PricingService.Containers.Api, ECommercePlatform.SoftwareSystems.PricingService.Containers.Messaging, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.CRMApp, ECommercePlatform.SoftwareSystems.FraudService.Containers.Api, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.FraudService.Containers.Api, ECommercePlatform.SoftwareSystems.FraudService.Containers.Database, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.FraudService.Containers.Api, ECommercePlatform.SoftwareSystems.FraudService.Containers.Messaging, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.PIMApp, ECommercePlatform.SoftwareSystems.ProductService.Containers.Api, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.ProductService.Containers.Api, ECommercePlatform.SoftwareSystems.ProductService.Containers.Database, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.ProductService.Containers.Api, ECommercePlatform.SoftwareSystems.ProductService.Containers.Messaging, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.StorefrontApp, ECommercePlatform.SoftwareSystems.StorefrontBff, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.StorefrontBff, ECommercePlatform.SoftwareSystems.ProductService.Containers.Api, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.StorefrontBff, ECommercePlatform.SoftwareSystems.SearchService.Containers.Api, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.SearchService.Containers.Api, ECommercePlatform.SoftwareSystems.SearchService.Containers.Database, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.StorefrontBff, ECommercePlatform.SoftwareSystems.BasketService.Containers.Api, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.BasketService.Containers.Api, ECommercePlatform.SoftwareSystems.BasketService.Containers.Database, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.StorefrontBff, ECommercePlatform.SoftwareSystems.OrderService.Containers.Api, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.OrderService.Containers.Api, ECommercePlatform.SoftwareSystems.OrderService.Containers.Database, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.OrderService.Containers.Api, ECommercePlatform.SoftwareSystems.OrderService.Containers.Messaging, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.BuyingService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.BuyingService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.WMS, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.FraudService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.OrderService.Containers.Messaging, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.FraudService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.FraudService.Containers.Database, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.FraudService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.FraudEngine, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.FraudService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.FraudService.Containers.Messaging, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Api, ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Database, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Api, ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Messaging, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.OrderService.Containers.Messaging, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Database, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.WMS, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.OrderService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.FraudService.Containers.Messaging, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.OrderService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.OrderService.Containers.Database, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.OrderService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.OrderService.Containers.Messaging, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.OrderService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.PaymentService.Containers.Messaging, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.OrderService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.FulfilmentService.Containers.Messaging, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.PaymentService.Containers.Api, ECommercePlatform.SoftwareSystems.PaymentService.Containers.Database, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.PaymentService.Containers.Api, ECommercePlatform.SoftwareSystems.PaymentService.Containers.Messaging, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.PaymentService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.OrderService.Containers.Messaging, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.PaymentService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.PaymentService.Containers.Database, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.PaymentService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.PaymentProvider, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.PricingService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.PricingService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.PricingService.Containers.Database, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.ProductService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.BuyingService.Containers.Messaging, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.ProductService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.ProductService.Containers.Database, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.ProductService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.ProductService.Containers.Messaging, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.SearchService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.PricingService.Containers.Messaging, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.SearchService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.SearchService.Containers.Database, "Uses")
-Rel(ECommercePlatform.SoftwareSystems.SearchService.Containers.MessageHandler, ECommercePlatform.SoftwareSystems.ProductService.Containers.Messaging, "Uses")
+System_Boundary(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService, "Pricing Service") {
+    Container(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Api, "Api", "", "")
+    Container(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Database, "Database", "", "")
+    Container(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Messaging, "Messaging", "", "")
+    Container(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.MessageHandler, "Message Handler", "", "")
+}
+System(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.PIMApp, "PIM App", "")
+System(ECommercePlatform.Deliver.CustomerManagement.SoftwareSystems.CRMApp, "CRM App", "")
+
+System_Boundary(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService, "Fraud Service") {
+    Container(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Api, "Api", "", "")
+    Container(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Database, "Database", "", "")
+    Container(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Messaging, "Messaging", "", "")
+    Container(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.MessageHandler, "Message Handler", "", "")
+}
+System(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudEngine, "Fraud Engine", "")
+System(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS, "WMS", "")
+
+System_Boundary(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService, "Fulfilment Service") {
+    Container(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Api, "Api", "", "")
+    Container(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Database, "Database", "", "")
+    Container(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Messaging, "Messaging", "", "")
+    Container(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.MessageHandler, "Message Handler", "", "")
+}
+System(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider, "Payment Provider", "")
+
+System_Boundary(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, "Payment Service") {
+    Container(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Messaging, "Messaging", "", "")
+    Container(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Api, "Api", "", "")
+    Container(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Database, "Database", "", "")
+    Container(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.MessageHandler, "Message Handler", "", "")
+}
+
+Rel(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontApp, ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, "Uses")
+Rel(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Api, "Uses")
+Rel(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Api, ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Database, "Uses")
+Rel(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService.Containers.Api, "Uses")
+Rel(ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService.Containers.Api, ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService.Containers.Database, "Uses")
+Rel(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Api, "Uses")
+Rel(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Api, ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Database, "Uses")
+Rel(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Api, "Uses")
+Rel(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Api, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Database, "Uses")
+Rel(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Api, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging, "Uses")
+Rel(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingAndMerchandisingApp, ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Api, "Uses")
+Rel(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Api, ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Database, "Uses")
+Rel(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Api, ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Messaging, "Uses")
+Rel(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingAndMerchandisingApp, ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Api, "Uses")
+Rel(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Api, ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Database, "Uses")
+Rel(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Api, ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Messaging, "Uses")
+Rel(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.PIMApp, ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Api, "Uses")
+Rel(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Api, ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Messaging, "Uses")
+Rel(ECommercePlatform.Deliver.CustomerManagement.SoftwareSystems.CRMApp, ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Api, "Uses")
+Rel(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Api, ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Database, "Uses")
+Rel(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Api, ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Messaging, "Uses")
+Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Api, "Uses")
+Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Api, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Database, "Uses")
+Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Api, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Messaging, "Uses")
+Rel(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.MessageHandler, ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Messaging, "Uses")
+Rel(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.MessageHandler, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Database, "Uses")
+Rel(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.MessageHandler, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging, "Uses")
+Rel(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.MessageHandler, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Messaging, "Uses")
+Rel(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.MessageHandler, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Messaging, "Uses")
+Rel(ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService.Containers.MessageHandler, ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Messaging, "Uses")
+Rel(ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService.Containers.MessageHandler, ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService.Containers.Database, "Uses")
+Rel(ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService.Containers.MessageHandler, ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Messaging, "Uses")
+Rel(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.MessageHandler, ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Messaging, "Uses")
+Rel(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.MessageHandler, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS, "Uses")
+Rel(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.MessageHandler, ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Messaging, "Uses")
+Rel(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.MessageHandler, ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Database, "Uses")
+Rel(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.MessageHandler, ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Messaging, "Uses")
+Rel(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.MessageHandler, ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Messaging, "Uses")
+Rel(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.MessageHandler, ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Database, "Uses")
+Rel(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.MessageHandler, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging, "Uses")
+Rel(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.MessageHandler, ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Database, "Uses")
+Rel(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.MessageHandler, ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudEngine, "Uses")
+Rel(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.MessageHandler, ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Messaging, "Uses")
+Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.MessageHandler, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging, "Uses")
+Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.MessageHandler, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Database, "Uses")
+Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.MessageHandler, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS, "Uses")
+Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Api, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Database, "Uses")
+Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Api, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Messaging, "Uses")
+Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.MessageHandler, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging, "Uses")
+Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.MessageHandler, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Database, "Uses")
+Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.MessageHandler, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider, "Uses")
 
 
 SHOW_LEGEND()

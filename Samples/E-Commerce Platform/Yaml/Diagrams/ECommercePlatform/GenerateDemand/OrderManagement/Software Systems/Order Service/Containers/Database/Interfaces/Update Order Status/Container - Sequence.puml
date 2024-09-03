@@ -1,0 +1,15 @@
+@startuml
+
+title ECommercePlatform - GenerateDemand - OrderManagement - Order Service - Database - Update Order Status - Sequence - Container level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Order Service" #White
+    participant "Database" as ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Database
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Database : Update Order Status
+
+
+@enduml

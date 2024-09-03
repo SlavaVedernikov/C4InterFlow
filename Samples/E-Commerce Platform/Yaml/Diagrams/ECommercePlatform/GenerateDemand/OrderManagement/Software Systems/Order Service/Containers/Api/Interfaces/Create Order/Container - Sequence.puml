@@ -1,0 +1,21 @@
+@startuml
+
+title ECommercePlatform - GenerateDemand - OrderManagement - Order Service - Api - Create Order - Sequence - Container level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Order Service" #White
+    participant "Api" as ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Api
+    participant "Database" as ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Database
+    participant "Messaging" as ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Api : Create Order
+group Create Order
+ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Api -> ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Database : Insert Order
+ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Api -> ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging : Send Order Created Event
+end
+
+
+@enduml

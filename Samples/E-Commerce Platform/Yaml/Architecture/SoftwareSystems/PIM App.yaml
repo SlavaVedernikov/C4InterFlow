@@ -1,16 +1,18 @@
 ECommercePlatform:
-  SoftwareSystems:
-    PIMApp:
-      Interfaces:
-        ViewProducts:
-          Flows:
-          - Type: Use
-            Expression: ProductService.Containers.Api.Interfaces.GetProducts
-        UpdateProduct:
-          Flows:
-          - Type: Use
-            Expression: ProductService.Containers.Api.Interfaces.UpdateProduct
-        DeleteProduct:
-          Flows:
-          - Type: Use
-            Expression: ProductService.Containers.Api.Interfaces.DeleteProduct
+  CreateProduct:
+    ProductInformationManagement:
+      SoftwareSystems:
+        PIMApp:
+          Interfaces:
+            ViewProducts:
+              Flows:
+              - Type: Use
+                Expression: ProductService.Containers.Api.Interfaces.GetProducts
+            UpdateProduct:
+              Flows:
+              - Type: Use
+                Expression: ProductService.Containers.Api.Interfaces.UpdateProduct
+            DeleteProduct:
+              Flows:
+              - Type: Use
+                Expression: ProductService.Containers.Api.Interfaces.DeleteProduct

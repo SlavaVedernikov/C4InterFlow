@@ -1,28 +1,30 @@
 ECommercePlatform:
-  SoftwareSystems:
-    BuyingAndMerchandisingApp:
-      Interfaces:
-        ViewPurchaseOrders:
-          Flows:
-          - Type: Use
-            Expression: BuyingService.Containers.Api.Interfaces.GetPurchaseOrders
-        CreatePurchaseOrder:
-          Flows:
-          - Type: Use
-            Expression: BuyingService.Containers.Api.Interfaces.CreatePurchaseOrder
-        UpdatePurchaseOrder:
-          Flows:
-          - Type: Use
-            Expression: BuyingService.Containers.Api.Interfaces.UpdatePurchaseOrder
-        DeletePurchaseOrder:
-          Flows:
-          - Type: Use
-            Expression: BuyingService.Containers.Api.Interfaces.DeletePurchaseOrder
-        ViewProductPrices:
-          Flows:
-          - Type: Use
-            Expression: PricingService.Containers.Api.Interfaces.GetProductPrices
-        UpdateProductPrices:
-          Flows:
-          - Type: Use
-            Expression: PricingService.Containers.Api.Interfaces.UpdateProductPrices
+  CreateProduct:
+    BuyingAndMerchandising:
+      SoftwareSystems:
+        BuyingAndMerchandisingApp:
+          Interfaces:
+            ViewPurchaseOrders:
+              Flows:
+              - Type: Use
+                Expression: BuyingService.Containers.Api.Interfaces.GetPurchaseOrders
+            CreatePurchaseOrder:
+              Flows:
+              - Type: Use
+                Expression: BuyingService.Containers.Api.Interfaces.CreatePurchaseOrder
+            UpdatePurchaseOrder:
+              Flows:
+              - Type: Use
+                Expression: BuyingService.Containers.Api.Interfaces.UpdatePurchaseOrder
+            DeletePurchaseOrder:
+              Flows:
+              - Type: Use
+                Expression: BuyingService.Containers.Api.Interfaces.DeletePurchaseOrder
+            ViewProductPrices:
+              Flows:
+              - Type: Use
+                Expression: ..PricingService.Containers.Api.Interfaces.GetProductPrices
+            UpdateProductPrices:
+              Flows:
+              - Type: Use
+                Expression: ..PricingService.Containers.Api.Interfaces.UpdateProductPrices

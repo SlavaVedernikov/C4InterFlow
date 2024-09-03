@@ -1,43 +1,45 @@
 ECommercePlatform:
-  SoftwareSystems:
-    SearchService:
-      Containers:
-        Api:
-          Interfaces:
-            SearchProducts:
-              Flows:
-              - Type: Use
-                Expression: Database.Interfaces.SelectProducts
-        Database:
-          Interfaces:
-            SelectProducts: {}
-            InsertProduct: {}
-            UpdateProduct: {}
-            DeleteProduct: {}
-            UpdateProductPrices: {}
-        MessageHandler:
-          Interfaces:
-            HandleProductPriceChangedEvent:
-              Flows:
-              - Type: Use
-                Expression: PricingService.Containers.Messaging.Interfaces.ReceiveProductPriceChangedEvent
-              - Type: Use
-                Expression: Database.Interfaces.UpdateProductPrices
-            HandleProductCreatedEvent:
-              Flows:
-              - Type: Use
-                Expression: ProductService.Containers.Messaging.Interfaces.ReceiveProductCreatedEvent
-              - Type: Use
-                Expression: Database.Interfaces.InsertProduct
-            HandleProductUpdatedEvent:
-              Flows:
-              - Type: Use
-                Expression: ProductService.Containers.Messaging.Interfaces.ReceiveProductUpdatedEvent
-              - Type: Use
-                Expression: Database.Interfaces.UpdateProduct
-            HandleProductDeletedEvent:
-              Flows:
-              - Type: Use
-                Expression: ProductService.Containers.Messaging.Interfaces.ReceiveProductDeletedEvent
-              - Type: Use
-                Expression: Database.Interfaces.DeleteProduct
+  GenerateDemand:
+    SearchAndBrowse:
+      SoftwareSystems:
+        SearchService:
+          Containers:
+            Api:
+              Interfaces:
+                SearchProducts:
+                  Flows:
+                  - Type: Use
+                    Expression: Database.Interfaces.SelectProducts
+            Database:
+              Interfaces:
+                SelectProducts: {}
+                InsertProduct: {}
+                UpdateProduct: {}
+                DeleteProduct: {}
+                UpdateProductPrices: {}
+            MessageHandler:
+              Interfaces:
+                HandleProductPriceChangedEvent:
+                  Flows:
+                  - Type: Use
+                    Expression: ..PricingService.Containers.Messaging.Interfaces.ReceiveProductPriceChangedEvent
+                  - Type: Use
+                    Expression: Database.Interfaces.UpdateProductPrices
+                HandleProductCreatedEvent:
+                  Flows:
+                  - Type: Use
+                    Expression: ..ProductService.Containers.Messaging.Interfaces.ReceiveProductCreatedEvent
+                  - Type: Use
+                    Expression: Database.Interfaces.InsertProduct
+                HandleProductUpdatedEvent:
+                  Flows:
+                  - Type: Use
+                    Expression: ..ProductService.Containers.Messaging.Interfaces.ReceiveProductUpdatedEvent
+                  - Type: Use
+                    Expression: Database.Interfaces.UpdateProduct
+                HandleProductDeletedEvent:
+                  Flows:
+                  - Type: Use
+                    Expression: ..ProductService.Containers.Messaging.Interfaces.ReceiveProductDeletedEvent
+                  - Type: Use
+                    Expression: Database.Interfaces.DeleteProduct

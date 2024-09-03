@@ -1,0 +1,24 @@
+@startuml
+!include ..\..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title ECommercePlatform - GenerateDemand - OrderManagement - Order Service - Message Handler - Handle Fraud Check Result Event - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Order Service")
+    Container(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.MessageHandler, "Message Handler", "", "")
+    Container(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Database, "Database", "", "")
+    Container(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging, "Messaging", "", "")
+Boundary_End()
+
+System_Boundary(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService, "Fraud Service")
+    Container(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Messaging, "Messaging", "", "")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.MessageHandler, "Handle Fraud Check Result Event")
+Rel(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.MessageHandler, ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Messaging, "Receive Fraud Check Result Event")
+Rel(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.MessageHandler, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Database, "Update Order Status")
+Rel(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.MessageHandler, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging, "Send Order Status Changed Event")
+
+
+@enduml

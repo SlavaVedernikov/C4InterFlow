@@ -1,0 +1,25 @@
+@startuml
+
+title ECommercePlatform - Deliver - CustomerManagement - CRM App - Update Order Fraud Check Result - Sequence - Container level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "CRM App" as ECommercePlatform.Deliver.CustomerManagement.SoftwareSystems.CRMApp
+
+box "Fraud Service" #White
+    participant "Api" as ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Api
+    participant "Database" as ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Database
+    participant "Messaging" as ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Messaging
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.Deliver.CustomerManagement.SoftwareSystems.CRMApp : Update Order Fraud Check Result
+group Update Order Fraud Check Result
+ECommercePlatform.Deliver.CustomerManagement.SoftwareSystems.CRMApp -> ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Api : Update Order Fraud Check Result
+group Update Order Fraud Check Result
+ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Api -> ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Database : Update Fraud Check Result
+ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Api -> ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Messaging : Send Fraud Check Result Event
+end
+end
+
+
+@enduml

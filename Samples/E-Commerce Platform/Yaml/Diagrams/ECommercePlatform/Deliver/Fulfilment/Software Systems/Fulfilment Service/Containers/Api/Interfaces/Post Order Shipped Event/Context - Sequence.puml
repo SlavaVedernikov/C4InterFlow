@@ -1,0 +1,11 @@
+@startuml
+
+title ECommercePlatform - Deliver - Fulfilment - Fulfilment Service - Api - Post Order Shipped Event - Sequence - Context level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "Fulfilment Service" as ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService : Post Order Shipped Event
+
+
+@enduml

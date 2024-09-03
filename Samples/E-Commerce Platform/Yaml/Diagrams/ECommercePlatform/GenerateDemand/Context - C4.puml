@@ -1,0 +1,43 @@
+@startuml
+!include ..\..\.c4s\C4_Context.puml
+
+AddElementTag("c4interflow:lifecycle:new", $bgColor=green, $fontColor=#ffffff, $borderColor=green, $shadowing="False")
+AddElementTag("c4interflow:lifecycle:changed", $bgColor=orange, $fontColor=#ffffff, $borderColor=orange, $shadowing="False")
+AddElementTag("c4interflow:lifecycle:removed", $bgColor=red, $fontColor=#ffffff, $borderColor=red, $shadowing="False")
+
+AddRelTag("c4interflow:lifecycle:new", $textColor=green, $lineColor=green)
+AddRelTag("c4interflow:lifecycle:changed", $textColor=orange, $lineColor=orange)
+AddRelTag("c4interflow:lifecycle:removed", $textColor=red, $lineColor=red)
+
+SHOW_PERSON_PORTRAIT()
+LAYOUT_TOP_DOWN()
+
+skinparam linetype polyline
+
+title ECommercePlatform - GenerateDemand - C4 - Context level
+
+System(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontApp, "Storefront App", "")
+System(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, "Storefront Bff", "")
+System(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService, "Product Service", "")
+System(ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService, "Search Service", "")
+System(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService, "Basket Service", "")
+System(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Order Service", "")
+System(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService, "Fraud Service", "")
+System(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, "Payment Service", "")
+System(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService, "Fulfilment Service", "")
+System(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService, "Pricing Service", "")
+
+Rel(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontApp, ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, "Get Products\nSearch Products\nGet Basket\nAdd Basket Item\nUpdate Basket Item\nDelete Basket Item\nCheckout")
+Rel(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService, "Get Products")
+Rel(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService, "Search Products")
+Rel(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService, "Get Items\nAdd Item\nUpdate Item\nDelete Item\nDelete Basket")
+Rel(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Create Order")
+Rel(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService, "Receive Fraud Check Result Event")
+Rel(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, "Receive Payment Result Event")
+Rel(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService, "Receive Order Shipped Event")
+Rel(ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService, ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService, "Receive Product Price Changed Event")
+Rel(ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService, ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService, "Receive Product Created Event\nReceive Product Updated Event\nReceive Product Deleted Event")
+
+
+SHOW_LEGEND()
+@enduml

@@ -1,0 +1,21 @@
+@startuml
+!include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title ECommercePlatform - CreateProduct - BuyingAndMerchandising - Buying And Merchandising App - Update Purchase Order - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+System(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingAndMerchandisingApp, "Buying And Merchandising App", "")
+
+System_Boundary(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService, "Buying Service")
+    Container(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Api, "Api", "", "")
+    Container(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Database, "Database", "", "")
+    Container(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Messaging, "Messaging", "", "")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingAndMerchandisingApp, "Update Purchase Order")
+Rel(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingAndMerchandisingApp, ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Api, "Update Purchase Order")
+Rel(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Api, ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Database, "Update Purchase Order")
+Rel(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Api, ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Messaging, "Send Purchase Order Updated Event")
+
+
+@enduml

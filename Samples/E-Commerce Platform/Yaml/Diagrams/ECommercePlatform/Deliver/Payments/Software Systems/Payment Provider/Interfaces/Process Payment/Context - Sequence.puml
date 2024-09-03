@@ -1,0 +1,11 @@
+@startuml
+
+title ECommercePlatform - Deliver - Payments - Payment Provider - Process Payment - Sequence - Context level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "Payment Provider" as ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider : Process Payment
+
+
+@enduml

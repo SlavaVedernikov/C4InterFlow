@@ -1,70 +1,72 @@
 ECommercePlatform:
-  SoftwareSystems:
-    ProductService:
-      Containers:
-        Api:
-          Interfaces:
-            GetProducts:
-              Flows:
-              - Type: Use
-                Expression: Database.Interfaces.SelectProducts
-            UpdateProduct:
-              Flows:
-              - Type: Use
-                Expression: Database.Interfaces.UpdateProduct
-              - Type: Use
-                Expression: Messaging.Interfaces.SendProductUpdatedEvent
-            DeleteProduct:
-              Flows:
-              - Type: Use
-                Expression: Database.Interfaces.DeleteProduct
-              - Type: Use
-                Expression: Messaging.Interfaces.SendProductDeletedEvent
-        Database:
-          Interfaces:
-            SelectProducts: {}
-            InsertProduct: {}
-            UpdateProduct: {}
-            DeleteProduct: {}
-        Messaging:
-          Interfaces:
-            SendProductCreatedEvent: {}
-            SendProductUpdatedEvent: {}
-            SendProductDeletedEvent: {}
-            ReceiveProductCreatedEvent: {}
-            ReceiveProductUpdatedEvent: {}
-            ReceiveProductDeletedEvent: {}
-        MessageHandler:
-          Interfaces:
-            HandlePurchaseOrderCreatedEvent:
-              Flows:
-              - Type: Use
-                Expression: BuyingService.Containers.Messaging.Interfaces.ReceivePurchaseOrderCreatedEvent
-              - Type: Loop
-                Expression: For each Product in Purchase Order
-                Flows:
-                - Type: Use
-                  Expression: Database.Interfaces.SelectProducts
-                - Type: If
-                  Expression: Product Not Found
+  CreateProduct:
+    ProductInformationManagement:
+      SoftwareSystems:
+        ProductService:
+          Containers:
+            Api:
+              Interfaces:
+                GetProducts:
                   Flows:
                   - Type: Use
-                    Expression: Database.Interfaces.InsertProduct
-                  - Type: Use
-                    Expression: Messaging.Interfaces.SendProductCreatedEvent
-            HandlePurchaseOrderUpdatedEvent:
-              Flows:
-              - Type: Use
-                Expression: BuyingService.Containers.Messaging.Interfaces.ReceivePurchaseOrderUpdatedEvent
-              - Type: Loop
-                Expression: For each Product in Purchase Order
-                Flows:
-                - Type: Use
-                  Expression: Database.Interfaces.SelectProducts
-                - Type: If
-                  Expression: Product Not Found
+                    Expression: Database.Interfaces.SelectProducts
+                UpdateProduct:
                   Flows:
                   - Type: Use
-                    Expression: Database.Interfaces.InsertProduct
+                    Expression: Database.Interfaces.UpdateProduct
                   - Type: Use
-                    Expression: Messaging.Interfaces.SendProductCreatedEvent
+                    Expression: Messaging.Interfaces.SendProductUpdatedEvent
+                DeleteProduct:
+                  Flows:
+                  - Type: Use
+                    Expression: Database.Interfaces.DeleteProduct
+                  - Type: Use
+                    Expression: Messaging.Interfaces.SendProductDeletedEvent
+            Database:
+              Interfaces:
+                SelectProducts: {}
+                InsertProduct: {}
+                UpdateProduct: {}
+                DeleteProduct: {}
+            Messaging:
+              Interfaces:
+                SendProductCreatedEvent: {}
+                SendProductUpdatedEvent: {}
+                SendProductDeletedEvent: {}
+                ReceiveProductCreatedEvent: {}
+                ReceiveProductUpdatedEvent: {}
+                ReceiveProductDeletedEvent: {}
+            MessageHandler:
+              Interfaces:
+                HandlePurchaseOrderCreatedEvent:
+                  Flows:
+                  - Type: Use
+                    Expression: ..BuyingService.Containers.Messaging.Interfaces.ReceivePurchaseOrderCreatedEvent
+                  - Type: Loop
+                    Expression: For each Product in Purchase Order
+                    Flows:
+                    - Type: Use
+                      Expression: Database.Interfaces.SelectProducts
+                    - Type: If
+                      Expression: Product Not Found
+                      Flows:
+                      - Type: Use
+                        Expression: Database.Interfaces.InsertProduct
+                      - Type: Use
+                        Expression: Messaging.Interfaces.SendProductCreatedEvent
+                HandlePurchaseOrderUpdatedEvent:
+                  Flows:
+                  - Type: Use
+                    Expression: ..BuyingService.Containers.Messaging.Interfaces.ReceivePurchaseOrderUpdatedEvent
+                  - Type: Loop
+                    Expression: For each Product in Purchase Order
+                    Flows:
+                    - Type: Use
+                      Expression: Database.Interfaces.SelectProducts
+                    - Type: If
+                      Expression: Product Not Found
+                      Flows:
+                      - Type: Use
+                        Expression: Database.Interfaces.InsertProduct
+                      - Type: Use
+                        Expression: Messaging.Interfaces.SendProductCreatedEvent

@@ -1,0 +1,14 @@
+@startuml
+!include ..\..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title ECommercePlatform - GenerateDemand - OrderManagement - Order Service - Message Handler - Handle Payment Result Event - C4 Sequence - Context level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+System(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Order Service", "")
+System(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, "Payment Service", "")
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Handle Payment Result Event")
+Rel(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, ..PaymentService, "Receive Payment Result Event")
+
+
+@enduml

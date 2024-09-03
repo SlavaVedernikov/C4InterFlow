@@ -1,0 +1,21 @@
+@startuml
+!include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title ECommercePlatform - CreateProduct - BuyingAndMerchandising - Buying And Merchandising App - Update Product Prices - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+System(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingAndMerchandisingApp, "Buying And Merchandising App", "")
+
+System_Boundary(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService, "Pricing Service")
+    Container(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Api, "Api", "", "")
+    Container(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Database, "Database", "", "")
+    Container(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Messaging, "Messaging", "", "")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingAndMerchandisingApp, "Update Product Prices")
+Rel(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingAndMerchandisingApp, ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Api, "Update Product Prices")
+Rel(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Api, ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Database, "Update Product Prices")
+Rel(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Api, ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Messaging, "Send Product Price Changed Event")
+
+
+@enduml

@@ -1,40 +1,42 @@
 ECommercePlatform:
-  SoftwareSystems:
-    FraudService:
-      Containers:
-        Api:
-          Interfaces:
-            GetHighRiskOrders:
-              Flows:
-              - Type: Use
-                Expression: Database.Interfaces.SelectHighRiskOrders
-            UpdateOrderFraudCheckResult:
-              Flows:
-              - Type: Use
-                Expression: Database.Interfaces.UpdateFraudCheckResult
-              - Type: Use
-                Expression: Messaging.Interfaces.SendFraudCheckResultEvent
-        Database:
-          Interfaces:
-            InsertOrder: {}
-            SelectHighRiskOrders: {}
-            InsertFraudCheckResult: {}
-            UpdateFraudCheckResult: {}
-        Messaging:
-          Interfaces:
-            SendFraudCheckResultEvent: {}
-            ReceiveFraudCheckResultEvent: {}
-        MessageHandler:
-          Interfaces:
-            HandleOrderCreatedEvent:
-              Flows:
-              - Type: Use
-                Expression: OrderService.Containers.Messaging.Interfaces.ReceiveOrderCreatedEvent
-              - Type: Use
-                Expression: Database.Interfaces.InsertOrder
-              - Type: Use
-                Expression: FraudEngine.Interfaces.GetFraudCheckResult
-              - Type: Use
-                Expression: Database.Interfaces.InsertFraudCheckResult
-              - Type: Use
-                Expression: Messaging.Interfaces.SendFraudCheckResultEvent
+  Deliver:
+    FraudManagement:
+      SoftwareSystems:
+        FraudService:
+          Containers:
+            Api:
+              Interfaces:
+                GetHighRiskOrders:
+                  Flows:
+                  - Type: Use
+                    Expression: Database.Interfaces.SelectHighRiskOrders
+                UpdateOrderFraudCheckResult:
+                  Flows:
+                  - Type: Use
+                    Expression: Database.Interfaces.UpdateFraudCheckResult
+                  - Type: Use
+                    Expression: Messaging.Interfaces.SendFraudCheckResultEvent
+            Database:
+              Interfaces:
+                InsertOrder: {}
+                SelectHighRiskOrders: {}
+                InsertFraudCheckResult: {}
+                UpdateFraudCheckResult: {}
+            Messaging:
+              Interfaces:
+                SendFraudCheckResultEvent: {}
+                ReceiveFraudCheckResultEvent: {}
+            MessageHandler:
+              Interfaces:
+                HandleOrderCreatedEvent:
+                  Flows:
+                  - Type: Use
+                    Expression: ..OrderService.Containers.Messaging.Interfaces.ReceiveOrderCreatedEvent
+                  - Type: Use
+                    Expression: Database.Interfaces.InsertOrder
+                  - Type: Use
+                    Expression: FraudEngine.Interfaces.GetFraudCheckResult
+                  - Type: Use
+                    Expression: Database.Interfaces.InsertFraudCheckResult
+                  - Type: Use
+                    Expression: Messaging.Interfaces.SendFraudCheckResultEvent
