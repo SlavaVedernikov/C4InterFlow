@@ -1,35 +1,37 @@
 ECommercePlatform:
-  SoftwareSystems:
-    FulfilmentService:
-      Containers:
-        Api:
-          Interfaces:
-            PostOrderShippedEvent:
-              Flows:
-              - Type: Use
-                Expression: Database.Interfaces.UpdateOrderStatus
-              - Type: Use
-                Expression: Messaging.Interfaces.SendOrderShippedEvent
-        Database:
-          Interfaces:
-            InsertOrder: {}
-            UpdateOrderStatus: {}
-        Messaging:
-          Interfaces:
-            SendOrderShippedEvent: {}
-            ReceiveOrderShippedEvent: {}
-        MessageHandler:
-          Interfaces:
-            HandleOrderStatusChangedEvent:
-              Flows:
-              - Type: Use
-                Expression: OrderService.Containers.Messaging.Interfaces.ReceiveOrderStatusChangedEvent
-              - Type: If
-                Expression: Order Status is 'Pending Shipment'
-                Flows:
-                - Type: Use
-                  Expression: Database.Interfaces.InsertOrder
-                - Type: Use
-                  Expression: WMS.Interfaces.ShipOrder
-                - Type: Use
-                  Expression: Database.Interfaces.UpdateOrderStatus
+  Deliver:
+    Fulfilment:
+      SoftwareSystems:
+        FulfilmentService:
+          Containers:
+            Api:
+              Interfaces:
+                PostOrderShippedEvent:
+                  Flows:
+                  - Type: Use
+                    Expression: Database.Interfaces.UpdateOrderStatus
+                  - Type: Use
+                    Expression: Messaging.Interfaces.SendOrderShippedEvent
+            Database:
+              Interfaces:
+                InsertOrder: {}
+                UpdateOrderStatus: {}
+            Messaging:
+              Interfaces:
+                SendOrderShippedEvent: {}
+                ReceiveOrderShippedEvent: {}
+            MessageHandler:
+              Interfaces:
+                HandleOrderStatusChangedEvent:
+                  Flows:
+                  - Type: Use
+                    Expression: ..OrderService.Containers.Messaging.Interfaces.ReceiveOrderStatusChangedEvent
+                  - Type: If
+                    Expression: Order Status is 'Pending Shipment'
+                    Flows:
+                    - Type: Use
+                      Expression: Database.Interfaces.InsertOrder
+                    - Type: Use
+                      Expression: WMS.Interfaces.ShipOrder
+                    - Type: Use
+                      Expression: Database.Interfaces.UpdateOrderStatus

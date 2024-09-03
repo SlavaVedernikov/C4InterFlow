@@ -1,0 +1,15 @@
+@startuml
+
+title ECommercePlatform - GenerateDemand - OrderManagement - Order Service - Messaging - Send Order Created Event - Sequence - Container level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Order Service" #White
+    participant "Messaging" as ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging : Send Order Created Event
+
+
+@enduml

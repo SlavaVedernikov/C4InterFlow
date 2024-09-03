@@ -1,62 +1,64 @@
 ECommercePlatform:
-  SoftwareSystems:
-    BuyingService:
-      Containers:
-        Api:
-          Interfaces:
-            GetPurchaseOrders:
-              Flows:
-              - Type: Use
-                Expression: Database.Interfaces.SelectPurchaseOrder
-            CreatePurchaseOrder:
-              Flows:
-              - Type: Use
-                Expression: Database.Interfaces.InsertPurchaseOrder
-              - Type: Use
-                Expression: Messaging.Interfaces.SendPurchaseOrderCreatedEvent
-            UpdatePurchaseOrder:
-              Flows:
-              - Type: Use
-                Expression: Database.Interfaces.UpdatePurchaseOrder
-              - Type: Use
-                Expression: Messaging.Interfaces.SendPurchaseOrderUpdatedEvent
-            DeletePurchaseOrder:
-              Flows:
-              - Type: Use
-                Expression: Database.Interfaces.DeletePurchaseOrder
-              - Type: Use
-                Expression: Messaging.Interfaces.SendPurchaseOrderDeletedEvent
-        Database:
-          Interfaces:
-            InsertPurchaseOrder: {}
-            UpdatePurchaseOrder: {}
-            DeletePurchaseOrder: {}
-            SelectPurchaseOrder: {}
-        Messaging:
-          Interfaces:
-            SendPurchaseOrderCreatedEvent: {}
-            SendPurchaseOrderUpdatedEvent: {}
-            SendPurchaseOrderDeletedEvent: {}
-            ReceivePurchaseOrderCreatedEvent: {}
-            ReceivePurchaseOrderUpdatedEvent: {}
-            ReceivePurchaseOrderDeletedEvent: {}
-        MessageHandler:
-          Interfaces:
-            HandlePurchaseOrderCreatedEvent:
-              Flows:
-              - Type: Use
-                Expression: Messaging.Interfaces.ReceivePurchaseOrderCreatedEvent
-              - Type: Use
-                Expression: WMS.Interfaces.CreatePurchaseOrder
-            HandlePurchaseOrderUpdatedEvent:
-              Flows:
-              - Type: Use
-                Expression: Messaging.Interfaces.ReceivePurchaseOrderUpdatedEvent
-              - Type: Use
-                Expression: WMS.Interfaces.UpdatePurchaseOrder
-            HandlePurchaseOrderDeletedEvent:
-              Flows:
-              - Type: Use
-                Expression: Messaging.Interfaces.ReceivePurchaseOrderDeletedEvent
-              - Type: Use
-                Expression: WMS.Interfaces.DeletePurchaseOrder
+  CreateProduct:
+    BuyingAndMerchandising:
+      SoftwareSystems:
+        BuyingService:
+          Containers:
+            Api:
+              Interfaces:
+                GetPurchaseOrders:
+                  Flows:
+                  - Type: Use
+                    Expression: Database.Interfaces.SelectPurchaseOrder
+                CreatePurchaseOrder:
+                  Flows:
+                  - Type: Use
+                    Expression: Database.Interfaces.InsertPurchaseOrder
+                  - Type: Use
+                    Expression: Messaging.Interfaces.SendPurchaseOrderCreatedEvent
+                UpdatePurchaseOrder:
+                  Flows:
+                  - Type: Use
+                    Expression: Database.Interfaces.UpdatePurchaseOrder
+                  - Type: Use
+                    Expression: Messaging.Interfaces.SendPurchaseOrderUpdatedEvent
+                DeletePurchaseOrder:
+                  Flows:
+                  - Type: Use
+                    Expression: Database.Interfaces.DeletePurchaseOrder
+                  - Type: Use
+                    Expression: Messaging.Interfaces.SendPurchaseOrderDeletedEvent
+            Database:
+              Interfaces:
+                InsertPurchaseOrder: {}
+                UpdatePurchaseOrder: {}
+                DeletePurchaseOrder: {}
+                SelectPurchaseOrder: {}
+            Messaging:
+              Interfaces:
+                SendPurchaseOrderCreatedEvent: {}
+                SendPurchaseOrderUpdatedEvent: {}
+                SendPurchaseOrderDeletedEvent: {}
+                ReceivePurchaseOrderCreatedEvent: {}
+                ReceivePurchaseOrderUpdatedEvent: {}
+                ReceivePurchaseOrderDeletedEvent: {}
+            MessageHandler:
+              Interfaces:
+                HandlePurchaseOrderCreatedEvent:
+                  Flows:
+                  - Type: Use
+                    Expression: Messaging.Interfaces.ReceivePurchaseOrderCreatedEvent
+                  - Type: Use
+                    Expression: ..WMS.Interfaces.CreatePurchaseOrder
+                HandlePurchaseOrderUpdatedEvent:
+                  Flows:
+                  - Type: Use
+                    Expression: Messaging.Interfaces.ReceivePurchaseOrderUpdatedEvent
+                  - Type: Use
+                    Expression: ..WMS.Interfaces.UpdatePurchaseOrder
+                HandlePurchaseOrderDeletedEvent:
+                  Flows:
+                  - Type: Use
+                    Expression: Messaging.Interfaces.ReceivePurchaseOrderDeletedEvent
+                  - Type: Use
+                    Expression: ..WMS.Interfaces.DeletePurchaseOrder

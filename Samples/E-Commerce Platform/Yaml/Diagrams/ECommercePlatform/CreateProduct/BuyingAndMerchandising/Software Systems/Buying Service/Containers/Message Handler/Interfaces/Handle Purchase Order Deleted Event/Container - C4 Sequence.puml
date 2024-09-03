@@ -1,0 +1,19 @@
+@startuml
+!include ..\..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title ECommercePlatform - CreateProduct - BuyingAndMerchandising - Buying Service - Message Handler - Handle Purchase Order Deleted Event - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService, "Buying Service")
+    Container(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.MessageHandler, "Message Handler", "", "")
+    Container(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Messaging, "Messaging", "", "")
+Boundary_End()
+System(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS, "WMS", "")
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.MessageHandler, "Handle Purchase Order Deleted Event")
+Rel(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.MessageHandler, ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Messaging, "Receive Purchase Order Deleted Event")
+Rel(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.MessageHandler, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS, "Delete Purchase Order")
+
+
+@enduml

@@ -1,0 +1,15 @@
+@startuml
+!include ..\..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title ECommercePlatform - CreateProduct - BuyingAndMerchandising - Buying Service - Database - Update Purchase Order - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService, "Buying Service")
+    Container(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Database, "Database", "", "")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Database, "Update Purchase Order")
+
+
+@enduml

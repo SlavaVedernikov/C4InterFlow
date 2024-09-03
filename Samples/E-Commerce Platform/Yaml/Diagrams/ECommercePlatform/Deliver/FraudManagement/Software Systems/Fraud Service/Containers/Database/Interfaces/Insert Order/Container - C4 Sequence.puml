@@ -1,0 +1,15 @@
+@startuml
+!include ..\..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title ECommercePlatform - Deliver - FraudManagement - Fraud Service - Database - Insert Order - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService, "Fraud Service")
+    Container(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Database, "Database", "", "")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Database, "Insert Order")
+
+
+@enduml

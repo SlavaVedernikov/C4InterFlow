@@ -1,0 +1,11 @@
+@startuml
+
+title ECommercePlatform - Deliver - Payments - Payment Service - Database - Insert Payment Result - Sequence - Context level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "Payment Service" as ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService : Insert Payment Result
+
+
+@enduml

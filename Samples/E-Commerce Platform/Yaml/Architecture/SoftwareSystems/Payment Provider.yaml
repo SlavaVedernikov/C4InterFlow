@@ -1,5 +1,7 @@
 ECommercePlatform:
-  SoftwareSystems:
-    PaymentProvider:
-      Interfaces:
-        ProcessPayment: {}
+  Deliver:
+    Payments:
+      SoftwareSystems:
+        PaymentProvider:
+          Interfaces:
+            ProcessPayment: {}

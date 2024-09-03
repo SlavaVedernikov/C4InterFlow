@@ -1,0 +1,21 @@
+@startuml
+
+title ECommercePlatform - Deliver - Payments - Payment Service - Api - Post Payment Result Event - Sequence - Container level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Payment Service" #White
+    participant "Api" as ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Api
+    participant "Database" as ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Database
+    participant "Messaging" as ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Messaging
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Api : Post Payment Result Event
+group Post Payment Result Event
+ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Api -> ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Database : Insert Payment Result
+ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Api -> ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Messaging : Send Payment Result Event
+end
+
+
+@enduml

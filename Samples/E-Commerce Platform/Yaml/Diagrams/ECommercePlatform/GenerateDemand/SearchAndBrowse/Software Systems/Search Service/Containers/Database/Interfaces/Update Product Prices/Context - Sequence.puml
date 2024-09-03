@@ -1,0 +1,11 @@
+@startuml
+
+title ECommercePlatform - GenerateDemand - SearchAndBrowse - Search Service - Database - Update Product Prices - Sequence - Context level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "Search Service" as ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService : Update Product Prices
+
+
+@enduml

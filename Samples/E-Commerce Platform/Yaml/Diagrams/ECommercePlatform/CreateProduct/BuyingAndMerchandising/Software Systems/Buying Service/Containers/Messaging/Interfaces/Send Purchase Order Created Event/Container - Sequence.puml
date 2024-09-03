@@ -1,0 +1,15 @@
+@startuml
+
+title ECommercePlatform - CreateProduct - BuyingAndMerchandising - Buying Service - Messaging - Send Purchase Order Created Event - Sequence - Container level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Buying Service" #White
+    participant "Messaging" as ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Messaging
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Messaging : Send Purchase Order Created Event
+
+
+@enduml

@@ -1,0 +1,21 @@
+@startuml
+
+title ECommercePlatform - Deliver - FraudManagement - Fraud Service - Api - Update Order Fraud Check Result - Sequence - Container level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Fraud Service" #White
+    participant "Api" as ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Api
+    participant "Database" as ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Database
+    participant "Messaging" as ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Messaging
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Api : Update Order Fraud Check Result
+group Update Order Fraud Check Result
+ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Api -> ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Database : Update Fraud Check Result
+ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Api -> ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Messaging : Send Fraud Check Result Event
+end
+
+
+@enduml

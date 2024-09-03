@@ -1,5 +1,7 @@
 ECommercePlatform:
-  SoftwareSystems:
-    FraudEngine:
-      Interfaces:
-        GetFraudCheckResult: {}
+  Deliver:
+    FraudManagement:
+      SoftwareSystems:
+        FraudEngine:
+          Interfaces:
+            GetFraudCheckResult: {}

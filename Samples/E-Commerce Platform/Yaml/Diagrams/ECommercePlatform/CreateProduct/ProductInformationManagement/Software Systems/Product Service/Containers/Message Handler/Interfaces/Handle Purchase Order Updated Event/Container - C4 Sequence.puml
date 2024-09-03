@@ -1,0 +1,29 @@
+@startuml
+!include ..\..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title ECommercePlatform - CreateProduct - ProductInformationManagement - Product Service - Message Handler - Handle Purchase Order Updated Event - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService, "Product Service")
+    Container(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.MessageHandler, "Message Handler", "", "")
+    Container(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Database, "Database", "", "")
+    Container(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Messaging, "Messaging", "", "")
+Boundary_End()
+
+System_Boundary(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService, "Buying Service")
+    Container(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Messaging, "Messaging", "", "")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.MessageHandler, "Handle Purchase Order Updated Event")
+Rel(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.MessageHandler, ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Messaging, "Receive Purchase Order Updated Event")
+loop For each Product in Purchase Order
+Rel(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.MessageHandler, ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Database, "Select Products")
+alt Product Not Found
+Rel(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.MessageHandler, ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Database, "Insert Product")
+Rel(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.MessageHandler, ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Messaging, "Send Product Created Event")
+end
+end
+
+
+@enduml

@@ -1,0 +1,15 @@
+@startuml
+
+title ECommercePlatform - CreateProduct - PriceManagement - Pricing Service - Message Handler - Handle Purchase Order Created Event - Sequence - Context level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "Pricing Service" as ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService
+participant "Buying Service" as ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService : Handle Purchase Order Created Event
+group Handle Purchase Order Created Event
+ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService -> ..BuyingService : Receive Purchase Order Created Event
+end
+
+
+@enduml

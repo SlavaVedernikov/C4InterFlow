@@ -1,0 +1,14 @@
+@startuml
+!include ..\..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title ECommercePlatform - CreateProduct - ProductInformationManagement - Product Service - Message Handler - Handle Purchase Order Updated Event - C4 Sequence - Context level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+System(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService, "Product Service", "")
+System(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService, "Buying Service", "")
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService, "Handle Purchase Order Updated Event")
+Rel(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService, ..BuyingService, "Receive Purchase Order Updated Event")
+
+
+@enduml

@@ -1,0 +1,21 @@
+@startuml
+
+title ECommercePlatform - CreateProduct - BuyingAndMerchandising - Buying Service - Api - Create Purchase Order - Sequence - Container level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Buying Service" #White
+    participant "Api" as ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Api
+    participant "Database" as ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Database
+    participant "Messaging" as ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Messaging
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Api : Create Purchase Order
+group Create Purchase Order
+ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Api -> ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Database : Insert Purchase Order
+ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Api -> ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Messaging : Send Purchase Order Created Event
+end
+
+
+@enduml

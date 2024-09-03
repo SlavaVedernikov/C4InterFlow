@@ -1,0 +1,15 @@
+@startuml
+
+title ECommercePlatform - Deliver - Fulfilment - Fulfilment Service - Messaging - Send Order Shipped Event - Sequence - Container level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Fulfilment Service" #White
+    participant "Messaging" as ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Messaging
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Messaging : Send Order Shipped Event
+
+
+@enduml

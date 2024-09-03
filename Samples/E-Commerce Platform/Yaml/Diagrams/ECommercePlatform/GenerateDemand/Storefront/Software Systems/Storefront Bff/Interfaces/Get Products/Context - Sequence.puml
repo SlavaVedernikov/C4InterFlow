@@ -1,0 +1,18 @@
+@startuml
+
+title ECommercePlatform - GenerateDemand - Storefront - Storefront Bff - Get Products - Sequence - Context level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "Storefront Bff" as ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff
+participant "Product Service" as ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff : Get Products
+group Get Products
+ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff -> ..ProductService : Get Products
+group Get Products
+..ProductService -> ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService : Select Products
+end
+end
+
+
+@enduml

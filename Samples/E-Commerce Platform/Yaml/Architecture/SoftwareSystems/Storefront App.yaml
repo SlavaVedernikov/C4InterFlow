@@ -1,32 +1,34 @@
 ECommercePlatform:
-  SoftwareSystems:
-    StorefrontApp:
-      Interfaces:
-        ViewProducts:
-          Flows:
-          - Type: Use
-            Expression: StorefrontBff.Interfaces.GetProducts
-        SearchProducts:
-          Flows:
-          - Type: Use
-            Expression: StorefrontBff.Interfaces.SearchProducts
-        ViewBasket:
-          Flows:
-          - Type: Use
-            Expression: StorefrontBff.Interfaces.GetBasket
-        AddProductToBasket:
-          Flows:
-          - Type: Use
-            Expression: StorefrontBff.Interfaces.AddBasketItem
-        UpdateBasketItem:
-          Flows:
-          - Type: Use
-            Expression: StorefrontBff.Interfaces.UpdateBasketItem
-        DeleteBasketItem:
-          Flows:
-          - Type: Use
-            Expression: StorefrontBff.Interfaces.DeleteBasketItem
-        Checkout :
-          Flows:
-          - Type: Use
-            Expression: StorefrontBff.Interfaces.Checkout
+  GenerateDemand:
+    Storefront:
+      SoftwareSystems:
+        StorefrontApp:
+          Interfaces:
+            ViewProducts:
+              Flows:
+              - Type: Use
+                Expression: StorefrontBff.Interfaces.GetProducts
+            SearchProducts:
+              Flows:
+              - Type: Use
+                Expression: StorefrontBff.Interfaces.SearchProducts
+            ViewBasket:
+              Flows:
+              - Type: Use
+                Expression: StorefrontBff.Interfaces.GetBasket
+            AddProductToBasket:
+              Flows:
+              - Type: Use
+                Expression: StorefrontBff.Interfaces.AddBasketItem
+            UpdateBasketItem:
+              Flows:
+              - Type: Use
+                Expression: StorefrontBff.Interfaces.UpdateBasketItem
+            DeleteBasketItem:
+              Flows:
+              - Type: Use
+                Expression: StorefrontBff.Interfaces.DeleteBasketItem
+            Checkout :
+              Flows:
+              - Type: Use
+                Expression: StorefrontBff.Interfaces.Checkout

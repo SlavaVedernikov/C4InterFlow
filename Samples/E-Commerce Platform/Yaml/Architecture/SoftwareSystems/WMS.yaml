@@ -1,8 +1,13 @@
 ECommercePlatform:
-  SoftwareSystems:
-    WMS:
-      Interfaces:
-        CreatePurchaseOrder: {}
-        UpdatePurchaseOrder: {}
-        DeletePurchaseOrder: {}
-        ShipOrder: {}
+  Deliver:
+    Fulfilment:
+      SoftwareSystems:
+        WMS:
+          Interfaces:
+            CreatePurchaseOrder: {}
+            UpdatePurchaseOrder: {}
+            DeletePurchaseOrder: {}
+            ShipOrder:
+              Flows:
+              - Type: Use
+                Expression: FulfilmentService.Containers.Api.Interfaces.PostOrderShippedEvent

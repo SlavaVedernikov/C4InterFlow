@@ -1,0 +1,21 @@
+@startuml
+!include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title ECommercePlatform - GenerateDemand - Storefront - Storefront App - Add Product To Basket - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+System(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontApp, "Storefront App", "")
+System(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, "Storefront Bff", "")
+
+System_Boundary(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService, "Basket Service")
+    Container(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Api, "Api", "", "")
+    Container(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Database, "Database", "", "")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontApp, "Add Product To Basket")
+Rel(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontApp, ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, "Add Basket Item")
+Rel(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Api, "Add Item")
+Rel(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Api, ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Database, "Insert Item")
+
+
+@enduml

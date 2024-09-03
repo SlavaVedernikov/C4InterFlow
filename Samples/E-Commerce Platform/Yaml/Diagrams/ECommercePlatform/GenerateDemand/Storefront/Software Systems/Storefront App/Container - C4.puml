@@ -1,0 +1,56 @@
+@startuml
+!include ..\..\..\..\..\.c4s\C4_Container.puml
+
+AddElementTag("c4interflow:lifecycle:new", $bgColor=green, $fontColor=#ffffff, $borderColor=green, $shadowing="False")
+AddElementTag("c4interflow:lifecycle:changed", $bgColor=orange, $fontColor=#ffffff, $borderColor=orange, $shadowing="False")
+AddElementTag("c4interflow:lifecycle:removed", $bgColor=red, $fontColor=#ffffff, $borderColor=red, $shadowing="False")
+
+AddRelTag("c4interflow:lifecycle:new", $textColor=green, $lineColor=green)
+AddRelTag("c4interflow:lifecycle:changed", $textColor=orange, $lineColor=orange)
+AddRelTag("c4interflow:lifecycle:removed", $textColor=red, $lineColor=red)
+
+SHOW_PERSON_PORTRAIT()
+LAYOUT_TOP_DOWN()
+
+skinparam linetype polyline
+
+title ECommercePlatform - GenerateDemand - Storefront - Storefront App - C4 - Container level
+
+System(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontApp, "Storefront App", "")
+System(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, "Storefront Bff", "")
+
+System_Boundary(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService, "Product Service") {
+    Container(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Api, "Api", "", "")
+    Container(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Database, "Database", "", "")
+}
+
+System_Boundary(ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService, "Search Service") {
+    Container(ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService.Containers.Api, "Api", "", "")
+    Container(ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService.Containers.Database, "Database", "", "")
+}
+
+System_Boundary(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService, "Basket Service") {
+    Container(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Api, "Api", "", "")
+    Container(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Database, "Database", "", "")
+}
+
+System_Boundary(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Order Service") {
+    Container(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Api, "Api", "", "")
+    Container(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Database, "Database", "", "")
+    Container(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging, "Messaging", "", "")
+}
+
+Rel(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontApp, ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, "Get Products\nSearch Products\nGet Basket\nAdd Basket Item\nUpdate Basket Item\nDelete Basket Item\nCheckout")
+Rel(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Api, "Get Products")
+Rel(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Api, ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Database, "Select Products")
+Rel(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService.Containers.Api, "Search Products")
+Rel(ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService.Containers.Api, ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService.Containers.Database, "Select Products")
+Rel(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Api, "Get Items\nAdd Item\nUpdate Item\nDelete Item\nDelete Basket")
+Rel(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Api, ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Database, "Select Items\nInsert Item\nUpdate Item\nDelete Item\nDelete Basket")
+Rel(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Api, "Create Order")
+Rel(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Api, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Database, "Insert Order")
+Rel(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Api, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging, "Send Order Created Event")
+
+
+SHOW_LEGEND()
+@enduml

@@ -1,48 +1,50 @@
 ECommercePlatform:
-  SoftwareSystems:
-    OrderService:
-      Containers:
-        Api:
-          Interfaces:
-            CreateOrder:
-              Flows:
-              - Type: Use
-                Expression: Database.Interfaces.InsertOrder
-              - Type: Use
-                Expression: Messaging.Interfaces.SendOrderCreatedEvent
-        Database:
-          Interfaces:
-            InsertOrder: {}
-            UpdateOrderStatus: {}
-        Messaging:
-          Interfaces:
-            SendOrderCreatedEvent: {}
-            SendOrderStatusChangedEvent: {}
-            ReceiveOrderCreatedEvent: {}
-            ReceiveOrderStatusChangedEvent: {}
-        MessageHandler:
-          Interfaces:
-            HandleFraudCheckResultEvent:
-              Flows:
-              - Type: Use
-                Expression: FraudService.Containers.Messaging.Interfaces.ReceiveFraudCheckResultEvent
-              - Type: Use
-                Expression: Database.Interfaces.UpdateOrderStatus
-              - Type: Use
-                Expression: Messaging.Interfaces.SendOrderStatusChangedEvent
-            HandlePaymentResultEvent:
-              Flows:
-              - Type: Use
-                Expression: PaymentService.Containers.Messaging.Interfaces.ReceivePaymentResultEvent
-              - Type: Use
-                Expression: Database.Interfaces.UpdateOrderStatus
-              - Type: Use
-                Expression: Messaging.Interfaces.SendOrderStatusChangedEvent
-            HandleOrderShippedEvent:
-              Flows:
-              - Type: Use
-                Expression: FulfilmentService.Containers.Messaging.Interfaces.ReceiveOrderShippedEvent
-              - Type: Use
-                Expression: Database.Interfaces.UpdateOrderStatus
-              - Type: Use
-                Expression: Messaging.Interfaces.SendOrderStatusChangedEvent
+  GenerateDemand:
+    OrderManagement:
+      SoftwareSystems:
+        OrderService:
+          Containers:
+            Api:
+              Interfaces:
+                CreateOrder:
+                  Flows:
+                  - Type: Use
+                    Expression: Database.Interfaces.InsertOrder
+                  - Type: Use
+                    Expression: Messaging.Interfaces.SendOrderCreatedEvent
+            Database:
+              Interfaces:
+                InsertOrder: {}
+                UpdateOrderStatus: {}
+            Messaging:
+              Interfaces:
+                SendOrderCreatedEvent: {}
+                SendOrderStatusChangedEvent: {}
+                ReceiveOrderCreatedEvent: {}
+                ReceiveOrderStatusChangedEvent: {}
+            MessageHandler:
+              Interfaces:
+                HandleFraudCheckResultEvent:
+                  Flows:
+                  - Type: Use
+                    Expression: ..FraudService.Containers.Messaging.Interfaces.ReceiveFraudCheckResultEvent
+                  - Type: Use
+                    Expression: Database.Interfaces.UpdateOrderStatus
+                  - Type: Use
+                    Expression: Messaging.Interfaces.SendOrderStatusChangedEvent
+                HandlePaymentResultEvent:
+                  Flows:
+                  - Type: Use
+                    Expression: ..PaymentService.Containers.Messaging.Interfaces.ReceivePaymentResultEvent
+                  - Type: Use
+                    Expression: Database.Interfaces.UpdateOrderStatus
+                  - Type: Use
+                    Expression: Messaging.Interfaces.SendOrderStatusChangedEvent
+                HandleOrderShippedEvent:
+                  Flows:
+                  - Type: Use
+                    Expression: ..FulfilmentService.Containers.Messaging.Interfaces.ReceiveOrderShippedEvent
+                  - Type: Use
+                    Expression: Database.Interfaces.UpdateOrderStatus
+                  - Type: Use
+                    Expression: Messaging.Interfaces.SendOrderStatusChangedEvent
