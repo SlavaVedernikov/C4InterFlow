@@ -1,8 +1,8 @@
 {
   "profiles": {
     "C4InterFlow.Cli": {
-      "commandName": "Project",
-      "commandLineArgs": "draw-diagrams --interfaces  ECommercePlatform.SoftwareSystems.*.Interfaces.* ECommercePlatform.SoftwareSystems.*.Containers.*.Interfaces.* ECommercePlatform.SoftwareSystems.*.Containers.*.Components.*.Interfaces.* ECommercePlatform.*.SoftwareSystems.*.Interfaces.* ECommercePlatform.*.SoftwareSystems.*.Containers.*.Interfaces.* ECommercePlatform.*.SoftwareSystems.*.Containers.*.Components.*.Interfaces.* --namespaces ECommercePlatform ECommercePlatform.FrontEnd --levels-of-details context container --scopes namespace namespace-software-systems --types c4-static --aac-reader-strategy \"C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"C:\\C4InterFlow\\Samples\\Temp\\Architecture\" --output-dir \"C:\\C4InterFlow\\Samples\\Temp\\Diagrams\""
+        "commandName": "Project",
+        "commandLineArgs": "draw-diagrams --interfaces ..SoftwareSystems.*.Interfaces.* ..SoftwareSystems.*.Containers.*.Interfaces.* --business-processes ECommercePlatform.BusinessProcesses.* --levels-of-details context container --scopes namespace namespace-software-systems --types c4-static --aac-reader-strategy \"C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Architecture\" --output-dir \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Diagrams\""
     }
   }
 }
