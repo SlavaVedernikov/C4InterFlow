@@ -15,4 +15,12 @@ Editor files have been put in place to enforce consistency where applicable.
 
 ## As a tester
 
+The [Samples](./Samples/) folder contains all valid use cases for the project.
+The focus of the samples is on a business domain rather than a specific technology or format.
+
+There are `draw-diagrams.bat` scripts for each sample that can be run individually.
+This is a great way to work on an isolated domain at a time.
+But there is also a [`draw-diagrams.bat`](./Samples/draw-diagrams.bat) in the Samples directory that runs all the samples under the same conditions.
+This is the best way to perform what effectively is a regression test.
+
 ## All Others
