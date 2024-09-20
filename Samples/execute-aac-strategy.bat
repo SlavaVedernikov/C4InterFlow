@@ -7,16 +7,27 @@
 @CALL :SetColors
 @SET /A _TIMEOUT_=2
 
+@IF NOT DEFINED net-sourcecode-dir SET "net-sourcecode-dir=C:\Data\Projects\C4InterFlow\eShop-main"
+
+@SET /P "eshop_path=Where is the dotnet EShop repo cloned to (default: '%net-sourcecode-dir%')?"
+@IF DEFINED eshop_path SET "net-sourcecode-dir=%eshop_path%"
+@IF NOT EXIST "%net-sourcecode-dir%\eShop.sln" (
+    ECHO "Could not find the 'eShop.sln' file under '%net-sourcecode-dir%'!"
+    EXIT 1
+)
+
 @ECHO Make a choice for the following parameters. The default value will be chosen after %_TIMEOUT_% seconds of no input.
 @ECHO.
-
-@CHOICE /c TF /T %_TIMEOUT_% /D F /M "Redraw all diagrams - [T]rue or [F]alse (default: False)"
-@IF %ERRORLEVEL% EQU 1 SET "redraw-all=TRUE"
-@IF %ERRORLEVEL% EQU 2 SET "redraw-all=FALSE"
 
 @CHOICE /c DR /T %_TIMEOUT_% /D D /M "Build Configuration - [D]ebug or [R]elease (default: Debug)"
 @IF %ERRORLEVEL% EQU 1 SET "build-configuration=Debug"
 @IF %ERRORLEVEL% EQU 2 SET "build-configuration=Release"
+
+
+@CHOICE /c YN /T %_TIMEOUT_% /D Y /M "Stop execution if files change "
+@IF %ERRORLEVEL% EQU 1 SET "stop_on_modified=1"
+@IF %ERRORLEVEL% EQU 2 SET "stop_on_modified=0"
+
 
 @SET ALL_ARGS=%*
 @IF NOT DEFINED ALL_ARGS SET "ALL_ARGS="
@@ -44,32 +55,30 @@
 @SET _OUTPUT_CHANGED_=0
 
 @SET "aac-type=Yaml"
-@CALL :DrawDiagrams "dotnet EShop (%aac-type%)" "dotnet.eShop"
-@IF "%_OUTPUT_CHANGED_%"=="1" GOTO :ReportOutputChanged
+::@CALL :ExecuteAaCStrategy "dotnet EShop (%aac-type%)" "dotnet.eShop"
+@IF "%_OUTPUT_CHANGED_%"=="1" CALL :ReportOutputChanged
 
 @SET "aac-type=CSharp"
-::@CALL :DrawDiagrams "dotnet EShop (%aac-type%)" "dotnet.eShop"
-@IF "%_OUTPUT_CHANGED_%"=="1" GOTO :ReportOutputChanged
+::@CALL :ExecuteAaCStrategy "dotnet EShop (%aac-type%)" "dotnet.eShop"
+@IF "%_OUTPUT_CHANGED_%"=="1" CALL :ReportOutputChanged
+
+@SET "aac-type=Json"
+@CALL :ExecuteAaCStrategy "Internet Banking System (%aac-type%)" "Internet Banking System\CSV"
+@IF "%_OUTPUT_CHANGED_%"=="1" CALL :ReportOutputChanged
 
 @SET "aac-type=Yaml"
-@CALL :DrawDiagrams "E-Commerce Platform (%aac-type%)" "E-Commerce Platform\%aac-type%"
-@IF "%_OUTPUT_CHANGED_%"=="1" GOTO :ReportOutputChanged
+@CALL :ExecuteAaCStrategy "Internet Banking System (%aac-type%)" "Internet Banking System\CSV"
+@IF "%_OUTPUT_CHANGED_%"=="1" CALL :ReportOutputChanged
 
-@SET "aac-type=CSV"
-@CALL :DrawDiagrams "Internet Banking System (%aac-type%)" "Internet Banking System\%aac-type%"
-@IF "%_OUTPUT_CHANGED_%"=="1" GOTO :ReportOutputChanged
-
-@SET "aac-type=Yaml"
-@CALL :DrawDiagrams "Internet Banking System (%aac-type%)" "Internet Banking System\%aac-type%"
-@IF "%_OUTPUT_CHANGED_%"=="1" GOTO :ReportOutputChanged
+@SET "aac-type=Json"
+@CALL :ExecuteAaCStrategy "TraderX (%aac-type%)" "TraderX\CSV"
+@IF "%_OUTPUT_CHANGED_%"=="1" CALL :ReportOutputChanged
 
 @SET "aac-type=Yaml"
-@CALL :DrawDiagrams "ToDoApp (%aac-type%)" "ToDoApp"
-@IF "%_OUTPUT_CHANGED_%"=="1" GOTO :ReportOutputChanged
+@CALL :ExecuteAaCStrategy "TraderX (%aac-type%)" "TraderX\CSV"
+@IF "%_OUTPUT_CHANGED_%"=="1" CALL :ReportOutputChanged
 
-@SET "aac-type=CSV"
-@CALL :DrawDiagrams "TraderX (%aac-type%)" "TraderX\%aac-type%"
-@IF "%_OUTPUT_CHANGED_%"=="1" GOTO :ReportOutputChanged
+
 
 @GOTO :EXIT
 
@@ -87,11 +96,12 @@
 @SET "COLOR_RESET=%ESC%[0m"
 @SET "COLOR_FG_RED=%ESC%[91m"
 @SET "COLOR_FG_GREEN=%ESC%[92m"
+@SET "COLOR_FG_CYAN=%ESC%[94m"
 @SET "ENABLE_LINE_DRAWING=%ESC%(0"
 @SET "DISABLE_LINE_DRAWING=%ESC%(B"
 @exit /B 0
 
-:DrawDiagrams
+:ExecuteAaCStrategy
 :: Pad the name with enough whitespace to trim after
 @SET "_SAMPLE_NAME_=%1                                                            "
 @SET "_DIRECTORY_=%2"
@@ -99,7 +109,7 @@
 :: Because the parameters will likely have spaces in them, they are passed in quotes.
 :: So strip the quotes off because Batch files will pass the quotes as part of the parameter.
 @SET "_SAMPLE_NAME_=%_SAMPLE_NAME_:"=%"
-::@SET "_DIRECTORY_=%_DIRECTORY_:"=%"
+@SET "_DIRECTORY_=%_DIRECTORY_:"=%"
 
 @ECHO.
 :: See https://learn.microsoft.com/en-us/windows/console/console-virtual-terminal-sequences?redirectedfrom=MSDN#designate-character-set to understand the DEC Line Drawing mode
@@ -107,13 +117,17 @@
 @ECHO x    %DISABLE_LINE_DRAWING%!_SAMPLE_NAME_:~0,70!%ENABLE_LINE_DRAWING%    x
 @ECHO mqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqj%DISABLE_LINE_DRAWING%%COLOR_RESET%
 @CD %SCRIPT_DIRECTORY%!_DIRECTORY_!
-@CALL "%SCRIPT_DIRECTORY%!_DIRECTORY_!\draw-diagrams.bat"
-FOR /f "tokens=*" %%a in ('git status --short --porcelain --untracked-files=normal -- "%diagrams-dir%"') DO SET _OUTPUT_CHANGED_=1
+@CALL "%SCRIPT_DIRECTORY%!_DIRECTORY_!\execute-aac-strategy.bat"
+FOR /f "tokens=*" %%a in ('git status --short --porcelain --untracked-files=normal -- "%aac-output-path%"') DO SET _OUTPUT_CHANGED_=1
 @exit /B 0
 
 :ReportOutputChanged
-@ECHO %COLOR_FG_RED%The files in '%diagrams-dir%' has changed !!!!!%COLOR_RESET%
-@GOTO :EXIT
+@ECHO %COLOR_FG_RED%The files in '%aac-output-path%' has changed !!!!!%COLOR_RESET%
+@IF "%stop_on_modified%"=="1" (
+    @GOTO :EXIT
+) else (
+    @EXIT /B 0
+)
 
 :EXIT
 :: Pause only if the script was opened from Explorer
