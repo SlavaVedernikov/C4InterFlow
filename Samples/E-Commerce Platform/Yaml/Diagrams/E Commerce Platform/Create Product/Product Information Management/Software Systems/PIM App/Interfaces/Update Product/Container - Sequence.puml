@@ -1,0 +1,25 @@
+@startuml
+
+title E Commerce Platform - Create Product - Product Information Management - PIM App - Update Product - Sequence - Container level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "PIM App" as ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.PIMApp
+
+box "Product Service" #White
+    participant "Api" as ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Api
+    participant "Database" as ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Database
+    participant "Messaging" as ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Messaging
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.PIMApp : Update Product
+group Update Product
+ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.PIMApp -> ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Api : Update Product
+group Update Product
+ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Api -> ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Database : Update Product
+ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Api -> ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Messaging : Send Product Updated Event
+end
+end
+
+
+@enduml

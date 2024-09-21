@@ -1,0 +1,19 @@
+@startuml
+
+title Big Bank Plc - Internet Banking - API Application - Get Customer Accounts - Sequence - Container level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Internet Banking" #White
+    participant "API Application" as BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication
+end box
+
+participant "Mainframe Banking System" as BigBankPlc.SoftwareSystems.MainframeBankingSystem
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication : Get Customer Accounts
+group Get Customer Accounts
+BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer Accounts
+end
+
+
+@enduml

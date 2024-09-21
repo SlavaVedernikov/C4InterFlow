@@ -1,0 +1,11 @@
+@startuml
+
+title Dot Net E Shop - Basket Api - Grpc - Basket Service - Map To Customer Basket Response - Sequence - Context level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "Basket Api" as DotNetEShop.SoftwareSystems.BasketApi
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> DotNetEShop.SoftwareSystems.BasketApi : Map To Customer Basket Response
+
+
+@enduml

@@ -2,8 +2,6 @@
 using C4InterFlow.Structures.Interfaces;
 using Newtonsoft.Json.Linq;
 using System.Collections.Concurrent;
-using System.Reflection;
-using System.Security.Cryptography;
 using C4InterFlow.Commons;
 using Serilog;
 
@@ -35,151 +33,161 @@ namespace C4InterFlow.Automation.Readers
                 return _aliasToStructureMap[alias] as T;
             }
 
-            var token = RootJObject?.SelectToken(alias);
-
-            if (token == null) return result;
-
-            var collectionToken = token?.Parent?.Parent;
-            var ownerToken = collectionToken?.Parent?.Parent;
-
-            if (collectionToken == null || ownerToken == null) return result;
-
-            var label = token!["Label"]?.ToString() ?? Utils.GetLabel(alias.Split('.').Last()) ?? string.Empty;
-            var description = token?["Description"]?.ToString() ?? string.Empty;
-            var tagsToken = token?["Tags"];
-            var tags = tagsToken?.Type == JTokenType.Array && tagsToken.All(x => x.Type == JTokenType.String) ? tagsToken.ToObject<string[]>() : new string[] { };
-
-            token!["Tags"]?.ToObject<string[]>();
-            switch (collectionToken.Path.Split('.').Last())
+            try
             {
-                case "Actors":
-                    var typeName = token!["Type"]?.ToString();
+                var token = RootJObject?.SelectToken(alias);
 
-                    if (!string.IsNullOrEmpty(typeName))
-                    {
-                        var type = Type.GetType($"{nameof(C4InterFlow)}.{nameof(Structures)}.{typeName},{nameof(C4InterFlow)}");
+                if (token == null) return result;
 
-                        if (type != null)
+                var collectionToken = token?.Parent?.Parent;
+                var ownerToken = collectionToken?.Parent?.Parent;
+
+                if (collectionToken == null || ownerToken == null) return result;
+
+                var label = token!["Label"]?.ToString() ?? Utils.GetLabel(alias.Split('.').Last()) ?? string.Empty;
+                var description = token?["Description"]?.ToString() ?? string.Empty;
+                var tagsToken = token?["Tags"];
+                var tags = tagsToken?.Type == JTokenType.Array && tagsToken.All(x => x.Type == JTokenType.String) ? tagsToken.ToObject<string[]>() : new string[] { };
+
+                token!["Tags"]?.ToObject<string[]>();
+                switch (collectionToken.Path.Split('.').Last())
+                {
+                    case "Actors":
+                        var typeName = token!["Type"]?.ToString();
+
+                        if (!string.IsNullOrEmpty(typeName))
                         {
-                            var typeConstructor = type.GetConstructor(new[] { typeof(string), typeof(string), typeof(string) });
+                            var type = Type.GetType($"{nameof(C4InterFlow)}.{nameof(Structures)}.{typeName},{nameof(C4InterFlow)}");
 
-                            if (typeConstructor != null)
+                            if (type != null)
                             {
-                                result = typeConstructor.Invoke(new object[] { alias, label, description }) as T;
+                                var typeConstructor = type.GetConstructor(new[] { typeof(string), typeof(string), typeof(string) });
+
+                                if (typeConstructor != null)
+                                {
+                                    result = typeConstructor.Invoke(new object[] { alias, label, description }) as T;
+                                }
                             }
                         }
-                    }
 
-                    break;
-                case "BusinessProcesses":
-                    var activities = token!["Activities"]?.ToObject<Activity[]>();
+                        break;
+                    case "BusinessProcesses":
+                        var activities = token!["Activities"]?.ToObject<Activity[]>();
 
-                    if (activities != null)
-                    {
-                        result = new BusinessProcess(activities, alias, label)
-                        { 
-                            Description = description
-                        } as T;
-                    }
-                    break;
-                case "Interfaces":
-                    var interfaceFlow = token!["Flow"]?.ToObject<Flow>();
-                    var protocol = token?["Protocol"]?.ToString() ?? string.Empty;
-                    var path = token?["Path"]?.ToString() ?? string.Empty;
-                    if (interfaceFlow != null)
-                    {
-                        interfaceFlow.Owner = alias;
-                    }
-                    else
-                    {
-                        interfaceFlow = new Flow(alias);
-                        var interfaceFlows = token!["Flows"]?.ToObject<List<Flow>>();
-                        if(interfaceFlows != null)
+                        if (activities != null)
                         {
-                            interfaceFlow.AddFlowsRange(interfaceFlows);
+                            result = new BusinessProcess(activities, alias, label)
+                            {
+                                Description = description
+                            } as T;
                         }
-                    }
-
-                    result = new Interface(ownerToken.Path, alias, label)
-                    {
-                        Flow = interfaceFlow,
-                        Protocol = protocol,
-                        Path = path,
-                        Description = description
-                    } as T;
-                    break;
-                case "SoftwareSystems":
-                    var softwareSystemsBoundaryName = token!["Boundary"]?.ToString() ?? string.Empty;
-                    result = new SoftwareSystem(alias, label, description)
-                    {
-                        Boundary = !string.IsNullOrEmpty(softwareSystemsBoundaryName) &&
-                            Enum.TryParse(softwareSystemsBoundaryName, out Boundary softwareSystemsBoundary) ?
-                            softwareSystemsBoundary : Boundary.Internal,
-                        Tags = tags ?? new string[] { }
-                  
-                    } as T;
-                    break;
-                case "Containers":
-                    var containerTypeName = token!["ContainerType"]?.ToString() ?? string.Empty;
-                    var containerTechnology = token!["Technology"]?.ToString() ?? string.Empty;
-                    result = new Container(ownerToken.Path, alias, label)
-                    {
-                        ContainerType = !string.IsNullOrEmpty(containerTypeName) &&
-                            Enum.TryParse(containerTypeName, out ContainerType containerType) ?
-                            containerType : ContainerType.None,
-                        Description = description,
-                        Technology = containerTechnology,
-                        Tags = tags ?? new string[] { }
-                    } as T;
-                    break;
-                case "Components":
-                    var componentTypeName = token!["ComponentType"]?.ToString() ?? string.Empty;
-                    var componentTechnology = token?["Technology"]?.ToString() ?? string.Empty;
-                    result = new Component(ownerToken.Path, alias, label)
-                    {
-                        ComponentType = !string.IsNullOrEmpty(componentTypeName) &&
-                            Enum.TryParse(componentTypeName, out ComponentType componentType) ?
-                            componentType : ComponentType.None,
-                        Description = description,
-                        Technology = componentTechnology,
-                        Tags = tags ?? new string[] { }
-                    } as T;
-                    break;
-                case "Entities":
-                    result = new Entity(ownerToken.Path, alias, label, EntityType.None)
-                    {
-                        Description = description
-                    } as T;
-                    break;
-                case "Attributes":
-                    var valueToken = token!["Value"];
-                    object? value = null;
-
-                    if(valueToken != null)
-                    {
-                        if (valueToken.Type == JTokenType.Object)
+                        break;
+                    case "Interfaces":
+                        var interfaceFlow = token!["Flow"]?.ToObject<Flow>();
+                        var protocol = token?["Protocol"]?.ToString() ?? string.Empty;
+                        var path = token?["Path"]?.ToString() ?? string.Empty;
+                        if (interfaceFlow != null)
                         {
-                            value = valueToken.ToObject<Dictionary<string, object>>();
-                        }
-                        else if (valueToken.Type == JTokenType.Array)
-                        {
-                            value = valueToken.ToObject<Dictionary<string, object>[]>();
+                            interfaceFlow.Owner = alias;
                         }
                         else
                         {
-                            value = valueToken.ToString();
+                            interfaceFlow = new Flow(alias);
+                            var interfaceFlows = token!["Flows"]?.ToObject<List<Flow>>();
+                            if (interfaceFlows != null)
+                            {
+                                interfaceFlow.AddFlowsRange(interfaceFlows);
+                            }
                         }
-                    }
 
-                    result = new StructureAttribute(alias, label, value) as T;
-                    break;
-                default:
-                    break;
+                        result = new Interface(ownerToken.Path, alias, label)
+                        {
+                            Flow = interfaceFlow,
+                            Protocol = protocol,
+                            Path = path,
+                            Description = description
+                        } as T;
+                        break;
+                    case "SoftwareSystems":
+                        var softwareSystemsBoundaryName = token!["Boundary"]?.ToString() ?? string.Empty;
+                        result = new SoftwareSystem(alias, label, description)
+                        {
+                            Boundary = !string.IsNullOrEmpty(softwareSystemsBoundaryName) &&
+                                Enum.TryParse(softwareSystemsBoundaryName, out Boundary softwareSystemsBoundary) ?
+                                softwareSystemsBoundary : Boundary.Internal,
+                            Tags = tags ?? new string[] { }
+
+                        } as T;
+                        break;
+                    case "Containers":
+                        var containerTypeName = token!["ContainerType"]?.ToString() ?? string.Empty;
+                        var containerTechnology = token!["Technology"]?.ToString() ?? string.Empty;
+                        result = new Container(ownerToken.Path, alias, label)
+                        {
+                            ContainerType = !string.IsNullOrEmpty(containerTypeName) &&
+                                Enum.TryParse(containerTypeName, out ContainerType containerType) ?
+                                containerType : ContainerType.None,
+                            Description = description,
+                            Technology = containerTechnology,
+                            Tags = tags ?? new string[] { }
+                        } as T;
+                        break;
+                    case "Components":
+                        var componentTypeName = token!["ComponentType"]?.ToString() ?? string.Empty;
+                        var componentTechnology = token?["Technology"]?.ToString() ?? string.Empty;
+                        result = new Component(ownerToken.Path, alias, label)
+                        {
+                            ComponentType = !string.IsNullOrEmpty(componentTypeName) &&
+                                Enum.TryParse(componentTypeName, out ComponentType componentType) ?
+                                componentType : ComponentType.None,
+                            Description = description,
+                            Technology = componentTechnology,
+                            Tags = tags ?? new string[] { }
+                        } as T;
+                        break;
+                    case "Entities":
+                        result = new Entity(ownerToken.Path, alias, label, EntityType.None)
+                        {
+                            Description = description
+                        } as T;
+                        break;
+                    case "Attributes":
+                        var valueToken = token!["Value"];
+                        object? value = null;
+
+                        if (valueToken != null)
+                        {
+                            if (valueToken.Type == JTokenType.Object)
+                            {
+                                value = valueToken.ToObject<Dictionary<string, object>>();
+                            }
+                            else if (valueToken.Type == JTokenType.Array)
+                            {
+                                value = valueToken.ToObject<Dictionary<string, object>[]>();
+                            }
+                            else
+                            {
+                                value = valueToken.ToString();
+                            }
+                        }
+
+                        result = new StructureAttribute(alias, label, value) as T;
+                        break;
+                    default:
+                        break;
+                }
+
+                if (result != null && !_aliasToStructureMap.ContainsKey(alias))
+                {
+                    _aliasToStructureMap.TryAdd(alias, result);
+                }
+
+                
             }
-
-            if (result != null && !_aliasToStructureMap.ContainsKey(alias))
+            catch
             {
-                _aliasToStructureMap.TryAdd(alias, result);
+                Log.Error("Failed to resolve alias {Alias}", alias);
+                throw;
             }
 
             return result;
@@ -198,7 +206,9 @@ namespace C4InterFlow.Automation.Readers
                     Log.Information("Resolving wildcard Structure for {Structure}", item);
                 }
 
-                result.AddRange(RootJObject.SelectTokens(item).Select(x => x.Path));
+                result.AddRange(RootJObject.SelectTokens(item)
+                    .Select(x => x.Path)
+                    .Where(x => !x.StartsWith($"{nameof(C4InterFlow)}.{nameof(SoftwareSystems)}")));
             }
 
             return result;

@@ -1,0 +1,11 @@
+@startuml
+
+title Trader X Example - TraderX - Web Client - Update Account - Sequence - Context level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "TraderX" as TraderXExample.SoftwareSystems.TraderX
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> TraderXExample.SoftwareSystems.TraderX : Update Account
+
+
+@enduml

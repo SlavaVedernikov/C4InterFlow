@@ -1,0 +1,15 @@
+@startuml
+
+title E Commerce Platform - Create Product - Product Information Management - Product Service - Messaging - Send Product Updated Event - Sequence - Container level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Product Service" #White
+    participant "Messaging" as ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Messaging
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Messaging : Send Product Updated Event
+
+
+@enduml

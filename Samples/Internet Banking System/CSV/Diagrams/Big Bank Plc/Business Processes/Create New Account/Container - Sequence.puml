@@ -1,0 +1,58 @@
+@startuml
+
+title Big Bank Plc - Create New Account - Sequence - Container level
+
+participant "Customer" as BigBankPlc.Actors.Customer
+
+box "Internet Banking" #White
+    participant "Web Application" as BigBankPlc.SoftwareSystems.InternetBanking.Containers.WebApplication
+    participant "Single-Page App" as BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp
+    participant "API Application" as BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication
+    database "Database" as BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database
+end box
+
+participant "Mainframe Banking System" as BigBankPlc.SoftwareSystems.MainframeBankingSystem
+participant "E-Mail System" as BigBankPlc.SoftwareSystems.EMailSystem
+
+group Customer - Go to Online Banking URL
+BigBankPlc.Actors.Customer -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.WebApplication : Navigate
+group Navigate
+BigBankPlc.SoftwareSystems.InternetBanking.Containers.WebApplication -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp : Load And Start
+end
+end
+group Customer - Sign In and View Home Page
+BigBankPlc.Actors.Customer -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp : Sign In
+group Sign In
+BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication : Sign In
+group Sign In
+BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database : Authenticate User
+end
+end
+BigBankPlc.Actors.Customer -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp : View Customer Details
+group View Customer Details
+BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication : Get Customer
+group Get Customer
+BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer
+end
+BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication : Get Customer Accounts
+group Get Customer Accounts
+BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer Accounts
+end
+end
+end
+group Customer - Create New Account
+BigBankPlc.Actors.Customer -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp : Create Account
+group Create Account
+BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication : Create Account
+group Create Account
+BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Create Account
+BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.EMailSystem : Send New Account Created Notification E-Mail
+end
+end
+end
+group Customer - Receive New Account Created Notification E-Mail
+BigBankPlc.Actors.Customer -> BigBankPlc.SoftwareSystems.EMailSystem : Receive New Account Created Notification E-Mail
+end
+
+
+@enduml

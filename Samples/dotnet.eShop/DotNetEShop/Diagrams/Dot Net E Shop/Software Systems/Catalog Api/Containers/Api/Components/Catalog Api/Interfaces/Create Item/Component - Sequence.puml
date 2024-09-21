@@ -1,0 +1,29 @@
+@startuml
+
+title Dot Net E Shop - Catalog Api - Api - Catalog Api - Create Item - Sequence - Component level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Catalog Api" #White
+    
+box "Api" #White
+    participant "Catalog Api" as DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi
+end box
+
+    
+box "Infrastructure" #White
+    participant "Catalog Context" as DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext
+end box
+
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Create Item
+group Create Item
+DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext : Catalog Items Add
+DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext : Save Changes Async
+DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Return (TypedResults.CreatedAtRoute)
+end
+
+
+@enduml

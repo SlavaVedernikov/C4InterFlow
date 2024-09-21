@@ -1,0 +1,19 @@
+@startuml
+
+title To Do App Example - To Do App - Web Api - Get Tasks - Sequence - Container level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "To Do App" #White
+    participant "Web Api" as ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi
+    participant "Database" as ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi : Get Tasks
+group Get Tasks
+ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi -> ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database : Select Tasks
+end
+
+
+@enduml

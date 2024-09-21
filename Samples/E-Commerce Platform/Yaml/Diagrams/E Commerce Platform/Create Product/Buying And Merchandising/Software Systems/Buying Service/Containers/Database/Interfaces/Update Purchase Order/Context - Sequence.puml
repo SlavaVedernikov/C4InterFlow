@@ -1,0 +1,11 @@
+@startuml
+
+title E Commerce Platform - Create Product - Buying And Merchandising - Buying Service - Database - Update Purchase Order - Sequence - Context level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "Buying Service" as ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService : Update Purchase Order
+
+
+@enduml

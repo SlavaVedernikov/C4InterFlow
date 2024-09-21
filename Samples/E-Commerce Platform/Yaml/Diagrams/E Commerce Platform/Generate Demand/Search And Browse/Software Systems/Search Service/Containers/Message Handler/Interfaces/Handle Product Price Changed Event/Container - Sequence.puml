@@ -1,0 +1,25 @@
+@startuml
+
+title E Commerce Platform - Generate Demand - Search And Browse - Search Service - Message Handler - Handle Product Price Changed Event - Sequence - Container level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Search Service" #White
+    participant "Message Handler" as ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService.Containers.MessageHandler
+    participant "Database" as ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService.Containers.Database
+end box
+
+
+box "Pricing Service" #White
+    participant "Messaging" as ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Messaging
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService.Containers.MessageHandler : Handle Product Price Changed Event
+group Handle Product Price Changed Event
+ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService.Containers.MessageHandler -> ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Messaging : Receive Product Price Changed Event
+ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService.Containers.MessageHandler -> ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService.Containers.Database : Update Product Prices
+end
+
+
+@enduml

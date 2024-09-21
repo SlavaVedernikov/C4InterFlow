@@ -1,0 +1,17 @@
+@startuml
+!include ..\..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title E Commerce Platform - Generate Demand - Basket - Basket Service - Api - Delete Item - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService, "Basket Service")
+    Container(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Api, "Api", "", "")
+    Container(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Database, "Database", "", "")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Api, "Delete Item")
+Rel(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Api, ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Database, "Delete Item")
+
+
+@enduml

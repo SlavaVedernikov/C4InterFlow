@@ -1,0 +1,15 @@
+@startuml
+
+title E Commerce Platform - Create Product - Buying And Merchandising - Buying And Merchandising App - Create Purchase Order - Sequence - Context level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "Buying And Merchandising App" as ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingAndMerchandisingApp
+participant "Buying Service" as ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingAndMerchandisingApp : Create Purchase Order
+group Create Purchase Order
+ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingAndMerchandisingApp -> ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService : Create Purchase Order
+end
+
+
+@enduml

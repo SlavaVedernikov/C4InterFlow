@@ -378,26 +378,26 @@ public class DrawDiagramsCommand : Command
 
         var diagramType = isStatic ? DiagramTypesOption.C4_STATIC : DiagramTypesOption.C4;
 
-        var scopedStructureFullName = string.Empty;
+        var scopedStructureTitle = string.Empty;
         if(scopedStructureAlias != null)
         {
             if(IsNamespaceAlias(scopedStructureAlias))
             {
-                scopedStructureFullName = scopedStructureAlias.Replace(".", " - ");
+                scopedStructureTitle = GetTitle(scopedStructureAlias);
             }
             else if (TryParseStructureAlias(scopedStructureAlias, out var system, out var container, out var component))
             {
                 if(C4InterFlow.Utils.TryGetNamespaceAlias(scopedStructureAlias, out var namespaceAlias))
                 {
-                    scopedStructureFullName = namespaceAlias!.Replace(".", " - ");
+                    scopedStructureTitle = GetTitle(namespaceAlias);
                 }
-                scopedStructureFullName = $"{scopedStructureFullName}{(!string.IsNullOrEmpty(scopedStructureFullName) && system != null ? $" - {system.Label}" : string.Empty)}";
-                scopedStructureFullName = $"{scopedStructureFullName}{(!string.IsNullOrEmpty(scopedStructureFullName) && container != null ? $" - {container.Label}" : string.Empty)}";
-                scopedStructureFullName = $"{scopedStructureFullName}{(!string.IsNullOrEmpty(scopedStructureFullName) && component != null ? $" - {component.Label}" : string.Empty)}";
+                scopedStructureTitle = $"{scopedStructureTitle}{(!string.IsNullOrEmpty(scopedStructureTitle) && system != null ? $" - {system.Label}" : string.Empty)}";
+                scopedStructureTitle = $"{scopedStructureTitle}{(!string.IsNullOrEmpty(scopedStructureTitle) && container != null ? $" - {container.Label}" : string.Empty)}";
+                scopedStructureTitle = $"{scopedStructureTitle}{(!string.IsNullOrEmpty(scopedStructureTitle) && component != null ? $" - {component.Label}" : string.Empty)}";
             }
         }
 
-        var diagramTitle = $"{(!string.IsNullOrEmpty(scopedStructureFullName) ? scopedStructureFullName : ToPrettyName(scope))} - {ToPrettyName(diagramType)} - {ToPrettyName(levelOfDetails)} level";
+        var diagramTitle = $"{(!string.IsNullOrEmpty(scopedStructureTitle) ? scopedStructureTitle : ToPrettyName(scope))} - {ToPrettyName(diagramType)} - {ToPrettyName(levelOfDetails)} level";
 
         var flow = new Flow();
 
@@ -933,7 +933,7 @@ public class DrawDiagramsCommand : Command
 
         foreach (var segment in namespaceAlias!.Split('.'))
         {
-            path = Path.Join(path, segment);
+            path = Path.Join(path, C4InterFlow.Utils.GetLabel(segment));
         }
 
         if(scope == DiagramScopesOption.NAMESPACE_SOFTWARE_SYSTEMS)
@@ -953,7 +953,7 @@ public class DrawDiagramsCommand : Command
         {
             foreach (var segment in namespaceAlias!.Split('.'))
             {
-                path = Path.Join(path, segment);
+                path = Path.Join(path, C4InterFlow.Utils.GetLabel(segment));
             }
         }
 
@@ -1089,7 +1089,7 @@ public class DrawDiagramsCommand : Command
             {
                 foreach (var segment in namespaceAlias!.Split('.'))
                 {
-                    path = Path.Join(path, segment);
+                    path = Path.Join(path, C4InterFlow.Utils.GetLabel(segment));
                 }
             }
 
@@ -1120,8 +1120,9 @@ public class DrawDiagramsCommand : Command
         if (string.IsNullOrEmpty(businessProcess?.Label))
             return null;
 
+        
         if (C4InterFlow.Utils.TryGetNamespaceAlias(businessProcess.Alias, out var namespaceAlias))
-            return $"{namespaceAlias!.Replace(".", " - ")} - {businessProcess.Label} - {ToPrettyName(diagramType)} - {ToPrettyName(levelOfDetails)} level";
+            return $"{GetTitle(namespaceAlias)} - {businessProcess.Label} - {ToPrettyName(diagramType)} - {ToPrettyName(levelOfDetails)} level";
         else
             return null;
     }
@@ -1134,10 +1135,26 @@ public class DrawDiagramsCommand : Command
         if (C4InterFlow.Utils.TryGetNamespaceAlias(@interface.Alias, out var namespaceAlias) &&
             TryParseInterface(@interface, out var system, out var container, out var component))
         {
-            return $"{namespaceAlias!.Replace(".", " - ")} - {system.Label}{(container != null ? $" - {container.Label}" : string.Empty)}{(component != null ? $" - {component.Label}" : string.Empty)} - {@interface.Label} - {ToPrettyName(diagramType)} - {ToPrettyName(levelOfDetails)} level";
+            return $"{GetTitle(namespaceAlias)} - {system.Label}{(container != null ? $" - {container.Label}" : string.Empty)}{(component != null ? $" - {component.Label}" : string.Empty)} - {@interface.Label} - {ToPrettyName(diagramType)} - {ToPrettyName(levelOfDetails)} level";
         }
 
         return null;
+    }
+
+    private static string GetTitle(string? alias)
+    {
+        var result = string.Empty;
+
+        if (alias == null)
+            return result;
+
+        foreach (var segment in alias.Split('.'))
+        {
+            var segmentSubTitle = C4InterFlow.Utils.GetLabel(segment);
+            result = $"{(string.IsNullOrEmpty(result) ? $"{segmentSubTitle}" : $"{result} - {segmentSubTitle}")}";
+        }
+
+        return result;
     }
 
     private static bool TryParseInterface(Interface @interface, out SoftwareSystem? system, out Container? container, out Component? component)

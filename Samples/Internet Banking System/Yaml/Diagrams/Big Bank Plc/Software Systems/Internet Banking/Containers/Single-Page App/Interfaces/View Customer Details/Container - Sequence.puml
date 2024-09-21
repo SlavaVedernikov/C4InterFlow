@@ -1,0 +1,27 @@
+@startuml
+
+title Big Bank Plc - Internet Banking - Single-Page App - View Customer Details - Sequence - Container level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Internet Banking" #White
+    participant "Single-Page App" as BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp
+    participant "API Application" as BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication
+end box
+
+participant "Mainframe Banking System" as BigBankPlc.SoftwareSystems.MainframeBankingSystem
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp : View Customer Details
+group View Customer Details
+BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication : Get Customer
+group Get Customer
+BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer
+end
+BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication : Get Customer Accounts
+group Get Customer Accounts
+BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer Accounts
+end
+end
+
+
+@enduml

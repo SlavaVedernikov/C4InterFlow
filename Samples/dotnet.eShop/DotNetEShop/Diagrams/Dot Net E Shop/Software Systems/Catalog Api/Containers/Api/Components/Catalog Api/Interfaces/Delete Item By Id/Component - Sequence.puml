@@ -1,0 +1,33 @@
+@startuml
+
+title Dot Net E Shop - Catalog Api - Api - Catalog Api - Delete Item By Id - Sequence - Component level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Catalog Api" #White
+    
+box "Api" #White
+    participant "Catalog Api" as DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi
+end box
+
+    
+box "Infrastructure" #White
+    participant "Catalog Context" as DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext
+end box
+
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Delete Item By Id
+group Delete Item By Id
+DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext : Catalog Items Single Or Default
+alt item is null
+DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Return (TypedResults.NotFound)
+end
+DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext : Catalog Items Remove
+DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext : Save Changes Async
+DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Return (TypedResults.NoContent)
+end
+
+
+@enduml

@@ -1,0 +1,22 @@
+@startuml
+
+title E Commerce Platform - Generate Demand - Storefront - Storefront App - Delete Basket Item - Sequence - Context level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "Storefront App" as ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontApp
+participant "Storefront Bff" as ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff
+participant "Basket Service" as ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontApp : Delete Basket Item
+group Delete Basket Item
+ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontApp -> ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff : Delete Basket Item
+group Delete Basket Item
+ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff -> ..BasketService : Delete Item
+group Delete Item
+..BasketService -> ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService : Delete Item
+end
+end
+end
+
+
+@enduml

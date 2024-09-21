@@ -7,7 +7,7 @@ public static class SiteNoSitemapSubDirectoriesOption
     public static Option<string[]> Get()
     {
         const string description =
-           $"The sub-directories that shoud be excluded from a sitemap.";
+           $"The sub-directories that should be excluded from a sitemap.";
 
         var option = new Option<string[]>(new[] { "--site-no-sitemap-sub-dirs", "-snssds" }, description)
         {

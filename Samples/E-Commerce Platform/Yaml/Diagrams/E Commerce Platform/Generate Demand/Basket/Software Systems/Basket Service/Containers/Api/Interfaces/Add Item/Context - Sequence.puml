@@ -1,0 +1,11 @@
+@startuml
+
+title E Commerce Platform - Generate Demand - Basket - Basket Service - Api - Add Item - Sequence - Context level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "Basket Service" as ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService : Add Item
+
+
+@enduml

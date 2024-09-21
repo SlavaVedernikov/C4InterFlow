@@ -1,0 +1,18 @@
+@startuml
+
+title Trader X Example - TraderX - Web Client - Send Trade And Position Status Updates - Sequence - Container level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "TraderX" #White
+    participant "Web Client" as TraderXExample.SoftwareSystems.TraderX.Containers.WebClient
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> TraderXExample.SoftwareSystems.TraderX.Containers.WebClient : Send Trade And Position Status Updates
+group Send Trade And Position Status Updates
+TraderXExample.SoftwareSystems.TraderX.Containers.WebClient -> TraderXExample.SoftwareSystems.TraderX.Containers.WebClient : Update Trade And Position Status View
+end
+
+
+@enduml

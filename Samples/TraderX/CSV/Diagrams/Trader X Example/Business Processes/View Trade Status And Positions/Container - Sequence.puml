@@ -1,0 +1,27 @@
+@startuml
+
+title Trader X Example - View Trade Status And Positions - Sequence - Container level
+
+participant "Trader" as TraderXExample.Actors.Trader
+
+box "TraderX" #White
+    participant "Web Client" as TraderXExample.SoftwareSystems.TraderX.Containers.WebClient
+    participant "Web GUI" as TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI
+    participant "Position Service" as TraderXExample.SoftwareSystems.TraderX.Containers.PositionService
+end box
+
+
+TraderXExample.Actors.Trader -> TraderXExample.SoftwareSystems.TraderX.Containers.WebClient : View Trade Status And Positions
+group View Trade Status And Positions
+TraderXExample.SoftwareSystems.TraderX.Containers.WebClient -> TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI : Load Trades For Account
+group Load Trades For Account
+TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.PositionService : Get Trades For Account
+end
+TraderXExample.SoftwareSystems.TraderX.Containers.WebClient -> TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI : Load Positions For Account
+group Load Positions For Account
+TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.PositionService : Get Positions For Account
+end
+end
+
+
+@enduml
