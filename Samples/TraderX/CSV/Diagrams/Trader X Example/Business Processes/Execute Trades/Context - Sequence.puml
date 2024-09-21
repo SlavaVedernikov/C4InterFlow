@@ -1,0 +1,23 @@
+@startuml
+
+title Trader X Example - Execute Trades - Sequence - Context level
+
+participant "Trader" as TraderXExample.Actors.Trader
+participant "TraderX" as TraderXExample.SoftwareSystems.TraderX
+participant "External Process" as TraderXExample.Actors.ExternalProcess
+
+group Trader - Create Trade Request
+TraderXExample.Actors.Trader -> TraderXExample.SoftwareSystems.TraderX : Create Trade
+end
+group External Process - Process Trade Request
+TraderXExample.Actors.ExternalProcess -> TraderXExample.SoftwareSystems.TraderX : Start
+end
+group External Process - Refresh Web Client
+TraderXExample.Actors.ExternalProcess -> TraderXExample.SoftwareSystems.TraderX : Start
+end
+group Trader - Cancel Trade
+TraderXExample.Actors.Trader -> TraderXExample.SoftwareSystems.TraderX : Cancel Trade
+end
+
+
+@enduml

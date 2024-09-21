@@ -1,0 +1,30 @@
+@startuml
+
+title E Commerce Platform - Create Product - Price Management - Pricing Service - Message Handler - Handle Purchase Order Updated Event - Sequence - Container level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Pricing Service" #White
+    participant "Message Handler" as ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.MessageHandler
+    participant "Database" as ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Database
+end box
+
+
+box "Buying Service" #White
+    participant "Messaging" as ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Messaging
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.MessageHandler : Handle Purchase Order Updated Event
+group Handle Purchase Order Updated Event
+ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.MessageHandler -> ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Messaging : Receive Purchase Order Updated Event
+loop For each Product in Purchase Order
+ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.MessageHandler -> ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Database : Select Products
+alt Product Not Found
+ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.MessageHandler -> ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Database : Insert Product
+end
+end
+end
+
+
+@enduml

@@ -1,0 +1,19 @@
+@startuml
+
+title Trader X Example - TraderX - Web GUI - Load Trades For Account - Sequence - Container level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "TraderX" #White
+    participant "Web GUI" as TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI
+    participant "Position Service" as TraderXExample.SoftwareSystems.TraderX.Containers.PositionService
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI : Load Trades For Account
+group Load Trades For Account
+TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.PositionService : Get Trades For Account
+end
+
+
+@enduml

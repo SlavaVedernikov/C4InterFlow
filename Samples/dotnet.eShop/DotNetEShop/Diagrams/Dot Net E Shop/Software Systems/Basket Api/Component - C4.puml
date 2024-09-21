@@ -1,0 +1,37 @@
+@startuml
+!include ..\..\..\.c4s\C4_Component.puml
+
+AddElementTag("c4interflow:lifecycle:new", $bgColor=green, $fontColor=#ffffff, $borderColor=green, $shadowing="False")
+AddElementTag("c4interflow:lifecycle:changed", $bgColor=orange, $fontColor=#ffffff, $borderColor=orange, $shadowing="False")
+AddElementTag("c4interflow:lifecycle:removed", $bgColor=red, $fontColor=#ffffff, $borderColor=red, $shadowing="False")
+
+AddRelTag("c4interflow:lifecycle:new", $textColor=green, $lineColor=green)
+AddRelTag("c4interflow:lifecycle:changed", $textColor=orange, $lineColor=orange)
+AddRelTag("c4interflow:lifecycle:removed", $textColor=red, $lineColor=red)
+
+SHOW_PERSON_PORTRAIT()
+LAYOUT_TOP_DOWN()
+
+skinparam linetype polyline
+
+title Dot Net E Shop - Basket Api - C4 - Component level
+
+
+System_Boundary(DotNetEShop.SoftwareSystems.BasketApi, "Basket Api") {
+    
+Container_Boundary(DotNetEShop.SoftwareSystems.BasketApi.Containers.Data, "Data") {
+    Component(DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, "Redis Basket Repository", "", "")
+    Component(DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase, "Redis Database", "", "")
+}
+    
+Container_Boundary(DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc, "Grpc") {
+    Component(DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, "Basket Service", "", "")
+}
+}
+
+Rel(DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase, "Key Delete Async\nString Get Lease Async\nString Set Async")
+Rel(DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, "Delete Basket Async\nGet Basket Async\nUpdate Basket Async")
+
+
+SHOW_LEGEND()
+@enduml

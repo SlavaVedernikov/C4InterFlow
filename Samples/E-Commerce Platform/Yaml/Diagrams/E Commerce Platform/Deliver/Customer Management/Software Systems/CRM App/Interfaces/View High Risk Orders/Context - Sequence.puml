@@ -1,0 +1,18 @@
+@startuml
+
+title E Commerce Platform - Deliver - Customer Management - CRM App - View High Risk Orders - Sequence - Context level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "CRM App" as ECommercePlatform.Deliver.CustomerManagement.SoftwareSystems.CRMApp
+participant "Fraud Service" as ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.Deliver.CustomerManagement.SoftwareSystems.CRMApp : View High Risk Orders
+group View High Risk Orders
+ECommercePlatform.Deliver.CustomerManagement.SoftwareSystems.CRMApp -> ..FraudService : Get High Risk Orders
+group Get High Risk Orders
+..FraudService -> ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService : Select High Risk Orders
+end
+end
+
+
+@enduml

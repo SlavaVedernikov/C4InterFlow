@@ -1,0 +1,14 @@
+@startuml
+!include ..\..\..\.c4s\C4_Sequence.puml
+
+title Trader X Example - People Search - C4 Sequence - Context level
+
+Person(TraderXExample.Actors.Trader, "Trader", "")
+System(TraderXExample.SoftwareSystems.TraderX, "TraderX", "TraderX")
+System(TraderXExample.SoftwareSystems.UserDirectory, "User Directory", "")
+
+Rel(TraderXExample.Actors.Trader, TraderXExample.SoftwareSystems.TraderX, "Type Ahead People Search")
+Rel(TraderXExample.SoftwareSystems.TraderX, TraderXExample.SoftwareSystems.UserDirectory, "Select People Data")
+
+
+@enduml

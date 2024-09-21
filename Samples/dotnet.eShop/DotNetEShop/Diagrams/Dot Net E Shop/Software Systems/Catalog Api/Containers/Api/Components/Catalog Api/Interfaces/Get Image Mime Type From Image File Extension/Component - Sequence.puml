@@ -1,0 +1,19 @@
+@startuml
+
+title Dot Net E Shop - Catalog Api - Api - Catalog Api - Get Image Mime Type From Image File Extension - Sequence - Component level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Catalog Api" #White
+    
+box "Api" #White
+    participant "Catalog Api" as DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi
+end box
+
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Get Image Mime Type From Image File Extension
+
+
+@enduml

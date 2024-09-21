@@ -1,0 +1,15 @@
+@startuml
+
+title E Commerce Platform - Deliver - Payments - Payment Service - Messaging - Receive Payment Result Event - Sequence - Container level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Payment Service" #White
+    participant "Messaging" as ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Messaging
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Messaging : Receive Payment Result Event
+
+
+@enduml

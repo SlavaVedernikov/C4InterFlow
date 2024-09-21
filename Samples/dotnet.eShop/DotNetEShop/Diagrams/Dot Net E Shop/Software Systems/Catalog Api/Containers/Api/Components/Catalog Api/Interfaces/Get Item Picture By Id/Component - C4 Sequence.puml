@@ -1,0 +1,24 @@
+@startuml
+!include ..\..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Dot Net E Shop - Catalog Api - Api - Catalog Api - Get Item Picture By Id - C4 Sequence - Component level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(DotNetEShop.SoftwareSystems.CatalogApi, "Catalog Api")
+    
+Container_Boundary(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api, "Api")
+    Component(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, "Catalog Api", "", "")
+Boundary_End()
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, "Get Item Picture By Id")
+alt item is null
+Rel(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, "Return (TypedResults.NotFound)")
+end
+Rel(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, "Get Full Path")
+Rel(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, "Get Image Mime Type From Image File Extension")
+Rel(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, "Return (TypedResults.PhysicalFile)")
+
+
+@enduml

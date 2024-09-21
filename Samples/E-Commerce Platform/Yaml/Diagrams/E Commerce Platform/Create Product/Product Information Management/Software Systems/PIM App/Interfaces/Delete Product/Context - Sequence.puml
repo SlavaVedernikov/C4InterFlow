@@ -1,0 +1,15 @@
+@startuml
+
+title E Commerce Platform - Create Product - Product Information Management - PIM App - Delete Product - Sequence - Context level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "PIM App" as ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.PIMApp
+participant "Product Service" as ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.PIMApp : Delete Product
+group Delete Product
+ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.PIMApp -> ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService : Delete Product
+end
+
+
+@enduml

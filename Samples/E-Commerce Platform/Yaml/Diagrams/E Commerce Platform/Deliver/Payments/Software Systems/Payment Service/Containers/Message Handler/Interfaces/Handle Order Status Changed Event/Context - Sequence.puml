@@ -1,0 +1,17 @@
+@startuml
+
+title E Commerce Platform - Deliver - Payments - Payment Service - Message Handler - Handle Order Status Changed Event - Sequence - Context level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "Payment Service" as ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService
+participant "Order Service" as ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService
+participant "Payment Provider" as ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService : Handle Order Status Changed Event
+group Handle Order Status Changed Event
+ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService -> ..OrderService : Receive Order Status Changed Event
+ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService -> ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider : Process Payment
+end
+
+
+@enduml

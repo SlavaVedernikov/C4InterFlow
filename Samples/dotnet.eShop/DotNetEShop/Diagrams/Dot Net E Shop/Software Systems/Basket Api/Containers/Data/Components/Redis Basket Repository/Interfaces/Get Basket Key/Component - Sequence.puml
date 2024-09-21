@@ -1,0 +1,19 @@
+@startuml
+
+title Dot Net E Shop - Basket Api - Data - Redis Basket Repository - Get Basket Key - Sequence - Component level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Basket Api" #White
+    
+box "Data" #White
+    participant "Redis Basket Repository" as DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository
+end box
+
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository : Get Basket Key
+
+
+@enduml

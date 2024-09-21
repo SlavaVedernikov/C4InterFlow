@@ -1,0 +1,12 @@
+@startuml
+!include ..\..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Dot Net E Shop - Basket Api - Grpc - Basket Service - Map To Customer Basket Response - C4 Sequence - Context level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+System(DotNetEShop.SoftwareSystems.BasketApi, "Basket Api", "")
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, DotNetEShop.SoftwareSystems.BasketApi, "Map To Customer Basket Response")
+
+
+@enduml

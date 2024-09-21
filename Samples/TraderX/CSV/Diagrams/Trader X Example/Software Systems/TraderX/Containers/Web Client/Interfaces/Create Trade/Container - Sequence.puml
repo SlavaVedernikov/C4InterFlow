@@ -1,0 +1,31 @@
+@startuml
+
+title Trader X Example - TraderX - Web Client - Create Trade - Sequence - Container level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "TraderX" #White
+    participant "Web Client" as TraderXExample.SoftwareSystems.TraderX.Containers.WebClient
+    participant "Web GUI" as TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI
+    participant "Reference Data Service" as TraderXExample.SoftwareSystems.TraderX.Containers.ReferenceDataService
+    participant "Trading Services" as TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices
+    database "TraderX DB" as TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB
+    participant "Trade Feed" as TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> TraderXExample.SoftwareSystems.TraderX.Containers.WebClient : Create Trade
+group Create Trade
+TraderXExample.SoftwareSystems.TraderX.Containers.WebClient -> TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI : Create Trade
+group Create Trade
+TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.ReferenceDataService : Get Securities
+TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices : Create Trade
+group Create Trade
+TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices -> TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB : Insert Trade Request
+TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Send Trade Request
+end
+end
+end
+
+
+@enduml

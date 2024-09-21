@@ -1,0 +1,27 @@
+@startuml
+
+title Trader X Example - TraderX - Web Client - Type Ahead People Search - Sequence - Container level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "TraderX" #White
+    participant "Web Client" as TraderXExample.SoftwareSystems.TraderX.Containers.WebClient
+    participant "Web GUI" as TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI
+    participant "People Service" as TraderXExample.SoftwareSystems.TraderX.Containers.PeopleService
+end box
+
+participant "User Directory" as TraderXExample.SoftwareSystems.UserDirectory
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> TraderXExample.SoftwareSystems.TraderX.Containers.WebClient : Type Ahead People Search
+group Type Ahead People Search
+TraderXExample.SoftwareSystems.TraderX.Containers.WebClient -> TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI : Type Ahead People Search
+group Type Ahead People Search
+TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.PeopleService : Get People Data
+group Get People Data
+TraderXExample.SoftwareSystems.TraderX.Containers.PeopleService -> TraderXExample.SoftwareSystems.UserDirectory : Select People Data
+end
+end
+end
+
+
+@enduml

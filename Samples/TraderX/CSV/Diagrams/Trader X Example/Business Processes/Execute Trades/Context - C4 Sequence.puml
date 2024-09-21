@@ -1,0 +1,24 @@
+@startuml
+!include ..\..\..\.c4s\C4_Sequence.puml
+
+title Trader X Example - Execute Trades - C4 Sequence - Context level
+
+Person(TraderXExample.Actors.Trader, "Trader", "")
+System(TraderXExample.SoftwareSystems.TraderX, "TraderX", "TraderX")
+System(TraderXExample.Actors.ExternalProcess, "External Process", "")
+
+group Trader - Create Trade Request
+Rel(TraderXExample.Actors.Trader, TraderXExample.SoftwareSystems.TraderX, "Create Trade")
+end
+group External Process - Process Trade Request
+Rel(TraderXExample.Actors.ExternalProcess, TraderXExample.SoftwareSystems.TraderX, "Start")
+end
+group External Process - Refresh Web Client
+Rel(TraderXExample.Actors.ExternalProcess, TraderXExample.SoftwareSystems.TraderX, "Start")
+end
+group Trader - Cancel Trade
+Rel(TraderXExample.Actors.Trader, TraderXExample.SoftwareSystems.TraderX, "Cancel Trade")
+end
+
+
+@enduml

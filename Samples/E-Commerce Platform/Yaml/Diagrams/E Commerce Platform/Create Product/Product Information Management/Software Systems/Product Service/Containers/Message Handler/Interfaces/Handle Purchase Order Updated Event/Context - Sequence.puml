@@ -1,0 +1,15 @@
+@startuml
+
+title E Commerce Platform - Create Product - Product Information Management - Product Service - Message Handler - Handle Purchase Order Updated Event - Sequence - Context level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "Product Service" as ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService
+participant "Buying Service" as ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService : Handle Purchase Order Updated Event
+group Handle Purchase Order Updated Event
+ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService -> ..BuyingService : Receive Purchase Order Updated Event
+end
+
+
+@enduml

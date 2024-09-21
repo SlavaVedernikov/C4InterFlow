@@ -1,0 +1,21 @@
+@startuml
+!include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Big Bank Plc - Internet Banking - Single-Page App - Change Password - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking")
+    Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "Single-Page App", "", "")
+    Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "API Application", "", "")
+    ContainerDb(BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Database", "", "")
+Boundary_End()
+System_Ext(BigBankPlc.SoftwareSystems.EMailSystem, "E-Mail System", "")
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "Change Password")
+Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "Change Password")
+Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Update User Password")
+Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.EMailSystem, "Send Password Changed Notification E-Mail")
+
+
+@enduml

@@ -1,0 +1,21 @@
+@startuml
+!include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Big Bank Plc - Internet Banking - Single-Page App - Create Account - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking")
+    Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "Single-Page App", "JavaScript, Angular", "Provides all the Internet banking functionality to customers via their web browser")
+    Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "API Application", "Java, Docker Container", "Provides Internet banking functionality via API")
+Boundary_End()
+System_Ext(BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Mainframe Banking System", "")
+System_Ext(BigBankPlc.SoftwareSystems.EMailSystem, "E-Mail System", "The internal Microsoft Exchange system")
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "Create Account")
+Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "Create Account")
+Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Create Account")
+Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.EMailSystem, "Send New Account Created Notification E-Mail")
+
+
+@enduml

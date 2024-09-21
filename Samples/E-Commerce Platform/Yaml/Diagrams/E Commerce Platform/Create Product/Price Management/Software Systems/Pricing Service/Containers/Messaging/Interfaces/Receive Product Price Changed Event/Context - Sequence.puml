@@ -1,0 +1,11 @@
+@startuml
+
+title E Commerce Platform - Create Product - Price Management - Pricing Service - Messaging - Receive Product Price Changed Event - Sequence - Context level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+participant "Pricing Service" as ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService : Receive Product Price Changed Event
+
+
+@enduml

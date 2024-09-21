@@ -1,0 +1,39 @@
+@startuml
+!include ..\..\.c4s\C4_Context.puml
+
+AddElementTag("c4interflow:lifecycle:new", $bgColor=green, $fontColor=#ffffff, $borderColor=green, $shadowing="False")
+AddElementTag("c4interflow:lifecycle:changed", $bgColor=orange, $fontColor=#ffffff, $borderColor=orange, $shadowing="False")
+AddElementTag("c4interflow:lifecycle:removed", $bgColor=red, $fontColor=#ffffff, $borderColor=red, $shadowing="False")
+
+AddRelTag("c4interflow:lifecycle:new", $textColor=green, $lineColor=green)
+AddRelTag("c4interflow:lifecycle:changed", $textColor=orange, $lineColor=orange)
+AddRelTag("c4interflow:lifecycle:removed", $textColor=red, $lineColor=red)
+
+SHOW_PERSON_PORTRAIT()
+LAYOUT_TOP_DOWN()
+
+skinparam linetype polyline
+
+title E Commerce Platform - Deliver - C4 - Context level
+
+System(ECommercePlatform.Deliver.CustomerManagement.SoftwareSystems.CRMApp, "CRM App", "")
+System(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService, "Fraud Service", "")
+System(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudEngine, "Fraud Engine", "")
+System(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS, "WMS", "")
+System(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService, "Fulfilment Service", "")
+System(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider, "Payment Provider", "")
+System(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Order Service", "")
+System(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, "Payment Service", "")
+
+Rel(ECommercePlatform.Deliver.CustomerManagement.SoftwareSystems.CRMApp, ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService, "Get High Risk Orders\nUpdate Order Fraud Check Result")
+Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService, "Post Order Shipped Event")
+Rel(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Receive Order Created Event")
+Rel(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService, ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudEngine, "Get Fraud Check Result")
+Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Receive Order Status Changed Event")
+Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS, "Ship Order")
+Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Receive Order Status Changed Event")
+Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider, "Process Payment")
+
+
+SHOW_LEGEND()
+@enduml

@@ -1,0 +1,28 @@
+@startuml
+
+title Dot Net E Shop - Catalog Api - Api - Catalog Api - Get Item By Id - Sequence - Component level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "Catalog Api" #White
+    
+box "Api" #White
+    participant "Catalog Api" as DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi
+end box
+
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Get Item By Id
+group Get Item By Id
+alt id <= 0
+DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Return (TypedResults.BadRequest)
+end
+alt item == null
+DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Return (TypedResults.NotFound)
+end
+DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Return (TypedResults.Ok)
+end
+
+
+@enduml
