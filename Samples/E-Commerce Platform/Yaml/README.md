@@ -11,8 +11,9 @@ The **YAML** is written manually
 - [AaC](Architecture/SoftwareSystems/)
 
 ## Diagrams
-Diagrams are generated from **YAML** AaC/BPaC for all **Scope**, **Level of Details**, **Types** and **Formats**.
-- [Diagrams](Diagrams)
+Diagrams are generated from **YAML** AaC for all **Scope**, **Level of Details**, **Types** and **Formats**.
+- [Diagram files](Diagrams)
+- [Samples Visualiser](https://c4interflow.github.io/architecture-as-code-samples-visualiser/e-commerce-platform/) 🔥🔥🔥
 
 ## Try it locally
 

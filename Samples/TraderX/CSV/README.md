@@ -19,7 +19,8 @@ It is using the following C4InterFlow toolchain flow.
 
 ## Diagrams
 Diagrams are generated from **YAML** AaC/BPaC for all **Scope**, **Level of Details**, **Types** and **Formats**.
-- [Diagrams](Diagrams)
+- [Diagram files](Diagrams)
+- [Samples Visualiser](https://c4interflow.github.io/architecture-as-code-samples-visualiser/trader-x/) 🔥🔥
 
 ## Try it locally
 
