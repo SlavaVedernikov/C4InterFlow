@@ -99,7 +99,7 @@
 :: Because the parameters will likely have spaces in them, they are passed in quotes.
 :: So strip the quotes off because Batch files will pass the quotes as part of the parameter.
 @SET "_SAMPLE_NAME_=%_SAMPLE_NAME_:"=%"
-::@SET "_DIRECTORY_=%_DIRECTORY_:"=%"
+@SET "_DIRECTORY_=%_DIRECTORY_:"=%"
 
 @ECHO.
 :: See https://learn.microsoft.com/en-us/windows/console/console-virtual-terminal-sequences?redirectedfrom=MSDN#designate-character-set to understand the DEC Line Drawing mode
