@@ -5,7 +5,7 @@
 
 @CALL :SetESC
 @CALL :SetColors
-@SET /A _TIMEOUT_=2
+@SET /A _TIMEOUT_=10
 
 @IF NOT DEFINED net-sourcecode-dir SET "net-sourcecode-dir=C:\Data\Projects\C4InterFlow\eShop-main"
 

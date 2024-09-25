@@ -5,7 +5,7 @@
 
 @CALL :SetESC
 @CALL :SetColors
-@SET /A _TIMEOUT_=2
+@SET /A _TIMEOUT_=10
 
 @ECHO Make a choice for the following parameters. The default value will be chosen after %_TIMEOUT_% seconds of no input.
 @ECHO.
