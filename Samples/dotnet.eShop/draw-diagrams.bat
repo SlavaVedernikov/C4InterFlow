@@ -1,13 +1,13 @@
 @echo off
 :: Possible values: TRUE, FALSE
-set "redraw-all=TRUE"
+if not defined redraw-all set "redraw-all=TRUE"
 :::::::::::::::::::::::::::::::
 
 :: Possible values: CSharp, Yaml
-set "aac-type=Yaml"
+if not defined aac-type set "aac-type=Yaml"
 ::::::::::::::::::::::::::::::::
 
-set "build-configuration=Debug"
+if not defined build-configuration set "build-configuration=Debug"
 set "aac-root-namespace=DotNetEShop"
 set "aac-project-name=DotNetEShop"
 set "cli-project-path=.\%aac-project-name%.Cli\%aac-project-name%.Cli.csproj"
@@ -19,17 +19,26 @@ set "aac-reader-strategy=C4InterFlow.Automation.Readers.%aac-type%AaCReaderStrat
 if %aac-type%==CSharp set "aac-input-paths=%aac-project-name%.dll"
 if %aac-type%==Yaml set "aac-input-paths=%aac-project-name%\Yaml"
 
-echo redraw-all: %redraw-all%
-echo aac-type: %aac-type%
-echo build-configuration: %build-configuration%
-echo aac-root-namespace: %aac-root-namespace%
-echo aac-project-name: %aac-project-name%
-echo cli-project-path: %cli-project-path%
-echo cli-output-dir: %cli-output-dir%
-echo cli-exe: %cli-exe%
-echo diagrams-dir: %diagrams-dir%
-echo aac-reader-strategy: %aac-reader-strategy%
-echo aac-input-paths: %aac-input-paths%
+CALL :NormalizePath %cli-project-path%
+SET "cli-project-path=%_NORMALIZED_PATH_%"
+CALL :NormalizePath %cli-output-dir%
+SET "cli-output-dir=%_NORMALIZED_PATH_%"
+CALL :NormalizePath %aac-input-paths%
+SET "aac-input-paths=%_NORMALIZED_PATH_%"
+CALL :NormalizePath %diagrams-dir%
+SET "diagrams-dir=%_NORMALIZED_PATH_%"
+
+echo redraw-all          : %redraw-all%
+echo aac-type            : %aac-type%
+echo build-configuration : %build-configuration%
+echo aac-root-namespace  : %aac-root-namespace%
+echo aac-project-name    : %aac-project-name%
+echo cli-project-path    : %cli-project-path%
+echo cli-output-dir      : %cli-output-dir%
+echo cli-exe             : %cli-exe%
+echo diagrams-dir        : %diagrams-dir%
+echo aac-reader-strategy : %aac-reader-strategy%
+echo aac-input-paths     : %aac-input-paths%
 
 if not %aac-type%==CSharp if not %aac-type%==Yaml (
     echo ERROR: 'aac-type' can only be set either to 'CSharp' or 'Yaml'. Edit script and re-run.
@@ -43,10 +52,15 @@ if not %redraw-all%==TRUE if not %redraw-all%==FALSE (
     goto end
 )
 
-echo Check the above settings.
-pause
+if NOT "%BATCH_TEST_MODE%"=="1" (
+    echo Check the above settings.
+    pause
+)
 
-dotnet publish %cli-project-path% --configuration %build-configuration% --output %cli-output-dir%
+:: Publish
+echo Publishing...
+:: pause
+dotnet publish %cli-project-path% --configuration %build-configuration% --output %cli-output-dir% --verbosity quiet --property:WarningLevel=0
 
 echo Clearing diagrams...
 :: pause
@@ -57,7 +71,7 @@ powershell.exe -Command "if (Test-Path '%diagrams-dir%\*') { Get-ChildItem -Path
 )
 
 echo Draw Diagrams with '%aac-reader-strategy%' AaC reader strategy and '%aac-input-paths%' AaC input path
-pause
+if NOT "%BATCH_TEST_MODE%"=="1" pause
 
 echo Drawing Diagrams...
 if %redraw-all%==TRUE (
@@ -65,5 +79,11 @@ if %redraw-all%==TRUE (
 ) else (
 %cli-output-dir%\%cli-exe% draw-diagrams --interfaces  %aac-root-namespace%.SoftwareSystems.*.Containers.*.Components.*.Interfaces.* --aac-reader-strategy "%aac-reader-strategy%" --aac-input-paths "%aac-input-paths%" --output-dir "%diagrams-dir%" 
 )
-pause 
+if NOT "%BATCH_TEST_MODE%"=="1" pause
+@GOTO :end
+
+:NormalizePath
+@SET _NORMALIZED_PATH_=%~f1
+@EXIT /B 0
+
 :end  

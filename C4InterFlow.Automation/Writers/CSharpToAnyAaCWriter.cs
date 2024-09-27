@@ -22,8 +22,15 @@ namespace C4InterFlow.Automation.Writers
 
         private static void RegisterInstanceVisualStudioInstance()
         {
-            MSBuildLocator.RegisterInstance(MSBuildLocator.QueryVisualStudioInstances().OrderByDescending(
-            instance => instance.Version).First());
+            var instance = MSBuildLocator.QueryVisualStudioInstances().MaxBy(instance => instance.Version);
+            if (instance != null)
+            {
+                MSBuildLocator.RegisterInstance(instance);
+            }
+            else
+            {
+                Log.Warning("MSBuildLocator could not find any instances to register.");
+            }
         }
 
         public CSharpToAnyAaCWriter(string softwareSystemSourcePath, string architectureRootNamespace)
