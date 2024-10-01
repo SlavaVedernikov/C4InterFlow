@@ -23,8 +23,8 @@ System_Boundary(TraderXExample.SoftwareSystems.TraderX, "TraderX") {
     Container(TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Web Client", "", "Browser based web interface for TraderX")
 }
 
-Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Receive Updates To Trades\nReceive Updates To Positions\n[WebSocket]", $tags='protocol:websocket')
-Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Send Trade And Position Status Updates\n[WebSocket]", $tags='protocol:websocket')
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Receive Updates To Trades\nReceive Updates To Positions", "WebSocket", $tags="protocol:websocket")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Send Trade And Position Status Updates", "WebSocket", $tags="protocol:websocket")
 
 
 SHOW_LEGEND()

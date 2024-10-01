@@ -9,7 +9,7 @@ box "Internet Banking" #White
 end box
 
 
-C4InterFlow.SoftwareSystems.ExternalSystem -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database : Update User Password
+C4InterFlow.SoftwareSystems.ExternalSystem -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database : Update User Password\n[TCP/IP, SQL]
 
 
 @enduml

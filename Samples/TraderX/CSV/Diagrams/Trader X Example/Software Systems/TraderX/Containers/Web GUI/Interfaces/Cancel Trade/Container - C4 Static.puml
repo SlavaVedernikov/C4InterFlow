@@ -24,9 +24,9 @@ System_Boundary(TraderXExample.SoftwareSystems.TraderX, "TraderX") {
     ContainerQueue(TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Trade Feed", "", "Message bus for streaming updates to trades and positions")
 }
 
-Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices, "Uses\n[HTTPS]", $tags='protocol:https')
-Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices, TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB, "Uses\n[JDBC]", $tags='protocol:jdbc')
-Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices, TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Uses\n[SocketIO]", $tags='protocol:socketio')
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices, "Uses", "HTTPS", $tags="protocol:https")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices, TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB, "Uses", "JDBC", $tags="protocol:jdbc")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices, TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Uses", "SocketIO", $tags="protocol:socketio")
 
 
 SHOW_LEGEND()

@@ -20,8 +20,8 @@ Person(TraderXExample.Actors.Trader, "Trader", "")
 System(TraderXExample.SoftwareSystems.TraderX, "TraderX", "TraderX")
 System(TraderXExample.SoftwareSystems.UserDirectory, "User Directory", "")
 
-Rel(TraderXExample.Actors.Trader, TraderXExample.SoftwareSystems.TraderX, "Type Ahead People Search\n[HTTPS]", $tags='protocol:https')
-Rel(TraderXExample.SoftwareSystems.TraderX, TraderXExample.SoftwareSystems.UserDirectory, "Select People Data\n[LDAP]", $tags='protocol:ldap')
+Rel(TraderXExample.Actors.Trader, TraderXExample.SoftwareSystems.TraderX, "Type Ahead People Search", "HTTPS", $tags="protocol:https")
+Rel(TraderXExample.SoftwareSystems.TraderX, TraderXExample.SoftwareSystems.UserDirectory, "Select People Data", "LDAP", $tags="protocol:ldap")
 
 
 SHOW_LEGEND()

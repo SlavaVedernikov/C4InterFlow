@@ -8,7 +8,7 @@ System(TraderXExample.SoftwareSystems.TraderX, "TraderX", "TraderX")
 System(TraderXExample.SoftwareSystems.UserDirectory, "User Directory", "")
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, TraderXExample.SoftwareSystems.TraderX, "Type Ahead People Search")
-Rel(TraderXExample.SoftwareSystems.TraderX, TraderXExample.SoftwareSystems.UserDirectory, "Select People Data")
+Rel(TraderXExample.SoftwareSystems.TraderX, TraderXExample.SoftwareSystems.UserDirectory, "Select People Data", "LDAP")
 
 
 @enduml

@@ -23,8 +23,8 @@ System_Boundary(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking") 
 }
 System_Ext(BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Mainframe Banking System", "")
 
-Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp, BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "Get Customer\nGet Customer Accounts\n[HTTPS]", $tags='protocol:https')
-Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Customer\nGet Customer Accounts\n[TCP/IP]", $tags='protocol:tcp/ip')
+Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp, BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "Get Customer\nGet Customer Accounts", "HTTPS", $tags="protocol:https")
+Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Customer\nGet Customer Accounts", "TCP/IP", $tags="protocol:tcp/ip")
 
 
 SHOW_LEGEND()

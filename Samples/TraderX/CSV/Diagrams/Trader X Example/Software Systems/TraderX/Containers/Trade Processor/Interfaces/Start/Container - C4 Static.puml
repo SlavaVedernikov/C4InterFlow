@@ -23,8 +23,8 @@ System_Boundary(TraderXExample.SoftwareSystems.TraderX, "TraderX") {
     ContainerDb(TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB, "TraderX DB", "", "Database which stores account")
 }
 
-Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Uses\n[SocketIO]", $tags='protocol:socketio')
-Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB, "Uses\n[JDBC]", $tags='protocol:jdbc')
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Uses", "SocketIO", $tags="protocol:socketio")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB, "Uses", "JDBC", $tags="protocol:jdbc")
 
 
 SHOW_LEGEND()

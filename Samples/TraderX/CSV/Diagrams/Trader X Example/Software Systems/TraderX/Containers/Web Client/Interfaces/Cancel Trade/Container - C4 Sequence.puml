@@ -13,11 +13,11 @@ System_Boundary(TraderXExample.SoftwareSystems.TraderX, "TraderX")
     ContainerQueue(TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Trade Feed", "", "Message bus for streaming updates to trades and positions")
 Boundary_End()
 
-Rel(C4InterFlow.SoftwareSystems.ExternalSystem, TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Cancel Trade")
-Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, "Cancel Trade")
-Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices, "Cancel Trade")
-Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices, TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB, "Update Trade Status")
-Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices, TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Send Updates To Trades")
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Cancel Trade", "HTTPS")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, "Cancel Trade", "HTTPS")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices, "Cancel Trade", "HTTPS")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices, TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB, "Update Trade Status", "JDBC")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices, TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Send Updates To Trades", "SocketIO")
 
 
 @enduml

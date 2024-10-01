@@ -19,7 +19,7 @@ title Trader X Example - Manage Accounts - C4 - Context level
 Person(TraderXExample.Actors.Trader, "Trader", "")
 System(TraderXExample.SoftwareSystems.TraderX, "TraderX", "TraderX")
 
-Rel(TraderXExample.Actors.Trader, TraderXExample.SoftwareSystems.TraderX, "View Account\nCreate Account\nUpdate Account\n[HTTPS]", $tags='protocol:https')
+Rel(TraderXExample.Actors.Trader, TraderXExample.SoftwareSystems.TraderX, "View Account\nCreate Account\nUpdate Account", "HTTPS", $tags="protocol:https")
 
 
 SHOW_LEGEND()

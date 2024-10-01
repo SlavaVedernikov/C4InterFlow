@@ -10,8 +10,8 @@ System_Boundary(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking")
 Boundary_End()
 System_Ext(BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Mainframe Banking System", "")
 
-Rel(C4InterFlow.SoftwareSystems.ExternalSystem, BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "Get Customer Accounts")
-Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Customer Accounts")
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "Get Customer Accounts", "HTTPS")
+Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Customer Accounts", "TCP/IP")
 
 
 @enduml

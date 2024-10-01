@@ -17,15 +17,15 @@ end box
 participant "External Process" as TraderXExample.Actors.ExternalProcess
 
 group Trader - Create Trade Request
-TraderXExample.Actors.Trader -> TraderXExample.SoftwareSystems.TraderX.Containers.WebClient : Create Trade
+TraderXExample.Actors.Trader -> TraderXExample.SoftwareSystems.TraderX.Containers.WebClient : Create Trade\n[HTTPS]
 group Create Trade
-TraderXExample.SoftwareSystems.TraderX.Containers.WebClient -> TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI : Create Trade
+TraderXExample.SoftwareSystems.TraderX.Containers.WebClient -> TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI : Create Trade\n[HTTPS]
 group Create Trade
-TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.ReferenceDataService : Get Securities
-TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices : Create Trade
+TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.ReferenceDataService : Get Securities\n[HTTPS]
+TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices : Create Trade\n[HTTPS]
 group Create Trade
-TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices -> TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB : Insert Trade Request
-TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Send Trade Request
+TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices -> TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB : Insert Trade Request\n[JDBC]
+TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Send Trade Request\n[SocketIO]
 end
 end
 end
@@ -33,34 +33,34 @@ end
 group External Process - Process Trade Request
 TraderXExample.Actors.ExternalProcess -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor : Start
 group Start
-TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Receive Trade Request
-TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB : Select Current Positions
-TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB : Save Trade State
-TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB : Save Position State
-TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Send Updates To Trades
-TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Send Updates To Positions
+TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Receive Trade Request\n[SocketIO]
+TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB : Select Current Positions\n[JDBC]
+TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB : Save Trade State\n[JDBC]
+TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB : Save Position State\n[JDBC]
+TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Send Updates To Trades\n[SocketIO]
+TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Send Updates To Positions\n[SocketIO]
 end
 end
 group External Process - Refresh Web Client
 TraderXExample.Actors.ExternalProcess -> TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI : Start
 group Start
-TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Receive Updates To Trades
-TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Receive Updates To Positions
-TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.WebClient : Send Trade And Position Status Updates
+TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Receive Updates To Trades\n[WebSocket]
+TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Receive Updates To Positions\n[WebSocket]
+TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.WebClient : Send Trade And Position Status Updates\n[WebSocket]
 group Send Trade And Position Status Updates
-TraderXExample.SoftwareSystems.TraderX.Containers.WebClient -> TraderXExample.SoftwareSystems.TraderX.Containers.WebClient : Update Trade And Position Status View
+TraderXExample.SoftwareSystems.TraderX.Containers.WebClient -> TraderXExample.SoftwareSystems.TraderX.Containers.WebClient : Update Trade And Position Status View\n[HTTPS]
 end
 end
 end
 group Trader - Cancel Trade
-TraderXExample.Actors.Trader -> TraderXExample.SoftwareSystems.TraderX.Containers.WebClient : Cancel Trade
+TraderXExample.Actors.Trader -> TraderXExample.SoftwareSystems.TraderX.Containers.WebClient : Cancel Trade\n[HTTPS]
 group Cancel Trade
-TraderXExample.SoftwareSystems.TraderX.Containers.WebClient -> TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI : Cancel Trade
+TraderXExample.SoftwareSystems.TraderX.Containers.WebClient -> TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI : Cancel Trade\n[HTTPS]
 group Cancel Trade
-TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices : Cancel Trade
+TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices : Cancel Trade\n[HTTPS]
 group Cancel Trade
-TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices -> TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB : Update Trade Status
-TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Send Updates To Trades
+TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices -> TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB : Update Trade Status\n[JDBC]
+TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Send Updates To Trades\n[SocketIO]
 end
 end
 end

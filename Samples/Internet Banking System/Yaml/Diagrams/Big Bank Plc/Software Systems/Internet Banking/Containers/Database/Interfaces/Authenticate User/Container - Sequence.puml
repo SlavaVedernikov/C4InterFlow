@@ -9,7 +9,7 @@ box "Internet Banking" #White
 end box
 
 
-C4InterFlow.SoftwareSystems.ExternalSystem -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database : Authenticate User
+C4InterFlow.SoftwareSystems.ExternalSystem -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database : Authenticate User\n[TCP/IP, SQL]
 
 
 @enduml

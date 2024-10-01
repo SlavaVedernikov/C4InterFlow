@@ -23,8 +23,8 @@ System_Boundary(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking") 
     ContainerDb(BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Database", "SQL Server Database", "Stores user registration information, hashed auth credentials, access logs, etc.")
 }
 
-Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp, BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "Sign In\n[HTTPS]", $tags='protocol:https')
-Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Authenticate User\n[TCP/IP, SQL]", $tags='protocol:tcp/ip, sql')
+Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp, BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "Sign In", "HTTPS", $tags="protocol:https")
+Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Authenticate User", "TCP/IP, SQL", $tags="protocol:tcp/ip, sql")
 
 
 SHOW_LEGEND()

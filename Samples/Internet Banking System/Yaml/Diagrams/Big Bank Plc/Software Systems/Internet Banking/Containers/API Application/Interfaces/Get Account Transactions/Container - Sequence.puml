@@ -10,9 +10,9 @@ end box
 
 participant "Mainframe Banking System" as BigBankPlc.SoftwareSystems.MainframeBankingSystem
 
-C4InterFlow.SoftwareSystems.ExternalSystem -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication : Get Account Transactions
+C4InterFlow.SoftwareSystems.ExternalSystem -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication : Get Account Transactions\n[HTTPS]
 group Get Account Transactions
-BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Account Transactions
+BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Account Transactions\n[TCP/IP]
 end
 
 

@@ -9,8 +9,8 @@ System_Boundary(TraderXExample.SoftwareSystems.TraderX, "TraderX")
     Container(TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Web Client", "", "Browser based web interface for TraderX")
 Boundary_End()
 
-Rel(C4InterFlow.SoftwareSystems.ExternalSystem, TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Send Trade And Position Status Updates")
-Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Update Trade And Position Status View")
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Send Trade And Position Status Updates", "WebSocket")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Update Trade And Position Status View", "HTTPS")
 
 
 @enduml

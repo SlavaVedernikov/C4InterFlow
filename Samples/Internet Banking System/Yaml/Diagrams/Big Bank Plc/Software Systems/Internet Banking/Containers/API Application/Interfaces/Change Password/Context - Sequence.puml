@@ -8,7 +8,7 @@ participant "E-Mail System" as BigBankPlc.SoftwareSystems.EMailSystem
 
 C4InterFlow.SoftwareSystems.ExternalSystem -> BigBankPlc.SoftwareSystems.InternetBanking : Change Password
 group Change Password
-BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.EMailSystem : Send Password Changed Notification E-Mail
+BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.EMailSystem : Send Password Changed Notification E-Mail\n[SMTP]
 end
 
 

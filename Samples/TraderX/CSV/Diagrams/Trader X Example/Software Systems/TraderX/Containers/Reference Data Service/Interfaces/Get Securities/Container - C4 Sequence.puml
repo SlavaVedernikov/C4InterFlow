@@ -9,7 +9,7 @@ System_Boundary(TraderXExample.SoftwareSystems.TraderX, "TraderX")
     Container(TraderXExample.SoftwareSystems.TraderX.Containers.ReferenceDataService, "Reference Data Service", "", "Service which provides reference data")
 Boundary_End()
 
-Rel(C4InterFlow.SoftwareSystems.ExternalSystem, TraderXExample.SoftwareSystems.TraderX.Containers.ReferenceDataService, "Get Securities")
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, TraderXExample.SoftwareSystems.TraderX.Containers.ReferenceDataService, "Get Securities", "HTTPS")
 
 
 @enduml

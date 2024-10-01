@@ -11,11 +11,11 @@ end box
 
 participant "User Directory" as TraderXExample.SoftwareSystems.UserDirectory
 
-C4InterFlow.SoftwareSystems.ExternalSystem -> TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI : Type Ahead People Search
+C4InterFlow.SoftwareSystems.ExternalSystem -> TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI : Type Ahead People Search\n[HTTPS]
 group Type Ahead People Search
-TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.PeopleService : Get People Data
+TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.PeopleService : Get People Data\n[HTTPS]
 group Get People Data
-TraderXExample.SoftwareSystems.TraderX.Containers.PeopleService -> TraderXExample.SoftwareSystems.UserDirectory : Select People Data
+TraderXExample.SoftwareSystems.TraderX.Containers.PeopleService -> TraderXExample.SoftwareSystems.UserDirectory : Select People Data\n[LDAP]
 end
 end
 

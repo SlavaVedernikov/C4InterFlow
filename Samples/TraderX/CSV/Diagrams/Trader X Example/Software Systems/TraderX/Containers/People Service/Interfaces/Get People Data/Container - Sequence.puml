@@ -10,9 +10,9 @@ end box
 
 participant "User Directory" as TraderXExample.SoftwareSystems.UserDirectory
 
-C4InterFlow.SoftwareSystems.ExternalSystem -> TraderXExample.SoftwareSystems.TraderX.Containers.PeopleService : Get People Data
+C4InterFlow.SoftwareSystems.ExternalSystem -> TraderXExample.SoftwareSystems.TraderX.Containers.PeopleService : Get People Data\n[HTTPS]
 group Get People Data
-TraderXExample.SoftwareSystems.TraderX.Containers.PeopleService -> TraderXExample.SoftwareSystems.UserDirectory : Select People Data
+TraderXExample.SoftwareSystems.TraderX.Containers.PeopleService -> TraderXExample.SoftwareSystems.UserDirectory : Select People Data\n[LDAP]
 end
 
 
