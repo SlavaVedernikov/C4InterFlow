@@ -121,7 +121,14 @@ Leave us [your feedback](https://github.com/SlavaVedernikov/C4InterFlow/discussi
 
 # System Requirements
 
-- **Java** and `plantuml.jar` (embedded as a resource).
+- C4InterFlow uses PlantUML .jar (embedded within the project), which requires **Java** to be installed on your machine
+  - Check if Java is already installed: `java -version`. The minimum version needed is **Java 8**.
+
+# Known issues
+
+- Git "Filename too long" message on Windows
+  - Use `git config --global core.longpaths true` to allow long paths
+  - See [Paths too long on Windows](https://github.com/SlavaVedernikov/C4InterFlow/issues/107) issue
 
 # Support
 
