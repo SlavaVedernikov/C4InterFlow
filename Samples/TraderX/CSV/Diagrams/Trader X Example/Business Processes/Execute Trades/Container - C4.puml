@@ -29,18 +29,18 @@ System_Boundary(TraderXExample.SoftwareSystems.TraderX, "TraderX") {
 }
 System(TraderXExample.Actors.ExternalProcess, "External Process", "")
 
-Rel(TraderXExample.Actors.Trader, TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Create Trade\nCancel Trade\n[HTTPS]", $tags='protocol:https')
-Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, "Create Trade\nCancel Trade\n[HTTPS]", $tags='protocol:https')
-Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.ReferenceDataService, "Get Securities\n[HTTPS]", $tags='protocol:https')
-Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices, "Create Trade\nCancel Trade\n[HTTPS]", $tags='protocol:https')
-Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices, TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB, "Insert Trade Request\nUpdate Trade Status\n[JDBC]", $tags='protocol:jdbc')
-Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices, TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Send Trade Request\nSend Updates To Trades\n[SocketIO]", $tags='protocol:socketio')
+Rel(TraderXExample.Actors.Trader, TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Create Trade\nCancel Trade", "HTTPS", $tags="protocol:https")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, "Create Trade\nCancel Trade", "HTTPS", $tags="protocol:https")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.ReferenceDataService, "Get Securities", "HTTPS", $tags="protocol:https")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices, "Create Trade\nCancel Trade", "HTTPS", $tags="protocol:https")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices, TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB, "Insert Trade Request\nUpdate Trade Status", "JDBC", $tags="protocol:jdbc")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices, TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Send Trade Request\nSend Updates To Trades", "SocketIO", $tags="protocol:socketio")
 Rel(TraderXExample.Actors.ExternalProcess, TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor, "Start")
-Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Receive Trade Request\nSend Updates To Trades\nSend Updates To Positions\n[SocketIO]", $tags='protocol:socketio')
-Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB, "Select Current Positions\nSave Trade State\nSave Position State\n[JDBC]", $tags='protocol:jdbc')
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Receive Trade Request\nSend Updates To Trades\nSend Updates To Positions", "SocketIO", $tags="protocol:socketio")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB, "Select Current Positions\nSave Trade State\nSave Position State", "JDBC", $tags="protocol:jdbc")
 Rel(TraderXExample.Actors.ExternalProcess, TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, "Start")
-Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Receive Updates To Trades\nReceive Updates To Positions\n[WebSocket]", $tags='protocol:websocket')
-Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Send Trade And Position Status Updates\n[WebSocket]", $tags='protocol:websocket')
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Receive Updates To Trades\nReceive Updates To Positions", "WebSocket", $tags="protocol:websocket")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Send Trade And Position Status Updates", "WebSocket", $tags="protocol:websocket")
 
 
 SHOW_LEGEND()

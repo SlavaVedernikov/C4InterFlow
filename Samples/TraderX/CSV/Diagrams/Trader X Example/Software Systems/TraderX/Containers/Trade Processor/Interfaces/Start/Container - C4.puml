@@ -23,8 +23,8 @@ System_Boundary(TraderXExample.SoftwareSystems.TraderX, "TraderX") {
     ContainerDb(TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB, "TraderX DB", "", "Database which stores account")
 }
 
-Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Receive Trade Request\nSend Updates To Trades\nSend Updates To Positions\n[SocketIO]", $tags='protocol:socketio')
-Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB, "Select Current Positions\nSave Trade State\nSave Position State\n[JDBC]", $tags='protocol:jdbc')
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Receive Trade Request\nSend Updates To Trades\nSend Updates To Positions", "SocketIO", $tags="protocol:socketio")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB, "Select Current Positions\nSave Trade State\nSave Position State", "JDBC", $tags="protocol:jdbc")
 
 
 SHOW_LEGEND()

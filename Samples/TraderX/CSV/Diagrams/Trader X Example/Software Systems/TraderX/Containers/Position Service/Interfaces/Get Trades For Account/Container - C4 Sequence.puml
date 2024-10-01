@@ -9,7 +9,7 @@ System_Boundary(TraderXExample.SoftwareSystems.TraderX, "TraderX")
     Container(TraderXExample.SoftwareSystems.TraderX.Containers.PositionService, "Position Service", "", "Server process which processes trading activity and updates positions")
 Boundary_End()
 
-Rel(C4InterFlow.SoftwareSystems.ExternalSystem, TraderXExample.SoftwareSystems.TraderX.Containers.PositionService, "Get Trades For Account")
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, TraderXExample.SoftwareSystems.TraderX.Containers.PositionService, "Get Trades For Account", "HTTPS")
 
 
 @enduml

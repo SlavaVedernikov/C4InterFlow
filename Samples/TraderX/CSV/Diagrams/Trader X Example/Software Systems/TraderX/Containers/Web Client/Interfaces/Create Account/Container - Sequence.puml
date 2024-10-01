@@ -11,11 +11,11 @@ box "TraderX" #White
 end box
 
 
-C4InterFlow.SoftwareSystems.ExternalSystem -> TraderXExample.SoftwareSystems.TraderX.Containers.WebClient : Create Account
+C4InterFlow.SoftwareSystems.ExternalSystem -> TraderXExample.SoftwareSystems.TraderX.Containers.WebClient : Create Account\n[HTTPS]
 group Create Account
-TraderXExample.SoftwareSystems.TraderX.Containers.WebClient -> TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI : Create Account
+TraderXExample.SoftwareSystems.TraderX.Containers.WebClient -> TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI : Create Account\n[HTTPS]
 group Create Account
-TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.AccountsService : Create Account
+TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.AccountsService : Create Account\n[HTTPS]
 end
 end
 

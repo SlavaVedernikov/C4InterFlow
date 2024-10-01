@@ -10,9 +10,9 @@ box "TraderX" #White
 end box
 
 
-C4InterFlow.SoftwareSystems.ExternalSystem -> TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI : Load Positions For Account
+C4InterFlow.SoftwareSystems.ExternalSystem -> TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI : Load Positions For Account\n[HTTPS]
 group Load Positions For Account
-TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.PositionService : Get Positions For Account
+TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.PositionService : Get Positions For Account\n[HTTPS]
 end
 
 

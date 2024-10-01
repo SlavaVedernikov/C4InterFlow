@@ -9,7 +9,7 @@ box "TraderX" #White
 end box
 
 
-C4InterFlow.SoftwareSystems.ExternalSystem -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Receive Trade Request
+C4InterFlow.SoftwareSystems.ExternalSystem -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Receive Trade Request\n[SocketIO]
 
 
 @enduml

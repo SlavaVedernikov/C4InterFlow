@@ -11,10 +11,10 @@ box "TraderX" #White
 end box
 
 
-C4InterFlow.SoftwareSystems.ExternalSystem -> TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices : Create Trade
+C4InterFlow.SoftwareSystems.ExternalSystem -> TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices : Create Trade\n[HTTPS]
 group Create Trade
-TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices -> TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB : Insert Trade Request
-TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Send Trade Request
+TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices -> TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB : Insert Trade Request\n[JDBC]
+TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Send Trade Request\n[SocketIO]
 end
 
 

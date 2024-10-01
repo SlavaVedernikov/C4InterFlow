@@ -10,8 +10,8 @@ System_Boundary(TraderXExample.SoftwareSystems.TraderX, "TraderX")
 Boundary_End()
 System(TraderXExample.SoftwareSystems.UserDirectory, "User Directory", "")
 
-Rel(C4InterFlow.SoftwareSystems.ExternalSystem, TraderXExample.SoftwareSystems.TraderX.Containers.PeopleService, "Get People Data")
-Rel(TraderXExample.SoftwareSystems.TraderX.Containers.PeopleService, TraderXExample.SoftwareSystems.UserDirectory, "Select People Data")
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, TraderXExample.SoftwareSystems.TraderX.Containers.PeopleService, "Get People Data", "HTTPS")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.PeopleService, TraderXExample.SoftwareSystems.UserDirectory, "Select People Data", "LDAP")
 
 
 @enduml

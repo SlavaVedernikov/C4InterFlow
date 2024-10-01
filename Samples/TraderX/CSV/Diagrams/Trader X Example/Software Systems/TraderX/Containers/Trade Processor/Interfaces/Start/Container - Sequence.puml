@@ -13,12 +13,12 @@ end box
 
 C4InterFlow.SoftwareSystems.ExternalSystem -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor : Start
 group Start
-TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Receive Trade Request
-TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB : Select Current Positions
-TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB : Save Trade State
-TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB : Save Position State
-TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Send Updates To Trades
-TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Send Updates To Positions
+TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Receive Trade Request\n[SocketIO]
+TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB : Select Current Positions\n[JDBC]
+TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB : Save Trade State\n[JDBC]
+TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB : Save Position State\n[JDBC]
+TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Send Updates To Trades\n[SocketIO]
+TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Send Updates To Positions\n[SocketIO]
 end
 
 

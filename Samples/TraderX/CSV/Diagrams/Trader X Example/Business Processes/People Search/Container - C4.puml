@@ -25,10 +25,10 @@ System_Boundary(TraderXExample.SoftwareSystems.TraderX, "TraderX") {
 }
 System(TraderXExample.SoftwareSystems.UserDirectory, "User Directory", "")
 
-Rel(TraderXExample.Actors.Trader, TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Type Ahead People Search\n[HTTPS]", $tags='protocol:https')
-Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, "Type Ahead People Search\n[HTTPS]", $tags='protocol:https')
-Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.PeopleService, "Get People Data\n[HTTPS]", $tags='protocol:https')
-Rel(TraderXExample.SoftwareSystems.TraderX.Containers.PeopleService, TraderXExample.SoftwareSystems.UserDirectory, "Select People Data\n[LDAP]", $tags='protocol:ldap')
+Rel(TraderXExample.Actors.Trader, TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Type Ahead People Search", "HTTPS", $tags="protocol:https")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, "Type Ahead People Search", "HTTPS", $tags="protocol:https")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.PeopleService, "Get People Data", "HTTPS", $tags="protocol:https")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.PeopleService, TraderXExample.SoftwareSystems.UserDirectory, "Select People Data", "LDAP", $tags="protocol:ldap")
 
 
 SHOW_LEGEND()

@@ -23,8 +23,8 @@ System_Boundary(TraderXExample.SoftwareSystems.TraderX, "TraderX") {
     ContainerQueue(TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Trade Feed", "", "Message bus for streaming updates to trades and positions")
 }
 
-Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices, TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB, "Update Trade Status\n[JDBC]", $tags='protocol:jdbc')
-Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices, TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Send Updates To Trades\n[SocketIO]", $tags='protocol:socketio')
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices, TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB, "Update Trade Status", "JDBC", $tags="protocol:jdbc")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices, TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Send Updates To Trades", "SocketIO", $tags="protocol:socketio")
 
 
 SHOW_LEGEND()

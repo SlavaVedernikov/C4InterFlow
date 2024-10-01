@@ -9,7 +9,7 @@ System_Boundary(TraderXExample.SoftwareSystems.TraderX, "TraderX")
     ContainerDb(TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB, "TraderX DB", "", "Database which stores account")
 Boundary_End()
 
-Rel(C4InterFlow.SoftwareSystems.ExternalSystem, TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB, "Save Trade State")
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB, "Save Trade State", "JDBC")
 
 
 @enduml

@@ -11,15 +11,15 @@ box "TraderX" #White
 end box
 
 
-TraderXExample.Actors.Trader -> TraderXExample.SoftwareSystems.TraderX.Containers.WebClient : View Trade Status And Positions
+TraderXExample.Actors.Trader -> TraderXExample.SoftwareSystems.TraderX.Containers.WebClient : View Trade Status And Positions\n[HTTPS]
 group View Trade Status And Positions
-TraderXExample.SoftwareSystems.TraderX.Containers.WebClient -> TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI : Load Trades For Account
+TraderXExample.SoftwareSystems.TraderX.Containers.WebClient -> TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI : Load Trades For Account\n[HTTPS]
 group Load Trades For Account
-TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.PositionService : Get Trades For Account
+TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.PositionService : Get Trades For Account\n[HTTPS]
 end
-TraderXExample.SoftwareSystems.TraderX.Containers.WebClient -> TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI : Load Positions For Account
+TraderXExample.SoftwareSystems.TraderX.Containers.WebClient -> TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI : Load Positions For Account\n[HTTPS]
 group Load Positions For Account
-TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.PositionService : Get Positions For Account
+TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.PositionService : Get Positions For Account\n[HTTPS]
 end
 end
 

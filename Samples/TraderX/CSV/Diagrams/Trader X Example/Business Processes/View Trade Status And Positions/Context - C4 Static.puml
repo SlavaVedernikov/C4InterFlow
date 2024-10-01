@@ -19,7 +19,7 @@ title Trader X Example - View Trade Status And Positions - C4 Static - Context l
 Person(TraderXExample.Actors.Trader, "Trader", "")
 System(TraderXExample.SoftwareSystems.TraderX, "TraderX", "TraderX")
 
-Rel(TraderXExample.Actors.Trader, TraderXExample.SoftwareSystems.TraderX, "Uses\n[HTTPS]", $tags='protocol:https')
+Rel(TraderXExample.Actors.Trader, TraderXExample.SoftwareSystems.TraderX, "Uses", "HTTPS", $tags="protocol:https")
 
 
 SHOW_LEGEND()

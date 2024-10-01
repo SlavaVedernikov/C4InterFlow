@@ -13,11 +13,11 @@ end box
 
 C4InterFlow.SoftwareSystems.ExternalSystem -> TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI : Start
 group Start
-TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Receive Updates To Trades
-TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Receive Updates To Positions
-TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.WebClient : Send Trade And Position Status Updates
+TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Receive Updates To Trades\n[WebSocket]
+TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Receive Updates To Positions\n[WebSocket]
+TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.WebClient : Send Trade And Position Status Updates\n[WebSocket]
 group Send Trade And Position Status Updates
-TraderXExample.SoftwareSystems.TraderX.Containers.WebClient -> TraderXExample.SoftwareSystems.TraderX.Containers.WebClient : Update Trade And Position Status View
+TraderXExample.SoftwareSystems.TraderX.Containers.WebClient -> TraderXExample.SoftwareSystems.TraderX.Containers.WebClient : Update Trade And Position Status View\n[HTTPS]
 end
 end
 

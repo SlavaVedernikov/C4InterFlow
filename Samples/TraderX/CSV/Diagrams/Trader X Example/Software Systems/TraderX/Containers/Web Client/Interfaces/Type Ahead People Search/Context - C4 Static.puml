@@ -19,7 +19,7 @@ title Trader X Example - TraderX - Web Client - Type Ahead People Search - C4 St
 System(TraderXExample.SoftwareSystems.TraderX, "TraderX", "TraderX")
 System(TraderXExample.SoftwareSystems.UserDirectory, "User Directory", "")
 
-Rel(TraderXExample.SoftwareSystems.TraderX, TraderXExample.SoftwareSystems.UserDirectory, "Uses\n[LDAP]", $tags='protocol:ldap')
+Rel(TraderXExample.SoftwareSystems.TraderX, TraderXExample.SoftwareSystems.UserDirectory, "Uses", "LDAP", $tags="protocol:ldap")
 
 
 SHOW_LEGEND()
