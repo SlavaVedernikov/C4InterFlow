@@ -23,8 +23,8 @@ System_Boundary(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking") 
 }
 System_Ext(BigBankPlc.SoftwareSystems.EMailSystem, "E-Mail System", "The internal Microsoft Exchange system")
 
-Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Update User Password\n[TCP/IP, SQL]", $tags='protocol:tcp/ip, sql')
-Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.EMailSystem, "Send Password Changed Notification E-Mail\n[SMTP]", $tags='protocol:smtp')
+Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Update User Password", "TCP/IP, SQL", $tags="protocol:tcp/ip, sql")
+Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.EMailSystem, "Send Password Changed Notification E-Mail", "SMTP", $tags="protocol:smtp")
 
 
 SHOW_LEGEND()

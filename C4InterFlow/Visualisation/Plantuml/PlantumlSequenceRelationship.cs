@@ -9,7 +9,7 @@ namespace C4InterFlow.Visualisation.Plantuml
         {
             if(style == SequenceDiagramStyle.PlantUML)
             {
-                return $"{relationship.From} {(relationship.Direction == Direction.Forward ? "->" : "<-")} {relationship.To} : {relationship.Label}{(!string.IsNullOrEmpty(relationship.Protocol) ? $" ({relationship.Protocol})" : string.Empty)}";
+                return $"{relationship.From} {(relationship.Direction == Direction.Forward ? "->" : "<-")} {relationship.To} : {relationship.Label}{(!string.IsNullOrEmpty(relationship.Protocol) ? $"\\n[{relationship.Protocol}]" : string.Empty)}";
             }
             else if(style == SequenceDiagramStyle.C4)
             {

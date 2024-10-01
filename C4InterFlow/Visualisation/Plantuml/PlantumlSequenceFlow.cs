@@ -81,12 +81,14 @@ namespace C4InterFlow.Visualisation.Plantuml
             {
                 var usesInterfaceOwner = default(Structure);
                 var label = string.Empty;
+                var protocol = string.Empty;
 
                 var usesInterface = Utils.GetInstance<Interface>(flow.Expression);
                 if(usesInterface != null)
                 {
                     usesInterfaceOwner = Utils.GetInstance<Structure>(usesInterface.Owner);
                     label = usesInterface.Label;
+                    protocol = usesInterface.Protocol;
                 }
                 else
                 {
@@ -97,7 +99,7 @@ namespace C4InterFlow.Visualisation.Plantuml
                 
                 if(usesInterfaceOwner != null)
                 {
-                    var flowRelationship = new Relationship(actor.Alias, usesInterfaceOwner.Alias, label);
+                    var flowRelationship = new Relationship(actor.Alias, usesInterfaceOwner.Alias, label, protocol);
                     sb.AppendLine(flowRelationship.ToPumlSequenceString(style));
                 }
 

@@ -93,6 +93,18 @@ public record Relationship
     /// <param name="to"></param>
     /// <param name="label"></param>
     /// <param name="protocol"></param>
+    public Relationship(string @from, string to, string label,
+        string protocol) : this(from, Direction.Forward, to, label, protocol, Position.None)
+    { }
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="from"></param>
+    /// <param name="direction"></param>
+    /// <param name="to"></param>
+    /// <param name="label"></param>
+    /// <param name="protocol"></param>
     /// <param name="position"></param>
     protected Relationship(string @from, Direction direction, string to, string label,
         string protocol, Position position)

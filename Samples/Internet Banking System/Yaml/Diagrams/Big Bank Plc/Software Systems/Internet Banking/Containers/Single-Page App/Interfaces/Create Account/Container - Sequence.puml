@@ -12,12 +12,12 @@ end box
 participant "Mainframe Banking System" as BigBankPlc.SoftwareSystems.MainframeBankingSystem
 participant "E-Mail System" as BigBankPlc.SoftwareSystems.EMailSystem
 
-C4InterFlow.SoftwareSystems.ExternalSystem -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp : Create Account
+C4InterFlow.SoftwareSystems.ExternalSystem -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp : Create Account\n[HTTPS]
 group Create Account
-BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication : Create Account
+BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication : Create Account\n[HTTPS]
 group Create Account
-BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Create Account
-BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.EMailSystem : Send New Account Created Notification E-Mail
+BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Create Account\n[TCP/IP]
+BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.EMailSystem : Send New Account Created Notification E-Mail\n[SMTP]
 end
 end
 

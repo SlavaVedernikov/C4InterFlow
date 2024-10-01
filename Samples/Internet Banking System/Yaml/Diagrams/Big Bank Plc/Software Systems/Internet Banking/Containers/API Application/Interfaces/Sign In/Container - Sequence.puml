@@ -10,9 +10,9 @@ box "Internet Banking" #White
 end box
 
 
-C4InterFlow.SoftwareSystems.ExternalSystem -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication : Sign In
+C4InterFlow.SoftwareSystems.ExternalSystem -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication : Sign In\n[HTTPS]
 group Sign In
-BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database : Authenticate User
+BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database : Authenticate User\n[TCP/IP, SQL]
 end
 
 

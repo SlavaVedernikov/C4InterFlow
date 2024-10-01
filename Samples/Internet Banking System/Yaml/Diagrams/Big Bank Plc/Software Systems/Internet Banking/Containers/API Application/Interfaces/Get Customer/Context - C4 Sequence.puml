@@ -8,7 +8,7 @@ System(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking", "Provided
 System_Ext(BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Mainframe Banking System", "")
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, BigBankPlc.SoftwareSystems.InternetBanking, "Get Customer")
-Rel(BigBankPlc.SoftwareSystems.InternetBanking, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Customer")
+Rel(BigBankPlc.SoftwareSystems.InternetBanking, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Customer", "TCP/IP")
 
 
 @enduml

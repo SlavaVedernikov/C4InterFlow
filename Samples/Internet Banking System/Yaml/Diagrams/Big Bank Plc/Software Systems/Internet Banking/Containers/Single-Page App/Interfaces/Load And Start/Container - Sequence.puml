@@ -9,7 +9,7 @@ box "Internet Banking" #White
 end box
 
 
-C4InterFlow.SoftwareSystems.ExternalSystem -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp : Load And Start
+C4InterFlow.SoftwareSystems.ExternalSystem -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp : Load And Start\n[HTTPS]
 
 
 @enduml

@@ -11,15 +11,15 @@ end box
 
 participant "Mainframe Banking System" as BigBankPlc.SoftwareSystems.MainframeBankingSystem
 
-C4InterFlow.SoftwareSystems.ExternalSystem -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp : View Customer Details
+C4InterFlow.SoftwareSystems.ExternalSystem -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp : View Customer Details\n[HTTPS]
 group View Customer Details
-BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication : Get Customer
+BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication : Get Customer\n[HTTPS]
 group Get Customer
-BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer
+BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer\n[TCP/IP]
 end
-BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication : Get Customer Accounts
+BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication : Get Customer Accounts\n[HTTPS]
 group Get Customer Accounts
-BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer Accounts
+BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer Accounts\n[TCP/IP]
 end
 end
 

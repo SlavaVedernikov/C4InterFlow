@@ -148,13 +148,12 @@ public abstract class DiagramBuildRunner : IDiagramBuildRunner
                     var protocol = relationshipProtocolGroup.Key.Protocol;
 
                     var label = isStatic ? $"Uses" : string.Join("\\n", relationshipProtocolGroup.Relationships.Select(x => $"{x.Label}").Distinct());
-                    label = $"{label}{(string.IsNullOrEmpty(protocol) ? string.Empty : $"\\n[{protocol}]")}";
 
-                    var relationship = (fromStructure > toStructure)[label];
+                    var relationship = (fromStructure > toStructure)[label, protocol];
 
                     if(!string.IsNullOrEmpty(protocol))
                     {
-                        relationship = relationship.AddTags($"'{nameof(Relationship.Protocol).ToLower()}:{protocol.ToLower()}'");
+                        relationship = relationship.AddTags($"\"{nameof(Relationship.Protocol).ToLower()}:{protocol.ToLower()}\"");
                     }
                     
                     relationshipsToAdd.Add(relationship);

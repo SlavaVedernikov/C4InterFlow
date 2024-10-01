@@ -19,7 +19,7 @@ title Big Bank Plc - Internet Banking - API Application - Get Customer Accounts 
 System(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking", "Provided Internet Banking services")
 System_Ext(BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Mainframe Banking System", "")
 
-Rel(BigBankPlc.SoftwareSystems.InternetBanking, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Uses\n[TCP/IP]", $tags='protocol:tcp/ip')
+Rel(BigBankPlc.SoftwareSystems.InternetBanking, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Uses", "TCP/IP", $tags="protocol:tcp/ip")
 
 
 SHOW_LEGEND()

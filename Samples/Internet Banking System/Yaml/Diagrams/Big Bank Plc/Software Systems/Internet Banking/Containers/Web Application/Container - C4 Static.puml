@@ -22,7 +22,7 @@ System_Boundary(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking") 
     Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "Single-Page App", "JavaScript, Angular", "Provides all the Internet banking functionality to customers via their web browser")
 }
 
-Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.WebApplication, BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "Uses\n[HTTPS]", $tags='protocol:https')
+Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.WebApplication, BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "Uses", "HTTPS", $tags="protocol:https")
 
 
 SHOW_LEGEND()
