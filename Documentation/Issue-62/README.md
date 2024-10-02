@@ -213,15 +213,10 @@ BigBankPlc:
 
 ```plantuml
 @startuml
-set separator none
-title Internet Banking System - Deployment - Live
+!include ..\..\..\.c4s\C4_Container.puml
+!include ..\..\..\.c4s\C4_Deployment.puml
 
-top to bottom direction
-
-!include <C4/C4>
-!include <C4/C4_Context>
-!include <C4/C4_Container>
-!include <C4/C4_Deployment>
+title Big Bank Plc - Live - C4 Deployment - Container level
 
 Deployment_Node(BigBankPlc.Environments.Live.Nodes.CustomerMobileDevice, "Customer's mobile device", $type="Apple iOS or Android", "") {
   Container(BigBankPlc.Environments.Live.Nodes.CustomerMobileDevice.Deployments.BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp, "Mobile App", "Xamarin", "Provides a limited subset of the Internet banking functionality to customers via their mobile device.")
