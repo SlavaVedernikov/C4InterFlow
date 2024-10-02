@@ -22,7 +22,7 @@
 		<RepositoryUrl>https://github.com/SlavaVedernikov/C4InterFlow</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>Architecture as Code DSL C4 Model Tools Diagrams Generation</PackageTags>
-		<PackageReleaseNotes>First Stable Release</PackageReleaseNotes>
+		<PackageReleaseNotes>See Release Notes for C4InterFlow.Automation package</PackageReleaseNotes>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>		
 	</PropertyGroup>
