@@ -86,21 +86,6 @@ namespace C4InterFlow.Automation.Writers
             return GetCode(BuildSoftwareSystemInterfaceObject(architectureNamespace, softwareSystemName, name, label, description, protocol, uses, input, inputTemplate, output, outputTemplate));
         }
 
-        public string GetFlowCode()
-        {
-            CurrectFlowIndentation = string.Empty;
-
-            var result = new StringBuilder();
-
-            result.AppendLine("Flow:");
-
-            IncreaseFlowIndentation();
-            result.AppendLine($"{CurrectFlowIndentation}Flows:");
-            IncreaseFlowIndentation();
-
-            return result.ToString();
-        }
-
         public string GetLoopFlowCode(string condition)
         {
             var result = new StringBuilder();

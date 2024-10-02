@@ -16,6 +16,11 @@ public record Component : Structure
     public ComponentType ComponentType { get; init; }
     public string Container { get; init; }
     public Note[]? Notes { get; init; }
+
+    public Component(string alias) : this(alias, Utils.GetLabelFromAlias(alias))
+    { }
+    public Component(string alias, string label) : this(Utils.GetContainerAlias(alias), alias, label)
+    { }
     public Component(string container, string alias, string label) : base(alias, label)
     {
         Container = container;

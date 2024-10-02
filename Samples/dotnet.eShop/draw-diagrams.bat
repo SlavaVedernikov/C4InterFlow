@@ -4,7 +4,7 @@ if not defined redraw-all set "redraw-all=TRUE"
 :::::::::::::::::::::::::::::::
 
 :: Possible values: CSharp, Yaml
-if not defined aac-type set "aac-type=Yaml"
+if not defined aac-type set "aac-type=CSharp"
 ::::::::::::::::::::::::::::::::
 
 if not defined build-configuration set "build-configuration=Debug"
@@ -19,14 +19,18 @@ set "aac-reader-strategy=C4InterFlow.Automation.Readers.%aac-type%AaCReaderStrat
 if %aac-type%==CSharp set "aac-input-paths=%aac-project-name%.dll"
 if %aac-type%==Yaml set "aac-input-paths=%aac-project-name%\Yaml"
 
-CALL :NormalizePath %cli-project-path%
-SET "cli-project-path=%_NORMALIZED_PATH_%"
-CALL :NormalizePath %cli-output-dir%
-SET "cli-output-dir=%_NORMALIZED_PATH_%"
-CALL :NormalizePath %aac-input-paths%
-SET "aac-input-paths=%_NORMALIZED_PATH_%"
-CALL :NormalizePath %diagrams-dir%
-SET "diagrams-dir=%_NORMALIZED_PATH_%"
+call :NormalizePath %cli-project-path%
+set "cli-project-path=%_NORMALIZED_PATH_%"
+call :NormalizePath %cli-output-dir%
+set "cli-output-dir=%_NORMALIZED_PATH_%"
+
+if %aac-type%==Yaml (
+    call :NormalizePath %aac-input-paths%
+    set "aac-input-paths=%_NORMALIZED_PATH_%"
+)
+
+call :NormalizePath %diagrams-dir%
+set "diagrams-dir=%_NORMALIZED_PATH_%"
 
 echo redraw-all          : %redraw-all%
 echo aac-type            : %aac-type%
@@ -83,7 +87,7 @@ if NOT "%BATCH_TEST_MODE%"=="1" pause
 @GOTO :end
 
 :NormalizePath
-@SET _NORMALIZED_PATH_=%~f1
+@set _NORMALIZED_PATH_=%~f1
 @EXIT /B 0
 
 :end  

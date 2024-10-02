@@ -25,7 +25,7 @@ Container_Boundary(DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc, "Grpc"
     
 Container_Boundary(DotNetEShop.SoftwareSystems.BasketApi.Containers.Data, "Data") {
     Component(DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, "Redis Basket Repository", "", "")
-    Component(DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase, "Redis Database", "", "")
+    ComponentDb(DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase, "Redis Database", "", "")
 }
 }
 

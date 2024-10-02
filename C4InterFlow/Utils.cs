@@ -34,6 +34,10 @@ namespace C4InterFlow
             return result;
         }
 
+        public static string GetLabelFromAlias(string alias)
+        {
+            return GetLabel(alias.Split(".").Last());
+        }
         public static string? GetLabel(string? text)
         {
             if (string.IsNullOrEmpty(text)) return text;
@@ -47,9 +51,20 @@ namespace C4InterFlow
             return match.Success ? match.Groups[1].Value : string.Empty;
         }
 
+        public static string GetStructureAlias<T>()
+        {
+            return typeof(T).FullName?.Replace('+', '.') ?? string.Empty;
+        }
+
         public static string GetSoftwareSystemAlias(string alias)
         {
             var match = Regex.Match(alias, @"^(.*?)(?:\.Interfaces|\.Containers)");
+            return match.Success ? match.Groups[1].Value : string.Empty;
+        }
+
+        public static string GetInterfaceOwnerAlias(string alias)
+        {
+            var match = Regex.Match(alias, @"^(.*?)(?:\.Interfaces)");
             return match.Success ? match.Groups[1].Value : string.Empty;
         }
 

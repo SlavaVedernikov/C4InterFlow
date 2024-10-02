@@ -21,10 +21,6 @@ end box
 C4InterFlow.SoftwareSystems.ExternalSystem -> DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Get Items By Ids
 group Get Items By Ids
 DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext : Catalog Items To List Async
-DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Change Uri Placeholder
-group Change Uri Placeholder
-DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Return (items)
-end
 DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Return (TypedResults.Ok)
 end
 

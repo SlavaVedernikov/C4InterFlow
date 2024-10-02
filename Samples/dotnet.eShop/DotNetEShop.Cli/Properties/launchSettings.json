@@ -1,16 +1,20 @@
 {
   "profiles": {
-    "DotNetEShop - Execute AaC Strategy": {
-        "commandName": "Project",
-        "commandLineArgs": "execute-aac-strategy --aac-root-namespace \"SoftwareSystems\" --aac-output-path \"$(ProjectDir)\\..\\DotNetEShop\\Yaml\" --aac-writer-strategy \"DotNetEShop.Cli.CSharpToYamlBasketApiAaCGenerator, DotNetEShop.Cli\" --params software-system-source-path=\"$(EShopSourcePath)\\src\\Basket.API\\Basket.API.csproj\" --params software-system-name=\"BasketApi\""
+    "DotNetEShop - Execute AaC Strategy - Yaml": {
+      "commandName": "Project",
+      "commandLineArgs": "execute-aac-strategy --aac-root-namespace \"DotNetEShop\" --aac-output-path \"$(ProjectDir)\\..\\DotNetEShop\\Yaml\" --aac-writer-strategy \"DotNetEShop.Cli.CSharpToYamlBasketApiAaCGenerator, DotNetEShop.Cli\" --params software-system-source-path=\"$(EShopSourcePath)\\src\\Basket.API\\Basket.API.csproj\" --params software-system-name=\"BasketApi\""
+    },
+    "DotNetEShop - Execute AaC Strategy - CSharp": {
+      "commandName": "Project",
+      "commandLineArgs": "execute-aac-strategy --aac-root-namespace \"DotNetEShop\" --aac-output-path \"$(ProjectDir)\\..\\DotNetEShop\" --aac-writer-strategy \"DotNetEShop.Cli.CSharpToCSharpBasketApiAaCGenerator, DotNetEShop.Cli\" --params software-system-source-path=\"$(EShopSourcePath)\\src\\Basket.API\\Basket.API.csproj\" --params software-system-name=\"BasketApi\""
     },
     "DotNetEShop - YAML - Draw Diagrams": {
-        "commandName": "Project",
-        "commandLineArgs": "draw-diagrams --interfaces DotNetEShop.SoftwareSystems.*.Containers.*.Components.*.Interfaces.* --aac-reader-strategy \"C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)..\\DotNetEShop\\Yaml\" --output-dir \"$(ProjectDir)..\\DotNetEShop\\Diagrams\""
+      "commandName": "Project",
+      "commandLineArgs": "draw-diagrams --interfaces DotNetEShop.SoftwareSystems.*.Containers.*.Components.*.Interfaces.* --aac-reader-strategy \"C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)..\\DotNetEShop\\Yaml\" --output-dir \"$(ProjectDir)..\\DotNetEShop\\Diagrams\""
     },
     "DotNetEShop - CSharp - Draw Diagrams": {
-        "commandName": "Project",
-        "commandLineArgs": "draw-diagrams --interfaces DotNetEShop.SoftwareSystems.*.Containers.*.Components.*.Interfaces.* --aac-reader-strategy \"C4InterFlow.Automation.Readers.CSharpAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"DotNetEShop.dll\" --output-dir \"$(ProjectDir)..\\DotNetEShop\\Diagrams\""
+      "commandName": "Project",
+      "commandLineArgs": "draw-diagrams --interfaces DotNetEShop.SoftwareSystems.*.Containers.*.Components.*.Interfaces.* --aac-reader-strategy \"C4InterFlow.Automation.Readers.CSharpAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"DotNetEShop.dll\" --output-dir \"$(ProjectDir)..\\DotNetEShop\\Diagrams\""
     }
   }
 }

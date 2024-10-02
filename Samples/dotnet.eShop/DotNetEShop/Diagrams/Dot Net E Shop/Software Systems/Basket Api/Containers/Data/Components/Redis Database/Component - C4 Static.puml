@@ -20,7 +20,7 @@ title Dot Net E Shop - Basket Api - Data - Redis Database - C4 Static - Componen
 System_Boundary(DotNetEShop.SoftwareSystems.BasketApi, "Basket Api") {
     
 Container_Boundary(DotNetEShop.SoftwareSystems.BasketApi.Containers.Data, "Data") {
-    Component(DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase, "Redis Database", "", "")
+    ComponentDb(DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase, "Redis Database", "", "")
 }
 }
 

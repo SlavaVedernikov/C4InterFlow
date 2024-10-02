@@ -6,7 +6,7 @@ DotNetEShop:
           Components:
             RedisDatabase:
               Label: Redis Database
-              ComponentType: None
+              ComponentType: Database
               Description: ''
               Technology: ''
               Interfaces: {}

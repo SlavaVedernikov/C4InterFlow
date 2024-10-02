@@ -4,6 +4,7 @@ using Microsoft.CodeAnalysis;
 using System.Reflection;
 using C4InterFlow.Automation.Readers;
 using Serilog;
+using System.Text;
 
 namespace C4InterFlow.Automation.Writers
 {
@@ -205,14 +206,22 @@ namespace C4InterFlow.Automation.Writers
                     .OfType<AssignmentExpressionSyntax>()
                     .First(x => x.Left is IdentifierNameSyntax ins && ins.Identifier.Text == "Flow");
 
-                var leadingTrivia = flowSyntaxNode.GetLeadingTrivia();
                 if (flowSyntaxNode != null)
                 {
-                    var newFlowSyntaxNode =
-                        SyntaxFactory.ParseExpression(
-                            $"{leadingTrivia}Flow = {string.Join($"{Environment.NewLine}{leadingTrivia}", flowCode.Split(Environment.NewLine).Where(x => !string.IsNullOrEmpty(x)))}");
+                    var leadingTrivia = flowSyntaxNode.GetLeadingTrivia();
 
-                    architectureClassRoot = architectureClassRoot.ReplaceNode(flowSyntaxNode, newFlowSyntaxNode);
+                    // Get the right part of the existing assignment (Right-hand side of Flow = ...)
+                    var rightExpression = flowSyntaxNode.Right;
+
+                    // Parse the new flowCode and append it to the existing right expression
+                    var newFlowSyntaxNode = SyntaxFactory.ParseExpression(
+                        $"{rightExpression}{Environment.NewLine}{leadingTrivia}{string.Join($"{Environment.NewLine}{leadingTrivia}", flowCode.Split(Environment.NewLine).Where(x => !string.IsNullOrEmpty(x)))}"
+                    );
+
+                    // Replace the existing right-hand side with the new combined expression
+                    var updatedFlowSyntaxNode = flowSyntaxNode.WithRight(newFlowSyntaxNode);
+
+                    architectureClassRoot = architectureClassRoot.ReplaceNode(flowSyntaxNode, updatedFlowSyntaxNode);
 
                     var document = architectureWorkspace.CurrentSolution.GetDocument(architectureClassSyntaxTree);
                     document.ApplyChanges(architectureClassRoot);
@@ -221,6 +230,7 @@ namespace C4InterFlow.Automation.Writers
 
             return classDeclaration;
         }
+
 
         public static IEnumerable<MethodDeclarationSyntax> WithConfirmation(
             this IEnumerable<MethodDeclarationSyntax> methodDeclarations, string action)
@@ -551,23 +561,28 @@ namespace C4InterFlow.Automation.Writers
 
         public static string GetAliasFieldValue(this ClassDeclarationSyntax classDeclaration)
         {
-            var result = string.Empty;
+            var result = new StringBuilder();
 
-            var aliasField = classDeclaration.Members
-                .OfType<FieldDeclarationSyntax>()
-                .SelectMany(f => f.Declaration.Variables)
-                .FirstOrDefault(v => v.Identifier.Text == "ALIAS");
-
-            if (aliasField != null)
+            // Traverse up the syntax tree to get the namespace declaration
+            var namespaceDeclaration = classDeclaration.Ancestors().OfType<NamespaceDeclarationSyntax>().FirstOrDefault();
+            if (namespaceDeclaration != null)
             {
-                var aliasInitializer = aliasField.Initializer;
-                if (aliasInitializer != null)
-                {
-                    result = aliasInitializer.Value.ToString().Replace("\"", string.Empty);
-                }
+                result.Append(namespaceDeclaration.Name.ToString());
             }
 
-            return result;
+            // Traverse up the syntax tree to gather all parent class declarations for nested classes
+            var currentClass = classDeclaration;
+            var currentClassPathSegments = new List<string>();
+            while (currentClass != null)
+            {
+                currentClassPathSegments.Add(currentClass.Identifier.Text);
+                currentClass = currentClass.Parent as ClassDeclarationSyntax;
+            }
+
+            currentClassPathSegments.Reverse();
+            result.Append($".{string.Join('.', currentClassPathSegments.ToArray())}");
+
+            return result.ToString();
         }
 
         public static ClassDeclarationSyntax AddComponentClass(this ClassDeclarationSyntax classDeclaration,

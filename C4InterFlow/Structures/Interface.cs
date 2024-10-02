@@ -2,6 +2,10 @@
 {
     public record Interface : Structure
     {
+        public Interface(string alias) : this(alias, Utils.GetLabelFromAlias(alias))
+        { }
+        public Interface(string alias, string label) : this(Utils.GetInterfaceOwnerAlias(alias), alias, label)
+        { }
         public Interface(string owner, string alias, string label) : base(alias, label)
         {
             Owner = owner;

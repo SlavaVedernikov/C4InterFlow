@@ -18,7 +18,7 @@ DotNetEShop:
                   - Type: Use
                     Expression: DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.SaveChangesAsync
                   - Type: Return
-                    Expression: TypedResults.CreatedAtRoute
+                    Expression: TypedResults.Created
                   Input: ''
                   InputTemplate: ''
                   Output: ''
