@@ -13,7 +13,7 @@ participant "E-Mail System" as BigBankPlc.SoftwareSystems.EMailSystem
 
 C4InterFlow.SoftwareSystems.ExternalSystem -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication : Create Account\n[HTTPS]
 group Create Account
-BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Create Account\n[TCP/IP]
+BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Create Account\n[XML/HTTPS]
 BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.EMailSystem : Send New Account Created Notification E-Mail\n[SMTP]
 end
 

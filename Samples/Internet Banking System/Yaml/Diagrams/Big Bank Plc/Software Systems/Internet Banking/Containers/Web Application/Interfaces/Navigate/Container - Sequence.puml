@@ -6,7 +6,7 @@ participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 
 box "Internet Banking" #White
     participant "Web Application" as BigBankPlc.SoftwareSystems.InternetBanking.Containers.WebApplication
-    participant "Single-Page App" as BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp
+    participant "Single-Page Application" as BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp
 end box
 
 

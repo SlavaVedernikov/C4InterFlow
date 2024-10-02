@@ -12,16 +12,16 @@ BigBankPlc.Actors.Customer -> BigBankPlc.SoftwareSystems.InternetBanking : Navig
 BigBankPlc.Actors.Customer -> BigBankPlc.SoftwareSystems.InternetBanking : Sign In
 BigBankPlc.Actors.Customer -> BigBankPlc.SoftwareSystems.InternetBanking : View Customer Details
 group View Customer Details
-BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer\n[TCP/IP]
-BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer Accounts\n[TCP/IP]
+BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer\n[XML/HTTPS]
+BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer Accounts\n[XML/HTTPS]
 end
 BigBankPlc.Actors.Customer -> BigBankPlc.SoftwareSystems.InternetBanking : View Account Transactions
 group View Account Transactions
-BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Account Transactions\n[TCP/IP]
+BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Account Transactions\n[XML/HTTPS]
 end
 BigBankPlc.Actors.Customer -> BigBankPlc.SoftwareSystems.InternetBanking : Create Account
 group Create Account
-BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Create Account\n[TCP/IP]
+BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Create Account\n[XML/HTTPS]
 BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.EMailSystem : Send New Account Created Notification E-Mail\n[SMTP]
 end
 end
@@ -29,12 +29,12 @@ group Customer - Banking via Mobile App
 BigBankPlc.Actors.Customer -> BigBankPlc.SoftwareSystems.InternetBanking : Sign In
 BigBankPlc.Actors.Customer -> BigBankPlc.SoftwareSystems.InternetBanking : View Customer Details
 group View Customer Details
-BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer\n[TCP/IP]
-BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer Accounts\n[TCP/IP]
+BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer\n[XML/HTTPS]
+BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer Accounts\n[XML/HTTPS]
 end
 BigBankPlc.Actors.Customer -> BigBankPlc.SoftwareSystems.InternetBanking : View Account Transactions
 group View Account Transactions
-BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Account Transactions\n[TCP/IP]
+BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Account Transactions\n[XML/HTTPS]
 end
 end
 group Customer - Receive E-Mail Notifications

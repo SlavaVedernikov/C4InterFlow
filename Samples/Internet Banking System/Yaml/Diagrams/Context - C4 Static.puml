@@ -18,10 +18,10 @@ title All Software Systems - C4 Static - Context level
 
 System(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking", "Provided Internet Banking services")
 System_Ext(BigBankPlc.SoftwareSystems.EMailSystem, "E-Mail System", "The internal Microsoft Exchange system")
-System_Ext(BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Mainframe Banking System", "")
+System_Ext(BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Mainframe Banking System", "Stores all of the core banking information about customers, accounts, transactions, etc.")
 
 Rel(BigBankPlc.SoftwareSystems.InternetBanking, BigBankPlc.SoftwareSystems.EMailSystem, "Uses", "SMTP", $tags="protocol:smtp")
-Rel(BigBankPlc.SoftwareSystems.InternetBanking, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Uses", "TCP/IP", $tags="protocol:tcp/ip")
+Rel(BigBankPlc.SoftwareSystems.InternetBanking, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Uses", "XML/HTTPS", $tags="protocol:xml/https")
 
 
 SHOW_LEGEND()

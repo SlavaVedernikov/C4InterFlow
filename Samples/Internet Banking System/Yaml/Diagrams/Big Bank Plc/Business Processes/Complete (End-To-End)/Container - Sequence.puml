@@ -6,7 +6,7 @@ participant "Customer" as BigBankPlc.Actors.Customer
 
 box "Internet Banking" #White
     participant "Web Application" as BigBankPlc.SoftwareSystems.InternetBanking.Containers.WebApplication
-    participant "Single-Page App" as BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp
+    participant "Single-Page Application" as BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp
     participant "API Application" as BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication
     database "Database" as BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database
     participant "Mobile App" as BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp
@@ -31,25 +31,25 @@ BigBankPlc.Actors.Customer -> BigBankPlc.SoftwareSystems.InternetBanking.Contain
 group View Customer Details
 BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication : Get Customer\n[HTTPS]
 group Get Customer
-BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer\n[TCP/IP]
+BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer\n[XML/HTTPS]
 end
 BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication : Get Customer Accounts\n[HTTPS]
 group Get Customer Accounts
-BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer Accounts\n[TCP/IP]
+BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer Accounts\n[XML/HTTPS]
 end
 end
 BigBankPlc.Actors.Customer -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp : View Account Transactions\n[HTTPS]
 group View Account Transactions
 BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication : Get Account Transactions\n[HTTPS]
 group Get Account Transactions
-BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Account Transactions\n[TCP/IP]
+BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Account Transactions\n[XML/HTTPS]
 end
 end
 BigBankPlc.Actors.Customer -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp : Create Account\n[HTTPS]
 group Create Account
 BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication : Create Account\n[HTTPS]
 group Create Account
-BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Create Account\n[TCP/IP]
+BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Create Account\n[XML/HTTPS]
 BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.EMailSystem : Send New Account Created Notification E-Mail\n[SMTP]
 end
 end
@@ -66,18 +66,18 @@ BigBankPlc.Actors.Customer -> BigBankPlc.SoftwareSystems.InternetBanking.Contain
 group View Customer Details
 BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication : Get Customer\n[HTTPS]
 group Get Customer
-BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer\n[TCP/IP]
+BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer\n[XML/HTTPS]
 end
 BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication : Get Customer Accounts\n[HTTPS]
 group Get Customer Accounts
-BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer Accounts\n[TCP/IP]
+BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer Accounts\n[XML/HTTPS]
 end
 end
 BigBankPlc.Actors.Customer -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp : View Account Transactions\n[HTTPS]
 group View Account Transactions
 BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication : Get Account Transactions\n[HTTPS]
 group Get Account Transactions
-BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Account Transactions\n[TCP/IP]
+BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Account Transactions\n[XML/HTTPS]
 end
 end
 end

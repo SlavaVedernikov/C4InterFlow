@@ -7,13 +7,13 @@ BigBankPlc:
       Interfaces:
         SendNewAccountCreatedNotificationEMail:
           Label: Send New Account Created Notification E-Mail
-          Protocol: 'SMTP'
+          Protocol: SMTP
         ReceiveNewAccountCreatedNotificationEMail:
           Label: Receive New Account Created Notification E-Mail
           Protocol: 'POP3'
         SendPasswordChangedNotificationEMail:
           Label: Send Password Changed Notification E-Mail
-          Protocol: 'SMTP'
+          Protocol: SMTP
         ReceivePasswordChangedNotificationEMail:
           Label: Receive Password Changed Notification E-Mail
-          Protocol: 'POP3'
+          Protocol: POP3
