@@ -555,7 +555,7 @@ namespace C4InterFlow.Automation.Writers
         CSharpToAnyAaCWriter writer,
         IEnumerable<NetToAnyAlternativeInvocationMapperConfig>? alternativeInvocationMappers = null)
         {
-            var result = new StringBuilder().AppendLine(CodeWriter.GetFlowCode());
+            var result = new StringBuilder();
 
 
             if (methodDeclaration.Body == null)

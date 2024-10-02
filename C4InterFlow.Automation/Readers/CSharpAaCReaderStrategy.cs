@@ -1,13 +1,7 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.MSBuild;
-using Newtonsoft.Json.Linq;
-using YamlDotNet.Serialization.NamingConventions;
-using YamlDotNet.Serialization;
-using System.Text.Json.Nodes;
-using C4InterFlow.Structures.Interfaces;
-using System.Reflection;
-using System.Runtime.Loader;
 using C4InterFlow.Automation.Writers;
+using System.Text;
 
 namespace C4InterFlow.Automation.Readers
 {
@@ -42,19 +36,33 @@ namespace C4InterFlow.Automation.Readers
 
         public override string GetComponentInterfaceAlias(string filePath)
         {
-            var result = string.Empty;
+            var result = new StringBuilder();
 
             var architectureClassSyntaxTree = CurrentClassDeclaration?.SyntaxTree;
             var architectureProject = ArchitectureWorkspace?.CurrentSolution.Projects.FirstOrDefault(p => p.Documents.Any(d => d.FilePath == architectureClassSyntaxTree?.FilePath));
             var architectureCompilation = architectureProject?.GetCompilationAsync().Result;
 
             var interfaceClassSyntaxTree = architectureCompilation?.SyntaxTrees.FirstOrDefault(x => x.FilePath == filePath);
-            var interfaceAliasField = interfaceClassSyntaxTree?.GetRoot().DescendantNodes()
-                .OfType<FieldDeclarationSyntax>().First(f => f.Declaration.Variables.Any(v => v.Identifier.Text == "ALIAS"));
+            var rootNode = interfaceClassSyntaxTree?.GetRoot();
 
-            result = interfaceAliasField?.Declaration?.Variables[0]?.Initializer?.Value.ToString().Replace("\"", string.Empty);
+            if (rootNode == null) return string.Empty;
 
-            return result ?? string.Empty;
+            // Get the namespace declaration
+            var namespaceDeclaration = rootNode.DescendantNodes().OfType<NamespaceDeclarationSyntax>().FirstOrDefault();
+            if (namespaceDeclaration != null)
+            {
+                result.Append(namespaceDeclaration.Name.ToString());
+            }
+
+            // Get the class declarations and build the hierarchy
+            var classDeclarations = rootNode.DescendantNodes().OfType<ClassDeclarationSyntax>();
+            foreach (var classDecl in classDeclarations)
+            {
+                result.Append($".{classDecl.Identifier.Text}");
+            }
+
+            return result.ToString();
         }
+
     }
 }

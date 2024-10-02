@@ -71,7 +71,7 @@ namespace DotNetEShop.Cli
 
             componentName = "RedisDatabase";
 
-            writer.AddComponent(SoftwareSystemName, containerName, componentName);
+            writer.AddComponent(SoftwareSystemName, containerName, componentName, C4InterFlow.Structures.ComponentType.Database);
 
             foreach (var @interface in Utils.RedisDatabaseInterfaces)
             {

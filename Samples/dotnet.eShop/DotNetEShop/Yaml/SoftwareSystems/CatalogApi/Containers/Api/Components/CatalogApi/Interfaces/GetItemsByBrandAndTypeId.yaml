@@ -13,8 +13,6 @@ DotNetEShop:
                   IsPrivate: false
                   Protocol: ''
                   Flows:
-                  - Type: Use
-                    Expression: DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.Interfaces.ChangeUriPlaceholder
                   - Type: Return
                     Expression: TypedResults.Ok
                   Input: ''

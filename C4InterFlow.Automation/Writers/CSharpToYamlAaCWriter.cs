@@ -183,12 +183,13 @@ namespace C4InterFlow.Automation.Writers
             //Remove \t characters
             //TODO: Investigate how \t is written into the Flow Code
             flowCode = flowCode.Replace("\t", string.Empty);
+            flowCode = $"Flows:{Environment.NewLine}{flowCode}";
 
             var flowJsonObject = GetJsonObjectFromYaml(flowCode);
 
             var componentInterfaceJsonObject = architectureObject.SelectToken("..SoftwareSystems.*.Containers.*.Components.*.Interfaces.*") as JObject;
 
-            var flows = flowJsonObject["Flow"]?["Flows"];
+            var flows = flowJsonObject["Flows"];
             if(flows != null)
             {
                 componentInterfaceJsonObject["Flows"] = flows;
@@ -213,8 +214,10 @@ namespace C4InterFlow.Automation.Writers
         {
             if (!filePath.EndsWith($".{FileExtension}")) return new JObject();
 
-            var yaml = File.ReadAllText(filePath);
+            Log.Debug("Loading file: {filePath}", filePath);
 
+            var yaml = File.ReadAllText(filePath);
+            
             return GetJsonObjectFromYaml(yaml);
         }
 
@@ -226,6 +229,8 @@ namespace C4InterFlow.Automation.Writers
             var serializer = new SerializerBuilder()
                 .JsonCompatible()
                 .Build();
+
+            Log.Debug("Parsing YAML: {yaml}", yaml);
 
             string json = serializer.Serialize(yamlObject);
 

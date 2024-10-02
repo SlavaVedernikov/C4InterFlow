@@ -1,11 +1,11 @@
 @echo off
 
 :: Set net-sourcecode-dir to the directory path where E-Shop repo was cloned to
-@IF NOT DEFINED net-sourcecode-dir set "net-sourcecode-dir=C:\Data\Projects\C4InterFlow\eShop-main"
+@IF NOT DEFINED net-sourcecode-dir set "net-sourcecode-dir=C:\Data\Projects\C4InterFlow\DotNetEShop"
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :: Possible values: CSharp, Yaml
-@IF NOT DEFINED aac-type set "aac-type=CSharp"
+@IF NOT DEFINED aac-type set "aac-type=Yaml"
 ::::::::::::::::::::::::::::::::
 
 if not defined build-configuration set "build-configuration=Debug"

@@ -1,0 +1,15 @@
+@startuml
+!include ..\..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+
+title Dot Net E Shop - Catalog Api - Api - Catalog Api - Map Catalog Api V 1 - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(DotNetEShop.SoftwareSystems.CatalogApi, "Catalog Api")
+    Container(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api, "Api", "", "")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api, "Map Catalog Api V 1")
+
+
+@enduml

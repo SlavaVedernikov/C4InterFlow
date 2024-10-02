@@ -17,6 +17,10 @@ public record Container : Structure
     public string? Technology { get; init; }
     public string SoftwareSystem { get; init; }
 
+    public Container(string alias) : this(alias, Utils.GetLabelFromAlias(alias))
+    { }
+    public Container(string alias, string label) : this(Utils.GetSoftwareSystemAlias(alias), alias, label)
+    { }
     public Container(string system, string alias, string label) : base(alias, label)
     {
         SoftwareSystem = system;

@@ -9,9 +9,10 @@
 /// </summary>
 public sealed record SoftwareSystem : Structure
 {
+    public SoftwareSystem(string alias) : this(alias, Utils.GetLabelFromAlias(alias))
+    { }
     public SoftwareSystem(string alias, string label) : base(alias, label)
-    {
-    }
+    { }
 
     public SoftwareSystem(string alias, string label, string description) : this(alias, label)
     {

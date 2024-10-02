@@ -22,7 +22,7 @@ C4InterFlow.SoftwareSystems.ExternalSystem -> DotNetEShop.SoftwareSystems.Catalo
 group Create Item
 DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext : Catalog Items Add
 DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext : Save Changes Async
-DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Return (TypedResults.CreatedAtRoute)
+DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi -> DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi : Return (TypedResults.Created)
 end
 
 
