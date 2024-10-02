@@ -6,7 +6,7 @@ title Big Bank Plc - Internet Banking - Database - Authenticate User - C4 Sequen
 System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 
 System_Boundary(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking")
-    ContainerDb(BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Database", "SQL Server Database", "Stores user registration information, hashed auth credentials, access logs, etc.")
+    ContainerDb(BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Database", "Oracle Database Schema", "Stores user registration information, hashed auth credentials, access logs, etc.")
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Authenticate User", "TCP/IP, SQL")

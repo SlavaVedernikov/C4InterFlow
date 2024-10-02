@@ -7,12 +7,12 @@ Person(BigBankPlc.Actors.Customer, "Customer", "A customer of the bank, with per
 
 System_Boundary(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking")
     Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.WebApplication, "Web Application", "Java, Spring MVC", "Delivers the static content and the Internet banking SPA")
-    Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "Single-Page App", "JavaScript, Angular", "Provides all the Internet banking functionality to customers via their web browser")
-    Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "API Application", "Java, Docker Container", "Provides Internet banking functionality via API")
-    ContainerDb(BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Database", "SQL Server Database", "Stores user registration information, hashed auth credentials, access logs, etc.")
+    Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "Single-Page Application", "JavaScript, Angular", "Provides all the Internet banking functionality to customers via their web browser")
+    Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "API Application", "Java, Spring MVC", "Provides Internet banking functionality via API")
+    ContainerDb(BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Database", "Oracle Database Schema", "Stores user registration information, hashed auth credentials, access logs, etc.")
     Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp, "Mobile App", "C#, Xamarin", "Provides a limited subset of the Internet banking functionality to customers via their mobile device")
 Boundary_End()
-System_Ext(BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Mainframe Banking System", "")
+System_Ext(BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Mainframe Banking System", "Stores all of the core banking information about customers, accounts, transactions, etc.")
 System_Ext(BigBankPlc.SoftwareSystems.EMailSystem, "E-Mail System", "The internal Microsoft Exchange system")
 
 group Customer - Banking via Web App
@@ -23,15 +23,15 @@ Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, BigBank
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Authenticate User", "TCP/IP, SQL")
 Rel(BigBankPlc.Actors.Customer, BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "View Customer Details", "HTTPS")
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "Get Customer", "HTTPS")
-Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Customer", "TCP/IP")
+Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Customer", "XML/HTTPS")
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "Get Customer Accounts", "HTTPS")
-Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Customer Accounts", "TCP/IP")
+Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Customer Accounts", "XML/HTTPS")
 Rel(BigBankPlc.Actors.Customer, BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "View Account Transactions", "HTTPS")
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "Get Account Transactions", "HTTPS")
-Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Account Transactions", "TCP/IP")
+Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Account Transactions", "XML/HTTPS")
 Rel(BigBankPlc.Actors.Customer, BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "Create Account", "HTTPS")
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "Create Account", "HTTPS")
-Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Create Account", "TCP/IP")
+Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Create Account", "XML/HTTPS")
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.EMailSystem, "Send New Account Created Notification E-Mail", "SMTP")
 end
 group Customer - Banking via Mobile App
@@ -40,12 +40,12 @@ Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp, BigBankPlc.
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Authenticate User", "TCP/IP, SQL")
 Rel(BigBankPlc.Actors.Customer, BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp, "View Customer Details", "HTTPS")
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp, BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "Get Customer", "HTTPS")
-Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Customer", "TCP/IP")
+Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Customer", "XML/HTTPS")
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp, BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "Get Customer Accounts", "HTTPS")
-Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Customer Accounts", "TCP/IP")
+Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Customer Accounts", "XML/HTTPS")
 Rel(BigBankPlc.Actors.Customer, BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp, "View Account Transactions", "HTTPS")
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp, BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "Get Account Transactions", "HTTPS")
-Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Account Transactions", "TCP/IP")
+Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Account Transactions", "XML/HTTPS")
 end
 group Customer - Receive E-Mail Notifications
 Rel(BigBankPlc.Actors.Customer, BigBankPlc.SoftwareSystems.EMailSystem, "Receive Password Changed Notification E-Mail", "POP3")

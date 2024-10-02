@@ -1,0 +1,36 @@
+BigBankPlc:
+  Environments:
+    Development:
+      Nodes:
+        DeveloperLaptop:
+          Type: Microsoft Windows 10 or Apple macOS
+          Nodes:
+            WebBrowser:
+              Type: Chrome, Firefox, Safari, or Edge
+              Deployments:
+              - BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp
+            DockerContainerWebServer:
+              Label: Docker Container - Web Server
+              Type: Docker
+              Nodes:
+                ApacheTomcat:
+                  Type: Apache Tomcat 8.x
+                  Deployments:
+                  - BigBankPlc.SoftwareSystems.InternetBanking.Containers.WebApplication
+                  - BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication
+            DockerContainerDatabaseServer:
+              Type: Docker
+              Label: Docker Container - Database Server
+              Nodes:
+                DatabaseServer:
+                  Type: Oracle 12c
+                  Deployments:
+                  - BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database
+        BigBankPlc:
+          Label: Big Bank plc
+          Type: Big Bank plc data center
+          Nodes:
+            BigBankDev001:
+              Deployments:
+              - BigBankPlc.SoftwareSystems.MainframeBankingSystem
+

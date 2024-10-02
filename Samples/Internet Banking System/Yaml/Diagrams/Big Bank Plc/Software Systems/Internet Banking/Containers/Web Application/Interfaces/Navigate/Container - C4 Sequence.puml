@@ -7,7 +7,7 @@ System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 
 System_Boundary(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking")
     Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.WebApplication, "Web Application", "Java, Spring MVC", "Delivers the static content and the Internet banking SPA")
-    Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "Single-Page App", "JavaScript, Angular", "Provides all the Internet banking functionality to customers via their web browser")
+    Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "Single-Page Application", "JavaScript, Angular", "Provides all the Internet banking functionality to customers via their web browser")
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, BigBankPlc.SoftwareSystems.InternetBanking.Containers.WebApplication, "Navigate", "HTTPS")

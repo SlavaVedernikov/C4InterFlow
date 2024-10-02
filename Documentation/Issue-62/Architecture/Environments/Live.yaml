@@ -1,0 +1,75 @@
+BigBankPlc:
+  Environments:
+    Live:
+      Nodes:
+        CustomerMobileDevice:
+          Label: Customer's mobile device
+          Type: Apple iOS or Android
+          Deployments:
+          - BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp
+        CustomersComputer:
+          Label: Customer's computer
+          Type: Microsoft Windows or Apple macOS
+          Nodes:
+            WebBrowser:
+              Type: Chrome, Firefox, Safari, or Edge
+              Deployments:
+              - BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp
+        BigBankPlc:
+          Label: Big Bank plc
+          Type: Big Bank plc data center
+          Nodes:
+            BigBankWeb:
+              Label: bigbank-web***
+              Type: Ubuntu 16.04 LTS
+              NumberOfInstances: 4
+              Nodes:
+                ApacheTomcat:
+                  Type: Apache Tomcat 8.x
+                  Deployments:
+                  - BigBankPlc.SoftwareSystems.InternetBanking.Containers.WebApplication
+            BigBankApi:
+              Label: bigbank-api***
+              Type: Ubuntu 16.04 LTS
+              NumberOfInstances: 8
+              Nodes:
+                ApacheTomcat:
+                  Type: Apache Tomcat 8.x
+                  Deployments:
+                  - BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication
+            BigBankDb01:
+              Label: bigbank-db01
+              Type: Ubuntu 16.04 LTS
+              Interfaces:
+                ReplicateData:
+                  Flows:
+                  - Type: Use
+                    Expression: BigBankDb02.Interfaces.ReplicateData
+              Nodes:
+                PrimaryDatabaseServer:
+                  Label: Oracle - Primary
+                  Type: Oracle 12c
+                  Deployments:
+                  - BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database
+            BigBankDb02:
+              Label: bigbank-db02
+              Type: Ubuntu 16.04 LTS
+              Nodes:
+                SecondaryDatabaseServer:
+                  Label: Oracle - Secondary
+                  Type: Oracle 12c
+                  Deployments:
+                  - BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database
+              Interfaces:
+                ReplicateData: {}
+            BigBankProd001:
+              Deployments:
+              - BigBankPlc.SoftwareSystems.MainframeBankingSystem
+            LoadBalancer: {}
+      Routes:
+      - From: BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.*
+        Via: BigBankPlc.Environments.Live.Nodes.BigBankPlc.Nodes.LoadBalancer
+        To: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfases.*
+      - From: BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp.Interfaces.*
+        Via: BigBankPlc.Environments.Live.Nodes.BigBankPlc.Nodes.LoadBalancer
+        To: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfases.*

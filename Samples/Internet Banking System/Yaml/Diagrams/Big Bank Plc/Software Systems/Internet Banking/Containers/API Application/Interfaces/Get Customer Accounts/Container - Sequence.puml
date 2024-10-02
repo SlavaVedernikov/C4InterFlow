@@ -12,7 +12,7 @@ participant "Mainframe Banking System" as BigBankPlc.SoftwareSystems.MainframeBa
 
 C4InterFlow.SoftwareSystems.ExternalSystem -> BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication : Get Customer Accounts\n[HTTPS]
 group Get Customer Accounts
-BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer Accounts\n[TCP/IP]
+BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer Accounts\n[XML/HTTPS]
 end
 
 

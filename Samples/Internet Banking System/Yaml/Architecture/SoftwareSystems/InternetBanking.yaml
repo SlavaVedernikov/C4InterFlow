@@ -14,12 +14,12 @@ BigBankPlc:
           Interfaces:
             Navigate:
               Label: Navigate
-              Protocol: 'HTTPS'
+              Protocol: HTTPS
               Flows:
               - Type: Use
                 Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.LoadAndStart
         SinglePageApp:
-          Label: Single-Page App
+          Label: Single-Page Application
           Description: Provides all the Internet banking functionality to customers via their web browser
           ContainerType: Spa
           Boundary: Internal
@@ -27,22 +27,22 @@ BigBankPlc:
           Interfaces:
             LoadAndStart:
               Label: Load And Start
-              Protocol: 'HTTPS'
+              Protocol: HTTPS
             SignIn:
               Label: Sign In
-              Protocol: 'HTTPS'
+              Protocol: HTTPS
               Flows:
               - Type: Use
                 Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.SignIn
             ChangePassword:
               Label: Change Password
-              Protocol: 'HTTPS'
+              Protocol: HTTPS
               Flows:
               - Type: Use
                 Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.ChangePassword
             ViewCustomerDetails:
               Label: View Customer Details
-              Protocol: 'HTTPS'
+              Protocol: HTTPS
               Flows:
               - Type: Use
                 Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.GetCustomer
@@ -50,13 +50,13 @@ BigBankPlc:
                 Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.GetCustomerAccounts
             ViewAccountTransactions:
               Label: View Account Transactions
-              Protocol: 'HTTPS'
+              Protocol: HTTPS
               Flows:
               - Type: Use
                 Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.GetAccountTransactions
             CreateAccount:
               Label: Create Account
-              Protocol: 'HTTPS'
+              Protocol: HTTPS
               Flows:
               - Type: Use
                 Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.CreateAccount
@@ -69,19 +69,19 @@ BigBankPlc:
           Interfaces:
             SignIn:
               Label: Sign In
-              Protocol: 'HTTPS'
+              Protocol: HTTPS
               Flows:
               - Type: Use
                 Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.SignIn
             ChangePassword:
               Label: Change Password
-              Protocol: 'HTTPS'
+              Protocol: HTTPS
               Flows:
               - Type: Use
                 Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.ChangePassword
             ViewCustomerDetails:
               Label: View Customer Details
-              Protocol: 'HTTPS'
+              Protocol: HTTPS
               Flows:
               - Type: Use
                 Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.GetCustomer
@@ -89,7 +89,7 @@ BigBankPlc:
                 Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.GetCustomerAccounts
             ViewAccountTransactions:
               Label: View Account Transactions
-              Protocol: 'HTTPS'
+              Protocol: HTTPS
               Flows:
               - Type: Use
                 Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.GetAccountTransactions
@@ -98,17 +98,17 @@ BigBankPlc:
           Description: 'Provides Internet banking functionality via API'
           ContainerType: Api
           Boundary: Internal
-          Technology: Java, Docker Container
+          Technology: Java, Spring MVC
           Interfaces:
             SignIn:
               Label: Sign In
-              Protocol: 'HTTPS'
+              Protocol: HTTPS
               Flows:
               - Type: Use
                 Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database.Interfaces.AuthenticateUser
             ChangePassword:
               Label: Change Password
-              Protocol: 'HTTPS'
+              Protocol: HTTPS
               Flows:
               - Type: Use
                 Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database.Interfaces.UpdateUserPassword
@@ -116,25 +116,25 @@ BigBankPlc:
                 Expression: BigBankPlc.SoftwareSystems.EMailSystem.Interfaces.SendPasswordChangedNotificationEMail
             GetCustomer:
               Label: Get Customer
-              Protocol: 'HTTPS'
+              Protocol: HTTPS
               Flows:
               - Type: Use
                 Expression: BigBankPlc.SoftwareSystems.MainframeBankingSystem.Interfaces.GetCustomer
             GetCustomerAccounts:
               Label: Get Customer Accounts
-              Protocol: 'HTTPS'
+              Protocol: HTTPS
               Flows:
               - Type: Use
                 Expression: BigBankPlc.SoftwareSystems.MainframeBankingSystem.Interfaces.GetCustomerAccounts
             GetAccountTransactions:
               Label: Get Account Transactions
-              Protocol: 'HTTPS'
+              Protocol: HTTPS
               Flows:
               - Type: Use
                 Expression: BigBankPlc.SoftwareSystems.MainframeBankingSystem.Interfaces.GetAccountTransactions
             CreateAccount:
               Label: Create Account
-              Protocol: 'HTTPS'
+              Protocol: HTTPS
               Flows:
               - Type: Use
                 Expression: BigBankPlc.SoftwareSystems.MainframeBankingSystem.Interfaces.CreateAccount
@@ -145,14 +145,14 @@ BigBankPlc:
           Description: Stores user registration information, hashed auth credentials, access logs, etc.
           ContainerType: Database
           Boundary: Internal
-          Technology: SQL Server Database
+          Technology: Oracle Database Schema
           Interfaces:
             AuthenticateUser:
               Label: Authenticate User
-              Protocol: 'TCP/IP, SQL'
+              Protocol: TCP/IP, SQL
             SelectUserData:
               Label: Select User Data
-              Protocol: 'TCP/IP, SQL'
+              Protocol: TCP/IP, SQL
             UpdateUserPassword:
               Label: Update User Password
-              Protocol: 'TCP/IP, SQL'
+              Protocol: TCP/IP, SQL

@@ -1,0 +1,61 @@
+@startuml
+!include ..\..\..\.c4s\C4_Container.puml
+!include ..\..\..\.c4s\C4_Deployment.puml
+
+title Big Bank Plc - Live - C4 Deployment - Container level
+
+Deployment_Node(BigBankPlc.Environments.Live.Nodes.CustomerMobileDevice, "Customer's mobile device", $type="Apple iOS or Android", "") {
+  Container(BigBankPlc.Environments.Live.Nodes.CustomerMobileDevice.Deployments.BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp, "Mobile App", "Xamarin", "Provides a limited subset of the Internet banking functionality to customers via their mobile device.")
+}
+
+Deployment_Node(BigBankPlc.Environments.Live.Nodes.CustomersComputer, "Customer's computer", $type="Microsoft Windows or Apple macOS", "") {
+  Deployment_Node(BigBankPlc.Environments.Live.Nodes.CustomersComputer.Nodes.WebBrowser, "Web Browser", $type="Chrome, Firefox, Safari, or Edge", "") {
+    Container(BigBankPlc.Environments.Live.Nodes.CustomersComputer.Nodes.WebBrowser.Deployments.BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "Single-Page Application", "JavaScript, Angular", "Provides all of the Internet banking functionality to customers via their web browser.")
+  }
+}
+
+Deployment_Node(BigBankPlc.Environments.Live.Nodes.BigBankPlc, "Big Bank plc", $type="Big Bank plc data center", "") {
+  Deployment_Node(BigBankPlc.Environments.Live.Nodes.BigBankPlc.Nodes.BigBankWeb, "bigbank-web*** (x4)", $type="Ubuntu 16.04 LTS", "") {
+    Deployment_Node(BigBankPlc.Environments.Live.Nodes.BigBankPlc.Nodes.BigBankWeb.Nodes.ApacheTomcat, "Apache Tomcat", $type="Apache Tomcat 8.x", "") {
+      Container(BigBankPlc.Environments.Live.Nodes.BigBankPlc.Nodes.BigBankWeb.Nodes.ApacheTomcat.Deployments.BigBankPlc.SoftwareSystems.InternetBanking.Containers.WebApplication, "Web Application", "Java, Spring MVC", "Delivers the static content and the Internet banking single page application.")
+    }
+  }
+
+  Deployment_Node(BigBankPlc.Environments.Live.Nodes.BigBankPlc.Nodes.BigBankApi, "bigbank-api*** (x8)", $type="Ubuntu 16.04 LTS", "") {
+    Deployment_Node(BigBankPlc.Environments.Live.Nodes.BigBankPlc.Nodes.BigBankApi.Nodes.ApacheTomcat, "Apache Tomcat", $type="Apache Tomcat 8.x", "") {
+      Container(BigBankPlc.Environments.Live.Nodes.BigBankPlc.Nodes.BigBankApi.Nodes.ApacheTomcat.Deployments.BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "API Application", "Java, Spring MVC", "Provides Internet banking functionality via a JSON/HTTPS API.")
+    }
+  }
+
+  Deployment_Node(BigBankPlc.Environments.Live.Nodes.BigBankPlc.Nodes.BigBankDb01, "bigbank-db01", $type="Ubuntu 16.04 LTS", "") {
+    Deployment_Node(BigBankPlc.Environments.Live.Nodes.BigBankPlc.Nodes.BigBankDb01.Nodes.PrimaryDatabaseServer, "Oracle - Primary", $type="Oracle 12c", "") {
+      ContainerDb(BigBankPlc.Environments.Live.Nodes.BigBankPlc.Nodes.BigBankDb01.Nodes.PrimaryDatabaseServer.Deployments.BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Database", "Oracle Database Schema", "Stores user registration information, hashed authentication credentials, access logs, etc.")
+    }
+  }
+
+  Deployment_Node(BigBankPlc.Environments.Live.Nodes.BigBankPlc.Nodes.BigBankDb02, "bigbank-db02", $type="Ubuntu 16.04 LTS", "") {
+    Deployment_Node(BigBankPlc.Environments.Live.Nodes.BigBankPlc.Nodes.BigBankDb02.Nodes.SecondaryDatabaseServer, "Oracle - Secondary", $type="Oracle 12c", "") {
+      ContainerDb(BigBankPlc.Environments.Live.Nodes.BigBankPlc.Nodes.BigBankDb02.Nodes.SecondaryDatabaseServer.Deployments.BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Database", "Oracle Database Schema", "Stores user registration information, hashed authentication credentials, access logs, etc.")
+    }
+  }
+
+  Deployment_Node(BigBankPlc.Environments.Live.Nodes.BigBankPlc.Nodes.BigBankProd001, "bigbank-prod001", $type="", "") {
+    System(BigBankPlc.Environments.Live.Nodes.BigBankPlc.Nodes.BigBankProd001.Deployments.BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Mainframe Banking System", "Stores all of the core banking information about customers, accounts, transactions, etc.")
+  }
+
+  Deployment_Node(BigBankPlc.Environments.Live.Nodes.BigBankPlc.Nodes.LoadBalancer, "Load Balancer", $type="", "") {
+   
+  }
+}
+
+Rel(BigBankPlc.Environments.Live.Nodes.BigBankPlc.Nodes.BigBankWeb.Nodes.ApacheTomcat.Deployments.BigBankPlc.SoftwareSystems.InternetBanking.Containers.WebApplication, BigBankPlc.Environments.Live.Nodes.CustomersComputer.Nodes.WebBrowser.Deployments.BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "Load And Start", "HTTPS", $tags='protocol:https')
+Rel(BigBankPlc.Environments.Live.Nodes.CustomerMobileDevice.Deployments.BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp, BigBankPlc.Environments.Live.Nodes.BigBankPlc.Nodes.LoadBalancer, "Sign In\nChange Password\nGet Customer\nGet Customer Accounts\nGet Account Transactions", "HTTPS", $tags='protocol:https')
+Rel(BigBankPlc.Environments.Live.Nodes.CustomersComputer.Nodes.WebBrowser.Deployments.BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, BigBankPlc.Environments.Live.Nodes.BigBankPlc.Nodes.LoadBalancer, "Sign In\nChange Password\nGet Customer\nGet Customer Accounts\nGet Account Transactions\nCreate Account", "HTTPS", $tags='protocol:https')
+Rel(BigBankPlc.Environments.Live.Nodes.BigBankPlc.Nodes.LoadBalancer, BigBankPlc.Environments.Live.Nodes.BigBankPlc.Nodes.BigBankApi.Nodes.ApacheTomcat.Deployments.BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "Sign In\nChange Password\nGet Customer\nGet Customer Accounts\nGet Account Transactions\nCreate Account", "HTTPS", $tags='protocol:https')
+Rel(BigBankPlc.Environments.Live.Nodes.BigBankPlc.Nodes.BigBankApi.Nodes.ApacheTomcat.Deployments.BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.Environments.Live.Nodes.BigBankPlc.Nodes.BigBankDb01.Nodes.PrimaryDatabaseServer.Deployments.BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Authenticate User\nUpdate User Password", "TCP/IP, SQL", $tags='protocol:tcp/ip, sql')
+Rel(BigBankPlc.Environments.Live.Nodes.BigBankPlc.Nodes.BigBankApi.Nodes.ApacheTomcat.Deployments.BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.Environments.Live.Nodes.BigBankPlc.Nodes.BigBankDb02.Nodes.SecondaryDatabaseServer.Deployments.BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Authenticate User\nUpdate User Password", "TCP/IP, SQL", $tags='protocol:tcp/ip, sql')
+Rel(BigBankPlc.Environments.Live.Nodes.BigBankPlc.Nodes.BigBankApi.Nodes.ApacheTomcat.Deployments.BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, BigBankPlc.Environments.Live.Nodes.BigBankPlc.Nodes.BigBankProd001.Deployments.BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Customer\nGet Customer Accounts\nGet Account Transactions\nCreate Account", "XML/HTTPS", $tags='protocol:xml/https')
+Rel(BigBankPlc.Environments.Live.Nodes.BigBankPlc.Nodes.BigBankDb01.Nodes.PrimaryDatabaseServer, BigBankPlc.Environments.Live.Nodes.BigBankPlc.Nodes.BigBankDb02.Nodes.SecondaryDatabaseServer, "Replicates Data", "")
+
+SHOW_LEGEND(true)
+@enduml

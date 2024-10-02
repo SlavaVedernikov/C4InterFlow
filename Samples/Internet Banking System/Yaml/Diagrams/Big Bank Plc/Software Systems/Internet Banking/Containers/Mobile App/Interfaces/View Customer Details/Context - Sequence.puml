@@ -8,8 +8,8 @@ participant "Mainframe Banking System" as BigBankPlc.SoftwareSystems.MainframeBa
 
 C4InterFlow.SoftwareSystems.ExternalSystem -> BigBankPlc.SoftwareSystems.InternetBanking : View Customer Details
 group View Customer Details
-BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer\n[TCP/IP]
-BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer Accounts\n[TCP/IP]
+BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer\n[XML/HTTPS]
+BigBankPlc.SoftwareSystems.InternetBanking -> BigBankPlc.SoftwareSystems.MainframeBankingSystem : Get Customer Accounts\n[XML/HTTPS]
 end
 
 

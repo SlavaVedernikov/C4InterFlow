@@ -19,7 +19,7 @@ title Big Bank Plc - Internet Banking - Web Application - Navigate - C4 Static -
 
 System_Boundary(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking") {
     Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.WebApplication, "Web Application", "Java, Spring MVC", "Delivers the static content and the Internet banking SPA")
-    Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "Single-Page App", "JavaScript, Angular", "Provides all the Internet banking functionality to customers via their web browser")
+    Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "Single-Page Application", "JavaScript, Angular", "Provides all the Internet banking functionality to customers via their web browser")
 }
 
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.WebApplication, BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "Uses", "HTTPS", $tags="protocol:https")

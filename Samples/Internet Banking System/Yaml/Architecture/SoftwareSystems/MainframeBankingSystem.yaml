@@ -3,17 +3,17 @@ BigBankPlc:
     MainframeBankingSystem:
       Label: Mainframe Banking System
       Boundary: External
-      Description: ''
+      Description: Stores all of the core banking information about customers, accounts, transactions, etc.
       Interfaces:
         GetCustomer:
           Label: Get Customer
-          Protocol: 'TCP/IP'
+          Protocol: XML/HTTPS
         GetCustomerAccounts:
           Label: Get Customer Accounts
-          Protocol: 'TCP/IP'
+          Protocol: XML/HTTPS
         GetAccountTransactions:
           Label: Get Account Transactions
-          Protocol: 'TCP/IP'
+          Protocol: XML/HTTPS
         CreateAccount:
           Label: Create Account
-          Protocol: 'TCP/IP'
+          Protocol: XML/HTTPS
