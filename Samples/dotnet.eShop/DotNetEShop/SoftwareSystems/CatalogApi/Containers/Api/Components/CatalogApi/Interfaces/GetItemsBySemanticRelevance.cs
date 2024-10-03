@@ -19,20 +19,20 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class GetItemsBySemanticRelevance : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(Utils.GetStructureAlias<GetItemsBySemanticRelevance>(), "Get Items By Semantic Relevance")
+                                public static Interface Instance => new Interface(typeof(GetItemsBySemanticRelevance), "Get Items By Semantic Relevance")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = false,
                                     Protocol = "",
-                                    Flow = new Flow(Utils.GetStructureAlias<GetItemsBySemanticRelevance>())
+                                    Flow = new Flow(Interface.GetAlias<GetItemsBySemanticRelevance>())
                                     	.If(@"!services.CatalogAI.IsEnabled")
-                                    		.Use("DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.Interfaces.GetItemsByName")
+                                    		.Use<DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.Interfaces.GetItemsByName>()
                                     	.EndIf()
                                     	.If(@"services.Logger.IsEnabled(LogLevel.Debug)")
-                                    		.Use("DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.CatalogItemsToListAsync")
+                                    		.Use<DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.CatalogItemsToListAsync>()
                                     		.Else()
-                                    		.Use("DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.CatalogItemsToListAsync")
+                                    		.Use<DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.CatalogItemsToListAsync>()
                                     	.EndIf()
                                     	.Return(@"TypedResults.Ok"),
                                     Input = "",

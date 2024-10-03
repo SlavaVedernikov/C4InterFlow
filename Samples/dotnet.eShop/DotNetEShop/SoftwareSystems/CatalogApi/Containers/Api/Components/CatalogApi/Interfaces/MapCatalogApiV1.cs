@@ -19,13 +19,13 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class MapCatalogApiV1 : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(Utils.GetStructureAlias<MapCatalogApiV1>(), "Map Catalog Api V 1")
+                                public static Interface Instance => new Interface(typeof(MapCatalogApiV1), "Map Catalog Api V 1")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = false,
                                     Protocol = "",
-                                    Flow = new Flow(Utils.GetStructureAlias<MapCatalogApiV1>())
+                                    Flow = new Flow(Interface.GetAlias<MapCatalogApiV1>())
                                     	.Return(@"app"),
                                     Input = "",
                                     InputTemplate = "",

@@ -19,13 +19,13 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class CatalogItemsAnyAsync : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(Utils.GetStructureAlias<CatalogItemsAnyAsync>(), "Catalog Items Any Async")
+                                public static Interface Instance => new Interface(typeof(CatalogItemsAnyAsync), "Catalog Items Any Async")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = false,
                                     Protocol = "",
-                                    Flow = new Flow(Utils.GetStructureAlias<CatalogItemsAnyAsync>()),
+                                    Flow = new Flow(Interface.GetAlias<CatalogItemsAnyAsync>()),
                                     Input = "",
                                     InputTemplate = "",
                                     Output = "",

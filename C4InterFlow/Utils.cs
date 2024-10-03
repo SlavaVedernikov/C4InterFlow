@@ -53,7 +53,12 @@ namespace C4InterFlow
 
         public static string GetStructureAlias<T>()
         {
-            return typeof(T).FullName?.Replace('+', '.') ?? string.Empty;
+            return GetStructureAlias(typeof(T));
+        }
+
+        public static string GetStructureAlias(Type type)
+        {
+            return type.FullName?.Replace('+', '.') ?? string.Empty;
         }
 
         public static string GetSoftwareSystemAlias(string alias)

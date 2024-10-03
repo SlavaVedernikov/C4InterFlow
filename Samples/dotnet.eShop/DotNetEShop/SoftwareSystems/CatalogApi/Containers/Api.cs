@@ -11,7 +11,7 @@ namespace DotNetEShop.SoftwareSystems
         {
             public partial class Api : IContainerInstance
             {
-                public static Container Instance => new Container(Utils.GetStructureAlias<Api>(), "Api")
+                public static Container Instance => new Container(typeof(Api), "Api")
                 {
                     ContainerType = ContainerType.None,
                     Description = "",

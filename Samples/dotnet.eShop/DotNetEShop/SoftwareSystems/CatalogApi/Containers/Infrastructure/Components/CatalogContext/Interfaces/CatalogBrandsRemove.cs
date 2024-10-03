@@ -19,13 +19,13 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class CatalogBrandsRemove : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(Utils.GetStructureAlias<CatalogBrandsRemove>(), "Catalog Brands Remove")
+                                public static Interface Instance => new Interface(typeof(CatalogBrandsRemove), "Catalog Brands Remove")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = false,
                                     Protocol = "",
-                                    Flow = new Flow(Utils.GetStructureAlias<CatalogBrandsRemove>()),
+                                    Flow = new Flow(Interface.GetAlias<CatalogBrandsRemove>()),
                                     Input = "",
                                     InputTemplate = "",
                                     Output = "",

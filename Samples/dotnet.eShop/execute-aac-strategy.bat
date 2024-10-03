@@ -5,7 +5,7 @@
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :: Possible values: CSharp, Yaml
-@IF NOT DEFINED aac-type set "aac-type=Yaml"
+@IF NOT DEFINED aac-type set "aac-type=CSharp"
 ::::::::::::::::::::::::::::::::
 
 if not defined build-configuration set "build-configuration=Debug"

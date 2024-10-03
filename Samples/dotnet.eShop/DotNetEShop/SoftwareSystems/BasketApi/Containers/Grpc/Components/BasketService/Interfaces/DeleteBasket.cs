@@ -19,17 +19,17 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class DeleteBasket : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(Utils.GetStructureAlias<DeleteBasket>(), "Delete Basket")
+                                public static Interface Instance => new Interface(typeof(DeleteBasket), "Delete Basket")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = false,
                                     Protocol = "",
-                                    Flow = new Flow(Utils.GetStructureAlias<DeleteBasket>())
+                                    Flow = new Flow(Interface.GetAlias<DeleteBasket>())
                                     	.If(@"string.IsNullOrEmpty(userId)")
-                                    		.Use("DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService.Interfaces.ThrowNotAuthenticated")
+                                    		.Use<DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService.Interfaces.ThrowNotAuthenticated>()
                                     	.EndIf()
-                                    	.Use("DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository.Interfaces.DeleteBasketAsync"),
+                                    	.Use<DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository.Interfaces.DeleteBasketAsync>(),
                                     Input = "",
                                     InputTemplate = "",
                                     Output = "",

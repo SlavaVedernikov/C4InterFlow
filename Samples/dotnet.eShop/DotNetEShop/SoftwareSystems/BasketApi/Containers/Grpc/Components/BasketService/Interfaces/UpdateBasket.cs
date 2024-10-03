@@ -19,22 +19,22 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class UpdateBasket : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(Utils.GetStructureAlias<UpdateBasket>(), "Update Basket")
+                                public static Interface Instance => new Interface(typeof(UpdateBasket), "Update Basket")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = false,
                                     Protocol = "",
-                                    Flow = new Flow(Utils.GetStructureAlias<UpdateBasket>())
+                                    Flow = new Flow(Interface.GetAlias<UpdateBasket>())
                                     	.If(@"string.IsNullOrEmpty(userId)")
-                                    		.Use("DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService.Interfaces.ThrowNotAuthenticated")
+                                    		.Use<DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService.Interfaces.ThrowNotAuthenticated>()
                                     	.EndIf()
-                                    	.Use("DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService.Interfaces.MapToCustomerBasket")
-                                    	.Use("DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository.Interfaces.UpdateBasketAsync")
+                                    	.Use<DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService.Interfaces.MapToCustomerBasket>()
+                                    	.Use<DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository.Interfaces.UpdateBasketAsync>()
                                     	.If(@"response is null")
-                                    		.Use("DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService.Interfaces.ThrowBasketDoesNotExist")
+                                    		.Use<DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService.Interfaces.ThrowBasketDoesNotExist>()
                                     	.EndIf()
-                                    	.Use("DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService.Interfaces.MapToCustomerBasketResponse"),
+                                    	.Use<DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService.Interfaces.MapToCustomerBasketResponse>(),
                                     Input = "",
                                     InputTemplate = "",
                                     Output = "",

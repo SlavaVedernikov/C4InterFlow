@@ -19,16 +19,16 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class GetBasket : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(Utils.GetStructureAlias<GetBasket>(), "Get Basket")
+                                public static Interface Instance => new Interface(typeof(GetBasket), "Get Basket")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = false,
                                     Protocol = "",
-                                    Flow = new Flow(Utils.GetStructureAlias<GetBasket>())
-                                    	.Use("DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository.Interfaces.GetBasketAsync")
+                                    Flow = new Flow(Interface.GetAlias<GetBasket>())
+                                    	.Use<DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository.Interfaces.GetBasketAsync>()
                                     	.If(@"data is not null")
-                                    		.Use("DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService.Interfaces.MapToCustomerBasketResponse")
+                                    		.Use<DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService.Interfaces.MapToCustomerBasketResponse>()
                                     	.EndIf(),
                                     Input = "",
                                     InputTemplate = "",

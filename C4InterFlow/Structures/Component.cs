@@ -1,4 +1,6 @@
-﻿namespace C4InterFlow.Structures;
+﻿using C4InterFlow.Structures.Interfaces;
+
+namespace C4InterFlow.Structures;
 
 /// <summary>
 /// The word "component" is a hugely overloaded term in the software development industry, but in this context a
@@ -17,6 +19,10 @@ public record Component : Structure
     public string Container { get; init; }
     public Note[]? Notes { get; init; }
 
+    public Component(Type type) : this(GetAlias(type), Utils.GetLabelFromAlias(GetAlias(type)))
+    { }
+    public Component(Type type, string label) : this(GetAlias(type), label)
+    { }
     public Component(string alias) : this(alias, Utils.GetLabelFromAlias(alias))
     { }
     public Component(string alias, string label) : this(Utils.GetContainerAlias(alias), alias, label)
@@ -25,6 +31,19 @@ public record Component : Structure
     {
         Container = container;
         ComponentType = ComponentType.None;
+    }
+
+    public static string GetAlias<T>() where T : IComponentInstance
+    {
+        return Utils.GetStructureAlias<T>();
+    }
+
+    public static string GetAlias(Type type)
+    {
+        if (!typeof(IComponentInstance).IsAssignableFrom(type))
+            throw new ArgumentException($"Expected '{typeof(IComponentInstance).FullName}' type, but '{type.FullName}' type provided.", nameof(type));
+
+        return Utils.GetStructureAlias(type);
     }
 
 }
