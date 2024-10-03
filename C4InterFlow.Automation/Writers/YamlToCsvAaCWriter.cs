@@ -96,7 +96,7 @@ namespace C4InterFlow.Automation.Writers
 
         public YamlToCsvAaCWriter AddSoftwareSystemInterfaceFlows(Interface interfaceInstance)
         {
-            foreach (var flow in interfaceInstance.Flow.GetUseFlows())
+            foreach (var flow in interfaceInstance.Flow?.GetUseFlows() ?? Enumerable.Empty<Flow>())
             {
                 DataProvider.SoftwareSystemInterfaceFlowRecords.Add(new CsvDataProvider.SoftwareSystemInterfaceFlow()
                 {
@@ -149,7 +149,7 @@ namespace C4InterFlow.Automation.Writers
 
         public YamlToCsvAaCWriter AddContainerInterfaceFlows(Interface interfaceInstance)
         {
-            foreach (var flow in interfaceInstance.Flow.GetUseFlows())
+            foreach (var flow in interfaceInstance.Flow?.GetUseFlows() ?? Enumerable.Empty<Flow>())
             {
                 DataProvider.ContainerInterfaceFlowRecords.Add(new CsvDataProvider.ContainerInterfaceFlow()
                 {

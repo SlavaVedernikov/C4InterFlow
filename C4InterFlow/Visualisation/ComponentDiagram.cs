@@ -92,7 +92,7 @@ namespace C4InterFlow.Visualisation
                         
 
                         var activityFlow = Utils.Clone(activity.Flow);
-                        foreach (var useFlow in activityFlow.GetUseFlows())
+                        foreach (var useFlow in activityFlow?.GetUseFlows() ?? Enumerable.Empty<Flow>())
                         {
                             PopulateFlow(useFlow);
                         }
@@ -118,12 +118,12 @@ namespace C4InterFlow.Visualisation
             if (usesInterface == null || usesInterfaceOwner == null) return;
 
             var currentFlow = Utils.Clone(usesInterface.Flow);
-            foreach (var useFlow in currentFlow.GetUseFlows())
+            foreach (var useFlow in currentFlow?.GetUseFlows() ?? Enumerable.Empty<Flow>())
             {
                 PopulateFlow(useFlow);
             }
 
-            flow.AddFlowsRange(currentFlow.Flows);
+            flow.AddFlowsRange(currentFlow?.Flows ?? Enumerable.Empty<Flow>());
         }
 
         private List<Structure> _structures;
@@ -143,7 +143,7 @@ namespace C4InterFlow.Visualisation
                             _structures.Add(actor);
                         }
 
-                        foreach (var @interface in activity.Flow.GetUsesInterfaces())
+                        foreach (var @interface in activity.Flow?.GetUsesInterfaces() ?? Enumerable.Empty<Interface>())
                         {
                             PopulateStructures(_structures, @interface);
                         }
@@ -270,7 +270,7 @@ namespace C4InterFlow.Visualisation
                 }
             }
 
-            foreach (var usesInterface in @interface.Flow.GetUsesInterfaces())
+            foreach (var usesInterface in @interface.Flow?.GetUsesInterfaces() ?? Enumerable.Empty<Interface>())
             {
                 PopulateStructures(structures, usesInterface);
             }
@@ -330,7 +330,7 @@ namespace C4InterFlow.Visualisation
             }
 
 
-            foreach (var usesAnotherInterface in usesInterface.Flow.GetUsesInterfaces())
+            foreach (var usesAnotherInterface in usesInterface.Flow?.GetUsesInterfaces() ?? Enumerable.Empty<Interface>())
             {
                 PopulateRelationships(relationships, usesInterface, usesAnotherInterface);
             }

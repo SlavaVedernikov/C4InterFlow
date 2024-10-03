@@ -64,7 +64,7 @@
 @IF "%_OUTPUT_CHANGED_%"=="1" GOTO :ReportOutputChanged
 
 @SET "aac-type=Yaml"
-@CALL :DrawDiagrams "ToDoApp (%aac-type%)" "ToDoApp"
+@CALL :DrawDiagrams "ToDoApp (%aac-type%)" "ToDoApp\%aac-type%""
 @IF "%_OUTPUT_CHANGED_%"=="1" GOTO :ReportOutputChanged
 
 @SET "aac-type=CSV"

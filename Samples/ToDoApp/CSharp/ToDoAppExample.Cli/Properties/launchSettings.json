@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ToDoAppExample - Draw Diagrams": {
+      "commandName": "Project",
+      "commandLineArgs": "draw-diagrams --interfaces  ToDoAppExample.SoftwareSystems.*.Containers.*.Interfaces.* --levels-of-details container --aac-reader-strategy \"C4InterFlow.Automation.Readers.CSharpAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"ToDoAppExample.dll\" --output-dir \"$(ProjectDir)..\\Diagrams\""
+    }
+  }
+}
