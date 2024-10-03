@@ -48,7 +48,7 @@ namespace C4InterFlow.Visualisation
 
 
                         var activityFlow = Utils.Clone(activity.Flow);
-                        foreach (var useFlow in activityFlow.GetUseFlows())
+                        foreach (var useFlow in activityFlow?.GetUseFlows() ?? Enumerable.Empty<Flow>())
                         {
                             PopulateFlow(useFlow);
                         }
@@ -75,12 +75,12 @@ namespace C4InterFlow.Visualisation
             if (usesInterface == null) return;
              
             var currentFlow = Utils.Clone(usesInterface.Flow);
-            foreach (var useFlow in currentFlow.GetUseFlows())
+            foreach (var useFlow in currentFlow?.GetUseFlows() ?? Enumerable.Empty<Flow>())
             {
                 PopulateFlow(useFlow);
             }
 
-            flow.AddFlowsRange(currentFlow.Flows);
+            flow.AddFlowsRange(currentFlow?.Flows ?? Enumerable.Empty<Flow>());
         }
 
         private List<Structure> _structures;
@@ -117,7 +117,7 @@ namespace C4InterFlow.Visualisation
                                 
                             }
 
-                            foreach (var @interface in activity.Flow.GetUsesInterfaces())
+                            foreach (var @interface in activity.Flow?.GetUsesInterfaces() ?? Enumerable.Empty<Interface>())
                             {
                                 PopulateStructures(_structures, @interface);
                             }
@@ -160,7 +160,7 @@ namespace C4InterFlow.Visualisation
                 }
             }
 
-            foreach (var usesInterface in @interface.Flow.GetUsesInterfaces())
+            foreach (var usesInterface in @interface.Flow?.GetUsesInterfaces() ?? Enumerable.Empty<Interface>())
             {
                 PopulateStructures(structures, usesInterface, currentScope);
             }
@@ -214,7 +214,7 @@ namespace C4InterFlow.Visualisation
 
                     foreach (var activity in Process.Activities)
                     {
-                        foreach (var @interface in activity.Flow.GetUsesInterfaces())
+                        foreach (var @interface in activity.Flow?.GetUsesInterfaces() ?? Enumerable.Empty<Interface>())
                         {
                             PopulateRelationships(_relationships, activity.GetActorInstance() ?? SoftwareSystems.ExternalSystem.Interfaces.ExternalInterface.Instance, @interface);
                         }
@@ -276,7 +276,7 @@ namespace C4InterFlow.Visualisation
                     usesInterface.Protocol].AddTags(usesInterface.Tags?.ToArray()));
             }
 
-            foreach (var usesAnotherInterface in usesInterface.Flow.GetUsesInterfaces())
+            foreach (var usesAnotherInterface in usesInterface.Flow?.GetUsesInterfaces() ?? Enumerable.Empty<Interface>())
             {
                 PopulateRelationships(relationships, usesInterface, usesAnotherInterface, newFromScope, newToScope);
             }

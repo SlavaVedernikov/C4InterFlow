@@ -22,7 +22,7 @@ namespace C4InterFlow.Visualisation
             var interfaces = new List<Interface>();
             foreach (var activity in process.Activities)
             {
-                interfaces.AddRange(activity.Flow.GetUseFlows().Select(x => Utils.GetInstance<Interface>(x.Expression)));
+                interfaces.AddRange(activity.Flow?.GetUseFlows()?.Select(x => Utils.GetInstance<Interface>(x.Expression)) ?? Enumerable.Empty<Interface>());
             }
 
             Interfaces = interfaces;
@@ -81,7 +81,7 @@ namespace C4InterFlow.Visualisation
 
             AddToStructures(Utils.GetInstance<Entity>(@interface.Output));
 
-            foreach (var usesInterface in @interface.Flow.GetUsesInterfaces())
+            foreach (var usesInterface in @interface.Flow?.GetUsesInterfaces() ?? Enumerable.Empty<Interface>())
             {
                 AddToStructures(usesInterface);
             }
