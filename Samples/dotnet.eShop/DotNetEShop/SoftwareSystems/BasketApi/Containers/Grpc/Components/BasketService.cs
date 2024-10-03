@@ -15,7 +15,7 @@ namespace DotNetEShop.SoftwareSystems
                 {
                     public partial class BasketService : IComponentInstance
                     {
-                        public static Component Instance => new Component(Utils.GetStructureAlias<BasketService>(), "Basket Service")
+                        public static Component Instance => new Component(typeof(BasketService), "Basket Service")
                         {
                             ComponentType = ComponentType.None,
                             Description = "",

@@ -19,13 +19,13 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class GetItemById : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(Utils.GetStructureAlias<GetItemById>(), "Get Item By Id")
+                                public static Interface Instance => new Interface(typeof(GetItemById), "Get Item By Id")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = false,
                                     Protocol = "",
-                                    Flow = new Flow(Utils.GetStructureAlias<GetItemById>())
+                                    Flow = new Flow(Interface.GetAlias<GetItemById>())
                                     	.If(@"id <= 0")
                                     		.Return(@"TypedResults.BadRequest")
                                     	.EndIf()

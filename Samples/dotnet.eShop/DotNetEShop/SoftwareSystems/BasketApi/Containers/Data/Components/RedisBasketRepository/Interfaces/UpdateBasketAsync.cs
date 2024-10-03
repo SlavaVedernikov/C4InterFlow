@@ -19,16 +19,16 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class UpdateBasketAsync : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(Utils.GetStructureAlias<UpdateBasketAsync>(), "Update Basket Async")
+                                public static Interface Instance => new Interface(typeof(UpdateBasketAsync), "Update Basket Async")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = false,
                                     Protocol = "",
-                                    Flow = new Flow(Utils.GetStructureAlias<UpdateBasketAsync>())
-                                    	.Use("DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository.Interfaces.GetBasketKey")
-                                    	.Use("DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase.Interfaces.StringSetAsync")
-                                    	.Use("DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository.Interfaces.GetBasketAsync"),
+                                    Flow = new Flow(Interface.GetAlias<UpdateBasketAsync>())
+                                    	.Use<DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository.Interfaces.GetBasketKey>()
+                                    	.Use<DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase.Interfaces.StringSetAsync>()
+                                    	.Use<DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository.Interfaces.GetBasketAsync>(),
                                     Input = "",
                                     InputTemplate = "",
                                     Output = "",

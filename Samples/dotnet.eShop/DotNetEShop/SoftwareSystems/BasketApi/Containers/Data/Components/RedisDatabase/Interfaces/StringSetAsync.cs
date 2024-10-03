@@ -19,13 +19,13 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class StringSetAsync : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(Utils.GetStructureAlias<StringSetAsync>(), "String Set Async")
+                                public static Interface Instance => new Interface(typeof(StringSetAsync), "String Set Async")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = false,
                                     Protocol = "",
-                                    Flow = new Flow(Utils.GetStructureAlias<StringSetAsync>()),
+                                    Flow = new Flow(Interface.GetAlias<StringSetAsync>()),
                                     Input = "",
                                     InputTemplate = "",
                                     Output = "",

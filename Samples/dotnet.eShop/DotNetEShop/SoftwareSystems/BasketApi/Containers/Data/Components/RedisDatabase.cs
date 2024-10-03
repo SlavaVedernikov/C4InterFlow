@@ -15,7 +15,7 @@ namespace DotNetEShop.SoftwareSystems
                 {
                     public partial class RedisDatabase : IComponentInstance
                     {
-                        public static Component Instance => new Component(Utils.GetStructureAlias<RedisDatabase>(), "Redis Database")
+                        public static Component Instance => new Component(typeof(RedisDatabase), "Redis Database")
                         {
                             ComponentType = ComponentType.Database,
                             Description = "",

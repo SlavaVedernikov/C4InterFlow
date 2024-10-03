@@ -19,19 +19,19 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class UpdateItem : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(Utils.GetStructureAlias<UpdateItem>(), "Update Item")
+                                public static Interface Instance => new Interface(typeof(UpdateItem), "Update Item")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = false,
                                     Protocol = "",
-                                    Flow = new Flow(Utils.GetStructureAlias<UpdateItem>())
+                                    Flow = new Flow(Interface.GetAlias<UpdateItem>())
                                     	.If(@"catalogItem == null")
                                     		.Return(@"TypedResults.NotFound")
                                     	.EndIf()
                                     	.If(@"priceEntry.IsModified")
                                     		.Else()
-                                    		.Use("DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.SaveChangesAsync")
+                                    		.Use<DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.SaveChangesAsync>()
                                     	.EndIf()
                                     	.Return(@"TypedResults.Created"),
                                     Input = "",

@@ -4,7 +4,7 @@ if not defined redraw-all set "redraw-all=FALSE"
 :::::::::::::::::::::::::::::::
 
 :: Possible values: CSharp, Yaml
-if not defined aac-type set "aac-type=Yaml"
+if not defined aac-type set "aac-type=CSharp"
 ::::::::::::::::::::::::::::::::
 
 if not defined build-configuration set "build-configuration=Debug"

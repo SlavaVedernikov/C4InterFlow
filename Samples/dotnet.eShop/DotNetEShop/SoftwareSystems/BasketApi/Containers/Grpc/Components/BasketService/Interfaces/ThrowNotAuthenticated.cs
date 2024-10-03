@@ -19,13 +19,13 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class ThrowNotAuthenticated : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(Utils.GetStructureAlias<ThrowNotAuthenticated>(), "Throw Not Authenticated")
+                                public static Interface Instance => new Interface(typeof(ThrowNotAuthenticated), "Throw Not Authenticated")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = true,
                                     Protocol = "",
-                                    Flow = new Flow(Utils.GetStructureAlias<ThrowNotAuthenticated>()),
+                                    Flow = new Flow(Interface.GetAlias<ThrowNotAuthenticated>()),
                                     Input = "",
                                     InputTemplate = "",
                                     Output = "",

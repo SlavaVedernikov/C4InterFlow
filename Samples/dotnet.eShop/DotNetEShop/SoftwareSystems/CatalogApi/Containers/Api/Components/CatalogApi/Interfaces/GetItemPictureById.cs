@@ -19,18 +19,18 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class GetItemPictureById : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(Utils.GetStructureAlias<GetItemPictureById>(), "Get Item Picture By Id")
+                                public static Interface Instance => new Interface(typeof(GetItemPictureById), "Get Item Picture By Id")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = false,
                                     Protocol = "",
-                                    Flow = new Flow(Utils.GetStructureAlias<GetItemPictureById>())
+                                    Flow = new Flow(Interface.GetAlias<GetItemPictureById>())
                                     	.If(@"item is null")
                                     		.Return(@"TypedResults.NotFound")
                                     	.EndIf()
-                                    	.Use("DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.Interfaces.GetFullPath")
-                                    	.Use("DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.Interfaces.GetImageMimeTypeFromImageFileExtension")
+                                    	.Use<DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.Interfaces.GetFullPath>()
+                                    	.Use<DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.Interfaces.GetImageMimeTypeFromImageFileExtension>()
                                     	.Return(@"TypedResults.PhysicalFile"),
                                     Input = "",
                                     InputTemplate = "",

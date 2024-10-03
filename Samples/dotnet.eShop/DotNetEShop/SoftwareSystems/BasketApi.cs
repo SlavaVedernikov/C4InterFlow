@@ -7,7 +7,7 @@ namespace DotNetEShop.SoftwareSystems
 {
     public partial class BasketApi : ISoftwareSystemInstance
     {
-        public static SoftwareSystem Instance => new SoftwareSystem(Utils.GetStructureAlias<BasketApi>(), "Basket Api")
+        public static SoftwareSystem Instance => new SoftwareSystem(typeof(BasketApi), "Basket Api")
         {
             Description = "",
             Boundary = Boundary.Internal

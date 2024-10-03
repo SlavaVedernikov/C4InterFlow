@@ -19,13 +19,13 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class CatalogItemsAdd : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(Utils.GetStructureAlias<CatalogItemsAdd>(), "Catalog Items Add")
+                                public static Interface Instance => new Interface(typeof(CatalogItemsAdd), "Catalog Items Add")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = false,
                                     Protocol = "",
-                                    Flow = new Flow(Utils.GetStructureAlias<CatalogItemsAdd>()),
+                                    Flow = new Flow(Interface.GetAlias<CatalogItemsAdd>()),
                                     Input = "",
                                     InputTemplate = "",
                                     Output = "",

@@ -11,7 +11,7 @@ namespace DotNetEShop.SoftwareSystems
         {
             public partial class Grpc : IContainerInstance
             {
-                public static Container Instance => new Container(Utils.GetStructureAlias<Grpc>(), "Grpc")
+                public static Container Instance => new Container(typeof(Grpc), "Grpc")
                 {
                     ContainerType = ContainerType.None,
                     Description = "",

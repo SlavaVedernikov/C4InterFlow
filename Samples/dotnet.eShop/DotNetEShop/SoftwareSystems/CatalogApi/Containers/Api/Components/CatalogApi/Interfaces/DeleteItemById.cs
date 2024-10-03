@@ -19,19 +19,19 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class DeleteItemById : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(Utils.GetStructureAlias<DeleteItemById>(), "Delete Item By Id")
+                                public static Interface Instance => new Interface(typeof(DeleteItemById), "Delete Item By Id")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = false,
                                     Protocol = "",
-                                    Flow = new Flow(Utils.GetStructureAlias<DeleteItemById>())
-                                    	.Use("DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.CatalogItemsSingleOrDefault")
+                                    Flow = new Flow(Interface.GetAlias<DeleteItemById>())
+                                    	.Use<DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.CatalogItemsSingleOrDefault>()
                                     	.If(@"item is null")
                                     		.Return(@"TypedResults.NotFound")
                                     	.EndIf()
-                                    	.Use("DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.CatalogItemsRemove")
-                                    	.Use("DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.SaveChangesAsync")
+                                    	.Use<DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.CatalogItemsRemove>()
+                                    	.Use<DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.SaveChangesAsync>()
                                     	.Return(@"TypedResults.NoContent"),
                                     Input = "",
                                     InputTemplate = "",

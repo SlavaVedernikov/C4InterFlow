@@ -19,15 +19,15 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class DeleteBasketAsync : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(Utils.GetStructureAlias<DeleteBasketAsync>(), "Delete Basket Async")
+                                public static Interface Instance => new Interface(typeof(DeleteBasketAsync), "Delete Basket Async")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = false,
                                     Protocol = "",
-                                    Flow = new Flow(Utils.GetStructureAlias<DeleteBasketAsync>())
-                                    	.Use("DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository.Interfaces.GetBasketKey")
-                                    	.Use("DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase.Interfaces.KeyDeleteAsync"),
+                                    Flow = new Flow(Interface.GetAlias<DeleteBasketAsync>())
+                                    	.Use<DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository.Interfaces.GetBasketKey>()
+                                    	.Use<DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase.Interfaces.KeyDeleteAsync>(),
                                     Input = "",
                                     InputTemplate = "",
                                     Output = "",

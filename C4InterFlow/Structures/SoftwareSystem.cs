@@ -1,4 +1,6 @@
-﻿namespace C4InterFlow.Structures;
+﻿using C4InterFlow.Structures.Interfaces;
+
+namespace C4InterFlow.Structures;
 
 /// <summary>
 /// A software system is the highest level of abstraction and describes something that delivers value to its users,
@@ -9,6 +11,10 @@
 /// </summary>
 public sealed record SoftwareSystem : Structure
 {
+    public SoftwareSystem(Type type) : this(GetAlias(type), Utils.GetLabelFromAlias(GetAlias(type)))
+    { }
+    public SoftwareSystem(Type type, string label) : this(GetAlias(type), label)
+    { }
     public SoftwareSystem(string alias) : this(alias, Utils.GetLabelFromAlias(alias))
     { }
     public SoftwareSystem(string alias, string label) : base(alias, label)
@@ -23,5 +29,18 @@ public sealed record SoftwareSystem : Structure
     {
         Description = description;
         Boundary = boundary;
+    }
+
+    public static string GetAlias<T>() where T : ISoftwareSystemInstance
+    {
+        return Utils.GetStructureAlias<T>();
+    }
+
+    public static string GetAlias(Type type)
+    {
+        if (!typeof(ISoftwareSystemInstance).IsAssignableFrom(type))
+            throw new ArgumentException($"Expected '{typeof(ISoftwareSystemInstance).FullName}' type, but '{type.FullName}' type provided.", nameof(type));
+
+        return Utils.GetStructureAlias(type);
     }
 }
