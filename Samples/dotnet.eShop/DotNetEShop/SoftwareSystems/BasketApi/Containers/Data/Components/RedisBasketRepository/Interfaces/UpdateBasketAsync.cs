@@ -19,13 +19,13 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class UpdateBasketAsync : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(typeof(UpdateBasketAsync), "Update Basket Async")
+                                public Interface Instance => new Interface(GetType(), "Update Basket Async")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = false,
                                     Protocol = "",
-                                    Flow = new Flow(Interface.GetAlias<UpdateBasketAsync>())
+                                    Flow = new Flow(Interface.GetAlias(GetType()))
                                     	.Use<DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository.Interfaces.GetBasketKey>()
                                     	.Use<DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase.Interfaces.StringSetAsync>()
                                     	.Use<DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository.Interfaces.GetBasketAsync>(),

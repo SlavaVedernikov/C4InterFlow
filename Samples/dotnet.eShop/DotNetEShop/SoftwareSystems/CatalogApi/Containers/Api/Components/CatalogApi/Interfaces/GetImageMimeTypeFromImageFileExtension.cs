@@ -19,13 +19,13 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class GetImageMimeTypeFromImageFileExtension : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(typeof(GetImageMimeTypeFromImageFileExtension), "Get Image Mime Type From Image File Extension")
+                                public Interface Instance => new Interface(GetType(), "Get Image Mime Type From Image File Extension")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = true,
                                     Protocol = "",
-                                    Flow = new Flow(Interface.GetAlias<GetImageMimeTypeFromImageFileExtension>()),
+                                    Flow = new Flow(Interface.GetAlias(GetType())),
                                     Input = "",
                                     InputTemplate = "",
                                     Output = "",

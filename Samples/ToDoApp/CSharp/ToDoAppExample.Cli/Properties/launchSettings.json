@@ -1,8 +1,12 @@
 {
   "profiles": {
-    "ToDoAppExample - Draw Diagrams": {
+    "ToDoAppExample - Draw Diagrams - CSharp": {
       "commandName": "Project",
-      "commandLineArgs": "draw-diagrams --interfaces  ToDoAppExample.SoftwareSystems.*.Containers.*.Interfaces.* --levels-of-details container --aac-reader-strategy \"C4InterFlow.Automation.Readers.CSharpAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"ToDoAppExample.dll\" --output-dir \"$(ProjectDir)..\\Diagrams\""
+      "commandLineArgs": "draw-diagrams --interfaces ToDoAppExample.SoftwareSystems.*.Containers.*.Interfaces.* --levels-of-details container --aac-reader-strategy \"C4InterFlow.Automation.Readers.CSharpAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"ToDoAppExample.dll\" --output-dir \"$(ProjectDir)..\\Diagrams\""
+    },
+    "ToDoAppExample - Draw Diagrams - Yaml": {
+      "commandName": "Project",
+      "commandLineArgs": "draw-diagrams --interfaces ToDoAppExample.SoftwareSystems.*.Containers.*.Interfaces.* --levels-of-details container --aac-reader-strategy \"C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)..\\..\\Yaml\\Architecture\" --output-dir \"$(ProjectDir)..\\..\\Yaml\\Diagrams\""
     }
   }
 }

@@ -15,7 +15,7 @@ namespace DotNetEShop.SoftwareSystems
                 {
                     public partial class RedisBasketRepository : IComponentInstance
                     {
-                        public static Component Instance => new Component(typeof(RedisBasketRepository), "Redis Basket Repository")
+                        public Component Instance => new Component(GetType(), "Redis Basket Repository")
                         {
                             ComponentType = ComponentType.None,
                             Description = "",

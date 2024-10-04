@@ -7,7 +7,7 @@ namespace DotNetEShop.SoftwareSystems
 {
     public partial class CatalogApi : ISoftwareSystemInstance
     {
-        public static SoftwareSystem Instance => new SoftwareSystem(typeof(CatalogApi), "Catalog Api")
+        public SoftwareSystem Instance => new SoftwareSystem(GetType(), "Catalog Api")
         {
             Description = "",
             Boundary = Boundary.Internal

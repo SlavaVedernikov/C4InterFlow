@@ -19,13 +19,13 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class GetBasketKey : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(typeof(GetBasketKey), "Get Basket Key")
+                                public Interface Instance => new Interface(GetType(), "Get Basket Key")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = true,
                                     Protocol = "",
-                                    Flow = new Flow(Interface.GetAlias<GetBasketKey>()),
+                                    Flow = new Flow(Interface.GetAlias(GetType())),
                                     Input = "",
                                     InputTemplate = "",
                                     Output = "",

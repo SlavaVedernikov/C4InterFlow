@@ -19,13 +19,13 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class CatalogBrandsAsQueryable : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(typeof(CatalogBrandsAsQueryable), "Catalog Brands As Queryable")
+                                public Interface Instance => new Interface(GetType(), "Catalog Brands As Queryable")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = false,
                                     Protocol = "",
-                                    Flow = new Flow(Interface.GetAlias<CatalogBrandsAsQueryable>()),
+                                    Flow = new Flow(Interface.GetAlias(GetType())),
                                     Input = "",
                                     InputTemplate = "",
                                     Output = "",

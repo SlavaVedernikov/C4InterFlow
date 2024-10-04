@@ -19,13 +19,13 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class DeleteItemById : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(typeof(DeleteItemById), "Delete Item By Id")
+                                public Interface Instance => new Interface(GetType(), "Delete Item By Id")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = false,
                                     Protocol = "",
-                                    Flow = new Flow(Interface.GetAlias<DeleteItemById>())
+                                    Flow = new Flow(Interface.GetAlias(GetType()))
                                     	.Use<DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.CatalogItemsSingleOrDefault>()
                                     	.If(@"item is null")
                                     		.Return(@"TypedResults.NotFound")

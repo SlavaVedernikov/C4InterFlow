@@ -83,7 +83,7 @@ namespace C4InterFlow.Visualisation
 
                         if(Process.Activities.Count() > 1)
                         {
-                            var actor = activity.GetActorInstance() ?? SoftwareSystems.ExternalSystem.Interfaces.ExternalInterface.Instance;
+                            var actor = activity.GetActorInstance() ?? new SoftwareSystems.ExternalSystem.Interfaces.ExternalInterface().Instance;
                             //TODO: Consider refactoring this so that it is treated as a divider/separator e.g. "== {actor.Label} =="
                             parentFlow = _flow.Group(
                                 $"{actor.Label}{(!string.IsNullOrEmpty(activity.Label) ? $" - {activity.Label}" : string.Empty)}",
@@ -289,7 +289,7 @@ namespace C4InterFlow.Visualisation
                         {
                             foreach (var @interface in activity.Flow.GetUseFlows().Select(x => Utils.GetInstance<Interface>(x.Expression)).Where(x => x != null))
                             {
-                                PopulateRelationships(_relationships, activity.GetActorInstance() ?? SoftwareSystems.ExternalSystem.Interfaces.ExternalInterface.Instance, @interface);
+                                PopulateRelationships(_relationships, activity.GetActorInstance() ?? new SoftwareSystems.ExternalSystem.Interfaces.ExternalInterface().Instance, @interface);
                             }
                         }
 

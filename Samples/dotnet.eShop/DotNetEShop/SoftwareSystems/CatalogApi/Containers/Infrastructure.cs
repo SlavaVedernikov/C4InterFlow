@@ -11,7 +11,7 @@ namespace DotNetEShop.SoftwareSystems
         {
             public partial class Infrastructure : IContainerInstance
             {
-                public static Container Instance => new Container(typeof(Infrastructure), "Infrastructure")
+                public Container Instance => new Container(GetType(), "Infrastructure")
                 {
                     ContainerType = ContainerType.None,
                     Description = "",

@@ -19,13 +19,13 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class SaveChangesAsync : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(typeof(SaveChangesAsync), "Save Changes Async")
+                                public Interface Instance => new Interface(GetType(), "Save Changes Async")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = false,
                                     Protocol = "",
-                                    Flow = new Flow(Interface.GetAlias<SaveChangesAsync>()),
+                                    Flow = new Flow(Interface.GetAlias(GetType())),
                                     Input = "",
                                     InputTemplate = "",
                                     Output = "",

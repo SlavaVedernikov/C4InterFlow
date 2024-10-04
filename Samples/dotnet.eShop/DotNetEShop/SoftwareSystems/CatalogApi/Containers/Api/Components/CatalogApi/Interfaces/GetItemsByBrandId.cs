@@ -19,13 +19,13 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class GetItemsByBrandId : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(typeof(GetItemsByBrandId), "Get Items By Brand Id")
+                                public Interface Instance => new Interface(GetType(), "Get Items By Brand Id")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = false,
                                     Protocol = "",
-                                    Flow = new Flow(Interface.GetAlias<GetItemsByBrandId>())
+                                    Flow = new Flow(Interface.GetAlias(GetType()))
                                     	.Return(@"TypedResults.Ok"),
                                     Input = "",
                                     InputTemplate = "",

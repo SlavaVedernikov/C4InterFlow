@@ -2,6 +2,6 @@
 
 public interface ISoftwareSystemInstance
 {
-    public static SoftwareSystem Instance { get; }
+    public SoftwareSystem Instance { get; }
 }
 

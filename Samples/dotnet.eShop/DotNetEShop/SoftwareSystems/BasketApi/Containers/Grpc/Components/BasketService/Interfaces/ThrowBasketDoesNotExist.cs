@@ -19,13 +19,13 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class ThrowBasketDoesNotExist : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(typeof(ThrowBasketDoesNotExist), "Throw Basket Does Not Exist")
+                                public Interface Instance => new Interface(GetType(), "Throw Basket Does Not Exist")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = true,
                                     Protocol = "",
-                                    Flow = new Flow(Interface.GetAlias<ThrowBasketDoesNotExist>()),
+                                    Flow = new Flow(Interface.GetAlias(GetType())),
                                     Input = "",
                                     InputTemplate = "",
                                     Output = "",

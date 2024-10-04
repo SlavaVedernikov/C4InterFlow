@@ -2,6 +2,6 @@
 
 public interface IComponentInstance
 {
-    public static Component Instance { get; }
+    public Component Instance { get; }
 }
 

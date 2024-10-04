@@ -19,13 +19,13 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class GetItemPictureById : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(typeof(GetItemPictureById), "Get Item Picture By Id")
+                                public Interface Instance => new Interface(GetType(), "Get Item Picture By Id")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = false,
                                     Protocol = "",
-                                    Flow = new Flow(Interface.GetAlias<GetItemPictureById>())
+                                    Flow = new Flow(Interface.GetAlias(GetType()))
                                     	.If(@"item is null")
                                     		.Return(@"TypedResults.NotFound")
                                     	.EndIf()

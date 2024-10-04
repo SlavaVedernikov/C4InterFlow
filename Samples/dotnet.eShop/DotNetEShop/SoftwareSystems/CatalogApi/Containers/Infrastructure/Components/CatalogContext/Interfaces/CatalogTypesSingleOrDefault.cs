@@ -19,13 +19,13 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class CatalogTypesSingleOrDefault : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(typeof(CatalogTypesSingleOrDefault), "Catalog Types Single Or Default")
+                                public Interface Instance => new Interface(GetType(), "Catalog Types Single Or Default")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = false,
                                     Protocol = "",
-                                    Flow = new Flow(Interface.GetAlias<CatalogTypesSingleOrDefault>()),
+                                    Flow = new Flow(Interface.GetAlias(GetType())),
                                     Input = "",
                                     InputTemplate = "",
                                     Output = "",

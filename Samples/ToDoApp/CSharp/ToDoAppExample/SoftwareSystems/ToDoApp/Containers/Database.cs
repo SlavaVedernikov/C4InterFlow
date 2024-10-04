@@ -9,7 +9,7 @@ namespace ToDoAppExample.SoftwareSystems
         {
             public partial class Database : IContainerInstance
             {
-                public static Container Instance => new Container(typeof(Database))
+                public Container Instance => new Container(GetType())
                 {
                     ContainerType = ContainerType.Database
                 };
@@ -18,22 +18,22 @@ namespace ToDoAppExample.SoftwareSystems
                 {
                     public partial class SelectTasks : IInterfaceInstance
                     {
-                        public static Interface Instance => new Interface(typeof(SelectTasks));
+                        public Interface Instance => new Interface(GetType());
                     }
 
                     public partial class InsertTask : IInterfaceInstance
                     {
-                        public static Interface Instance => new Interface(typeof(InsertTask));
+                        public Interface Instance => new Interface(GetType());
                     }
 
                     public partial class UpdateTask : IInterfaceInstance
                     {
-                        public static Interface Instance => new Interface(typeof(UpdateTask));
+                        public Interface Instance => new Interface(GetType());
                     }
 
                     public partial class DeleteTask : IInterfaceInstance
                     {
-                        public static Interface Instance => new Interface(typeof(DeleteTask));
+                        public Interface Instance => new Interface(GetType());
                     }
                 }
             }

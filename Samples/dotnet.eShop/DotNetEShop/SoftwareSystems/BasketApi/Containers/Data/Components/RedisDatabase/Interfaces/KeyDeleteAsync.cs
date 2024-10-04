@@ -19,13 +19,13 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class KeyDeleteAsync : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(typeof(KeyDeleteAsync), "Key Delete Async")
+                                public Interface Instance => new Interface(GetType(), "Key Delete Async")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = false,
                                     Protocol = "",
-                                    Flow = new Flow(Interface.GetAlias<KeyDeleteAsync>()),
+                                    Flow = new Flow(Interface.GetAlias(GetType())),
                                     Input = "",
                                     InputTemplate = "",
                                     Output = "",

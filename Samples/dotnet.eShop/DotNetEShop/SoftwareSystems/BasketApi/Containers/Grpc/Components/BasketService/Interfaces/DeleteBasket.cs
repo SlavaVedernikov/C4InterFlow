@@ -19,13 +19,13 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class DeleteBasket : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(typeof(DeleteBasket), "Delete Basket")
+                                public Interface Instance => new Interface(GetType(), "Delete Basket")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = false,
                                     Protocol = "",
-                                    Flow = new Flow(Interface.GetAlias<DeleteBasket>())
+                                    Flow = new Flow(Interface.GetAlias(GetType()))
                                     	.If(@"string.IsNullOrEmpty(userId)")
                                     		.Use<DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService.Interfaces.ThrowNotAuthenticated>()
                                     	.EndIf()

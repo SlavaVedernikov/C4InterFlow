@@ -19,13 +19,13 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class UpdateItem : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(typeof(UpdateItem), "Update Item")
+                                public Interface Instance => new Interface(GetType(), "Update Item")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = false,
                                     Protocol = "",
-                                    Flow = new Flow(Interface.GetAlias<UpdateItem>())
+                                    Flow = new Flow(Interface.GetAlias(GetType()))
                                     	.If(@"catalogItem == null")
                                     		.Return(@"TypedResults.NotFound")
                                     	.EndIf()

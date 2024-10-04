@@ -24,6 +24,7 @@ SET "diagrams-dir=%_NORMALIZED_PATH_%"
 if "%ENABLE_LINE_DRAWING%"=="" (
     echo redraw-all          : %redraw-all%
     echo aac-root-namespace  : %aac-root-namespace%
+    echo cli-project-path    : %cli-project-path%
     echo cli-output-dir      : %cli-output-dir%
     echo cli-exe             : %cli-exe%
     echo diagrams-dir        : %diagrams-dir%
@@ -33,6 +34,7 @@ if "%ENABLE_LINE_DRAWING%"=="" (
     @ECHO %ENABLE_LINE_DRAWING%lqqqqqqqqqqqqqqqqqqqqqqwqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqk
     @ECHO x %DISABLE_LINE_DRAWING%redraw-all          %ENABLE_LINE_DRAWING% x  %DISABLE_LINE_DRAWING%!redraw-all!%ENABLE_LINE_DRAWING%
     @ECHO x %DISABLE_LINE_DRAWING%aac-root-namespace  %ENABLE_LINE_DRAWING% x  %DISABLE_LINE_DRAWING%!aac-root-namespace!%ENABLE_LINE_DRAWING%
+    @ECHO x %DISABLE_LINE_DRAWING%cli-project-path      %ENABLE_LINE_DRAWING% x  %DISABLE_LINE_DRAWING%!cli-project-path!%ENABLE_LINE_DRAWING%
     @ECHO x %DISABLE_LINE_DRAWING%cli-output-dir      %ENABLE_LINE_DRAWING% x  %DISABLE_LINE_DRAWING%!cli-output-dir!%ENABLE_LINE_DRAWING%
     @ECHO x %DISABLE_LINE_DRAWING%cli-exe             %ENABLE_LINE_DRAWING% x  %DISABLE_LINE_DRAWING%!cli-exe!%ENABLE_LINE_DRAWING%
     @ECHO x %DISABLE_LINE_DRAWING%diagrams-dir        %ENABLE_LINE_DRAWING% x  %DISABLE_LINE_DRAWING%!diagrams-dir!%ENABLE_LINE_DRAWING%

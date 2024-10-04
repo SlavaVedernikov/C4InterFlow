@@ -19,13 +19,13 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class CreateItem : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(typeof(CreateItem), "Create Item")
+                                public Interface Instance => new Interface(GetType(), "Create Item")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = false,
                                     Protocol = "",
-                                    Flow = new Flow(Interface.GetAlias<CreateItem>())
+                                    Flow = new Flow(Interface.GetAlias(GetType()))
                                     	.Use<DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.CatalogItemsAdd>()
                                     	.Use<DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.SaveChangesAsync>()
                                     	.Return(@"TypedResults.Created"),

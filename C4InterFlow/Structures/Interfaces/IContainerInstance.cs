@@ -2,6 +2,6 @@
 
 public interface IContainerInstance
 {
-    public static Container Instance { get; }
+    public Container Instance { get; }
 }
 

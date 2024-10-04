@@ -6,7 +6,7 @@ namespace C4InterFlow.SoftwareSystems
     public class ExternalSystem : ISoftwareSystemInstance
     {
         public const string ALIAS = $"{nameof(C4InterFlow)}.{nameof(SoftwareSystems)}.{nameof(ExternalSystem)}";
-        public static SoftwareSystem Instance => new SoftwareSystem(ALIAS, "External")
+        public SoftwareSystem Instance => new SoftwareSystem(ALIAS, "External")
         {
             Boundary = Boundary.External
         };
@@ -16,7 +16,7 @@ namespace C4InterFlow.SoftwareSystems
             public class ExternalInterface : IInterfaceInstance
             {
                 public const string ALIAS = $"{nameof(C4InterFlow)}.{nameof(SoftwareSystems)}.{nameof(ExternalSystem)}.{nameof(Interfaces)}.{nameof(ExternalInterface)}";
-                public static Interface Instance => new Interface(
+                public Interface Instance => new Interface(
                 ExternalSystem.ALIAS,
                 ALIAS,
                 "External")

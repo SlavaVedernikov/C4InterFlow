@@ -19,13 +19,13 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class GetFullPath : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(typeof(GetFullPath), "Get Full Path")
+                                public Interface Instance => new Interface(GetType(), "Get Full Path")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = false,
                                     Protocol = "",
-                                    Flow = new Flow(Interface.GetAlias<GetFullPath>()),
+                                    Flow = new Flow(Interface.GetAlias(GetType())),
                                     Input = "",
                                     InputTemplate = "",
                                     Output = "",

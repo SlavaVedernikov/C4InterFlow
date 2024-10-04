@@ -19,13 +19,13 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class MapToCustomerBasketResponse : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(typeof(MapToCustomerBasketResponse), "Map To Customer Basket Response")
+                                public Interface Instance => new Interface(GetType(), "Map To Customer Basket Response")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = true,
                                     Protocol = "",
-                                    Flow = new Flow(Interface.GetAlias<MapToCustomerBasketResponse>())
+                                    Flow = new Flow(Interface.GetAlias(GetType()))
                                     	.Return(@"response"),
                                     Input = "",
                                     InputTemplate = "",
