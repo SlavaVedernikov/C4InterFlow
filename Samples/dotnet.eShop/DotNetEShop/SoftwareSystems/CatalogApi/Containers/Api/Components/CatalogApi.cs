@@ -15,7 +15,7 @@ namespace DotNetEShop.SoftwareSystems
                 {
                     public partial class CatalogApi : IComponentInstance
                     {
-                        public static Component Instance => new Component(typeof(CatalogApi), "Catalog Api")
+                        public Component Instance => new Component(GetType(), "Catalog Api")
                         {
                             ComponentType = ComponentType.None,
                             Description = "",

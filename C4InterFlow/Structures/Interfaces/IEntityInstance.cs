@@ -2,6 +2,6 @@
 
 public interface IEntityInstance
 {
-    public static Entity Instance { get; }
+    public Entity Instance { get; }
 }
 

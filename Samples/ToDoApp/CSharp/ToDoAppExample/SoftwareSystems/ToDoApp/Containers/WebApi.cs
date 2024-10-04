@@ -9,7 +9,7 @@ namespace ToDoAppExample.SoftwareSystems
         {
             public partial class WebApi : IContainerInstance
             {
-                public static Container Instance => new Container(typeof(WebApi))
+                public Container Instance => new Container(GetType())
                 {
                     ContainerType = ContainerType.Api
                 };
@@ -18,45 +18,45 @@ namespace ToDoAppExample.SoftwareSystems
                 {
                     public partial class GetTasks : IInterfaceInstance
                     {
-                        public static Interface Instance => new Interface(typeof(GetTasks))
+                        public Interface Instance => new Interface(GetType())
                         {
-                            Flow = new Flow(Interface.GetAlias<GetTasks>())
+                            Flow = new Flow(Interface.GetAlias(GetType()))
                                 .Use<Database.Interfaces.SelectTasks>(),
                         };
                     }
 
                     public partial class AddTask : IInterfaceInstance
                     {
-                        public static Interface Instance => new Interface(typeof(AddTask))
+                        public Interface Instance => new Interface(GetType())
                         {
-                            Flow = new Flow(Interface.GetAlias<AddTask>())
+                            Flow = new Flow(Interface.GetAlias(GetType()))
                                 .Use<Database.Interfaces.InsertTask>(),
                         };
                     }
 
                     public partial class UpdateTask : IInterfaceInstance
                     {
-                        public static Interface Instance => new Interface(typeof(UpdateTask))
+                        public Interface Instance => new Interface(GetType())
                         {
-                            Flow = new Flow(Interface.GetAlias<UpdateTask>())
+                            Flow = new Flow(Interface.GetAlias(GetType()))
                                 .Use<Database.Interfaces.UpdateTask>(),
                         };
                     }
 
                     public partial class DeleteTask : IInterfaceInstance
                     {
-                        public static Interface Instance => new Interface(typeof(DeleteTask))
+                        public Interface Instance => new Interface(GetType())
                         {
-                            Flow = new Flow(Interface.GetAlias<DeleteTask>())
+                            Flow = new Flow(Interface.GetAlias(GetType()))
                                 .Use<Database.Interfaces.DeleteTask>(),
                         };
                     }
 
                     public partial class MarkTaskAsDone : IInterfaceInstance
                     {
-                        public static Interface Instance => new Interface(typeof(MarkTaskAsDone))
+                        public Interface Instance => new Interface(GetType())
                         {
-                            Flow = new Flow(Interface.GetAlias<MarkTaskAsDone>())
+                            Flow = new Flow(Interface.GetAlias(GetType()))
                                 .Use<Database.Interfaces.UpdateTask>(),
                         };
                     }

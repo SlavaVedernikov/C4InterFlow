@@ -5,6 +5,6 @@ namespace ToDoAppExample.SoftwareSystems
 {
     public partial class ToDoApp : ISoftwareSystemInstance
     {
-        public static SoftwareSystem Instance => new SoftwareSystem(typeof(ToDoApp));
+        public SoftwareSystem Instance => new SoftwareSystem(GetType());
     }
 }

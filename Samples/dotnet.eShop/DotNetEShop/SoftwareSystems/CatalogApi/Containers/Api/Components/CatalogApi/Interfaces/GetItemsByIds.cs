@@ -19,13 +19,13 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class GetItemsByIds : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(typeof(GetItemsByIds), "Get Items By Ids")
+                                public Interface Instance => new Interface(GetType(), "Get Items By Ids")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = false,
                                     Protocol = "",
-                                    Flow = new Flow(Interface.GetAlias<GetItemsByIds>())
+                                    Flow = new Flow(Interface.GetAlias(GetType()))
                                     	.Use<DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext.Interfaces.CatalogItemsToListAsync>()
                                     	.Return(@"TypedResults.Ok"),
                                     Input = "",

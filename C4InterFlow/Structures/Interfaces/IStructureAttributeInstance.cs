@@ -2,6 +2,6 @@
 
 public interface IStructureAttributeInstance
 {
-    public static StructureAttribute Instance { get; }
+    public StructureAttribute Instance { get; }
 }
 

@@ -23,8 +23,8 @@ namespace C4InterFlow.Automation.Writers
         {{
             public partial class {containerName} : IContainerInstance
             {{
-                public static Container Instance => new Container(
-                    typeof({containerName}), {AnyCodeWriter.EnsureDoubleQuotes(label)})
+                public Container Instance => new Container(
+                    GetType(), {AnyCodeWriter.EnsureDoubleQuotes(label)})
                 {{
                     ContainerType = ContainerType.{(!string.IsNullOrEmpty(type) ? type : "None")},
                     Description = {(!string.IsNullOrEmpty(description) ? AnyCodeWriter.EnsureDoubleQuotes(description) : "\"\"")},
@@ -102,8 +102,8 @@ namespace C4InterFlow.Automation.Writers
             result.Append($@"
     public partial class {softwareSystemName} : ISoftwareSystemInstance
     {{
-        public static SoftwareSystem Instance => new SoftwareSystem(
-            typeof({softwareSystemName}), {AnyCodeWriter.EnsureDoubleQuotes(label)})
+        public SoftwareSystem Instance => new SoftwareSystem(
+            GetType(), {AnyCodeWriter.EnsureDoubleQuotes(label)})
         {{
             Description = {(!string.IsNullOrEmpty(description) ? AnyCodeWriter.EnsureDoubleQuotes(description) : "\"\"")},
             Boundary = Boundary.{(!string.IsNullOrEmpty(boundary) ? boundary : "Internal")}
@@ -130,8 +130,8 @@ namespace C4InterFlow.Automation.Writers
             result.Append($@"
     public class {actorName} : I{type}Instance
     {{
-        public static {type} Instance => new {type}(
-            typeof({actorName}), {AnyCodeWriter.EnsureDoubleQuotes(label)})
+        public {type} Instance => new {type}(
+            GetType(), {AnyCodeWriter.EnsureDoubleQuotes(label)})
         {{
             Description = {(description != null ? description : "\"\"")},
         }};
@@ -159,8 +159,8 @@ namespace C4InterFlow.Automation.Writers
                 {{
                     public partial class {componentName} : IComponentInstance
                     {{
-                        public static Component Instance => new Component(
-                            typeof({componentName}), {AnyCodeWriter.EnsureDoubleQuotes(label)})
+                        public Component Instance => new Component(
+                            GetType(), {AnyCodeWriter.EnsureDoubleQuotes(label)})
                         {{
                             ComponentType = ComponentType.{componentType},
                             Description = {(!string.IsNullOrEmpty(description) ? AnyCodeWriter.EnsureDoubleQuotes(description) : "\"\"")},
@@ -197,8 +197,8 @@ namespace C4InterFlow.Automation.Writers
                 {{
                     public partial class {entityName} : IEntityInstance
                     {{
-                        public static Entity Instance => new Entity(
-                            Utils.GetStructureAlias<{entityName}>(), {AnyCodeWriter.EnsureDoubleQuotes(label)}, {(type != null ? type : "EntityType.None")})
+                        public Entity Instance => new Entity(
+                            GetType(), {AnyCodeWriter.EnsureDoubleQuotes(label)}, {(type != null ? type : "EntityType.None")})
                         {{
                             Description = {(!string.IsNullOrEmpty(description) ? AnyCodeWriter.EnsureDoubleQuotes(description) : "\"\"")},
                             ComposedOfMany = new string[] {{{(composedOfMany != null ? string.Join(", ", composedOfMany.Select(x => AnyCodeWriter.EnsureDoubleQuotes(x))) : " ")}}},
@@ -236,14 +236,14 @@ namespace C4InterFlow.Automation.Writers
                         {{
                             public partial class {componentInterfaceName} : IInterfaceInstance
                             {{
-                                public static Interface Instance => new Interface(
-                                    typeof({componentInterfaceName}), {AnyCodeWriter.EnsureDoubleQuotes(label)})
+                                public Interface Instance => new Interface(
+                                    GetType(), {AnyCodeWriter.EnsureDoubleQuotes(label)})
                                 {{
                                     Description = {(description != null ? AnyCodeWriter.EnsureDoubleQuotes(description) : "\"\"")},
                                     Path = {(path != null ? AnyCodeWriter.EnsureDoubleQuotes(path) : "\"\"")},
                                     IsPrivate = {(isPrivate != null ? isPrivate.ToString().ToLower() : "false")},
                                     Protocol =  {(protocol != null ? AnyCodeWriter.EnsureDoubleQuotes(protocol) : "\"\"")},
-                                    Flow = new Flow(Interface.GetAlias<{componentInterfaceName}>()),
+                                    Flow = new Flow(Interface.GetAlias(GetType())),
                                     Input = {(input != null ? input : "\"\"")},
                                     InputTemplate = {(inputTemplate != null ? inputTemplate : "\"\"")},
                                     Output = {(output != null ? output : "\"\"")},
@@ -278,11 +278,11 @@ namespace C4InterFlow.Automation.Writers
                 {{
                     public partial class {containerInterfaceName} : IInterfaceInstance
                     {{
-                        public static Interface Instance => new Interface(
-                            typeof({containerInterfaceName}), {AnyCodeWriter.EnsureDoubleQuotes(label)})
+                        public Interface Instance => new Interface(
+                            GetType(), {AnyCodeWriter.EnsureDoubleQuotes(label)})
                         {{
                             Description = {(description != null ? AnyCodeWriter.EnsureDoubleQuotes(description) : "\"\"")},
-                            Flow = new Flow(Interface.GetAlias<{containerInterfaceName}>()),
+                            Flow = new Flow(Interface.GetAlias(GetType())),
                             Protocol = {(protocol != null ? AnyCodeWriter.EnsureDoubleQuotes(protocol) : "\"\"")},
                             Input = {(input != null ? input : "\"\"")},
                             InputTemplate = {(inputTemplate != null ? inputTemplate : "\"\"")},
@@ -312,11 +312,11 @@ namespace C4InterFlow.Automation.Writers
         {{
             public partial class {softwareSystemInterfaceName} : IInterfaceInstance
             {{
-                public static Interface Instance => new Interface(
-                    typeof({softwareSystemInterfaceName}), {AnyCodeWriter.EnsureDoubleQuotes(label)})
+                public Interface Instance => new Interface(
+                    GetType(), {AnyCodeWriter.EnsureDoubleQuotes(label)})
                 {{
                     Description = {(description != null ? AnyCodeWriter.EnsureDoubleQuotes(description) : "\"\"")},
-                    Flow = new Flow(Interface.GetAlias<{softwareSystemInterfaceName}>()),
+                    Flow = new Flow(Interface.GetAlias(GetType())),
                     Protocol = {(protocol != null ? AnyCodeWriter.EnsureDoubleQuotes(protocol) : "\"\"")},
                     Input = {(input != null ? input : "\"\"")},
                     InputTemplate = {(inputTemplate != null ? inputTemplate : "\"\"")},

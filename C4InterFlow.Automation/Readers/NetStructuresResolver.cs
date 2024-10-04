@@ -49,14 +49,24 @@ namespace C4InterFlow.Automation.Readers
 
             var type = GetType(alias);
 
-            var result = type?.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static)?.GetValue(null, null) as T;
-
-            if (result != null && !_aliasToStructureMap.ContainsKey(alias))
+            if (type != null)
             {
-                _aliasToStructureMap.TryAdd(alias, result);
-            }
+                var instanceObject = Activator.CreateInstance(type);
+                var propertyInfo = type.GetProperty("Instance", BindingFlags.Public | BindingFlags.Instance);
 
-            return result;
+                var result = propertyInfo?.GetValue(instanceObject) as T;
+
+                if (result != null && !_aliasToStructureMap.ContainsKey(alias))
+                {
+                    _aliasToStructureMap.TryAdd(alias, result);
+                }
+
+                return result;
+            }
+            else
+            {
+                return default(T);
+            }
         }
 
         private Type? GetType(string? alias)
@@ -96,12 +106,14 @@ namespace C4InterFlow.Automation.Readers
         {
             var result = new List<Interface>();
 
-            var interfaceClasses = GetAllTypesOfInterface<IInterfaceInstance>();
+            var types = GetAllTypesOfInterface<IInterfaceInstance>();
 
-            foreach (var interfaceClass in interfaceClasses)
+            foreach (var type in types)
             {
-                if (interfaceClass?.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static)
-                        ?.GetValue(null, null) is Interface interfaceInstance)
+                var instanceObject = Activator.CreateInstance(type);
+
+                if (type?.GetProperty("Instance", BindingFlags.Public | BindingFlags.Instance)
+                        ?.GetValue(instanceObject) is Interface interfaceInstance)
                 {
                     result.Add(interfaceInstance);
                 }
@@ -195,22 +207,29 @@ namespace C4InterFlow.Automation.Readers
             if (string.IsNullOrEmpty(alias)) return result;
 
             var parentType = GetType(alias);
-            var nestedTypes = parentType?.GetNestedTypes();
 
-            if (nestedTypes != null)
+            if(parentType != null)
             {
-                foreach (var type in nestedTypes)
+                var nestedTypes = parentType?.GetNestedTypes();
+
+                if (nestedTypes != null)
                 {
-                    var instance = type?.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static)
-                        ?.GetValue(null, null) as T;
-                    if (instance != null)
+                    foreach (var type in nestedTypes)
                     {
-                        result.Add(instance);
+                        var instanceObject = Activator.CreateInstance(type);
+                        var instance = type?.GetProperty("Instance", BindingFlags.Public | BindingFlags.Instance)
+                            ?.GetValue(instanceObject) as T;
+
+                        if (instance != null)
+                        {
+                            result.Add(instance);
+                        }
                     }
                 }
             }
 
             return result;
+
         }
 
         private bool NamespaceMatchesPattern(string? namespaceName, string pattern)

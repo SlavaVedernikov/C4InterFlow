@@ -19,13 +19,13 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class UpdateBasket : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(typeof(UpdateBasket), "Update Basket")
+                                public Interface Instance => new Interface(GetType(), "Update Basket")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = false,
                                     Protocol = "",
-                                    Flow = new Flow(Interface.GetAlias<UpdateBasket>())
+                                    Flow = new Flow(Interface.GetAlias(GetType()))
                                     	.If(@"string.IsNullOrEmpty(userId)")
                                     		.Use<DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService.Interfaces.ThrowNotAuthenticated>()
                                     	.EndIf()

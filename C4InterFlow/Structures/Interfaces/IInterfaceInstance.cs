@@ -2,6 +2,6 @@
 
 public interface IInterfaceInstance
 {
-    public static Interface Instance { get; }
+    public Interface Instance { get; }
 }
 

@@ -19,13 +19,13 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class StringGetLeaseAsync : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(typeof(StringGetLeaseAsync), "String Get Lease Async")
+                                public Interface Instance => new Interface(GetType(), "String Get Lease Async")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = false,
                                     Protocol = "",
-                                    Flow = new Flow(Interface.GetAlias<StringGetLeaseAsync>()),
+                                    Flow = new Flow(Interface.GetAlias(GetType())),
                                     Input = "",
                                     InputTemplate = "",
                                     Output = "",

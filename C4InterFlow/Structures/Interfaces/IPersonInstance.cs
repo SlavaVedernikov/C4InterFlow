@@ -2,6 +2,6 @@
 
 public interface IPersonInstance
 {
-    public static Person Instance { get; }
+    public Person Instance { get; }
 }
 

@@ -15,7 +15,7 @@ namespace DotNetEShop.SoftwareSystems
                 {
                     public partial class CatalogContext : IComponentInstance
                     {
-                        public static Component Instance => new Component(typeof(CatalogContext), "Catalog Context")
+                        public Component Instance => new Component(GetType(), "Catalog Context")
                         {
                             ComponentType = ComponentType.None,
                             Description = "",

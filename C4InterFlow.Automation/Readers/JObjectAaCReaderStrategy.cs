@@ -125,8 +125,10 @@ namespace C4InterFlow.Automation.Readers
                     path = $"{path}.{typeSegment}";
                 }
 
+                var instanceObject = Activator.CreateInstance(type);
+                var propertyInfo = type.GetProperty("Instance", BindingFlags.Public | BindingFlags.Instance);
 
-                var instance = type?.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static)?.GetValue(null, null);
+                var instance = propertyInfo?.GetValue(instanceObject);
 
                 var lastJObject = jObject.SelectToken(path) as JObject;
                 lastJObject.Parent.Parent[path.Split('.').Last()] = JObject.FromObject(instance);

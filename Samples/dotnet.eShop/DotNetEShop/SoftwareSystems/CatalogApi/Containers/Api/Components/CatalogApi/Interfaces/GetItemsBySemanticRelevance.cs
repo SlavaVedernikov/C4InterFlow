@@ -19,13 +19,13 @@ namespace DotNetEShop.SoftwareSystems
                         {
                             public partial class GetItemsBySemanticRelevance : IInterfaceInstance
                             {
-                                public static Interface Instance => new Interface(typeof(GetItemsBySemanticRelevance), "Get Items By Semantic Relevance")
+                                public Interface Instance => new Interface(GetType(), "Get Items By Semantic Relevance")
                                 {
                                     Description = "",
                                     Path = "",
                                     IsPrivate = false,
                                     Protocol = "",
-                                    Flow = new Flow(Interface.GetAlias<GetItemsBySemanticRelevance>())
+                                    Flow = new Flow(Interface.GetAlias(GetType()))
                                     	.If(@"!services.CatalogAI.IsEnabled")
                                     		.Use<DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi.Interfaces.GetItemsByName>()
                                     	.EndIf()
