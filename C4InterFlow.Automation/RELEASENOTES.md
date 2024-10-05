@@ -21,3 +21,11 @@
 * Added logging
 * Added shortcuts for AaC reader strategies
 * Added support for recursive descent JSON Path syntax to dotnet resolver
+
+## 1.8.0
+
+* Fixed the issue with nested Invocation Expressions when generating AaC from CSharp
+* Changed the way Protocol and Tags are coded in PlantUML
+* Changed CSharp AaC generation to remove ALIAS field
+* Simplified C# AaC by making it strongly-typed throughout
+* Removed type names repetitions in C# AaC definitions
