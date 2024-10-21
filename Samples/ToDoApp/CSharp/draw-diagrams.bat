@@ -1,6 +1,6 @@
 @echo off
 :: Possible values: TRUE, FALSE
-if not defined redraw-all set "redraw-all=FALSE"
+if not defined redraw-all set "redraw-all=TRUE"
 :::::::::::::::::::::::::::::::
 
 if not defined build-configuration set "build-configuration=Debug"
@@ -61,7 +61,7 @@ if NOT "%BATCH_TEST_MODE%"=="1" pause
 
 echo Drawing Diagrams...
 if %redraw-all%==TRUE (
-%cli-output-dir%\%cli-exe% draw-diagrams --interfaces  %aac-root-namespace%.SoftwareSystems.*.Containers.*.Interfaces.* --levels-of-details container --aac-reader-strategy "%aac-reader-strategy%" --aac-input-paths "%aac-input-paths%" --output-dir "%diagrams-dir%" --formats png svg
+%cli-output-dir%\%cli-exe% draw-diagrams --interfaces  %aac-root-namespace%.SoftwareSystems.*.Containers.*.Interfaces.* --levels-of-details container --aac-reader-strategy "%aac-reader-strategy%" --aac-input-paths "%aac-input-paths%" --output-dir "%diagrams-dir%" --formats svg
 ) else (
 %cli-output-dir%\%cli-exe% draw-diagrams --interfaces  %aac-root-namespace%.SoftwareSystems.*.Containers.*.Interfaces.* --levels-of-details container --aac-reader-strategy "%aac-reader-strategy%" --aac-input-paths "%aac-input-paths%" --output-dir "%diagrams-dir%" 
 )

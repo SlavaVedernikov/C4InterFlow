@@ -11,7 +11,8 @@ namespace ToDoAppExample.SoftwareSystems
             {
                 public Container Instance => new Container(GetType())
                 {
-                    ContainerType = ContainerType.Api
+                    ContainerType = ContainerType.Api,
+                    Icon = "devicons/dotnet"
                 };
 
                 public partial class Interfaces

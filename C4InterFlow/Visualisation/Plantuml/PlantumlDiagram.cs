@@ -1,5 +1,7 @@
 using System.Text;
 using C4InterFlow.Commons.FileSystem;
+using C4InterFlow.Structures.Boundaries;
+using C4InterFlow.Structures;
 
 namespace C4InterFlow.Visualisation.Plantuml;
 
@@ -32,7 +34,10 @@ public static class PlantumlDiagram
         var includePath = diagram.GetPumlFilePath(useStandardLibrary, diagramPath);
         stream.AppendLine($"@startuml");
         stream.AppendLine($"!include {includePath}");
+        stream.AppendLine("!define ICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/refs/heads/main/icons");
         stream.AppendLine();
+
+        BuildIconIncludes(stream, diagram);
 
         BuildStyleSession(stream, diagram);
 
@@ -63,6 +68,58 @@ public static class PlantumlDiagram
         return stream;
     }
 
+    private static void BuildIconIncludes(StringBuilder stream, Diagram diagram)
+    {
+        var icons = new List<string>();
+
+        void AddIcon(string icon)
+        {
+            if(!string.IsNullOrEmpty(icon) && !icons.Contains(icon))
+            {
+                icons.Add(icon);
+            }   
+        }
+
+        void AddStructureIcon(Structure structure)
+        {
+            switch (structure)
+            {
+                case SoftwareSystem system:
+                    AddIcon(system.Icon);
+                    break;
+                case SoftwareSystemBoundary systemBoundary:
+                    foreach (var boundaryStructure in systemBoundary.Structures)
+                    {
+                        AddStructureIcon(boundaryStructure);
+                    }
+                    break;
+                case Container container:
+                    AddIcon(container.Icon);
+                    break;
+                case ContainerBoundary containerBoundary:
+                    foreach (var component in containerBoundary.Components)
+                    {
+                        AddIcon(component.Icon);
+                    }
+                    break;
+                case Component component:
+                    AddIcon(component.Icon);
+                    break;
+                default:
+                    break;
+            };
+        }
+
+        foreach (var structure in diagram.Structures)
+        {
+            AddStructureIcon(structure);
+        }
+
+        foreach(var icon in icons)
+        {
+            stream.AppendLine($"!include ICONS/{icon}.puml");
+        }
+    }
     private static void BuildStyleSession(StringBuilder stream, Diagram diagram)
     {
         if (diagram.Tags is not null)

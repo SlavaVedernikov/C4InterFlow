@@ -6,9 +6,9 @@ title To Do App Example - To Do App - Mobile App - Add Task - C4 Sequence - Cont
 System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 
 System_Boundary(ToDoAppExample.SoftwareSystems.ToDoApp, "To Do App")
-    Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.MobileApp, "Mobile App", "", "")
-    Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, "Web Api", "", "")
-    Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database, "Database", "", "")
+    Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.MobileApp, "Mobile App", "", "", "apple")
+    Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, "Web Api", "", "", "dotnet")
+    Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database, "Database", "", "", "msql_server")
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ToDoAppExample.SoftwareSystems.ToDoApp.Containers.MobileApp, "Add Task")

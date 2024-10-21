@@ -11,7 +11,8 @@ namespace ToDoAppExample.SoftwareSystems
             {
                 public Container Instance => new Container(GetType())
                 {
-                    ContainerType = ContainerType.Database
+                    ContainerType = ContainerType.Database,
+                    Icon = "devicons/msql_server"
                 };
 
                 public partial class Interfaces

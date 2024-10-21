@@ -43,7 +43,7 @@ internal static class PlantumlStructure
 
         return
             $"{procedureName}({system.Alias}, \"{system.Label}\", \"{system.Description}\""
-                .TryConcatTags(system) + ")";
+                .AddIcon(system).TryConcatTags(system) + ")";
     }
 
     private static string ToPumlString(this SoftwareSystemBoundary boundary, BoundaryStyle? style = BoundaryStyle.CurlyBracketsEnclosed)
@@ -108,7 +108,7 @@ internal static class PlantumlStructure
 
         return
             $"{procedureName}({component.Alias}, \"{component.Label}\", \"{component.Technology}\", \"{component.Description}\""
-                .TryConcatTags(component) + ")";
+                .AddIcon(component).TryConcatTags(component) + ")";
     }
 
     private static string ToPumlString(this Container container)
@@ -124,7 +124,7 @@ internal static class PlantumlStructure
         };
 
         return $"{procedureName}({container.Alias}, \"{container.Label}\", \"{container.Technology}\", \"{container.Description}\""
-            .TryConcatTags(container) + ")";
+            .AddIcon(container).TryConcatTags(container) + ")";
     }
 
     private static string ToPumlString(this ContainerBoundary boundary, BoundaryStyle? style = BoundaryStyle.CurlyBracketsEnclosed)
@@ -188,4 +188,15 @@ internal static class PlantumlStructure
 
     private static string TryConcatTags(this string value, Structure structure) =>
          value + (structure.Tags.Any() ? $", $tags=\"{string.Join("+", structure.Tags)}\"" : string.Empty);
+
+    private static string AddIcon(this string value, string icon) =>
+        value + (!string.IsNullOrEmpty(icon) ? $", \"{icon.Split('/').Last()}\"" : string.Empty);
+    private static string AddIcon(this string value, SoftwareSystem system) =>
+         value.AddIcon(system.Icon);
+
+    private static string AddIcon(this string value, Container container) =>
+         value.AddIcon(container.Icon);
+
+    private static string AddIcon(this string value, Component component) =>
+         value.AddIcon(component.Icon);
 }

@@ -18,7 +18,7 @@ public record Container : Structure
     public ContainerType ContainerType { get; init; }
     public string? Technology { get; init; }
     public string SoftwareSystem { get; init; }
-
+    public string? Icon { get; init; }
     public Container(Type type) : this(GetAlias(type), Utils.GetLabelFromAlias(GetAlias(type)))
     { }
     public Container(Type type, string label) : this(GetAlias(type), label)

@@ -11,7 +11,8 @@ namespace ToDoAppExample.SoftwareSystems
             {
                 public Container Instance => new Container(GetType())
                 {
-                    ContainerType = ContainerType.Mobile
+                    ContainerType = ContainerType.Mobile,
+                    Icon = "font-awesome-5/apple"
                 };
 
                 public partial class Interfaces
