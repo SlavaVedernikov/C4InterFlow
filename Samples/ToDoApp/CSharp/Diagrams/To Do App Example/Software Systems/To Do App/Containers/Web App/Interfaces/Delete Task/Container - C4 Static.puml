@@ -1,6 +1,10 @@
 @startuml
 !include ..\..\..\..\..\..\..\.c4s\C4_Container.puml
+!define ICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/refs/heads/main/icons
 
+!include ICONS/devicons/angular.puml
+!include ICONS/devicons/dotnet.puml
+!include ICONS/devicons/msql_server.puml
 AddElementTag("c4interflow:lifecycle:new", $bgColor=green, $fontColor=#ffffff, $borderColor=green, $shadowing="False")
 AddElementTag("c4interflow:lifecycle:changed", $bgColor=orange, $fontColor=#ffffff, $borderColor=orange, $shadowing="False")
 AddElementTag("c4interflow:lifecycle:removed", $bgColor=red, $fontColor=#ffffff, $borderColor=red, $shadowing="False")
@@ -18,9 +22,9 @@ title To Do App Example - To Do App - Web App - Delete Task - C4 Static - Contai
 
 
 System_Boundary(ToDoAppExample.SoftwareSystems.ToDoApp, "To Do App") {
-    Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApp, "Web App", "", "")
-    Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, "Web Api", "", "")
-    ContainerDb(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database, "Database", "", "")
+    Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApp, "Web App", "", "", "angular")
+    Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, "Web Api", "", "", "dotnet")
+    ContainerDb(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database, "Database", "", "", "msql_server")
 }
 
 Rel(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApp, ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, "Uses")

@@ -8,6 +8,7 @@ ToDoAppExample:
             InsertTask: {}
             UpdateTask: {}
             DeleteTask: {}
+          Icon: devicons/msql_server
         WebApi:
           Interfaces:
             GetTasks:
@@ -30,6 +31,7 @@ ToDoAppExample:
               Flows:
                 - Type: Use
                   Expression: Database.Interfaces.UpdateTask
+          Icon: devicons/dotnet
         MobileApp:
           Interfaces:
             ViewTasks:
@@ -52,6 +54,7 @@ ToDoAppExample:
               Flows:
                 - Type: Use
                   Expression: WebApi.Interfaces.MarkTaskAsDone
+          Icon: font-awesome-5/apple
         WebApp:
           Interfaces:
             ViewTasks:
@@ -74,3 +77,4 @@ ToDoAppExample:
               Flows:
                 - Type: Use
                   Expression: WebApi.Interfaces.MarkTaskAsDone
+          Icon: devicons/angular

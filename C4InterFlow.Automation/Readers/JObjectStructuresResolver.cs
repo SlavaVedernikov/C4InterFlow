@@ -48,6 +48,7 @@ namespace C4InterFlow.Automation.Readers
                 var description = token?["Description"]?.ToString() ?? string.Empty;
                 var tagsToken = token?["Tags"];
                 var tags = tagsToken?.Type == JTokenType.Array && tagsToken.All(x => x.Type == JTokenType.String) ? tagsToken.ToObject<string[]>() : new string[] { };
+                var icon = token?["Icon"]?.ToString() ?? string.Empty;
 
                 token!["Tags"]?.ToObject<string[]>();
                 switch (collectionToken.Path.Split('.').Last())
@@ -115,7 +116,8 @@ namespace C4InterFlow.Automation.Readers
                             Boundary = !string.IsNullOrEmpty(softwareSystemsBoundaryName) &&
                                 Enum.TryParse(softwareSystemsBoundaryName, out Boundary softwareSystemsBoundary) ?
                                 softwareSystemsBoundary : Boundary.Internal,
-                            Tags = tags ?? new string[] { }
+                            Tags = tags ?? new string[] { },
+                            Icon = icon
 
                         } as T;
                         break;
@@ -129,7 +131,8 @@ namespace C4InterFlow.Automation.Readers
                                 containerType : ContainerType.None,
                             Description = description,
                             Technology = containerTechnology,
-                            Tags = tags ?? new string[] { }
+                            Tags = tags ?? new string[] { },
+                            Icon = icon
                         } as T;
                         break;
                     case "Components":
@@ -142,7 +145,8 @@ namespace C4InterFlow.Automation.Readers
                                 componentType : ComponentType.None,
                             Description = description,
                             Technology = componentTechnology,
-                            Tags = tags ?? new string[] { }
+                            Tags = tags ?? new string[] { },
+                            Icon = icon
                         } as T;
                         break;
                     case "Entities":

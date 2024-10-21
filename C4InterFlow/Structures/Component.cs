@@ -17,6 +17,7 @@ public record Component : Structure
     public string? Technology { get; init; }
     public ComponentType ComponentType { get; init; }
     public string Container { get; init; }
+    public string? Icon { get; init; }
     public Note[]? Notes { get; init; }
 
     public Component(Type type) : this(GetAlias(type), Utils.GetLabelFromAlias(GetAlias(type)))
