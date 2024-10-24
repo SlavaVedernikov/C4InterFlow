@@ -3,18 +3,27 @@ using C4InterFlow.Visualisation.Interfaces;
 using C4InterFlow.Structures;
 using C4InterFlow.Structures.Relationships;
 using C4InterFlow.Structures.Boundaries;
+using C4InterFlow.Cli.Commands.Options;
 
 namespace C4InterFlow.Visualisation
 {
     public class ContainerDiagram : DiagramBuildRunner
     {
-        public ContainerDiagram(string title, BusinessProcess process, bool showBoundaries = false, bool isStatic = false)
+        public ContainerDiagram(
+            string title, 
+            BusinessProcess process, 
+            bool showBoundaries = false,
+            int maxLineLabels = DiagramMaxLineLabelsOption.DefaultValue,
+            bool isStatic = false)
         {
             DiagramTitle = title;
             Process = process;
             ShowBoundaries = showBoundaries;
+            MaxLineLabels = maxLineLabels;
             IsStatic = isStatic;
         }
+
+        private int MaxLineLabels { get; init; }
         private bool IsStatic { get; init; }
         private BusinessProcess Process { get; init; }
 
@@ -220,7 +229,7 @@ namespace C4InterFlow.Visualisation
                         }
                     }
 
-                    _relationships = CleanUpRelationships(_relationships, IsStatic).ToList();
+                    _relationships = CleanUpRelationships(_relationships, MaxLineLabels, IsStatic).ToList();
                 }
 
                 return _relationships;

@@ -4,6 +4,7 @@ using C4InterFlow.Structures;
 using C4InterFlow.Structures.Boundaries;
 using C4InterFlow.Structures.Relationships;
 using C4InterFlow.Visualisation.Plantuml.Style;
+using C4InterFlow.Cli.Commands.Options;
 
 namespace C4InterFlow.Visualisation
 {
@@ -11,20 +12,26 @@ namespace C4InterFlow.Visualisation
     {
         private Note[]? _notes = null;
 
-        public ComponentDiagram (string title, BusinessProcess process, bool showBoundaries = false, bool showInterfaceInputAndOutput = false, bool isStatic = false, Note[]? notes = null)
+        public ComponentDiagram (
+            string title, 
+            BusinessProcess process, 
+            bool showBoundaries = false, 
+            bool showInterfaceInputAndOutput = false, 
+            int maxLineLabels = DiagramMaxLineLabelsOption.DefaultValue, 
+            bool isStatic = false, 
+            Note[]? notes = null)
         {
             DiagramTitle = title;
             Process = process;
             ShowBoundaries = showBoundaries;
-            IsStatic = isStatic;
             ShowInterfaceInputAndOutput = showInterfaceInputAndOutput;
+            MaxLineLabels = maxLineLabels;
+            IsStatic = isStatic;
             _notes = notes;
         }
 
-        public ComponentDiagram (string title, BusinessProcess process, bool showBoundaries = false, bool showInterfaceInputAndOutput = false, Note[]? notes = null) : this (
-           title, process, showBoundaries, showInterfaceInputAndOutput, false, notes ) { }
-
         private bool ShowBoundaries { get; init; }
+        private int MaxLineLabels { get; init; }
         private bool IsStatic { get; init; }
         private bool ShowInterfaceInputAndOutput { get; init; }
         private BusinessProcess Process { get; init; }
@@ -293,7 +300,7 @@ namespace C4InterFlow.Visualisation
                             }
                         }
 
-                        _relationships = CleanUpRelationships(_relationships, IsStatic).ToList();
+                        _relationships = CleanUpRelationships(_relationships, MaxLineLabels, IsStatic).ToList();
                     }
 
                     return _relationships;
