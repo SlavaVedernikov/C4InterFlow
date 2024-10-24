@@ -95,7 +95,7 @@ public abstract class DiagramBuildRunner : IDiagramBuildRunner
 
         return structures;
     }
-    protected virtual IList<Relationship> CleanUpRelationships(IList<Relationship> relationships, bool isStatic)
+    protected virtual IList<Relationship> CleanUpRelationships(IList<Relationship> relationships, int maxLineLabels, bool isStatic)
     {
         if (relationships == null) return null;
 
@@ -147,7 +147,14 @@ public abstract class DiagramBuildRunner : IDiagramBuildRunner
                 {
                     var protocol = relationshipProtocolGroup.Key.Protocol;
 
-                    var label = isStatic ? $"Uses" : string.Join("\\n", relationshipProtocolGroup.Relationships.Select(x => $"{x.Label}").Distinct());
+                    var labels = relationshipProtocolGroup.Relationships.Select(x => $"{x.Label}").Distinct();
+
+                    if(labels.Count() > maxLineLabels)
+                    {
+                        labels = labels.Take(maxLineLabels).Append("***");
+                    }
+
+                    var label = isStatic ? $"Uses" : string.Join("\\n", labels);
 
                     var relationship = (fromStructure > toStructure)[label, protocol];
 

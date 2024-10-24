@@ -1,6 +1,6 @@
 @echo off
 :: Possible values: TRUE, FALSE
-if not defined redraw-all set "redraw-all=TRUE"
+if not defined redraw-all set "redraw-all=FALSE"
 :::::::::::::::::::::::::::::::
 
 if not defined build-configuration set "build-configuration=Debug"

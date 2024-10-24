@@ -37,6 +37,7 @@ public class DrawDiagramsCommand : Command
         var diagramNamePrefixOption = DiagramNamePrefixOption.Get();
         var architectureAsCodeInputPathsOption = AaCInputPathsOption.Get();
         var architectureAsCodeReaderStrategyTypeOption = AaCReaderStrategyTypeOption.Get();
+        var diagramMaxLineLabelsOption = DiagramMaxLineLabelsOption.Get();
 
         AddOption(diagramScopesOption);
         AddOption(diagramTypesOption);
@@ -52,6 +53,8 @@ public class DrawDiagramsCommand : Command
         AddOption(diagramNamePrefixOption);
         AddOption(architectureAsCodeInputPathsOption);
         AddOption(architectureAsCodeReaderStrategyTypeOption);
+        AddOption(diagramMaxLineLabelsOption);
+
 
         this.SetHandler(async (diagramOptions, inputOptions, displayOptions, outputOptions, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType ) =>
             {
@@ -66,8 +69,14 @@ public class DrawDiagramsCommand : Command
                 interfacesInputFileOption,
                 businessProcesesOption,
                 namespacesOption),
-            new DisplayOptionsBinder(showInterfaceInputAndOutputOption), 
-            new OutputOptionsBinder(outputDirectoryOption, outputSubDirectoryOption, diagramNamePrefixOption, diagramFormatsOption),
+            new DisplayOptionsBinder(
+                showInterfaceInputAndOutputOption,
+                diagramMaxLineLabelsOption), 
+            new OutputOptionsBinder(
+                outputDirectoryOption,
+                outputSubDirectoryOption,
+                diagramNamePrefixOption,
+                diagramFormatsOption),
             architectureAsCodeInputPathsOption,
             architectureAsCodeReaderStrategyTypeOption);
     }
@@ -195,6 +204,7 @@ public class DrawDiagramsCommand : Command
                                         outputOptions.Formats,
                                         displayOptions.ShowBoundaries,
                                         displayOptions.ShowInterfaceInputAndOutput,
+                                        displayOptions.MaxLineLabels,
                                         outputOptions.OutputDirectory,
                                         outputOptions.OutputSubDirectory,
                                         isStatic,
@@ -207,6 +217,7 @@ public class DrawDiagramsCommand : Command
                                         outputOptions.Formats,
                                         displayOptions.ShowBoundaries,
                                         displayOptions.ShowInterfaceInputAndOutput,
+                                        displayOptions.MaxLineLabels,
                                         outputOptions.OutputDirectory,
                                         outputOptions.OutputSubDirectory,
                                         isStatic);
@@ -317,7 +328,7 @@ public class DrawDiagramsCommand : Command
         return result;
     }
 
-    private static Diagram GetDiagram(string diagramType, string levelOfDetails, BusinessProcess businessProcess, bool showBoundaries, bool showInterfaceInputAndOutput, bool isStatic = false)
+    private static Diagram GetDiagram(string diagramType, string levelOfDetails, BusinessProcess businessProcess, bool showBoundaries, bool showInterfaceInputAndOutput, int maxLineLabels = DiagramMaxLineLabelsOption.DefaultValue, bool isStatic = false)
     {
         var result = default(Diagram);
 
@@ -333,6 +344,7 @@ public class DrawDiagramsCommand : Command
                             process: businessProcess,
                             showBoundaries: showBoundaries,
                             showInterfaceInputAndOutput: showInterfaceInputAndOutput,
+                            maxLineLabels: maxLineLabels,
                             isStatic : isStatic).Build();
                         break;
                     }
@@ -342,6 +354,7 @@ public class DrawDiagramsCommand : Command
                             diagramTitle,
                             process: businessProcess,
                             showBoundaries: showBoundaries,
+                            maxLineLabels: maxLineLabels,
                             isStatic: isStatic).Build();
                         break;
                     }
@@ -350,6 +363,7 @@ public class DrawDiagramsCommand : Command
                         result = new ContextDiagram(
                             diagramTitle,
                             process: businessProcess,
+                            maxLineLabels: maxLineLabels,
                             isStatic: isStatic).Build();
                         break;
                     }
@@ -371,6 +385,7 @@ public class DrawDiagramsCommand : Command
         Interface[] interfaces, 
         bool showBoundaries, 
         bool showInterfaceInputAndOutput, 
+        int maxLineLabels = DiagramMaxLineLabelsOption.DefaultValue,
         bool isStatic = false, 
         string? scopedStructureAlias = null)
     {
@@ -420,6 +435,7 @@ public class DrawDiagramsCommand : Command
                         process: process,
                         showBoundaries: showBoundaries,
                         showInterfaceInputAndOutput: showInterfaceInputAndOutput,
+                        maxLineLabels: maxLineLabels,
                         isStatic: isStatic).Build();
                     break;
                 }
@@ -429,6 +445,7 @@ public class DrawDiagramsCommand : Command
                         diagramTitle,
                         process: process,
                         showBoundaries: showBoundaries,
+                        maxLineLabels: maxLineLabels,
                         isStatic: isStatic).Build();
                     break;
                 }
@@ -437,6 +454,7 @@ public class DrawDiagramsCommand : Command
                     result = new ContextDiagram(
                         diagramTitle,
                         process: process,
+                        maxLineLabels: maxLineLabels,
                         isStatic: isStatic).Build();
                     break;
                 }
@@ -447,7 +465,7 @@ public class DrawDiagramsCommand : Command
         return result;
     }
 
-    private static Diagram GetDiagram(string diagramType, string levelOfDetails, Interface @interface, bool showBoundaries, bool showInterfaceInputAndOutput, bool isStatic = false)
+    private static Diagram GetDiagram(string diagramType, string levelOfDetails, Interface @interface, bool showBoundaries, bool showInterfaceInputAndOutput, int maxLineLabels = DiagramMaxLineLabelsOption.DefaultValue, bool isStatic = false)
     {
         var result = default(Diagram);
 
@@ -469,6 +487,7 @@ public class DrawDiagramsCommand : Command
                             process: process,
                             showBoundaries: showBoundaries,
                             showInterfaceInputAndOutput: showInterfaceInputAndOutput,
+                            maxLineLabels: maxLineLabels,
                             isStatic: isStatic).Build();
                         break;
                     }
@@ -478,6 +497,7 @@ public class DrawDiagramsCommand : Command
                             diagramTitle,
                             process: process,
                             showBoundaries: showBoundaries,
+                            maxLineLabels: maxLineLabels,
                             isStatic: isStatic).Build();
                         break;
                     }
@@ -486,6 +506,7 @@ public class DrawDiagramsCommand : Command
                         result = new ContextDiagram(
                             diagramTitle,
                             process: process,
+                            maxLineLabels: maxLineLabels,
                             isStatic: isStatic).Build();
                         break;
                     }
@@ -550,7 +571,7 @@ public class DrawDiagramsCommand : Command
         
     }
 
-    private static void DrawC4Diagrams(string scope, string levelOfDetails, BusinessProcess[] businessProcesses, string[] formats, bool showBoundaries, bool showInterfaceInputAndOutput, string outputDirectory, string? outputSubDirectory = null, bool isStatic = false, string? diagramNamePrefix = null)
+    private static void DrawC4Diagrams(string scope, string levelOfDetails, BusinessProcess[] businessProcesses, string[] formats, bool showBoundaries, bool showInterfaceInputAndOutput, int maxLineLabels, string outputDirectory, string? outputSubDirectory = null, bool isStatic = false, string? diagramNamePrefix = null)
     {
         if (!businessProcesses.Any()) return;
 
@@ -579,6 +600,7 @@ public class DrawDiagramsCommand : Command
                 businessProcess,
                 showBoundaries,
                 showInterfaceInputAndOutput,
+                maxLineLabels,
                 isStatic);
 
             if (TryGetDiagramPath(
@@ -645,7 +667,7 @@ public class DrawDiagramsCommand : Command
         progress.Complete();
     }
 
-    private static void DrawC4Diagrams(string scope, string levelOfDetails, Interface[] interfaces, string[] namespaces, string[] formats, bool showBoundaries, bool showInterfaceInputAndOutput, string outputDirectory, string? outputSubDirectory = null, bool isStatic = false, string? diagramNamePrefix = null)
+    private static void DrawC4Diagrams(string scope, string levelOfDetails, Interface[] interfaces, string[] namespaces, string[] formats, bool showBoundaries, bool showInterfaceInputAndOutput, int maxLineLabels, string outputDirectory, string? outputSubDirectory = null, bool isStatic = false, string? diagramNamePrefix = null)
     {
         if (!interfaces.Any()) return;
 
@@ -665,7 +687,15 @@ public class DrawDiagramsCommand : Command
 
         if (scope == DiagramScopesOption.ALL_SOFTWARE_SYSTEMS)
         {
-            var diagram = GetDiagram(scope, levelOfDetails, interfaces, showBoundaries, showInterfaceInputAndOutput, isStatic);
+            var diagram = GetDiagram(
+                scope, 
+                levelOfDetails, 
+                interfaces, 
+                showBoundaries, 
+                showInterfaceInputAndOutput, 
+                maxLineLabels, 
+                isStatic);
+
             if (TryGetDiagramPath(
                     scope,
                     levelOfDetails,
@@ -724,6 +754,7 @@ public class DrawDiagramsCommand : Command
                         namespaceInterfaces,
                         showBoundaries,
                         showInterfaceInputAndOutput,
+                        maxLineLabels,
                         isStatic,
                         namespaceAlias);
 
@@ -768,6 +799,7 @@ public class DrawDiagramsCommand : Command
                     systemInterfaces,
                     showBoundaries,
                     showInterfaceInputAndOutput,
+                    maxLineLabels,
                     isStatic,
                     softwareSystemAlias);
 
@@ -809,6 +841,7 @@ public class DrawDiagramsCommand : Command
                     containerInterfaces,
                     showBoundaries,
                     showInterfaceInputAndOutput,
+                    maxLineLabels,
                     isStatic,
                     containerAlias);
 
@@ -850,6 +883,7 @@ public class DrawDiagramsCommand : Command
                     componentInterfaces,
                     showBoundaries,
                     showInterfaceInputAndOutput,
+                    maxLineLabels,
                     isStatic,
                     componentAlias);
 
@@ -885,6 +919,7 @@ public class DrawDiagramsCommand : Command
                     @interface,
                     showBoundaries,
                     showInterfaceInputAndOutput,
+                    maxLineLabels,
                     isStatic);
 
                 if (TryGetDiagramPath(

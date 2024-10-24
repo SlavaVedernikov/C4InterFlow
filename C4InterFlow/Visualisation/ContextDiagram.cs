@@ -2,18 +2,26 @@ using C4InterFlow.Visualisation.Plantuml.Style;
 using C4InterFlow.Visualisation.Interfaces;
 using C4InterFlow.Structures;
 using C4InterFlow.Structures.Relationships;
+using C4InterFlow.Cli.Commands.Options;
 
 namespace C4InterFlow.Visualisation
 {
 
     public class ContextDiagram : DiagramBuildRunner
     {
-        public ContextDiagram(string title, BusinessProcess process, bool isStatic = false)
+        public ContextDiagram(
+            string title, 
+            BusinessProcess process,
+            int maxLineLabels = DiagramMaxLineLabelsOption.DefaultValue, 
+            bool isStatic = false)
         {
             DiagramTitle = title;
             Process = process;
+            MaxLineLabels = maxLineLabels;
             IsStatic = isStatic;
         }
+
+        private int MaxLineLabels { get; init; }
         private bool IsStatic { get; init; }
         private BusinessProcess Process { get; init; }
 
@@ -173,7 +181,7 @@ namespace C4InterFlow.Visualisation
                             }
                         }
 
-                        _relationships = CleanUpRelationships(_relationships, IsStatic).ToList();
+                        _relationships = CleanUpRelationships(_relationships, MaxLineLabels, IsStatic).ToList();
                     }
 
                     return _relationships;

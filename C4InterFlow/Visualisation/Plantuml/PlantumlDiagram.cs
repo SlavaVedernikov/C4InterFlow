@@ -34,10 +34,21 @@ public static class PlantumlDiagram
         var includePath = diagram.GetPumlFilePath(useStandardLibrary, diagramPath);
         stream.AppendLine($"@startuml");
         stream.AppendLine($"!include {includePath}");
-        stream.AppendLine("!define ICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/refs/heads/main/icons");
         stream.AppendLine();
 
-        BuildIconIncludes(stream, diagram);
+        var icons = GetIcons(diagram);
+
+        if(icons.Any())
+        {
+            stream.AppendLine("!define ICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/refs/heads/main/icons");
+            stream.AppendLine();
+            foreach (var icon in icons)
+            {
+                stream.AppendLine($"!include ICONS/{icon}.puml");
+            }
+            stream.AppendLine();
+        }
+        
 
         BuildStyleSession(stream, diagram);
 
@@ -68,15 +79,15 @@ public static class PlantumlDiagram
         return stream;
     }
 
-    private static void BuildIconIncludes(StringBuilder stream, Diagram diagram)
+    private static IEnumerable<string> GetIcons(Diagram diagram)
     {
-        var icons = new List<string>();
+        var result = new List<string>();
 
         void AddIcon(string icon)
         {
-            if(!string.IsNullOrEmpty(icon) && !icons.Contains(icon))
+            if(!string.IsNullOrEmpty(icon) && !result.Contains(icon))
             {
-                icons.Add(icon);
+                result.Add(icon);
             }   
         }
 
@@ -115,10 +126,7 @@ public static class PlantumlDiagram
             AddStructureIcon(structure);
         }
 
-        foreach(var icon in icons)
-        {
-            stream.AppendLine($"!include ICONS/{icon}.puml");
-        }
+        return result;
     }
     private static void BuildStyleSession(StringBuilder stream, Diagram diagram)
     {
