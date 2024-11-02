@@ -17,7 +17,7 @@ namespace C4InterFlow.Cli.Commands.Binders
         {
             if(scopes.Any(x => x == DiagramScopesOption.ALL_SCOPES))
             {
-                Scopes = DiagramScopesOption.GetAllScopes();
+                Scopes = DiagramScopesOption.GetAllValues();
             }
             else
             {
@@ -26,7 +26,7 @@ namespace C4InterFlow.Cli.Commands.Binders
 
             if (types.Any(x => x == DiagramTypesOption.ALL_DIADRAM_TYPES))
             {
-                Types = DiagramTypesOption.GetAllDiagramTypes();
+                Types = DiagramTypesOption.GetAllValues();
             }
             else
             {
@@ -35,7 +35,7 @@ namespace C4InterFlow.Cli.Commands.Binders
 
             if (levelsOfDetails.Any(x => x == DiagramLevelsOfDetailsOption.ALL_LEVELS_OF_DETAILS))
             {
-                LevelsOfDetails = DiagramLevelsOfDetailsOption.GetAllLevelsOfDetails();
+                LevelsOfDetails = DiagramLevelsOfDetailsOption.GetAllValues();
             }
             else
             {

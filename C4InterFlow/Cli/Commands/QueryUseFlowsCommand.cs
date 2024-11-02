@@ -32,24 +32,26 @@ public class QueryUseFlowsCommand : Command
         AddOption(architectureAsCodeInputPathsOption);
         AddOption(architectureAsCodeReaderStrategyTypeOption);
         AddOption(queryIncludeSelfOption);
-  
-        this.SetHandler(async (interfaceAliases, isRecursive, queryIncludeSelf, queryOutputFile, append, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType) =>
-        {
-            await Execute(interfaceAliases, isRecursive, queryIncludeSelf, queryOutputFile, append, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
-        },
-        interfacesOption, isRecursiveOption, queryIncludeSelfOption, queryOutputFileOption, queryAppendOption, architectureAsCodeInputPathsOption, architectureAsCodeReaderStrategyTypeOption);
-    }
 
-    public static async Task<int> Execute(string[] interfaceAliases, bool isRecursive, bool queryIncludeSelf, string queryOutputFile, bool append, string[] architectureAsCodeInputPaths, string architectureAsCodeReaderStrategyType)
-    {
-        try
-        {
-            Log.Information("{Name} command is executing", COMMAND_NAME);
+        
 
+        this.SetHandler(async (interfaceAliases, isRecursive, queryIncludeSelf, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType, queryOutputFile, append) =>
+        {
             if (!AaCReaderContext.HasStrategy)
             {
                 Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
             }
+
+            await Execute(interfaceAliases, isRecursive, queryIncludeSelf, queryOutputFile, append);
+        },
+        interfacesOption, isRecursiveOption, queryIncludeSelfOption, architectureAsCodeInputPathsOption, architectureAsCodeReaderStrategyTypeOption, queryOutputFileOption, queryAppendOption);
+    }
+
+    public static async Task<int> Execute(string[] interfaceAliases, bool isRecursive, bool queryIncludeSelf, string queryOutputFile = null, bool append = false, string? queryOutputContextKey = null)
+    {
+        try
+        {
+            Log.Information("{Name} command is executing", COMMAND_NAME);
 
             var resolvedInterfaceAliases = Utils.ResolveStructures(interfaceAliases);
             var result = new List<string>();
@@ -68,11 +70,13 @@ public class QueryUseFlowsCommand : Command
 
                 Log.Information("{Name} command completed. See query results in {File}", COMMAND_NAME, queryOutputFile);
             }
+            else if(!string.IsNullOrWhiteSpace(queryOutputContextKey))
+            {
+                Context.Instance.AddOrUpdate("Interfaces", result.Distinct().ToArray());
+            }
             else
             {
                 Log.Information("{Name} command completed. Query results: {Results}", COMMAND_NAME, result.Distinct().ToArray());
-                // Console.WriteLine($"'{COMMAND_NAME}' command completed. See query results below.");
-                // Console.Write($"{string.Join(Environment.NewLine, result.Distinct().ToArray())}");
             }
 
             return 0;
@@ -92,14 +96,15 @@ public class QueryUseFlowsCommand : Command
     {
         var result = new List<string>();
 
-        if (C4InterFlow.Utils.GetInstance<Interface>(interfaceAlias)?.IsPrivate == true)
+        var @interface = C4InterFlow.Utils.GetInstance<Interface>(interfaceAlias);
+        if (@interface?.IsPrivate == true)
         {
             return result;
         }
 
         foreach (var interfaceInstance in interfaces)
         {
-            if (interfaceInstance?.Flow?.GetUsesInterfaces()?.Select(x => x.Alias)?.Contains(interfaceAlias) == true)
+            if (interfaceInstance?.Flow?.GetUsesInterfaces()?.Select(x => x.Alias)?.Contains(@interface.Alias) == true)
             {
                 if (isRecursive)
                 {
@@ -117,9 +122,9 @@ public class QueryUseFlowsCommand : Command
             }
         }
 
-        if(!result.Any() && queryIncludeSelf)
+        if(@interface != null && !result.Any() && queryIncludeSelf)
         {
-            result.Add(interfaceAlias);
+            result.Add(@interface.Alias);
         }
 
         usedByResult.AddRange(result);

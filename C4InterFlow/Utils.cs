@@ -6,6 +6,7 @@ using C4InterFlow.Cli;
 using C4InterFlow.Structures;
 using C4InterFlow.Structures.Interfaces;
 using C4InterFlow.Structures.Relationships;
+using Serilog;
 
 namespace C4InterFlow
 {
@@ -18,7 +19,13 @@ namespace C4InterFlow
 
         public static T? GetInstance<T>(string? alias) where T : Structure
         {
-            return AaCReaderContext.Strategy.GetInstance<T>(alias);
+            T? result = AaCReaderContext.Strategy.GetInstance<T>(alias);
+
+            if(result == null)
+            {
+                Log.Debug("Could not get the instance for alias '{Alias}'", alias);
+            }
+            return result;
         }
 
         public static T Clone<T>(T source)

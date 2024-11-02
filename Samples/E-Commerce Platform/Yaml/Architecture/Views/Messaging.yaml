@@ -1,0 +1,12 @@
+Views:
+  Messaging:
+    Scopes:
+    - Namespace
+    - SoftwareSystem
+    Types:
+    - C4
+    LevelsOfDetails:
+    - Container
+    Interfaces:
+    - ..Containers.Messaging.Interfaces.*
+    ExpandUpstream: true

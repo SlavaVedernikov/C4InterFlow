@@ -1,9 +1,7 @@
 ﻿using C4InterFlow.Automation;
 using C4InterFlow.Structures;
-using C4InterFlow.Structures.Interfaces;
-using System.Reflection;
-using System.Runtime.Loader;
 using Serilog;
+using System.Text.RegularExpressions;
 
 namespace C4InterFlow.Cli
 {
@@ -96,6 +94,14 @@ namespace C4InterFlow.Cli
             }
 
             AaCReaderContext.SetCurrentStrategy(strategyInstance, architectureAsCodeInputPaths, new Dictionary<string, string>());
+        }
+
+        public static string ToKebabCase(string value)
+        {
+            // Add hyphens before each uppercase letter that has a lowercase letter following it,
+            // then convert the entire string to lowercase.
+            var result = Regex.Replace(value, @"([a-z0-9])([A-Z])", "$1-$2").ToLower();
+            return result;
         }
 
         private static Type? GetAaCReaderStrategyType(string readerStrategyType)

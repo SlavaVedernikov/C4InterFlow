@@ -10,7 +10,7 @@ public static class ShowBoundariesOption
         const string description = $"Show boundaries. NOTE: This option is used for '{DiagramLevelsOfDetailsOption.COMPONENT}' level of details only.";
 
         var option = new Option<bool?>(new[] { "--show-boundaries", "-sb" }, description);
-        option.SetDefaultValue(null);
+        option.SetDefaultValue(false);
 
         return option;        
     }

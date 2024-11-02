@@ -14,6 +14,7 @@ var rootCommandBuilder = RootCommandBuilder
         context.Add<QueryUseFlowsCommand>();
         context.Add<QueryByInputCommand>();
         context.Add<ExecuteAaCStrategyCommand>();
+        context.Add<ExecuteViewsCommand>();
         context.Add<GenerateDocumentationCommand>();
         context.Add<PublishSiteCommand>();
     });

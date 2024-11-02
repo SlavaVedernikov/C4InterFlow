@@ -1,0 +1,12 @@
+Views:
+  Apis:
+    Scopes:
+    - Namespace
+    - SoftwareSystem
+    Types:
+    - C4
+    LevelsOfDetails:
+    - Container
+    Interfaces:
+    - ..Containers.Api.Interfaces.*
+    ExpandUpstream: true
