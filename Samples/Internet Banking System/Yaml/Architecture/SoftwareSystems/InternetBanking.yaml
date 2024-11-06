@@ -7,8 +7,8 @@ BigBankPlc:
       Containers:
         WebApplication:
           Label: Web Application
-          Description: Delivers the static content and the Internet banking SPA
           ContainerType: WebApplication
+          Description: Delivers the static content and the Internet banking SPA
           Boundary: Internal
           Technology: Java, Spring MVC
           Interfaces:
@@ -20,8 +20,8 @@ BigBankPlc:
                 Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.LoadAndStart
         SinglePageApp:
           Label: Single-Page Application
-          Description: Provides all the Internet banking functionality to customers via their web browser
           ContainerType: Spa
+          Description: Provides all the Internet banking functionality to customers via their web browser
           Boundary: Internal
           Technology: JavaScript, Angular
           Interfaces:
@@ -62,8 +62,8 @@ BigBankPlc:
                 Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.CreateAccount
         MobileApp:
           Label: Mobile App
-          Description: Provides a limited subset of the Internet banking functionality to customers via their mobile device
           ContainerType: Mobile
+          Description: Provides a limited subset of the Internet banking functionality to customers via their mobile device
           Boundary: Internal
           Technology: C#, Xamarin
           Interfaces:
@@ -95,8 +95,8 @@ BigBankPlc:
                 Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication.Interfaces.GetAccountTransactions
         APIApplication:
           Label: API Application
-          Description: 'Provides Internet banking functionality via API'
           ContainerType: Api
+          Description: Provides Internet banking functionality via API
           Boundary: Internal
           Technology: Java, Spring MVC
           Interfaces:
@@ -142,8 +142,8 @@ BigBankPlc:
                 Expression: BigBankPlc.SoftwareSystems.EMailSystem.Interfaces.SendNewAccountCreatedNotificationEMail
         Database:
           Label: Database
-          Description: Stores user registration information, hashed auth credentials, access logs, etc.
           ContainerType: Database
+          Description: Stores user registration information, hashed auth credentials, access logs, etc.
           Boundary: Internal
           Technology: Oracle Database Schema
           Interfaces:

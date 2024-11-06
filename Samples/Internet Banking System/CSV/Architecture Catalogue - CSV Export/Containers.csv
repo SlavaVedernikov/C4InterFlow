@@ -1,6 +1,6 @@
-Software System,Name,Type,Alias,Description
-InternetBanking,Web Application,WebApplication,InternetBanking.Containers.WebApplication,
-InternetBanking,Single-Page App,Spa,InternetBanking.Containers.SinglePageApp,
-InternetBanking,Mobile App,Mobile,InternetBanking.Containers.MobileApp,
-InternetBanking,API Application,Spa,InternetBanking.Containers.APIApplication,
-InternetBanking,Database,Database,InternetBanking.Containers.Database,
+Software System,Name,Type,Alias,Description,Boundary,Technology
+InternetBanking,Web Application,WebApplication,InternetBanking.Containers.WebApplication,Delivers the static content and the Internet banking SPA,Internal,"Java, Spring MVC"
+InternetBanking,Single-Page Application,Spa,InternetBanking.Containers.SinglePageApp,Provides all the Internet banking functionality to customers via their web browser,Internal,"JavaScript, Angular"
+InternetBanking,Mobile App,Mobile,InternetBanking.Containers.MobileApp,Provides a limited subset of the Internet banking functionality to customers via their mobile device,Internal,"C#, Xamarin"
+InternetBanking,API Application,Api,InternetBanking.Containers.APIApplication,Provides Internet banking functionality via API,Internal,"Java, Spring MVC"
+InternetBanking,Database,Database,InternetBanking.Containers.Database,"Stores user registration information, hashed auth credentials, access logs, etc.",Internal,Oracle Database Schema

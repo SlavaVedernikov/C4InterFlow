@@ -1,4 +1,4 @@
 Name,Is External,Alias,Description
-E-Mail System,Yes,EMailSystem,
-Internet Banking,No,InternetBanking,
-Mainframe Banking System,Yes,MainframeBankingSystem,
+E-Mail System,Yes,EMailSystem,The internal Microsoft Exchange system
+Internet Banking,No,InternetBanking,Provided Internet Banking services
+Mainframe Banking System,Yes,MainframeBankingSystem,"Stores all of the core banking information about customers, accounts, transactions, etc."

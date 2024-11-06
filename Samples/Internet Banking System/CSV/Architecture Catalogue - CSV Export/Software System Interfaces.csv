@@ -1,9 +1,9 @@
 Software System,Name,Alias,Description,Protocol
-EMailSystem,Send New Account Created Notification E-Mail,EMailSystem.Interfaces.SendNewAccountCreatedNotificationEMail,,
-EMailSystem,Receive New Account Created Notification E-Mail,EMailSystem.Interfaces.ReceiveNewAccountCreatedNotificationEMail,,
-EMailSystem,Send Password Changed Notification E-Mail,EMailSystem.Interfaces.SendPasswordChangedNotificationEMail,,
-EMailSystem,Receive Password Changed Notification E-Mail,EMailSystem.Interfaces.ReceivePasswordChangedNotificationEMail,,
-MainframeBankingSystem,Get Customer,MainframeBankingSystem.Interfaces.GetCustomer,,
-MainframeBankingSystem,Get Customer Accounts,MainframeBankingSystem.Interfaces.GetCustomerAccounts,,
-MainframeBankingSystem,Get Account Transactions,MainframeBankingSystem.Interfaces.GetAccountTransactions,,
-MainframeBankingSystem,Create Account,MainframeBankingSystem.Interfaces.CreateAccount,,
+EMailSystem,Send New Account Created Notification E-Mail,EMailSystem.Interfaces.SendNewAccountCreatedNotificationEMail,,SMTP
+EMailSystem,Receive New Account Created Notification E-Mail,EMailSystem.Interfaces.ReceiveNewAccountCreatedNotificationEMail,,POP3
+EMailSystem,Send Password Changed Notification E-Mail,EMailSystem.Interfaces.SendPasswordChangedNotificationEMail,,SMTP
+EMailSystem,Receive Password Changed Notification E-Mail,EMailSystem.Interfaces.ReceivePasswordChangedNotificationEMail,,POP3
+MainframeBankingSystem,Get Customer,MainframeBankingSystem.Interfaces.GetCustomer,,XML/HTTPS
+MainframeBankingSystem,Get Customer Accounts,MainframeBankingSystem.Interfaces.GetCustomerAccounts,,XML/HTTPS
+MainframeBankingSystem,Get Account Transactions,MainframeBankingSystem.Interfaces.GetAccountTransactions,,XML/HTTPS
+MainframeBankingSystem,Create Account,MainframeBankingSystem.Interfaces.CreateAccount,,XML/HTTPS
