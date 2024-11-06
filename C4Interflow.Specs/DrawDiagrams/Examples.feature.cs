@@ -29,7 +29,7 @@ namespace C4Interflow.Specs.DrawDiagrams
         
         private static string[] featureTags = ((string[])(null));
         
-#line 1 "DrawDiagrams.feature"
+#line 1 "Examples.feature"
 #line hidden
         
         public virtual Microsoft.VisualStudio.TestTools.UnitTesting.TestContext TestContext

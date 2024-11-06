@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace C4Interflow.Specs
+namespace C4Interflow.Specs.ExecuteAaCStrategy
 {
     using TechTalk.SpecFlow;
     using System;
@@ -29,7 +29,7 @@ namespace C4Interflow.Specs
         
         private static string[] featureTags = ((string[])(null));
         
-#line 1 "ExecuteAacStrategy.feature"
+#line 1 "Examples.feature"
 #line hidden
         
         public virtual Microsoft.VisualStudio.TestTools.UnitTesting.TestContext TestContext
@@ -48,7 +48,7 @@ namespace C4Interflow.Specs
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "", "Execute Architect-as-Code (AaC) Strategy", "  Take some input and generate the output for drawing diagrams.", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "ExecuteAaCStrategy", "Execute Architect-as-Code (AaC) Strategy", "  Take some input and generate the output for drawing diagrams.", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -65,7 +65,7 @@ namespace C4Interflow.Specs
             if (((testRunner.FeatureContext != null) 
                         && (testRunner.FeatureContext.FeatureInfo.Title != "Execute Architect-as-Code (AaC) Strategy")))
             {
-                global::C4Interflow.Specs.ExecuteArchitect_As_CodeAaCStrategyFeature.FeatureSetup(null);
+                global::C4Interflow.Specs.ExecuteAaCStrategy.ExecuteArchitect_As_CodeAaCStrategyFeature.FeatureSetup(null);
             }
         }
         
@@ -89,6 +89,74 @@ namespace C4Interflow.Specs
         public void ScenarioCleanup()
         {
             testRunner.CollectScenarioErrors();
+        }
+        
+        public virtual void VerifyExamples(string description, string example, string rootNamespace, string path, string writerStrategy, string outputPath, string approvedOutPath, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("Description", description);
+            argumentsOfScenario.Add("Example", example);
+            argumentsOfScenario.Add("RootNamespace", rootNamespace);
+            argumentsOfScenario.Add("Path", path);
+            argumentsOfScenario.Add("WriterStrategy", writerStrategy);
+            argumentsOfScenario.Add("OutputPath", outputPath);
+            argumentsOfScenario.Add("ApprovedOutPath", approvedOutPath);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Verify Examples", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 4
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 5
+    testRunner.Given("the \'execute-aac-strategy\' command", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 6
+      testRunner.And(string.Format("the \'{0}\' example", example), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 7
+      testRunner.And(string.Format("the parameter of \'aac-input-path\' set to Example \'{0}\'", path), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 8
+      testRunner.And(string.Format("the writer strategy is \'{0}\'", writerStrategy), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 9
+      testRunner.And(string.Format("the AaC root namespace of \'{0}\'", rootNamespace), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 10
+      testRunner.And(string.Format("send the AaC output to \'{0}\'", outputPath), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 11
+    testRunner.When("invoking the commandline for those arguments", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 12
+    testRunner.Then(string.Format("all files under \'{0}\' should match example path \'{1}\'", outputPath, approvedOutPath), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Verify Examples: Banking System via Yaml")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Execute Architect-as-Code (AaC) Strategy")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Banking System via Yaml")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Description", "Banking System via Yaml")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Example", "Internet Banking System")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:RootNamespace", "BigBankPlc")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Path", "CSV\\Architecture Catalogue - CSV Export")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:WriterStrategy", "CsvToYaml")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:OutputPath", "_aac_bankingYaml")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:ApprovedOutPath", "Internet Banking System\\Yaml\\Architecture")]
+        public void VerifyExamples_BankingSystemViaYaml()
+        {
+#line 4
+this.VerifyExamples("Banking System via Yaml", "Internet Banking System", "BigBankPlc", "CSV\\Architecture Catalogue - CSV Export", "CsvToYaml", "_aac_bankingYaml", "Internet Banking System\\Yaml\\Architecture", ((string[])(null)));
+#line hidden
         }
     }
 }

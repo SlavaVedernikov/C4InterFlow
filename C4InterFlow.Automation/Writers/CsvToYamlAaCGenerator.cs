@@ -30,7 +30,7 @@ namespace C4InterFlow.Automation.Writers
                         s.WithContainers(writer.DataProvider).ToList().ForEach(c =>
                         {
                             var containerName = c.Alias.Split('.').Last();
-                            writer.AddContainer(softwareSystemName, containerName, c.Type, c.Name, c.Description);
+                            writer.AddContainer(softwareSystemName, containerName, c.Type, c.Name, c.Description, c.Boundary, c.Technology);
 
                             c.WithInterfaces(writer.DataProvider).ToList().ForEach(i =>
                             {
@@ -66,7 +66,7 @@ namespace C4InterFlow.Automation.Writers
                             type = nameof(Person);
                         }
 
-                        writer.AddActor(a.Alias, type, a.Name);
+                        writer.AddActor(a.Alias, type, a.Name, a.Description);
 
                         writer.WriteArchitecture(Path.Combine(ArchitectureOutputPath, "Actors"), a.Alias);
                     });

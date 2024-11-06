@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using C4InterFlow.Automation.Readers;
+using C4InterFlow.Automation.Writers;
 using TechTalk.SpecFlow;
 
 
@@ -39,6 +40,26 @@ namespace C4Interflow.Specs.Steps
             var driver = new CliDriver(m => _testContext.WriteLine($"[DRIVER]: {m}"));
             driver.ForCommand(command);
             _scenarioContext.SetDriver(driver);
+        }
+
+        [Given(@"the AaC root namespace of '(.*)'")]
+        public void GivenTheAaCRootNamespaceOf(string rootNamespace)
+        {
+            _scenarioContext.GetDriver().WithAaCRootNamespace(rootNamespace);
+        }
+
+        [Given(@"the parameter of '(.*)' set to (Example )'(.*)'")]
+        public void GivenTheParameterOfSetTo(string name, string isExample, string value)
+        {
+            var driver = _scenarioContext.GetDriver();
+            if (string.IsNullOrWhiteSpace(isExample))
+            {
+                driver.WithParameter(name, value);
+            }
+            else
+            {
+                driver.WithPathParameter(name, value);
+            }
         }
 
         [Given(@"the '(.+)' example")]
@@ -87,6 +108,20 @@ namespace C4Interflow.Specs.Steps
             driver.WithBusinessProcesses(businessQuery);
         }
 
+        [Given(@"the writer strategy is '(.*)'")]
+        public void GivenTheWriterStrategyIs(string strategy)
+        {
+            var driver = _scenarioContext.GetDriver();
+            switch (strategy)
+            {
+                case "CsvToYaml":
+                    driver.WithAacWriterStrategy(typeof(CsvToYamlAaCGenerator));
+                    break;
+                default:
+                    Assert.Fail($"Unknown writer strategy: '{strategy}'");
+                    break;
+            }
+        }
 
         [Given(@"the level of details is '(.*)'")]
         public void GivenTheLevelOfDetailsIs(string levelOfDetails)
@@ -95,20 +130,39 @@ namespace C4Interflow.Specs.Steps
             driver.WithLevelOfDetails(levelOfDetails);
         }
 
+        [Given(@"send the AaC output to '(.*)'")]
+        public void GivenSendTheAaCOutputTo(string outputPath)
+        {
+            SendOutputTo(outputPath, true);
+        }
+
         [Given(@"send the output to '(.*)'")]
         public void GivenSendTheOutputTo(string outputPath)
         {
-            var driver = _scenarioContext.GetDriver();
-            if (!Path.IsPathRooted(outputPath))
+            SendOutputTo(outputPath, false);
+        }
+
+        private void SendOutputTo(string path, bool isAaC)
+        {
+            if (!Path.IsPathRooted(path))
             {
-                outputPath = Path.Combine(_scenarioContext.GetTempPath(), outputPath);
+                path = Path.Combine(_scenarioContext.GetTempPath(), path);
             }
 
-            if (!Directory.Exists(outputPath))
+            if (!Directory.Exists(path))
             {
-                Directory.CreateDirectory(outputPath);
+                Directory.CreateDirectory(path);
             }
-            driver.OutputTo(outputPath);
+
+            var driver = _scenarioContext.GetDriver();
+            if (isAaC)
+            {
+                driver.AacOutputTo(path);
+            }
+            else
+            {
+                driver.OutputTo(path);
+            }
         }
 
         [When(@"invoking the commandline for those arguments")]
@@ -145,7 +199,7 @@ namespace C4Interflow.Specs.Steps
             var expectedRelativePaths = expectedFiles.ToDictionary(x => x.RelativePath, x => x);
 
             var extraFiles = actualRelativePaths.Keys.Except(expectedRelativePaths.Keys).ToArray();
-            Assert.AreEqual(0, extraFiles.Length, "There are extra files in the output.");
+            Assert.AreEqual(0, extraFiles.Length, $"There are extra files in the output.{Environment.NewLine}{string.Join(Environment.NewLine, extraFiles.Select(p => $" - {p}"))}");
 
             foreach (var kvp in actualRelativePaths)
             {
