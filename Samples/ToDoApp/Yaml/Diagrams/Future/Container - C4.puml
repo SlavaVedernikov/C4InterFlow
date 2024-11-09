@@ -1,0 +1,40 @@
+@startuml
+!include .c4s\C4_Container.puml
+
+!define ICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/refs/heads/main/icons
+
+!include ICONS/devicons/msql_server.puml
+!include ICONS/devicons/dotnet.puml
+!include ICONS/font-awesome-5/apple.puml
+!include ICONS/devicons/angular.puml
+
+AddElementTag("c4interflow:lifecycle:new", $bgColor=green, $fontColor=#ffffff, $borderColor=green, $shadowing="False")
+AddElementTag("c4interflow:lifecycle:changed", $bgColor=orange, $fontColor=#ffffff, $borderColor=orange, $shadowing="False")
+AddElementTag("c4interflow:lifecycle:removed", $bgColor=red, $fontColor=#ffffff, $borderColor=red, $shadowing="False")
+
+AddRelTag("c4interflow:lifecycle:new", $textColor=green, $lineColor=green)
+AddRelTag("c4interflow:lifecycle:changed", $textColor=orange, $lineColor=orange)
+AddRelTag("c4interflow:lifecycle:removed", $textColor=red, $lineColor=red)
+
+SHOW_PERSON_PORTRAIT()
+LAYOUT_TOP_DOWN()
+
+skinparam linetype polyline
+
+title All Software Systems - C4 - Container level
+
+
+System_Boundary(ToDoAppExample.SoftwareSystems.ToDoApp, "To Do App") {
+    Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database, "Database", "", "", "msql_server", $tags="c4interflow:lifecycle:changed")
+    Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, "Web Api", "", "", "dotnet", $tags="c4interflow:lifecycle:changed")
+    Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.MobileApp, "Mobile App", "", "", "apple")
+    Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApp, "Web App", "", "", "angular")
+}
+
+Rel(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database, "Select Tasks\nInsert Task\nUpdate Task\nDelete Task\nUpdate Task Status")
+Rel(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.MobileApp, ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, "Get Tasks\nAdd Task\nUpdate Task\nDelete Task\nMark Task As Done")
+Rel(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApp, ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, "Get Tasks\nAdd Task\nUpdate Task\nDelete Task\nMark Task As Done")
+
+
+SHOW_LEGEND()
+@enduml

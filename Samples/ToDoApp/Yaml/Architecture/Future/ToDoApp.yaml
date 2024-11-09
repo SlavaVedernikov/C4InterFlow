@@ -1,0 +1,18 @@
+ToDoAppExample:
+  SoftwareSystems:
+    ToDoApp:
+      Containers:
+        Database:
+          Tags:
+          - "c4interflow:lifecycle:changed"
+          Interfaces:
+            UpdateTaskStatus: {}
+        WebApi:
+          Tags:
+          - "c4interflow:lifecycle:changed"
+          Interfaces:
+            MarkTaskAsDone:
+              Flows:
+                - Type: Use
+                  Expression: Database.Interfaces.UpdateTaskStatus
+ 
