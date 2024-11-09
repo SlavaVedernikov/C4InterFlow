@@ -24,7 +24,7 @@
             }
         }
 
-        public static void SetCurrentStrategy(IAaCReaderStrategy strategy, string[]? architectureInputPaths, Dictionary<string, string>? parameters)
+        public static void SetCurrentStrategy(IAaCReaderStrategy strategy, string[]? architectureInputPaths, string[]? viewsInputPaths, Dictionary<string, string>? parameters)
         {
             _strategy = strategy;
             var missingRequiredParameters = strategy.GetParameterDefinitions().Where(x =>
@@ -36,7 +36,7 @@
                 throw new ArgumentException($"The following required arguments where expected, but were not provided: {string.Join(", ", missingRequiredParameters.Select(x => $"'{x.name}'"))}");
             }
 
-            _strategy.Initialise(architectureInputPaths, parameters);
+            _strategy.Initialise(architectureInputPaths, viewsInputPaths,parameters);
         }
     }
 }

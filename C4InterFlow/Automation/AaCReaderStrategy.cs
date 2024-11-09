@@ -14,13 +14,14 @@ namespace C4InterFlow.Automation
         string GetComponentInterfaceAlias();
         string GetComponentInterfaceAlias(string filePath);
         (string name, bool isRequired)[] GetParameterDefinitions();
-        void Initialise(string[]? architectureInputPaths, Dictionary<string, string>? parameters);
+        void Initialise(string[]? architectureInputPaths, string[]? viewsInputPaths, Dictionary<string, string>? parameters);
         bool IsInitialised { get; }
     }
 
     public abstract class AaCReaderStrategy<ElementsResolverType> : IAaCReaderStrategy where ElementsResolverType : IStructuresResolver, new()
     {
         protected string[]? ArchitectureInputPaths { get; private set; }
+        protected string[]? ViewsInputPaths { get; private set; }
         private bool _isInitialised = false;
         public virtual bool IsInitialised
         {
@@ -36,9 +37,10 @@ namespace C4InterFlow.Automation
         {
             return new (string name, bool isRequired)[] { };
         }
-        public virtual void Initialise(string[]? architectureInputPaths, Dictionary<string, string>? parameters)
+        public virtual void Initialise(string[]? architectureInputPaths, string[]? viewsInputPaths, Dictionary<string, string>? parameters)
         {
             ArchitectureInputPaths = architectureInputPaths;
+            ViewsInputPaths = viewsInputPaths;
             _isInitialised = true;
         }
 

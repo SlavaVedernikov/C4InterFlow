@@ -77,7 +77,7 @@ namespace C4InterFlow.Cli
             }
         }
 
-        public static void SetArchitectureAsCodeReaderContext(string[] architectureAsCodeInputPaths, string architectureAsCodeReaderStrategyType)
+        public static void SetArchitectureAsCodeReaderContext(string[] architectureAsCodeInputPaths, string architectureAsCodeReaderStrategyType, string[] viewsInputPaths = null)
         {
             Type? strategyType = GetAaCReaderStrategyType(architectureAsCodeReaderStrategyType);
 
@@ -93,7 +93,7 @@ namespace C4InterFlow.Cli
                 throw new ArgumentException($"'{architectureAsCodeReaderStrategyType}' is not a valid Architecture As Code Reader Strategy type.");
             }
 
-            AaCReaderContext.SetCurrentStrategy(strategyInstance, architectureAsCodeInputPaths, new Dictionary<string, string>());
+            AaCReaderContext.SetCurrentStrategy(strategyInstance, architectureAsCodeInputPaths, viewsInputPaths, new Dictionary<string, string>());
         }
 
         public static string ToKebabCase(string value)

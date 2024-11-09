@@ -20,10 +20,10 @@ namespace C4InterFlow.Automation.Readers
             ArchitectureWorkspace = architectureWorkspace;
         }
 
-        public override void Initialise(string[]? architectureInputPaths, Dictionary<string, string>? parameters)
+        public override void Initialise(string[]? architectureInputPaths, string[]? viewsInputPaths, Dictionary<string, string>? parameters)
         {
             _elementsResolver = new NetStructuresResolver(architectureInputPaths);
-            base.Initialise(architectureInputPaths, parameters);
+            base.Initialise(architectureInputPaths, viewsInputPaths, parameters);
         }
 
         private NetStructuresResolver _elementsResolver;

@@ -23,26 +23,27 @@ public class ExecuteViewsCommand : Command
         var diagramNamePrefixOption = DiagramNamePrefixOption.Get();
         var architectureAsCodeInputPathsOption = AaCInputPathsOption.Get();
         var architectureAsCodeReaderStrategyTypeOption = AaCReaderStrategyTypeOption.Get();
+        var viewsInputPathsOption = ViewsInputPathsOption.Get();
 
         AddOption(viewsOption);
         AddOption(outputDirectoryOption);
         AddOption(diagramNamePrefixOption);
         AddOption(architectureAsCodeInputPathsOption);
         AddOption(architectureAsCodeReaderStrategyTypeOption);
+        AddOption(viewsInputPathsOption);
 
-
-        this.SetHandler(async (views, outputDirectory, diagramNamePrefix, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType) =>
+        this.SetHandler(async (views, outputDirectory, diagramNamePrefix, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType, viewsInputPaths) =>
             {
                 if (!AaCReaderContext.HasStrategy)
                 {
-                    Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
+                    Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType, viewsInputPaths);
                 }
-                await Execute(views, outputDirectory, diagramNamePrefix);
+                await Execute(views, outputDirectory, diagramNamePrefix, viewsInputPaths);
             },
-            viewsOption, outputDirectoryOption, diagramNamePrefixOption, architectureAsCodeInputPathsOption, architectureAsCodeReaderStrategyTypeOption);
+            viewsOption, outputDirectoryOption, diagramNamePrefixOption, architectureAsCodeInputPathsOption, architectureAsCodeReaderStrategyTypeOption, viewsInputPathsOption);
     }
 
-    private static async Task<int> Execute(string[] views, string outputDirectory, string diagramNamePrefix)
+    private static async Task<int> Execute(string[] views, string outputDirectory, string diagramNamePrefix, string[] viewsInputPaths)
     {
         try
         {

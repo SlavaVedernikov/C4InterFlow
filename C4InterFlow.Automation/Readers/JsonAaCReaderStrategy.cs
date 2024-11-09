@@ -15,7 +15,7 @@ namespace C4InterFlow.Automation.Readers
             return JObject.Parse(json);
         }
 
-        private bool ValidateFiles(string[] paths)
+        private bool ValidateFiles(IEnumerable<string> paths)
         {
             var result = true;
 
@@ -47,8 +47,12 @@ namespace C4InterFlow.Automation.Readers
             return result;
         }
 
-        protected override JObject GetJsonObjectFromFiles(string[] paths)
+        protected override JObject GetJsonObjectFromFiles(string[] aacPaths, string[] viewsPaths)
         {
+            var paths = new List<string>(aacPaths);
+            if(viewsPaths != null)
+                paths.AddRange(viewsPaths);
+
             if (!ValidateFiles(paths))
             {
                 throw new InvalidDataException("Input file(s) have errors.");
