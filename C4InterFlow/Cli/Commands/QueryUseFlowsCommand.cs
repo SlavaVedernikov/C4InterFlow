@@ -8,12 +8,14 @@ using C4InterFlow.Cli.Commands.Binders;
 using C4InterFlow.Commons.Extensions;
 using Serilog;
 using Serilog.Events;
+using static C4InterFlow.SoftwareSystems.ExternalSystem;
 
 namespace C4InterFlow.Cli.Commands;
 
 public class QueryUseFlowsCommand : Command
 {
     private const string COMMAND_NAME = "query-use-flows";
+    public const string OUTPUT_CONTEXT_KEY = $"{nameof(QueryUseFlowsCommand)}Result";
     public QueryUseFlowsCommand() : base(COMMAND_NAME,
         "Finds all interface(s) that Use given interface(s) in their Flows.")
     {
@@ -23,7 +25,6 @@ public class QueryUseFlowsCommand : Command
         var queryAppendOption = QueryAppendOption.Get();
         var architectureAsCodeInputPathsOption = AaCInputPathsOption.Get();
         var architectureAsCodeReaderStrategyTypeOption = AaCReaderStrategyTypeOption.Get();
-        var queryIncludeSelfOption = QueryIncludeSelfOption.Get();
         
         AddOption(interfacesOption);
         AddOption(isRecursiveOption);
@@ -31,23 +32,21 @@ public class QueryUseFlowsCommand : Command
         AddOption(queryAppendOption);
         AddOption(architectureAsCodeInputPathsOption);
         AddOption(architectureAsCodeReaderStrategyTypeOption);
-        AddOption(queryIncludeSelfOption);
-
         
 
-        this.SetHandler(async (interfaceAliases, isRecursive, queryIncludeSelf, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType, queryOutputFile, append) =>
+        this.SetHandler(async (interfaceAliases, isRecursive, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType, queryOutputFile, append) =>
         {
             if (!AaCReaderContext.HasStrategy)
             {
                 Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
             }
 
-            await Execute(interfaceAliases, isRecursive, queryIncludeSelf, queryOutputFile, append);
+            await Execute(interfaceAliases, isRecursive, queryOutputFile, append);
         },
-        interfacesOption, isRecursiveOption, queryIncludeSelfOption, architectureAsCodeInputPathsOption, architectureAsCodeReaderStrategyTypeOption, queryOutputFileOption, queryAppendOption);
+        interfacesOption, isRecursiveOption, architectureAsCodeInputPathsOption, architectureAsCodeReaderStrategyTypeOption, queryOutputFileOption, queryAppendOption);
     }
 
-    public static async Task<int> Execute(string[] interfaceAliases, bool isRecursive, bool queryIncludeSelf, string queryOutputFile = null, bool append = false, string? queryOutputContextKey = null)
+    public static async Task<int> Execute(string[] interfaceAliases, bool isRecursive, string queryOutputFile = null, bool append = false, bool outputToContext = false)
     {
         try
         {
@@ -59,22 +58,26 @@ public class QueryUseFlowsCommand : Command
 
             foreach (var interfaceAlias in resolvedInterfaceAliases)
             {
-                GetUsedBy(interfaces, interfaceAlias, isRecursive, result, queryIncludeSelf);        
+                result.AddRange(GetUsedBy(interfaces, interfaceAlias, isRecursive));
             }
 
             result = result.Distinct().ToList();
 
-            if (!string.IsNullOrEmpty(queryOutputFile))
+            var outputToFile = !string.IsNullOrEmpty(queryOutputFile);
+            if (outputToFile)
             {
                 Utils.WriteLines(result, queryOutputFile, append);
 
                 Log.Information("{Name} command completed. See query results in {File}", COMMAND_NAME, queryOutputFile);
             }
-            else if(!string.IsNullOrWhiteSpace(queryOutputContextKey))
+            
+            if(outputToContext)
             {
-                Context.Instance.AddOrUpdate("Interfaces", result.Distinct().ToArray());
+                Context.Instance.Remove(OUTPUT_CONTEXT_KEY);
+                Context.Instance.AddOrUpdate(OUTPUT_CONTEXT_KEY, result.Distinct());
             }
-            else
+
+            if(!outputToFile && !outputToContext)
             {
                 Log.Information("{Name} command completed. Query results: {Results}", COMMAND_NAME, result.Distinct().ToArray());
             }
@@ -92,42 +95,34 @@ public class QueryUseFlowsCommand : Command
     //TODO: Add includePrivateInterfaces parameter (default is false)
     //TODO: Move GetUsedBy into Utils
     //TODO: Add support for queries to DrawDiagramsCommand
-    private static IEnumerable<string> GetUsedBy(IEnumerable<Interface> interfaces, string interfaceAlias, bool isRecursive, List<string> usedByResult, bool queryIncludeSelf)
+    private static IEnumerable<string> GetUsedBy(IEnumerable<Interface> interfaces, string interfaceAlias, bool isRecursive)
     {
         var result = new List<string>();
-
         var @interface = C4InterFlow.Utils.GetInstance<Interface>(interfaceAlias);
-        if (@interface?.IsPrivate == true)
-        {
-            return result;
-        }
 
         foreach (var interfaceInstance in interfaces)
         {
-            if (interfaceInstance?.Flow?.GetUsesInterfaces()?.Select(x => x.Alias)?.Contains(@interface.Alias) == true)
+            if (interfaceInstance?.Flow?.GetUsesInterfaces()?.Select(x => x.Alias)?.Contains(interfaceAlias) == true)
             {
-                if (isRecursive)
-                {
-                    var tempResult = GetUsedBy(interfaces, interfaceInstance.Alias, isRecursive, usedByResult, queryIncludeSelf);
-                    if(!tempResult.Any())
-                    { 
-                        result.Add(interfaceInstance.Alias);
-                    }
-                }
-                else
-                {
-                    result.Add(interfaceInstance.Alias);
-                }
-
+                result.Add(interfaceInstance.Alias);
             }
         }
 
-        if(@interface != null && !result.Any() && queryIncludeSelf)
+        if (isRecursive)
         {
-            result.Add(@interface.Alias);
+            var tempAliases = result.ToArray();
+
+            foreach (var alias in tempAliases)
+            {
+                var tempResult = GetUsedBy(interfaces, alias, isRecursive);
+                if(tempResult.Any())
+                {
+                    result.Remove(alias);
+                    result.AddRange(tempResult);
+                }
+            }
         }
 
-        usedByResult.AddRange(result);
         return result;
     }
 }

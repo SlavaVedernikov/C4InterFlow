@@ -34,7 +34,6 @@ public class DrawDiagramsCommand : Command
         var showBoundariesOption = ShowBoundariesOption.Get();
         var showInterfaceInputAndOutputOption = ShowInterfaceInputAndOutputOption.Get();
         var outputDirectoryOption = OutputDirectoryOption.Get();
-        var outputSubDirectoryOption = OutputSubDirectoryOption.Get();
         var diagramNamePrefixOption = DiagramNamePrefixOption.Get();
         var architectureAsCodeInputPathsOption = AaCInputPathsOption.Get();
         var architectureAsCodeReaderStrategyTypeOption = AaCReaderStrategyTypeOption.Get();
@@ -51,7 +50,6 @@ public class DrawDiagramsCommand : Command
         AddOption(diagramFormatsOption);
         AddOption(showInterfaceInputAndOutputOption);
         AddOption(outputDirectoryOption);
-        AddOption(outputSubDirectoryOption);
         AddOption(diagramNamePrefixOption);
         AddOption(architectureAsCodeInputPathsOption);
         AddOption(architectureAsCodeReaderStrategyTypeOption);
@@ -83,7 +81,7 @@ public class DrawDiagramsCommand : Command
                 expandUpstreamOption), 
             new OutputOptionsBinder(
                 outputDirectoryOption,
-                outputSubDirectoryOption,
+                null,
                 diagramNamePrefixOption,
                 diagramFormatsOption),
             architectureAsCodeInputPathsOption,
@@ -125,7 +123,7 @@ public class DrawDiagramsCommand : Command
             foreach (var diagramScope in diagramOptions.Scopes)
             {
                 Log.Information("Discovering Interfaces for {Scope} diagram scope", diagramScope);
-                var interfaces = await GetInterfaces(resolvedInterfaceAliases, diagramScope, displayOptions.ExpandUpstream);
+                var interfaces = await GetInterfaces(resolvedInterfaceAliases, diagramScope);
 
                 Log.Information("Discovering Business Processes for {Scope} diagram scope", diagramScope);
                 var businessProcesses = GetBusinessProcesses(resolvedBusinessProcessTypeNames, diagramScope).ToArray();
@@ -267,7 +265,7 @@ public class DrawDiagramsCommand : Command
         return result;
     }
 
-    private static async Task<IEnumerable<Interface>> GetInterfaces(IEnumerable<string> interfaceAliases, string scope, bool expandUpstream = false)
+    private static async Task<IEnumerable<Interface>> GetInterfaces(IEnumerable<string> interfaceAliases, string scope)
     {
         var result = new List<Interface>();
         string pattern = string.Empty;
@@ -317,24 +315,6 @@ public class DrawDiagramsCommand : Command
         {
             var scopedInterfaceAliases = interfaceAliases
                 .Where(x => Regex.IsMatch(x, pattern));
-
-            if(expandUpstream)
-            {
-                var queryOutputContextKey = "Interfaces";
-                await QueryUseFlowsCommand.Execute(
-                    scopedInterfaceAliases.ToArray(), true, true,
-                    queryOutputContextKey: queryOutputContextKey);
-
-                if (Context.Instance.TryGetValue(queryOutputContextKey, out var value))
-                {
-                    if (value is string[] contextInterfaces)
-                    {
-                        scopedInterfaceAliases = contextInterfaces.Distinct();
-                    }
-
-                    Context.Instance.Remove(queryOutputContextKey);
-                }
-            }
 
             foreach (string interfaceAlias in scopedInterfaceAliases)
             {
@@ -693,7 +673,7 @@ public class DrawDiagramsCommand : Command
         progress.Complete();
     }
 
-    private static void DrawC4Diagrams(string scope, string levelOfDetails, IEnumerable<Interface> interfaces, string[] namespaces, string[] formats, bool showBoundaries, bool showInterfaceInputAndOutput, int maxLineLabels, string outputDirectory, string? outputSubDirectory = null, bool isStatic = false, string? diagramNamePrefix = null)
+    private static void DrawC4Diagrams(string scope, string levelOfDetails, IEnumerable<Interface> interfaces, string[] namespaces, string[] formats, bool showBoundaries, bool showInterfaceInputAndOutput, int maxLineLabels, string outputDirectory, string? outputSubDirectory = null, bool isStatic = false, string? diagramNamePrefix = null, bool expandUpstream = false)
     {
         if (!interfaces.Any()) return;
 
@@ -861,10 +841,29 @@ public class DrawDiagramsCommand : Command
             Parallel.ForEach(containerAliases, containerAlias =>
             {
                 var containerInterfaces = interfaces.Where(x => x.Alias.StartsWith($"{containerAlias}.")).ToArray();
+                var upstreamInterfaces = new Interface[] { };
+                // TODO: remove hardcoded true
+                expandUpstream = true;
+                
+                if (expandUpstream)
+                {
+                    var queryOutputContextKey = QueryUseFlowsCommand.OUTPUT_CONTEXT_KEY;
+                    var result = QueryUseFlowsCommand.Execute(
+                        containerInterfaces.Select(x => x.Alias).ToArray(), true,
+                        outputToContext: true).Result;
+
+                    if (Context.Instance.TryGetValue(queryOutputContextKey, out var value))
+                    {
+                        if (value is IEnumerable<string> contextInterfaces)
+                        {
+                            upstreamInterfaces = GetInterfaces(contextInterfaces.Distinct(), DiagramScopesOption.ALL_SOFTWARE_SYSTEMS).Result.ToArray();
+                        }
+                    }
+                }
                 var diagram = GetDiagram(
                     scope,
                     levelOfDetails,
-                    containerInterfaces,
+                    expandUpstream && upstreamInterfaces?.Count() > 0? upstreamInterfaces : containerInterfaces,
                     showBoundaries,
                     showInterfaceInputAndOutput,
                     maxLineLabels,

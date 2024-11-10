@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Threading;
 
 namespace C4InterFlow.Cli
 {
-
     public sealed class Context
     {
-        // Singleton instance
-        private static readonly Lazy<Context> _instance = new Lazy<Context>(() => new Context());
+        // Thread-local storage for each thread's unique instance
+        private static readonly ThreadLocal<Context> _threadInstance = new ThreadLocal<Context>(() => new Context());
 
-        // ConcurrentDictionary to hold context data
+        // ConcurrentDictionary to hold context data for each thread
         private readonly ConcurrentDictionary<string, object> _current;
 
         // Private constructor to prevent instantiation from outside
@@ -18,8 +18,8 @@ namespace C4InterFlow.Cli
             _current = new ConcurrentDictionary<string, object>();
         }
 
-        // Property to access the singleton instance
-        public static Context Instance => _instance.Value;
+        // Property to access the thread-specific singleton instance
+        public static Context Instance => _threadInstance.Value;
 
         // Property to access the ConcurrentDictionary
         public ConcurrentDictionary<string, object> Current => _current;

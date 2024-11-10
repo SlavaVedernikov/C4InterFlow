@@ -89,7 +89,7 @@ public class ExecuteViewsCommand : Command
                         view.ExpandUpstream.HasValue ? view.ExpandUpstream.Value : false),
                     new OutputOptions(
                         outputDirectory,
-                        view.Name,
+                        Path.Join("Views",view.Name),
                         diagramNamePrefix, 
                         view.Formats ?? new string[] { }));
             }

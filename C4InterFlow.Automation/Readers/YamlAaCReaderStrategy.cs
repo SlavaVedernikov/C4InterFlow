@@ -71,7 +71,7 @@ namespace C4InterFlow.Automation.Readers
         {
             var paths = new List<string>(aacPaths);
             if (viewsPaths != null)
-                paths.AddRange(viewsPaths)
+                paths.AddRange(viewsPaths);
 
             if (!ValidateFiles(paths))
             {

@@ -1,8 +1,7 @@
 Views:
   Apis:
     Scopes:
-    - Namespace
-    - SoftwareSystem
+    - Container
     Types:
     - C4
     LevelsOfDetails:

@@ -1,8 +1,7 @@
 Views:
   Messaging:
     Scopes:
-    - Namespace
-    - SoftwareSystem
+    - Container
     Types:
     - C4
     LevelsOfDetails:
