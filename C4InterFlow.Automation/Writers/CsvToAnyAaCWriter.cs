@@ -16,7 +16,7 @@ namespace C4InterFlow.Automation.Writers
         {
             ArchitectureInputPath = architectureInputPath;
 
-            Log.Information("Reading data from {Path}", ArchitectureInputPath);
+            Log.Information("Reading CSV data from '{Path}'", ArchitectureInputPath);
 
             DataProvider = new CsvDataProvider(ArchitectureInputPath);
         }

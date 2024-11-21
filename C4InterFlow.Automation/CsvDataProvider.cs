@@ -383,6 +383,15 @@ namespace C4InterFlow.Automation
             [Index(5)]
             public string Description { get; set; }
 
+            [Name("Boundary")]
+            [Index(6)]
+            public string Boundary { get; set; }
+
+            [Name("Technology")]
+            [Index(7)]
+            public string Technology { get; set; }
+
+
             public IEnumerable<ContainerAttribute> WithAttributes(CsvDataProvider dataProvider)
             {
                 return dataProvider.ContainerAttributeRecords.Where(x => !string.IsNullOrEmpty(x.Container.Trim()) &&
@@ -488,6 +497,10 @@ namespace C4InterFlow.Automation
             [Name("Alias")]
             [Index(3)]
             public string Alias { get; set; }
+
+            [Name("Description")]
+            [Index(4)]
+            public string Description { get; set; }
             public bool TryGetType(CsvDataProvider dataProvider, out string? type)
             {
                 type = dataProvider.ActorTypeRecords.FirstOrDefault(x => x.Name == TypeName)?.Type;

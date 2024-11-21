@@ -86,7 +86,10 @@ namespace C4InterFlow.Automation.Writers
             return DataProvider.BusinessProcessRecords.Where(x => !string.IsNullOrEmpty(x.Alias.Trim()));
         }
 
-        public override CsvToJObjectAaCWriter AddActor(string name, string type, string? label = null)
+        public override CsvToJObjectAaCWriter AddActor(string name, string type, string? label = null) =>
+            AddActor(name, type, label, null);
+
+        public CsvToJObjectAaCWriter AddActor(string name, string type, string? label = null, string? description = null)
         {
             var actorsObject = JsonArchitectureAsCode.SelectToken($"{ArchitectureNamespace}.Actors") as JObject;
 
@@ -97,6 +100,10 @@ namespace C4InterFlow.Automation.Writers
                     { "Type", type },
                     { "Label", string.IsNullOrEmpty(label) ? AnyCodeWriter.GetLabel(name) : label },
                 };
+                if (!string.IsNullOrWhiteSpace(description))
+                {
+                    actorObject["Description"] = description;
+                }
 
                 actorsObject.Add(name, actorObject);
             }
@@ -236,7 +243,10 @@ namespace C4InterFlow.Automation.Writers
             return this;
         }
 
-        public override CsvToJObjectAaCWriter AddContainer(string softwareSystemName, string name, string? containerType = null, string? label = null, string? description = null)
+        public override CsvToJObjectAaCWriter AddContainer(string softwareSystemName, string name,
+            string? containerType = null, string? label = null, string? description = null) =>
+            AddContainer(softwareSystemName, name, containerType, label, description, null, null);
+        public CsvToJObjectAaCWriter AddContainer(string softwareSystemName, string name, string? containerType = null, string? label = null, string? description = null, string? boundary = null, string? technology = null)
         {
             var containersObject = JsonArchitectureAsCode.SelectToken($"{ArchitectureNamespace}.SoftwareSystems.{softwareSystemName}.Containers") as JObject;
             if (containersObject == null)
@@ -261,6 +271,16 @@ namespace C4InterFlow.Automation.Writers
                 if (!string.IsNullOrEmpty(description))
                 {
                     containerObject.Add("Description", description);
+                }
+
+                if (!string.IsNullOrEmpty(boundary))
+                {
+                    containerObject.Add("Boundary", boundary);
+                }
+
+                if (!string.IsNullOrEmpty(technology))
+                {
+                    containerObject.Add("Technology", technology);
                 }
 
                 containersObject.Add(name, containerObject);

@@ -1,2 +1,2 @@
-Name,Type,Alias
-Customer,Person,Customer
+Name,Type,Alias,Description
+Customer,Person,Customer,"A customer of the bank, with personal bank accounts"
