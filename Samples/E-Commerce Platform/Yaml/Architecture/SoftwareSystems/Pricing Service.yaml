@@ -17,12 +17,14 @@ ECommercePlatform:
                   - Type: Use
                     Expression: Messaging.Interfaces.SendProductPriceChangedEvent
             Database:
+              ContainerType: Database
               Interfaces:
                 InsertProduct: {}
                 SelectProducts: {}
                 UpdateProductPrices: {}
                 SelectProductPrices: {}
             Messaging:
+              ContainerType: Topic
               Interfaces:
                 SendProductPriceChangedEvent: {}
                 ReceiveProductPriceChangedEvent: {}

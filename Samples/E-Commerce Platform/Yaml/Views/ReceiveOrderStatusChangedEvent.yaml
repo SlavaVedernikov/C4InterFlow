@@ -1,0 +1,15 @@
+ECommercePlatform:
+  GenerateDemand:
+    OrderManagement:
+      Views:
+        ReceiveOrderStatusChangedEvent:
+          Scopes:
+          - ContainerInterface
+          Types:
+          - C4
+          LevelsOfDetails:
+          - Context
+          - Container
+          Interfaces:
+          - ..OrderService.Containers.Messaging.Interfaces.ReceiveOrderStatusChangedEvent
+          ExpandUpstream: true

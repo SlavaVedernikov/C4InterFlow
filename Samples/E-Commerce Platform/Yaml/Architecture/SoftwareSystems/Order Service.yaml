@@ -13,10 +13,12 @@ ECommercePlatform:
                   - Type: Use
                     Expression: Messaging.Interfaces.SendOrderCreatedEvent
             Database:
+              ContainerType: Database
               Interfaces:
                 InsertOrder: {}
                 UpdateOrderStatus: {}
             Messaging:
+              ContainerType: Topic
               Interfaces:
                 SendOrderCreatedEvent: {}
                 SendOrderStatusChangedEvent: {}

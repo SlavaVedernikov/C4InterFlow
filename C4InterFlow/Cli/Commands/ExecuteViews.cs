@@ -23,27 +23,27 @@ public class ExecuteViewsCommand : Command
         var diagramNamePrefixOption = DiagramNamePrefixOption.Get();
         var architectureAsCodeInputPathsOption = AaCInputPathsOption.Get();
         var architectureAsCodeReaderStrategyTypeOption = AaCReaderStrategyTypeOption.Get();
-        var viewsInputPathsOption = ViewsInputPathsOption.Get();
+        var viewInputPathsOption = ViewInputPathsOption.Get();
 
         AddOption(viewsOption);
         AddOption(outputDirectoryOption);
         AddOption(diagramNamePrefixOption);
         AddOption(architectureAsCodeInputPathsOption);
         AddOption(architectureAsCodeReaderStrategyTypeOption);
-        AddOption(viewsInputPathsOption);
+        AddOption(viewInputPathsOption);
 
-        this.SetHandler(async (views, outputDirectory, diagramNamePrefix, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType, viewsInputPaths) =>
+        this.SetHandler(async (views, outputDirectory, diagramNamePrefix, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType, viewInputPaths) =>
             {
                 if (!AaCReaderContext.HasStrategy)
                 {
-                    Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType, viewsInputPaths);
+                    Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType, viewInputPaths);
                 }
-                await Execute(views, outputDirectory, diagramNamePrefix, viewsInputPaths);
+                await Execute(views, outputDirectory, diagramNamePrefix);
             },
-            viewsOption, outputDirectoryOption, diagramNamePrefixOption, architectureAsCodeInputPathsOption, architectureAsCodeReaderStrategyTypeOption, viewsInputPathsOption);
+            viewsOption, outputDirectoryOption, diagramNamePrefixOption, architectureAsCodeInputPathsOption, architectureAsCodeReaderStrategyTypeOption, viewInputPathsOption);
     }
 
-    private static async Task<int> Execute(string[] views, string outputDirectory, string diagramNamePrefix, string[] viewsInputPaths)
+    private static async Task<int> Execute(string[] views, string outputDirectory, string diagramNamePrefix)
     {
         try
         {
@@ -62,24 +62,30 @@ public class ExecuteViewsCommand : Command
                 throw new InvalidDataException("AaC has errors. Please resolve and retry.");
             }
 
-            var resolvedViewAliases = new List<string>();
-            resolvedViewAliases.AddRange(Utils.ResolveStructures(views));
-
-            resolvedViewAliases = resolvedViewAliases.Distinct().ToList();
-
-            var viewInstances = GetViews(resolvedViewAliases);
+            var viewInstances = GetViews(Utils.ResolveStructures(views)?.Distinct());
 
             foreach ( var view in viewInstances )
             {
-                var interfaces = view.Interfaces;
+                
+                var interfaces = Utils.ResolveStructures(view.Interfaces)?.Distinct();
+                if (C4InterFlow.Utils.TryGetNamespaceAlias(view.Alias, out var viewNamespace) && !string.IsNullOrEmpty(viewNamespace))
+                {
+                    var viewNamespacedInterfaces = interfaces.Where(x => x.StartsWith($"{viewNamespace}."));
+                    var numberOfExcludedInterfaces = interfaces.Count() - viewNamespacedInterfaces.Count();
+                    if (numberOfExcludedInterfaces > 0)
+                    {
+                        Log.Warning("{NumberOfExludedInterfaces} interfaces will be excluded from '{ViewName}' view, as they are located outside of the view namespace.", numberOfExcludedInterfaces, view.Name);
 
+                        interfaces = viewNamespacedInterfaces;
+                    }
+                }
                 await DrawDiagramsCommand.Execute(
                     new DiagramOptions(
                         view.Scopes ?? DiagramScopesOption.GetAllValues(), 
                         view.Types ?? DiagramTypesOption.GetAllValues(), 
                         view.LevelsOfDetails ?? DiagramLevelsOfDetailsOption.GetAllValues()),
                     new InputOptions(
-                        interfaces,
+                        interfaces?.Distinct().ToArray(),
                         null,
                         view.BusinessProcesses,
                         view.Namespaces),
@@ -89,9 +95,11 @@ public class ExecuteViewsCommand : Command
                         view.ExpandUpstream.HasValue ? view.ExpandUpstream.Value : false),
                     new OutputOptions(
                         outputDirectory,
-                        Path.Join("Views",view.Name),
                         diagramNamePrefix, 
-                        view.Formats ?? new string[] { }));
+                        view.Formats ?? new string[] { },
+                        C4InterFlow.Utils.GetPathFromAlias(view.Alias),
+                        C4InterFlow.Utils.TryGetNamespaceAlias(view.Alias, out var namespaceAlias) ?
+                        C4InterFlow.Utils.GetPathFromAlias(namespaceAlias) : null));
             }
 
             return 0;

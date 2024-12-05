@@ -1,11 +1,12 @@
-Views:
-  Messaging:
-    Scopes:
-    - Container
-    Types:
-    - C4
-    LevelsOfDetails:
-    - Container
-    Interfaces:
-    - ..Containers.Messaging.Interfaces.*
-    ExpandUpstream: true
+ECommercePlatform:
+  Views:
+    Messaging:
+      Scopes:
+      - Container
+      Types:
+      - C4
+      LevelsOfDetails:
+      - Container
+      Interfaces:
+      - ..Containers.Messaging.Interfaces.*
+      ExpandUpstream: true

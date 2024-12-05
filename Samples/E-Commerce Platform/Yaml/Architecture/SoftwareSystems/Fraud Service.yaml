@@ -17,12 +17,14 @@ ECommercePlatform:
                   - Type: Use
                     Expression: Messaging.Interfaces.SendFraudCheckResultEvent
             Database:
+              ContainerType: Database
               Interfaces:
                 InsertOrder: {}
                 SelectHighRiskOrders: {}
                 InsertFraudCheckResult: {}
                 UpdateFraudCheckResult: {}
             Messaging:
+              ContainerType: Topic
               Interfaces:
                 SendFraudCheckResultEvent: {}
                 ReceiveFraudCheckResultEvent: {}

@@ -9,14 +9,16 @@ namespace C4InterFlow.Cli.Commands.Binders
 {
     public class OutputOptions
     {
-        public OutputOptions(string outputDirectory, string? outputSubDirectory, string? diagramNamePrefix, string[]? formats) { 
+        public OutputOptions(string outputDirectory, string? diagramNamePrefix, string[]? formats, string? outputSubDirectory = null, string? subtractPath = null) { 
             OutputDirectory = outputDirectory;
-            OutputSubDirectory = outputSubDirectory;
             DiagramNamePrefix = diagramNamePrefix;
             Formats = formats;
+            OutputSubDirectory = outputSubDirectory;
+            SubtractPath = subtractPath;
         }
         public string OutputDirectory { get; private set; }
         public string? OutputSubDirectory { get; private set; }
+        public string? SubtractPath { get; private set; }
         public string? DiagramNamePrefix { get; private set; }
         public string[]? Formats { get; private set; }
     }
@@ -24,14 +26,12 @@ namespace C4InterFlow.Cli.Commands.Binders
     public class OutputOptionsBinder : BinderBase<OutputOptions>
     {
         private readonly Option<string> _outputDirectoryOption;
-        private readonly Option<string> _outputSubDirectoryOption;
         private readonly Option<string> _diagramNamePrefixOption;
         private readonly Option<string[]> _formatsOption;
 
-        public OutputOptionsBinder(Option<string> outputDirectoryOption, Option<string> outputSubDirectoryOption, Option<string> diagramNamePrefixOption, Option<string[]> formatsOption)
+        public OutputOptionsBinder(Option<string> outputDirectoryOption, Option<string> diagramNamePrefixOption, Option<string[]> formatsOption)
         {
             _outputDirectoryOption = outputDirectoryOption;
-            _outputSubDirectoryOption = outputSubDirectoryOption;
             _diagramNamePrefixOption = diagramNamePrefixOption;
             _formatsOption = formatsOption;
         }
@@ -39,7 +39,6 @@ namespace C4InterFlow.Cli.Commands.Binders
         protected override OutputOptions GetBoundValue(BindingContext bindingContext) =>
             new OutputOptions(
                 bindingContext.ParseResult.GetValueForOption(_outputDirectoryOption),
-                bindingContext.ParseResult.GetValueForOption(_outputSubDirectoryOption),
                 bindingContext.ParseResult.GetValueForOption(_diagramNamePrefixOption),
                 bindingContext.ParseResult.GetValueForOption(_formatsOption));
     }

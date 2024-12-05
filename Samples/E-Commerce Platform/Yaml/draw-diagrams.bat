@@ -11,6 +11,7 @@ set "cli-exe=C4InterFlow.Cli.exe"
 set "diagrams-dir=.\Diagrams"
 set "aac-reader-strategy=C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation"
 set "aac-input-paths=.\Architecture"
+set "view-input-paths=.\Views"
 
 CALL :NormalizePath %cli-project-path%
 SET "cli-project-path=%_NORMALIZED_PATH_%"
@@ -18,6 +19,8 @@ CALL :NormalizePath %cli-output-dir%
 SET "cli-output-dir=%_NORMALIZED_PATH_%"
 CALL :NormalizePath %aac-input-paths%
 SET "aac-input-paths=%_NORMALIZED_PATH_%"
+CALL :NormalizePath %view-input-paths%
+SET "view-input-paths=%_NORMALIZED_PATH_%"
 CALL :NormalizePath %diagrams-dir%
 SET "diagrams-dir=%_NORMALIZED_PATH_%"
 
@@ -71,6 +74,7 @@ if NOT "%BATCH_TEST_MODE%"=="1" pause
 echo Drawing Diagrams...
 if %redraw-all%==TRUE (
 %cli-output-dir%\%cli-exe% draw-diagrams --interfaces %aac-root-namespace%.*.*.SoftwareSystems.*.Interfaces.* %aac-root-namespace%.*.*.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes %aac-root-namespace%.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy "%aac-reader-strategy%" --aac-input-paths "%aac-input-paths%" --output-dir "%diagrams-dir%" --formats svg
+%cli-output-dir%\%cli-exe% execute-views --views ..Views.* --aac-reader-strategy "%aac-reader-strategy%" --aac-input-paths "%aac-input-paths%" --view-input-paths "%view-input-paths%" --output-dir "$(ProjectDir)\..\Samples\E-Commerce Platform\Yaml\Diagrams" --log-level debug
 ) else (
 %cli-output-dir%\%cli-exe% draw-diagrams --interfaces %aac-root-namespace%.*.*.SoftwareSystems.*.Interfaces.* %aac-root-namespace%.*.*.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes %aac-root-namespace%.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy "%aac-reader-strategy%" --aac-input-paths "%aac-input-paths%" --output-dir "%diagrams-dir%" 
 )

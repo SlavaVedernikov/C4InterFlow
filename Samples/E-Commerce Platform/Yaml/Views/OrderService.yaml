@@ -1,0 +1,17 @@
+ECommercePlatform:
+  GenerateDemand:
+    OrderManagement:
+      Views:
+        OrderService:
+          Scopes:
+          - SoftwareSystem
+          Types:
+          - C4
+          LevelsOfDetails:
+          - Context
+          - Container
+          Interfaces:
+          - ..OrderService.Containers.*.Interfaces.*
+          - ..BasketService.Containers.*.Interfaces.*
+          ExpandUpstream: true
+    
