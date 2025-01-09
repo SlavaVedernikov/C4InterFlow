@@ -1,13 +1,8 @@
 using System.CommandLine;
-using C4InterFlow.Structures;
 using C4InterFlow.Cli.Commands.Options;
 using C4InterFlow.Automation;
-using System.Reflection;
 using C4InterFlow.Cli.Commands.Binders;
-using C4InterFlow.Commons.Extensions;
 using Serilog;
-using Serilog.Events;
-using C4InterFlow.Structures.Interfaces;
 using C4InterFlow.Structures.Views;
 
 namespace C4InterFlow.Cli.Commands;
@@ -66,7 +61,8 @@ public class ExecuteViewsCommand : Command
 
             foreach ( var view in viewInstances )
             {
-                
+                Log.Information("Executing view {View}.", view.Alias);
+
                 var interfaces = Utils.ResolveStructures(view.Interfaces)?.Distinct();
                 if (C4InterFlow.Utils.TryGetNamespaceAlias(view.Alias, out var viewNamespace) && !string.IsNullOrEmpty(viewNamespace))
                 {
@@ -74,8 +70,12 @@ public class ExecuteViewsCommand : Command
                     var numberOfExcludedInterfaces = interfaces.Count() - viewNamespacedInterfaces.Count();
                     if (numberOfExcludedInterfaces > 0)
                     {
-                        Log.Warning("{NumberOfExludedInterfaces} interfaces will be excluded from '{ViewName}' view, as they are located outside of the view namespace.", numberOfExcludedInterfaces, view.Name);
+                        Log.Warning("{NumberOfExludedInterfaces} interfaces will be excluded from {ViewName} view, as they are located outside of the view namespace {ViewNamespace}.", numberOfExcludedInterfaces, view.Name, viewNamespace);
 
+                        interfaces.Except(viewNamespacedInterfaces).ToList().ForEach(x =>
+                        {
+                            Log.Debug("{ExludedInterface}", x);
+                        });
                         interfaces = viewNamespacedInterfaces;
                     }
                 }

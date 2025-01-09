@@ -10,3 +10,5 @@ ECommercePlatform:
       Interfaces:
       - ..Containers.Api.Interfaces.*
       ExpandUpstream: true
+      Formats:
+      - svg

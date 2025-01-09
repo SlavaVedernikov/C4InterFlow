@@ -13,3 +13,6 @@ ECommercePlatform:
           Interfaces:
           - ..OrderService.Containers.Messaging.Interfaces.ReceiveOrderStatusChangedEvent
           ExpandUpstream: true
+          Formats:
+          - svg
+          - png

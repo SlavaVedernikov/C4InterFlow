@@ -1370,18 +1370,18 @@ public class DrawDiagramsCommand : Command
             
             if (structureAlias.Contains(".Components."))
             {
-                component = C4InterFlow.Utils.GetInstance<Component>(structureAlias);
+                component = C4InterFlow.Utils.GetInstance<Component>(@interface == null ? structureAlias : @interface.Owner);
                 container = C4InterFlow.Utils.GetInstance<Container>(component?.Container);
                 system = C4InterFlow.Utils.GetInstance<SoftwareSystem>(container?.SoftwareSystem);
             }
             else if (structureAlias.Contains(".Containers."))
             {
-                container = C4InterFlow.Utils.GetInstance<Container>(structureAlias);
+                container = C4InterFlow.Utils.GetInstance<Container>(@interface == null ? structureAlias : @interface.Owner);
                 system = C4InterFlow.Utils.GetInstance<SoftwareSystem>(container?.SoftwareSystem);
             }
             else if ((structureAlias.Contains(".SoftwareSystems.")))
             {
-                system = C4InterFlow.Utils.GetInstance<SoftwareSystem>(structureAlias);
+                system = C4InterFlow.Utils.GetInstance<SoftwareSystem>(@interface == null ? structureAlias : @interface.Owner);
             }
 
             return (system as Structure ?? container as Structure ?? component as Structure ?? @interface as Structure) != null;

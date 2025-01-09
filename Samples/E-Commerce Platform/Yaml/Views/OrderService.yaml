@@ -9,9 +9,10 @@ ECommercePlatform:
           - C4
           LevelsOfDetails:
           - Context
-          - Container
           Interfaces:
           - ..OrderService.Containers.*.Interfaces.*
           - ..BasketService.Containers.*.Interfaces.*
           ExpandUpstream: true
+          Formats:
+          - svg
     

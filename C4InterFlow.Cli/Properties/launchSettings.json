@@ -6,7 +6,7 @@
     },
     "E-Commerce Platform - YAML - Execute Views": {
       "commandName": "Project",
-      "commandLineArgs": "execute-views --views ..Views.OrderService --aac-reader-strategy \"Yaml\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Architecture\" --view-input-paths \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Views\" --output-dir \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Diagrams\" --log-level debug"
+      "commandLineArgs": "execute-views --views ..Views.* --aac-reader-strategy \"Yaml\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Architecture\" --view-input-paths \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Views\" --output-dir \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Diagrams\" --log-level debug"
     },
     "Internet Banking System - YAML - Draw Diagrams": {
       "commandName": "Project",
