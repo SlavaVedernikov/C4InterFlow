@@ -20,6 +20,7 @@ System(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider, "Paym
 System(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, "Payment Service", "")
 System(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Order Service", "")
 
+Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, "Post Payment Result Event")
 Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Receive Order Status Changed Event")
 Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider, "Process Payment")
 

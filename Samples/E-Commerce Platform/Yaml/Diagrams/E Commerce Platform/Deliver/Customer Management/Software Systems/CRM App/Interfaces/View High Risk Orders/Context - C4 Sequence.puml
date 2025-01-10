@@ -8,8 +8,8 @@ System(ECommercePlatform.Deliver.CustomerManagement.SoftwareSystems.CRMApp, "CRM
 System(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService, "Fraud Service", "")
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.Deliver.CustomerManagement.SoftwareSystems.CRMApp, "View High Risk Orders")
-Rel(ECommercePlatform.Deliver.CustomerManagement.SoftwareSystems.CRMApp, ..FraudService, "Get High Risk Orders")
-Rel(..FraudService, ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService, "Select High Risk Orders")
+Rel(ECommercePlatform.Deliver.CustomerManagement.SoftwareSystems.CRMApp, ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService, "Get High Risk Orders")
+Rel(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService, ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService, "Select High Risk Orders")
 
 
 @enduml

@@ -8,7 +8,7 @@ System(ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchSe
 System(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService, "Pricing Service", "")
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService, "Handle Product Price Changed Event")
-Rel(ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService, ..PricingService, "Receive Product Price Changed Event")
+Rel(ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService, ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService, "Receive Product Price Changed Event")
 
 
 @enduml

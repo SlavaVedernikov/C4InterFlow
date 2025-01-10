@@ -27,7 +27,7 @@ public static class DiagramLevelsOfDetailsOption
         return option;
     }
 
-    public static string[] GetAllLevelsOfDetails()
+    public static string[] GetAllValues()
     {
         return new[] { CONTEXT, CONTAINER, COMPONENT };
     }

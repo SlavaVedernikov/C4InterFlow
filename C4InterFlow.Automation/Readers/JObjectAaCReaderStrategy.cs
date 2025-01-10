@@ -19,13 +19,13 @@ namespace C4InterFlow.Automation.Readers
             RootJObject = rootJObject;
         }
 
-        public override void Initialise(string[]? architectureInputPaths, Dictionary<string, string>? parameters)
+        public override void Initialise(string[]? architectureInputPaths, string[]? viewsInputPaths, Dictionary<string, string>? parameters)
         {
-            RootJObject = GetJsonObjectFromFiles(architectureInputPaths);
+            RootJObject = GetJsonObjectFromFiles(architectureInputPaths, viewsInputPaths);
 
             RootJObject = ExtendJsonObject(RootJObject);
 
-            base.Initialise(architectureInputPaths, parameters);
+            base.Initialise(architectureInputPaths, viewsInputPaths,parameters);
         }
 
         private Lazy<JObjectStructuresResolver> _elementsResolver;
@@ -140,7 +140,7 @@ namespace C4InterFlow.Automation.Readers
         }
 
         protected abstract JObject GetJsonObjectFromFile(string filePath);
-        protected abstract JObject GetJsonObjectFromFiles(string[] paths);
+        protected abstract JObject GetJsonObjectFromFiles(string[] aacPaths, string[] viewsPaths);
     }
 
 

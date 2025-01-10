@@ -9,11 +9,11 @@ System(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderSer
 System(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService, "Basket Service", "")
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, "Checkout")
-Rel(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, ..OrderService, "Create Order")
-Rel(..OrderService, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Insert Order")
-Rel(..OrderService, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Send Order Created Event")
-Rel(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, ..BasketService, "Delete Basket")
-Rel(..BasketService, ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService, "Delete Basket")
+Rel(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Create Order")
+Rel(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Insert Order")
+Rel(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Send Order Created Event")
+Rel(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService, "Delete Basket")
+Rel(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService, ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService, "Delete Basket")
 
 
 @enduml

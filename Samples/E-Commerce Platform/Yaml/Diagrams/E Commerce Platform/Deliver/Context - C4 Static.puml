@@ -22,11 +22,12 @@ System(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudEngine, "F
 System(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS, "WMS", "")
 System(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService, "Fulfilment Service", "")
 System(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider, "Payment Provider", "")
-System(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Order Service", "")
 System(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, "Payment Service", "")
+System(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Order Service", "")
 
 Rel(ECommercePlatform.Deliver.CustomerManagement.SoftwareSystems.CRMApp, ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService, "Uses")
 Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService, "Uses")
+Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, "Uses")
 Rel(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Uses")
 Rel(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService, ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudEngine, "Uses")
 Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Uses")

@@ -19,11 +19,11 @@ title E Commerce Platform - Create Product - Price Management - Pricing Service 
 
 System_Boundary(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService, "Pricing Service") {
     Container(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.MessageHandler, "Message Handler", "", "")
-    Container(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Database, "Database", "", "")
+    ContainerDb(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Database, "Database", "", "")
 }
 
 System_Boundary(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService, "Buying Service") {
-    Container(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Messaging, "Messaging", "", "")
+    ContainerQueue(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Messaging, "Messaging", "", "")
 }
 
 Rel(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.MessageHandler, ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Messaging, "Receive Purchase Order Updated Event")

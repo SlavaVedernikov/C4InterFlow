@@ -9,7 +9,7 @@ System(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderSer
 System(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS, "WMS", "")
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService, "Handle Order Status Changed Event")
-Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService, ..OrderService, "Receive Order Status Changed Event")
+Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Receive Order Status Changed Event")
 Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS, "Ship Order")
 Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService, "Post Order Shipped Event")
 

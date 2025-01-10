@@ -6,7 +6,7 @@ participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 
 box "Fulfilment Service" #White
     participant "Message Handler" as ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.MessageHandler
-    participant "Database" as ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Database
+    database "Database" as ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Database
     participant "Api" as ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Api
     participant "Messaging" as ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Messaging
 end box

@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using System.Collections.Concurrent;
 using C4InterFlow.Commons;
 using Serilog;
+using C4InterFlow.Structures.Views;
 
 namespace C4InterFlow.Automation.Readers
 {
@@ -44,13 +45,13 @@ namespace C4InterFlow.Automation.Readers
 
                 if (collectionToken == null || ownerToken == null) return result;
 
+                var fullAlias = token.Path;
                 var label = token!["Label"]?.ToString() ?? Utils.GetLabel(alias.Split('.').Last()) ?? string.Empty;
                 var description = token?["Description"]?.ToString() ?? string.Empty;
                 var tagsToken = token?["Tags"];
                 var tags = tagsToken?.Type == JTokenType.Array && tagsToken.All(x => x.Type == JTokenType.String) ? tagsToken.ToObject<string[]>() : new string[] { };
                 var icon = token?["Icon"]?.ToString() ?? string.Empty;
 
-                token!["Tags"]?.ToObject<string[]>();
                 switch (collectionToken.Path.Split('.').Last())
                 {
                     case "Actors":
@@ -66,7 +67,7 @@ namespace C4InterFlow.Automation.Readers
 
                                 if (typeConstructor != null)
                                 {
-                                    result = typeConstructor.Invoke(new object[] { alias, label, description }) as T;
+                                    result = typeConstructor.Invoke(new object[] { fullAlias, label, description }) as T;
                                 }
                             }
                         }
@@ -77,7 +78,7 @@ namespace C4InterFlow.Automation.Readers
 
                         if (activities != null)
                         {
-                            result = new BusinessProcess(activities, alias, label)
+                            result = new BusinessProcess(activities, fullAlias, label)
                             {
                                 Description = description
                             } as T;
@@ -89,11 +90,11 @@ namespace C4InterFlow.Automation.Readers
                         var path = token?["Path"]?.ToString() ?? string.Empty;
                         if (interfaceFlow != null)
                         {
-                            interfaceFlow.Owner = alias;
+                            interfaceFlow.Owner = fullAlias;
                         }
                         else
                         {
-                            interfaceFlow = new Flow(alias);
+                            interfaceFlow = new Flow(fullAlias);
                             var interfaceFlows = token!["Flows"]?.ToObject<List<Flow>>();
                             if (interfaceFlows != null)
                             {
@@ -101,17 +102,20 @@ namespace C4InterFlow.Automation.Readers
                             }
                         }
 
-                        result = new Interface(ownerToken.Path, alias, label)
+                        var @interface = new Interface(ownerToken.Path, fullAlias, label)
                         {
                             Flow = interfaceFlow,
                             Protocol = protocol,
                             Path = path,
                             Description = description
-                        } as T;
+                        };
+
+                        
+                        result = @interface as T;
                         break;
                     case "SoftwareSystems":
                         var softwareSystemsBoundaryName = token!["Boundary"]?.ToString() ?? string.Empty;
-                        result = new SoftwareSystem(alias, label, description)
+                        result = new SoftwareSystem(fullAlias, label, description)
                         {
                             Boundary = !string.IsNullOrEmpty(softwareSystemsBoundaryName) &&
                                 Enum.TryParse(softwareSystemsBoundaryName, out Boundary softwareSystemsBoundary) ?
@@ -124,7 +128,7 @@ namespace C4InterFlow.Automation.Readers
                     case "Containers":
                         var containerTypeName = token!["ContainerType"]?.ToString() ?? string.Empty;
                         var containerTechnology = token!["Technology"]?.ToString() ?? string.Empty;
-                        result = new Container(ownerToken.Path, alias, label)
+                        result = new Container(ownerToken.Path, fullAlias, label)
                         {
                             ContainerType = !string.IsNullOrEmpty(containerTypeName) &&
                                 Enum.TryParse(containerTypeName, out ContainerType containerType) ?
@@ -138,7 +142,7 @@ namespace C4InterFlow.Automation.Readers
                     case "Components":
                         var componentTypeName = token!["ComponentType"]?.ToString() ?? string.Empty;
                         var componentTechnology = token?["Technology"]?.ToString() ?? string.Empty;
-                        result = new Component(ownerToken.Path, alias, label)
+                        result = new Component(ownerToken.Path, fullAlias, label)
                         {
                             ComponentType = !string.IsNullOrEmpty(componentTypeName) &&
                                 Enum.TryParse(componentTypeName, out ComponentType componentType) ?
@@ -150,7 +154,7 @@ namespace C4InterFlow.Automation.Readers
                         } as T;
                         break;
                     case "Entities":
-                        result = new Entity(ownerToken.Path, alias, label, EntityType.None)
+                        result = new Entity(ownerToken.Path, fullAlias, label, EntityType.None)
                         {
                             Description = description
                         } as T;
@@ -175,7 +179,39 @@ namespace C4InterFlow.Automation.Readers
                             }
                         }
 
-                        result = new StructureAttribute(alias, label, value) as T;
+                        result = new StructureAttribute(fullAlias, label, value) as T;
+                        break;
+                    case "Views":
+                        var scopes = token!["Scopes"]?.ToObject<string[]>();
+                        var types = token!["Types"]?.ToObject<string[]>();
+                        var levelsOfDetails = token!["LevelsOfDetails"]?.ToObject<string[]>();
+                        var formats = token!["Formats"]?.ToObject<string[]>();
+                        var interfaces = token!["Interfaces"]?.ToObject<string[]>();
+                        var businessProcesses = token!["BusinessProcesses"]?.ToObject<string[]>();
+                        var namespaces = token!["Namespaces"]?.ToObject<string[]>();
+                        var aaCInputPaths = token!["AaCInputPaths"]?.ToObject<string[]>();
+                        var expandUpstream = token!["ExpandUpstream"]?.ToObject<bool>();
+
+                        var interfacesInputFile = token!["InterfacesInputFile"]?.ToObject<string>();
+                        var outputDir = token!["OutputDir"]?.ToObject<string>();
+                        var namePrefix = token!["NamePrefix"]?.ToObject<string>();
+                        var outputSubDir = token!["OutputSubDir"]?.ToObject<string>();
+                        var aaCReaderStrategy = token!["AaCReaderStrategy"]?.ToObject<string>();
+                        var maxLineLabels = default(int?);
+                        if (int.TryParse(token!["MaxLineLabels"]?.ToString(), out var maxLineLabelsValue))
+                            maxLineLabels = maxLineLabelsValue;
+                        
+                        result = new View(fullAlias, label) { 
+                            BusinessProcesses = businessProcesses,
+                            Formats = formats,
+                            Interfaces = interfaces,
+                            LevelsOfDetails = levelsOfDetails,
+                            MaxLineLabels = maxLineLabels,
+                            Namespaces = namespaces,
+                            Scopes = scopes,
+                            Types = types,
+                            ExpandUpstream = expandUpstream
+                        } as T;
                         break;
                     default:
                         break;

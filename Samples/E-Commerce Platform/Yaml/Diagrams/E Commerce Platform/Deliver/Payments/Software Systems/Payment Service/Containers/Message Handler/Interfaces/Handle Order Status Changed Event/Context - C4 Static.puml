@@ -22,6 +22,7 @@ System(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider, "Paym
 
 Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Uses")
 Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider, "Uses")
+Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, "Uses")
 
 
 SHOW_LEGEND()

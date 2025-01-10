@@ -6,6 +6,9 @@ using C4InterFlow.Cli;
 using C4InterFlow.Structures;
 using C4InterFlow.Structures.Interfaces;
 using C4InterFlow.Structures.Relationships;
+using C4InterFlow.Structures.Views;
+using Serilog;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace C4InterFlow
 {
@@ -18,7 +21,13 @@ namespace C4InterFlow
 
         public static T? GetInstance<T>(string? alias) where T : Structure
         {
-            return AaCReaderContext.Strategy.GetInstance<T>(alias);
+            T? result = AaCReaderContext.Strategy.GetInstance<T>(alias);
+
+            if(result == null)
+            {
+                Log.Debug("Could not get the instance for alias '{Alias}'", alias);
+            }
+            return result;
         }
 
         public static T Clone<T>(T source)
@@ -38,6 +47,12 @@ namespace C4InterFlow
         {
             return GetLabel(alias.Split(".").Last());
         }
+
+        public static string GetPathFromAlias(string alias)
+        {
+            return Path.Join(alias.Split('.').Select(x => GetLabel(x)).ToArray());
+        }
+
         public static string? GetLabel(string? text)
         {
             if (string.IsNullOrEmpty(text)) return text;
@@ -77,23 +92,32 @@ namespace C4InterFlow
         {
             namespaceAlias = null;
 
-            int index = alias.IndexOf("SoftwareSystems");
+            int index = alias.IndexOf(".SoftwareSystems.");
 
             if (index < 0)
             {
-                index = alias.IndexOf("BusinessProcesses");
+                index = alias.IndexOf(".BusinessProcesses.");
             }
 
             if (index < 0)
             {
-                index = alias.IndexOf("Actors");
+                index = alias.IndexOf(".Actors.");
             }
 
-            if (index >= 0)
+            if (index < 0)
             {
-                namespaceAlias = alias.Substring(0, index - 1);
+                index = alias.IndexOf(".Views.");
             }
-            else
+
+            if (index >= 1)
+            {
+                namespaceAlias = alias.Substring(0, index);
+            }
+            //TODO: Disallow these tokens without at least one level of Namespace
+            else if(!alias.StartsWith("SoftwareSystems.") &&
+                !alias.StartsWith("BusinessProcesses.") &&
+                !alias.StartsWith("Actors.") &&
+                !alias.StartsWith("Views."))
             {
                 namespaceAlias = alias;
             }

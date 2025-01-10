@@ -20,6 +20,7 @@ System(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider, "Paym
 System(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, "Payment Service", "")
 System(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Order Service", "")
 
+Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, "Uses")
 Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Uses")
 Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider, "Uses")
 

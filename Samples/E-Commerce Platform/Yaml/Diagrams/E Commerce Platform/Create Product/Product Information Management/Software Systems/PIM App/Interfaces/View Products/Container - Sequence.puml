@@ -7,7 +7,7 @@ participant "PIM App" as ECommercePlatform.CreateProduct.ProductInformationManag
 
 box "Product Service" #White
     participant "Api" as ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Api
-    participant "Database" as ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Database
+    database "Database" as ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Database
 end box
 
 

@@ -13,10 +13,12 @@ ECommercePlatform:
                   - Type: Use
                     Expression: Messaging.Interfaces.SendPaymentResultEvent
             Database:
+              ContainerType: Database
               Interfaces:
                 InsertPaymentResult: {}
                 InsertOrder: {}
             Messaging:
+              ContainerType: Topic
               Interfaces:
                 SendPaymentResultEvent: {}
                 ReceivePaymentResultEvent: {}

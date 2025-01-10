@@ -4,4 +4,7 @@ ECommercePlatform:
       SoftwareSystems:
         PaymentProvider:
           Interfaces:
-            ProcessPayment: {}
+            ProcessPayment:
+              Flows:
+              - Type: Use
+                Expression: PaymentService.Containers.Api.Interfaces.PostPaymentResultEvent

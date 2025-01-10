@@ -8,9 +8,9 @@ System(ECommercePlatform.Deliver.CustomerManagement.SoftwareSystems.CRMApp, "CRM
 System(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService, "Fraud Service", "")
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.Deliver.CustomerManagement.SoftwareSystems.CRMApp, "Update Order Fraud Check Result")
-Rel(ECommercePlatform.Deliver.CustomerManagement.SoftwareSystems.CRMApp, ..FraudService, "Update Order Fraud Check Result")
-Rel(..FraudService, ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService, "Update Fraud Check Result")
-Rel(..FraudService, ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService, "Send Fraud Check Result Event")
+Rel(ECommercePlatform.Deliver.CustomerManagement.SoftwareSystems.CRMApp, ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService, "Update Order Fraud Check Result")
+Rel(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService, ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService, "Update Fraud Check Result")
+Rel(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService, ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService, "Send Fraud Check Result Event")
 
 
 @enduml

@@ -52,8 +52,6 @@ public class QueryByInputCommand : Command
                 result.AddRange(GetByInput(interfaces, entityAlias));
             }
             Log.Information("{Name} command completed. Query results: {Results}", COMMAND_NAME, result.Distinct().ToArray());
-            // Console.WriteLine($"'{COMMAND_NAME}' command completed. See query results below.");
-            // Console.Write($"{string.Join(Environment.NewLine, result.Distinct().ToArray())}");
             return 0;
         }
         catch (Exception e)

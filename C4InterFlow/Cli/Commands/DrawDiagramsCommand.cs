@@ -12,6 +12,7 @@ using Parlot.Fluent;
 using Fluid.Ast;
 using Serilog;
 using static C4InterFlow.SoftwareSystems.ExternalSystem;
+using C4InterFlow.Structures.Views;
 
 namespace C4InterFlow.Cli.Commands;
 
@@ -33,11 +34,11 @@ public class DrawDiagramsCommand : Command
         var showBoundariesOption = ShowBoundariesOption.Get();
         var showInterfaceInputAndOutputOption = ShowInterfaceInputAndOutputOption.Get();
         var outputDirectoryOption = OutputDirectoryOption.Get();
-        var outputSubDirectoryOption = OutputSubDirectoryOption.Get();
         var diagramNamePrefixOption = DiagramNamePrefixOption.Get();
         var architectureAsCodeInputPathsOption = AaCInputPathsOption.Get();
         var architectureAsCodeReaderStrategyTypeOption = AaCReaderStrategyTypeOption.Get();
         var diagramMaxLineLabelsOption = DiagramMaxLineLabelsOption.Get();
+        var expandUpstreamOption = ExpandUpstreamOption.Get();
 
         AddOption(diagramScopesOption);
         AddOption(diagramTypesOption);
@@ -49,16 +50,21 @@ public class DrawDiagramsCommand : Command
         AddOption(diagramFormatsOption);
         AddOption(showInterfaceInputAndOutputOption);
         AddOption(outputDirectoryOption);
-        AddOption(outputSubDirectoryOption);
         AddOption(diagramNamePrefixOption);
         AddOption(architectureAsCodeInputPathsOption);
         AddOption(architectureAsCodeReaderStrategyTypeOption);
         AddOption(diagramMaxLineLabelsOption);
+        AddOption(expandUpstreamOption);
 
 
         this.SetHandler(async (diagramOptions, inputOptions, displayOptions, outputOptions, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType ) =>
             {
-                await Execute(diagramOptions, inputOptions, displayOptions, outputOptions, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
+                if (!AaCReaderContext.HasStrategy)
+                {
+                    Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
+                }
+
+                await Execute(diagramOptions, inputOptions, displayOptions, outputOptions);
             },
             new DiagramOptionsBinder(
                 diagramScopesOption, 
@@ -71,26 +77,23 @@ public class DrawDiagramsCommand : Command
                 namespacesOption),
             new DisplayOptionsBinder(
                 showInterfaceInputAndOutputOption,
-                diagramMaxLineLabelsOption), 
+                diagramMaxLineLabelsOption,
+                expandUpstreamOption), 
             new OutputOptionsBinder(
                 outputDirectoryOption,
-                outputSubDirectoryOption,
                 diagramNamePrefixOption,
                 diagramFormatsOption),
             architectureAsCodeInputPathsOption,
             architectureAsCodeReaderStrategyTypeOption);
     }
 
-    public static async Task<int> Execute(DiagramOptions diagramOptions, InputOptions inputOptions, DisplayOptions displayOptions, OutputOptions outputOptions, string[] architectureAsCodeInputPaths, string architectureAsCodeReaderStrategyType)
+    public static async Task<int> Execute(DiagramOptions diagramOptions, InputOptions inputOptions, DisplayOptions displayOptions, OutputOptions outputOptions)
     {
         try
         {
             Log.Information("{Name} command is executing", COMMAND_NAME);
 
-            if (!AaCReaderContext.HasStrategy)
-            {
-                Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
-            }
+            
             AaCReaderContext.Strategy.Validate(out var errors);
 
             if(errors.Any())
@@ -119,12 +122,12 @@ public class DrawDiagramsCommand : Command
             foreach (var diagramScope in diagramOptions.Scopes)
             {
                 Log.Information("Discovering Interfaces for {Scope} diagram scope", diagramScope);
-                var interfaces = GetInterfaces(resolvedInterfaceAliases, diagramScope).ToArray();
+                var interfaces = await GetInterfaces(resolvedInterfaceAliases, diagramScope);
 
                 Log.Information("Discovering Business Processes for {Scope} diagram scope", diagramScope);
                 var businessProcesses = GetBusinessProcesses(resolvedBusinessProcessTypeNames, diagramScope).ToArray();
 
-                Log.Information("Found {InterfacesCount} interface(s) and {ProcessesCount} business process(es) for {Scope}", interfaces.Length, businessProcesses.Length, diagramScope);
+                Log.Information("Found {InterfacesCount} interface(s) and {ProcessesCount} business process(es) for {Scope}", interfaces.Count(), businessProcesses.Length, diagramScope);
                 
                 if (!interfaces.Any() && !businessProcesses.Any()) continue;
 
@@ -150,6 +153,7 @@ public class DrawDiagramsCommand : Command
                                         displayOptions.ShowInterfaceInputAndOutput,
                                         outputOptions.OutputDirectory,
                                         outputOptions.OutputSubDirectory,
+                                        outputOptions.SubtractPath,
                                         outputOptions.DiagramNamePrefix);
 
                                     DrawSequenceDiagrams(
@@ -161,6 +165,7 @@ public class DrawDiagramsCommand : Command
                                         displayOptions.ShowInterfaceInputAndOutput,
                                         outputOptions.OutputDirectory,
                                         outputOptions.OutputSubDirectory,
+                                        outputOptions.SubtractPath,
                                         outputOptions.DiagramNamePrefix);
                                     break;
                                 }
@@ -175,6 +180,7 @@ public class DrawDiagramsCommand : Command
                                         displayOptions.ShowInterfaceInputAndOutput,
                                         outputOptions.OutputDirectory,
                                         outputOptions.OutputSubDirectory,
+                                        outputOptions.SubtractPath,
                                         outputOptions.DiagramNamePrefix,
                                         SequenceDiagramStyle.C4);
 
@@ -187,6 +193,7 @@ public class DrawDiagramsCommand : Command
                                         displayOptions.ShowInterfaceInputAndOutput,
                                         outputOptions.OutputDirectory,
                                         outputOptions.OutputSubDirectory,
+                                        outputOptions.SubtractPath,
                                         outputOptions.DiagramNamePrefix,
                                         SequenceDiagramStyle.C4);
                                     break;
@@ -207,8 +214,10 @@ public class DrawDiagramsCommand : Command
                                         displayOptions.MaxLineLabels,
                                         outputOptions.OutputDirectory,
                                         outputOptions.OutputSubDirectory,
+                                        outputOptions.SubtractPath,
                                         isStatic,
-                                        outputOptions.DiagramNamePrefix);
+                                        outputOptions.DiagramNamePrefix,
+                                        displayOptions.ExpandUpstream);
 
                                     DrawC4Diagrams(
                                         diagramScope,
@@ -220,6 +229,7 @@ public class DrawDiagramsCommand : Command
                                         displayOptions.MaxLineLabels,
                                         outputOptions.OutputDirectory,
                                         outputOptions.OutputSubDirectory,
+                                        outputOptions.SubtractPath,
                                         isStatic);
                                     break;
                                 }
@@ -261,7 +271,7 @@ public class DrawDiagramsCommand : Command
         return result;
     }
 
-    private static IEnumerable<Interface> GetInterfaces(IEnumerable<string> interfaceAliases, string scope)
+    private static async Task<IEnumerable<Interface>> GetInterfaces(IEnumerable<string> interfaceAliases, string scope)
     {
         var result = new List<Interface>();
         string pattern = string.Empty;
@@ -309,8 +319,10 @@ public class DrawDiagramsCommand : Command
 
         if (!string.IsNullOrEmpty(pattern))
         {
-            foreach (string interfaceAlias in interfaceAliases
-                .Where(x => Regex.IsMatch(x, pattern)))
+            var scopedInterfaceAliases = interfaceAliases
+                .Where(x => Regex.IsMatch(x, pattern));
+
+            foreach (string interfaceAlias in scopedInterfaceAliases)
             {
                 var interfaceInstance = C4InterFlow.Utils.GetInstance<Interface>(interfaceAlias);
                 if (interfaceInstance != null)
@@ -382,7 +394,7 @@ public class DrawDiagramsCommand : Command
     private static Diagram GetDiagram(
         string scope, 
         string levelOfDetails, 
-        Interface[] interfaces, 
+        IEnumerable<Interface> interfaces, 
         bool showBoundaries, 
         bool showInterfaceInputAndOutput, 
         int maxLineLabels = DiagramMaxLineLabelsOption.DefaultValue,
@@ -400,7 +412,7 @@ public class DrawDiagramsCommand : Command
             {
                 scopedStructureTitle = GetTitle(scopedStructureAlias);
             }
-            else if (TryParseStructureAlias(scopedStructureAlias, out var system, out var container, out var component))
+            else if (TryParseStructureAlias(scopedStructureAlias, out var system, out var container, out var component, out var @interface))
             {
                 if(C4InterFlow.Utils.TryGetNamespaceAlias(scopedStructureAlias, out var namespaceAlias))
                 {
@@ -409,6 +421,7 @@ public class DrawDiagramsCommand : Command
                 scopedStructureTitle = $"{scopedStructureTitle}{(!string.IsNullOrEmpty(scopedStructureTitle) && system != null ? $" - {system.Label}" : string.Empty)}";
                 scopedStructureTitle = $"{scopedStructureTitle}{(!string.IsNullOrEmpty(scopedStructureTitle) && container != null ? $" - {container.Label}" : string.Empty)}";
                 scopedStructureTitle = $"{scopedStructureTitle}{(!string.IsNullOrEmpty(scopedStructureTitle) && component != null ? $" - {component.Label}" : string.Empty)}";
+                scopedStructureTitle = $"{scopedStructureTitle}{(!string.IsNullOrEmpty(scopedStructureTitle) && @interface != null ? $" - {@interface.Label}" : string.Empty)}";
             }
         }
 
@@ -523,7 +536,18 @@ public class DrawDiagramsCommand : Command
         return result;
     }
 
-    private static void DrawSequenceDiagrams(string scope, string levelOfDetails, BusinessProcess[] businessProcesses, string[] formats, bool showBoundaries, bool showInterfaceInputAndOutput, string outputDirectory, string? outputSubDirectory = null, string? diagramNamePrefix = null, SequenceDiagramStyle? style = SequenceDiagramStyle.PlantUML)
+    private static void DrawSequenceDiagrams(
+        string scope, 
+        string levelOfDetails, 
+        BusinessProcess[] businessProcesses, 
+        string[] formats, 
+        bool showBoundaries, 
+        bool showInterfaceInputAndOutput, 
+        string outputDirectory, 
+        string? outputSubDirectory = null,
+        string? subtractPath = null,
+        string? diagramNamePrefix = null, 
+        SequenceDiagramStyle? style = SequenceDiagramStyle.PlantUML)
     {
         if (!businessProcesses.Any()) return;
 
@@ -561,6 +585,7 @@ public class DrawDiagramsCommand : Command
                     out var path,
                     out var fileName,
                     outputSubDirectory,
+                    subtractPath,
                     diagramNamePrefix))
             {
                 context.Export(outputDirectory, diagram, path, fileName);
@@ -571,7 +596,19 @@ public class DrawDiagramsCommand : Command
         
     }
 
-    private static void DrawC4Diagrams(string scope, string levelOfDetails, BusinessProcess[] businessProcesses, string[] formats, bool showBoundaries, bool showInterfaceInputAndOutput, int maxLineLabels, string outputDirectory, string? outputSubDirectory = null, bool isStatic = false, string? diagramNamePrefix = null)
+    private static void DrawC4Diagrams(
+        string scope, 
+        string levelOfDetails, 
+        IEnumerable<BusinessProcess> businessProcesses, 
+        IEnumerable<string> formats, 
+        bool showBoundaries, 
+        bool showInterfaceInputAndOutput, 
+        int maxLineLabels, 
+        string outputDirectory, 
+        string? outputSubDirectory = null,
+        string? subtractPath = null,
+        bool isStatic = false, 
+        string? diagramNamePrefix = null)
     {
         if (!businessProcesses.Any()) return;
 
@@ -620,7 +657,18 @@ public class DrawDiagramsCommand : Command
         progress.Complete();
     }
 
-    private static void DrawSequenceDiagrams(string scope, string levelOfDetails, Interface[] interfaces, string[] formats, bool showBoundaries, bool showInterfaceInputAndOutput, string outputDirectory, string? outputSubDirectory = null, string? diagramNamePrefix = null, SequenceDiagramStyle? style = SequenceDiagramStyle.PlantUML)
+    private static void DrawSequenceDiagrams(
+        string scope, 
+        string levelOfDetails, 
+        IEnumerable<Interface> interfaces, 
+        string[] formats, 
+        bool showBoundaries, 
+        bool showInterfaceInputAndOutput, 
+        string outputDirectory, 
+        string? outputSubDirectory = null, 
+        string? subtractPath = null,
+        string? diagramNamePrefix = null, 
+        SequenceDiagramStyle? style = SequenceDiagramStyle.PlantUML)
     {
         if (!interfaces.Any()) return;
 
@@ -658,6 +706,7 @@ public class DrawDiagramsCommand : Command
                     out var path,
                     out var fileName,
                     outputSubDirectory,
+                    subtractPath,
                     diagramNamePrefix))
             {
                 context.Export(outputDirectory, diagram, path, fileName);
@@ -667,7 +716,21 @@ public class DrawDiagramsCommand : Command
         progress.Complete();
     }
 
-    private static void DrawC4Diagrams(string scope, string levelOfDetails, Interface[] interfaces, string[] namespaces, string[] formats, bool showBoundaries, bool showInterfaceInputAndOutput, int maxLineLabels, string outputDirectory, string? outputSubDirectory = null, bool isStatic = false, string? diagramNamePrefix = null)
+    private static void DrawC4Diagrams(
+        string scope, 
+        string levelOfDetails, 
+        IEnumerable<Interface> interfaces, 
+        string[] namespaces, 
+        string[] formats, 
+        bool showBoundaries, 
+        bool showInterfaceInputAndOutput, 
+        int maxLineLabels, 
+        string outputDirectory, 
+        string? outputSubDirectory = null,
+        string? subtractPath = null,
+        bool isStatic = false, string? 
+        diagramNamePrefix = null, 
+        bool expandUpstream = false)
     {
         if (!interfaces.Any()) return;
 
@@ -739,7 +802,7 @@ public class DrawDiagramsCommand : Command
 
             foreach(var namespaceAlias in namespaceAliases)
             {
-                if (namespaces.Any() && !namespaces.Contains(namespaceAlias))
+                if (namespaces != null && namespaces.Any() && !namespaces.Contains(namespaceAlias))
                     continue;
 
                 var namespaceInterfaces = scope == DiagramScopesOption.NAMESPACE ?
@@ -766,6 +829,7 @@ public class DrawDiagramsCommand : Command
                             out var path,
                             out var fileName,
                             outputSubDirectory,
+                            subtractPath,
                             diagramNamePrefix))
                     {
                         context.Export(outputDirectory, diagram, path, fileName);
@@ -793,10 +857,12 @@ public class DrawDiagramsCommand : Command
             Parallel.ForEach(softwareSystemAliases, softwareSystemAlias =>
             {
                 var systemInterfaces = interfaces.Where(x => x.Alias.StartsWith($"{softwareSystemAlias}.")).ToArray();
+                var upstreamInterfaces = GetUpstreamInterfaces(systemInterfaces, expandUpstream);
+
                 var diagram = GetDiagram(
                     scope,
                     levelOfDetails,
-                    systemInterfaces,
+                    expandUpstream && upstreamInterfaces.Any() ? upstreamInterfaces : systemInterfaces,
                     showBoundaries,
                     showInterfaceInputAndOutput,
                     maxLineLabels,
@@ -811,6 +877,7 @@ public class DrawDiagramsCommand : Command
                         out var path,
                         out var fileName,
                         outputSubDirectory,
+                        subtractPath,
                         diagramNamePrefix))
                 {
                     context.Export(outputDirectory, diagram, path, fileName);
@@ -835,10 +902,12 @@ public class DrawDiagramsCommand : Command
             Parallel.ForEach(containerAliases, containerAlias =>
             {
                 var containerInterfaces = interfaces.Where(x => x.Alias.StartsWith($"{containerAlias}.")).ToArray();
+                var upstreamInterfaces = GetUpstreamInterfaces(containerInterfaces, expandUpstream);
+                
                 var diagram = GetDiagram(
                     scope,
                     levelOfDetails,
-                    containerInterfaces,
+                    expandUpstream && upstreamInterfaces.Any() ? upstreamInterfaces : containerInterfaces,
                     showBoundaries,
                     showInterfaceInputAndOutput,
                     maxLineLabels,
@@ -853,6 +922,7 @@ public class DrawDiagramsCommand : Command
                         out var path,
                         out var fileName,
                         outputSubDirectory,
+                        subtractPath,
                         diagramNamePrefix))
                 {
                     context.Export(outputDirectory, diagram, path, fileName);
@@ -877,10 +947,12 @@ public class DrawDiagramsCommand : Command
             Parallel.ForEach(componentAliases, componentAlias =>
             {
                 var componentInterfaces = interfaces.Where(x => x.Alias.StartsWith($"{componentAlias}.")).ToArray();
+                var upstreamInterfaces = GetUpstreamInterfaces(componentInterfaces, expandUpstream);
+
                 var diagram = GetDiagram(
                     scope,
                     levelOfDetails,
-                    componentInterfaces,
+                    expandUpstream && upstreamInterfaces.Any() ? upstreamInterfaces : componentInterfaces,
                     showBoundaries,
                     showInterfaceInputAndOutput,
                     maxLineLabels,
@@ -895,6 +967,7 @@ public class DrawDiagramsCommand : Command
                         out var path,
                         out var fileName,
                         outputSubDirectory,
+                        subtractPath,
                         diagramNamePrefix))
                 {
                     context.Export(outputDirectory, diagram, path, fileName);
@@ -913,14 +986,26 @@ public class DrawDiagramsCommand : Command
 
             Parallel.ForEach(interfaces, @interface =>
             {
-                var diagram = GetDiagram(
-                    diagramType,
-                    levelOfDetails,
-                    @interface,
-                    showBoundaries,
-                    showInterfaceInputAndOutput,
-                    maxLineLabels,
-                    isStatic);
+                var upstreamInterfaces = GetUpstreamInterfaces(new Interface[] { @interface }, expandUpstream);
+
+                var diagram = expandUpstream && upstreamInterfaces.Any() ?
+                    GetDiagram(
+                        diagramType,
+                        levelOfDetails,
+                        upstreamInterfaces,
+                        showBoundaries,
+                        showInterfaceInputAndOutput,
+                        maxLineLabels,
+                        isStatic,
+                        @interface.Alias) : 
+                    GetDiagram(
+                        diagramType,
+                        levelOfDetails,
+                        @interface,
+                        showBoundaries,
+                        showInterfaceInputAndOutput,
+                        maxLineLabels,
+                        isStatic);
 
                 if (TryGetDiagramPath(
                     scope,
@@ -930,6 +1015,7 @@ public class DrawDiagramsCommand : Command
                     out var path,
                     out var fileName,
                     outputSubDirectory,
+                    subtractPath,
                     diagramNamePrefix))
                 {
                     context.Export(outputDirectory, diagram, path, fileName);
@@ -940,7 +1026,35 @@ public class DrawDiagramsCommand : Command
         }
     }
 
-    private static bool TryGetDiagramPath(string scope, string levelOfDetails, string diagramType, out string? path, out string? fileName, string? outputSubDirectory = null, string? diagramNamePrefix = null)
+    private static IEnumerable<Interface> GetUpstreamInterfaces(IEnumerable<Interface> interfaces, bool expandUpstream)
+    {
+        var result = new List<Interface>();
+
+        if (expandUpstream)
+        {
+            var queryOutputContextKey = QueryUseFlowsCommand.OUTPUT_CONTEXT_KEY;
+            var commandResult = QueryUseFlowsCommand.Execute(
+                interfaces.Select(x => x.Alias).ToArray(), true,
+                outputToContext: true).Result;
+
+            if (Context.Instance.TryGetValue(queryOutputContextKey, out var value))
+            {
+                if (value is IEnumerable<string> contextInterfaces)
+                {
+                    result = GetInterfaces(contextInterfaces.Distinct(), DiagramScopesOption.ALL_SOFTWARE_SYSTEMS).Result.ToList();
+                }
+            }
+        }
+        return result;
+    }
+    private static bool TryGetDiagramPath(
+        string scope, 
+        string levelOfDetails, 
+        string diagramType, 
+        out string? path, 
+        out string? fileName, 
+        string? outputSubDirectory = null, 
+        string? diagramNamePrefix = null)
     {
         if(scope == DiagramScopesOption.ALL_SOFTWARE_SYSTEMS)
         {
@@ -955,7 +1069,17 @@ public class DrawDiagramsCommand : Command
         return path != null && !string.IsNullOrEmpty(fileName);
     }
 
-    private static bool TryGetDiagramPath(string scope, string levelOfDetails, string diagramType, string namespaceAlias, out string path, out string fileName, string? outputSubDirectory = null, string? diagramNamePrefix = null)
+    private static bool TryGetDiagramPath(
+        string scope,
+        string levelOfDetails,
+        string diagramType,
+        string namespaceAlias,
+        out string path,
+        out string fileName,
+        string? outputSubDirectory = null,
+        string? subtractPath = null,
+        string? diagramNamePrefix = null)
+        
     {
         if(scope != DiagramScopesOption.NAMESPACE &&
             scope != DiagramScopesOption.NAMESPACE_SOFTWARE_SYSTEMS)
@@ -964,14 +1088,16 @@ public class DrawDiagramsCommand : Command
             return false;
         }
 
-        path = !string.IsNullOrEmpty(outputSubDirectory) ? outputSubDirectory : string.Empty;
+        path = C4InterFlow.Utils.GetPathFromAlias(namespaceAlias);
 
-        foreach (var segment in namespaceAlias!.Split('.'))
+        if (!string.IsNullOrEmpty(subtractPath))
         {
-            path = Path.Join(path, C4InterFlow.Utils.GetLabel(segment));
+            path = path.Replace(subtractPath, string.Empty);
         }
 
-        if(scope == DiagramScopesOption.NAMESPACE_SOFTWARE_SYSTEMS)
+        path = Path.Join(!string.IsNullOrEmpty(outputSubDirectory) ? outputSubDirectory : string.Empty, path);
+
+        if (scope == DiagramScopesOption.NAMESPACE_SOFTWARE_SYSTEMS)
         {
             path = Path.Join(path, "Software Systems");
         }
@@ -980,17 +1106,27 @@ public class DrawDiagramsCommand : Command
 
         return !string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(fileName);
     }
-    private static bool TryGetDiagramPath(string scope, string levelOfDetails, string diagramType, Interface @interface, out string path, out string fileName, string? outputSubDirectory = null, string? diagramNamePrefix = null)
+    private static bool TryGetDiagramPath(
+        string scope, 
+        string levelOfDetails, 
+        string diagramType, 
+        Interface @interface, 
+        out string path, 
+        out string fileName, 
+        string? outputSubDirectory = null,
+        string? subtractPath = null,
+        string? diagramNamePrefix = null)
     {
-        path = !string.IsNullOrEmpty(outputSubDirectory) ? outputSubDirectory : string.Empty;
 
-        if (C4InterFlow.Utils.TryGetNamespaceAlias(@interface.Alias, out var namespaceAlias))
+        path = C4InterFlow.Utils.TryGetNamespaceAlias(@interface.Alias, out var namespaceAlias) ?
+                C4InterFlow.Utils.GetPathFromAlias(namespaceAlias) : string.Empty;
+
+        if(!string.IsNullOrEmpty(subtractPath))
         {
-            foreach (var segment in namespaceAlias!.Split('.'))
-            {
-                path = Path.Join(path, C4InterFlow.Utils.GetLabel(segment));
-            }
+            path = path.Replace(subtractPath, string.Empty);
         }
+
+        path = Path.Join(!string.IsNullOrEmpty(outputSubDirectory) ? outputSubDirectory : string.Empty, path);
 
         fileName = $"{(!string.IsNullOrEmpty(diagramNamePrefix) ? $"{diagramNamePrefix} - " : string.Empty)}{ToPrettyName(levelOfDetails)} - {ToPrettyName(diagramType)}.puml";
 
@@ -1109,27 +1245,29 @@ public class DrawDiagramsCommand : Command
         return result;
     }
 
-    private static bool TryGetDiagramPath(string scope, string levelOfDetails, string diagramType, BusinessProcess businessProcess, out string path, out string fileName, string? outputSubDirectory = null, string? diagramNamePrefix = null)
+    private static bool TryGetDiagramPath(
+        string scope, 
+        string levelOfDetails, 
+        string diagramType, 
+        BusinessProcess businessProcess, 
+        out string path, 
+        out string fileName, 
+        string? outputSubDirectory = null,
+        string? subtractPath = null,
+        string? diagramNamePrefix = null)
     {
         
-        if(!string.IsNullOrEmpty(outputSubDirectory))
-        {
-            path = outputSubDirectory;
-        }
-        else
-        {
-            path = string.Empty;
+        path = C4InterFlow.Utils.TryGetNamespaceAlias(businessProcess.Alias, out var namespaceAlias) ?
+            C4InterFlow.Utils.GetPathFromAlias(namespaceAlias) : string.Empty;
 
-            if (C4InterFlow.Utils.TryGetNamespaceAlias(businessProcess.Alias, out var namespaceAlias))
-            {
-                foreach (var segment in namespaceAlias!.Split('.'))
-                {
-                    path = Path.Join(path, C4InterFlow.Utils.GetLabel(segment));
-                }
-            }
-
-            path = Path.Join(path, "Business Processes");
+        if (!string.IsNullOrEmpty(subtractPath))
+        {
+            path = path.Replace(subtractPath, string.Empty);
         }
+
+        path = Path.Join(!string.IsNullOrEmpty(outputSubDirectory) ? outputSubDirectory : string.Empty, path);
+
+        path = Path.Join(path, "Business Processes");
 
         fileName = $"{(!string.IsNullOrEmpty(diagramNamePrefix) ? $"{diagramNamePrefix} - " : string.Empty)}{ToPrettyName(levelOfDetails)} - {ToPrettyName(diagramType)}.puml";
 
@@ -1213,34 +1351,40 @@ public class DrawDiagramsCommand : Command
         return (system as Structure) != null;
     }
 
-    private static bool TryParseStructureAlias(string structureAlias, out SoftwareSystem? system, out Container? container, out Component? component)
+    private static bool TryParseStructureAlias(string structureAlias, out SoftwareSystem? system, out Container? container, out Component? component, out Interface? @interface)
     {
         container = default(Container);
         system = default(SoftwareSystem);
         component = default(Component);
+        @interface = default(Interface);
 
-        var interfacesSegment = ".Interfaces.";
-        if (structureAlias == null || structureAlias.Contains(interfacesSegment)) return false;
+        if (structureAlias == null)
+            return false;
 
         try
         {
+            if (structureAlias.Contains(".Interfaces."))
+            {
+                @interface = C4InterFlow.Utils.GetInstance<Interface>(structureAlias);
+            }
+            
             if (structureAlias.Contains(".Components."))
             {
-                component = C4InterFlow.Utils.GetInstance<Component>(structureAlias);
+                component = C4InterFlow.Utils.GetInstance<Component>(@interface == null ? structureAlias : @interface.Owner);
                 container = C4InterFlow.Utils.GetInstance<Container>(component?.Container);
                 system = C4InterFlow.Utils.GetInstance<SoftwareSystem>(container?.SoftwareSystem);
             }
             else if (structureAlias.Contains(".Containers."))
             {
-                container = C4InterFlow.Utils.GetInstance<Container>(structureAlias);
+                container = C4InterFlow.Utils.GetInstance<Container>(@interface == null ? structureAlias : @interface.Owner);
                 system = C4InterFlow.Utils.GetInstance<SoftwareSystem>(container?.SoftwareSystem);
             }
             else if ((structureAlias.Contains(".SoftwareSystems.")))
             {
-                system = C4InterFlow.Utils.GetInstance<SoftwareSystem>(structureAlias);
+                system = C4InterFlow.Utils.GetInstance<SoftwareSystem>(@interface == null ? structureAlias : @interface.Owner);
             }
 
-            return (system as Structure ?? container as Structure ?? component as Structure) != null;
+            return (system as Structure ?? container as Structure ?? component as Structure ?? @interface as Structure) != null;
         }
         catch
         {

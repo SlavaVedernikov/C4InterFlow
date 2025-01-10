@@ -8,7 +8,7 @@ participant "Product Service" as ECommercePlatform.CreateProduct.ProductInformat
 
 C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService : Handle Product Deleted Event
 group Handle Product Deleted Event
-ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService -> ..ProductService : Receive Product Deleted Event
+ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService -> ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService : Receive Product Deleted Event
 end
 
 

@@ -29,12 +29,14 @@ ECommercePlatform:
                   - Type: Use
                     Expression: Messaging.Interfaces.SendPurchaseOrderDeletedEvent
             Database:
+              ContainerType: Database
               Interfaces:
                 InsertPurchaseOrder: {}
                 UpdatePurchaseOrder: {}
                 DeletePurchaseOrder: {}
                 SelectPurchaseOrder: {}
             Messaging:
+              ContainerType: Topic
               Interfaces:
                 SendPurchaseOrderCreatedEvent: {}
                 SendPurchaseOrderUpdatedEvent: {}

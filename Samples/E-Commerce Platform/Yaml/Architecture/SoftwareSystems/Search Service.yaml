@@ -11,6 +11,7 @@ ECommercePlatform:
                   - Type: Use
                     Expression: Database.Interfaces.SelectProducts
             Database:
+              ContainerType: Database
               Interfaces:
                 SelectProducts: {}
                 InsertProduct: {}

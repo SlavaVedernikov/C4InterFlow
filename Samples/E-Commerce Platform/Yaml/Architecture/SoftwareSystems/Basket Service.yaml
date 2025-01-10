@@ -32,6 +32,7 @@ ECommercePlatform:
                     Expression: Database.Interfaces.DeleteBasket
                   Path: DELETE v1/baskets/{basketId}
             Database:
+              ContainerType: Database
               Interfaces:
                 InsertItem: {}
                 UpdateItem: {}

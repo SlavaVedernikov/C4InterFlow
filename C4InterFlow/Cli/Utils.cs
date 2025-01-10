@@ -1,9 +1,7 @@
 ﻿using C4InterFlow.Automation;
 using C4InterFlow.Structures;
-using C4InterFlow.Structures.Interfaces;
-using System.Reflection;
-using System.Runtime.Loader;
 using Serilog;
+using System.Text.RegularExpressions;
 
 namespace C4InterFlow.Cli
 {
@@ -79,7 +77,7 @@ namespace C4InterFlow.Cli
             }
         }
 
-        public static void SetArchitectureAsCodeReaderContext(string[] architectureAsCodeInputPaths, string architectureAsCodeReaderStrategyType)
+        public static void SetArchitectureAsCodeReaderContext(string[] architectureAsCodeInputPaths, string architectureAsCodeReaderStrategyType, string[] viewsInputPaths = null)
         {
             Type? strategyType = GetAaCReaderStrategyType(architectureAsCodeReaderStrategyType);
 
@@ -95,7 +93,15 @@ namespace C4InterFlow.Cli
                 throw new ArgumentException($"'{architectureAsCodeReaderStrategyType}' is not a valid Architecture As Code Reader Strategy type.");
             }
 
-            AaCReaderContext.SetCurrentStrategy(strategyInstance, architectureAsCodeInputPaths, new Dictionary<string, string>());
+            AaCReaderContext.SetCurrentStrategy(strategyInstance, architectureAsCodeInputPaths, viewsInputPaths, new Dictionary<string, string>());
+        }
+
+        public static string ToKebabCase(string value)
+        {
+            // Add hyphens before each uppercase letter that has a lowercase letter following it,
+            // then convert the entire string to lowercase.
+            var result = Regex.Replace(value, @"([a-z0-9])([A-Z])", "$1-$2").ToLower();
+            return result;
         }
 
         private static Type? GetAaCReaderStrategyType(string readerStrategyType)

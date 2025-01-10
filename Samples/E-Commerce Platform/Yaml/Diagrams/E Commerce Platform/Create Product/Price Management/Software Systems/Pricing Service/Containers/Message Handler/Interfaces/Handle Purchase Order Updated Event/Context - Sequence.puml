@@ -8,7 +8,7 @@ participant "Buying Service" as ECommercePlatform.CreateProduct.BuyingAndMerchan
 
 C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService : Handle Purchase Order Updated Event
 group Handle Purchase Order Updated Event
-ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService -> ..BuyingService : Receive Purchase Order Updated Event
+ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService -> ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService : Receive Purchase Order Updated Event
 end
 
 

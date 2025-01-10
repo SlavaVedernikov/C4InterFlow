@@ -28,7 +28,7 @@ public static class DiagramTypesOption
         return option;        
     }
 
-    public static string[] GetAllDiagramTypes()
+    public static string[] GetAllValues()
     {
         return new[] { C4, C4_STATIC, C4_SEQUENCE, SEQUENCE, ENTITY };
     }

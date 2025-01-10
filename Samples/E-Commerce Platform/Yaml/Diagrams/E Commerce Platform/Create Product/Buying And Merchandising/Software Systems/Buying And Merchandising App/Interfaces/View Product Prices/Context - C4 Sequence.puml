@@ -8,8 +8,8 @@ System(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.Bu
 System(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService, "Pricing Service", "")
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingAndMerchandisingApp, "View Product Prices")
-Rel(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingAndMerchandisingApp, ..PricingService, "Get Product Prices")
-Rel(..PricingService, ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService, "Select Product Prices")
+Rel(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingAndMerchandisingApp, ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService, "Get Product Prices")
+Rel(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService, ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService, "Select Product Prices")
 
 
 @enduml

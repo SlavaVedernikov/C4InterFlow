@@ -1,0 +1,14 @@
+ECommercePlatform:
+  Views:
+    Apis:
+      Scopes:
+      - Container
+      Types:
+      - C4
+      LevelsOfDetails:
+      - Container
+      Interfaces:
+      - ..Containers.Api.Interfaces.*
+      ExpandUpstream: true
+      Formats:
+      - svg

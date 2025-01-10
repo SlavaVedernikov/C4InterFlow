@@ -8,8 +8,8 @@ System(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff
 System(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService, "Basket Service", "")
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, "Add Basket Item")
-Rel(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, ..BasketService, "Add Item")
-Rel(..BasketService, ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService, "Insert Item")
+Rel(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService, "Add Item")
+Rel(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService, ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService, "Insert Item")
 
 
 @enduml

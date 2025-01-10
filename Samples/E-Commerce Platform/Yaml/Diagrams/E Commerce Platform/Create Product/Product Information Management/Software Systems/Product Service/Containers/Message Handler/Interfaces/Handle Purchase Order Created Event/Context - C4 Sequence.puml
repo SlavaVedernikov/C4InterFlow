@@ -8,7 +8,7 @@ System(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSyst
 System(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService, "Buying Service", "")
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService, "Handle Purchase Order Created Event")
-Rel(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService, ..BuyingService, "Receive Purchase Order Created Event")
+Rel(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService, ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService, "Receive Purchase Order Created Event")
 
 
 @enduml

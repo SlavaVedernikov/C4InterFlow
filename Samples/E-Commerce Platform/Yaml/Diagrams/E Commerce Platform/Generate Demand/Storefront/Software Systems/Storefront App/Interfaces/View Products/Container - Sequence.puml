@@ -8,7 +8,7 @@ participant "Storefront Bff" as ECommercePlatform.GenerateDemand.Storefront.Soft
 
 box "Product Service" #White
     participant "Api" as ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Api
-    participant "Database" as ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Database
+    database "Database" as ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Database
 end box
 
 

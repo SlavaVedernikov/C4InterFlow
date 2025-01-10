@@ -17,7 +17,9 @@ skinparam linetype polyline
 title E Commerce Platform - Deliver - Payments - Payment Provider - Process Payment - C4 - Context level
 
 System(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider, "Payment Provider", "")
+System(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, "Payment Service", "")
 
+Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, "Post Payment Result Event")
 
 
 SHOW_LEGEND()

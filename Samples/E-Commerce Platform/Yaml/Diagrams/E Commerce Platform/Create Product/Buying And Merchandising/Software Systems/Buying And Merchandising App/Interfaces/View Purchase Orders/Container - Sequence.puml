@@ -7,7 +7,7 @@ participant "Buying And Merchandising App" as ECommercePlatform.CreateProduct.Bu
 
 box "Buying Service" #White
     participant "Api" as ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Api
-    participant "Database" as ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Database
+    database "Database" as ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Database
 end box
 
 

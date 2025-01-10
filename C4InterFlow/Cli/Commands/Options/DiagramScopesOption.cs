@@ -42,7 +42,7 @@ public static class DiagramScopesOption
         return option;        
     }
 
-    public static string[] GetAllScopes()
+    public static string[] GetAllValues()
     {
         return new[] {
             ALL_SOFTWARE_SYSTEMS,
