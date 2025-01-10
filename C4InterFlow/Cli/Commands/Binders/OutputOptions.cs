@@ -10,7 +10,7 @@ namespace C4InterFlow.Cli.Commands.Binders
     public class OutputOptions
     {
         public OutputOptions(string outputDirectory, string? diagramNamePrefix, string[]? formats, string? outputSubDirectory = null, string? subtractPath = null) { 
-            OutputDirectory = outputDirectory;
+            OutputDirectory = Path.GetFullPath(outputDirectory);
             DiagramNamePrefix = diagramNamePrefix;
             Formats = formats;
             OutputSubDirectory = outputSubDirectory;

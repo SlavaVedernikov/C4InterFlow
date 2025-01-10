@@ -75,7 +75,7 @@ if %redraw-all%==TRUE (
 %cli-output-dir%\%cli-exe% draw-diagrams --interfaces ..SoftwareSystems.*.Interfaces.* ..SoftwareSystems.*.Containers.*.Interfaces.* --business-processes ..BusinessProcesses.* --levels-of-details context container --aac-reader-strategy "%aac-reader-strategy%" --aac-input-paths "%aac-input-paths%" --output-dir "%diagrams-dir%" 
 )
 
-%cli-output-dir%\%cli-exe% execute-views --views ..Views.* --aac-reader-strategy "%aac-reader-strategy%" --aac-input-paths "%aac-input-paths%" --view-input-paths "%view-input-paths%" --output-dir "$(ProjectDir)\..\Samples\E-Commerce Platform\Yaml\Diagrams"
+%cli-output-dir%\%cli-exe% execute-views --views ..Views.* --aac-reader-strategy "%aac-reader-strategy%" --aac-input-paths "%aac-input-paths%" --view-input-paths "%view-input-paths%" --output-dir "%diagrams-dir%"
 
 if NOT "%BATCH_TEST_MODE%"=="1" pause
 @GOTO :end

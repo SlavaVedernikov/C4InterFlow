@@ -648,6 +648,7 @@ public class DrawDiagramsCommand : Command
                     out var path,
                     out var fileName,
                     outputSubDirectory,
+                    subtractPath,
                     diagramNamePrefix))
             {
                 context.Export(outputDirectory, diagram, path, fileName);
