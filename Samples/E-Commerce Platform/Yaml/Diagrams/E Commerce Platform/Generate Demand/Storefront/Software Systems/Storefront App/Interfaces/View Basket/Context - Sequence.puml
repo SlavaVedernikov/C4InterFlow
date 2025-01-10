@@ -11,9 +11,9 @@ C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.GenerateDemand.S
 group View Basket
 ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontApp -> ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff : Get Basket
 group Get Basket
-ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff -> ..BasketService : Get Items
+ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff -> ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService : Get Items
 group Get Items
-..BasketService -> ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService : Select Items
+ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService -> ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService : Select Items
 end
 end
 end

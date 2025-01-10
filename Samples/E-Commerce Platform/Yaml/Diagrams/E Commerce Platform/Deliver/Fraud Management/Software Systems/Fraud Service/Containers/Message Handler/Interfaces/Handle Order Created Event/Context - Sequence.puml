@@ -9,7 +9,7 @@ participant "Fraud Engine" as ECommercePlatform.Deliver.FraudManagement.Software
 
 C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService : Handle Order Created Event
 group Handle Order Created Event
-ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService -> ..OrderService : Receive Order Created Event
+ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService -> ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService : Receive Order Created Event
 ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService -> ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudEngine : Get Fraud Check Result
 end
 

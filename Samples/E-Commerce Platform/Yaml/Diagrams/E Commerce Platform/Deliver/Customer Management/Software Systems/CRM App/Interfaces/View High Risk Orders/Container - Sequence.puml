@@ -7,7 +7,7 @@ participant "CRM App" as ECommercePlatform.Deliver.CustomerManagement.SoftwareSy
 
 box "Fraud Service" #White
     participant "Api" as ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Api
-    participant "Database" as ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Database
+    database "Database" as ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Database
 end box
 
 

@@ -10,8 +10,8 @@ System(ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchSe
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontApp, "Search Products")
 Rel(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontApp, ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, "Search Products")
-Rel(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, ..SearchService, "Search Products")
-Rel(..SearchService, ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService, "Select Products")
+Rel(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService, "Search Products")
+Rel(ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService, ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService, "Select Products")
 
 
 @enduml

@@ -9,13 +9,13 @@ System(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff
 
 System_Boundary(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Order Service")
     Container(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Api, "Api", "", "")
-    Container(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Database, "Database", "", "")
-    Container(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging, "Messaging", "", "")
+    ContainerDb(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Database, "Database", "", "")
+    ContainerQueue(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging, "Messaging", "", "")
 Boundary_End()
 
 System_Boundary(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService, "Basket Service")
     Container(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Api, "Api", "", "")
-    Container(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Database, "Database", "", "")
+    ContainerDb(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Database, "Database", "", "")
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontApp, "Checkout")

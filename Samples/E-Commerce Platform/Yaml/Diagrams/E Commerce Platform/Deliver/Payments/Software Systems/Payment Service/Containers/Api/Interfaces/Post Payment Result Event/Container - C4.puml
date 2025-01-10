@@ -19,8 +19,8 @@ title E Commerce Platform - Deliver - Payments - Payment Service - Api - Post Pa
 
 System_Boundary(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, "Payment Service") {
     Container(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Api, "Api", "", "")
-    Container(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Database, "Database", "", "")
-    Container(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Messaging, "Messaging", "", "")
+    ContainerDb(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Database, "Database", "", "")
+    ContainerQueue(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Messaging, "Messaging", "", "")
 }
 
 Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Api, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Database, "Insert Payment Result")

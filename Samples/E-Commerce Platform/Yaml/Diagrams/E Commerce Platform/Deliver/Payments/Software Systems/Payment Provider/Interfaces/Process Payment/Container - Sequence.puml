@@ -5,7 +5,21 @@ title E Commerce Platform - Deliver - Payments - Payment Provider - Process Paym
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 participant "Payment Provider" as ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider
 
+box "Payment Service" #White
+    participant "Api" as ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Api
+    database "Database" as ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Database
+    participant "Messaging" as ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Messaging
+end box
+
+
 C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider : Process Payment
+group Process Payment
+ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider -> ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Api : Post Payment Result Event
+group Post Payment Result Event
+ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Api -> ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Database : Insert Payment Result
+ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Api -> ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Messaging : Send Payment Result Event
+end
+end
 
 
 @enduml

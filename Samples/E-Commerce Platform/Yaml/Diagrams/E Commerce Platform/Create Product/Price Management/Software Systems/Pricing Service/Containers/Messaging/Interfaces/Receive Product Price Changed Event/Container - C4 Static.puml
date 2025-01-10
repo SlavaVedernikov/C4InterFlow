@@ -18,7 +18,7 @@ title E Commerce Platform - Create Product - Price Management - Pricing Service 
 
 
 System_Boundary(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService, "Pricing Service") {
-    Container(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Messaging, "Messaging", "", "")
+    ContainerQueue(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Messaging, "Messaging", "", "")
 }
 
 

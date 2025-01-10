@@ -7,8 +7,8 @@ System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 
 System_Boundary(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, "Payment Service")
     Container(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Api, "Api", "", "")
-    Container(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Database, "Database", "", "")
-    Container(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Messaging, "Messaging", "", "")
+    ContainerDb(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Database, "Database", "", "")
+    ContainerQueue(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Messaging, "Messaging", "", "")
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Api, "Post Payment Result Event")

@@ -11,9 +11,9 @@ C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.GenerateDemand.S
 group Update Basket Item
 ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontApp -> ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff : Update Basket Item
 group Update Basket Item
-ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff -> ..BasketService : Update Item
+ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff -> ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService : Update Item
 group Update Item
-..BasketService -> ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService : Update Item
+ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService -> ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService : Update Item
 end
 end
 end

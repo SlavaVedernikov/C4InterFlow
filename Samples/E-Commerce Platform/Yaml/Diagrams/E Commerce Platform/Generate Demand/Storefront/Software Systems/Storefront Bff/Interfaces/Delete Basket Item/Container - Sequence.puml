@@ -7,7 +7,7 @@ participant "Storefront Bff" as ECommercePlatform.GenerateDemand.Storefront.Soft
 
 box "Basket Service" #White
     participant "Api" as ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Api
-    participant "Database" as ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Database
+    database "Database" as ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Database
 end box
 
 

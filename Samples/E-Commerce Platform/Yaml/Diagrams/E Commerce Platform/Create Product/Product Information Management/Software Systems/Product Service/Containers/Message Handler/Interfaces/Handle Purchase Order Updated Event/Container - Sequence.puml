@@ -6,7 +6,7 @@ participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 
 box "Product Service" #White
     participant "Message Handler" as ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.MessageHandler
-    participant "Database" as ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Database
+    database "Database" as ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Database
     participant "Messaging" as ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Messaging
 end box
 

@@ -21,41 +21,41 @@ System(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff
 
 System_Boundary(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService, "Product Service") {
     Container(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Api, "Api", "", "")
-    Container(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Database, "Database", "", "")
-    Container(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Messaging, "Messaging", "", "")
+    ContainerDb(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Database, "Database", "", "")
+    ContainerQueue(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Messaging, "Messaging", "", "")
     Container(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.MessageHandler, "Message Handler", "", "")
 }
 
 System_Boundary(ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService, "Search Service") {
     Container(ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService.Containers.Api, "Api", "", "")
-    Container(ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService.Containers.Database, "Database", "", "")
+    ContainerDb(ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService.Containers.Database, "Database", "", "")
     Container(ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService.Containers.MessageHandler, "Message Handler", "", "")
 }
 
 System_Boundary(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService, "Basket Service") {
     Container(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Api, "Api", "", "")
-    Container(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Database, "Database", "", "")
+    ContainerDb(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Database, "Database", "", "")
 }
 
 System_Boundary(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Order Service") {
     Container(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Api, "Api", "", "")
-    Container(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Database, "Database", "", "")
-    Container(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging, "Messaging", "", "")
+    ContainerDb(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Database, "Database", "", "")
+    ContainerQueue(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging, "Messaging", "", "")
     Container(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.MessageHandler, "Message Handler", "", "")
 }
 System(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingAndMerchandisingApp, "Buying And Merchandising App", "")
 
 System_Boundary(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService, "Buying Service") {
     Container(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Api, "Api", "", "")
-    Container(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Database, "Database", "", "")
-    Container(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Messaging, "Messaging", "", "")
+    ContainerDb(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Database, "Database", "", "")
+    ContainerQueue(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Messaging, "Messaging", "", "")
     Container(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.MessageHandler, "Message Handler", "", "")
 }
 
 System_Boundary(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService, "Pricing Service") {
     Container(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Api, "Api", "", "")
-    Container(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Database, "Database", "", "")
-    Container(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Messaging, "Messaging", "", "")
+    ContainerDb(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Database, "Database", "", "")
+    ContainerQueue(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Messaging, "Messaging", "", "")
     Container(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.MessageHandler, "Message Handler", "", "")
 }
 System(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.PIMApp, "PIM App", "")
@@ -63,8 +63,8 @@ System(ECommercePlatform.Deliver.CustomerManagement.SoftwareSystems.CRMApp, "CRM
 
 System_Boundary(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService, "Fraud Service") {
     Container(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Api, "Api", "", "")
-    Container(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Database, "Database", "", "")
-    Container(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Messaging, "Messaging", "", "")
+    ContainerDb(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Database, "Database", "", "")
+    ContainerQueue(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Messaging, "Messaging", "", "")
     Container(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.MessageHandler, "Message Handler", "", "")
 }
 System(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudEngine, "Fraud Engine", "")
@@ -72,16 +72,16 @@ System(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS, "WMS", "")
 
 System_Boundary(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService, "Fulfilment Service") {
     Container(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Api, "Api", "", "")
-    Container(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Database, "Database", "", "")
-    Container(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Messaging, "Messaging", "", "")
+    ContainerDb(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Database, "Database", "", "")
+    ContainerQueue(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Messaging, "Messaging", "", "")
     Container(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.MessageHandler, "Message Handler", "", "")
 }
 System(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider, "Payment Provider", "")
 
 System_Boundary(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, "Payment Service") {
-    Container(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Messaging, "Messaging", "", "")
     Container(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Api, "Api", "", "")
-    Container(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Database, "Database", "", "")
+    ContainerDb(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Database, "Database", "", "")
+    ContainerQueue(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Messaging, "Messaging", "", "")
     Container(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.MessageHandler, "Message Handler", "", "")
 }
 
@@ -109,6 +109,9 @@ Rel(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Conta
 Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Api, "Post Order Shipped Event")
 Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Api, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Database, "Update Order Status")
 Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Api, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Messaging, "Send Order Shipped Event")
+Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Api, "Post Payment Result Event")
+Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Api, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Database, "Insert Payment Result")
+Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Api, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Messaging, "Send Payment Result Event")
 Rel(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.MessageHandler, ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Messaging, "Receive Fraud Check Result Event")
 Rel(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.MessageHandler, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Database, "Update Order Status")
 Rel(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.MessageHandler, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging, "Send Order Status Changed Event")
@@ -131,8 +134,6 @@ Rel(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Conta
 Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.MessageHandler, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging, "Receive Order Status Changed Event")
 Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.MessageHandler, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Database, "Insert Order\nUpdate Order Status")
 Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.MessageHandler, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS, "Ship Order")
-Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Api, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Database, "Insert Payment Result")
-Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Api, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Messaging, "Send Payment Result Event")
 Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.MessageHandler, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging, "Receive Order Status Changed Event")
 Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.MessageHandler, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Database, "Insert Order")
 Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.MessageHandler, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider, "Process Payment")

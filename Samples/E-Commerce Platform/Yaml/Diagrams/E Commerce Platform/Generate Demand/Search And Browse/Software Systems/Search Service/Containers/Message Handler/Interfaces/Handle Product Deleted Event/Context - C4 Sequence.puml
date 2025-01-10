@@ -8,7 +8,7 @@ System(ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchSe
 System(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService, "Product Service", "")
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService, "Handle Product Deleted Event")
-Rel(ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService, ..ProductService, "Receive Product Deleted Event")
+Rel(ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService, ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService, "Receive Product Deleted Event")
 
 
 @enduml

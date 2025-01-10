@@ -5,7 +5,7 @@ title E Commerce Platform - Generate Demand - Order Management - Order Service -
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 
 box "Order Service" #White
-    participant "Database" as ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Database
+    database "Database" as ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Database
 end box
 
 

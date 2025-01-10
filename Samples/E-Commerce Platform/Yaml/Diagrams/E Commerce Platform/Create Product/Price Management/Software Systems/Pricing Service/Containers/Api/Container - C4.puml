@@ -19,8 +19,8 @@ title E Commerce Platform - Create Product - Price Management - Pricing Service 
 
 System_Boundary(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService, "Pricing Service") {
     Container(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Api, "Api", "", "")
-    Container(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Database, "Database", "", "")
-    Container(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Messaging, "Messaging", "", "")
+    ContainerDb(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Database, "Database", "", "")
+    ContainerQueue(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Messaging, "Messaging", "", "")
 }
 
 Rel(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Api, ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Database, "Select Product Prices\nUpdate Product Prices")

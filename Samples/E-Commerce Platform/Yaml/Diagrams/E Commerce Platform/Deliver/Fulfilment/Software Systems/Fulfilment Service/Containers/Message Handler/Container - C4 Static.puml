@@ -19,13 +19,13 @@ title E Commerce Platform - Deliver - Fulfilment - Fulfilment Service - Message 
 
 System_Boundary(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService, "Fulfilment Service") {
     Container(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.MessageHandler, "Message Handler", "", "")
-    Container(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Database, "Database", "", "")
+    ContainerDb(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Database, "Database", "", "")
     Container(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Api, "Api", "", "")
-    Container(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Messaging, "Messaging", "", "")
+    ContainerQueue(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Messaging, "Messaging", "", "")
 }
 
 System_Boundary(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Order Service") {
-    Container(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging, "Messaging", "", "")
+    ContainerQueue(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging, "Messaging", "", "")
 }
 System(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS, "WMS", "")
 

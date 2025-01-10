@@ -44,6 +44,7 @@ Rel(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.Buyin
 Rel(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.PIMApp, ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService, "Uses")
 Rel(ECommercePlatform.Deliver.CustomerManagement.SoftwareSystems.CRMApp, ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService, "Uses")
 Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService, "Uses")
+Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, "Uses")
 Rel(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService, "Uses")
 Rel(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, "Uses")
 Rel(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService, "Uses")

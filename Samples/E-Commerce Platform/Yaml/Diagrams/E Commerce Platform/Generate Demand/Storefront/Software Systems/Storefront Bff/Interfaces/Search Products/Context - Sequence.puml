@@ -8,9 +8,9 @@ participant "Search Service" as ECommercePlatform.GenerateDemand.SearchAndBrowse
 
 C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff : Search Products
 group Search Products
-ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff -> ..SearchService : Search Products
+ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff -> ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService : Search Products
 group Search Products
-..SearchService -> ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService : Select Products
+ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService -> ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService : Select Products
 end
 end
 

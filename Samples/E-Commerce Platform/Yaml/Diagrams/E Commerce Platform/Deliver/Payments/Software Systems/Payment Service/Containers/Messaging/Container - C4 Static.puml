@@ -18,7 +18,7 @@ title E Commerce Platform - Deliver - Payments - Payment Service - Messaging - C
 
 
 System_Boundary(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, "Payment Service") {
-    Container(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Messaging, "Messaging", "", "")
+    ContainerQueue(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Messaging, "Messaging", "", "")
 }
 
 

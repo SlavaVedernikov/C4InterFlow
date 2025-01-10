@@ -5,7 +5,7 @@ title E Commerce Platform - Deliver - Fulfilment - Fulfilment Service - Database
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 
 box "Fulfilment Service" #White
-    participant "Database" as ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Database
+    database "Database" as ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Database
 end box
 
 

@@ -8,9 +8,9 @@ participant "Product Service" as ECommercePlatform.CreateProduct.ProductInformat
 
 C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff : Get Products
 group Get Products
-ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff -> ..ProductService : Get Products
+ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff -> ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService : Get Products
 group Get Products
-..ProductService -> ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService : Select Products
+ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService -> ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService : Select Products
 end
 end
 

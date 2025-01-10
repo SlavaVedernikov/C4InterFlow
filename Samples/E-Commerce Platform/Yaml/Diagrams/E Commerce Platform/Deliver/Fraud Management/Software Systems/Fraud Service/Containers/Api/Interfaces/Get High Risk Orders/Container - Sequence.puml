@@ -6,7 +6,7 @@ participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 
 box "Fraud Service" #White
     participant "Api" as ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Api
-    participant "Database" as ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Database
+    database "Database" as ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Database
 end box
 
 

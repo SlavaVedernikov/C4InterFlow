@@ -8,9 +8,9 @@ participant "Basket Service" as ECommercePlatform.GenerateDemand.Basket.Software
 
 C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff : Add Basket Item
 group Add Basket Item
-ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff -> ..BasketService : Add Item
+ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff -> ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService : Add Item
 group Add Item
-..BasketService -> ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService : Insert Item
+ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService -> ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService : Insert Item
 end
 end
 

@@ -19,11 +19,11 @@ title E Commerce Platform - Generate Demand - Search And Browse - Search Service
 
 System_Boundary(ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService, "Search Service") {
     Container(ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService.Containers.MessageHandler, "Message Handler", "", "")
-    Container(ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService.Containers.Database, "Database", "", "")
+    ContainerDb(ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService.Containers.Database, "Database", "", "")
 }
 
 System_Boundary(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService, "Pricing Service") {
-    Container(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Messaging, "Messaging", "", "")
+    ContainerQueue(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Messaging, "Messaging", "", "")
 }
 
 Rel(ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService.Containers.MessageHandler, ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Messaging, "Uses")

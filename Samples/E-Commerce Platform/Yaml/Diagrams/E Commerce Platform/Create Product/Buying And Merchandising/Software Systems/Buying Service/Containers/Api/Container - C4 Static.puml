@@ -19,8 +19,8 @@ title E Commerce Platform - Create Product - Buying And Merchandising - Buying S
 
 System_Boundary(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService, "Buying Service") {
     Container(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Api, "Api", "", "")
-    Container(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Database, "Database", "", "")
-    Container(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Messaging, "Messaging", "", "")
+    ContainerDb(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Database, "Database", "", "")
+    ContainerQueue(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Messaging, "Messaging", "", "")
 }
 
 Rel(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Api, ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Database, "Uses")

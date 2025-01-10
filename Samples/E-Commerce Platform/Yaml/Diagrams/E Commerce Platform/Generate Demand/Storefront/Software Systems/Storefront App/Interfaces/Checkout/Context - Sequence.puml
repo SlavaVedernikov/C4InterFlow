@@ -12,14 +12,14 @@ C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.GenerateDemand.S
 group Checkout
 ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontApp -> ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff : Checkout
 group Checkout
-ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff -> ..OrderService : Create Order
+ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff -> ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService : Create Order
 group Create Order
-..OrderService -> ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService : Insert Order
-..OrderService -> ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService : Send Order Created Event
+ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService -> ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService : Insert Order
+ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService -> ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService : Send Order Created Event
 end
-ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff -> ..BasketService : Delete Basket
+ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff -> ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService : Delete Basket
 group Delete Basket
-..BasketService -> ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService : Delete Basket
+ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService -> ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService : Delete Basket
 end
 end
 end

@@ -7,7 +7,7 @@ participant "WMS" as ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS
 
 box "Fulfilment Service" #White
     participant "Api" as ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Api
-    participant "Database" as ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Database
+    database "Database" as ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Database
     participant "Messaging" as ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Messaging
 end box
 

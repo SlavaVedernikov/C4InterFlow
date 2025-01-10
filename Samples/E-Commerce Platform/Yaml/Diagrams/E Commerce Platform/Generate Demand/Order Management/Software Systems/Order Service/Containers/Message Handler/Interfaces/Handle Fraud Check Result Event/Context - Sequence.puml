@@ -8,7 +8,7 @@ participant "Fraud Service" as ECommercePlatform.Deliver.FraudManagement.Softwar
 
 C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService : Handle Fraud Check Result Event
 group Handle Fraud Check Result Event
-ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService -> ..FraudService : Receive Fraud Check Result Event
+ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService -> ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService : Receive Fraud Check Result Event
 end
 
 

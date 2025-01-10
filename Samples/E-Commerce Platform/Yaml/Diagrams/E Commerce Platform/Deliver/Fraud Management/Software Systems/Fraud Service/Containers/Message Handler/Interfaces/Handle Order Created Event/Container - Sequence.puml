@@ -6,7 +6,7 @@ participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 
 box "Fraud Service" #White
     participant "Message Handler" as ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.MessageHandler
-    participant "Database" as ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Database
+    database "Database" as ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Database
     participant "Messaging" as ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Messaging
 end box
 

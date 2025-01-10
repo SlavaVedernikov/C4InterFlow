@@ -8,7 +8,7 @@ System(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderSer
 System(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, "Payment Service", "")
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Handle Payment Result Event")
-Rel(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, ..PaymentService, "Receive Payment Result Event")
+Rel(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, "Receive Payment Result Event")
 
 
 @enduml

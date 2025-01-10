@@ -5,7 +5,7 @@ title E Commerce Platform - Create Product - Product Information Management - Pr
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 
 box "Product Service" #White
-    participant "Database" as ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Database
+    database "Database" as ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Database
 end box
 
 

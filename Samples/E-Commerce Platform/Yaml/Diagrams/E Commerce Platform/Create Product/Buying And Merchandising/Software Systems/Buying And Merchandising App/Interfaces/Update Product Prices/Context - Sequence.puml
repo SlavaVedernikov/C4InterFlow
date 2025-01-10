@@ -8,10 +8,10 @@ participant "Pricing Service" as ECommercePlatform.CreateProduct.PriceManagement
 
 C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingAndMerchandisingApp : Update Product Prices
 group Update Product Prices
-ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingAndMerchandisingApp -> ..PricingService : Update Product Prices
+ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingAndMerchandisingApp -> ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService : Update Product Prices
 group Update Product Prices
-..PricingService -> ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService : Update Product Prices
-..PricingService -> ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService : Send Product Price Changed Event
+ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService -> ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService : Update Product Prices
+ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService -> ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService : Send Product Price Changed Event
 end
 end
 

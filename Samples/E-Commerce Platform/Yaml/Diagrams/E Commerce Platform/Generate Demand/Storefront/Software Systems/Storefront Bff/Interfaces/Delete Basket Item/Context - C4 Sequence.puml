@@ -8,8 +8,8 @@ System(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff
 System(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService, "Basket Service", "")
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, "Delete Basket Item")
-Rel(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, ..BasketService, "Delete Item")
-Rel(..BasketService, ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService, "Delete Item")
+Rel(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService, "Delete Item")
+Rel(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService, ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService, "Delete Item")
 
 
 @enduml

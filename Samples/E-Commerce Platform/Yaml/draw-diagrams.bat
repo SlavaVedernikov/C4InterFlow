@@ -1,10 +1,9 @@
 @echo off
 :: Possible values: TRUE, FALSE
-if not defined redraw-all set "redraw-all=FALSE"
+if not defined redraw-all set "redraw-all=TRUE"
 :::::::::::::::::::::::::::::::
 
 if not defined build-configuration set "build-configuration=Debug"
-set "aac-root-namespace=ECommercePlatform"
 set "cli-project-path=..\..\..\C4InterFlow.Cli\C4InterFlow.Cli.csproj"
 set "cli-output-dir=..\..\..\C4InterFlow.Cli\bin\%build-configuration%\net6.0\win-x64"
 set "cli-exe=C4InterFlow.Cli.exe"
@@ -26,7 +25,6 @@ SET "diagrams-dir=%_NORMALIZED_PATH_%"
 
 if "%ENABLE_LINE_DRAWING%"=="" (
     echo redraw-all          : %redraw-all%
-    echo aac-root-namespace  : %aac-root-namespace%
     echo cli-output-dir      : %cli-output-dir%
     echo cli-exe             : %cli-exe%
     echo diagrams-dir        : %diagrams-dir%
@@ -35,7 +33,6 @@ if "%ENABLE_LINE_DRAWING%"=="" (
 ) else (
     @ECHO %ENABLE_LINE_DRAWING%lqqqqqqqqqqqqqqqqqqqqqqwqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqk
     @ECHO x %DISABLE_LINE_DRAWING%redraw-all          %ENABLE_LINE_DRAWING% x  %DISABLE_LINE_DRAWING%!redraw-all!%ENABLE_LINE_DRAWING%
-    @ECHO x %DISABLE_LINE_DRAWING%aac-root-namespace  %ENABLE_LINE_DRAWING% x  %DISABLE_LINE_DRAWING%!aac-root-namespace!%ENABLE_LINE_DRAWING%
     @ECHO x %DISABLE_LINE_DRAWING%cli-output-dir      %ENABLE_LINE_DRAWING% x  %DISABLE_LINE_DRAWING%!cli-output-dir!%ENABLE_LINE_DRAWING%
     @ECHO x %DISABLE_LINE_DRAWING%cli-exe             %ENABLE_LINE_DRAWING% x  %DISABLE_LINE_DRAWING%!cli-exe!%ENABLE_LINE_DRAWING%
     @ECHO x %DISABLE_LINE_DRAWING%diagrams-dir        %ENABLE_LINE_DRAWING% x  %DISABLE_LINE_DRAWING%!diagrams-dir!%ENABLE_LINE_DRAWING%
@@ -73,11 +70,13 @@ if NOT "%BATCH_TEST_MODE%"=="1" pause
 
 echo Drawing Diagrams...
 if %redraw-all%==TRUE (
-%cli-output-dir%\%cli-exe% draw-diagrams --interfaces %aac-root-namespace%.*.*.SoftwareSystems.*.Interfaces.* %aac-root-namespace%.*.*.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes %aac-root-namespace%.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy "%aac-reader-strategy%" --aac-input-paths "%aac-input-paths%" --output-dir "%diagrams-dir%" --formats svg
-%cli-output-dir%\%cli-exe% execute-views --views ..Views.* --aac-reader-strategy "%aac-reader-strategy%" --aac-input-paths "%aac-input-paths%" --view-input-paths "%view-input-paths%" --output-dir "$(ProjectDir)\..\Samples\E-Commerce Platform\Yaml\Diagrams" --log-level debug
+%cli-output-dir%\%cli-exe% draw-diagrams --interfaces ..SoftwareSystems.*.Interfaces.* ..SoftwareSystems.*.Containers.*.Interfaces.* --business-processes ..BusinessProcesses.* --levels-of-details context container --aac-reader-strategy "%aac-reader-strategy%" --aac-input-paths "%aac-input-paths%" --output-dir "%diagrams-dir%" --formats svg
 ) else (
-%cli-output-dir%\%cli-exe% draw-diagrams --interfaces %aac-root-namespace%.*.*.SoftwareSystems.*.Interfaces.* %aac-root-namespace%.*.*.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes %aac-root-namespace%.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy "%aac-reader-strategy%" --aac-input-paths "%aac-input-paths%" --output-dir "%diagrams-dir%" 
+%cli-output-dir%\%cli-exe% draw-diagrams --interfaces ..SoftwareSystems.*.Interfaces.* ..SoftwareSystems.*.Containers.*.Interfaces.* --business-processes ..BusinessProcesses.* --levels-of-details context container --aac-reader-strategy "%aac-reader-strategy%" --aac-input-paths "%aac-input-paths%" --output-dir "%diagrams-dir%" 
 )
+
+%cli-output-dir%\%cli-exe% execute-views --views ..Views.* --aac-reader-strategy "%aac-reader-strategy%" --aac-input-paths "%aac-input-paths%" --view-input-paths "%view-input-paths%" --output-dir "$(ProjectDir)\..\Samples\E-Commerce Platform\Yaml\Diagrams"
+
 if NOT "%BATCH_TEST_MODE%"=="1" pause
 @GOTO :end
 

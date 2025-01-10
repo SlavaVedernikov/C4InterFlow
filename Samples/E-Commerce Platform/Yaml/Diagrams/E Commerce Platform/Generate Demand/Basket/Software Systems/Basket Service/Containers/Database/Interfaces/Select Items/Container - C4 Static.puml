@@ -18,7 +18,7 @@ title E Commerce Platform - Generate Demand - Basket - Basket Service - Database
 
 
 System_Boundary(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService, "Basket Service") {
-    Container(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Database, "Database", "", "")
+    ContainerDb(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Database, "Database", "", "")
 }
 
 

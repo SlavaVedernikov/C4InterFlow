@@ -10,8 +10,8 @@ System(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSyst
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontApp, "View Products")
 Rel(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontApp, ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, "Get Products")
-Rel(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, ..ProductService, "Get Products")
-Rel(..ProductService, ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService, "Select Products")
+Rel(ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff, ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService, "Get Products")
+Rel(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService, ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService, "Select Products")
 
 
 @enduml

@@ -8,10 +8,10 @@ participant "Fraud Service" as ECommercePlatform.Deliver.FraudManagement.Softwar
 
 C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.Deliver.CustomerManagement.SoftwareSystems.CRMApp : Update Order Fraud Check Result
 group Update Order Fraud Check Result
-ECommercePlatform.Deliver.CustomerManagement.SoftwareSystems.CRMApp -> ..FraudService : Update Order Fraud Check Result
+ECommercePlatform.Deliver.CustomerManagement.SoftwareSystems.CRMApp -> ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService : Update Order Fraud Check Result
 group Update Order Fraud Check Result
-..FraudService -> ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService : Update Fraud Check Result
-..FraudService -> ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService : Send Fraud Check Result Event
+ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService -> ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService : Update Fraud Check Result
+ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService -> ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService : Send Fraud Check Result Event
 end
 end
 

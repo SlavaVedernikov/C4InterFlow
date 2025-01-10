@@ -6,7 +6,7 @@ participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 
 box "Basket Service" #White
     participant "Api" as ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Api
-    participant "Database" as ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Database
+    database "Database" as ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Database
 end box
 
 

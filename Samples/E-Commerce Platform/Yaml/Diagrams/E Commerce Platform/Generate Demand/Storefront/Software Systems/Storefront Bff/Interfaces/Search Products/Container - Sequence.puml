@@ -7,7 +7,7 @@ participant "Storefront Bff" as ECommercePlatform.GenerateDemand.Storefront.Soft
 
 box "Search Service" #White
     participant "Api" as ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService.Containers.Api
-    participant "Database" as ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService.Containers.Database
+    database "Database" as ECommercePlatform.GenerateDemand.SearchAndBrowse.SoftwareSystems.SearchService.Containers.Database
 end box
 
 

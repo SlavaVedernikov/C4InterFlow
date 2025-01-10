@@ -8,7 +8,7 @@ participant "Payment Service" as ECommercePlatform.Deliver.Payments.SoftwareSyst
 
 C4InterFlow.SoftwareSystems.ExternalSystem -> ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService : Handle Payment Result Event
 group Handle Payment Result Event
-ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService -> ..PaymentService : Receive Payment Result Event
+ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService -> ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService : Receive Payment Result Event
 end
 
 

@@ -44,6 +44,7 @@ Rel(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.Buyin
 Rel(ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.PIMApp, ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService, "Get Products\nUpdate Product\nDelete Product")
 Rel(ECommercePlatform.Deliver.CustomerManagement.SoftwareSystems.CRMApp, ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService, "Get High Risk Orders\nUpdate Order Fraud Check Result")
 Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService, "Post Order Shipped Event")
+Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, "Post Payment Result Event")
 Rel(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService, "Receive Fraud Check Result Event")
 Rel(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, "Receive Payment Result Event")
 Rel(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService, "Receive Order Shipped Event")
