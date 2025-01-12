@@ -74,10 +74,32 @@ namespace C4InterFlow.Automation.Readers
 
                         break;
                     case "BusinessProcesses":
-                        var activities = token!["Activities"]?.ToObject<Activity[]>();
+                        var activityTokens = token!["Activities"];
 
-                        if (activities != null)
+                        if (activityTokens != null)
                         {
+                            var activities = new List<Activity>();
+                            foreach(var activityToken in activityTokens)
+                            {
+                                var activityActor = activityToken?["Actor"]?.ToString();
+                                var activityLabel = activityToken!["Label"]?.ToString();
+                                var activityFlow = activityToken!["Flow"]?.ToObject<Flow>();
+
+                                if (activityFlow != null)
+                                {
+                                    activities.Add(new Activity(activityFlow, activityActor, activityLabel));
+                                }
+                                else
+                                {
+                                    activityFlow = new Flow();
+                                    var activityFlows = activityToken!["Flows"]?.ToObject<List<Flow>>();
+                                    if (activityFlows != null)
+                                    {
+                                        activities.Add(new Activity(activityFlows.ToArray(), activityActor, activityLabel)); ;
+                                    }
+                                }
+                            }
+
                             result = new BusinessProcess(activities, fullAlias, label)
                             {
                                 Description = description
