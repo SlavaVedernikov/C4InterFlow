@@ -1,0 +1,463 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": {
+    "$ref": "#/$defs/Namespace"
+  },
+  "$defs": {
+    "Namespace": {
+      "type": "object",
+      "properties": {
+        "SoftwareSystems": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/SoftwareSystem"
+          }
+        },
+        "BusinessProcesses": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/BusinessProcess"
+          }
+        }
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/Namespace"
+      }
+    },
+    "SoftwareSystem": {
+      "type": "object",
+      "properties": {
+        "Label": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Boundary": {
+          "type": "string",
+          "enum": [
+            "Internal",
+            "External"
+          ]
+        },
+        "Containers": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/Container"
+          }
+        },
+        "Interfaces": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/Interface"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "Container": {
+      "type": "object",
+      "properties": {
+        "Label": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Boundary": {
+          "type": "string",
+          "enum": [
+            "Internal",
+            "External"
+          ]
+        },
+        "ContainerType": {
+          "type": "string",
+          "enum": [
+            "Mobile",
+            "WebApplication",
+            "ServerConsole",
+            "ClientDesktop",
+            "ServerlessFunction",
+            "Blob",
+            "FileSystem",
+            "ShellScript",
+            "Spa",
+            "Api",
+            "Microservice",
+            "Queue",
+            "Topic",
+            "Database"
+          ]
+        },
+        "Technology": {
+          "type": "string"
+        },
+        "Interfaces": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/Interface"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "Component": {
+      "type": "object",
+      "properties": {
+        "Label": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "ComponentType": {
+          "type": "string",
+          "enum": [
+            "Database",
+            "Queue",
+            "Topic",
+            "TopicSubscription"
+          ]
+        },
+        "Technology": {
+          "type": "string"
+        },
+        "Interfaces": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/Interface"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "Interface": {
+      "type": "object",
+      "properties": {
+        "Label": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Protocol": {
+          "type": "string"
+        },
+        "Flows": {
+          "$ref": "#/$defs/Flows"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Activity": {
+      "type": "object",
+      "properties": {
+        "Label": {
+          "type": "string"
+        },
+        "Actor": {
+          "type": "string"
+        },
+        "Flows": {
+          "$ref": "#/$defs/Flows"
+        }
+      },
+      "additionalProperties": false,
+      "required": [ "Label", "Actor", "Flows" ]
+    },
+    "BusinessProcess": {
+      "type": "object",
+      "properties": {
+        "Label": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Activities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Activity"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [ "Activities" ]
+    },
+    "Flows": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/Flow.Use"
+          },
+          {
+            "$ref": "#/$defs/Flow.If"
+          },
+          {
+            "$ref": "#/$defs/Flow.Loop"
+          },
+          {
+            "$ref": "#/$defs/Flow.Group"
+          },
+          {
+            "$ref": "#/$defs/Flow.Try"
+          },
+          {
+            "$ref": "#/$defs/Flow.ThrowException"
+          },
+          {
+            "$ref": "#/$defs/Flow.Return"
+          }
+        ]
+      }
+    },
+    "Flow.Use": {
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string",
+          "enum": [
+            "Use"
+          ]
+        },
+        "Expression": {
+          "$ref": "#/$defs/Flow.Use.Expression"
+        }
+      },
+      "required": [ "Type", "Expression" ]
+    },
+    "Flow.If": {
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string",
+          "enum": [
+            "If"
+          ]
+        },
+        "Expression": {
+          "type": "string"
+        },
+        "Flows": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/Flow.Use"
+              },
+              {
+                "$ref": "#/$defs/Flow.If"
+              },
+              {
+                "$ref": "#/$defs/Flow.ElseIf"
+              },
+              {
+                "$ref": "#/$defs/Flow.Else"
+              },
+              {
+                "$ref": "#/$defs/Flow.Loop"
+              },
+              {
+                "$ref": "#/$defs/Flow.Group"
+              },
+              {
+                "$ref": "#/$defs/Flow.Try"
+              },
+              {
+                "$ref": "#/$defs/Flow.ThrowException"
+              },
+              {
+                "$ref": "#/$defs/Flow.Return"
+              }
+            ]
+          }
+        }
+      },
+      "required": [ "Type", "Expression", "Flows" ]
+    },
+    "Flow.ElseIf": {
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string",
+          "enum": [
+            "ElseIf"
+          ]
+        },
+        "Expression": {
+          "type": "string"
+        },
+        "Flows": {
+          "$ref": "#/$defs/Flows"
+        }
+      },
+      "required": [ "Type", "Expression", "Flows" ]
+    },
+    "Flow.Else": {
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string",
+          "enum": [
+            "Else"
+          ]
+        },
+        "Flows": {
+          "$ref": "#/$defs/Flows"
+        }
+      },
+      "required": [ "Type", "Flows" ]
+    },
+    "Flow.Loop": {
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string",
+          "enum": [
+            "Loop"
+          ]
+        },
+        "Expression": {
+          "type": "string"
+        },
+        "Flows": {
+          "$ref": "#/$defs/Flows"
+        }
+      },
+      "required": [ "Type", "Expression", "Flows" ]
+    },
+    "Flow.Group": {
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string",
+          "enum": [
+            "Group"
+          ]
+        },
+        "Expression": {
+          "type": "string"
+        },
+        "Flows": {
+          "$ref": "#/$defs/Flows"
+        }
+      },
+      "required": [ "Type", "Flows" ]
+    },
+    "Flow.Try": {
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string",
+          "enum": [
+            "Try"
+          ]
+        },
+        "Flows": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/Flow.Use"
+              },
+              {
+                "$ref": "#/$defs/Flow.If"
+              },
+              {
+                "$ref": "#/$defs/Flow.Loop"
+              },
+              {
+                "$ref": "#/$defs/Flow.Group"
+              },
+              {
+                "$ref": "#/$defs/Flow.Try"
+              },
+              {
+                "$ref": "#/$defs/Flow.Catch"
+              },
+              {
+                "$ref": "#/$defs/Flow.Finally"
+              },
+              {
+                "$ref": "#/$defs/Flow.ThrowException"
+              },
+              {
+                "$ref": "#/$defs/Flow.Return"
+              }
+            ]
+          }
+        }
+      },
+      "required": [ "Type", "Flows" ]
+    },
+    "Flow.Catch": {
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string",
+          "enum": [
+            "Catch"
+          ]
+        },
+        "Expression": {
+          "type": "string"
+        },
+        "Flows": {
+          "$ref": "#/$defs/Flows"
+        }
+      },
+      "required": [ "Type", "Flows" ]
+    },
+    "Flow.Finally": {
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string",
+          "enum": [
+            "Finally"
+          ]
+        },
+        "Flows": {
+          "$ref": "#/$defs/Flows"
+        }
+      },
+      "required": [ "Type", "Flows" ]
+    },
+    "Flow.ThrowException": {
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string",
+          "enum": [
+            "ThrowException"
+          ]
+        },
+        "Expression": {
+          "type": "string"
+        }
+      },
+      "required": [ "Type", "Expression" ]
+    },
+    "Flow.Return": {
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string",
+          "enum": [
+            "Return"
+          ]
+        },
+        "Expression": {
+          "type": "string"
+        }
+      },
+      "required": [ "Type" ]
+    },
+    "Flow.Use.Expression": {
+      "type": "string"
+    }
+  }
+}

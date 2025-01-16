@@ -11,7 +11,6 @@ namespace C4InterFlow.Structures;
 /// </summary>
 public sealed record SoftwareSystem : Structure
 {
-    public string? Icon { get; init; }
     public SoftwareSystem(Type type) : this(GetAlias(type), Utils.GetLabelFromAlias(GetAlias(type)))
     { }
     public SoftwareSystem(Type type, string label) : this(GetAlias(type), label)

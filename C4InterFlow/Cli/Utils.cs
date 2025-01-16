@@ -79,21 +79,28 @@ namespace C4InterFlow.Cli
 
         public static void SetArchitectureAsCodeReaderContext(string[] architectureAsCodeInputPaths, string architectureAsCodeReaderStrategyType, string[] viewsInputPaths = null)
         {
-            Type? strategyType = GetAaCReaderStrategyType(architectureAsCodeReaderStrategyType);
-
-            if (strategyType == null)
+            try
             {
-                throw new ArgumentException($"Cannot load AaC Reader Strategy Type '{architectureAsCodeReaderStrategyType}'");
-            }
-            
-            object strategyTypeInstance = Activator.CreateInstance(strategyType);
+                Type? strategyType = GetAaCReaderStrategyType(architectureAsCodeReaderStrategyType);
 
-            if (strategyTypeInstance is not IAaCReaderStrategy strategyInstance)
+                if (strategyType == null)
+                {
+                    throw new ArgumentException($"Cannot load AaC Reader Strategy Type '{architectureAsCodeReaderStrategyType}'");
+                }
+
+                object strategyTypeInstance = Activator.CreateInstance(strategyType);
+
+                if (strategyTypeInstance is not IAaCReaderStrategy strategyInstance)
+                {
+                    throw new ArgumentException($"'{architectureAsCodeReaderStrategyType}' is not a valid Architecture As Code Reader Strategy type.");
+                }
+
+                AaCReaderContext.SetCurrentStrategy(strategyInstance, architectureAsCodeInputPaths, viewsInputPaths, new Dictionary<string, string>());
+            }
+            catch (Exception e)
             {
-                throw new ArgumentException($"'{architectureAsCodeReaderStrategyType}' is not a valid Architecture As Code Reader Strategy type.");
+                Log.Error(e, "Failed to set Architecture As Code Reader Context {Error}", $"{e.Message}");
             }
-
-            AaCReaderContext.SetCurrentStrategy(strategyInstance, architectureAsCodeInputPaths, viewsInputPaths, new Dictionary<string, string>());
         }
 
         public static string ToKebabCase(string value)

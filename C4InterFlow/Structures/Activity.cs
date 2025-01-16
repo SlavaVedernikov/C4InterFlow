@@ -25,7 +25,7 @@
             }
             private set {
                 _flow = value;
-                SerFlowOwner();
+                SetFlowOwner();
             }
         }
 
@@ -38,7 +38,7 @@
             {
                 if (Flow == null) { Flow = new Flow(); }
                 Flow.Flows = value;
-                SerFlowOwner();
+                SetFlowOwner();
             }
         }
 
@@ -50,11 +50,11 @@
             private set
             {
                 _actor = value;
-                SerFlowOwner();
+                SetFlowOwner();
             }
         }
 
-        private void SerFlowOwner()
+        private void SetFlowOwner()
         {
             if (Flow != null &&
                 string.IsNullOrEmpty(Flow.Owner) &&

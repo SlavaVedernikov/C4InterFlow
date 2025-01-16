@@ -5,6 +5,8 @@ using System.Text;
 using Serilog;
 using YamlDotNet.RepresentationModel;
 using YamlDotNet.Core;
+using Newtonsoft.Json.Schema;
+using System.Reflection;
 
 namespace C4InterFlow.Automation.Readers
 {
@@ -38,6 +40,26 @@ namespace C4InterFlow.Automation.Readers
         {
             var result = true;
 
+            // Load the embedded JSON schema resource
+            var assembly = typeof(Structures.Structure).Assembly;
+            var resourceName = "C4InterFlow.schema.json";
+
+            string schemaContent;
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            {
+                if (stream == null)
+                {
+                    throw new FileNotFoundException($"Embedded resource '{resourceName}' not found.");
+                }
+
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    schemaContent = reader.ReadToEnd();
+                }
+            }
+
+            var schema = JSchema.Parse(schemaContent);
+
             foreach (var path in paths)
             {
                 string[] yamlFiles = Directory.GetFiles(path, "*.yaml", SearchOption.AllDirectories);
@@ -50,6 +72,27 @@ namespace C4InterFlow.Automation.Readers
                     try
                     {
                         var yamlObject = deserializer.Deserialize(input);
+
+                        var serializer = new SerializerBuilder()
+                            .JsonCompatible()
+                            .Build();
+                        var jsonContent = serializer.Serialize(yamlObject);
+
+                        // Parse JSON and load schema
+                        var json = JObject.Parse(jsonContent);
+
+                        // Validate JSON against the schema
+                        var isValid = json.IsValid(schema, out IList<ValidationError> errors);
+
+                        if (!isValid)
+                        {
+                            foreach (var error in errors)
+                            {
+                                Log.Error("File {YamlFile} has error at path {Path}: {Error}", yamlFile, error.Path, error.Message);
+                            }
+                        }
+
+                        result = false;
                     }
                     catch (YamlException ex)
                     {
