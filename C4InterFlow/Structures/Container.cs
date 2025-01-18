@@ -1,4 +1,5 @@
 ﻿using C4InterFlow.Structures.Interfaces;
+using System.Runtime.CompilerServices;
 
 namespace C4InterFlow.Structures;
 

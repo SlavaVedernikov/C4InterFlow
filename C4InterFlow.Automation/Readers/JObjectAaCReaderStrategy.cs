@@ -4,6 +4,7 @@ using YamlDotNet.Serialization;
 using System.Reflection;
 using System.Text;
 using YamlDotNet.RepresentationModel;
+using Newtonsoft.Json.Schema;
 
 namespace C4InterFlow.Automation.Readers
 {
@@ -39,6 +40,28 @@ namespace C4InterFlow.Automation.Readers
                 }
                 return _elementsResolver.Value;
             }
+        }
+
+        protected JSchema LoadSchema()
+        {
+            var assembly = typeof(Structures.Structure).Assembly;
+            var resourceName = "C4InterFlow.schema.json";
+
+            string schemaContent;
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            {
+                if (stream == null)
+                {
+                    throw new FileNotFoundException($"Embedded resource '{resourceName}' not found.");
+                }
+
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    schemaContent = reader.ReadToEnd();
+                }
+            }
+
+            return JSchema.Parse(schemaContent);
         }
 
         public override string GetComponentInterfaceAlias()

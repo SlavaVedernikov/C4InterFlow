@@ -1,5 +1,5 @@
 {
-  "$schema": "https://json-schema.org/draft-07/schema#",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
   "additionalProperties": {
     "$ref": "#/$defs/Namespace"
@@ -8,6 +8,12 @@
     "Namespace": {
       "type": "object",
       "properties": {
+        "Actors": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/Actor"
+          }
+        },
         "SoftwareSystems": {
           "type": "object",
           "additionalProperties": {
@@ -19,11 +25,140 @@
           "additionalProperties": {
             "$ref": "#/$defs/BusinessProcess"
           }
+        },
+        "Views": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/View"
+          }
         }
       },
       "additionalProperties": {
         "$ref": "#/$defs/Namespace"
       }
+    },
+    "View": {
+      "type": "object",
+      "properties": {
+        "Label": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Scopes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/View.Scope"
+          }
+        },
+        "Types": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/View.Type"
+          }
+        },
+        "LevelsOfDetails": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/View.LevelOfDetails"
+          }
+        },
+        "Formats": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/View.Format"
+          }
+        },
+        "Interfaces": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "BusinessProcesses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Namespaces": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "MaxLineLabels": {
+          "type": "integer"
+        },
+        "ExpandUpstream": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": []
+    },
+    "View.Scope": {
+      "type": "string",
+      "enum": [
+        "AllSoftwareSystems",
+        "Namespace",
+        "NamespaceSoftwareSystems",
+        "SoftwareSystem",
+        "SoftwareSystemInterface",
+        "Container",
+        "ContainerInterface",
+        "Component",
+        "ComponentInterface",
+        "BusinessProcess"
+      ]
+    },
+    "View.Type": {
+      "type": "string",
+      "enum": [
+        "C4",
+        "C4Static",
+        "C4Sequence",
+        "Sequence",
+        "Entity"
+      ]
+    },
+    "View.LevelOfDetails": {
+      "type": "string",
+      "enum": [
+        "Context",
+        "Container",
+        "Component"
+      ]
+    },
+    "View.Format": {
+      "type": "string",
+      "enum": [
+        "Puml",
+        "Svg",
+        "Png",
+        "Md"
+      ]
+    },
+    "Actor": {
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string",
+          "enum": [
+            "Person",
+            "SoftwareSystem"
+          ]
+        },
+        "Label": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["Type"]
     },
     "SoftwareSystem": {
       "type": "object",
@@ -40,6 +175,21 @@
             "Internal",
             "External"
           ]
+        },
+        "Tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Icon": {
+          "type": "string"
+        },
+        "Attributes": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/Attribute"
+          }
         },
         "Containers": {
           "type": "object",
@@ -94,6 +244,21 @@
         "Technology": {
           "type": "string"
         },
+        "Tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Icon": {
+          "type": "string"
+        },
+        "Attributes": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/Attribute"
+          }
+        },
         "Interfaces": {
           "type": "object",
           "additionalProperties": {
@@ -124,6 +289,21 @@
         "Technology": {
           "type": "string"
         },
+        "Tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Icon": {
+          "type": "string"
+        },
+        "Attributes": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/Attribute"
+          }
+        },
         "Interfaces": {
           "type": "object",
           "additionalProperties": {
@@ -132,6 +312,22 @@
         }
       },
       "additionalProperties": false
+    },
+    "Attribute": {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        {
+          "type": "string"
+        }
+      ]
     },
     "Interface": {
       "type": "object",
@@ -143,6 +339,9 @@
           "type": "string"
         },
         "Protocol": {
+          "type": "string"
+        },
+        "Path": {
           "type": "string"
         },
         "Flows": {

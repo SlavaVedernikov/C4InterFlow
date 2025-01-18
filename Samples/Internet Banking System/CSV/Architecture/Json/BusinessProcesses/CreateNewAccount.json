@@ -7,54 +7,46 @@
           {
             "Label": "Go to Online Banking URL",
             "Actor": "BigBankPlc.Actors.Customer",
-            "Flow": {
-              "Flows": [
-                {
-                  "Type": "Use",
-                  "Expression": "BigBankPlc.SoftwareSystems.InternetBanking.Containers.WebApplication.Interfaces.Navigate"
-                }
-              ]
-            }
+            "Flows": [
+              {
+                "Type": "Use",
+                "Expression": "BigBankPlc.SoftwareSystems.InternetBanking.Containers.WebApplication.Interfaces.Navigate"
+              }
+            ]
           },
           {
             "Label": "Sign In and View Home Page",
             "Actor": "BigBankPlc.Actors.Customer",
-            "Flow": {
-              "Flows": [
-                {
-                  "Type": "Use",
-                  "Expression": "BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.SignIn"
-                },
-                {
-                  "Type": "Use",
-                  "Expression": "BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.ViewCustomerDetails"
-                }
-              ]
-            }
+            "Flows": [
+              {
+                "Type": "Use",
+                "Expression": "BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.SignIn"
+              },
+              {
+                "Type": "Use",
+                "Expression": "BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.ViewCustomerDetails"
+              }
+            ]
           },
           {
             "Label": "Create New Account",
             "Actor": "BigBankPlc.Actors.Customer",
-            "Flow": {
-              "Flows": [
-                {
-                  "Type": "Use",
-                  "Expression": "BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.CreateAccount"
-                }
-              ]
-            }
+            "Flows": [
+              {
+                "Type": "Use",
+                "Expression": "BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.CreateAccount"
+              }
+            ]
           },
           {
             "Label": "Receive New Account Created Notification E-Mail",
             "Actor": "BigBankPlc.Actors.Customer",
-            "Flow": {
-              "Flows": [
-                {
-                  "Type": "Use",
-                  "Expression": "BigBankPlc.SoftwareSystems.EMailSystem.Interfaces.ReceiveNewAccountCreatedNotificationEMail"
-                }
-              ]
-            }
+            "Flows": [
+              {
+                "Type": "Use",
+                "Expression": "BigBankPlc.SoftwareSystems.EMailSystem.Interfaces.ReceiveNewAccountCreatedNotificationEMail"
+              }
+            ]
           }
         ]
       }

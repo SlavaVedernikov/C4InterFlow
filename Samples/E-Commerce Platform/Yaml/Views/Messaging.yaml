@@ -11,4 +11,4 @@ ECommercePlatform:
       - ..Containers.Messaging.Interfaces.*
       ExpandUpstream: true
       Formats:
-      - svg
+      - Svg

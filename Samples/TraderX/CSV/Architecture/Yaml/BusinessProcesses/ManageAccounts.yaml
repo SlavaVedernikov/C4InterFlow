@@ -5,19 +5,16 @@ TraderXExample:
       Activities:
       - Label: View Account
         Actor: TraderXExample.Actors.Trader
-        Flow:
-          Flows:
-          - Type: Use
-            Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.ViewAccount
+        Flows:
+        - Type: Use
+          Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.ViewAccount
       - Label: Create Account
         Actor: TraderXExample.Actors.Trader
-        Flow:
-          Flows:
-          - Type: Use
-            Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.CreateAccount
+        Flows:
+        - Type: Use
+          Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.CreateAccount
       - Label: Update Account
         Actor: TraderXExample.Actors.Trader
-        Flow:
-          Flows:
-          - Type: Use
-            Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.UpdateAccount
+        Flows:
+        - Type: Use
+          Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.UpdateAccount

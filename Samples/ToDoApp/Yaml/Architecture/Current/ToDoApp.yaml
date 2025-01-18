@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=../../../../../C4InterFlow/schema.json
 ToDoAppExample:
   SoftwareSystems:
     ToDoApp:

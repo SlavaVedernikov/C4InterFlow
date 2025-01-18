@@ -5,25 +5,21 @@ TraderXExample:
       Activities:
       - Label: Create Trade Request
         Actor: TraderXExample.Actors.Trader
-        Flow:
-          Flows:
-          - Type: Use
-            Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.CreateTrade
+        Flows:
+        - Type: Use
+          Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.CreateTrade
       - Label: Process Trade Request
         Actor: TraderXExample.Actors.ExternalProcess
-        Flow:
-          Flows:
-          - Type: Use
-            Expression: TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor.Interfaces.Start
+        Flows:
+        - Type: Use
+          Expression: TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor.Interfaces.Start
       - Label: Refresh Web Client
         Actor: TraderXExample.Actors.ExternalProcess
-        Flow:
-          Flows:
-          - Type: Use
-            Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.Start
+        Flows:
+        - Type: Use
+          Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.Start
       - Label: Cancel Trade
         Actor: TraderXExample.Actors.Trader
-        Flow:
-          Flows:
-          - Type: Use
-            Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.CancelTrade
+        Flows:
+        - Type: Use
+          Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.CancelTrade
