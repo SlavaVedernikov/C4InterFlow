@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using Serilog;
+using Newtonsoft.Json.Schema;
+using System.Net.Http.Json;
 
 namespace C4InterFlow.Automation.Readers
 {
@@ -18,6 +20,7 @@ namespace C4InterFlow.Automation.Readers
         private bool ValidateFiles(IEnumerable<string> paths)
         {
             var result = true;
+            var schema = LoadSchema();
 
             foreach (var path in paths)
             {
@@ -25,11 +28,24 @@ namespace C4InterFlow.Automation.Readers
 
                 foreach (string jsonFile in jsonFiles)
                 {
-                    var json = File.ReadAllText(jsonFile);
+                    var jsonContent = File.ReadAllText(jsonFile);
 
                     try
                     {
-                        var jsonObject = JsonConvert.DeserializeObject(json);
+                        var json = JObject.Parse(jsonContent);
+
+                        // Validate JSON against the schema
+                        var isValid = json.IsValid(schema, out IList<ValidationError> errors);
+
+                        if (!isValid)
+                        {
+                            foreach (var error in errors)
+                            {
+                                Log.Error("File {YamlFile} has error at path {Path}: {Error}", jsonFile, error.Path, error.Message);
+                            }
+
+                            result = false;
+                        }
                     }
                     catch (JsonReaderException ex)
                     {

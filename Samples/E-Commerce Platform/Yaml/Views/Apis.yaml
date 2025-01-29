@@ -9,6 +9,7 @@ ECommercePlatform:
       - Container
       Interfaces:
       - ..Containers.Api.Interfaces.*
+      MaxLineLabels: 10
       ExpandUpstream: true
       Formats:
-      - svg
+      - Svg

@@ -17,6 +17,7 @@ public abstract record Structure
     public string Description { get; init; } = string.Empty;
     public IEnumerable<string> Tags { get; init; }
     public Boundary Boundary { get; init; } = Boundary.Internal;
+    public string? Icon { get; init; }
 
     /// <summary>
     /// Constructor

@@ -7,14 +7,12 @@
           {
             "Label": "Type Ahead People Search",
             "Actor": "TraderXExample.Actors.Trader",
-            "Flow": {
-              "Flows": [
-                {
-                  "Type": "Use",
-                  "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.TypeAheadPeopleSearch"
-                }
-              ]
-            }
+            "Flows": [
+              {
+                "Type": "Use",
+                "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.TypeAheadPeopleSearch"
+              }
+            ]
           }
         ]
       }

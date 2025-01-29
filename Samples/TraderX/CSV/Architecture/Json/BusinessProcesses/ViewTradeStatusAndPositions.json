@@ -7,14 +7,12 @@
           {
             "Label": "View Trade Status / Positions",
             "Actor": "TraderXExample.Actors.Trader",
-            "Flow": {
-              "Flows": [
-                {
-                  "Type": "Use",
-                  "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.ViewTradeStatusAndPositions"
-                }
-              ]
-            }
+            "Flows": [
+              {
+                "Type": "Use",
+                "Expression": "TraderXExample.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.ViewTradeStatusAndPositions"
+              }
+            ]
           }
         ]
       }

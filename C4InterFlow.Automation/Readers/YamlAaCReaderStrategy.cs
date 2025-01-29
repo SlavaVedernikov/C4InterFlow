@@ -5,6 +5,8 @@ using System.Text;
 using Serilog;
 using YamlDotNet.RepresentationModel;
 using YamlDotNet.Core;
+using Newtonsoft.Json.Schema;
+using System.Reflection;
 
 namespace C4InterFlow.Automation.Readers
 {
@@ -38,6 +40,8 @@ namespace C4InterFlow.Automation.Readers
         {
             var result = true;
 
+            var schema = LoadSchema();
+
             foreach (var path in paths)
             {
                 string[] yamlFiles = Directory.GetFiles(path, "*.yaml", SearchOption.AllDirectories);
@@ -50,6 +54,29 @@ namespace C4InterFlow.Automation.Readers
                     try
                     {
                         var yamlObject = deserializer.Deserialize(input);
+
+                        var serializer = new SerializerBuilder()
+                            .JsonCompatible()
+                            .Build();
+                        var jsonContent = serializer.Serialize(yamlObject);
+
+                        // Parse JSON and load schema
+                        var json = JObject.Parse(jsonContent);
+                        FormatScalarTypes(json);
+
+                        // Validate JSON against the schema
+                        var isValid = json.IsValid(schema, out IList<ValidationError> errors);
+
+                        if (!isValid)
+                        {
+                            foreach (var error in errors)
+                            {
+                                Log.Error("File {YamlFile} has error at path {Path}: {Error}", yamlFile, error.Path, error.Message);
+                            }
+
+                            result = false;
+                        }
+                        
                     }
                     catch (YamlException ex)
                     {
@@ -65,6 +92,59 @@ namespace C4InterFlow.Automation.Readers
             }
 
             return result;
+        }
+
+        private static IEnumerable<string> GetAllPaths(JToken token, string parentPath = "")
+        {
+            if (token is JObject jObject)
+            {
+                foreach (var property in jObject.Properties())
+                {
+                    var currentPath = string.IsNullOrEmpty(parentPath)
+                        ? property.Name
+                        : $"{parentPath}.{property.Name}";
+
+                    // Recurse into children
+                    foreach (var path in GetAllPaths(property.Value, currentPath))
+                    {
+                        yield return path;
+                    }
+                }
+            }
+            else if (token is JArray jArray)
+            {
+                for (int i = 0; i < jArray.Count; i++)
+                {
+                    var currentPath = $"{parentPath}[{i}]";
+
+                    // Recurse into children
+                    foreach (var path in GetAllPaths(jArray[i], currentPath))
+                    {
+                        yield return path;
+                    }
+                }
+            }
+            else
+            {
+                // Base case: return the current path
+                yield return parentPath;
+            }
+        }
+
+        private static void FormatScalarTypes(JObject json)
+        {
+            foreach (var nodePath in GetAllPaths(json))
+            {
+                var token = json.SelectToken(nodePath);
+                if (bool.TryParse(token.Value<string>(), out var boolValue))
+                {
+                    token.Replace(boolValue);
+                }
+                else if (int.TryParse(token.Value<string>(), out var intValue))
+                {
+                    token.Replace(intValue);
+                }
+            }
         }
 
         protected override JObject GetJsonObjectFromFiles(string[] aacPaths, string[] viewsPaths)

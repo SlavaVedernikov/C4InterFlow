@@ -14,5 +14,5 @@ ECommercePlatform:
           - ..OrderService.Containers.Messaging.Interfaces.ReceiveOrderStatusChangedEvent
           ExpandUpstream: true
           Formats:
-          - svg
-          - png
+          - Svg
+          - Png

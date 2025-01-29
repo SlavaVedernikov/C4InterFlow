@@ -7,12 +7,12 @@
 		<Deterministic>true</Deterministic>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-		<Version>1.9.0</Version>
+		<Version>1.10.0</Version>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<PackageId>C4InterFlow.Automation</PackageId>
-		<PackageVersion>1.9.0</PackageVersion>
+		<PackageVersion>1.10.0</PackageVersion>
 		<Authors>Slava Vedernikov</Authors>
 		<Description>Revolutionise your Application Architecture Documentation with C4InterFlow. Designed for Architects and Engineers, this tool leverages the widely-recognised C4 Model (Architecture Visualisation framework), enhanced with unique features like Interface and Flow, to describe your Application Architecture as Code. Experience an intuitive, efficient way to document complex systems, ensuring clarity and consistency across your teams and products.</Description>
 		<Copyright>Copyright 2024 Slava Vedernikov</Copyright>
@@ -28,8 +28,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\NuGet\icon.png" Pack="true" PackagePath="\"/>
-    <None Include="..\NuGet\C4InterFlow.Automation\README.md" Pack="true" PackagePath="\"/>
+    <None Include="..\NuGet\icon.png" Pack="true" PackagePath="\" />
+    <None Include="..\NuGet\C4InterFlow.Automation\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
   
 	<ItemGroup>
@@ -42,6 +42,7 @@
 		<PackageReference Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="[4.0.0,)" />
 		<PackageReference Include="CsvHelper" Version="30.0.1" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Newtonsoft.Json.Schema" Version="4.0.1" />
 		<PackageReference Include="YamlDotNet" Version="13.7.1" />
 	</ItemGroup>
 

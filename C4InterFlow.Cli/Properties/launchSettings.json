@@ -22,11 +22,11 @@
     },
     "ToDoApp - YAML - Current - Draw Diagrams": {
       "commandName": "Project",
-      "commandLineArgs": "draw-diagrams --interfaces ToDoAppExample.SoftwareSystems.*.Containers.*.Interfaces.* ToDoAppExample.SoftwareSystems.*.Interfaces.* --levels-of-details context container --aac-reader-strategy \"C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Yaml\\Architecture\\Current\" --output-dir \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Yaml\\Diagrams\\Current\""
+      "commandLineArgs": "draw-diagrams --interfaces ToDoAppExample.SoftwareSystems.*.Containers.*.Interfaces.* ToDoAppExample.SoftwareSystems.*.Interfaces.* --levels-of-details container --aac-reader-strategy \"C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Yaml\\Architecture\\Current\" --output-dir \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Yaml\\Diagrams\\Current\""
     },
     "ToDoApp - YAML - Future - Draw Diagrams": {
       "commandName": "Project",
-      "commandLineArgs": "draw-diagrams --interfaces ToDoAppExample.SoftwareSystems.*.Containers.*.Interfaces.* ToDoAppExample.SoftwareSystems.*.Interfaces.* --levels-of-details context container --aac-reader-strategy \"C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Yaml\\Architecture\\Current\" \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Yaml\\Architecture\\Future\" --output-dir \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Yaml\\Diagrams\\Future\""
+      "commandLineArgs": "draw-diagrams --interfaces ToDoAppExample.SoftwareSystems.*.Containers.*.Interfaces.* ToDoAppExample.SoftwareSystems.*.Interfaces.* --levels-of-details container --aac-reader-strategy \"C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Yaml\\Architecture\\Current\" \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Yaml\\Architecture\\Future\" --output-dir \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Yaml\\Diagrams\\Future\""
     },
     "TraderX - CSV/YAML - Draw Diagrams": {
       "commandName": "Project",
