@@ -20,8 +20,6 @@ Transform the landscape of **Application Architecture** by bridging the **gap** 
 
 **C4InterFlow** is a comprehensive **Application Architecture** focused **framework** designed for anyone in an organisation, who wants to either **contribute** to (or just to **explore**) the Application Architecture **documentation**.  
 
-[![Book a FREE 30 minutes consultation](<Documentation/Images/Consultation Booking.png>)](https://scheduler.zoom.us/c4interflow/getting-started-consultation)
-
 ## Problem statements ❗
 
 Documenting Application Architecture with diagram drawing tools like Visio, Miro, LucidCharts etc., while popular and often effective, poses several key (genetically unsolved) problems that stem from the inherent limitations of these tools and the complex nature of software architecture. Here are some of these problems
@@ -110,8 +108,6 @@ The table below maps Problems to Possible Solutions and C4InterFlow Capabilities
 - Have a **question** or any other **enquiries**, [let's talk](https://www.c4interflow.com/letstalk).
 - Want to **work together** on **your** implementation of **Architecture as Code**, [let's talk](https://www.c4interflow.com/letstalk).
 - Want to **discuss the best place to start**, [Book a FREE 30 minutes consultation](https://scheduler.zoom.us/c4interflow/getting-started-consultation)
-
-[![Book a FREE 30 minutes consultation](<Documentation/Images/Consultation Booking.png>)](https://scheduler.zoom.us/c4interflow/getting-started-consultation)
 
 # Feedback
 
