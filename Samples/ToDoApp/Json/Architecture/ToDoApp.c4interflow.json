@@ -1,0 +1,154 @@
+{
+    "ToDoAppExample": {
+        "SoftwareSystems": {
+            "ToDoApp": {
+                "Containers": {
+                    "Database": {
+                        "Interfaces": {
+                            "SelectTasks": {},
+                            "InsertTask": {},
+                            "UpdateTask": {},
+                            "DeleteTask": {}
+                        },
+                        "Icon": "devicons/msql_server"
+                    },
+                    "WebApi": {
+                        "Interfaces": {
+                            "GetTasks": {
+                                "Flows": [
+                                    {
+                                        "Type": "Use",
+                                        "Expression": "Database.Interfaces.SelectTasks"
+                                    }
+                                ]
+                            },
+                            "AddTask": {
+                                "Flows": [
+                                    {
+                                        "Type": "Use",
+                                        "Expression": "Database.Interfaces.InsertTask"
+                                    }
+                                ]
+                            },
+                            "UpdateTask": {
+                                "Flows": [
+                                    {
+                                        "Type": "Use",
+                                        "Expression": "Database.Interfaces.UpdateTask"
+                                    }
+                                ]
+                            },
+                            "DeleteTask": {
+                                "Flows": [
+                                    {
+                                        "Type": "Use",
+                                        "Expression": "Database.Interfaces.DeleteTask"
+                                    }
+                                ]
+                            },
+                            "MarkTaskAsDone": {
+                                "Flows": [
+                                    {
+                                        "Type": "Use",
+                                        "Expression": "Database.Interfaces.UpdateTask"
+                                    }
+                                ]
+                            }
+                        },
+                        "Icon": "devicons/dotnet"
+                    },
+                    "MobileApp": {
+                        "Interfaces": {
+                            "ViewTasks": {
+                                "Flows": [
+                                    {
+                                        "Type": "Use",
+                                        "Expression": "WebApi.Interfaces.GetTasks"
+                                    }
+                                ]
+                            },
+                            "AddTask": {
+                                "Flows": [
+                                    {
+                                        "Type": "Use",
+                                        "Expression": "WebApi.Interfaces.AddTask"
+                                    }
+                                ]
+                            },
+                            "UpdateTask": {
+                                "Flows": [
+                                    {
+                                        "Type": "Use",
+                                        "Expression": "WebApi.Interfaces.UpdateTask"
+                                    }
+                                ]
+                            },
+                            "DeleteTask": {
+                                "Flows": [
+                                    {
+                                        "Type": "Use",
+                                        "Expression": "WebApi.Interfaces.DeleteTask"
+                                    }
+                                ]
+                            },
+                            "MarkTaskAsDone": {
+                                "Flows": [
+                                    {
+                                        "Type": "Use",
+                                        "Expression": "WebApi.Interfaces.MarkTaskAsDone"
+                                    }
+                                ]
+                            }
+                        },
+                        "Icon": "font-awesome-5/apple"
+                    },
+                    "WebApp": {
+                        "Interfaces": {
+                            "ViewTasks": {
+                                "Flows": [
+                                    {
+                                        "Type": "Use",
+                                        "Expression": "WebApi.Interfaces.GetTasks"
+                                    }
+                                ]
+                            },
+                            "AddTask": {
+                                "Flows": [
+                                    {
+                                        "Type": "Use",
+                                        "Expression": "WebApi.Interfaces.AddTask"
+                                    }
+                                ]
+                            },
+                            "UpdateTask": {
+                                "Flows": [
+                                    {
+                                        "Type": "Use",
+                                        "Expression": "WebApi.Interfaces.UpdateTask"
+                                    }
+                                ]
+                            },
+                            "DeleteTask": {
+                                "Flows": [
+                                    {
+                                        "Type": "Use",
+                                        "Expression": "WebApi.Interfaces.DeleteTask"
+                                    }
+                                ]
+                            },
+                            "MarkTaskAsDone": {
+                                "Flows": [
+                                    {
+                                        "Type": "Use",
+                                        "Expression": "WebApi.Interfaces.MarkTaskAsDone"
+                                    }
+                                ]
+                            }
+                        },
+                        "Icon": "devicons/angular"
+                    }
+                }
+            }
+        }
+    }
+}
