@@ -2,7 +2,7 @@
     <a href="#"><img src="Documentation/Images/Logo%20-%20with%20text%20180x180.png" alt="C4 InterFlow - Logo"></a>
 </div>
 <div align="center">
-    <strong>C4InterFlow</strong> = <strong>C4</strong> Model + <strong>Inter</strong>faces + <strong>Flow</strong>s</h1>
+    <strong>C4InterFlow</strong> = <strong>C4</strong> Model + <strong>Inter</strong>faces + <strong>Flow</strong>s
 </div>
 
 
@@ -40,7 +40,7 @@ Documenting Application Architecture with diagram drawing tools like Visio, Miro
 
 - **Architecture Analysis**: Diagramming tools often provide **static** representations that lack interactive capabilities for in-depth analysis. This limitation makes it **difficult to understand** how changes in one component might affect others, leading to **inefficient planning** and potential oversights in managing complex systems.
 
-- **Business Process Modelling**: Diagrmaming tools require users to create **new static diagrams** each time they want to model **new interactions** between different structures, their behaviours, and actors, such as **business processes**. This method leads to significant **duplication** of structures and behaviours across diagrams, making it **cumbersome** to **update**, **maintain**, and **understand** the holistic view of the system.
+- **Business Process Modelling**: Diagramming tools require users to create **new static diagrams** each time they want to model **new interactions** between different structures, their behaviours, and actors, such as **business processes**. This method leads to significant **duplication** of structures and behaviours across diagrams, making it **cumbersome** to **update**, **maintain**, and **understand** the holistic view of the system.
 
 ## Solutions 💡
   
