@@ -83,20 +83,21 @@ namespace C4InterFlow.Automation.Readers
                             {
                                 var activityActor = activityToken?["Actor"]?.ToString();
                                 var activityLabel = activityToken!["Label"]?.ToString();
-                                var activityFlow = activityToken!["Flow"]?.ToObject<Flow>();
 
-                                if (activityFlow != null)
+                                var activityFlows = activityToken!["Flows"]?.ToObject<List<Flow>>();
+                                if (activityFlows != null)
                                 {
-                                    activities.Add(new Activity(activityFlow, activityActor, activityLabel));
-                                }
-                                else
-                                {
-                                    activityFlow = new Flow();
-                                    var activityFlows = activityToken!["Flows"]?.ToObject<List<Flow>>();
-                                    if (activityFlows != null)
+                                    var activityFlow = new Flow();
+                                    activityFlow.AddFlowsRange(activityFlows);
+                                    if (activityActor == null)
                                     {
-                                        activities.Add(new Activity(activityFlows.ToArray(), activityActor, activityLabel)); ;
+                                        var useFlows = activityFlow.GetUsesInterfaces();
+                                        if(useFlows!.Length > 0)
+                                        {
+                                            activityActor = useFlows.First().Owner;
+                                        }
                                     }
+                                    activities.Add(new Activity(activityFlow.Flows.ToArray(), activityActor, activityLabel)); ;
                                 }
                             }
 
@@ -107,22 +108,17 @@ namespace C4InterFlow.Automation.Readers
                         }
                         break;
                     case "Interfaces":
-                        var interfaceFlow = token!["Flow"]?.ToObject<Flow>();
+
                         var protocol = token?["Protocol"]?.ToString() ?? string.Empty;
                         var path = token?["Path"]?.ToString() ?? string.Empty;
-                        if (interfaceFlow != null)
+
+                        var interfaceFlow = new Flow(fullAlias);
+                        var interfaceFlows = token!["Flows"]?.ToObject<List<Flow>>();
+                        if (interfaceFlows != null)
                         {
-                            interfaceFlow.Owner = fullAlias;
+                            interfaceFlow.AddFlowsRange(interfaceFlows);
                         }
-                        else
-                        {
-                            interfaceFlow = new Flow(fullAlias);
-                            var interfaceFlows = token!["Flows"]?.ToObject<List<Flow>>();
-                            if (interfaceFlows != null)
-                            {
-                                interfaceFlow.AddFlowsRange(interfaceFlows);
-                            }
-                        }
+
 
                         var @interface = new Interface(ownerToken.Path, fullAlias, label)
                         {

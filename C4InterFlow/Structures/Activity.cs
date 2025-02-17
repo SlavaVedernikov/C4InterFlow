@@ -2,12 +2,7 @@
 {
     public record Activity
     {
-        public Activity(Flow flow, string actor, string? label = null)
-        {
-            Actor = actor;
-            Flow = flow;
-            Label = label;
-        }
+        public Activity(Flow flow, string actor, string? label = null) : this(flow.Flows.ToArray(), actor, label) { }
 
         public Activity(Flow[] flows, string actor, string? label = null)
         {

@@ -46,7 +46,7 @@ namespace C4InterFlow.Automation.Writers
                 }
 
                 result.Add(new Activity(
-                    flow, 
+                    flow.Flows.ToArray(), 
                     $"{ArchitectureNamespace}.Actors.{businessActivity.Actor}", 
                     businessActivity.Name));
             }

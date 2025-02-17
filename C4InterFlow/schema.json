@@ -364,7 +364,7 @@
         }
       },
       "additionalProperties": false,
-      "required": [ "Label", "Actor", "Flows" ]
+      "required": [ "Label", "Flows" ]
     },
     "BusinessProcess": {
       "type": "object",
