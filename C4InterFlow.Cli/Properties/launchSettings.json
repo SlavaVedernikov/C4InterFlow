@@ -10,7 +10,11 @@
     },
     "Internet Banking System - YAML - Draw Diagrams": {
       "commandName": "Project",
-      "commandLineArgs": "draw-diagrams --interfaces BigBankPlc.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes BigBankPlc.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy \"C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\Yaml\\Architecture\" --output-dir \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\Yaml\\Diagrams\""
+      "commandLineArgs": "draw-diagrams --interfaces BigBankPlc.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes BigBankPlc.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy \"Yaml\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\Yaml\\Architecture\" --output-dir \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\Yaml\\Diagrams\""
+    },
+    "Internet Banking System - YAML - Generate Documentation": {
+      "commandName": "Project",
+      "commandLineArgs": "generate-documentation --structures ..SoftwareSystems.* ..SoftwareSystems.*.Containers.* --aac-reader-strategy \"Yaml\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\Yaml\\Architecture\" --output-dir \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\Yaml\\Diagrams\\Big Bank Plc\" --templates-dir \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\Yaml\\Templates\" --file-extension md"
     },
     "Internet Banking System - CSV/YAML - Draw Diagrams": {
       "commandName": "Project",
