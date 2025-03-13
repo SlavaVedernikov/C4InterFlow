@@ -16,7 +16,7 @@
 # 1.7.0
 
 * Added support for Namespace sub-directories on the file system
-* Added "namespace" scopes option
+* Added `namespace` scopes option
 * Added namespaces to the diagrams files system path
 * Added logging
 * Added shortcuts for AaC reader strategies
@@ -29,3 +29,11 @@
 * Changed CSharp AaC generation to remove ALIAS field
 * Simplified C# AaC by making it strongly-typed throughout
 * Removed type names repetitions in C# AaC definitions
+
+## 2.0.0
+* Added support for icons
+* Added `--max-line-labels` option to `draw-diagrams` command
+* Added views for drawing custom diagrams
+* Added JSON schema
+* Made `Actor` optional for Business Process `Activity`
+* Removed `Flow` element from `Interface` and Business Process `Activity` structures. Use `Flows` array instead. (**Braking change**)
