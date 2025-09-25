@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using C4InterFlow.Structures.Boundaries;
 using C4InterFlow.Visualisation.Plantuml.Enums;
 
 namespace C4InterFlow.Visualisation.Plantuml
@@ -53,7 +54,9 @@ namespace C4InterFlow.Visualisation.Plantuml
             var flowParticipants = diagram.Flow?.Flows?
                 .Where(x => x.Type != Structures.Flow.FlowType.None)
                 .Select(x => Utils.GetInstance<Structures.Structure>(x.Owner))
-                .Where(x => x != null && !diagram.Structures.Any(s => s.Alias == x.Alias)).Distinct();
+                .Where(x => x != null && 
+                    !diagram.Structures.Any(s => s.Alias == x.Alias) &&
+                    !diagram.Structures.OfType<IBoundary>().Any(b => b.GetStructures(recursive:true).Any(s => s.Alias == x.Alias))).Distinct();
 
             if (flowParticipants != null)
             {

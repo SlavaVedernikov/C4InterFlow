@@ -9,12 +9,12 @@ TraderXExample:
         - Type: Use
           Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.CreateTrade
       - Label: Process Trade Request
-        Actor: TraderXExample.Actors.ExternalProcess
+        Actor: TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor
         Flows:
         - Type: Use
           Expression: TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor.Interfaces.Start
       - Label: Refresh Web Client
-        Actor: TraderXExample.Actors.ExternalProcess
+        Actor: TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI
         Flows:
         - Type: Use
           Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI.Interfaces.Start

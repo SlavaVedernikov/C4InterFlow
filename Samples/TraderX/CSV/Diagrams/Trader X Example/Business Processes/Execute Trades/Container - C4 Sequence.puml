@@ -14,7 +14,6 @@ System_Boundary(TraderXExample.SoftwareSystems.TraderX, "TraderX")
     ContainerQueue(TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Trade Feed", "", "Message bus for streaming updates to trades and positions")
     Container(TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor, "Trade Processor", "", "Process incoming trade requests")
 Boundary_End()
-System(TraderXExample.Actors.ExternalProcess, "External Process", "")
 
 group Trader - Create Trade Request
 Rel(TraderXExample.Actors.Trader, TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Create Trade", "HTTPS")
@@ -24,8 +23,8 @@ Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.Sof
 Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices, TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB, "Insert Trade Request", "JDBC")
 Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices, TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Send Trade Request", "SocketIO")
 end
-group External Process - Process Trade Request
-Rel(TraderXExample.Actors.ExternalProcess, TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor, "Start")
+group Trade Processor - Process Trade Request
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor, "Start")
 Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Receive Trade Request", "SocketIO")
 Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB, "Select Current Positions", "JDBC")
 Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB, "Save Trade State", "JDBC")
@@ -33,8 +32,8 @@ Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderXExa
 Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Send Updates To Trades", "SocketIO")
 Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Send Updates To Positions", "SocketIO")
 end
-group External Process - Refresh Web Client
-Rel(TraderXExample.Actors.ExternalProcess, TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, "Start")
+group Web GUI - Refresh Web Client
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, "Start")
 Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Receive Updates To Trades", "WebSocket")
 Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Receive Updates To Positions", "WebSocket")
 Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Send Trade And Position Status Updates", "WebSocket")

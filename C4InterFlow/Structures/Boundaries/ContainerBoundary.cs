@@ -17,7 +17,7 @@ public record ContainerBoundary : Structure, IBoundary
     }
 
     public IEnumerable<Component> Components { get; init; } = Array.Empty<Component>();
-    public Structure[] GetBoundaryStructures() => Components.Select(x => x as Structure).ToArray();
+    public Structure[] GetStructures(bool recursive = false) => Components.Select(x => x as Structure).ToArray();
 }
 
 /// <summary>

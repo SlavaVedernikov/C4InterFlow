@@ -29,7 +29,7 @@ internal class StructureCollection
     {
         if (structure is IBoundary boundary)
         {
-            foreach (var boundaryStructure in boundary.GetBoundaryStructures())
+            foreach (var boundaryStructure in boundary.GetStructures())
             {
                 Add(boundaryStructure);
             }
