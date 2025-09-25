@@ -18,10 +18,8 @@ title Trader X Example - Execute Trades - C4 - Context level
 
 Person(TraderXExample.Actors.Trader, "Trader", "")
 System(TraderXExample.SoftwareSystems.TraderX, "TraderX", "TraderX")
-System(TraderXExample.Actors.ExternalProcess, "External Process", "")
 
 Rel(TraderXExample.Actors.Trader, TraderXExample.SoftwareSystems.TraderX, "Create Trade\nCancel Trade", "HTTPS", $tags="protocol:https")
-Rel(TraderXExample.Actors.ExternalProcess, TraderXExample.SoftwareSystems.TraderX, "Start")
 
 
 SHOW_LEGEND()

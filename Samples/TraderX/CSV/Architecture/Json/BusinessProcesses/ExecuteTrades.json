@@ -16,7 +16,7 @@
           },
           {
             "Label": "Process Trade Request",
-            "Actor": "TraderXExample.Actors.ExternalProcess",
+            "Actor": "TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor",
             "Flows": [
               {
                 "Type": "Use",
@@ -26,7 +26,7 @@
           },
           {
             "Label": "Refresh Web Client",
-            "Actor": "TraderXExample.Actors.ExternalProcess",
+            "Actor": "TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI",
             "Flows": [
               {
                 "Type": "Use",

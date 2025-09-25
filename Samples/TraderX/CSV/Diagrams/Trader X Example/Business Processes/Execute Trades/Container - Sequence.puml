@@ -14,7 +14,6 @@ box "TraderX" #White
     participant "Trade Processor" as TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor
 end box
 
-participant "External Process" as TraderXExample.Actors.ExternalProcess
 
 group Trader - Create Trade Request
 TraderXExample.Actors.Trader -> TraderXExample.SoftwareSystems.TraderX.Containers.WebClient : Create Trade\n[HTTPS]
@@ -30,8 +29,8 @@ end
 end
 end
 end
-group External Process - Process Trade Request
-TraderXExample.Actors.ExternalProcess -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor : Start
+group Trade Processor - Process Trade Request
+TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor : Start
 group Start
 TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Receive Trade Request\n[SocketIO]
 TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB : Select Current Positions\n[JDBC]
@@ -41,8 +40,8 @@ TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExamp
 TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Send Updates To Positions\n[SocketIO]
 end
 end
-group External Process - Refresh Web Client
-TraderXExample.Actors.ExternalProcess -> TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI : Start
+group Web GUI - Refresh Web Client
+TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI : Start
 group Start
 TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Receive Updates To Trades\n[WebSocket]
 TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Receive Updates To Positions\n[WebSocket]

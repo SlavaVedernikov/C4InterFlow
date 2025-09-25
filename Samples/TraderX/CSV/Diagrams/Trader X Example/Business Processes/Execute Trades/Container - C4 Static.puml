@@ -27,7 +27,6 @@ System_Boundary(TraderXExample.SoftwareSystems.TraderX, "TraderX") {
     ContainerQueue(TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Trade Feed", "", "Message bus for streaming updates to trades and positions")
     Container(TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor, "Trade Processor", "", "Process incoming trade requests")
 }
-System(TraderXExample.Actors.ExternalProcess, "External Process", "")
 
 Rel(TraderXExample.Actors.Trader, TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Uses", "HTTPS", $tags="protocol:https")
 Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, "Uses", "HTTPS", $tags="protocol:https")
@@ -35,10 +34,8 @@ Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.Sof
 Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices, "Uses", "HTTPS", $tags="protocol:https")
 Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices, TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB, "Uses", "JDBC", $tags="protocol:jdbc")
 Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices, TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Uses", "SocketIO", $tags="protocol:socketio")
-Rel(TraderXExample.Actors.ExternalProcess, TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor, "Uses")
 Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Uses", "SocketIO", $tags="protocol:socketio")
 Rel(TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor, TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB, "Uses", "JDBC", $tags="protocol:jdbc")
-Rel(TraderXExample.Actors.ExternalProcess, TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, "Uses")
 Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed, "Uses", "WebSocket", $tags="protocol:websocket")
 Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Uses", "WebSocket", $tags="protocol:websocket")
 

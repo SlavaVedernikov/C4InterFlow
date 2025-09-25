@@ -2,6 +2,7 @@ using C4InterFlow.Visualisation.Interfaces;
 using C4InterFlow.Structures;
 using C4InterFlow.Structures.Relationships;
 using C4InterFlow.Visualisation.Plantuml.Style;
+using C4InterFlow.Structures.Boundaries;
 
 namespace C4InterFlow.Visualisation;
 
@@ -92,6 +93,27 @@ public abstract class DiagramBuildRunner : IDiagramBuildRunner
         {
             structures.Remove(item);
         }
+
+        foreach (var structure in structures.ToArray())
+        {
+            if (structures.Any(x => !x.Alias.Equals(structure.Alias) && structure.Alias.StartsWith(x.Alias)))
+            {
+                structures.Remove(structure);
+            }
+        }
+
+        
+        var boundaries = structures.OfType<IBoundary>().ToArray();
+        var otherStructures = structures.Where(s => s is not IBoundary).ToArray();
+
+        foreach (var structure in otherStructures)
+        {
+            if (boundaries.Any(boundary => boundary.GetStructures(recursive:true).Any(x => x.Alias == structure.Alias)))
+            {
+                structures.Remove(structure);
+            }
+        }
+        
 
         return structures;
     }

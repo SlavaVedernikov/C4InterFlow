@@ -15,6 +15,6 @@ namespace C4InterFlow.Structures.Boundaries
         {
         }
         public List<Entity> Entities { get; } = new List<Entity>();
-        public Structure[] GetBoundaryStructures() => Entities.Select(x => x as Structure).ToArray();
+        public Structure[] GetStructures(bool recursive = false) => Entities.Select(x => x as Structure).ToArray();
     }
 }
