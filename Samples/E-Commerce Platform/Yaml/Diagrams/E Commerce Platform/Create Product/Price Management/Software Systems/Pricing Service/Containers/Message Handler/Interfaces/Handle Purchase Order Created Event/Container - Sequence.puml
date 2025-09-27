@@ -11,7 +11,7 @@ end box
 
 
 box "Buying Service" #White
-    participant "Messaging" as ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Messaging
+    queue "Messaging" as ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Messaging
 end box
 
 

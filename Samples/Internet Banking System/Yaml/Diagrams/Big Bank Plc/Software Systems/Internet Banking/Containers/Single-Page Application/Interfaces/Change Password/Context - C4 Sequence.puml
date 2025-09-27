@@ -1,5 +1,6 @@
 @startuml
 !include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+SHOW_FOOT_BOXES()
 
 title Big Bank Plc - Internet Banking - Single-Page Application - Change Password - C4 Sequence - Context level
 

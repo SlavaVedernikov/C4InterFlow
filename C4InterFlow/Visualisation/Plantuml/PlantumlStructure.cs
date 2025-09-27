@@ -14,39 +14,41 @@ internal static class PlantumlStructure
     /// <summary>
     /// Parser Structure to PlantUML
     /// </summary>
-    public static string ToPumlString(this Structure structure, BoundaryStyle? style = BoundaryStyle.CurlyBracketsEnclosed)
+    public static string ToPumlString(this Structure structure, 
+        BoundaryStyle? style = BoundaryStyle.CurlyBracketsEnclosed,
+        bool ignoreTags = false)
         => structure switch
         {
-            Person person => person.ToPumlString(),
-            SoftwareSystem system => system.ToPumlString(),
-            SoftwareSystemBoundary softwareSystemBoundary => softwareSystemBoundary.ToPumlString(style),
-            DeploymentNode deploymentNode => deploymentNode.ToPumlString(),
-            Component component => component.ToPumlString(),
-            Container container => container.ToPumlString(),
-            ContainerBoundary containerBoundary => containerBoundary.ToPumlString(style),
-            EnterpriseBoundary enterpriseBoundary => enterpriseBoundary.ToPumlString(style),
+            Person person => person.ToPumlString(ignoreTags),
+            SoftwareSystem system => system.ToPumlString(ignoreTags),
+            SoftwareSystemBoundary softwareSystemBoundary => softwareSystemBoundary.ToPumlString(style.Value, ignoreTags),
+            DeploymentNode deploymentNode => deploymentNode.ToPumlString(concat:0, ignoreTags),
+            Component component => component.ToPumlString(ignoreTags),
+            Container container => container.ToPumlString(ignoreTags),
+            ContainerBoundary containerBoundary => containerBoundary.ToPumlString(style, ignoreTags),
+            EnterpriseBoundary enterpriseBoundary => enterpriseBoundary.ToPumlString(style, ignoreTags),
             _ => string.Empty
         };
 
-    private static string ToPumlString(this Person person)
+    private static string ToPumlString(this Person person, bool ignoreTags = false)
     {
         var procedureName = $"Person{GetExternalSuffix(person)}";
 
         return
             $"{procedureName}({person.Alias}, \"{person.Label}\", \"{person.Description}\""
-                .TryConcatTags(person) + ")";
+                .TryConcatTags(person, ignoreTags) + ")";
     }
 
-    private static string ToPumlString(this SoftwareSystem system)
+    private static string ToPumlString(this SoftwareSystem system, bool ignoreTags = false)
     {
         var procedureName = $"System{GetExternalSuffix(system)}";
 
         return
             $"{procedureName}({system.Alias}, \"{system.Label}\", \"{system.Description}\""
-                .AddIcon(system).TryConcatTags(system) + ")";
+                .AddIcon(system).TryConcatTags(system, ignoreTags) + ")";
     }
 
-    private static string ToPumlString(this SoftwareSystemBoundary boundary, BoundaryStyle? style = BoundaryStyle.CurlyBracketsEnclosed)
+    private static string ToPumlString(this SoftwareSystemBoundary boundary, BoundaryStyle? style = BoundaryStyle.CurlyBracketsEnclosed, bool ignoreTags = false)
     {
         var stream = new StringBuilder();
         stream.AppendLine();
@@ -54,7 +56,7 @@ internal static class PlantumlStructure
 
         foreach (var structure in boundary.Structures)
         {
-            stream.AppendLine($"{TabIndentation.Indent()}{structure.ToPumlString(style)}");
+            stream.AppendLine($"{TabIndentation.Indent()}{structure.ToPumlString(style, ignoreTags)}");
         }
 
         if (style!.Value == BoundaryStyle.CurlyBracketsEnclosed)
@@ -70,7 +72,7 @@ internal static class PlantumlStructure
         return stream.ToString();
     }
 
-    private static string ToPumlString(this EnterpriseBoundary boundary, BoundaryStyle? style = BoundaryStyle.CurlyBracketsEnclosed)
+    private static string ToPumlString(this EnterpriseBoundary boundary, BoundaryStyle? style = BoundaryStyle.CurlyBracketsEnclosed, bool ignoreTags = false)
     {
         var stream = new StringBuilder();
         stream.AppendLine();
@@ -80,7 +82,7 @@ internal static class PlantumlStructure
         {
             if (structure is Person or SoftwareSystem or EnterpriseBoundary)
             {
-                stream.AppendLine($"{TabIndentation.Indent()}{structure.ToPumlString(style)}");
+                stream.AppendLine($"{TabIndentation.Indent()}{structure.ToPumlString(style, ignoreTags)}");
             }
         }
 
@@ -96,22 +98,23 @@ internal static class PlantumlStructure
         return stream.ToString();
     }
 
-    private static string ToPumlString(this Component component)
+    private static string ToPumlString(this Component component, bool ignoreTags = false)
     {
         var externalSuffix = GetExternalSuffix(component);
         var procedureName = component.ComponentType switch
         {
             ComponentType.Database => $"ComponentDb{externalSuffix}",
             ComponentType.Queue => $"ComponentQueue{externalSuffix}",
+            ComponentType.Topic => $"ComponentQueue{externalSuffix}",
             _ => $"Component{externalSuffix}"
         };
 
         return
             $"{procedureName}({component.Alias}, \"{component.Label}\", \"{component.Technology}\", \"{component.Description}\""
-                .AddIcon(component).TryConcatTags(component) + ")";
+                .AddIcon(component).TryConcatTags(component, ignoreTags) + ")";
     }
 
-    private static string ToPumlString(this Container container)
+    private static string ToPumlString(this Container container, bool ignoreTags = false)
     {
         var externalSuffix = GetExternalSuffix(container);
 
@@ -124,10 +127,10 @@ internal static class PlantumlStructure
         };
 
         return $"{procedureName}({container.Alias}, \"{container.Label}\", \"{container.Technology}\", \"{container.Description}\""
-            .AddIcon(container).TryConcatTags(container) + ")";
+            .AddIcon(container).TryConcatTags(container, ignoreTags) + ")";
     }
 
-    private static string ToPumlString(this ContainerBoundary boundary, BoundaryStyle? style = BoundaryStyle.CurlyBracketsEnclosed)
+    private static string ToPumlString(this ContainerBoundary boundary, BoundaryStyle? style = BoundaryStyle.CurlyBracketsEnclosed, bool ignoreTags = false)
     {
         var stream = new StringBuilder();
 
@@ -136,7 +139,7 @@ internal static class PlantumlStructure
 
         foreach (var component in boundary.Components)
         {
-            stream.AppendLine($"{TabIndentation.Indent()}{component.ToPumlString()}");
+            stream.AppendLine($"{TabIndentation.Indent()}{component.ToPumlString(ignoreTags)}");
         }
 
         if (style!.Value == BoundaryStyle.CurlyBracketsEnclosed)
@@ -151,7 +154,7 @@ internal static class PlantumlStructure
         return stream.ToString();
     }
 
-    private static string ToPumlString(this DeploymentNode deployment, int concat = 0)
+    private static string ToPumlString(this DeploymentNode deployment, int concat = 0, bool ignoreTags = false)
     {
         var stream = new StringBuilder();
         var spaces = TabIndentation.Indent(concat);
@@ -166,7 +169,7 @@ internal static class PlantumlStructure
             stream.AppendLine($"{spaces}AddProperty(\"{key}\", \"{value}\")");
         }
 
-        stream.AppendLine($"{spaces}Deployment_Node({deployment.Alias}, \"{deployment.Label}\", \"{deployment.Description}\"".TryConcatTags(deployment) + ") {");
+        stream.AppendLine($"{spaces}Deployment_Node({deployment.Alias}, \"{deployment.Label}\", \"{deployment.Description}\"".TryConcatTags(deployment, ignoreTags) + ") {");
 
         foreach (var node in deployment.Nodes)
         {
@@ -186,8 +189,8 @@ internal static class PlantumlStructure
     private static string GetExternalSuffix(Structure structure) =>
         structure.Boundary == Boundary.External ? "_Ext" : string.Empty;
 
-    private static string TryConcatTags(this string value, Structure structure) =>
-         value + (structure.Tags.Any() ? $", $tags=\"{string.Join("+", structure.Tags)}\"" : string.Empty);
+    private static string TryConcatTags(this string value, Structure structure, bool ignoreTags = false) =>
+         value + (!ignoreTags && structure.Tags.Any() ? $", $tags=\"{string.Join("+", structure.Tags)}\"" : string.Empty);
 
     private static string AddIcon(this string value, string icon) =>
         value + (!string.IsNullOrEmpty(icon) ? $", \"{icon.Split('/').Last()}\"" : string.Empty);

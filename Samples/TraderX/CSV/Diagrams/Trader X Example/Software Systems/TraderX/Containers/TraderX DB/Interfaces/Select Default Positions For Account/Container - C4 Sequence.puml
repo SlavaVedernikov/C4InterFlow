@@ -1,5 +1,6 @@
 @startuml
 !include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+SHOW_FOOT_BOXES()
 
 title Trader X Example - TraderX - TraderX DB - Select Default Positions For Account - C4 Sequence - Container level
 

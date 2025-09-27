@@ -1,5 +1,6 @@
 @startuml
 !include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+SHOW_FOOT_BOXES()
 
 title Trader X Example - TraderX - People Service - Get People Data - C4 Sequence - Context level
 

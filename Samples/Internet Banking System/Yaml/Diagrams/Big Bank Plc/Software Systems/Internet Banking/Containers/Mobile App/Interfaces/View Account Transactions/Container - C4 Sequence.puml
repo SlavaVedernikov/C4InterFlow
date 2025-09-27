@@ -1,5 +1,6 @@
 @startuml
 !include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+SHOW_FOOT_BOXES()
 
 title Big Bank Plc - Internet Banking - Mobile App - View Account Transactions - C4 Sequence - Container level
 

@@ -2,15 +2,15 @@
   "profiles": {
     "E-Commerce Platform - YAML - Draw Diagrams": {
       "commandName": "Project",
-      "commandLineArgs": "draw-diagrams --interfaces ECommercePlatform.*.*.SoftwareSystems.*.Interfaces.* ECommercePlatform.*.*.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes ECommercePlatform.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy \"C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Architecture\" --output-dir \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Diagrams\""
+      "commandLineArgs": "draw-diagrams --interfaces ECommercePlatform.*.*.SoftwareSystems.*.Interfaces.* ECommercePlatform.*.*.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes ECommercePlatform.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy \"C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Architecture\" --output-dir \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Diagrams\"  --formats svg"
     },
     "E-Commerce Platform - YAML - Execute Views": {
       "commandName": "Project",
-      "commandLineArgs": "execute-views --views ..Views.* --aac-reader-strategy \"Yaml\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Architecture\" --view-input-paths \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Views\" --output-dir \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Diagrams\" --log-level debug"
+      "commandLineArgs": "execute-views --views ..Views.* --aac-reader-strategy \"Yaml\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Architecture\" --view-input-paths \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Views\" --output-dir \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Diagrams\" --log-level debug  --formats svg"
     },
     "Internet Banking System - YAML - Draw Diagrams": {
       "commandName": "Project",
-      "commandLineArgs": "draw-diagrams --interfaces BigBankPlc.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes BigBankPlc.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy \"Yaml\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\Yaml\\Architecture\" --output-dir \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\Yaml\\Diagrams\""
+      "commandLineArgs": "draw-diagrams --interfaces BigBankPlc.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes BigBankPlc.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy \"Yaml\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\Yaml\\Architecture\" --output-dir \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\Yaml\\Diagrams\"  --formats svg"
     },
     "Internet Banking System - YAML - Generate Documentation": {
       "commandName": "Project",
@@ -18,31 +18,31 @@
     },
     "Internet Banking System - CSV/YAML - Draw Diagrams": {
       "commandName": "Project",
-      "commandLineArgs": "draw-diagrams --interfaces BigBankPlc.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes BigBankPlc.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy \"C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\CSV\\Architecture\\Yaml\" --output-dir \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\CSV\\Diagrams\""
+      "commandLineArgs": "draw-diagrams --interfaces BigBankPlc.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes BigBankPlc.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy \"C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\CSV\\Architecture\\Yaml\" --output-dir \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\CSV\\Diagrams\"  --formats svg"
     },
     "Internet Banking System - CSV/JSON - Draw Diagrams": {
       "commandName": "Project",
-      "commandLineArgs": "draw-diagrams --interfaces BigBankPlc.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes BigBankPlc.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy \"C4InterFlow.Automation.Readers.JsonAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\CSV\\Architecture\\Json\" --output-dir \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\CSV\\Diagrams\""
+      "commandLineArgs": "draw-diagrams --interfaces BigBankPlc.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes BigBankPlc.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy \"C4InterFlow.Automation.Readers.JsonAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\CSV\\Architecture\\Json\" --output-dir \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\CSV\\Diagrams\" --formats svg"
     },
     "ToDoApp - YAML - Current - Draw Diagrams": {
       "commandName": "Project",
-      "commandLineArgs": "draw-diagrams --interfaces ..Containers.*.Interfaces.* --levels-of-details container --aac-reader-strategy \"Yaml\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Yaml\\Architecture\\Current\" --output-dir \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Yaml\\Diagrams\\Current\""
+      "commandLineArgs": "draw-diagrams --interfaces ..Containers.*.Interfaces.* --levels-of-details container --aac-reader-strategy \"Yaml\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Yaml\\Architecture\\Current\" --output-dir \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Yaml\\Diagrams\\Current\"  --formats svg"
     },
     "ToDoApp - YAML - Future - Draw Diagrams": {
       "commandName": "Project",
-      "commandLineArgs": "draw-diagrams --interfaces ..Containers.*.Interfaces.* --levels-of-details container --aac-reader-strategy \"Yaml\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Yaml\\Architecture\\Current\" \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Yaml\\Architecture\\Future\" --output-dir \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Yaml\\Diagrams\\Future\""
+      "commandLineArgs": "draw-diagrams --interfaces ..Containers.*.Interfaces.* --levels-of-details container --aac-reader-strategy \"Yaml\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Yaml\\Architecture\\Current\" \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Yaml\\Architecture\\Future\" --output-dir \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Yaml\\Diagrams\\Future\"  --formats svg"
     },
     "ToDoApp - Json - Draw Diagrams": {
       "commandName": "Project",
-      "commandLineArgs": "draw-diagrams --interfaces ToDoAppExample.SoftwareSystems.*.Containers.*.Interfaces.* ToDoAppExample.SoftwareSystems.*.Interfaces.* --levels-of-details container --aac-reader-strategy \"Json\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Json\\Architecture\" --output-dir \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Json\\Diagrams\""
+      "commandLineArgs": "draw-diagrams --interfaces ToDoAppExample.SoftwareSystems.*.Containers.*.Interfaces.* ToDoAppExample.SoftwareSystems.*.Interfaces.* --levels-of-details container --aac-reader-strategy \"Json\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Json\\Architecture\" --output-dir \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Json\\Diagrams\"  --formats svg"
     },
     "TraderX - CSV/YAML - Draw Diagrams": {
       "commandName": "Project",
-      "commandLineArgs": "draw-diagrams --interfaces TraderXExample.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes TraderXExample.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy \"C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\TraderX\\CSV\\Architecture\\Yaml\" --output-dir \"$(ProjectDir)\\..\\Samples\\TraderX\\CSV\\Diagrams\""
+      "commandLineArgs": "draw-diagrams --interfaces TraderXExample.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes TraderXExample.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy \"C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\TraderX\\CSV\\Architecture\\Yaml\" --output-dir \"$(ProjectDir)\\..\\Samples\\TraderX\\CSV\\Diagrams\" --formats svg"
     },
     "TraderX - CSV/JSON - Draw Diagrams": {
       "commandName": "Project",
-      "commandLineArgs": "draw-diagrams --interfaces TraderXExample.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes TraderXExample.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy \"C4InterFlow.Automation.Readers.JsonAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\TraderX\\CSV\\Architecture\\Json\" --output-dir \"$(ProjectDir)\\..\\Samples\\TraderX\\CSV\\Diagrams\""
+      "commandLineArgs": "draw-diagrams --interfaces TraderXExample.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes TraderXExample.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy \"C4InterFlow.Automation.Readers.JsonAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\TraderX\\CSV\\Architecture\\Json\" --output-dir \"$(ProjectDir)\\..\\Samples\\TraderX\\CSV\\Diagrams\"  --formats svg"
     }
   }
 }

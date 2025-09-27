@@ -1,5 +1,6 @@
 @startuml
 !include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+SHOW_FOOT_BOXES()
 
 title Trader X Example - TraderX - Web GUI - Start - C4 Sequence - Container level
 

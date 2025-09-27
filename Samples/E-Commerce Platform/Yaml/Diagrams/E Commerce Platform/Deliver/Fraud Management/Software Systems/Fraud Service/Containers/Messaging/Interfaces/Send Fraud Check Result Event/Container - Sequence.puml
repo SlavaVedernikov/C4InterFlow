@@ -5,7 +5,7 @@ title E Commerce Platform - Deliver - Fraud Management - Fraud Service - Messagi
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 
 box "Fraud Service" #White
-    participant "Messaging" as ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Messaging
+    queue "Messaging" as ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Messaging
 end box
 
 

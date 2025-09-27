@@ -5,15 +5,12 @@ title Trader X Example - Manage Accounts - Sequence - Context level
 participant "Trader" as TraderXExample.Actors.Trader
 participant "TraderX" as TraderXExample.SoftwareSystems.TraderX
 
-group Trader - View Account
+== Trader - View Account ==
 TraderXExample.Actors.Trader -> TraderXExample.SoftwareSystems.TraderX : View Account
-end
-group Trader - Create Account
+== Trader - Create Account ==
 TraderXExample.Actors.Trader -> TraderXExample.SoftwareSystems.TraderX : Create Account
-end
-group Trader - Update Account
+== Trader - Update Account ==
 TraderXExample.Actors.Trader -> TraderXExample.SoftwareSystems.TraderX : Update Account
-end
 
 
 @enduml

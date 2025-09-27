@@ -5,7 +5,7 @@ title Trader X Example - TraderX - Trade Feed - Send Trade Request - Sequence - 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 
 box "TraderX" #White
-    participant "Trade Feed" as TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed
+    queue "Trade Feed" as TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed
 end box
 
 

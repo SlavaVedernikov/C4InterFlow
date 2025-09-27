@@ -1,5 +1,6 @@
 @startuml
 !include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+SHOW_FOOT_BOXES()
 
 title E Commerce Platform - Generate Demand - Storefront - Storefront App - Update Basket Item - C4 Sequence - Container level
 

@@ -1,5 +1,6 @@
 @startuml
 !include ..\..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+SHOW_FOOT_BOXES()
 
 title E Commerce Platform - Deliver - Fraud Management - Fraud Service - Message Handler - Handle Order Created Event - C4 Sequence - Container level
 

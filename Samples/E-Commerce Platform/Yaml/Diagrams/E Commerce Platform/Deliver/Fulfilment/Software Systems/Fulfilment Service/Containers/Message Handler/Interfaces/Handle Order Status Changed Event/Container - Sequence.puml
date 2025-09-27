@@ -8,12 +8,12 @@ box "Fulfilment Service" #White
     participant "Message Handler" as ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.MessageHandler
     database "Database" as ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Database
     participant "Api" as ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Api
-    participant "Messaging" as ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Messaging
+    queue "Messaging" as ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Messaging
 end box
 
 
 box "Order Service" #White
-    participant "Messaging" as ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging
+    queue "Messaging" as ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging
 end box
 
 participant "WMS" as ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS

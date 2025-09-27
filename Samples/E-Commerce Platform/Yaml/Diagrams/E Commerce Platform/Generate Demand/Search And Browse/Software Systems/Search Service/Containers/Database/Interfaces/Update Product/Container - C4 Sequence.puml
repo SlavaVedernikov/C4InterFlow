@@ -1,5 +1,6 @@
 @startuml
 !include ..\..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+SHOW_FOOT_BOXES()
 
 title E Commerce Platform - Generate Demand - Search And Browse - Search Service - Database - Update Product - C4 Sequence - Container level
 

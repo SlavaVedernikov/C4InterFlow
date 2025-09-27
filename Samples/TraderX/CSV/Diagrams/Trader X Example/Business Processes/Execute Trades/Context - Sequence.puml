@@ -5,14 +5,12 @@ title Trader X Example - Execute Trades - Sequence - Context level
 participant "Trader" as TraderXExample.Actors.Trader
 participant "TraderX" as TraderXExample.SoftwareSystems.TraderX
 
-group Trader - Create Trade Request
+== Trader - Create Trade Request ==
 TraderXExample.Actors.Trader -> TraderXExample.SoftwareSystems.TraderX : Create Trade
-end
 TraderXExample.SoftwareSystems.TraderX -> TraderXExample.SoftwareSystems.TraderX : Start
 TraderXExample.SoftwareSystems.TraderX -> TraderXExample.SoftwareSystems.TraderX : Start
-group Trader - Cancel Trade
+== Trader - Cancel Trade ==
 TraderXExample.Actors.Trader -> TraderXExample.SoftwareSystems.TraderX : Cancel Trade
-end
 
 
 @enduml

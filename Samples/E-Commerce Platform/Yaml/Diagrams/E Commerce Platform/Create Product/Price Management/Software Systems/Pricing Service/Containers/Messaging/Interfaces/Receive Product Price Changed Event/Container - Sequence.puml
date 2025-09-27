@@ -5,7 +5,7 @@ title E Commerce Platform - Create Product - Price Management - Pricing Service 
 participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 
 box "Pricing Service" #White
-    participant "Messaging" as ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Messaging
+    queue "Messaging" as ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Messaging
 end box
 
 

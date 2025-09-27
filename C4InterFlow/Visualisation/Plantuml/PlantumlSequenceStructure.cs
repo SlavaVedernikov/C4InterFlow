@@ -53,6 +53,10 @@ namespace C4InterFlow.Visualisation.Plantuml
                         case ContainerType.Database:
                             participantKeyWord = "database";
                             break;
+                        case ContainerType.Queue:
+                        case ContainerType.Topic:
+                            participantKeyWord = "queue";
+                            break;
                         default:
                             break;
                     }
