@@ -1,5 +1,6 @@
 @startuml
 !include ..\..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+SHOW_FOOT_BOXES()
 
 title E Commerce Platform - Deliver - Payments - Payment Service - Messaging - Send Payment Result Event - C4 Sequence - Container level
 

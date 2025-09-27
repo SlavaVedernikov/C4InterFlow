@@ -10,7 +10,7 @@ box "TraderX" #White
     participant "Reference Data Service" as TraderXExample.SoftwareSystems.TraderX.Containers.ReferenceDataService
     participant "Trading Services" as TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices
     database "TraderX DB" as TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB
-    participant "Trade Feed" as TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed
+    queue "Trade Feed" as TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed
 end box
 
 

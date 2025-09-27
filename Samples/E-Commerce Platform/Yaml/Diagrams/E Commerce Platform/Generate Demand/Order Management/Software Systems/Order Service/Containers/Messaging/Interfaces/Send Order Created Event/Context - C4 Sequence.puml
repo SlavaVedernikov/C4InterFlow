@@ -1,5 +1,6 @@
 @startuml
 !include ..\..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+SHOW_FOOT_BOXES()
 
 title E Commerce Platform - Generate Demand - Order Management - Order Service - Messaging - Send Order Created Event - C4 Sequence - Context level
 

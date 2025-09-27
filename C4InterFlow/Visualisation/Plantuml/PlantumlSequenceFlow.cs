@@ -55,8 +55,18 @@ namespace C4InterFlow.Visualisation.Plantuml
                     pumlKeyword = "loop";
                     break;
                 case Flow.FlowType.Group:
-                    pumlKeyword = "group";
-                    break;
+                    {
+                        if(flow.Parent?.Type == Flow.FlowType.None)
+                        {
+                            pumlKeyword = "==";
+                        }
+                        else
+                        {
+                            pumlKeyword = "group";
+                        }
+
+                        break;
+                    }
                 case Flow.FlowType.None:
                 default:
                     break;
@@ -64,7 +74,14 @@ namespace C4InterFlow.Visualisation.Plantuml
 
             if (!string.IsNullOrEmpty(pumlKeyword))
             {
-                sb.AppendLine($"{pumlKeyword} {(!string.IsNullOrEmpty(flow.Expression) ? flow.Expression.Replace("\n", @"\n") : string.Empty)}");
+                if(pumlKeyword == "==")
+                {
+                    sb.AppendLine($"{pumlKeyword} {(!string.IsNullOrEmpty(flow.Expression) ? flow.Expression.Replace("\n", @"\n") : string.Empty)} {pumlKeyword}");
+                }
+                else
+                {
+                    sb.AppendLine($"{pumlKeyword} {(!string.IsNullOrEmpty(flow.Expression) ? flow.Expression.Replace("\n", @"\n") : string.Empty)}");
+                }
             }
 
             if (flow.Type == Flow.FlowType.ThrowException)
@@ -125,8 +142,8 @@ namespace C4InterFlow.Visualisation.Plantuml
             }
 
             if (flow.Type == Flow.FlowType.If || 
-                flow.Type == Flow.FlowType.Loop || 
-                flow.Type == Flow.FlowType.Group)
+                flow.Type == Flow.FlowType.Loop ||
+                (flow.Type == Flow.FlowType.Group && pumlKeyword != "=="))
             {
                 sb.AppendLine("end");
             }

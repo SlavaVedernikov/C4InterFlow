@@ -91,7 +91,6 @@ namespace C4InterFlow.Visualisation
                         if(Process.Activities.Count() > 1)
                         {
                             var actor = activity.GetActorInstance() ?? new SoftwareSystems.ExternalSystem.Interfaces.ExternalInterface().Instance;
-                            //TODO: Consider refactoring this so that it is treated as a divider/separator e.g. "== {actor.Label} =="
                             parentFlow = _flow.Group(
                                 $"{actor.Label}{(!string.IsNullOrEmpty(activity.Label) ? $" - {activity.Label}" : string.Empty)}",
                                 actor.Alias);

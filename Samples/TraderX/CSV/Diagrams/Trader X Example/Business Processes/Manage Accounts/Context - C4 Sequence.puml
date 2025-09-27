@@ -1,20 +1,18 @@
 @startuml
 !include ..\..\..\.c4s\C4_Sequence.puml
+SHOW_FOOT_BOXES()
 
 title Trader X Example - Manage Accounts - C4 Sequence - Context level
 
 Person(TraderXExample.Actors.Trader, "Trader", "")
 System(TraderXExample.SoftwareSystems.TraderX, "TraderX", "TraderX")
 
-group Trader - View Account
+== Trader - View Account ==
 Rel(TraderXExample.Actors.Trader, TraderXExample.SoftwareSystems.TraderX, "View Account")
-end
-group Trader - Create Account
+== Trader - Create Account ==
 Rel(TraderXExample.Actors.Trader, TraderXExample.SoftwareSystems.TraderX, "Create Account")
-end
-group Trader - Update Account
+== Trader - Update Account ==
 Rel(TraderXExample.Actors.Trader, TraderXExample.SoftwareSystems.TraderX, "Update Account")
-end
 
 
 @enduml

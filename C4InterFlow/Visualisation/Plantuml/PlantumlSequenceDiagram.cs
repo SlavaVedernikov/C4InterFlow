@@ -33,8 +33,11 @@ namespace C4InterFlow.Visualisation.Plantuml
             {
                 var includePath = diagram.GetPumlFilePath(useStandardLibrary, diagramPath, true);
                 stream.AppendLine($"!include {includePath}");
+
+                stream.AppendLine("SHOW_FOOT_BOXES()");
             }
 
+            
             //TODO: Make diagram resolution configurable via diagram parameter.
             //stream.AppendLine("skinparam dpi 60");
             stream.AppendLine();
@@ -81,7 +84,7 @@ namespace C4InterFlow.Visualisation.Plantuml
                 }
                 else if (style == SequenceDiagramStyle.C4)
                 {
-                    stream.AppendLine(structure?.ToPumlString(BoundaryStyle.BoundaryEndClosed));
+                    stream.AppendLine(structure?.ToPumlString(style:BoundaryStyle.BoundaryEndClosed, ignoreTags:true));
                 }
             }
 

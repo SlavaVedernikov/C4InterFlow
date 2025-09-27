@@ -8,7 +8,7 @@ participant "CRM App" as ECommercePlatform.Deliver.CustomerManagement.SoftwareSy
 box "Fraud Service" #White
     participant "Api" as ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Api
     database "Database" as ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Database
-    participant "Messaging" as ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Messaging
+    queue "Messaging" as ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Messaging
 end box
 
 

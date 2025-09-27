@@ -8,7 +8,7 @@ box "TraderX" #White
     participant "Web GUI" as TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI
     participant "Trading Services" as TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices
     database "TraderX DB" as TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB
-    participant "Trade Feed" as TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed
+    queue "Trade Feed" as TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed
 end box
 
 

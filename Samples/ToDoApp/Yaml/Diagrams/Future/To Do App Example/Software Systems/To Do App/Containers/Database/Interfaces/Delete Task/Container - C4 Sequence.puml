@@ -1,12 +1,13 @@
 @startuml
 !include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+SHOW_FOOT_BOXES()
 
 title To Do App Example - To Do App - Database - Delete Task - C4 Sequence - Container level
 
 System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 
 System_Boundary(ToDoAppExample.SoftwareSystems.ToDoApp, "To Do App")
-    Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database, "Database", "", "", "msql_server", $tags="c4interflow:lifecycle:changed")
+    Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database, "Database", "", "", "msql_server")
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database, "Delete Task")

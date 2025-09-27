@@ -6,7 +6,7 @@ participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 
 box "Buying Service" #White
     participant "Message Handler" as ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.MessageHandler
-    participant "Messaging" as ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Messaging
+    queue "Messaging" as ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingService.Containers.Messaging
 end box
 
 participant "WMS" as ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS

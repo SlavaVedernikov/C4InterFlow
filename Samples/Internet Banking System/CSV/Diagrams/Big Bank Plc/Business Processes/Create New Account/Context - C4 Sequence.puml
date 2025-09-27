@@ -1,5 +1,6 @@
 @startuml
 !include ..\..\..\.c4s\C4_Sequence.puml
+SHOW_FOOT_BOXES()
 
 title Big Bank Plc - Create New Account - C4 Sequence - Context level
 
@@ -8,23 +9,19 @@ System(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking", "")
 System_Ext(BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Mainframe Banking System", "")
 System_Ext(BigBankPlc.SoftwareSystems.EMailSystem, "E-Mail System", "")
 
-group Customer - Go to Online Banking URL
+== Customer - Go to Online Banking URL ==
 Rel(BigBankPlc.Actors.Customer, BigBankPlc.SoftwareSystems.InternetBanking, "Navigate")
-end
-group Customer - Sign In and View Home Page
+== Customer - Sign In and View Home Page ==
 Rel(BigBankPlc.Actors.Customer, BigBankPlc.SoftwareSystems.InternetBanking, "Sign In")
 Rel(BigBankPlc.Actors.Customer, BigBankPlc.SoftwareSystems.InternetBanking, "View Customer Details")
 Rel(BigBankPlc.SoftwareSystems.InternetBanking, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Customer")
 Rel(BigBankPlc.SoftwareSystems.InternetBanking, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Get Customer Accounts")
-end
-group Customer - Create New Account
+== Customer - Create New Account ==
 Rel(BigBankPlc.Actors.Customer, BigBankPlc.SoftwareSystems.InternetBanking, "Create Account")
 Rel(BigBankPlc.SoftwareSystems.InternetBanking, BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Create Account")
 Rel(BigBankPlc.SoftwareSystems.InternetBanking, BigBankPlc.SoftwareSystems.EMailSystem, "Send New Account Created Notification E-Mail")
-end
-group Customer - Receive New Account Created Notification E-Mail
+== Customer - Receive New Account Created Notification E-Mail ==
 Rel(BigBankPlc.Actors.Customer, BigBankPlc.SoftwareSystems.EMailSystem, "Receive New Account Created Notification E-Mail")
-end
 
 
 @enduml

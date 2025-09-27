@@ -6,7 +6,7 @@ participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 
 box "TraderX" #White
     participant "Trade Processor" as TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor
-    participant "Trade Feed" as TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed
+    queue "Trade Feed" as TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed
     database "TraderX DB" as TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB
 end box
 

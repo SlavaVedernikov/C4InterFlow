@@ -9,7 +9,7 @@ participant "Storefront Bff" as ECommercePlatform.GenerateDemand.Storefront.Soft
 box "Order Service" #White
     participant "Api" as ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Api
     database "Database" as ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Database
-    participant "Messaging" as ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging
+    queue "Messaging" as ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging
 end box
 
 

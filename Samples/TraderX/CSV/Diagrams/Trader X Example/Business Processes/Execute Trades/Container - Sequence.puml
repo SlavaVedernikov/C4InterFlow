@@ -10,12 +10,12 @@ box "TraderX" #White
     participant "Reference Data Service" as TraderXExample.SoftwareSystems.TraderX.Containers.ReferenceDataService
     participant "Trading Services" as TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices
     database "TraderX DB" as TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB
-    participant "Trade Feed" as TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed
+    queue "Trade Feed" as TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed
     participant "Trade Processor" as TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor
 end box
 
 
-group Trader - Create Trade Request
+== Trader - Create Trade Request ==
 TraderXExample.Actors.Trader -> TraderXExample.SoftwareSystems.TraderX.Containers.WebClient : Create Trade\n[HTTPS]
 group Create Trade
 TraderXExample.SoftwareSystems.TraderX.Containers.WebClient -> TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI : Create Trade\n[HTTPS]
@@ -28,8 +28,7 @@ TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices -> TraderXExam
 end
 end
 end
-end
-group Trade Processor - Process Trade Request
+== Trade Processor - Process Trade Request ==
 TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor : Start
 group Start
 TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Receive Trade Request\n[SocketIO]
@@ -39,8 +38,7 @@ TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExamp
 TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Send Updates To Trades\n[SocketIO]
 TraderXExample.SoftwareSystems.TraderX.Containers.TradeProcessor -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Send Updates To Positions\n[SocketIO]
 end
-end
-group Web GUI - Refresh Web Client
+== Web GUI - Refresh Web Client ==
 TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI : Start
 group Start
 TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Receive Updates To Trades\n[WebSocket]
@@ -50,8 +48,7 @@ group Send Trade And Position Status Updates
 TraderXExample.SoftwareSystems.TraderX.Containers.WebClient -> TraderXExample.SoftwareSystems.TraderX.Containers.WebClient : Update Trade And Position Status View\n[HTTPS]
 end
 end
-end
-group Trader - Cancel Trade
+== Trader - Cancel Trade ==
 TraderXExample.Actors.Trader -> TraderXExample.SoftwareSystems.TraderX.Containers.WebClient : Cancel Trade\n[HTTPS]
 group Cancel Trade
 TraderXExample.SoftwareSystems.TraderX.Containers.WebClient -> TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI : Cancel Trade\n[HTTPS]
@@ -60,7 +57,6 @@ TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.Softw
 group Cancel Trade
 TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices -> TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB : Update Trade Status\n[JDBC]
 TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Send Updates To Trades\n[SocketIO]
-end
 end
 end
 end

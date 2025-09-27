@@ -11,7 +11,7 @@ end box
 
 
 box "Pricing Service" #White
-    participant "Messaging" as ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Messaging
+    queue "Messaging" as ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Messaging
 end box
 
 

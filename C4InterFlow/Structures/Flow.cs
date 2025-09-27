@@ -49,7 +49,7 @@ namespace C4InterFlow.Structures
 
         public IList<Flow> Flows { get; set; } = new List<Flow>();
         public FlowType Type { get; set; }
-        private Flow? Parent { get; set; }
+        internal Flow? Parent { get; private set; }
 
         private string _owner = string.Empty;
         public string Owner { 

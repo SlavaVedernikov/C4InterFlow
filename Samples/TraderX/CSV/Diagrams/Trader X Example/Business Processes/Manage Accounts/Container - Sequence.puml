@@ -12,7 +12,7 @@ box "TraderX" #White
 end box
 
 
-group Trader - View Account
+== Trader - View Account ==
 TraderXExample.Actors.Trader -> TraderXExample.SoftwareSystems.TraderX.Containers.WebClient : View Account\n[HTTPS]
 group View Account
 TraderXExample.SoftwareSystems.TraderX.Containers.WebClient -> TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI : Load Account\n[HTTPS]
@@ -28,8 +28,7 @@ group Load Positions For Account
 TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.PositionService : Get Positions For Account\n[HTTPS]
 end
 end
-end
-group Trader - Create Account
+== Trader - Create Account ==
 TraderXExample.Actors.Trader -> TraderXExample.SoftwareSystems.TraderX.Containers.WebClient : Create Account\n[HTTPS]
 group Create Account
 TraderXExample.SoftwareSystems.TraderX.Containers.WebClient -> TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI : Create Account\n[HTTPS]
@@ -37,14 +36,12 @@ group Create Account
 TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.AccountsService : Create Account\n[HTTPS]
 end
 end
-end
-group Trader - Update Account
+== Trader - Update Account ==
 TraderXExample.Actors.Trader -> TraderXExample.SoftwareSystems.TraderX.Containers.WebClient : Update Account\n[HTTPS]
 group Update Account
 TraderXExample.SoftwareSystems.TraderX.Containers.WebClient -> TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI : Update Account\n[HTTPS]
 group Update Account
 TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.AccountsService : Update Account\n[HTTPS]
-end
 end
 end
 

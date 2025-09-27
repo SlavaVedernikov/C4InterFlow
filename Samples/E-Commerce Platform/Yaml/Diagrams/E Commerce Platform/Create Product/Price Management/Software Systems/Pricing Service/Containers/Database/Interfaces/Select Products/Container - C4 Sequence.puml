@@ -1,5 +1,6 @@
 @startuml
 !include ..\..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+SHOW_FOOT_BOXES()
 
 title E Commerce Platform - Create Product - Price Management - Pricing Service - Database - Select Products - C4 Sequence - Container level
 

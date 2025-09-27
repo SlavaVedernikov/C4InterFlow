@@ -11,7 +11,7 @@ end box
 
 
 box "Product Service" #White
-    participant "Messaging" as ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Messaging
+    queue "Messaging" as ECommercePlatform.CreateProduct.ProductInformationManagement.SoftwareSystems.ProductService.Containers.Messaging
 end box
 
 

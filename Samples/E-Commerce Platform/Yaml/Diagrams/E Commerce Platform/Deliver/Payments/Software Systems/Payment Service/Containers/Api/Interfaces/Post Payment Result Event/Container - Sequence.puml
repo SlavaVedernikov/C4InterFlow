@@ -7,7 +7,7 @@ participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
 box "Payment Service" #White
     participant "Api" as ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Api
     database "Database" as ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Database
-    participant "Messaging" as ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Messaging
+    queue "Messaging" as ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Messaging
 end box
 
 

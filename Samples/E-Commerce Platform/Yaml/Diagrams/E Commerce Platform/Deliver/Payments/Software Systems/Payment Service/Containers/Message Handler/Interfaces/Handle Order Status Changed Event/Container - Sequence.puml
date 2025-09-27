@@ -8,12 +8,12 @@ box "Payment Service" #White
     participant "Message Handler" as ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.MessageHandler
     database "Database" as ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Database
     participant "Api" as ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Api
-    participant "Messaging" as ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Messaging
+    queue "Messaging" as ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Messaging
 end box
 
 
 box "Order Service" #White
-    participant "Messaging" as ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging
+    queue "Messaging" as ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging
 end box
 
 participant "Payment Provider" as ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider
