@@ -42,7 +42,7 @@ Container_Boundary(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastruct
 
 Rel(DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisDatabase, "Key Delete Async\nString Get Lease Async\nString Set Async")
 Rel(DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc.Components.BasketService, DotNetEShop.SoftwareSystems.BasketApi.Containers.Data.Components.RedisBasketRepository, "Delete Basket Async\nGet Basket Async\nUpdate Basket Async")
-Rel(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext, "Catalog Items Add\nSave Changes Async\nCatalog Items Single Or Default\nCatalog Items Remove\nCatalog Items To List Async")
+Rel(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext, "Catalog Items Add\nSave Changes Async\nCatalog Items Single Or Default\nCatalog Items Remove\nCatalog Items To List Async\nCatalog Items To List Async (Conditional)\nSave Changes Async (Conditional)")
 
 
 SHOW_LEGEND()

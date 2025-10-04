@@ -71,6 +71,17 @@ namespace C4InterFlow.Structures
             } 
         }
 
+        public void SetParents()
+        {
+            if(Flows?.Count > 0)
+            {
+                foreach(var flow in Flows)
+                {
+                    flow.Parent = this;
+                    flow.SetParents();
+                }
+            }
+        }
         private void SetOwner(string value, bool selfOnly = false)
         {
             if (selfOnly)
@@ -83,6 +94,26 @@ namespace C4InterFlow.Structures
             }
         }
         public string? Expression { get; set; }
+
+        public bool IsConditional
+        { 
+            get
+            {
+                if (Parent == null)
+                    return false;
+
+                if (Parent.Type == FlowType.If ||
+                    Parent.Type == FlowType.ElseIf ||
+                    Parent.Type == FlowType.Else)
+                {
+                    return true;
+                }
+                else
+                {
+                    return Parent.IsConditional;
+                }
+            }    
+        }
         public Interface[] GetUsesInterfaces()
         {
             var result = new List<Interface>();

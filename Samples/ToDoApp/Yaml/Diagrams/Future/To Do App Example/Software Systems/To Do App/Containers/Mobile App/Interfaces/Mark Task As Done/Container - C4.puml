@@ -30,7 +30,7 @@ System_Boundary(ToDoAppExample.SoftwareSystems.ToDoApp, "To Do App") {
 }
 
 Rel(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.MobileApp, ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, "Mark Task As Done")
-Rel(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database, "Update Task Status")
+Rel(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database, "Update Task Status (Conditional)")
 
 
 SHOW_LEGEND()

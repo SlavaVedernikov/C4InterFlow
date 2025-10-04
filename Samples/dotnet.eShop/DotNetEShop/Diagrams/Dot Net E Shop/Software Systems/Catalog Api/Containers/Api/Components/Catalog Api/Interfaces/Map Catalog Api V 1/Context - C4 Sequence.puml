@@ -1,5 +1,6 @@
 @startuml
 !include ..\..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+SHOW_FOOT_BOXES()
 
 title Dot Net E Shop - Catalog Api - Api - Catalog Api - Map Catalog Api V 1 - C4 Sequence - Context level
 

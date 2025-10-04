@@ -158,7 +158,7 @@
         }
       },
       "additionalProperties": false,
-      "required": ["Type"]
+      "required": [ "Type" ]
     },
     "SoftwareSystem": {
       "type": "object",
@@ -238,7 +238,8 @@
             "Microservice",
             "Queue",
             "Topic",
-            "Database"
+            "Database",
+            "None"
           ]
         },
         "Technology": {
@@ -257,6 +258,18 @@
           "type": "object",
           "additionalProperties": {
             "$ref": "#/$defs/Attribute"
+          }
+        },
+        "Components": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/Component"
+          }
+        },
+        "Entities": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/Entity"
           }
         },
         "Interfaces": {
@@ -313,6 +326,41 @@
       },
       "additionalProperties": false
     },
+    "Entity": {
+      "type": "object",
+      "properties": {
+        "Label": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "EntityType": {
+          "type": "string",
+          "enum": [
+            "None",
+            "Enum",
+            "Data",
+            "Message",
+            "Query",
+            "Command"
+          ]
+        },
+        "Tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Attributes": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/Attribute"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
     "Attribute": {
       "oneOf": [
         {
@@ -346,6 +394,18 @@
         },
         "Flows": {
           "$ref": "#/$defs/Flows"
+        },
+        "Input": {
+          "type": "string"
+        },
+        "InputTemplate": {
+          "type": "string"
+        },
+        "Output": {
+          "type": "string"
+        },
+        "OutputTemplate": {
+          "type": "string"
         }
       },
       "additionalProperties": false

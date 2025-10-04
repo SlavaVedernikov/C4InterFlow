@@ -62,7 +62,7 @@ namespace C4InterFlow.Visualisation
                             {
                                 foreach (var component in containerBoundary.Components)
                                 {
-                                    _allNotes.AddRange((component as Component)?.Notes ?? Array.Empty<Note>());
+                                    _allNotes.AddRange(component?.Notes ?? Array.Empty<Note>());
                                 }
                             }
 
@@ -293,9 +293,13 @@ namespace C4InterFlow.Visualisation
                         _relationships = new List<Relationship>();
                         foreach (var activity in Process.Activities)
                         {
-                            foreach (var @interface in activity.Flow.GetUseFlows().Select(x => Utils.GetInstance<Interface>(x.Expression)).Where(x => x != null))
+                            foreach (var flow in activity.Flow?.GetUseFlows())
                             {
-                                PopulateRelationships(_relationships, activity.GetActorInstance() ?? new SoftwareSystems.ExternalSystem.Interfaces.ExternalInterface().Instance, @interface);
+                                var @interface = Utils.GetInstance<Interface>(flow.Expression);
+                                if (@interface != null)
+                                {
+                                    PopulateRelationships(_relationships, activity.GetActorInstance() ?? new SoftwareSystems.ExternalSystem.Interfaces.ExternalInterface().Instance, @interface, flow.IsConditional);
+                                }
                             }
                         }
 
@@ -307,7 +311,7 @@ namespace C4InterFlow.Visualisation
             }
         }
 
-        private void PopulateRelationships(IList<Relationship> relationships, Structure actor, Interface usesInterface)
+        private void PopulateRelationships(IList<Relationship> relationships, Structure actor, Interface usesInterface, bool isConditional = false)
         {
             if (actor is Interface interfaceActor)
             {
@@ -320,9 +324,7 @@ namespace C4InterFlow.Visualisation
             var output = Utils.GetInstance<Structure>(usesInterface.Output);
             var outputTemplate = Utils.GetInstance<Structure>(usesInterface.OutputTemplate);
 
-            var inputLabel = ShowInterfaceInputAndOutput ? (input != null ? $"{input.Label} -> " : string.Empty) : string.Empty;
-            var outputLabel = ShowInterfaceInputAndOutput ? ($"{(outputTemplate != null || output != null ? " -> " : string.Empty)}{(outputTemplate != null ? $"{outputTemplate.Label}<" : string.Empty)}{(output != null ? output.Label : string.Empty)}{(outputTemplate != null ? ">" : string.Empty)}") : string.Empty;
-            var label = $"{inputLabel}{usesInterface.Label}{outputLabel}";
+            var label = $"{usesInterface.Label}{(isConditional ? " (Conditional)" : string.Empty)}";
 
             if (relationships.Where(x => x.From == (actor).Alias &&
                                         x.To == usesInterfaceOwner.Alias &&
@@ -336,9 +338,13 @@ namespace C4InterFlow.Visualisation
             }
 
 
-            foreach (var usesAnotherInterface in usesInterface.Flow?.GetUsesInterfaces() ?? Enumerable.Empty<Interface>())
+            foreach (var flow in usesInterface.Flow?.GetUseFlows())
             {
-                PopulateRelationships(relationships, usesInterface, usesAnotherInterface);
+                var usesAnotherInterface = Utils.GetInstance<Interface>(flow.Expression);
+                if (usesAnotherInterface != null)
+                {
+                    PopulateRelationships(relationships, usesInterface, usesAnotherInterface, flow.IsConditional);
+                }
             }
         }
     }

@@ -28,7 +28,7 @@ Container_Boundary(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastruct
 }
 }
 
-Rel(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext, "Save Changes Async")
+Rel(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api.Components.CatalogApi, DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure.Components.CatalogContext, "Save Changes Async (Conditional)")
 
 
 SHOW_LEGEND()
