@@ -1,5 +1,6 @@
 @startuml
 !include ..\..\..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+SHOW_FOOT_BOXES()
 
 title Dot Net E Shop - Basket Api - Grpc - Basket Service - Throw Basket Does Not Exist - C4 Sequence - Context level
 

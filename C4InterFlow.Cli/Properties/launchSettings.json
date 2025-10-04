@@ -22,7 +22,7 @@
     },
     "Internet Banking System - CSV/JSON - Draw Diagrams": {
       "commandName": "Project",
-      "commandLineArgs": "draw-diagrams --interfaces BigBankPlc.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes BigBankPlc.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy \"C4InterFlow.Automation.Readers.JsonAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\CSV\\Architecture\\Json\" --output-dir \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\CSV\\Diagrams\" --formats svg"
+      "commandLineArgs": "draw-diagrams --interfaces BigBankPlc.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes BigBankPlc.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy \"C4InterFlow.Automation.Readers.JsonAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\CSV\\Architecture\\Json\" --output-dir \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\CSV\\Diagrams\""
     },
     "ToDoApp - YAML - Current - Draw Diagrams": {
       "commandName": "Project",

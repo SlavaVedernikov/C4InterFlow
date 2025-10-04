@@ -116,6 +116,7 @@ namespace C4InterFlow.Automation.Readers
                         var interfaceFlows = token!["Flows"]?.ToObject<List<Flow>>();
                         if (interfaceFlows != null)
                         {
+                            interfaceFlows.ForEach(x => x.SetParents());
                             interfaceFlow.AddFlowsRange(interfaceFlows);
                         }
 

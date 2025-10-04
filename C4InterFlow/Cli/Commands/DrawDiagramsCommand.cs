@@ -138,7 +138,7 @@ public class DrawDiagramsCommand : Command
                         if (!DiagramOptions.IsSupported(diagramScope, diagramType, levelOfDetails))
                             continue;
 
-                        Log.Information("Drawing {DiagramType} diagrams of {Level} level of details for {Scope}", diagramType, levelOfDetails, diagramScope);
+                        Log.Information("Drawing {DiagramType} diagrams of {Level} level of details for {Scope} scope", diagramType, levelOfDetails, diagramScope);
 
                         switch (diagramType)
                         {

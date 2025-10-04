@@ -12,7 +12,9 @@ end box
 
 C4InterFlow.SoftwareSystems.ExternalSystem -> ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi : Mark Task As Done
 group Mark Task As Done
+alt Task is not in Done status
 ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi -> ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database : Update Task Status
+end
 end
 
 

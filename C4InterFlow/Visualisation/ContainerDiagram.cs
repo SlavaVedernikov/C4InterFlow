@@ -222,9 +222,13 @@ namespace C4InterFlow.Visualisation
 
                     foreach (var activity in Process.Activities)
                     {
-                        foreach (var @interface in activity.Flow?.GetUsesInterfaces() ?? Enumerable.Empty<Interface>())
+                        foreach (var flow in activity.Flow?.GetUseFlows() )
                         {
-                            PopulateRelationships(_relationships, activity.GetActorInstance() ?? new SoftwareSystems.ExternalSystem.Interfaces.ExternalInterface().Instance, @interface);
+                            var @interface = Utils.GetInstance<Interface>(flow.Expression);
+                            if (@interface != null)
+                            {
+                                PopulateRelationships(_relationships, activity.GetActorInstance() ?? new SoftwareSystems.ExternalSystem.Interfaces.ExternalInterface().Instance, @interface, isConditional: flow.IsConditional);
+                            }
                         }
                     }
 
@@ -235,7 +239,7 @@ namespace C4InterFlow.Visualisation
             }
         }
 
-        private void PopulateRelationships(IList<Relationship> relationships, Structure actor, Interface usesInterface, string? fromScope = null, string? toScope = null)
+        private void PopulateRelationships(IList<Relationship> relationships, Structure actor, Interface usesInterface, string? fromScope = null, string? toScope = null, bool isConditional = false)
         {
             if (actor is Interface i)
             {
@@ -270,7 +274,7 @@ namespace C4InterFlow.Visualisation
                 newToScope = usesInterfaceOwner.Alias;
             }
 
-            var label = $"{usesInterface.Label}";
+            var label = $"{usesInterface.Label}{(isConditional ? " (Conditional)" : string.Empty)}";
 
             if (relationships.Where(x => x.From == (actor).Alias &&
                                         x.To == usesInterfaceOwner.Alias &&
@@ -284,9 +288,13 @@ namespace C4InterFlow.Visualisation
                     usesInterface.Protocol].AddTags(usesInterface.Tags?.ToArray()));
             }
 
-            foreach (var usesAnotherInterface in usesInterface.Flow?.GetUsesInterfaces() ?? Enumerable.Empty<Interface>())
+            foreach (var flow in usesInterface.Flow?.GetUseFlows())
             {
-                PopulateRelationships(relationships, usesInterface, usesAnotherInterface, newFromScope, newToScope);
+                var usesAnotherInterface = Utils.GetInstance<Interface>(flow.Expression);
+                if (usesAnotherInterface != null)
+                {
+                    PopulateRelationships(relationships, usesInterface, usesAnotherInterface, newFromScope, newToScope, flow.IsConditional);
+                }
             }
         }
     }

@@ -30,7 +30,7 @@ System_Boundary(ToDoAppExample.SoftwareSystems.ToDoApp, "To Do App") {
 }
 
 Rel(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApp, ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, "Get Tasks\nAdd Task\nUpdate Task\nDelete Task\nMark Task As Done")
-Rel(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database, "Select Tasks\nInsert Task\nUpdate Task\nDelete Task\nUpdate Task Status")
+Rel(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database, "Select Tasks\nInsert Task\nUpdate Task\nDelete Task\nUpdate Task Status (Conditional)")
 
 
 SHOW_LEGEND()

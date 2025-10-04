@@ -13,6 +13,9 @@ ToDoAppExample:
           Interfaces:
             MarkTaskAsDone:
               Flows:
-                - Type: Use
-                  Expression: Database.Interfaces.UpdateTaskStatus
+                - Type: If
+                  Expression: Task is not in Done status
+                  Flows:
+                  - Type: Use
+                    Expression: Database.Interfaces.UpdateTaskStatus
  

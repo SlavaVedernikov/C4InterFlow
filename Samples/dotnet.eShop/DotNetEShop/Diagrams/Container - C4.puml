@@ -28,7 +28,7 @@ System_Boundary(DotNetEShop.SoftwareSystems.CatalogApi, "Catalog Api") {
 }
 
 Rel(DotNetEShop.SoftwareSystems.BasketApi.Containers.Grpc, DotNetEShop.SoftwareSystems.BasketApi.Containers.Data, "Delete Basket Async\nGet Basket Async\nUpdate Basket Async")
-Rel(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api, DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Catalog Items Add\nSave Changes Async\nCatalog Items Single Or Default\nCatalog Items Remove\nCatalog Items To List Async")
+Rel(DotNetEShop.SoftwareSystems.CatalogApi.Containers.Api, DotNetEShop.SoftwareSystems.CatalogApi.Containers.Infrastructure, "Catalog Items Add\nSave Changes Async\nCatalog Items Single Or Default\nCatalog Items Remove\nCatalog Items To List Async\nCatalog Items To List Async (Conditional)\nSave Changes Async (Conditional)")
 
 
 SHOW_LEGEND()
