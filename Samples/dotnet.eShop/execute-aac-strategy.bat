@@ -12,7 +12,7 @@ if not defined build-configuration set "build-configuration=Debug"
 set "aac-root-namespace=DotNetEShop"
 set "aac-project-name=DotNetEShop"
 set "cli-project-path=.\%aac-project-name%.Cli\%aac-project-name%.Cli.csproj"
-set "cli-output-dir=.\%aac-project-name%.Cli\bin\%build-configuration%\net6.0"
+set "cli-output-dir=.\%aac-project-name%.Cli\bin\%build-configuration%\net9.0"
 set "cli-exe=%aac-project-name%.Cli.exe"
 
 if %aac-type%==CSharp set "aac-output-path=%aac-project-name%\%aac-project-name%.csproj"

@@ -1,5 +1,6 @@
 @startuml
 !include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+SHOW_FOOT_BOXES()
 
 title To Do App Example - To Do App - Mobile App - Delete Task - C4 Sequence - Container level
 

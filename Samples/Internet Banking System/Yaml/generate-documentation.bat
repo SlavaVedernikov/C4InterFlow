@@ -2,7 +2,7 @@
 
 set "build-configuration=Debug"
 set "cli-project-path=..\..\..\C4InterFlow.Cli\C4InterFlow.Cli.csproj"
-set "cli-output-dir=..\..\..\C4InterFlow.Cli\bin\%build-configuration%\net6.0\win-x64"
+set "cli-output-dir=..\..\..\C4InterFlow.Cli\bin\%build-configuration%\net9.0\win-x64"
 set "cli-exe=C4InterFlow.Cli.exe"
 set "output-dir=.\Diagrams\Big Bank Plc"
 set "file-extension=md"
