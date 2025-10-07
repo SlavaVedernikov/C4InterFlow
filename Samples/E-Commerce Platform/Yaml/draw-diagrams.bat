@@ -5,7 +5,7 @@ if not defined redraw-all set "redraw-all=TRUE"
 
 if not defined build-configuration set "build-configuration=Debug"
 set "cli-project-path=..\..\..\C4InterFlow.Cli\C4InterFlow.Cli.csproj"
-set "cli-output-dir=..\..\..\C4InterFlow.Cli\bin\%build-configuration%\net6.0\win-x64"
+set "cli-output-dir=..\..\..\C4InterFlow.Cli\bin\%build-configuration%\net9.0\win-x64"
 set "cli-exe=C4InterFlow.Cli.exe"
 set "diagrams-dir=.\Diagrams"
 set "aac-reader-strategy=C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation"

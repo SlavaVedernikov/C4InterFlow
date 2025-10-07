@@ -1,9 +1,10 @@
-using C4InterFlow.Visualisation.Plantuml.Style;
-using C4InterFlow.Visualisation.Interfaces;
-using C4InterFlow.Structures;
-using C4InterFlow.Structures.Relationships;
-using C4InterFlow.Structures.Boundaries;
 using C4InterFlow.Cli.Commands.Options;
+using C4InterFlow.Structures;
+using C4InterFlow.Structures.Boundaries;
+using C4InterFlow.Structures.Relationships;
+using C4InterFlow.Visualisation.Interfaces;
+using C4InterFlow.Visualisation.Plantuml.Style;
+using static C4InterFlow.Structures.Flow;
 
 namespace C4InterFlow.Visualisation
 {
@@ -288,7 +289,7 @@ namespace C4InterFlow.Visualisation
                     usesInterface.Protocol].AddTags(usesInterface.Tags?.ToArray()));
             }
 
-            foreach (var flow in usesInterface.Flow?.GetUseFlows())
+            foreach (var flow in usesInterface.Flow?.GetUseFlows() ?? Enumerable.Empty<Flow>())
             {
                 var usesAnotherInterface = Utils.GetInstance<Interface>(flow.Expression);
                 if (usesAnotherInterface != null)
