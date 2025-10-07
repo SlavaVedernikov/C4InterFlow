@@ -1,6 +1,6 @@
 @echo off
 
-if not defined aac-type set "aac-type=Json"
+if not defined aac-type set "aac-type=Yaml"
 
 if not defined build-configuration set "build-configuration=Debug"
 set "aac-root-namespace=TraderXExample"
