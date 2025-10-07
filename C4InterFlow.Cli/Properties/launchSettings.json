@@ -43,6 +43,14 @@
     "TraderX - CSV/JSON - Draw Diagrams": {
       "commandName": "Project",
       "commandLineArgs": "draw-diagrams --interfaces TraderXExample.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes TraderXExample.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy \"C4InterFlow.Automation.Readers.JsonAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\TraderX\\CSV\\Architecture\\Json\" --output-dir \"$(ProjectDir)\\..\\Samples\\TraderX\\CSV\\Diagrams\""
+    },
+    "TraderX - CSV/YAML - Execute AAC Strategy": {
+      "commandName": "Project",
+      "commandLineArgs": "execute-aac-strategy --aac-root-namespace \"TraderXExample\" --aac-output-path \"$(ProjectDir)\\..\\Samples\\TraderX\\CSV\\Architecture\\Yaml\" --aac-writer-strategy \"C4InterFlow.Automation.Writers.CsvToYamlAaCGenerator,C4InterFlow.Automation\" --params aac-input-path=\"$(ProjectDir)\\..\\Samples\\TraderX\\CSV\\Architecture Catalogue - CSV Export\""
+    },
+    "TraderX - CSV/JSON - Execute AAC Strategy": {
+      "commandName": "Project",
+      "commandLineArgs": "execute-aac-strategy --aac-root-namespace \"TraderXExample\" --aac-output-path \"$(ProjectDir)\\..\\Samples\\TraderX\\CSV\\Architecture\\Json\" --aac-writer-strategy \"C4InterFlow.Automation.Writers.CsvToJsonAaCGenerator,C4InterFlow.Automation\" --params aac-input-path=\"$(ProjectDir)\\..\\Samples\\TraderX\\CSV\\Architecture Catalogue - CSV Export\""
     }
   }
 }

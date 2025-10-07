@@ -125,14 +125,19 @@ namespace C4InterFlow.Automation.Writers
                 var businessActivitiesJArray = new JArray();
                 foreach (var businessActivity in GetBusinessProcessActivities(businessProcess))
                 {
-                    businessActivitiesJArray.Add(new JObject()
+                    var businessActivityObject = new JObject
                     {
                         { "Label", businessActivity.Label },
-                        { "Actor", businessActivity.Actor },
-                        {
-                            "Flow", JObject.FromObject(businessActivity.Flow, serializer)
-                        }
-                    });
+                        { "Actor", businessActivity.Actor }
+                    };
+
+                    var flows = JArray.FromObject(businessActivity.Flows, serializer);
+                    if (flows.Count > 0)
+                    {
+                        businessActivityObject.Add("Flows", flows);
+                    }
+
+                    businessActivitiesJArray.Add(businessActivityObject);
                 }
 
                 var businessProcessObject = new JObject

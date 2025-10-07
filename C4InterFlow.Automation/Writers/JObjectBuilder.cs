@@ -233,20 +233,16 @@ namespace C4InterFlow.Automation.Writers
                 flowsArray.Add(BuildFlowObject(flow, actor));
             }
 
-            var activityFlow = new JObject { { "Owner", actor } };
-
-            if(flowsArray.Count > 0)
-            {
-                activityFlow.Add("Flows", flowsArray);
-            }
-
             var result = new JObject
             {
                 { "Label", label },
                 { "Actor", actor },
-                { "Flow", activityFlow },
-                
             };
+
+            if(flowsArray.Count > 0)
+            {
+                result.Add("Flows", flowsArray);
+            }
 
             return result;
         }
