@@ -126,7 +126,9 @@ internal static class PlantumlStructure
             _ => $"Container{externalSuffix}"
         };
 
-        return $"{procedureName}({container.Alias}, \"{container.Label}\", \"{container.Technology}\", \"{container.Description}\""
+        var technology = !string.IsNullOrWhiteSpace(container.Technology) ? container.Technology : GetContainerTypeDescription(container.ContainerType);
+
+        return $"{procedureName}({container.Alias}, \"{container.Label}\", \"{technology}\", \"{container.Description}\""
             .AddIcon(container).TryConcatTags(container, ignoreTags) + ")";
     }
 
@@ -188,6 +190,14 @@ internal static class PlantumlStructure
 
     private static string GetExternalSuffix(Structure structure) =>
         structure.Boundary == Boundary.External ? "_Ext" : string.Empty;
+
+    private static string GetContainerTypeDescription(ContainerType containerType)
+    {
+        var field = typeof(ContainerType).GetField(containerType.ToString());
+        var descriptionAttribute = field?.GetCustomAttributes(typeof(System.ComponentModel.DescriptionAttribute), false)
+            .FirstOrDefault() as System.ComponentModel.DescriptionAttribute;
+        return descriptionAttribute?.Description ?? containerType.ToString();
+    }
 
     private static string TryConcatTags(this string value, Structure structure, bool ignoreTags = false) =>
          value + (!ignoreTags && structure.Tags.Any() ? $", $tags=\"{string.Join("+", structure.Tags)}\"" : string.Empty);
