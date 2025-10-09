@@ -109,8 +109,10 @@ internal static class PlantumlStructure
             _ => $"Component{externalSuffix}"
         };
 
+        var technology = !string.IsNullOrWhiteSpace(component.Technology) ? component.Technology : GetDescription(component.ComponentType);
+
         return
-            $"{procedureName}({component.Alias}, \"{component.Label}\", \"{component.Technology}\", \"{component.Description}\""
+            $"{procedureName}({component.Alias}, \"{component.Label}\", \"{technology}\", \"{component.Description}\""
                 .AddIcon(component).TryConcatTags(component, ignoreTags) + ")";
     }
 
@@ -126,7 +128,7 @@ internal static class PlantumlStructure
             _ => $"Container{externalSuffix}"
         };
 
-        var technology = !string.IsNullOrWhiteSpace(container.Technology) ? container.Technology : GetContainerTypeDescription(container.ContainerType);
+        var technology = !string.IsNullOrWhiteSpace(container.Technology) ? container.Technology : GetDescription(container.ContainerType);
 
         return $"{procedureName}({container.Alias}, \"{container.Label}\", \"{technology}\", \"{container.Description}\""
             .AddIcon(container).TryConcatTags(container, ignoreTags) + ")";
@@ -191,12 +193,12 @@ internal static class PlantumlStructure
     private static string GetExternalSuffix(Structure structure) =>
         structure.Boundary == Boundary.External ? "_Ext" : string.Empty;
 
-    private static string GetContainerTypeDescription(ContainerType containerType)
+    private static string GetDescription<TEnum>(TEnum enumValue) where TEnum : struct, Enum
     {
-        var field = typeof(ContainerType).GetField(containerType.ToString());
+        var field = typeof(TEnum).GetField(enumValue.ToString());
         var descriptionAttribute = field?.GetCustomAttributes(typeof(System.ComponentModel.DescriptionAttribute), false)
             .FirstOrDefault() as System.ComponentModel.DescriptionAttribute;
-        return descriptionAttribute?.Description ?? containerType.ToString();
+        return descriptionAttribute?.Description ?? enumValue.ToString();
     }
 
     private static string TryConcatTags(this string value, Structure structure, bool ignoreTags = false) =>
