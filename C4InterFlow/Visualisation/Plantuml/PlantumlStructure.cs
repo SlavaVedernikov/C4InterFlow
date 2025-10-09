@@ -109,7 +109,7 @@ internal static class PlantumlStructure
             _ => $"Component{externalSuffix}"
         };
 
-        var technology = !string.IsNullOrWhiteSpace(component.Technology) ? component.Technology : GetDescription(component.ComponentType);
+        var technology = string.Join(", ", new[] { GetDescription(component.ComponentType), component.Technology }.Where(s => !string.IsNullOrWhiteSpace(s)));
 
         return
             $"{procedureName}({component.Alias}, \"{component.Label}\", \"{technology}\", \"{component.Description}\""
@@ -128,7 +128,7 @@ internal static class PlantumlStructure
             _ => $"Container{externalSuffix}"
         };
 
-        var technology = !string.IsNullOrWhiteSpace(container.Technology) ? container.Technology : GetDescription(container.ContainerType);
+        var technology = string.Join(", ", new[] { GetDescription(container.ContainerType), container.Technology }.Where(s => !string.IsNullOrWhiteSpace(s)));
 
         return $"{procedureName}({container.Alias}, \"{container.Label}\", \"{technology}\", \"{container.Description}\""
             .AddIcon(container).TryConcatTags(container, ignoreTags) + ")";
