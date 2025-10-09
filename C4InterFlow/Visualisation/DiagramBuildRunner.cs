@@ -96,13 +96,12 @@ public abstract class DiagramBuildRunner : IDiagramBuildRunner
 
         foreach (var structure in structures.ToArray())
         {
-            if (structures.Any(x => !x.Alias.Equals(structure.Alias) && structure.Alias.StartsWith(x.Alias)))
+            if (structures.Any(x => !x.Alias.Equals(structure.Alias) && structure.Alias.StartsWith(x.Alias + ".")))
             {
                 structures.Remove(structure);
             }
         }
 
-        
         var boundaries = structures.OfType<IBoundary>().ToArray();
         var otherStructures = structures.Where(s => s is not IBoundary).ToArray();
 
