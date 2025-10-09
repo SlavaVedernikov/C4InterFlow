@@ -147,11 +147,23 @@ namespace C4InterFlow.Automation.Readers
                     case "Containers":
                         var containerTypeName = token!["ContainerType"]?.ToString() ?? string.Empty;
                         var containerTechnology = token!["Technology"]?.ToString() ?? string.Empty;
+                        
+                        ContainerType parsedContainerType;
+                        if (!string.IsNullOrWhiteSpace(containerTypeName) && 
+                            Enum.TryParse(containerTypeName, out parsedContainerType))
+                        {
+                            // Successfully parsed
+                        }
+                        else
+                        {
+                            parsedContainerType = ContainerType.None;
+                            Log.Warning("Container '{Alias}' has invalid or empty ContainerType '{ContainerTypeName}'. Setting to ContainerType.None", 
+                                fullAlias, containerTypeName);
+                        }
+                        
                         result = new Container(ownerToken.Path, fullAlias, label)
                         {
-                            ContainerType = !string.IsNullOrEmpty(containerTypeName) &&
-                                Enum.TryParse(containerTypeName, out ContainerType containerType) ?
-                                containerType : ContainerType.None,
+                            ContainerType = parsedContainerType,
                             Description = description,
                             Technology = containerTechnology,
                             Tags = tags ?? new string[] { },

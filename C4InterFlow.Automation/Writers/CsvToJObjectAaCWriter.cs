@@ -257,10 +257,12 @@ namespace C4InterFlow.Automation.Writers
 
             if (containersObject != null)
             {
+                var normalizedContainerType = !string.IsNullOrWhiteSpace(containerType) ? containerType : "None";
+                
                 var containerObject = new JObject
                     {
                         { "Label", GetLabel(name, label) },
-                        { "ContainerType", containerType != null ? containerType : "None" },
+                        { "ContainerType", normalizedContainerType },
                     };
 
                 if (!string.IsNullOrEmpty(description))
