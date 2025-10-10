@@ -109,8 +109,10 @@ internal static class PlantumlStructure
             _ => $"Component{externalSuffix}"
         };
 
+        var technology = string.Join(", ", new[] { GetDescription(component.ComponentType), component.Technology }.Where(s => !string.IsNullOrWhiteSpace(s)));
+
         return
-            $"{procedureName}({component.Alias}, \"{component.Label}\", \"{component.Technology}\", \"{component.Description}\""
+            $"{procedureName}({component.Alias}, \"{component.Label}\", \"{technology}\", \"{component.Description}\""
                 .AddIcon(component).TryConcatTags(component, ignoreTags) + ")";
     }
 
@@ -126,7 +128,9 @@ internal static class PlantumlStructure
             _ => $"Container{externalSuffix}"
         };
 
-        return $"{procedureName}({container.Alias}, \"{container.Label}\", \"{container.Technology}\", \"{container.Description}\""
+        var technology = string.Join(", ", new[] { GetDescription(container.ContainerType), container.Technology }.Where(s => !string.IsNullOrWhiteSpace(s)));
+
+        return $"{procedureName}({container.Alias}, \"{container.Label}\", \"{technology}\", \"{container.Description}\""
             .AddIcon(container).TryConcatTags(container, ignoreTags) + ")";
     }
 
@@ -188,6 +192,14 @@ internal static class PlantumlStructure
 
     private static string GetExternalSuffix(Structure structure) =>
         structure.Boundary == Boundary.External ? "_Ext" : string.Empty;
+
+    private static string GetDescription<TEnum>(TEnum enumValue) where TEnum : struct, Enum
+    {
+        var field = typeof(TEnum).GetField(enumValue.ToString());
+        var descriptionAttribute = field?.GetCustomAttributes(typeof(System.ComponentModel.DescriptionAttribute), false)
+            .FirstOrDefault() as System.ComponentModel.DescriptionAttribute;
+        return descriptionAttribute?.Description ?? enumValue.ToString();
+    }
 
     private static string TryConcatTags(this string value, Structure structure, bool ignoreTags = false) =>
          value + (!ignoreTags && structure.Tags.Any() ? $", $tags=\"{string.Join("+", structure.Tags)}\"" : string.Empty);
