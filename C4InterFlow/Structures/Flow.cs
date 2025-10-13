@@ -220,8 +220,6 @@ namespace C4InterFlow.Structures
         {
             var flows = new List<Flow>();
 
-            var json = System.Text.Json.JsonSerializer.Serialize(this);
-
             flows.AddRange(GetFlowsByType(this, FlowType.If));
             flows.AddRange(GetFlowsByType(this, FlowType.ElseIf));
             flows.AddRange(GetFlowsByType(this, FlowType.Else));
@@ -257,8 +255,6 @@ namespace C4InterFlow.Structures
         private void CleanUpInferredSoftwareSystemFlows()
         {
             var flows = new List<Flow>();
-
-            var json = System.Text.Json.JsonSerializer.Serialize(this);
 
             flows.AddRange(GetFlowsByType(this, FlowType.If));
             flows.AddRange(GetFlowsByType(this, FlowType.ElseIf));

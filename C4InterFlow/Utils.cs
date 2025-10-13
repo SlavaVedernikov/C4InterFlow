@@ -1,13 +1,14 @@
-﻿using System.Reflection;
-using System.Text.Json;
-using System.Text.RegularExpressions;
-using C4InterFlow.Automation;
+﻿using C4InterFlow.Automation;
 using C4InterFlow.Cli;
 using C4InterFlow.Structures;
 using C4InterFlow.Structures.Interfaces;
 using C4InterFlow.Structures.Relationships;
 using C4InterFlow.Structures.Views;
 using Serilog;
+using System.Reflection;
+using System.Text.Json;
+using System.Text.Json.Serialization.Metadata;
+using System.Text.RegularExpressions;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace C4InterFlow
@@ -34,10 +35,16 @@ namespace C4InterFlow
         {
             var result = default(T);
 
+            var options = new JsonSerializerOptions
+            {
+                TypeInfoResolver = new DefaultJsonTypeInfoResolver(),
+                IncludeFields = true
+            };
+
             if (source != null)
             {
-                var json = JsonSerializer.Serialize(source);
-                result = JsonSerializer.Deserialize<T>(json, new JsonSerializerOptions() { IncludeFields = true});
+                var json = JsonSerializer.Serialize(source, options);
+                result = JsonSerializer.Deserialize<T>(json, options);
             }
 
             return result;

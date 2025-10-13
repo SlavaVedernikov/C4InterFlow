@@ -15,4 +15,10 @@
     <ProjectReference Include="..\C4InterFlow.Automation\C4InterFlow.Automation.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <TrimmerRootAssembly Include="C4InterFlow" />
+    <TrimmerRootAssembly Include="C4InterFlow.Cli" />
+    <TrimmerRootAssembly Include="C4InterFlow.Automation" />
+  </ItemGroup>
+
 </Project>
