@@ -49,6 +49,15 @@ public enum ContainerType
     [Description("Database")]
     Database,
 
+    [Description("Cache store")]
+    Cache,
+
+    [Description("Integration service")]
+    IntegrationService,
+
+    [Description("Identity service")]
+    IdentityService,
+
     [Description("")]
     None
 }
