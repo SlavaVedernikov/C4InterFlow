@@ -375,12 +375,16 @@ namespace C4InterFlow.Automation
             [Index(3)]
             public string Type { get; set; }
 
-            [Name("Alias")]
+            [Name("Technology")]
             [Index(4)]
+            public string Technology { get; set; }
+
+            [Name("Alias")]
+            [Index(5)]
             public string Alias { get; set; }
 
             [Name("Description")]
-            [Index(5)]
+            [Index(6)]
             public string Description { get; set; }
 
             public IEnumerable<ContainerAttribute> WithAttributes(CsvDataProvider dataProvider)

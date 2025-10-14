@@ -110,7 +110,7 @@ namespace C4InterFlow.Automation.Writers
             return this;
         }
 
-        public override IAaCWriter AddContainer(string softwareSystemName, string name, string? containerType = null, string? label = null, string? description = null)
+        public override IAaCWriter AddContainer(string softwareSystemName, string name, string? containerType = null, string? technology = null, string? label = null, string? description = null)
         {
             DataProvider.ContainerRecords.Add(new CsvDataProvider.Container()
             {
@@ -120,7 +120,8 @@ namespace C4InterFlow.Automation.Writers
                 Description = description ?? string.Empty,
                 Type = Enum.TryParse<ContainerType>((containerType ?? string.Empty), out var containerTypeValue) ?
                 Enum.GetName(typeof(ContainerType), containerTypeValue)!:
-                Enum.GetName(typeof(ContainerType), ContainerType.None)!
+                Enum.GetName(typeof(ContainerType), ContainerType.None)!,
+                Technology = technology ?? string.Empty
             });
             return this;
         }

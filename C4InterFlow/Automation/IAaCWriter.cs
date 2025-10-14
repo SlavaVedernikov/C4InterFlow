@@ -17,7 +17,7 @@ namespace C4InterFlow.Automation
             string? protocol = null,
             string? path = null);
 
-        public IAaCWriter AddContainer(string softwareSystemName, string name, string? containerType = null, string? label = null, string? description = null);
+        public IAaCWriter AddContainer(string softwareSystemName, string name, string? containerType = null, string? technology = null, string? label = null, string? description = null);
 
         public IAaCWriter AddContainerInterface(
             string softwareSystemName,

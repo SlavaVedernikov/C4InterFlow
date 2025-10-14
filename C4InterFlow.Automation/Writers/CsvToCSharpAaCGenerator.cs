@@ -34,7 +34,7 @@ namespace C4InterFlow.Automation.Writers
                             Log.Information("Generating AaC for {Alias} container", c.Alias);
                             
                             var containerName = c.Alias.Split('.').Last();
-                            writer.AddContainer(softwareSystemName, containerName, c.Type, c.Name, c.Description);
+                            writer.AddContainer(softwareSystemName, containerName, c.Type, c.Technology, c.Name, c.Description);
 
                             c.WithInterfaces(writer.DataProvider).ToList().ForEach(i =>
                             {

@@ -27,7 +27,7 @@ namespace C4InterFlow.Automation.Writers
 
                         writer.WithContainers(s).ToList().ForEach(c =>
                         {
-                            writer.AddContainer(softwareSystemName, c.Name, Enum.GetName(typeof(ContainerType), c.ContainerType));
+                            writer.AddContainer(softwareSystemName, c.Name, Enum.GetName(typeof(ContainerType), c.ContainerType), c.Technology);
 
                             writer.WithInterfaces(c).ToList().ForEach(i =>
                             {
