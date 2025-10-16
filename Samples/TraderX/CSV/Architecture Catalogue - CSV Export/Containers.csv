@@ -1,7 +1,7 @@
 Software System,Name,Type,Alias,Description,Technology
-TraderX,TraderX DB,Database,TraderX.Containers.TraderXDB,Database which stores account, trade and position state,PostgreSQL
+TraderX,TraderX DB,Database,TraderX.Containers.TraderXDB,"Database which stores account, trade and position state",PostgreSQL
 TraderX,Trade Feed,Queue,TraderX.Containers.TradeFeed,Message bus for streaming updates to trades and positions,Kafka
-TraderX,Trade Processor,ServerConsole,TraderX.Containers.TradeProcessor,Process incoming trade requests, settle and persist,Python
+TraderX,Trade Processor,ServerConsole,TraderX.Containers.TradeProcessor,"Process incoming trade requests, settle and persist",Python
 TraderX,Web Client,Spa,TraderX.Containers.WebClient,Browser based web interface for TraderX,React
 TraderX,Web GUI,WebApplication,TraderX.Containers.WebGUI,Allows employees to manage accounts and book trades,Java and Spring Boot
 TraderX,Position Service,Api,TraderX.Containers.PositionService,Server process which processes trading activity and updates positions,Java and Spring Boot
