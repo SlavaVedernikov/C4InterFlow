@@ -1,6 +1,6 @@
-Software System,Name,Type,Technology,Alias,Description
-InternetBanking,Web Application,WebApplication,,InternetBanking.Containers.WebApplication,
-InternetBanking,Single-Page App,Spa,JavaScript and Angular,InternetBanking.Containers.SinglePageApp,
-InternetBanking,Mobile App,Mobile,Xamarin,InternetBanking.Containers.MobileApp,
-InternetBanking,API Application,Spa,Java and Spring MVC,InternetBanking.Containers.APIApplication,
-InternetBanking,Database,Database,Oracle Database Schema,InternetBanking.Containers.Database,
+Software System,Name,Type,Alias,Description,Technology
+InternetBanking,Web Application,WebApplication,InternetBanking.Containers.WebApplication,,
+InternetBanking,Single-Page App,Spa,InternetBanking.Containers.SinglePageApp,,JavaScript and Angular
+InternetBanking,Mobile App,Mobile,InternetBanking.Containers.MobileApp,,Xamarin
+InternetBanking,API Application,Spa,InternetBanking.Containers.APIApplication,,Java and Spring MVC
+InternetBanking,Database,Database,InternetBanking.Containers.Database,,Oracle Database Schema
