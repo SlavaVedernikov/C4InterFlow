@@ -152,8 +152,6 @@ namespace C4InterFlow.Automation.Readers
                             string.IsNullOrWhiteSpace(containerTypeName))
                         {
                             parsedContainerType = ContainerType.None;
-                            Log.Warning("Container '{Alias}' has invalid or empty ContainerType '{ContainerTypeName}'. Setting to ContainerType.None",
-                                fullAlias, containerTypeName);
                         }
 
                         result = new Container(ownerToken.Path, fullAlias, label)

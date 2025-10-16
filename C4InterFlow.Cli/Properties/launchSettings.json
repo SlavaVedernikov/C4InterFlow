@@ -38,7 +38,7 @@
     },
     "TraderX - CSV/YAML - Draw Diagrams": {
       "commandName": "Project",
-      "commandLineArgs": "draw-diagrams --interfaces TraderXExample.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes TraderXExample.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy \"C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\TraderX\\CSV\\Architecture\\Yaml\" --output-dir \"$(ProjectDir)\\..\\Samples\\TraderX\\CSV\\Diagrams\" --formats svg"
+      "commandLineArgs": "draw-diagrams --interfaces TraderXExample.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes TraderXExample.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy \"C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\TraderX\\CSV\\Architecture\\Yaml\" --output-dir \"$(ProjectDir)\\..\\Samples\\TraderX\\CSV\\Diagrams\""
     },
     "TraderX - CSV/JSON - Draw Diagrams": {
       "commandName": "Project",

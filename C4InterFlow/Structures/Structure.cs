@@ -16,7 +16,6 @@ public abstract record Structure
     public string Name { get { return Alias.Split(".").Last(); } }
     public string Description { get; init; } = string.Empty;
     public IEnumerable<string> Tags { get; init; }
-    public Boundary Boundary { get; init; } = Boundary.Internal;
     public string? Icon { get; init; }
 
     /// <summary>

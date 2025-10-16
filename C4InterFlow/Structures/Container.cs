@@ -14,8 +14,9 @@ namespace C4InterFlow.Structures;
 ///
 /// <see href="https://c4model.com/#ContainerDiagram"/>
 /// </summary>
-public record Container : Structure
+public record Container : Structure, ISupportBoundary
 {
+    public Boundary Boundary { get; init; } = Boundary.Internal;
     public ContainerType ContainerType { get; init; }
     public string? Technology { get; init; }
     public string SoftwareSystem { get; init; }
