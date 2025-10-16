@@ -383,6 +383,10 @@ namespace C4InterFlow.Automation
             [Index(5)]
             public string Description { get; set; }
 
+            [Name("Technology")]
+            [Index(6)]
+            public string Technology { get; set; }
+
             public IEnumerable<ContainerAttribute> WithAttributes(CsvDataProvider dataProvider)
             {
                 return dataProvider.ContainerAttributeRecords.Where(x => !string.IsNullOrEmpty(x.Container.Trim()) &&

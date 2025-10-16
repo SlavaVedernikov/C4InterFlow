@@ -1,11 +1,11 @@
-Software System,Name,Type,Alias,Description
-TraderX,TraderX DB,Database,TraderX.Containers.TraderXDB,Database which stores account, trade and position state
-TraderX,Trade Feed,Queue,TraderX.Containers.TradeFeed,Message bus for streaming updates to trades and positions
-TraderX,Trade Processor,ServerConsole,TraderX.Containers.TradeProcessor,Process incoming trade requests, settle and persist
-TraderX,Web Client,Spa,TraderX.Containers.WebClient,Browser based web interface for TraderX
-TraderX,Web GUI,WebApplication,TraderX.Containers.WebGUI,Allows employees to manage accounts and book trades
-TraderX,Position Service,Api,TraderX.Containers.PositionService,Server process which processes trading activity and updates positions
-TraderX,Reference Data Service,Api,TraderX.Containers.ReferenceDataService,Service which provides reference data
-TraderX,Trading Services,Api,TraderX.Containers.TradingServices,Service which provides trading services
-TraderX,Accounts Service,Api,TraderX.Containers.AccountsService,Service which provides account management
-TraderX,People Service,Api,TraderX.Containers.PeopleService,Service which provides user details management
+Software System,Name,Type,Alias,Description,Technology
+TraderX,TraderX DB,Database,TraderX.Containers.TraderXDB,Database which stores account, trade and position state,PostgreSQL
+TraderX,Trade Feed,Queue,TraderX.Containers.TradeFeed,Message bus for streaming updates to trades and positions,Kafka
+TraderX,Trade Processor,ServerConsole,TraderX.Containers.TradeProcessor,Process incoming trade requests, settle and persist,Python
+TraderX,Web Client,Spa,TraderX.Containers.WebClient,Browser based web interface for TraderX,React
+TraderX,Web GUI,WebApplication,TraderX.Containers.WebGUI,Allows employees to manage accounts and book trades,Java and Spring Boot
+TraderX,Position Service,Api,TraderX.Containers.PositionService,Server process which processes trading activity and updates positions,Java and Spring Boot
+TraderX,Reference Data Service,Api,TraderX.Containers.ReferenceDataService,Service which provides reference data,Java and Spring Boot
+TraderX,Trading Services,Api,TraderX.Containers.TradingServices,Service which provides trading services,Java and Spring Boot
+TraderX,Accounts Service,Api,TraderX.Containers.AccountsService,Service which provides account management,Java and Spring Boot
+TraderX,People Service,Api,TraderX.Containers.PeopleService,Service which provides user details management,Java and Spring Boot

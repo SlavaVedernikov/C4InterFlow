@@ -232,7 +232,7 @@ namespace C4InterFlow.Automation.Writers
             return this;
         }
 
-        public override CsvToCSharpAaCWriter AddContainer(string softwareSystemName, string name, string? containerType = null, string? label = null, string? description = null)
+        public override CsvToCSharpAaCWriter AddContainer(string softwareSystemName, string name, string? containerType = null, string? label = null, string? description = null, string? technology = null)
         {
             var documentName = $"{name}.{FileExtension}";
 
@@ -256,7 +256,8 @@ namespace C4InterFlow.Automation.Writers
                 name,
                 string.IsNullOrEmpty(label) ? CSharpCodeWriter.GetLabel(name) : label,
                 containerType,
-                description);
+                description,
+                technology);
 
             var tree = CSharpSyntaxTree.ParseText(sourceCode.ToString());
             var root = tree.GetRoot();
