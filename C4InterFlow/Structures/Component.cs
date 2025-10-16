@@ -12,8 +12,9 @@ namespace C4InterFlow.Structures;
 /// space. In the C4 model, components are not separately deployable units.
 /// <see href="https://c4model.com/"/>
 /// </summary>
-public record Component : Structure
+public record Component : Structure, ISupportBoundary
 {
+    public Boundary Boundary { get; init; } = Boundary.Internal;
     public string? Technology { get; init; }
     public ComponentType ComponentType { get; init; }
     public string Container { get; init; }

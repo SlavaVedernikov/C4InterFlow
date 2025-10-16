@@ -9,8 +9,9 @@ namespace C4InterFlow.Structures;
 /// a single software development team.
 /// <see href="https://c4model.com/"/>
 /// </summary>
-public sealed record SoftwareSystem : Structure
+public sealed record SoftwareSystem : Structure, ISupportBoundary
 {
+    public Boundary Boundary { get; init; } = Boundary.Internal;
     public SoftwareSystem(Type type) : this(GetAlias(type), Utils.GetLabelFromAlias(GetAlias(type)))
     { }
     public SoftwareSystem(Type type, string label) : this(GetAlias(type), label)

@@ -1,8 +1,9 @@
-using System.Text;
 using C4InterFlow.Commons;
 using C4InterFlow.Structures;
 using C4InterFlow.Structures.Boundaries;
+using C4InterFlow.Structures.Interfaces;
 using C4InterFlow.Visualisation.Plantuml.Enums;
+using System.Text;
 
 namespace C4InterFlow.Visualisation.Plantuml;
 
@@ -190,7 +191,7 @@ internal static class PlantumlStructure
         return stream.ToString();
     }
 
-    private static string GetExternalSuffix(Structure structure) =>
+    private static string GetExternalSuffix(ISupportBoundary structure) =>
         structure.Boundary == Boundary.External ? "_Ext" : string.Empty;
 
     private static string GetDescription<TEnum>(TEnum enumValue) where TEnum : struct, Enum

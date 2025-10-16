@@ -170,11 +170,7 @@
           "type": "string"
         },
         "Boundary": {
-          "type": "string",
-          "enum": [
-            "Internal",
-            "External"
-          ]
+          "$ref": "#/$defs/Boundary"
         },
         "Tags": {
           "type": "array",
@@ -216,11 +212,7 @@
           "type": "string"
         },
         "Boundary": {
-          "type": "string",
-          "enum": [
-            "Internal",
-            "External"
-          ]
+          "$ref": "#/$defs/Boundary"
         },
         "ContainerType": {
           "type": "string",
@@ -304,6 +296,9 @@
         },
         "Technology": {
           "type": "string"
+        },
+        "Boundary": {
+          "$ref": "#/$defs/Boundary"
         },
         "Tags": {
           "type": "array",
@@ -412,6 +407,13 @@
         }
       },
       "additionalProperties": false
+    },
+    "Boundary": {
+      "type": "string",
+      "enum": [
+        "Internal",
+        "External"
+      ]
     },
     "Activity": {
       "type": "object",
