@@ -239,6 +239,9 @@
             "Queue",
             "Topic",
             "Database",
+            "Cache",
+            "IntegrationService",
+            "IdentityService",
             "None"
           ]
         },
