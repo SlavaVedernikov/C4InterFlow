@@ -1,10 +1,13 @@
 using C4InterFlow.Commons;
 using C4InterFlow.Commons.FileSystem;
+using Serilog;
+using System.IO;
 
 namespace C4InterFlow.Visualisation.Plantuml;
 
 internal static class PlantumlResources
 {
+    private static readonly object _resourceLock = new();
     /// <summary>
     /// Load all C4_Plantuml files
     /// </summary>
@@ -37,22 +40,29 @@ internal static class PlantumlResources
     /// <exception cref="C4FileException"></exception>
     private static void LoadResource(string resourcesPath, string resourceName)
     {
+        var path = Path.Join(resourcesPath, resourceName);
         try
         {
-            var path = Path.Join(resourcesPath, resourceName);
-
+            // Fast check (no lock) — avoids unnecessary locking
             if (File.Exists(path))
-            {
                 return;
+
+            lock (_resourceLock)
+            {
+                // Double-check inside the lock (critical section)
+                if (File.Exists(path))
+                    return;
+
+                var stream = ResourceFile.ReadString(resourceName);
+                Directory.CreateDirectory(resourcesPath);
+                File.WriteAllText(path, stream);
             }
 
-            var stream = ResourceFile.ReadString(resourceName);
-            Directory.CreateDirectory(resourcesPath);
-            File.WriteAllText(path, stream);
+            throw new Exception("Test file access error");
         }
         catch (Exception e)
         {
-            throw new C4FileException("An exception occured while the package try loading the resource files", e);
+            Log.Error("An exception occurred while the package tried loading the resource files '{Path}': {Error}", path, e);
         }
     }
 
