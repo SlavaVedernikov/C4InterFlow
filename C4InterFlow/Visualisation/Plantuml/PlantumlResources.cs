@@ -57,8 +57,6 @@ internal static class PlantumlResources
                 Directory.CreateDirectory(resourcesPath);
                 File.WriteAllText(path, stream);
             }
-
-            throw new Exception("Test file access error");
         }
         catch (Exception e)
         {
