@@ -18,9 +18,9 @@ title Big Bank Plc - Internet Banking - Mobile App - Sign In - C4 - Container le
 
 
 System_Boundary(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking") {
-    Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp, "Mobile App", "C#, Xamarin", "Provides a limited subset of the Internet banking functionality to customers via their mobile device")
-    Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "API Application", "Java, Spring MVC", "Provides Internet banking functionality via API")
-    ContainerDb(BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Database", "Oracle Database Schema", "Stores user registration information, hashed auth credentials, access logs, etc.")
+    Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp, "Mobile App", "Mobile app, C#, Xamarin", "Provides a limited subset of the Internet banking functionality to customers via their mobile device")
+    Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "API Application", "API, Java, Spring MVC", "Provides Internet banking functionality via API")
+    ContainerDb(BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Database", "Database, Oracle Database Schema", "Stores user registration information, hashed auth credentials, access logs, etc.")
 }
 
 Rel(BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp, BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "Sign In", "HTTPS", $tags="protocol:https")

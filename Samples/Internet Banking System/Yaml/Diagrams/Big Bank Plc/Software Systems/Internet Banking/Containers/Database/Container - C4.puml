@@ -18,7 +18,7 @@ title Big Bank Plc - Internet Banking - Database - C4 - Container level
 
 
 System_Boundary(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking") {
-    ContainerDb(BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Database", "Oracle Database Schema", "Stores user registration information, hashed auth credentials, access logs, etc.")
+    ContainerDb(BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Database", "Database, Oracle Database Schema", "Stores user registration information, hashed auth credentials, access logs, etc.")
 }
 
 

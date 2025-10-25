@@ -18,8 +18,8 @@ title Big Bank Plc - Internet Banking - API Application - C4 Static - Container 
 
 
 System_Boundary(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking") {
-    Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "API Application", "Java, Spring MVC", "Provides Internet banking functionality via API")
-    ContainerDb(BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Database", "Oracle Database Schema", "Stores user registration information, hashed auth credentials, access logs, etc.")
+    Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "API Application", "API, Java, Spring MVC", "Provides Internet banking functionality via API")
+    ContainerDb(BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Database", "Database, Oracle Database Schema", "Stores user registration information, hashed auth credentials, access logs, etc.")
 }
 System_Ext(BigBankPlc.SoftwareSystems.EMailSystem, "E-Mail System", "The internal Microsoft Exchange system")
 System_Ext(BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Mainframe Banking System", "Stores all of the core banking information about customers, accounts, transactions, etc.")

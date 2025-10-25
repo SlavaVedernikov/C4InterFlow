@@ -18,8 +18,8 @@ title Big Bank Plc - Internet Banking - Single-Page Application - View Customer 
 
 
 System_Boundary(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking") {
-    Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "Single-Page Application", "JavaScript, Angular", "Provides all the Internet banking functionality to customers via their web browser")
-    Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "API Application", "Java, Spring MVC", "Provides Internet banking functionality via API")
+    Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "Single-Page Application", "SPA, JavaScript, Angular", "Provides all the Internet banking functionality to customers via their web browser")
+    Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "API Application", "API, Java, Spring MVC", "Provides Internet banking functionality via API")
 }
 System_Ext(BigBankPlc.SoftwareSystems.MainframeBankingSystem, "Mainframe Banking System", "Stores all of the core banking information about customers, accounts, transactions, etc.")
 
