@@ -201,17 +201,14 @@ public partial class PlantumlContext
         {
             var directory = new DirectoryInfo(Path.Combine(outputDirectory, path)).FullName;
             var filePath = Path.Combine(directory, fileName);
-
             if (string.IsNullOrEmpty(directory))
             {
                 throw new PlantumlException($"{nameof(PlantumlException)}: png file not found.");
             }
-
             var mdFilePath = filePath.Replace(".puml", ".md");
             var pngFileName = Uri.EscapeDataString(fileName.Replace(".puml", ".png"));
             var title = $"{fileName.Replace(".puml", string.Empty)}";
-            var alt = $"{path.Replace(@"\", " - ")} - {title}";
-
+            var alt = $"{path.Replace(Path.DirectorySeparatorChar, '-').Replace(Path.AltDirectorySeparatorChar, '-')} - {title}";
             using (StreamWriter writer = new StreamWriter(mdFilePath))
             {
                 writer.WriteLine($"# {title}");

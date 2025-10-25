@@ -1,11 +1,12 @@
 namespace C4InterFlow.Commons.FileSystem;
 
 /// <summary>
-/// Manipulate the C4 folder and their resourcers
+/// Manipulate the C4 folder and their resources
 /// </summary>
 internal static class C4Directory
 {
     public static string ResourcesDirectoryName => ".c4s";
+
     /// <summary>
     /// Default Resource Folder Name
     /// </summary>
@@ -17,8 +18,10 @@ internal static class C4Directory
         }
         else
         {
-            var diagramPathSegments = diagramPath.Split(@"\");
-            return Path.Join(string.Join("", Enumerable.Repeat(@"..\", diagramPathSegments.Length)), ResourcesDirectoryName);
+            var diagramPathSegments = diagramPath.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+            var parentDirs = string.Join(string.Empty,
+                Enumerable.Repeat($"..{Path.DirectorySeparatorChar}", diagramPathSegments.Length));
+            return Path.Combine(parentDirs.TrimEnd(Path.DirectorySeparatorChar), ResourcesDirectoryName);
         }
     }
 }

@@ -18,7 +18,7 @@ title Big Bank Plc - Internet Banking - Single-Page Application - Load And Start
 
 
 System_Boundary(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking") {
-    Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "Single-Page Application", "JavaScript, Angular", "Provides all the Internet banking functionality to customers via their web browser")
+    Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "Single-Page Application", "SPA, JavaScript, Angular", "Provides all the Internet banking functionality to customers via their web browser")
 }
 
 

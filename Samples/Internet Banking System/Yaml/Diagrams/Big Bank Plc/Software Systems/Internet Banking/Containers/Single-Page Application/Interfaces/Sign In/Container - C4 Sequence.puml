@@ -7,9 +7,9 @@ title Big Bank Plc - Internet Banking - Single-Page Application - Sign In - C4 S
 System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 
 System_Boundary(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking")
-    Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "Single-Page Application", "JavaScript, Angular", "Provides all the Internet banking functionality to customers via their web browser")
-    Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "API Application", "Java, Spring MVC", "Provides Internet banking functionality via API")
-    ContainerDb(BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Database", "Oracle Database Schema", "Stores user registration information, hashed auth credentials, access logs, etc.")
+    Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "Single-Page Application", "SPA, JavaScript, Angular", "Provides all the Internet banking functionality to customers via their web browser")
+    Container(BigBankPlc.SoftwareSystems.InternetBanking.Containers.APIApplication, "API Application", "API, Java, Spring MVC", "Provides Internet banking functionality via API")
+    ContainerDb(BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Database", "Database, Oracle Database Schema", "Stores user registration information, hashed auth credentials, access logs, etc.")
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp, "Sign In", "HTTPS")

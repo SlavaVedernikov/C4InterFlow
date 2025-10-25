@@ -7,7 +7,7 @@ title Big Bank Plc - Internet Banking - Database - Update User Password - C4 Seq
 System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 
 System_Boundary(BigBankPlc.SoftwareSystems.InternetBanking, "Internet Banking")
-    ContainerDb(BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Database", "Oracle Database Schema", "Stores user registration information, hashed auth credentials, access logs, etc.")
+    ContainerDb(BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Database", "Database, Oracle Database Schema", "Stores user registration information, hashed auth credentials, access logs, etc.")
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, BigBankPlc.SoftwareSystems.InternetBanking.Containers.Database, "Update User Password", "TCP/IP, SQL")
