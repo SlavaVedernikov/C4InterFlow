@@ -3,8 +3,12 @@
 </div>
 <div align="center">
     <strong>C4InterFlow</strong> = <strong>C4</strong> Model + <strong>Inter</strong>faces + <strong>Flow</strong>s
+</div> 
+<br />
+<br />
+<div align="center">
+    <a href="https://www.buymeacoffee.com/slava.vedernikov" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 </div>
-
 
 # Vision 💡
 Transform the landscape of **Application Architecture** by bridging the **gap** between **Architecture Model** and **Code**.
@@ -139,6 +143,11 @@ Leave us [your feedback](https://github.com/SlavaVedernikov/C4InterFlow/discussi
 # Acknowledgements
 
 - Inspired by the [C4 Model](https://c4model.com/), [C4-PlantUML project](https://github.com/plantuml-stdlib/C4-PlantUML), and [c4sharp project](https://github.com/your-github-repo/c4sharp).
+
+<br />
+<div align="left">
+    <a href="https://www.buymeacoffee.com/slava.vedernikov" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+</div>
 
 ---
 **NOTE**: This document is subject to change. Users are encouraged to check back regularly for updates.
