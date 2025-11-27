@@ -10,12 +10,12 @@
 <table border="0">
     <tr>
         <td>
-            <a href="https://playground.c4interflow.com/">
+            <a href="https://playground.c4interflow.com/" target="_blank">
                 <img src="Documentation/Images/Screenshot%202025-11-27%20-%201.png" alt="C4 InterFlow - Playground">
             </a>
         </td>
         <td>
-            <a href="https://playground.c4interflow.com/">
+            <a href="https://playground.c4interflow.com/" target="_blank">
                 <img src="Documentation/Images/Screenshot%202025-11-27%20-%202.png" alt="C4 InterFlow - Playground">
             </a>
         </td>
