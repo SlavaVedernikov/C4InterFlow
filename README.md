@@ -11,12 +11,12 @@
     <tr>
         <td>
             <a href="https://playground.c4interflow.com/">
-                <img src="Documentation/Images/Screenshot%202025-11-27%20-%201%20-%20transformed.png" alt="C4 InterFlow - Playground">
+                <img src="Documentation/Images/Screenshot%202025-11-27%20-%201.png" alt="C4 InterFlow - Playground">
             </a>
         </td>
         <td>
             <a href="https://playground.c4interflow.com/">
-                <img src="Documentation/Images/Screenshot%202025-11-27%20-%202%20-%20transformed.png" alt="C4 InterFlow - Playground">
+                <img src="Documentation/Images/Screenshot%202025-11-27%20-%202.png" alt="C4 InterFlow - Playground">
             </a>
         </td>
     </tr>
