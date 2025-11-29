@@ -23,6 +23,7 @@
     <tr>
         <td align="center" colspan="2">
             <p><a href="https://playground.c4interflow.com/"><strong>C4InterFlow Playground</strong></a> is <strong>available now</strong>!</p>
+            <p>▶️ Watch&nbsp;<a href="https://youtu.be/jyyq-_KWAUM"><strong>introduction</strong></a>&nbsp;video</p>
             <p>Enjoy a rich <strong>Architecture Modelling</strong> experience for <strong>FREE</strong>.</p>
             <div align="center">
                 <a href="https://www.buymeacoffee.com/slava.vedernikov" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
