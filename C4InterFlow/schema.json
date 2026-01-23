@@ -141,24 +141,67 @@
       ]
     },
     "Actor": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "Type": {
+              "type": "string",
+              "enum": [
+                "Person"
+              ]
+            },
+            "Label": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "Activities": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/$defs/ActivityBase"
+              }
+            }
+          },
+          "additionalProperties": false,
+          "required": [ "Type" ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Type": {
+              "type": "string",
+              "enum": [
+                "SoftwareSystem"
+              ]
+            },
+            "Label": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false,
+          "required": [ "Type" ]
+        }
+      ]
+    },
+    "ActivityBase": {
       "type": "object",
       "properties": {
-        "Type": {
-          "type": "string",
-          "enum": [
-            "Person",
-            "SoftwareSystem"
-          ]
-        },
         "Label": {
           "type": "string"
         },
         "Description": {
           "type": "string"
+        },
+        "Flows": {
+          "$ref": "#/$defs/Flows"
         }
       },
-      "additionalProperties": false,
-      "required": [ "Type" ]
+      "required": [ "Flows" ]
     },
     "SoftwareSystem": {
       "type": "object",
@@ -417,18 +460,14 @@
     },
     "Activity": {
       "type": "object",
+      "allOf": [
+        { "$ref": "#/$defs/ActivityBase" }
+      ],
       "properties": {
-        "Label": {
-          "type": "string"
-        },
         "Actor": {
           "type": "string"
-        },
-        "Flows": {
-          "$ref": "#/$defs/Flows"
         }
       },
-      "additionalProperties": false,
       "required": [ "Label", "Flows" ]
     },
     "BusinessProcess": {
@@ -443,7 +482,14 @@
         "Activities": {
           "type": "array",
           "items": {
-            "$ref": "#/$defs/Activity"
+            "anyOf": [
+              {
+                "$ref": "#/$defs/Activity"
+              },
+              {
+                "type": "string"
+              }
+            ]
           }
         }
       },

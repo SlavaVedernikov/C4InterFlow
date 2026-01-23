@@ -1,16 +1,16 @@
 ﻿namespace C4InterFlow.Structures
 {
-    public record Activity
+    public record Activity : Structure
     {
         public Activity(Flow flow, string actor, string? label = null) : this(flow.Flows.ToArray(), actor, label) { }
 
-        public Activity(Flow[] flows, string actor, string? label = null)
+        public Activity(Flow[] flows, string actor, string? label = null) : this(string.Empty, flows, actor, label) { }
+
+        public Activity(string alias, Flow[] flows, string actor, string? label = null) : base(alias, label ?? Utils.GetLabelFromAlias(alias))
         {
             Actor = actor;
             Flows = flows;
-            Label = label;
         }
-        public string? Label { get; private set; }
 
         private Flow _flow;
         public Flow Flow {

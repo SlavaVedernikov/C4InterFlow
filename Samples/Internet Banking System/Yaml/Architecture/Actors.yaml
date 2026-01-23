@@ -4,3 +4,11 @@ BigBankPlc:
       Type: Person
       Label: Customer
       Description: A customer of the bank, with personal bank accounts
+      Activities:
+        ReceiveEMailNotifications:
+          Label: Receive E-Mail Notifications
+          Flows:
+          - Type: Use
+            Expression: BigBankPlc.SoftwareSystems.EMailSystem.Interfaces.ReceivePasswordChangedNotificationEMail
+          - Type: Use
+            Expression: BigBankPlc.SoftwareSystems.EMailSystem.Interfaces.ReceiveNewAccountCreatedNotificationEMail

@@ -73,6 +73,20 @@ namespace C4InterFlow.Automation.Readers
                         }
 
                         break;
+                    case "Activities":
+                        var activityFlow = new Flow(fullAlias);
+                        var activityFlows = token!["Flows"]?.ToObject<List<Flow>>();
+                        if (activityFlows != null)
+                        {
+                            activityFlows.ForEach(x => x.SetParents());
+                            activityFlow.AddFlowsRange(activityFlows);
+                        }
+
+
+                        var activity = new Activity(fullAlias, activityFlows.ToArray(), ownerToken.Path, label);
+
+                        result = activity as T;
+                        break;
                     case "BusinessProcesses":
                         var activityTokens = token!["Activities"];
 
@@ -81,23 +95,54 @@ namespace C4InterFlow.Automation.Readers
                             var activities = new List<Activity>();
                             foreach(var activityToken in activityTokens)
                             {
-                                var activityActor = activityToken?["Actor"]?.ToString();
-                                var activityLabel = activityToken!["Label"]?.ToString();
-
-                                var activityFlows = activityToken!["Flows"]?.ToObject<List<Flow>>();
-                                if (activityFlows != null)
+                                if(activityToken.Type == JTokenType.Object)
                                 {
-                                    var activityFlow = new Flow();
-                                    activityFlow.AddFlowsRange(activityFlows);
-                                    if (activityActor == null)
+                                    var activityActor = activityToken?["Actor"]?.ToString();
+                                    var activityLabel = activityToken!["Label"]?.ToString();
+
+                                    var activityItemFlows = activityToken!["Flows"]?.ToObject<List<Flow>>();
+                                    if (activityItemFlows != null)
                                     {
-                                        var useFlows = activityFlow.GetUsesInterfaces();
-                                        if(useFlows!.Length > 0)
+                                        var activityItemFlow = new Flow();
+                                        activityItemFlow.AddFlowsRange(activityItemFlows);
+                                        if (activityActor == null)
                                         {
-                                            activityActor = useFlows.First().Owner;
+                                            var useFlows = activityItemFlow.GetUsesInterfaces();
+                                            if (useFlows!.Length > 0)
+                                            {
+                                                activityActor = useFlows.First().Owner;
+                                            }
                                         }
+                                        activities.Add(new Activity(activityItemFlow.Flows.ToArray(), activityActor, activityLabel)); ;
                                     }
-                                    activities.Add(new Activity(activityFlow.Flows.ToArray(), activityActor, activityLabel)); ;
+                                }
+                                else if(activityToken.Type == JTokenType.String)
+                                {
+                                    var activityAlias = activityToken.ToString();
+
+                                    if(activityAlias.Contains(".Interfaces."))
+                                    {
+                                        var activityInterface = GetInstance<Interface>(activityAlias);
+                                        if(activityInterface != null)
+                                        {
+                                            activities.Add(new Activity(
+                                                new Flow().Use(activityAlias),
+                                                activityInterface.Owner,
+                                                activityInterface.Name));
+                                        }
+
+
+                                    }
+                                    else if (activityAlias.Contains(".Activities."))
+                                    {
+                                        var activityItem = GetInstance<Activity>(activityAlias);
+                                        if (activityItem != null)
+                                        {
+                                            activities.Add(activityItem);
+                                        }
+
+
+                                    }
                                 }
                             }
 

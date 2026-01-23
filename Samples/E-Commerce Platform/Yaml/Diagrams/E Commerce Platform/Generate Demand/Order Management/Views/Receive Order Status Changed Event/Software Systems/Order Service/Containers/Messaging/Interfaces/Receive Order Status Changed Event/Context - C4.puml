@@ -23,10 +23,10 @@ System(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, "Payme
 System(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider, "Payment Provider", "")
 
 Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Receive Order Status Changed Event")
-Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS, "Ship Order")
+Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS, "Ship Order (Conditional)")
 Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService, "Post Order Shipped Event")
 Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Receive Order Status Changed Event")
-Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider, "Process Payment")
+Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider, "Process Payment (Conditional)")
 Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, "Post Payment Result Event")
 
 

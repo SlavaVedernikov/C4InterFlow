@@ -1,0 +1,6 @@
+ECommercePlatform:
+  BusinessProcesses:
+    FraudCheck:
+      Activities:
+      - ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.MessageHandler.Interfaces.HandleOrderCreatedEvent
+      - ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.MessageHandler.Interfaces.HandleFraudCheckResultEvent

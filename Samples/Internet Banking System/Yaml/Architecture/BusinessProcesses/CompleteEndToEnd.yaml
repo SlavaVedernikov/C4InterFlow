@@ -25,10 +25,4 @@ BigBankPlc:
           Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp.Interfaces.ViewCustomerDetails
         - Type: Use
           Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp.Interfaces.ViewAccountTransactions
-      - Label: Receive E-Mail Notifications
-        Actor: BigBankPlc.Actors.Customer
-        Flows:
-        - Type: Use
-          Expression: BigBankPlc.SoftwareSystems.EMailSystem.Interfaces.ReceivePasswordChangedNotificationEMail
-        - Type: Use
-          Expression: BigBankPlc.SoftwareSystems.EMailSystem.Interfaces.ReceiveNewAccountCreatedNotificationEMail
+      - BigBankPlc.Actors.Customer.Activities.ReceiveEMailNotifications

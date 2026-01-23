@@ -19,7 +19,7 @@ title E Commerce Platform - Generate Demand - Basket - Basket Service - Api - De
 
 System_Boundary(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService, "Basket Service") {
     Container(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Api, "Api", "", "")
-    ContainerDb(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Database, "Database", "", "")
+    ContainerDb(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Database, "Database", "Database", "")
 }
 
 Rel(ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Api, ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService.Containers.Database, "Delete Basket")

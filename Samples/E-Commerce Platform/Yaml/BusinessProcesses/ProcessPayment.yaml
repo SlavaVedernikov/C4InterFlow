@@ -1,0 +1,6 @@
+ECommercePlatform:
+  BusinessProcesses:
+    ProcessPayment:
+      Activities:
+      - ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.MessageHandler.Interfaces.HandleOrderStatusChangedEvent
+      - ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.MessageHandler.Interfaces.HandlePaymentResultEvent
