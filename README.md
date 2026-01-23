@@ -3,7 +3,52 @@
 </div>
 <div align="center">
     <strong>C4InterFlow</strong> = <strong>C4</strong> Model + <strong>Inter</strong>faces + <strong>Flow</strong>s
-</div>
+</div> 
+<br />
+<br />
+
+<table border="0">
+    <tr>
+        <td>
+            <a href="https://playground.c4interflow.com/" target="_blank">
+                <img src="Documentation/Images/Screenshot%202025-11-27%20-%201.png" alt="C4 InterFlow - Playground">
+            </a>
+        </td>
+        <td>
+            <a href="https://playground.c4interflow.com/" target="_blank">
+                <img src="Documentation/Images/Screenshot%202025-11-27%20-%202.png" alt="C4 InterFlow - Playground">
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" colspan="2">
+            <p><a href="https://playground.c4interflow.com/"><strong>C4InterFlow Playground</strong></a> is <strong>available now</strong>!</p>
+            <p>▶️ Watch&nbsp;<a href="https://youtu.be/wIuSeg6qcgg"><strong>introduction</strong></a>&nbsp;video</p>
+            <p>Enjoy a rich <strong>Architecture Modelling</strong> experience for <strong>FREE</strong>.</p>
+            <div align="center">
+                <a href="https://www.buymeacoffee.com/slava.vedernikov" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" colspan="2">
+            <ul>
+                <li><strong>Import</strong> Architecture as Code (AaC) in C4InterFlow <strong>YAML</strong> Domain Specific Language (DSL)</li>
+                <li><strong>Model Architecture visually</strong> with full support for most C4 Model concepts e.g. Software System, Container and Component</li>
+                <li>Full support for <strong>Interfaces</strong> and <strong>Flows.</strong> Model your Flows visually</li>
+                <li>Explore <strong>Auto-generated</strong> views and create your own <strong>Custom</strong> Views</li>
+                <li><strong>Export</strong> Architecture as Code (AaC) in C4InterFlow <strong>YAML</strong> Domain Specific Language (DSL)</li>
+                <li><strong>Export</strong> Architecture Views in <strong>SVG</strong> and <strong>PNG</strong> formats</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" colspan="2">
+            <p><strong>NOTE</strong>: Playground is using local browser storage, so you will not be able to access your Architecture Repositories across multiple devices.</p>
+        </td>
+    </tr>
+</table>
+
 
 
 # Vision 💡
@@ -139,6 +184,11 @@ Leave us [your feedback](https://github.com/SlavaVedernikov/C4InterFlow/discussi
 # Acknowledgements
 
 - Inspired by the [C4 Model](https://c4model.com/), [C4-PlantUML project](https://github.com/plantuml-stdlib/C4-PlantUML), and [c4sharp project](https://github.com/your-github-repo/c4sharp).
+
+<br />
+<div align="left">
+    <a href="https://www.buymeacoffee.com/slava.vedernikov" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+</div>
 
 ---
 **NOTE**: This document is subject to change. Users are encouraged to check back regularly for updates.
