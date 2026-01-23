@@ -19,19 +19,19 @@ title E Commerce Platform - Deliver - Fulfilment - Fulfilment Service - Api - C4
 
 System_Boundary(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService, "Fulfilment Service") {
     Container(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.MessageHandler, "Message Handler", "", "")
-    ContainerDb(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Database, "Database", "", "")
+    ContainerDb(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Database, "Database", "Database", "")
     Container(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Api, "Api", "", "")
-    ContainerQueue(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Messaging, "Messaging", "", "")
+    ContainerQueue(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Messaging, "Messaging", "Topic", "")
 }
 
 System_Boundary(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Order Service") {
-    ContainerQueue(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging, "Messaging", "", "")
+    ContainerQueue(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging, "Messaging", "Topic", "")
 }
 System(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS, "WMS", "")
 
 Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.MessageHandler, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging, "Receive Order Status Changed Event")
-Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.MessageHandler, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Database, "Insert Order\nUpdate Order Status")
-Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.MessageHandler, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS, "Ship Order")
+Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.MessageHandler, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Database, "Insert Order (Conditional)\nUpdate Order Status (Conditional)")
+Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.MessageHandler, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS, "Ship Order (Conditional)")
 Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Api, "Post Order Shipped Event")
 Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Api, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Database, "Update Order Status")
 Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Api, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.Messaging, "Send Order Shipped Event")

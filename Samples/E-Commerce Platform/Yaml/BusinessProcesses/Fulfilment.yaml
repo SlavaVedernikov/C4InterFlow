@@ -1,0 +1,6 @@
+ECommercePlatform:
+  BusinessProcesses:
+    Fulfilment:
+      Activities:
+      - ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService.Containers.MessageHandler.Interfaces.HandleOrderStatusChangedEvent
+      - ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.MessageHandler.Interfaces.HandleOrderShippedEvent

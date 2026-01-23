@@ -9,7 +9,7 @@ System(ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.Bu
 
 System_Boundary(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService, "Pricing Service")
     Container(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Api, "Api", "", "")
-    ContainerDb(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Database, "Database", "", "")
+    ContainerDb(ECommercePlatform.CreateProduct.PriceManagement.SoftwareSystems.PricingService.Containers.Database, "Database", "Database", "")
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.CreateProduct.BuyingAndMerchandising.SoftwareSystems.BuyingAndMerchandisingApp, "View Product Prices")

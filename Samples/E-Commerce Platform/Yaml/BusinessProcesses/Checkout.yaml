@@ -1,0 +1,5 @@
+ECommercePlatform:
+  BusinessProcesses:
+    Checkout:
+      Activities:
+      - ECommercePlatform.Actors.Customer.Activities.Checkout

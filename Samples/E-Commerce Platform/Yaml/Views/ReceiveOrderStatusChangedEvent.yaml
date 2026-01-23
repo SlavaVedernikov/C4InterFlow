@@ -15,4 +15,3 @@ ECommercePlatform:
           ExpandUpstream: true
           Formats:
           - Svg
-          - Png

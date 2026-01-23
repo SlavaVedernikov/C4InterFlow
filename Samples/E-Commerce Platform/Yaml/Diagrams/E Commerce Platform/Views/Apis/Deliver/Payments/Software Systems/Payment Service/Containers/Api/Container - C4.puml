@@ -19,19 +19,19 @@ title E Commerce Platform - Deliver - Payments - Payment Service - Api - C4 - Co
 
 System_Boundary(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, "Payment Service") {
     Container(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.MessageHandler, "Message Handler", "", "")
-    ContainerDb(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Database, "Database", "", "")
+    ContainerDb(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Database, "Database", "Database", "")
     Container(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Api, "Api", "", "")
-    ContainerQueue(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Messaging, "Messaging", "", "")
+    ContainerQueue(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Messaging, "Messaging", "Topic", "")
 }
 
 System_Boundary(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Order Service") {
-    ContainerQueue(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging, "Messaging", "", "")
+    ContainerQueue(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging, "Messaging", "Topic", "")
 }
 System(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider, "Payment Provider", "")
 
 Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.MessageHandler, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging, "Receive Order Status Changed Event")
-Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.MessageHandler, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Database, "Insert Order")
-Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.MessageHandler, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider, "Process Payment")
+Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.MessageHandler, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Database, "Insert Order (Conditional)")
+Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.MessageHandler, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider, "Process Payment (Conditional)")
 Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Api, "Post Payment Result Event")
 Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Api, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Database, "Insert Payment Result")
 Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Api, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService.Containers.Messaging, "Send Payment Result Event")

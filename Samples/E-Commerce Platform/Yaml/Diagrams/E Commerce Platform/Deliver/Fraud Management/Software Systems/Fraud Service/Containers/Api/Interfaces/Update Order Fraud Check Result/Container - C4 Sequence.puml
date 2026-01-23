@@ -8,8 +8,8 @@ System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 
 System_Boundary(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService, "Fraud Service")
     Container(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Api, "Api", "", "")
-    ContainerDb(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Database, "Database", "", "")
-    ContainerQueue(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Messaging, "Messaging", "", "")
+    ContainerDb(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Database, "Database", "Database", "")
+    ContainerQueue(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Messaging, "Messaging", "Topic", "")
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Api, "Update Order Fraud Check Result")

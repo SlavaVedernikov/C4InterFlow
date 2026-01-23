@@ -18,7 +18,7 @@ title E Commerce Platform - Deliver - Fraud Management - Fraud Service - Messagi
 
 
 System_Boundary(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService, "Fraud Service") {
-    ContainerQueue(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Messaging, "Messaging", "", "")
+    ContainerQueue(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Messaging, "Messaging", "Topic", "")
 }
 
 

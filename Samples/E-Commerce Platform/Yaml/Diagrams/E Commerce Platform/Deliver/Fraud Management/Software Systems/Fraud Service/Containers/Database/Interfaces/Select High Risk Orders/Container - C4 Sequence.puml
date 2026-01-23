@@ -7,7 +7,7 @@ title E Commerce Platform - Deliver - Fraud Management - Fraud Service - Databas
 System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
 
 System_Boundary(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService, "Fraud Service")
-    ContainerDb(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Database, "Database", "", "")
+    ContainerDb(ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Database, "Database", "Database", "")
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Database, "Select High Risk Orders")
