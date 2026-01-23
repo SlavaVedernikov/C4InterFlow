@@ -1,0 +1,28 @@
+@startuml
+
+title E Commerce Platform - Checkout - Sequence - Context level
+
+participant "Customer" as ECommercePlatform.Actors.Customer
+participant "Storefront App" as ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontApp
+participant "Storefront Bff" as ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff
+participant "Order Service" as ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService
+participant "Basket Service" as ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService
+
+ECommercePlatform.Actors.Customer -> ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontApp : Checkout
+group Checkout
+ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontApp -> ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff : Checkout
+group Checkout
+ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff -> ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService : Create Order
+group Create Order
+ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService -> ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService : Insert Order
+ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService -> ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService : Send Order Created Event
+end
+ECommercePlatform.GenerateDemand.Storefront.SoftwareSystems.StorefrontBff -> ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService : Delete Basket
+group Delete Basket
+ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService -> ECommercePlatform.GenerateDemand.Basket.SoftwareSystems.BasketService : Delete Basket
+end
+end
+end
+
+
+@enduml

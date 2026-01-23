@@ -1,0 +1,19 @@
+@startuml
+!include ..\..\..\.c4s\C4_Sequence.puml
+SHOW_FOOT_BOXES()
+
+title E Commerce Platform - Process Payment - C4 Sequence - Context level
+
+System(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, "Payment Service", "")
+System(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Order Service", "")
+System(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider, "Payment Provider", "")
+
+Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, "Handle Order Status Changed Event")
+Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Receive Order Status Changed Event")
+Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider, "Process Payment")
+Rel(ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentProvider, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, "Post Payment Result Event")
+Rel(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Handle Payment Result Event")
+Rel(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, ECommercePlatform.Deliver.Payments.SoftwareSystems.PaymentService, "Receive Payment Result Event")
+
+
+@enduml

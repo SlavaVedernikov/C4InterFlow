@@ -1,0 +1,20 @@
+@startuml
+
+title E Commerce Platform - Fraud Check - Sequence - Context level
+
+participant "Fraud Service" as ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService
+participant "Order Service" as ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService
+participant "Fraud Engine" as ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudEngine
+
+ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService -> ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService : Handle Order Created Event
+group Handle Order Created Event
+ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService -> ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService : Receive Order Created Event
+ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService -> ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudEngine : Get Fraud Check Result
+end
+ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService -> ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService : Handle Fraud Check Result Event
+group Handle Fraud Check Result Event
+ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService -> ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService : Receive Fraud Check Result Event
+end
+
+
+@enduml

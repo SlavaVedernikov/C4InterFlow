@@ -1,0 +1,19 @@
+@startuml
+!include ..\..\..\.c4s\C4_Sequence.puml
+SHOW_FOOT_BOXES()
+
+title E Commerce Platform - Fulfilment - C4 Sequence - Context level
+
+System(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService, "Fulfilment Service", "")
+System(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Order Service", "")
+System(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS, "WMS", "")
+
+Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService, "Handle Order Status Changed Event")
+Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Receive Order Status Changed Event")
+Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS, "Ship Order")
+Rel(ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService, "Post Order Shipped Event")
+Rel(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, "Handle Order Shipped Event")
+Rel(ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService, ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService, "Receive Order Shipped Event")
+
+
+@enduml
