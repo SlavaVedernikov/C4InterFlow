@@ -1,0 +1,39 @@
+@startuml
+
+title E Commerce Platform - Fraud Check - Sequence - Container level
+
+
+box "Fraud Service" #White
+    participant "Message Handler" as ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.MessageHandler
+    database "Database" as ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Database
+    queue "Messaging" as ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Messaging
+end box
+
+
+box "Order Service" #White
+    queue "Messaging" as ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging
+    participant "Message Handler" as ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.MessageHandler
+    database "Database" as ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Database
+end box
+
+participant "Fraud Engine" as ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudEngine
+
+== Message Handler - HandleOrderCreatedEvent ==
+ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.MessageHandler -> ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.MessageHandler : Handle Order Created Event
+group Handle Order Created Event
+ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.MessageHandler -> ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging : Receive Order Created Event
+ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.MessageHandler -> ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Database : Insert Order
+ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.MessageHandler -> ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudEngine : Get Fraud Check Result
+ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.MessageHandler -> ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Database : Insert Fraud Check Result
+ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.MessageHandler -> ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Messaging : Send Fraud Check Result Event
+end
+== Message Handler - HandleFraudCheckResultEvent ==
+ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.MessageHandler -> ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.MessageHandler : Handle Fraud Check Result Event
+group Handle Fraud Check Result Event
+ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.MessageHandler -> ECommercePlatform.Deliver.FraudManagement.SoftwareSystems.FraudService.Containers.Messaging : Receive Fraud Check Result Event
+ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.MessageHandler -> ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Database : Update Order Status
+ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.MessageHandler -> ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService.Containers.Messaging : Send Order Status Changed Event
+end
+
+
+@enduml

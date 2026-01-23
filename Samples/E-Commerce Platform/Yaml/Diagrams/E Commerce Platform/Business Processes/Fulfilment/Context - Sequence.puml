@@ -1,0 +1,23 @@
+@startuml
+
+title E Commerce Platform - Fulfilment - Sequence - Context level
+
+participant "Fulfilment Service" as ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService
+participant "Order Service" as ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService
+participant "WMS" as ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS
+
+ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService -> ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService : Handle Order Status Changed Event
+group Handle Order Status Changed Event
+ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService -> ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService : Receive Order Status Changed Event
+ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService -> ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS : Ship Order
+group Ship Order
+ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.WMS -> ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService : Post Order Shipped Event
+end
+end
+ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService -> ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService : Handle Order Shipped Event
+group Handle Order Shipped Event
+ECommercePlatform.GenerateDemand.OrderManagement.SoftwareSystems.OrderService -> ECommercePlatform.Deliver.Fulfilment.SoftwareSystems.FulfilmentService : Receive Order Shipped Event
+end
+
+
+@enduml
