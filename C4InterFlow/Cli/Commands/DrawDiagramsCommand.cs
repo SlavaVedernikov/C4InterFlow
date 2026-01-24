@@ -30,6 +30,7 @@ public class DrawDiagramsCommand : Command
         var interfacesInputFileOption = InterfacesInputFileOption.Get();
         var businessProcesesOption = BusinessProcesesOption.Get();
         var namespacesOption = NamespacesOption.Get();
+        var activitiesOption = ActivitiesOption.Get();
         var diagramFormatsOption = DiagramFormatsOption.Get();
         var showBoundariesOption = ShowBoundariesOption.Get();
         var showInterfaceInputAndOutputOption = ShowInterfaceInputAndOutputOption.Get();
@@ -47,6 +48,7 @@ public class DrawDiagramsCommand : Command
         AddOption(interfacesInputFileOption);
         AddOption(businessProcesesOption);
         AddOption(namespacesOption);
+        AddOption(activitiesOption);
         AddOption(diagramFormatsOption);
         AddOption(showInterfaceInputAndOutputOption);
         AddOption(outputDirectoryOption);
@@ -74,7 +76,8 @@ public class DrawDiagramsCommand : Command
                 interfacesOption,
                 interfacesInputFileOption,
                 businessProcesesOption,
-                namespacesOption),
+                namespacesOption,
+                activitiesOption),
             new DisplayOptionsBinder(
                 showInterfaceInputAndOutputOption,
                 diagramMaxLineLabelsOption,
@@ -117,19 +120,26 @@ public class DrawDiagramsCommand : Command
 
             resolvedInterfaceAliases = resolvedInterfaceAliases.Distinct().ToList();
 
-            var resolvedBusinessProcessTypeNames = Utils.ResolveStructures(inputOptions.BusinessProcesses).Distinct();
+            var resolvedBusinessProcessAliases = Utils.ResolveStructures(inputOptions.BusinessProcesses).Distinct();
+
+            var resolvedActivityAliases = Utils.ResolveStructures(inputOptions.Activities).Distinct();
+
+            Log.Information("Discovering Business Processes");
+            var businessProcesses = GetBusinessProcesses(resolvedBusinessProcessAliases).ToArray();
+            Log.Information("Found {ProcessesCount} business process(es)", businessProcesses.Length);
+
+            Log.Information("Discovering Activities");
+            var activities = GetActivities(resolvedActivityAliases).ToArray();
+            Log.Information("Found {ActivityCount} activities", activities.Length);
 
             foreach (var diagramScope in diagramOptions.Scopes)
             {
                 Log.Information("Discovering Interfaces for {Scope} diagram scope", diagramScope);
                 var interfaces = await GetInterfaces(resolvedInterfaceAliases, diagramScope);
 
-                Log.Information("Discovering Business Processes for {Scope} diagram scope", diagramScope);
-                var businessProcesses = GetBusinessProcesses(resolvedBusinessProcessTypeNames, diagramScope).ToArray();
+                Log.Information("Found {InterfacesCount} interface(s) for {Scope}", interfaces.Count(), diagramScope);
 
-                Log.Information("Found {InterfacesCount} interface(s) and {ProcessesCount} business process(es) for {Scope}", interfaces.Count(), businessProcesses.Length, diagramScope);
-                
-                if (!interfaces.Any() && !businessProcesses.Any()) continue;
+                if (!interfaces.Any() && !businessProcesses.Any() && !activities.Any()) continue;
 
                 foreach (var diagramType in diagramOptions.Types)
                 {
@@ -167,6 +177,18 @@ public class DrawDiagramsCommand : Command
                                         outputOptions.OutputSubDirectory,
                                         outputOptions.SubtractPath,
                                         outputOptions.DiagramNamePrefix);
+
+                                    DrawSequenceDiagrams(
+                                        diagramScope,
+                                        levelOfDetails,
+                                        activities,
+                                        outputOptions.Formats,
+                                        displayOptions.ShowBoundaries,
+                                        displayOptions.ShowInterfaceInputAndOutput,
+                                        outputOptions.OutputDirectory,
+                                        outputOptions.OutputSubDirectory,
+                                        outputOptions.SubtractPath,
+                                        outputOptions.DiagramNamePrefix);
                                     break;
                                 }
                             case DiagramTypesOption.C4_SEQUENCE:
@@ -188,6 +210,19 @@ public class DrawDiagramsCommand : Command
                                         diagramScope,
                                         levelOfDetails,
                                         businessProcesses,
+                                        outputOptions.Formats,
+                                        displayOptions.ShowBoundaries,
+                                        displayOptions.ShowInterfaceInputAndOutput,
+                                        outputOptions.OutputDirectory,
+                                        outputOptions.OutputSubDirectory,
+                                        outputOptions.SubtractPath,
+                                        outputOptions.DiagramNamePrefix,
+                                        SequenceDiagramStyle.C4);
+
+                                    DrawSequenceDiagrams(
+                                        diagramScope,
+                                        levelOfDetails,
+                                        activities,
                                         outputOptions.Formats,
                                         displayOptions.ShowBoundaries,
                                         displayOptions.ShowInterfaceInputAndOutput,
@@ -231,6 +266,19 @@ public class DrawDiagramsCommand : Command
                                         outputOptions.OutputSubDirectory,
                                         outputOptions.SubtractPath,
                                         isStatic);
+
+                                    DrawC4Diagrams(
+                                        diagramScope,
+                                        levelOfDetails,
+                                        activities,
+                                        outputOptions.Formats,
+                                        displayOptions.ShowBoundaries,
+                                        displayOptions.ShowInterfaceInputAndOutput,
+                                        displayOptions.MaxLineLabels,
+                                        outputOptions.OutputDirectory,
+                                        outputOptions.OutputSubDirectory,
+                                        outputOptions.SubtractPath,
+                                        isStatic);
                                     break;
                                 }
                             default:
@@ -251,20 +299,40 @@ public class DrawDiagramsCommand : Command
         }
     }
 
-    private static IEnumerable<BusinessProcess> GetBusinessProcesses(IEnumerable<string> businessProcessTypeNames, string scope)
+    private static IEnumerable<BusinessProcess> GetBusinessProcesses(IEnumerable<string> businessProcessAliases)
     {
         var result = new List<BusinessProcess>();
 
-        foreach (string businessProcessTypeName in businessProcessTypeNames)
+        foreach (string businessProcessAlias in businessProcessAliases)
         {
-            var businessProcessInstance = C4InterFlow.Utils.GetInstance<BusinessProcess>(businessProcessTypeName);
+            var businessProcessInstance = C4InterFlow.Utils.GetInstance<BusinessProcess>(businessProcessAlias);
             if (businessProcessInstance != null)
             {
                 result.Add(businessProcessInstance);
             }
             else
             {
-                Log.Warning("Could not load Business Process instance for type with name {ProcessName}", businessProcessTypeName);
+                Log.Warning("Could not load Business Process instance with alias {ProcessAlias}", businessProcessAlias);
+            }
+        }
+
+        return result;
+    }
+
+    private static IEnumerable<Activity> GetActivities(IEnumerable<string> activityAliases)
+    {
+        var result = new List<Activity>();
+
+        foreach (string activityAlias in activityAliases)
+        {
+            var activityInstance = C4InterFlow.Utils.GetInstance<Activity>(activityAlias);
+            if (activityInstance != null)
+            {
+                result.Add(activityInstance);
+            }
+            else
+            {
+                Log.Warning("Could not load Activity instance with alias {ActivityAlias}", activityAlias);
             }
         }
 
@@ -281,6 +349,7 @@ public class DrawDiagramsCommand : Command
             case DiagramScopesOption.ALL_SOFTWARE_SYSTEMS:
             case DiagramScopesOption.NAMESPACE:
             case DiagramScopesOption.NAMESPACE_SOFTWARE_SYSTEMS:
+            case DiagramScopesOption.AUTO:
             case DiagramScopesOption.SOFTWARE_SYSTEM:
                 {
                     // Matches any string that ends with ".Interfaces.<word>"
@@ -386,6 +455,60 @@ public class DrawDiagramsCommand : Command
         else
         {
             Log.Warning("Could not generate diagram title for business process {Name}", businessProcess.Label);
+        }
+
+        return result;
+    }
+
+    private static Diagram GetDiagram(string diagramType, string levelOfDetails, Activity activity, bool showBoundaries, bool showInterfaceInputAndOutput, int maxLineLabels = DiagramMaxLineLabelsOption.DefaultValue, bool isStatic = false)
+    {
+        var result = default(Diagram);
+
+        var diagramTitle = GetDiagramTitle(activity, levelOfDetails, diagramType);
+        if (diagramTitle != null)
+        {
+            var process = new BusinessProcess(
+                            new Activity[] { activity });
+
+            switch (levelOfDetails)
+            {
+                case DiagramLevelsOfDetailsOption.COMPONENT:
+                    {
+                        result = new ComponentDiagram(
+                            diagramTitle,
+                            process: process,
+                            showBoundaries: showBoundaries,
+                            showInterfaceInputAndOutput: showInterfaceInputAndOutput,
+                            maxLineLabels: maxLineLabels,
+                            isStatic: isStatic).Build();
+                        break;
+                    }
+                case DiagramLevelsOfDetailsOption.CONTAINER:
+                    {
+                        result = new ContainerDiagram(
+                            diagramTitle,
+                            process: process,
+                            showBoundaries: showBoundaries,
+                            maxLineLabels: maxLineLabels,
+                            isStatic: isStatic).Build();
+                        break;
+                    }
+                case DiagramLevelsOfDetailsOption.CONTEXT:
+                    {
+                        result = new ContextDiagram(
+                            diagramTitle,
+                            process: process,
+                            maxLineLabels: maxLineLabels,
+                            isStatic: isStatic).Build();
+                        break;
+                    }
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            Log.Warning("Could not generate diagram title for activity {Name}", activity.Label);
         }
 
         return result;
@@ -596,10 +719,70 @@ public class DrawDiagramsCommand : Command
         
     }
 
+    private static void DrawSequenceDiagrams(
+        string scope,
+        string levelOfDetails,
+        Activity[] activities,
+        string[] formats,
+        bool showBoundaries,
+        bool showInterfaceInputAndOutput,
+        string outputDirectory,
+        string? outputSubDirectory = null,
+        string? subtractPath = null,
+        string? diagramNamePrefix = null,
+        SequenceDiagramStyle? style = SequenceDiagramStyle.PlantUML)
+    {
+        if (!activities.Any()) return;
+
+        var context = new PlantumlSequenceContext(style!.Value);
+        if (formats.Contains(DiagramFormatsOption.PNG))
+        {
+            context.UseDiagramImageBuilder();
+        }
+        if (formats.Contains(DiagramFormatsOption.SVG))
+        {
+            context.UseDiagramSvgImageBuilder();
+        }
+        if (formats.Contains(DiagramFormatsOption.MD))
+        {
+            context.UseDiagramMdDocumentBuilder();
+        }
+
+        var diagramType = (style!.Value == SequenceDiagramStyle.C4 ? DiagramTypesOption.C4_SEQUENCE : DiagramTypesOption.SEQUENCE);
+        var progress = new ConcurrentProgress(activities.Count());
+
+        Parallel.ForEach(activities, activity =>
+        {
+            var diagram = GetDiagram(
+                diagramType,
+                levelOfDetails,
+                activity,
+                showBoundaries,
+                showInterfaceInputAndOutput);
+
+            if (TryGetDiagramPath(
+                    scope,
+                    levelOfDetails,
+                    diagramType,
+                    activity,
+                    out var path,
+                    out var fileName,
+                    outputSubDirectory,
+                    subtractPath,
+                    diagramNamePrefix))
+            {
+                context.Export(outputDirectory, diagram, path, fileName);
+            }
+            progress.Increment();
+        });
+        progress.Complete();
+
+    }
+
     private static void DrawC4Diagrams(
         string scope, 
         string levelOfDetails, 
-        IEnumerable<BusinessProcess> businessProcesses, 
+        IEnumerable<BusinessProcess> activities, 
         IEnumerable<string> formats, 
         bool showBoundaries, 
         bool showInterfaceInputAndOutput, 
@@ -610,7 +793,7 @@ public class DrawDiagramsCommand : Command
         bool isStatic = false, 
         string? diagramNamePrefix = null)
     {
-        if (!businessProcesses.Any()) return;
+        if (!activities.Any()) return;
 
         var context = new PlantumlContext();
         if (formats.Contains(DiagramFormatsOption.PNG))
@@ -627,9 +810,9 @@ public class DrawDiagramsCommand : Command
         }
 
         var diagramType = isStatic ? DiagramTypesOption.C4_STATIC : DiagramTypesOption.C4;
-        var progress = new ConcurrentProgress(businessProcesses.Count());
+        var progress = new ConcurrentProgress(activities.Count());
 
-        Parallel.ForEach(businessProcesses, businessProcess =>
+        Parallel.ForEach(activities, businessProcess =>
         {
             var diagram = GetDiagram(
                 diagramType,
@@ -645,6 +828,68 @@ public class DrawDiagramsCommand : Command
                     levelOfDetails,
                     diagramType,
                     businessProcess,
+                    out var path,
+                    out var fileName,
+                    outputSubDirectory,
+                    subtractPath,
+                    diagramNamePrefix))
+            {
+                context.Export(outputDirectory, diagram, path, fileName);
+            }
+            progress.Increment();
+        });
+        progress.Complete();
+    }
+
+    private static void DrawC4Diagrams(
+        string scope,
+        string levelOfDetails,
+        IEnumerable<Activity> activities,
+        IEnumerable<string> formats,
+        bool showBoundaries,
+        bool showInterfaceInputAndOutput,
+        int maxLineLabels,
+        string outputDirectory,
+        string? outputSubDirectory = null,
+        string? subtractPath = null,
+        bool isStatic = false,
+        string? diagramNamePrefix = null)
+    {
+        if (!activities.Any()) return;
+
+        var context = new PlantumlContext();
+        if (formats.Contains(DiagramFormatsOption.PNG))
+        {
+            context.UseDiagramImageBuilder();
+        }
+        if (formats.Contains(DiagramFormatsOption.SVG))
+        {
+            context.UseDiagramSvgImageBuilder();
+        }
+        if (formats.Contains(DiagramFormatsOption.MD))
+        {
+            context.UseDiagramMdDocumentBuilder();
+        }
+
+        var diagramType = isStatic ? DiagramTypesOption.C4_STATIC : DiagramTypesOption.C4;
+        var progress = new ConcurrentProgress(activities.Count());
+
+        Parallel.ForEach(activities, activity =>
+        {
+            var diagram = GetDiagram(
+                diagramType,
+                levelOfDetails,
+                activity,
+                showBoundaries,
+                showInterfaceInputAndOutput,
+                maxLineLabels,
+                isStatic);
+
+            if (TryGetDiagramPath(
+                    scope,
+                    levelOfDetails,
+                    diagramType,
+                    activity,
                     out var path,
                     out var fileName,
                     outputSubDirectory,
@@ -1247,6 +1492,56 @@ public class DrawDiagramsCommand : Command
     }
 
     private static bool TryGetDiagramPath(
+        string scope,
+        string levelOfDetails,
+        string diagramType,
+        Activity activity,
+        out string path,
+        out string fileName,
+        string? outputSubDirectory = null,
+        string? subtractPath = null,
+        string? diagramNamePrefix = null)
+    {
+
+        path = C4InterFlow.Utils.TryGetNamespaceAlias(activity.Alias, out var namespaceAlias) ?
+            C4InterFlow.Utils.GetPathFromAlias(namespaceAlias) : string.Empty;
+
+        if (!string.IsNullOrEmpty(subtractPath))
+        {
+            path = path.Replace(subtractPath, string.Empty);
+        }
+
+        path = Path.Join(!string.IsNullOrEmpty(outputSubDirectory) ? outputSubDirectory : string.Empty, path);
+
+        path = Path.Join(path, "Activities");
+
+        fileName = $"{(!string.IsNullOrEmpty(diagramNamePrefix) ? $"{diagramNamePrefix} - " : string.Empty)}{ToPrettyName(levelOfDetails)} - {ToPrettyName(diagramType)}.puml";
+
+        switch (scope)
+        {
+            case DiagramScopesOption.ACTIVITY:
+                {
+                    if(TryParseActivityAlias(activity.Alias, out var actor))
+                    {
+                        path = Path.Join(path, actor.Label, activity.Label);  
+                    }
+                    else
+                    {
+                        path = fileName = null;
+                    }
+                    break;
+                }
+            default:
+                {
+                    path = fileName = null;
+                    break;
+                }
+        }
+
+        return !string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(fileName);
+    }
+
+    private static bool TryGetDiagramPath(
         string scope, 
         string levelOfDetails, 
         string diagramType, 
@@ -1297,6 +1592,19 @@ public class DrawDiagramsCommand : Command
         
         if (C4InterFlow.Utils.TryGetNamespaceAlias(businessProcess.Alias, out var namespaceAlias))
             return $"{GetTitle(namespaceAlias)} - {businessProcess.Label} - {ToPrettyName(diagramType)} - {ToPrettyName(levelOfDetails)} level";
+        else
+            return null;
+    }
+
+    private static string? GetDiagramTitle(Activity? activity, string levelOfDetails, string diagramType)
+    {
+        if (string.IsNullOrEmpty(activity?.Label))
+            return null;
+
+
+        if (C4InterFlow.Utils.TryGetNamespaceAlias(activity.Alias, out var namespaceAlias) &&
+            TryParseActivityAlias(activity.Alias, out var actor))
+            return $"{GetTitle(namespaceAlias)} - {actor.Label} - {activity.Label} - {ToPrettyName(diagramType)} - {ToPrettyName(levelOfDetails)} level";
         else
             return null;
     }
@@ -1432,6 +1740,27 @@ public class DrawDiagramsCommand : Command
             }
 
             return (system as Structure ?? container as Structure ?? component as Structure) != null;
+        }
+        catch
+        {
+            return false;
+        }
+
+    }
+
+    private static bool TryParseActivityAlias(string activityAlias, out Structure? actor)
+    {
+        actor = default;
+
+        var activitiesSegment = ".Activities.";
+        if (activityAlias == null || !activityAlias.Contains(activitiesSegment)) return false;
+
+        try
+        {
+            var actorAlias = activityAlias.Substring(0, activityAlias.IndexOf(activitiesSegment));
+            actor = C4InterFlow.Utils.GetInstance<Structure>(actorAlias);
+
+            return (actor) != null;
         }
         catch
         {

@@ -184,7 +184,8 @@ namespace C4InterFlow.Cli.Commands.Binders
                     break;
                 }
                 case DiagramScopesOption.BUSINESS_PROCESS:
-                {
+                case DiagramScopesOption.AUTO:
+                    {
                     supportedLevelsOfDetail.AddRange(new[] {
                         DiagramLevelsOfDetailsOption.CONTEXT,
                         DiagramLevelsOfDetailsOption.CONTAINER,

@@ -15,7 +15,10 @@ public static class DiagramScopesOption
     public const string COMPONENT = "component";
     public const string COMPONENT_INTERFACE = "component-interface";
     public const string BUSINESS_PROCESS = "business-process";
+    public const string ACTIVITY = "activity";
     public const string ALL_SCOPES = "*";
+    public const string AUTO = "auto";
+
     public static Option<string[]> Get()
     {
         const string description = $"Scopes of Diagram(s) to draw.";
@@ -36,7 +39,9 @@ public static class DiagramScopesOption
             COMPONENT,
             COMPONENT_INTERFACE,
             BUSINESS_PROCESS,
-            ALL_SCOPES);
+            ACTIVITY,
+            ALL_SCOPES,
+            AUTO);
 
         option.SetDefaultValue(new[] { ALL_SCOPES });
         return option;        
@@ -54,7 +59,9 @@ public static class DiagramScopesOption
             CONTAINER_INTERFACE,
             COMPONENT,
             COMPONENT_INTERFACE,
-            BUSINESS_PROCESS
+            BUSINESS_PROCESS,
+            ACTIVITY,
+            AUTO
         };
     }
 }
