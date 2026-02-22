@@ -59,6 +59,8 @@ namespace C4InterFlow.Structures.Views
         }
 
         public string[]? Interfaces { get; init; }
+
+        public string[]? Activities { get; init; }
         public string[]? BusinessProcesses { get; init; }
         public string[]? Namespaces { get; init; }
         public int? MaxLineLabels { get; init; }

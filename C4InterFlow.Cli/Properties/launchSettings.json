@@ -4,6 +4,10 @@
       "commandName": "Project",
       "commandLineArgs": "draw-diagrams --interfaces ECommercePlatform.*.*.SoftwareSystems.*.Interfaces.* ECommercePlatform.*.*.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes ECommercePlatform.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy \"C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Architecture\" --output-dir \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Diagrams\""
     },
+    "E-Commerce Platform - YAML - Activities - Draw Diagrams": {
+      "commandName": "Project",
+      "commandLineArgs": "draw-diagrams --activities ECommercePlatform.Actors.*.Activities.* --levels-of-details context container --aac-reader-strategy \"C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Architecture\" --output-dir \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Diagrams\""
+    },
     "E-Commerce Platform - YAML - Execute Views": {
       "commandName": "Project",
       "commandLineArgs": "execute-views --views ..Views.* --aac-reader-strategy \"Yaml\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Architecture\" --view-input-paths \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Views\" --output-dir \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Diagrams\" --log-level debug"

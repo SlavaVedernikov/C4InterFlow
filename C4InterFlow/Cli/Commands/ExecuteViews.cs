@@ -88,7 +88,8 @@ public class ExecuteViewsCommand : Command
                         interfaces?.Distinct().ToArray(),
                         null,
                         view.BusinessProcesses,
-                        view.Namespaces),
+                        view.Namespaces,
+                        view.Activities),
                     new DisplayOptions(
                         false, 
                         view.MaxLineLabels ?? DiagramMaxLineLabelsOption.DefaultValue,
