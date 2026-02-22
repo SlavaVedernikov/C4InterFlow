@@ -1,0 +1,19 @@
+@startuml
+
+title Trader X Example - TraderX - Web GUI - Create Account - Sequence - Container level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "TraderX" #White
+    participant "Web GUI" as TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI
+    participant "Accounts Service" as TraderXExample.SoftwareSystems.TraderX.Containers.AccountsService
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI : Create Account\n[HTTPS]
+group Create Account
+TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.AccountsService : Create Account\n[HTTPS]
+end
+
+
+@enduml

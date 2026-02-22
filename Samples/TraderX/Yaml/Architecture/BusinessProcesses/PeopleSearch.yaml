@@ -1,0 +1,5 @@
+TraderXExample:
+  BusinessProcesses:
+    PeopleSearch:
+      Activities:
+      - TraderXExample.Actors.Trader.Activities.TypeAheadPeopleSearch

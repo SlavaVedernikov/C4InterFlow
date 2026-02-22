@@ -3,25 +3,7 @@ BigBankPlc:
     CreateNewAccount:
       Label: Create New Account
       Activities:
-        - Label: Go to Online Banking URL
-          Actor: BigBankPlc.Actors.Customer
-          Flows:
-          - Type: Use
-            Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.WebApplication.Interfaces.Navigate
-        - Label: Sign In and View Home Page
-          Actor: BigBankPlc.Actors.Customer
-          Flows:
-          - Type: Use
-            Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.SignIn
-          - Type: Use
-            Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.ViewCustomerDetails
-        - Label: Create New Account
-          Actor: BigBankPlc.Actors.Customer
-          Flows:
-          - Type: Use
-            Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.CreateAccount
-        - Label: Receive New Account Created Notification E-Mail
-          Actor: BigBankPlc.Actors.Customer
-          Flows:
-          - Type: Use
-            Expression: BigBankPlc.SoftwareSystems.EMailSystem.Interfaces.ReceiveNewAccountCreatedNotificationEMail
+        - BigBankPlc.Actors.Customer.Activities.GoToOnlineBankingURL
+        - BigBankPlc.Actors.Customer.Activities.SignInAndViewHomePage
+        - BigBankPlc.Actors.Customer.Activities.CreateNewAccount
+        - BigBankPlc.Actors.Customer.Activities.ReceiveNewAccountCreatedNotificationEMail

@@ -1,0 +1,6 @@
+TraderXExample:
+  BusinessProcesses:
+    ViewTradeStatusAndPositions:
+      Label: View Trade Status And Positions
+      Activities:
+      - TraderXExample.Actors.Trader.Activities.ViewTradeStatusAndPositions

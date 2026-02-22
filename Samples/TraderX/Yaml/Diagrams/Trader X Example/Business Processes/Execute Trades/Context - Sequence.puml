@@ -1,0 +1,16 @@
+@startuml
+
+title Trader X Example - Execute Trades - Sequence - Context level
+
+participant "Trader" as TraderXExample.Actors.Trader
+participant "TraderX" as TraderXExample.SoftwareSystems.TraderX
+
+== Trader - Create Trade Request ==
+TraderXExample.Actors.Trader -> TraderXExample.SoftwareSystems.TraderX : Create Trade
+TraderXExample.SoftwareSystems.TraderX -> TraderXExample.SoftwareSystems.TraderX : Start
+TraderXExample.SoftwareSystems.TraderX -> TraderXExample.SoftwareSystems.TraderX : Start
+== Trader - Cancel Trade ==
+TraderXExample.Actors.Trader -> TraderXExample.SoftwareSystems.TraderX : Cancel Trade
+
+
+@enduml

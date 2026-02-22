@@ -1,0 +1,33 @@
+TraderXExample:
+  Actors:
+    Trader:
+      Type: Person
+      Activities:
+        CreateTradeRequest:
+          Flows:
+          - Type: Use
+            Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.CreateTrade
+        CancelTrade:
+          Flows:
+          - Type: Use
+            Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.CancelTrade
+        ViewAccount:
+          Flows:
+          - Type: Use
+            Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.ViewAccount
+        CreateAccount:
+          Flows:
+          - Type: Use
+            Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.CreateAccount
+        UpdateAccount:
+          Flows:
+          - Type: Use
+            Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.UpdateAccount
+        TypeAheadPeopleSearch:
+          Flows:
+          - Type: Use
+            Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.TypeAheadPeopleSearch
+        ViewTradeStatusAndPositions:
+          Flows:
+          - Type: Use
+            Expression: TraderXExample.SoftwareSystems.TraderX.Containers.WebClient.Interfaces.ViewTradeStatusAndPositions

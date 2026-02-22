@@ -1,0 +1,57 @@
+BigBankPlc:
+  Actors:
+    Customer:
+      Type: Person
+      Description: A customer of the bank, with personal bank accounts
+      Activities:
+        ReceiveNewAccountCreatedNotificationEMail:
+          Label: Receive New Account Created Notification E-Mail
+          Flows:
+          - Type: Use
+            Expression: BigBankPlc.SoftwareSystems.EMailSystem.Interfaces.ReceiveNewAccountCreatedNotificationEMail
+        ReceiveEMailNotifications:
+          Label: Receive E-Mail Notifications
+          Flows:
+          - Type: Use
+            Expression: BigBankPlc.SoftwareSystems.EMailSystem.Interfaces.ReceivePasswordChangedNotificationEMail
+          - Type: Use
+            Expression: BigBankPlc.SoftwareSystems.EMailSystem.Interfaces.ReceiveNewAccountCreatedNotificationEMail
+        GoToOnlineBankingURL:
+          Label: Go to Online Banking URL
+          Flows:
+          - Type: Use
+            Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.WebApplication.Interfaces.Navigate
+        SignInAndViewHomePage:
+          Label: Sign In and View Home Page
+          Flows:
+          - Type: Use
+            Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.SignIn
+          - Type: Use
+            Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.ViewCustomerDetails
+        CreateNewAccount:
+          Label: Create New Account
+          Flows:
+          - Type: Use
+            Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.CreateAccount
+        BankingViaWebApp:
+          Label: Banking via Web App
+          Flows:
+          - Type: Use
+            Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.WebApplication.Interfaces.Navigate
+          - Type: Use
+            Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.SignIn
+          - Type: Use
+            Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.ViewCustomerDetails
+          - Type: Use
+            Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.ViewAccountTransactions
+          - Type: Use
+            Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.CreateAccount
+        BankingViaMobileApp:
+          Label: Banking via Mobile App
+          Flows:
+          - Type: Use
+            Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp.Interfaces.SignIn
+          - Type: Use
+            Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp.Interfaces.ViewCustomerDetails
+          - Type: Use
+            Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp.Interfaces.ViewAccountTransactions

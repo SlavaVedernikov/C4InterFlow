@@ -3,26 +3,6 @@ BigBankPlc:
     CompleteEndToEnd:
       Label: Complete (End-To-End)
       Activities:
-      - Label: Banking via Web App
-        Actor: BigBankPlc.Actors.Customer
-        Flows:
-        - Type: Use
-          Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.WebApplication.Interfaces.Navigate
-        - Type: Use
-          Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.SignIn
-        - Type: Use
-          Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.ViewCustomerDetails
-        - Type: Use
-          Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.ViewAccountTransactions
-        - Type: Use
-          Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.SinglePageApp.Interfaces.CreateAccount
-      - Label: Banking via Mobile App
-        Actor: BigBankPlc.Actors.Customer
-        Flows:
-        - Type: Use
-          Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp.Interfaces.SignIn
-        - Type: Use
-          Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp.Interfaces.ViewCustomerDetails
-        - Type: Use
-          Expression: BigBankPlc.SoftwareSystems.InternetBanking.Containers.MobileApp.Interfaces.ViewAccountTransactions
+      - BigBankPlc.Actors.Customer.Activities.BankingViaWebApp
+      - BigBankPlc.Actors.Customer.Activities.BankingViaMobileApp
       - BigBankPlc.Actors.Customer.Activities.ReceiveEMailNotifications

@@ -1,0 +1,16 @@
+@startuml
+!include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
+SHOW_FOOT_BOXES()
+
+title Trader X Example - TraderX - TraderX DB - Save Trade State - C4 Sequence - Container level
+
+System_Ext(C4InterFlow.SoftwareSystems.ExternalSystem, "External", "")
+
+System_Boundary(TraderXExample.SoftwareSystems.TraderX, "TraderX")
+    ContainerDb(TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB, "TraderX DB", "Database", "Database which stores account")
+Boundary_End()
+
+Rel(C4InterFlow.SoftwareSystems.ExternalSystem, TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB, "Save Trade State", "JDBC")
+
+
+@enduml
