@@ -1,0 +1,22 @@
+@startuml
+!include ..\..\..\.c4s\C4_Sequence.puml
+SHOW_FOOT_BOXES()
+
+title Trader X Example - People Search - C4 Sequence - Container level
+
+Person(TraderXExample.Actors.Trader, "Trader", "")
+
+System_Boundary(TraderXExample.SoftwareSystems.TraderX, "TraderX")
+    Container(TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Web Client", "SPA", "Browser based web interface for TraderX")
+    Container(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, "Web GUI", "Server-side web application", "Allows employees to manage accounts and book trades")
+    Container(TraderXExample.SoftwareSystems.TraderX.Containers.PeopleService, "People Service", "API", "Service which provides user details management")
+Boundary_End()
+System(TraderXExample.SoftwareSystems.UserDirectory, "User Directory", "")
+
+Rel(TraderXExample.Actors.Trader, TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Type Ahead People Search", "HTTPS")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, "Type Ahead People Search", "HTTPS")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.PeopleService, "Get People Data", "HTTPS")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.PeopleService, TraderXExample.SoftwareSystems.UserDirectory, "Select People Data", "LDAP")
+
+
+@enduml

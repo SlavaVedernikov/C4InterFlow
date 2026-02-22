@@ -1,0 +1,7 @@
+TraderXExample:
+  BusinessProcesses:
+    ManageAccounts:
+      Activities:
+      - TraderXExample.Actors.Trader.Activities.ViewAccount
+      - TraderXExample.Actors.Trader.Activities.CreateAccount
+      - TraderXExample.Actors.Trader.Activities.UpdateAccount

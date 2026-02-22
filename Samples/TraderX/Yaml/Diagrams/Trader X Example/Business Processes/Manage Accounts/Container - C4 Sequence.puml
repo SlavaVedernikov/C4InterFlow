@@ -1,0 +1,34 @@
+@startuml
+!include ..\..\..\.c4s\C4_Sequence.puml
+SHOW_FOOT_BOXES()
+
+title Trader X Example - Manage Accounts - C4 Sequence - Container level
+
+Person(TraderXExample.Actors.Trader, "Trader", "")
+
+System_Boundary(TraderXExample.SoftwareSystems.TraderX, "TraderX")
+    Container(TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Web Client", "SPA", "Browser based web interface for TraderX")
+    Container(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, "Web GUI", "Server-side web application", "Allows employees to manage accounts and book trades")
+    Container(TraderXExample.SoftwareSystems.TraderX.Containers.AccountsService, "Accounts Service", "API", "Service which provides account management")
+    Container(TraderXExample.SoftwareSystems.TraderX.Containers.PositionService, "Position Service", "API", "Server process which processes trading activity and updates positions")
+Boundary_End()
+
+== Trader - View Account ==
+Rel(TraderXExample.Actors.Trader, TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "View Account", "HTTPS")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, "Load Account", "HTTPS")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.AccountsService, "Get Accounts", "HTTPS")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, "Load Trades For Account", "HTTPS")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.PositionService, "Get Trades For Account", "HTTPS")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, "Load Positions For Account", "HTTPS")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.PositionService, "Get Positions For Account", "HTTPS")
+== Trader - Create Account ==
+Rel(TraderXExample.Actors.Trader, TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Create Account", "HTTPS")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, "Create Account", "HTTPS")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.AccountsService, "Create Account", "HTTPS")
+== Trader - Update Account ==
+Rel(TraderXExample.Actors.Trader, TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, "Update Account", "HTTPS")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebClient, TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, "Update Account", "HTTPS")
+Rel(TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI, TraderXExample.SoftwareSystems.TraderX.Containers.AccountsService, "Update Account", "HTTPS")
+
+
+@enduml

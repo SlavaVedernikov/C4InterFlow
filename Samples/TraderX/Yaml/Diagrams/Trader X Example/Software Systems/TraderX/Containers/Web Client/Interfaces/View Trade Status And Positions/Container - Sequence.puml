@@ -1,0 +1,27 @@
+@startuml
+
+title Trader X Example - TraderX - Web Client - View Trade Status And Positions - Sequence - Container level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "TraderX" #White
+    participant "Web Client" as TraderXExample.SoftwareSystems.TraderX.Containers.WebClient
+    participant "Web GUI" as TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI
+    participant "Position Service" as TraderXExample.SoftwareSystems.TraderX.Containers.PositionService
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> TraderXExample.SoftwareSystems.TraderX.Containers.WebClient : View Trade Status And Positions\n[HTTPS]
+group View Trade Status And Positions
+TraderXExample.SoftwareSystems.TraderX.Containers.WebClient -> TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI : Load Trades For Account\n[HTTPS]
+group Load Trades For Account
+TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.PositionService : Get Trades For Account\n[HTTPS]
+end
+TraderXExample.SoftwareSystems.TraderX.Containers.WebClient -> TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI : Load Positions For Account\n[HTTPS]
+group Load Positions For Account
+TraderXExample.SoftwareSystems.TraderX.Containers.WebGUI -> TraderXExample.SoftwareSystems.TraderX.Containers.PositionService : Get Positions For Account\n[HTTPS]
+end
+end
+
+
+@enduml

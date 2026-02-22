@@ -1,0 +1,21 @@
+@startuml
+
+title Trader X Example - TraderX - Trading Services - Create Trade - Sequence - Container level
+
+participant "External" as C4InterFlow.SoftwareSystems.ExternalSystem
+
+box "TraderX" #White
+    participant "Trading Services" as TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices
+    database "TraderX DB" as TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB
+    queue "Trade Feed" as TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed
+end box
+
+
+C4InterFlow.SoftwareSystems.ExternalSystem -> TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices : Create Trade\n[HTTPS]
+group Create Trade
+TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices -> TraderXExample.SoftwareSystems.TraderX.Containers.TraderXDB : Insert Trade Request\n[JDBC]
+TraderXExample.SoftwareSystems.TraderX.Containers.TradingServices -> TraderXExample.SoftwareSystems.TraderX.Containers.TradeFeed : Send Trade Request\n[SocketIO]
+end
+
+
+@enduml

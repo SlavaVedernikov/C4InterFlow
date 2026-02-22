@@ -10,7 +10,7 @@
     },
     "Internet Banking System - YAML - Draw Diagrams": {
       "commandName": "Project",
-      "commandLineArgs": "draw-diagrams --interfaces BigBankPlc.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes BigBankPlc.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy \"Yaml\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\Yaml\\Architecture\" --output-dir \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\Yaml\\Diagrams\""
+      "commandLineArgs": "draw-diagrams --interfaces BigBankPlc.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes BigBankPlc.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy \"Yaml\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\Yaml\\Architecture\" --output-dir \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\Yaml\\Diagrams\" --formats svg"
     },
     "Internet Banking System - YAML - Generate Documentation": {
       "commandName": "Project",
@@ -35,6 +35,10 @@
     "ToDoApp - Json - Draw Diagrams": {
       "commandName": "Project",
       "commandLineArgs": "draw-diagrams --interfaces ToDoAppExample.SoftwareSystems.*.Containers.*.Interfaces.* ToDoAppExample.SoftwareSystems.*.Interfaces.* --levels-of-details container --aac-reader-strategy \"Json\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Json\\Architecture\" --output-dir \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Json\\Diagrams\""
+    },
+    "TraderX - YAML - Draw Diagrams": {
+      "commandName": "Project",
+      "commandLineArgs": "draw-diagrams --interfaces TraderXExample.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes TraderXExample.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy \"C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\TraderX\\Yaml\\Architecture\" --output-dir \"$(ProjectDir)\\..\\Samples\\TraderX\\Yaml\\Diagrams\""
     },
     "TraderX - CSV/YAML - Draw Diagrams": {
       "commandName": "Project",
