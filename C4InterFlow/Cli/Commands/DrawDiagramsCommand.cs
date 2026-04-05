@@ -108,6 +108,7 @@ public class DrawDiagramsCommand : Command
                 
                 throw new InvalidDataException("AaC has errors. Please resolve and retry.");
             }
+            Log.Information("Discovering Interfaces");
             var resolvedInterfaceAliases = new List<string>();
             resolvedInterfaceAliases.AddRange(Utils.ResolveStructures(inputOptions.Interfaces));
 
@@ -119,27 +120,27 @@ public class DrawDiagramsCommand : Command
             }
 
             resolvedInterfaceAliases = resolvedInterfaceAliases.Distinct().ToList();
-
-            var resolvedBusinessProcessAliases = Utils.ResolveStructures(inputOptions.BusinessProcesses).Distinct();
-
-            var resolvedActivityAliases = Utils.ResolveStructures(inputOptions.Activities).Distinct();
+            var interfaces = GetInterfaces(resolvedInterfaceAliases, DiagramScopesOption.ALL_SOFTWARE_SYSTEMS).Result.ToArray();
+            Log.Information("Found {InterfacesCount} interface(s)", interfaces.Length);
 
             Log.Information("Discovering Business Processes");
+            var resolvedBusinessProcessAliases = Utils.ResolveStructures(inputOptions.BusinessProcesses).Distinct();
             var businessProcesses = GetBusinessProcesses(resolvedBusinessProcessAliases).ToArray();
             Log.Information("Found {ProcessesCount} business process(es)", businessProcesses.Length);
 
             Log.Information("Discovering Activities");
+            var resolvedActivityAliases = Utils.ResolveStructures(inputOptions.Activities).Distinct();
             var activities = GetActivities(resolvedActivityAliases).ToArray();
             Log.Information("Found {ActivityCount} activities", activities.Length);
 
             foreach (var diagramScope in diagramOptions.Scopes)
             {
                 Log.Information("Discovering Interfaces for {Scope} diagram scope", diagramScope);
-                var interfaces = await GetInterfaces(resolvedInterfaceAliases, diagramScope);
+                var scopedInterfaces = await GetInterfaces(resolvedInterfaceAliases, diagramScope);
 
-                Log.Information("Found {InterfacesCount} interface(s) for {Scope}", interfaces.Count(), diagramScope);
+                Log.Information("Found {InterfacesCount} interface(s) for {Scope}", scopedInterfaces.Count(), diagramScope);
 
-                if (!interfaces.Any() && !businessProcesses.Any() && !activities.Any()) continue;
+                if (!scopedInterfaces.Any() && !businessProcesses.Any() && !activities.Any()) continue;
 
                 foreach (var diagramType in diagramOptions.Types)
                 {
@@ -157,7 +158,7 @@ public class DrawDiagramsCommand : Command
                                     DrawSequenceDiagrams(
                                         diagramScope,
                                         levelOfDetails,
-                                        interfaces,
+                                        scopedInterfaces,
                                         outputOptions.Formats,
                                         displayOptions.ShowBoundaries,
                                         displayOptions.ShowInterfaceInputAndOutput,
@@ -196,7 +197,7 @@ public class DrawDiagramsCommand : Command
                                     DrawSequenceDiagrams(
                                         diagramScope,
                                         levelOfDetails,
-                                        interfaces,
+                                        scopedInterfaces,
                                         outputOptions.Formats,
                                         displayOptions.ShowBoundaries,
                                         displayOptions.ShowInterfaceInputAndOutput,
@@ -241,7 +242,7 @@ public class DrawDiagramsCommand : Command
                                     DrawC4Diagrams(
                                         diagramScope,
                                         levelOfDetails,
-                                        interfaces,
+                                        scopedInterfaces,
                                         inputOptions.Namespaces,
                                         outputOptions.Formats,
                                         displayOptions.ShowBoundaries,
@@ -349,7 +350,7 @@ public class DrawDiagramsCommand : Command
             case DiagramScopesOption.ALL_SOFTWARE_SYSTEMS:
             case DiagramScopesOption.NAMESPACE:
             case DiagramScopesOption.NAMESPACE_SOFTWARE_SYSTEMS:
-            case DiagramScopesOption.AUTO:
+            case DiagramScopesOption.ALL_STRUCTURES:
             case DiagramScopesOption.SOFTWARE_SYSTEM:
                 {
                     // Matches any string that ends with ".Interfaces.<word>"

@@ -17,7 +17,7 @@ public static class DiagramScopesOption
     public const string BUSINESS_PROCESS = "business-process";
     public const string ACTIVITY = "activity";
     public const string ALL_SCOPES = "*";
-    public const string AUTO = "auto";
+    public const string ALL_STRUCTURES = "all-structures";
 
     public static Option<string[]> Get()
     {
@@ -41,7 +41,7 @@ public static class DiagramScopesOption
             BUSINESS_PROCESS,
             ACTIVITY,
             ALL_SCOPES,
-            AUTO);
+            ALL_STRUCTURES);
 
         option.SetDefaultValue(new[] { ALL_SCOPES });
         return option;        
@@ -61,7 +61,7 @@ public static class DiagramScopesOption
             COMPONENT_INTERFACE,
             BUSINESS_PROCESS,
             ACTIVITY,
-            AUTO
+            ALL_STRUCTURES
         };
     }
 }

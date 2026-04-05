@@ -6,7 +6,7 @@
     },
     "E-Commerce Platform - YAML - Activities - Draw Diagrams": {
       "commandName": "Project",
-      "commandLineArgs": "draw-diagrams --activities ECommercePlatform.Actors.*.Activities.* --levels-of-details context container --aac-reader-strategy \"C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Architecture\" --output-dir \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Diagrams\""
+      "commandLineArgs": "draw-diagrams --activities ECommercePlatform.Actors.*.Activities.* --levels-of-details context container --scopes activity --aac-reader-strategy \"C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Architecture\" --output-dir \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Diagrams\""
     },
     "E-Commerce Platform - YAML - Execute Views": {
       "commandName": "Project",
