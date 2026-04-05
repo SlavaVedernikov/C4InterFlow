@@ -8,6 +8,9 @@
     "Namespace": {
       "type": "object",
       "properties": {
+        "Label": {
+          "type": "string"
+        },
         "Actors": {
           "type": "object",
           "additionalProperties": {
