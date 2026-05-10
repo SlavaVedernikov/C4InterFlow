@@ -7,7 +7,7 @@
 <br />
 <br />
 
-<a href="https://app.c4interflow.com"><img src="Documentation/Images/App%20-%20banner.png" alt="C4 InterFlow - App"></a>
+<a href="https://app.c4interflow.com" target="_blank"><img src="Documentation/Images/App%20-%20banner.png" alt="C4 InterFlow - App"></a>
 
 <br />
 <br />
@@ -27,7 +27,7 @@
     </tr>
     <tr>
         <td align="center" colspan="2">
-            <p><a href="https://playground.c4interflow.com/"><strong>C4InterFlow Playground</strong></a> is <strong>available now</strong>!</p>
+            <p><a href="https://playground.c4interflow.com/"><strong>C4InterFlow Playground</strong></a> is also available!</p>
             <p>▶️ Watch&nbsp;<a href="https://youtu.be/wIuSeg6qcgg"><strong>introduction</strong></a>&nbsp;video</p>
             <p>Enjoy a rich <strong>Architecture Modelling</strong> experience for <strong>FREE</strong>.</p>
             <div align="center">
