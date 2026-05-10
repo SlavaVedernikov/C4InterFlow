@@ -7,10 +7,15 @@
 <br />
 <br />
 
+<a href="https://app.c4interflow.com"><img src="Documentation/Images/App%20-%20banner.png" alt="C4 InterFlow - App"></a>
+
+<br />
+<br />
+
 <table border="0">
     <tr>
         <td>
-            <a href="https://playground.c4interflow.com/" target="_blank">
+            <a href="https://playground.c4interflow.com" target="_blank">
                 <img src="Documentation/Images/Screenshot%202025-11-27%20-%201.png" alt="C4 InterFlow - Playground">
             </a>
         </td>
