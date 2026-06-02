@@ -30,6 +30,9 @@
             <p><a href="https://playground.c4interflow.com/"><strong>C4InterFlow Playground</strong></a> is also available!</p>
             <p>▶️ Watch&nbsp;<a href="https://youtu.be/wIuSeg6qcgg"><strong>introduction</strong></a>&nbsp;video</p>
             <p>Enjoy a rich <strong>Architecture Modelling</strong> experience for <strong>FREE</strong>.</p>
+            <p><strong>NEW FEATURES!</strong></p>
+            <p><strong>Generate</strong> Architecture Models <strong>with AI</strong>..</p>
+            <p>Share your Architecture Models and explore other Architecture Models on <a href="https://playground.c4interflow.com/architecture-marketplace"><strong>Architecture Marketplace</strong></a></p>
             <div align="center">
                 <a href="https://www.buymeacoffee.com/slava.vedernikov" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
             </div>
