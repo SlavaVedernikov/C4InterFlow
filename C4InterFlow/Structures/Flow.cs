@@ -49,6 +49,7 @@ namespace C4InterFlow.Structures
 
         public IList<Flow> Flows { get; set; } = new List<Flow>();
         public FlowType Type { get; set; }
+        public string Note { get; set; }
         internal Flow? Parent { get; private set; }
 
         private string _owner = string.Empty;

@@ -29,7 +29,7 @@ namespace C4InterFlow.Visualisation.Plantuml
         {
             stream.AppendLine($"@startuml");
 
-            if(style == SequenceDiagramStyle.C4)
+            if (style == SequenceDiagramStyle.C4)
             {
                 var includePath = diagram.GetPumlFilePath(useStandardLibrary, diagramPath, true);
                 stream.AppendLine($"!include {includePath}");
@@ -37,7 +37,8 @@ namespace C4InterFlow.Visualisation.Plantuml
                 stream.AppendLine("SHOW_FOOT_BOXES()");
             }
 
-            
+            stream.AppendLine("skinparam noteTextAlignment left");
+
             //TODO: Make diagram resolution configurable via diagram parameter.
             //stream.AppendLine("skinparam dpi 60");
             stream.AppendLine();

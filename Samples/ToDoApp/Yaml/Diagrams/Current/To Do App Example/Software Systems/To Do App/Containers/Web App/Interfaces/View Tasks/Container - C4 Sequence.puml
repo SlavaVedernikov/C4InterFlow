@@ -1,6 +1,7 @@
 @startuml
 !include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
 SHOW_FOOT_BOXES()
+skinparam noteTextAlignment left
 
 title To Do App Example - To Do App - Web App - View Tasks - C4 Sequence - Container level
 
@@ -14,6 +15,11 @@ Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApp, "View Tasks")
 Rel(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApp, ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, "Get Tasks")
+note left
+Paging:
+  - Limit: 100
+  - Sort by: Date Created DESC
+end note
 Rel(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database, "Select Tasks")
 
 

@@ -1,6 +1,7 @@
 @startuml
 !include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
 SHOW_FOOT_BOXES()
+skinparam noteTextAlignment left
 
 title To Do App Example - To Do App - Mobile App - View Tasks - C4 Sequence - Container level
 

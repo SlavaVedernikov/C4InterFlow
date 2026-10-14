@@ -1,12 +1,8 @@
 ﻿using C4InterFlow.Structures;
 using C4InterFlow.Structures.Relationships;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
+using C4InterFlow.Visualisation.Plantuml.Enums;
 using System.Text;
 using System.Text.RegularExpressions;
-using C4InterFlow.Visualisation.Plantuml.Enums;
 
 namespace C4InterFlow.Visualisation.Plantuml
 {
@@ -118,6 +114,21 @@ namespace C4InterFlow.Visualisation.Plantuml
                 {
                     var flowRelationship = new Relationship(actor.Alias, usesInterfaceOwner.Alias, label, protocol);
                     sb.AppendLine(flowRelationship.ToPumlSequenceString(style));
+
+                    if(!string.IsNullOrEmpty(flow.Note))
+                    {
+                        sb.AppendLine("note left");
+                        string[] lines = flow.Note.Split("\n");
+                        int lineIndex = 0;
+                        foreach (var line in lines)
+                        {
+                            if (lineIndex == lines.Length - 1 && string.IsNullOrEmpty(line))
+                                break;
+                            sb.AppendLine($"{line}");
+                            lineIndex++;
+                        }
+                        sb.AppendLine("end note");
+                    }
                 }
 
                 // TODO: Investigate why doing this in C4 sequence diagrams doesn't seem to work (out of memory java error when rendering)

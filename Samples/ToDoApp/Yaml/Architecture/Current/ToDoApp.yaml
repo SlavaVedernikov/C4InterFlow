@@ -63,6 +63,10 @@ ToDoAppExample:
               Flows:
                 - Type: Use
                   Expression: WebApi.Interfaces.GetTasks
+                  Note: |
+                    Paging:
+                      - Limit: 100
+                      - Sort by: Date Created DESC
             AddTask:
               Flows:
                 - Type: Use

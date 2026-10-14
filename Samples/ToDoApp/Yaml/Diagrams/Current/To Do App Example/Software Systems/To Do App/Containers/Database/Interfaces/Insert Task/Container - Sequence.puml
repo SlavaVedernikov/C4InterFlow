@@ -1,4 +1,5 @@
 @startuml
+skinparam noteTextAlignment left
 
 title To Do App Example - To Do App - Database - Insert Task - Sequence - Container level
 
