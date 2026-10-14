@@ -538,6 +538,9 @@
         },
         "Expression": {
           "$ref": "#/$defs/Flow.Use.Expression"
+        },
+        "Note": {
+          "type": "string"
         }
       },
       "required": [ "Type", "Expression" ]

@@ -1,4 +1,5 @@
 @startuml
+skinparam noteTextAlignment left
 
 title To Do App Example - To Do App - Web App - Delete Task - Sequence - Container level
 
