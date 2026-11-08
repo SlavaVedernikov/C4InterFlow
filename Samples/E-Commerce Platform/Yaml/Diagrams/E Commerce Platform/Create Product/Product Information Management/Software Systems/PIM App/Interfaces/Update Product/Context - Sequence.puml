@@ -1,4 +1,5 @@
 @startuml
+skinparam noteTextAlignment left
 
 title E Commerce Platform - Create Product - Product Information Management - PIM App - Update Product - Sequence - Context level
 

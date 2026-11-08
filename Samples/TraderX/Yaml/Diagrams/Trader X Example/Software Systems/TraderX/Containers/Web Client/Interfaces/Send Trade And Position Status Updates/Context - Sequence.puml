@@ -1,4 +1,5 @@
 @startuml
+skinparam noteTextAlignment left
 
 title Trader X Example - TraderX - Web Client - Send Trade And Position Status Updates - Sequence - Context level
 

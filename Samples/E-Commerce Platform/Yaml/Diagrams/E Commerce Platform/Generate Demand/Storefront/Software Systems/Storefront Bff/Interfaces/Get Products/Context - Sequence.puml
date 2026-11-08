@@ -1,4 +1,5 @@
 @startuml
+skinparam noteTextAlignment left
 
 title E Commerce Platform - Generate Demand - Storefront - Storefront Bff - Get Products - Sequence - Context level
 

@@ -1,6 +1,7 @@
 @startuml
 !include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
 SHOW_FOOT_BOXES()
+skinparam noteTextAlignment left
 
 title E Commerce Platform - Deliver - Fulfilment - WMS - Delete Purchase Order - C4 Sequence - Container level
 

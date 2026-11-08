@@ -1,7 +1,6 @@
 BigBankPlc:
   Actors:
     Customer:
-      Type: Person
       Description: A customer of the bank, with personal bank accounts
       Activities:
         ReceiveNewAccountCreatedNotificationEMail:

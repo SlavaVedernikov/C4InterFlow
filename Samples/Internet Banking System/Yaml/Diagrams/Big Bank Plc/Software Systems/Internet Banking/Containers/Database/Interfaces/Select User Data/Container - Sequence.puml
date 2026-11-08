@@ -1,4 +1,5 @@
 @startuml
+skinparam noteTextAlignment left
 
 title Big Bank Plc - Internet Banking - Database - Select User Data - Sequence - Container level
 

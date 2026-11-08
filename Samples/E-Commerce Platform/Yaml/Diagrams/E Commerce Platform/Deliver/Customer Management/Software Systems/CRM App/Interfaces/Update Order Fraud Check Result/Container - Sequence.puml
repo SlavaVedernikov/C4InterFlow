@@ -1,4 +1,5 @@
 @startuml
+skinparam noteTextAlignment left
 
 title E Commerce Platform - Deliver - Customer Management - CRM App - Update Order Fraud Check Result - Sequence - Container level
 

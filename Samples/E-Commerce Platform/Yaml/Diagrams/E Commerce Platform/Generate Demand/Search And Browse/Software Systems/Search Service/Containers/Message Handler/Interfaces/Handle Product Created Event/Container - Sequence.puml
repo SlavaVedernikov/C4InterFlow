@@ -1,4 +1,5 @@
 @startuml
+skinparam noteTextAlignment left
 
 title E Commerce Platform - Generate Demand - Search And Browse - Search Service - Message Handler - Handle Product Created Event - Sequence - Container level
 

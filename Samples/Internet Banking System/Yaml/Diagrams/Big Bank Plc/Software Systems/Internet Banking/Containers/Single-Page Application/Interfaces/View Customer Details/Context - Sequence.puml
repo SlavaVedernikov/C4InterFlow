@@ -1,4 +1,5 @@
 @startuml
+skinparam noteTextAlignment left
 
 title Big Bank Plc - Internet Banking - Single-Page Application - View Customer Details - Sequence - Context level
 

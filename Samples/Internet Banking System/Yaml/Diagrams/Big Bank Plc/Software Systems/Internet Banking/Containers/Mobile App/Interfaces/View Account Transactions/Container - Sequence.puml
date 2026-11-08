@@ -1,4 +1,5 @@
 @startuml
+skinparam noteTextAlignment left
 
 title Big Bank Plc - Internet Banking - Mobile App - View Account Transactions - Sequence - Container level
 

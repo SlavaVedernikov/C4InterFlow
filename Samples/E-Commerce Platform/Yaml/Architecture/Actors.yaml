@@ -1,7 +1,6 @@
 ECommercePlatform:
   Actors:
     Customer:
-      Type: Person
       Activities:
         Checkout:
           Flows:

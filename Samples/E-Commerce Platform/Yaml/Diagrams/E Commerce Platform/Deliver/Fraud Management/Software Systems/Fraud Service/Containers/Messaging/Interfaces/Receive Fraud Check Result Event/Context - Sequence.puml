@@ -1,4 +1,5 @@
 @startuml
+skinparam noteTextAlignment left
 
 title E Commerce Platform - Deliver - Fraud Management - Fraud Service - Messaging - Receive Fraud Check Result Event - Sequence - Context level
 

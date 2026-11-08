@@ -1,4 +1,5 @@
 @startuml
+skinparam noteTextAlignment left
 
 title E Commerce Platform - Create Product - Price Management - Pricing Service - Api - Update Product Prices - Sequence - Context level
 

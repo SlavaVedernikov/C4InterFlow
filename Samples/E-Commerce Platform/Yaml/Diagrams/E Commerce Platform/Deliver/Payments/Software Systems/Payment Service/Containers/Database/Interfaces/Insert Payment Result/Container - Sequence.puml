@@ -1,4 +1,5 @@
 @startuml
+skinparam noteTextAlignment left
 
 title E Commerce Platform - Deliver - Payments - Payment Service - Database - Insert Payment Result - Sequence - Container level
 

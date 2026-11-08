@@ -1,4 +1,5 @@
 @startuml
+skinparam noteTextAlignment left
 
 title E Commerce Platform - Deliver - Fulfilment - Fulfilment Service - Api - Post Order Shipped Event - Sequence - Container level
 

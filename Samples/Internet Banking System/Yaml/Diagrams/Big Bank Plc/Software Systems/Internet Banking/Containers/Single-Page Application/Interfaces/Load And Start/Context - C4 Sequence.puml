@@ -1,6 +1,7 @@
 @startuml
 !include ..\..\..\..\..\..\..\.c4s\C4_Sequence.puml
 SHOW_FOOT_BOXES()
+skinparam noteTextAlignment left
 
 title Big Bank Plc - Internet Banking - Single-Page Application - Load And Start - C4 Sequence - Context level
 

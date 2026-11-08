@@ -1,4 +1,5 @@
 @startuml
+skinparam noteTextAlignment left
 
 title Trader X Example - TraderX - Web GUI - Cancel Trade - Sequence - Context level
 

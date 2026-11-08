@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "ToDoApp - CSharp - Draw Diagrams": {
-      "commandName": "Project",
-      "commandLineArgs": "draw-diagrams --interfaces ..Containers.*.Interfaces.* --levels-of-details container --aac-reader-strategy \"CSharp\" --aac-input-paths \"ToDoAppExample.dll\" --output-dir \"$(ProjectDir)..\\Diagrams\""
-    }
-  }
-}

@@ -1,4 +1,5 @@
 @startuml
+skinparam noteTextAlignment left
 
 title Trader X Example - TraderX - TraderX DB - Select All Trades For Account - Sequence - Container level
 

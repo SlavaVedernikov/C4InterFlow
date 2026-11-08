@@ -10,19 +10,11 @@
     },
     "Internet Banking System - YAML - Draw Diagrams": {
       "commandName": "Project",
-      "commandLineArgs": "draw-diagrams --interfaces BigBankPlc.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes BigBankPlc.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy \"Yaml\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\Yaml\\Architecture\" --output-dir \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\Yaml\\Diagrams\" --formats svg"
+      "commandLineArgs": "draw-diagrams --interfaces BigBankPlc.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes BigBankPlc.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy \"Yaml\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\Yaml\\Architecture\" --output-dir \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\Yaml\\Diagrams\""
     },
     "Internet Banking System - YAML - Generate Documentation": {
       "commandName": "Project",
       "commandLineArgs": "generate-documentation --structures ..SoftwareSystems.* ..SoftwareSystems.*.Containers.* --aac-reader-strategy \"Yaml\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\Yaml\\Architecture\" --output-dir \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\Yaml\\Diagrams\\Big Bank Plc\" --templates-dir \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\Yaml\\Templates\" --file-extension md"
-    },
-    "Internet Banking System - CSV/YAML - Draw Diagrams": {
-      "commandName": "Project",
-      "commandLineArgs": "draw-diagrams --interfaces BigBankPlc.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes BigBankPlc.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy \"C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\CSV\\Architecture\\Yaml\" --output-dir \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\CSV\\Diagrams\""
-    },
-    "Internet Banking System - CSV/JSON - Draw Diagrams": {
-      "commandName": "Project",
-      "commandLineArgs": "draw-diagrams --interfaces BigBankPlc.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes BigBankPlc.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy \"C4InterFlow.Automation.Readers.JsonAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\CSV\\Architecture\\Json\" --output-dir \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\CSV\\Diagrams\""
     },
     "ToDoApp - YAML - Current - Draw Diagrams": {
       "commandName": "Project",
@@ -32,29 +24,9 @@
       "commandName": "Project",
       "commandLineArgs": "draw-diagrams --interfaces ..Containers.*.Interfaces.* --levels-of-details container --aac-reader-strategy \"Yaml\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Yaml\\Architecture\\Current\" \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Yaml\\Architecture\\Future\" --output-dir \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Yaml\\Diagrams\\Future\""
     },
-    "ToDoApp - Json - Draw Diagrams": {
-      "commandName": "Project",
-      "commandLineArgs": "draw-diagrams --interfaces ToDoAppExample.SoftwareSystems.*.Containers.*.Interfaces.* ToDoAppExample.SoftwareSystems.*.Interfaces.* --levels-of-details container --aac-reader-strategy \"Json\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Json\\Architecture\" --output-dir \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Json\\Diagrams\""
-    },
     "TraderX - YAML - Draw Diagrams": {
       "commandName": "Project",
       "commandLineArgs": "draw-diagrams --interfaces TraderXExample.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes TraderXExample.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy \"C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\TraderX\\Yaml\\Architecture\" --output-dir \"$(ProjectDir)\\..\\Samples\\TraderX\\Yaml\\Diagrams\""
-    },
-    "TraderX - CSV/YAML - Draw Diagrams": {
-      "commandName": "Project",
-      "commandLineArgs": "draw-diagrams --interfaces TraderXExample.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes TraderXExample.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy \"C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\TraderX\\CSV\\Architecture\\Yaml\" --output-dir \"$(ProjectDir)\\..\\Samples\\TraderX\\CSV\\Diagrams\""
-    },
-    "TraderX - CSV/JSON - Draw Diagrams": {
-      "commandName": "Project",
-      "commandLineArgs": "draw-diagrams --interfaces TraderXExample.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes TraderXExample.BusinessProcesses.* --levels-of-details context container --aac-reader-strategy \"C4InterFlow.Automation.Readers.JsonAaCReaderStrategy,C4InterFlow.Automation\" --aac-input-paths \"$(ProjectDir)\\..\\Samples\\TraderX\\CSV\\Architecture\\Json\" --output-dir \"$(ProjectDir)\\..\\Samples\\TraderX\\CSV\\Diagrams\""
-    },
-    "TraderX - CSV/YAML - Execute AAC Strategy": {
-      "commandName": "Project",
-      "commandLineArgs": "execute-aac-strategy --aac-root-namespace \"TraderXExample\" --aac-output-path \"$(ProjectDir)\\..\\Samples\\TraderX\\CSV\\Architecture\\Yaml\" --aac-writer-strategy \"C4InterFlow.Automation.Writers.CsvToYamlAaCGenerator,C4InterFlow.Automation\" --params aac-input-path=\"$(ProjectDir)\\..\\Samples\\TraderX\\CSV\\Architecture Catalogue - CSV Export\""
-    },
-    "TraderX - CSV/JSON - Execute AAC Strategy": {
-      "commandName": "Project",
-      "commandLineArgs": "execute-aac-strategy --aac-root-namespace \"TraderXExample\" --aac-output-path \"$(ProjectDir)\\..\\Samples\\TraderX\\CSV\\Architecture\\Json\" --aac-writer-strategy \"C4InterFlow.Automation.Writers.CsvToJsonAaCGenerator,C4InterFlow.Automation\" --params aac-input-path=\"$(ProjectDir)\\..\\Samples\\TraderX\\CSV\\Architecture Catalogue - CSV Export\""
     }
   }
 }

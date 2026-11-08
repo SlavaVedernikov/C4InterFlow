@@ -1,4 +1,5 @@
 @startuml
+skinparam noteTextAlignment left
 
 title Trader X Example - TraderX - Accounts Service - Create Account - Sequence - Container level
 

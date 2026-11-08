@@ -1,4 +1,5 @@
 @startuml
+skinparam noteTextAlignment left
 
 title To Do App Example - To Do App - Web App - View Tasks - Sequence - Container level
 
@@ -14,6 +15,11 @@ end box
 C4InterFlow.SoftwareSystems.ExternalSystem -> ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApp : View Tasks
 group View Tasks
 ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApp -> ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi : Get Tasks
+note left
+Paging:
+  - Limit: 100
+  - Sort by: Date Created DESC
+end note
 group Get Tasks
 ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi -> ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database : Select Tasks
 end

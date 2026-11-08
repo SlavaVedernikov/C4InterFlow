@@ -1,4 +1,5 @@
 @startuml
+skinparam noteTextAlignment left
 
 title Big Bank Plc - Internet Banking - Database - Update User Password - Sequence - Container level
 

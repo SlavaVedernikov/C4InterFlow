@@ -1,7 +1,6 @@
 TraderXExample:
   Actors:
     Trader:
-      Type: Person
       Activities:
         CreateTradeRequest:
           Flows:

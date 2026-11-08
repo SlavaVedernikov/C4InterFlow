@@ -1,4 +1,5 @@
 @startuml
+skinparam noteTextAlignment left
 
 title E Commerce Platform - Deliver - Customer Management - CRM App - View High Risk Orders - Sequence - Context level
 

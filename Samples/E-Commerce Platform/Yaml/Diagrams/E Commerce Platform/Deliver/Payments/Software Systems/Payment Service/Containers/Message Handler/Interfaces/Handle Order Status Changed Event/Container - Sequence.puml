@@ -1,4 +1,5 @@
 @startuml
+skinparam noteTextAlignment left
 
 title E Commerce Platform - Deliver - Payments - Payment Service - Message Handler - Handle Order Status Changed Event - Sequence - Container level
 

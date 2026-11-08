@@ -45,7 +45,7 @@ namespace C4InterFlow.Automation.Readers
         protected JSchema LoadSchema()
         {
             var assembly = typeof(Structures.Structure).Assembly;
-            var resourceName = "C4InterFlow.schema.json";
+            var resourceName = "C4InterFlow.schema-v3.json";
 
             string schemaContent;
             using (Stream stream = assembly.GetManifestResourceStream(resourceName))
