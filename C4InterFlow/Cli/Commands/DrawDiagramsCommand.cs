@@ -36,7 +36,6 @@ public class DrawDiagramsCommand : Command
         var outputDirectoryOption = OutputDirectoryOption.Get();
         var diagramNamePrefixOption = DiagramNamePrefixOption.Get();
         var architectureAsCodeInputPathsOption = AaCInputPathsOption.Get();
-        var architectureAsCodeReaderStrategyTypeOption = AaCReaderStrategyTypeOption.Get();
         var diagramMaxLineLabelsOption = DiagramMaxLineLabelsOption.Get();
         var expandUpstreamOption = ExpandUpstreamOption.Get();
 
@@ -52,16 +51,15 @@ public class DrawDiagramsCommand : Command
         AddOption(outputDirectoryOption);
         AddOption(diagramNamePrefixOption);
         AddOption(architectureAsCodeInputPathsOption);
-        AddOption(architectureAsCodeReaderStrategyTypeOption);
         AddOption(diagramMaxLineLabelsOption);
         AddOption(expandUpstreamOption);
 
 
-        this.SetHandler(async (diagramOptions, inputOptions, displayOptions, outputOptions, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType ) =>
+        this.SetHandler(async (diagramOptions, inputOptions, displayOptions, outputOptions, architectureAsCodeInputPaths ) =>
             {
                 if (!AaCReaderContext.HasStrategy)
                 {
-                    Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
+                    Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths);
                 }
 
                 await Execute(diagramOptions, inputOptions, displayOptions, outputOptions);
@@ -83,11 +81,14 @@ public class DrawDiagramsCommand : Command
                 outputDirectoryOption,
                 diagramNamePrefixOption,
                 diagramFormatsOption),
-            architectureAsCodeInputPathsOption,
-            architectureAsCodeReaderStrategyTypeOption);
+            architectureAsCodeInputPathsOption);
     }
 
-    public static async Task<int> Execute(DiagramOptions diagramOptions, InputOptions inputOptions, DisplayOptions displayOptions, OutputOptions outputOptions)
+    public static async Task<int> Execute(
+        DiagramOptions diagramOptions, 
+        InputOptions inputOptions, 
+        DisplayOptions displayOptions, 
+        OutputOptions outputOptions)
     {
         try
         {

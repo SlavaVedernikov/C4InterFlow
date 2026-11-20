@@ -24,26 +24,24 @@ public class QueryUseFlowsCommand : Command
         var queryOutputFileOption = QueryOutputFileOption.Get();
         var queryAppendOption = QueryAppendOption.Get();
         var architectureAsCodeInputPathsOption = AaCInputPathsOption.Get();
-        var architectureAsCodeReaderStrategyTypeOption = AaCReaderStrategyTypeOption.Get();
         
         AddOption(interfacesOption);
         AddOption(isRecursiveOption);
         AddOption(queryOutputFileOption);
         AddOption(queryAppendOption);
         AddOption(architectureAsCodeInputPathsOption);
-        AddOption(architectureAsCodeReaderStrategyTypeOption);
         
 
-        this.SetHandler(async (interfaceAliases, isRecursive, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType, queryOutputFile, append) =>
+        this.SetHandler(async (interfaceAliases, isRecursive, architectureAsCodeInputPaths, queryOutputFile, append) =>
         {
             if (!AaCReaderContext.HasStrategy)
             {
-                Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
+                Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths);
             }
 
             await Execute(interfaceAliases, isRecursive, queryOutputFile, append);
         },
-        interfacesOption, isRecursiveOption, architectureAsCodeInputPathsOption, architectureAsCodeReaderStrategyTypeOption, queryOutputFileOption, queryAppendOption);
+        interfacesOption, isRecursiveOption, architectureAsCodeInputPathsOption, queryOutputFileOption, queryAppendOption);
     }
 
     public static async Task<int> Execute(string[] interfaceAliases, bool isRecursive, string queryOutputFile = null, bool append = false, bool outputToContext = false)

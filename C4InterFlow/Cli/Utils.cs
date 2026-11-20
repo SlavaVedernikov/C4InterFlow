@@ -1,4 +1,5 @@
 ﻿using C4InterFlow.Automation;
+using C4InterFlow.Automation.Readers;
 using C4InterFlow.Structures;
 using Serilog;
 using System.Text.RegularExpressions;
@@ -7,21 +8,6 @@ namespace C4InterFlow.Cli
 {
     public class Utils
     {
-        private static readonly Dictionary<string, Type> _readerStrategiesMap = new()
-        {
-            {
-                "csharp",
-                Type.GetType("C4InterFlow.Automation.Readers.CSharpAaCReaderStrategy,C4InterFlow.Automation")!
-            },
-            {
-                "yaml",
-                Type.GetType("C4InterFlow.Automation.Readers.YamlAaCReaderStrategy,C4InterFlow.Automation")!
-            },
-            {
-                "json",
-                Type.GetType("C4InterFlow.Automation.Readers.JsonAaCReaderStrategy,C4InterFlow.Automation")!
-            }
-        };
         
         public static IEnumerable<string> ResolveStructures(IEnumerable<string> structures)
         {
@@ -77,25 +63,11 @@ namespace C4InterFlow.Cli
             }
         }
 
-        public static void SetArchitectureAsCodeReaderContext(string[] architectureAsCodeInputPaths, string architectureAsCodeReaderStrategyType, string[] viewsInputPaths = null)
+        public static void SetArchitectureAsCodeReaderContext(string[] architectureAsCodeInputPaths, string[] viewsInputPaths = null)
         {
             try
             {
-                Type? strategyType = GetAaCReaderStrategyType(architectureAsCodeReaderStrategyType);
-
-                if (strategyType == null)
-                {
-                    throw new ArgumentException($"Cannot load AaC Reader Strategy Type '{architectureAsCodeReaderStrategyType}'");
-                }
-
-                object strategyTypeInstance = Activator.CreateInstance(strategyType);
-
-                if (strategyTypeInstance is not IAaCReaderStrategy strategyInstance)
-                {
-                    throw new ArgumentException($"'{architectureAsCodeReaderStrategyType}' is not a valid Architecture As Code Reader Strategy type.");
-                }
-
-                AaCReaderContext.SetCurrentStrategy(strategyInstance, architectureAsCodeInputPaths, viewsInputPaths, new Dictionary<string, string>());
+                AaCReaderContext.SetCurrentStrategy(new YamlAaCReaderStrategy(), architectureAsCodeInputPaths, viewsInputPaths, new Dictionary<string, string>());
             }
             catch (Exception e)
             {
@@ -109,16 +81,6 @@ namespace C4InterFlow.Cli
             // then convert the entire string to lowercase.
             var result = Regex.Replace(value, @"([a-z0-9])([A-Z])", "$1-$2").ToLower();
             return result;
-        }
-
-        private static Type? GetAaCReaderStrategyType(string readerStrategyType)
-        {
-            if (_readerStrategiesMap.TryGetValue(readerStrategyType.ToLowerInvariant(), out var strategyType))
-            {
-                return strategyType;
-            }
-
-            return Type.GetType(readerStrategyType);
         }
     }
 }

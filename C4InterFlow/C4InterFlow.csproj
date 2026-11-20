@@ -1,75 +1,37 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net10.0</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<Deterministic>true</Deterministic>
-		<IncludeSymbols>true</IncludeSymbols>
-		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-		<Version>3.0.0</Version>
-	</PropertyGroup>
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Version>3.0.0</Version>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+  </PropertyGroup>
 
-	<PropertyGroup>
-		<PackageId>C4InterFlow</PackageId>
-		<PackageVersion>3.0.0</PackageVersion>
-		<Authors>Slava Vedernikov</Authors>
-    <Description>Revolutionise your Application Architecture Documentation with C4InterFlow. Designed for Architects and Engineers, this tool leverages the widely-recognised C4 Model (Architecture Visualisation framework), enhanced with unique features like Interface and Flow, to describe your Application Architecture as Code. Experience an intuitive, efficient way to document complex systems, ensuring clarity and consistency across your teams and products.</Description>
-		<Copyright>Copyright 2024 Slava Vedernikov</Copyright>
-		<PackageProjectUrl>https://www.c4interflow.com/</PackageProjectUrl>
-		<PackageIcon>icon.png</PackageIcon>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<RepositoryUrl>https://github.com/SlavaVedernikov/C4InterFlow</RepositoryUrl>
-		<RepositoryType>git</RepositoryType>
-		<PackageTags>Architecture as Code DSL C4 Model Tools Diagrams Generation</PackageTags>
-		<PackageReleaseNotes>See Release Notes for C4InterFlow.Automation package</PackageReleaseNotes>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>		
-	</PropertyGroup>
-
-	<ItemGroup>
-	  <Compile Remove="Cli\Commands\Arguments\**" />
-	  <EmbeddedResource Remove="Cli\Commands\Arguments\**" />
-	  <None Remove="Cli\Commands\Arguments\**" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Remove="Resources\C4.puml" />
-	  <None Remove="Resources\C4_Component.puml" />
-	  <None Remove="Resources\C4_Container.puml" />
-	  <None Remove="Resources\C4_Context.puml" />
-	  <None Remove="Resources\C4_Deployment.puml" />
-	  <None Remove="Resources\C4_Dynamic.puml" />
-    <None Remove="Resources\C4_Sequence.puml" />
-    <None Remove="Resources\icon.png" />
-	  <None Remove="Resources\plantuml.jar" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <EmbeddedResource Include="Resources\C4.puml" />
-	  <EmbeddedResource Include="Resources\C4_Component.puml" />
-	  <EmbeddedResource Include="Resources\C4_Container.puml" />
-	  <EmbeddedResource Include="Resources\C4_Context.puml" />
-	  <EmbeddedResource Include="Resources\C4_Deployment.puml" />
-	  <EmbeddedResource Include="Resources\C4_Dynamic.puml" />
+<ItemGroup>
+	<EmbeddedResource Include="Resources\C4.puml" />
+    <EmbeddedResource Include="Resources\C4_Component.puml" />
+    <EmbeddedResource Include="Resources\C4_Container.puml" />
+    <EmbeddedResource Include="Resources\C4_Context.puml" />
+    <EmbeddedResource Include="Resources\C4_Deployment.puml" />
+    <EmbeddedResource Include="Resources\C4_Dynamic.puml" />
     <EmbeddedResource Include="Resources\C4_Sequence.puml" />
-	  <EmbeddedResource Include="Resources\icon.png" />
-	  <EmbeddedResource Include="Resources\plantuml.jar" />
-	  <EmbeddedResource Include="schema-v3.json" />
-	</ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\NuGet\icon.png" Pack="true" PackagePath="\" />
-    <None Include="..\NuGet\C4InterFlow\README.md" Pack="true" PackagePath="\" />
+    <EmbeddedResource Include="Resources\icon.png" />
+    <EmbeddedResource Include="Resources\plantuml.jar" />
+    <EmbeddedResource Include="schema-v3.json" />
   </ItemGroup>
 
-	<ItemGroup>
-	  <PackageReference Include="Fluid.Core" Version="2.5.0" />
+  <ItemGroup>
+      <PackageReference Include="Fluid.Core" Version="2.5.0" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	  <PackageReference Include="Newtonsoft.Json.Schema" Version="4.0.1" />
 	  <PackageReference Include="Serilog" Version="4.0.1" />
 	  <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
 	  <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
 	  <PackageReference Include="System.CommandLine" Version="[2.0.0-beta4.22272.1,)" />
-	</ItemGroup>
-
+	  <PackageReference Include="YamlDotNet" Version="13.7.1" />
+	</ItemGroup>                                        
 </Project>

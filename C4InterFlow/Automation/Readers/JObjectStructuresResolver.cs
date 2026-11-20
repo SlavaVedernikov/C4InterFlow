@@ -55,22 +55,7 @@ namespace C4InterFlow.Automation.Readers
                 switch (collectionToken.Path.Split('.').Last())
                 {
                     case "Actors":
-                        var typeName = token!["Type"]?.ToString();
-
-                        if (!string.IsNullOrEmpty(typeName))
-                        {
-                            var type = Type.GetType($"{nameof(C4InterFlow)}.{nameof(Structures)}.{typeName},{nameof(C4InterFlow)}");
-
-                            if (type != null)
-                            {
-                                var typeConstructor = type.GetConstructor(new[] { typeof(string), typeof(string), typeof(string) });
-
-                                if (typeConstructor != null)
-                                {
-                                    result = typeConstructor.Invoke(new object[] { fullAlias, label, description }) as T;
-                                }
-                            }
-                        }
+                        result = new Person(fullAlias, label, description ) as T;
 
                         break;
                     case "Activities":

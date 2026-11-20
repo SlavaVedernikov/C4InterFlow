@@ -1,0 +1,32 @@
+{
+  "profiles": {
+    "E-Commerce Platform - YAML - Draw Diagrams": {
+      "commandName": "Project",
+      "commandLineArgs": "draw-diagrams --interfaces ECommercePlatform.*.*.SoftwareSystems.*.Interfaces.* ECommercePlatform.*.*.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes ECommercePlatform.BusinessProcesses.* --levels-of-details context container  --aac-input-paths \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Architecture\" --output-dir \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Diagrams\""
+    },
+    "E-Commerce Platform - YAML - Execute Views": {
+      "commandName": "Project",
+      "commandLineArgs": "execute-views --views ..Views.* --aac-input-paths \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Architecture\" --view-input-paths \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Views\" --output-dir \"$(ProjectDir)\\..\\Samples\\E-Commerce Platform\\Yaml\\Diagrams\" --log-level debug"
+    },
+    "Internet Banking System - YAML - Draw Diagrams": {
+      "commandName": "Project",
+      "commandLineArgs": "draw-diagrams --interfaces BigBankPlc.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes BigBankPlc.BusinessProcesses.* --levels-of-details context container --aac-input-paths \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\Yaml\\Architecture\" --output-dir \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\Yaml\\Diagrams\""
+    },
+    "Internet Banking System - YAML - Generate Documentation": {
+      "commandName": "Project",
+      "commandLineArgs": "generate-documentation --structures ..SoftwareSystems.* ..SoftwareSystems.*.Containers.* --aac-input-paths \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\Yaml\\Architecture\" --output-dir \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\Yaml\\Diagrams\\Big Bank Plc\" --templates-dir \"$(ProjectDir)\\..\\Samples\\Internet Banking System\\Yaml\\Templates\" --file-extension md"
+    },
+    "ToDoApp - YAML - Current - Draw Diagrams": {
+      "commandName": "Project",
+      "commandLineArgs": "draw-diagrams --interfaces ..Containers.*.Interfaces.* --levels-of-details container --aac-input-paths \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Yaml\\Architecture\\Current\" --output-dir \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Yaml\\Diagrams\\Current\""
+    },
+    "ToDoApp - YAML - Future - Draw Diagrams": {
+      "commandName": "Project",
+      "commandLineArgs": "draw-diagrams --interfaces ..Containers.*.Interfaces.* --levels-of-details container --aac-input-paths \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Yaml\\Architecture\\Current\" \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Yaml\\Architecture\\Future\" --output-dir \"$(ProjectDir)\\..\\Samples\\ToDoApp\\Yaml\\Diagrams\\Future\""
+    },
+    "TraderX - YAML - Draw Diagrams": {
+      "commandName": "Project",
+      "commandLineArgs": "draw-diagrams --interfaces TraderXExample.SoftwareSystems.*.Containers.*.Interfaces.* --business-processes TraderXExample.BusinessProcesses.* --levels-of-details context container --aac-input-paths \"$(ProjectDir)\\..\\Samples\\TraderX\\Yaml\\Architecture\" --output-dir \"$(ProjectDir)\\..\\Samples\\TraderX\\Yaml\\Diagrams\""
+    }
+  }
+}

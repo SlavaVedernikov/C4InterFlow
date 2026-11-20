@@ -22,23 +22,21 @@ public class GenerateDocumentationCommand : Command
         var outputDirectoryOption = OutputDirectoryOption.Get();
         var fileExtensionOption = FileExtensionOption.Get();
         var architectureAsCodeInputPathsOption = AaCInputPathsOption.Get();
-        var architectureAsCodeReaderStrategyTypeOption = AaCReaderStrategyTypeOption.Get();
         
         AddOption(structuresOption);
         AddOption(templatesDirectoryOption);
         AddOption(outputDirectoryOption);
         AddOption(fileExtensionOption);
         AddOption(architectureAsCodeInputPathsOption);
-        AddOption(architectureAsCodeReaderStrategyTypeOption);
 
-        this.SetHandler(async (structures, templatesDirectory, outputDirectory, fileExtension, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType) =>
+        this.SetHandler(async (structures, templatesDirectory, outputDirectory, fileExtension, architectureAsCodeInputPaths) =>
             {
-                await Execute(structures, templatesDirectory, outputDirectory, fileExtension, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
+                await Execute(structures, templatesDirectory, outputDirectory, fileExtension, architectureAsCodeInputPaths);
             },
-            structuresOption, templatesDirectoryOption, outputDirectoryOption, fileExtensionOption, architectureAsCodeInputPathsOption, architectureAsCodeReaderStrategyTypeOption);
+            structuresOption, templatesDirectoryOption, outputDirectoryOption, fileExtensionOption, architectureAsCodeInputPathsOption);
     }
 
-    private static async Task<int> Execute(string[] structures, string templatesDirectory, string outputDirectory, string fileExtension, string[] architectureAsCodeInputPaths, string architectureAsCodeReaderStrategyType)
+    private static async Task<int> Execute(string[] structures, string templatesDirectory, string outputDirectory, string fileExtension, string[] architectureAsCodeInputPaths)
     {
         try
         {
@@ -46,7 +44,7 @@ public class GenerateDocumentationCommand : Command
 
             if (!AaCReaderContext.HasStrategy)
             {
-                Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
+                Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths);
             }
 
             var structureAliases = Utils.ResolveStructures(structures);

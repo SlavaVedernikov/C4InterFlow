@@ -19,20 +19,18 @@ public class QueryByInputCommand : Command
     {
         var entitiesOption = EntitiesOption.Get();
         var architectureAsCodeInputPathsOption = AaCInputPathsOption.Get();
-        var architectureAsCodeReaderStrategyTypeOption = AaCReaderStrategyTypeOption.Get();
         
         AddOption(entitiesOption);
         AddOption(architectureAsCodeInputPathsOption);
-        AddOption(architectureAsCodeReaderStrategyTypeOption);
         
-        this.SetHandler(async (entityAliases, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType) =>
+        this.SetHandler(async (entityAliases, architectureAsCodeInputPaths) =>
             {
-                await Execute(entityAliases, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
+                await Execute(entityAliases, architectureAsCodeInputPaths);
             },
-            entitiesOption, architectureAsCodeInputPathsOption, architectureAsCodeReaderStrategyTypeOption);
+            entitiesOption, architectureAsCodeInputPathsOption);
     }
 
-    private static async Task<int> Execute(string[] entityAliases, string[] architectureAsCodeInputPaths, string architectureAsCodeReaderStrategyType)
+    private static async Task<int> Execute(string[] entityAliases, string[] architectureAsCodeInputPaths)
     {
         try
         {
@@ -40,7 +38,7 @@ public class QueryByInputCommand : Command
 
             if(!AaCReaderContext.HasStrategy)
             {
-                Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType);
+                Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths);
             }
 
             var resolvedEntityAliases = Utils.ResolveStructures(entityAliases);

@@ -17,25 +17,23 @@ public class ExecuteViewsCommand : Command
         var outputDirectoryOption = OutputDirectoryOption.Get();
         var diagramNamePrefixOption = DiagramNamePrefixOption.Get();
         var architectureAsCodeInputPathsOption = AaCInputPathsOption.Get();
-        var architectureAsCodeReaderStrategyTypeOption = AaCReaderStrategyTypeOption.Get();
         var viewInputPathsOption = ViewInputPathsOption.Get();
 
         AddOption(viewsOption);
         AddOption(outputDirectoryOption);
         AddOption(diagramNamePrefixOption);
         AddOption(architectureAsCodeInputPathsOption);
-        AddOption(architectureAsCodeReaderStrategyTypeOption);
         AddOption(viewInputPathsOption);
 
-        this.SetHandler(async (views, outputDirectory, diagramNamePrefix, architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType, viewInputPaths) =>
+        this.SetHandler(async (views, outputDirectory, diagramNamePrefix, architectureAsCodeInputPaths, viewInputPaths) =>
             {
                 if (!AaCReaderContext.HasStrategy)
                 {
-                    Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths, architectureAsCodeReaderStrategyType, viewInputPaths);
+                    Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths, viewInputPaths);
                 }
                 await Execute(views, outputDirectory, diagramNamePrefix);
             },
-            viewsOption, outputDirectoryOption, diagramNamePrefixOption, architectureAsCodeInputPathsOption, architectureAsCodeReaderStrategyTypeOption, viewInputPathsOption);
+            viewsOption, outputDirectoryOption, diagramNamePrefixOption, architectureAsCodeInputPathsOption, viewInputPathsOption);
     }
 
     private static async Task<int> Execute(string[] views, string outputDirectory, string diagramNamePrefix)
