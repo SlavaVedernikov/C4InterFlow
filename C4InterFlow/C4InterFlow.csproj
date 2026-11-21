@@ -21,7 +21,7 @@
     <EmbeddedResource Include="Resources\C4_Sequence.puml" />
     <EmbeddedResource Include="Resources\icon.png" />
     <EmbeddedResource Include="Resources\plantuml.jar" />
-    <EmbeddedResource Include="schema-v3.json" />
+    <EmbeddedResource Include="schema.json" />
   </ItemGroup>
 
   <ItemGroup>
