@@ -122,8 +122,7 @@
         "C4",
         "C4Static",
         "C4Sequence",
-        "Sequence",
-        "Entity"
+        "Sequence"
       ]
     },
     "View.LevelOfDetails": {
@@ -146,6 +145,13 @@
     "Actor": {
       "type": "object",
       "properties": {
+        "Type": {
+          "type": "string",
+          "enum": [
+            "Person",
+            "Team"
+          ]
+        },
         "Label": {
           "type": "string"
         },
@@ -159,7 +165,8 @@
           }
         }
       },
-      "additionalProperties": false
+      "additionalProperties": false,
+      "required": [ "Type" ]
     },
     "Activity": {
       "type": "object",
@@ -277,12 +284,6 @@
             "$ref": "#/$defs/Component"
           }
         },
-        "Entities": {
-          "type": "object",
-          "additionalProperties": {
-            "$ref": "#/$defs/Entity"
-          }
-        },
         "Interfaces": {
           "type": "object",
           "additionalProperties": {
@@ -335,41 +336,6 @@
           "type": "object",
           "additionalProperties": {
             "$ref": "#/$defs/Interface"
-          }
-        }
-      },
-      "additionalProperties": false
-    },
-    "Entity": {
-      "type": "object",
-      "properties": {
-        "Label": {
-          "type": "string"
-        },
-        "Description": {
-          "type": "string"
-        },
-        "EntityType": {
-          "type": "string",
-          "enum": [
-            "None",
-            "Enum",
-            "Data",
-            "Message",
-            "Query",
-            "Command"
-          ]
-        },
-        "Tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "Attributes": {
-          "type": "object",
-          "additionalProperties": {
-            "$ref": "#/$defs/Attribute"
           }
         }
       },

@@ -88,7 +88,6 @@ public class ExecuteViewsCommand : Command
                         view.BusinessProcesses,
                         view.Namespaces),
                     new DisplayOptions(
-                        false, 
                         view.MaxLineLabels ?? DiagramMaxLineLabelsOption.DefaultValue,
                         view.ExpandUpstream.HasValue ? view.ExpandUpstream.Value : false),
                     new OutputOptions(

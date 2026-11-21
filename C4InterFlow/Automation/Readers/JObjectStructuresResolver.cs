@@ -179,12 +179,6 @@ namespace C4InterFlow.Automation.Readers
                             Icon = icon
                         } as T;
                         break;
-                    case "Entities":
-                        result = new Entity(ownerToken.Path, fullAlias, label, EntityType.None)
-                        {
-                            Description = description
-                        } as T;
-                        break;
                     case "Attributes":
                         var valueToken = token!["Value"];
                         object? value = null;

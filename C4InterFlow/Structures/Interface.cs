@@ -37,14 +37,6 @@ namespace C4InterFlow.Structures
 
         public Flow Flow { get; init; }
 
-        public string Input { get; init; }
-
-        public string InputTemplate { get; init; }
-
-        public string Output { get; init; }
-
-        public string OutputTemplate { get; init; }
-
         public SoftwareSystem? GetSoftwareSystem()
         {
             var result = default(SoftwareSystem);

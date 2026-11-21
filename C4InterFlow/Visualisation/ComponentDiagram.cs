@@ -16,7 +16,6 @@ namespace C4InterFlow.Visualisation
             string title, 
             BusinessProcess process, 
             bool showBoundaries = false, 
-            bool showInterfaceInputAndOutput = false, 
             int maxLineLabels = DiagramMaxLineLabelsOption.DefaultValue, 
             bool isStatic = false, 
             Note[]? notes = null)
@@ -24,7 +23,6 @@ namespace C4InterFlow.Visualisation
             DiagramTitle = title;
             Process = process;
             ShowBoundaries = showBoundaries;
-            ShowInterfaceInputAndOutput = showInterfaceInputAndOutput;
             MaxLineLabels = maxLineLabels;
             IsStatic = isStatic;
             _notes = notes;
@@ -33,7 +31,6 @@ namespace C4InterFlow.Visualisation
         private bool ShowBoundaries { get; init; }
         private int MaxLineLabels { get; init; }
         private bool IsStatic { get; init; }
-        private bool ShowInterfaceInputAndOutput { get; init; }
         private BusinessProcess Process { get; init; }
 
         private string DiagramTitle { get; }
@@ -319,10 +316,6 @@ namespace C4InterFlow.Visualisation
             }
 
             var usesInterfaceOwner = Utils.GetInstance<Structure>(usesInterface.Owner);
-
-            var input = Utils.GetInstance<Structure>(usesInterface.Input);
-            var output = Utils.GetInstance<Structure>(usesInterface.Output);
-            var outputTemplate = Utils.GetInstance<Structure>(usesInterface.OutputTemplate);
 
             var label = $"{usesInterface.Label}{(isConditional ? " (Conditional)" : string.Empty)}";
 
