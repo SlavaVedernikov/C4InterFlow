@@ -12,10 +12,6 @@ namespace C4InterFlow.Structures;
 public sealed record SoftwareSystem : Structure, ISupportBoundary
 {
     public Boundary Boundary { get; init; } = Boundary.Internal;
-    public SoftwareSystem(Type type) : this(GetAlias(type), Utils.GetLabelFromAlias(GetAlias(type)))
-    { }
-    public SoftwareSystem(Type type, string label) : this(GetAlias(type), label)
-    { }
     public SoftwareSystem(string alias) : this(alias, Utils.GetLabelFromAlias(alias))
     { }
     public SoftwareSystem(string alias, string label) : base(alias, label)
@@ -30,18 +26,5 @@ public sealed record SoftwareSystem : Structure, ISupportBoundary
     {
         Description = description;
         Boundary = boundary;
-    }
-
-    public static string GetAlias<T>() where T : ISoftwareSystemInstance
-    {
-        return Utils.GetStructureAlias<T>();
-    }
-
-    public static string GetAlias(Type type)
-    {
-        if (!typeof(ISoftwareSystemInstance).IsAssignableFrom(type))
-            throw new ArgumentException($"Expected '{typeof(ISoftwareSystemInstance).FullName}' type, but '{type.FullName}' type provided.", nameof(type));
-
-        return Utils.GetStructureAlias(type);
     }
 }

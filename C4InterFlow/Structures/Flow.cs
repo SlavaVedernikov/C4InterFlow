@@ -1,5 +1,4 @@
 ﻿
-using C4InterFlow.Structures.Interfaces;
 using System.Text.RegularExpressions;
 
 namespace C4InterFlow.Structures
@@ -542,10 +541,6 @@ namespace C4InterFlow.Structures
             return this;
         }
 
-        public Flow Use<T>() where T : IInterfaceInstance
-        {
-            return Use(Interface.GetAlias<T>());
-        }
         public Flow Use(string interfaceAlias)
         {
             var flowType = FlowType.Use;

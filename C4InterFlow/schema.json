@@ -122,8 +122,7 @@
         "C4",
         "C4Static",
         "C4Sequence",
-        "Sequence",
-        "Entity"
+        "Sequence"
       ]
     },
     "View.LevelOfDetails": {
@@ -144,54 +143,32 @@
       ]
     },
     "Actor": {
-      "oneOf": [
-        {
-          "type": "object",
-          "properties": {
-            "Type": {
-              "type": "string",
-              "enum": [
-                "Person"
-              ]
-            },
-            "Label": {
-              "type": "string"
-            },
-            "Description": {
-              "type": "string"
-            },
-            "Activities": {
-              "type": "object",
-              "additionalProperties": {
-                "$ref": "#/$defs/ActivityBase"
-              }
-            }
-          },
-          "additionalProperties": false,
-          "required": [ "Type" ]
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string",
+          "enum": [
+            "Person",
+            "Team"
+          ]
         },
-        {
+        "Label": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Activities": {
           "type": "object",
-          "properties": {
-            "Type": {
-              "type": "string",
-              "enum": [
-                "SoftwareSystem"
-              ]
-            },
-            "Label": {
-              "type": "string"
-            },
-            "Description": {
-              "type": "string"
-            }
-          },
-          "additionalProperties": false,
-          "required": [ "Type" ]
+          "additionalProperties": {
+            "$ref": "#/$defs/Activity"
+          }
         }
-      ]
+      },
+      "additionalProperties": false,
+      "required": [ "Type" ]
     },
-    "ActivityBase": {
+    "Activity": {
       "type": "object",
       "properties": {
         "Label": {
@@ -307,12 +284,6 @@
             "$ref": "#/$defs/Component"
           }
         },
-        "Entities": {
-          "type": "object",
-          "additionalProperties": {
-            "$ref": "#/$defs/Entity"
-          }
-        },
         "Interfaces": {
           "type": "object",
           "additionalProperties": {
@@ -365,41 +336,6 @@
           "type": "object",
           "additionalProperties": {
             "$ref": "#/$defs/Interface"
-          }
-        }
-      },
-      "additionalProperties": false
-    },
-    "Entity": {
-      "type": "object",
-      "properties": {
-        "Label": {
-          "type": "string"
-        },
-        "Description": {
-          "type": "string"
-        },
-        "EntityType": {
-          "type": "string",
-          "enum": [
-            "None",
-            "Enum",
-            "Data",
-            "Message",
-            "Query",
-            "Command"
-          ]
-        },
-        "Tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "Attributes": {
-          "type": "object",
-          "additionalProperties": {
-            "$ref": "#/$defs/Attribute"
           }
         }
       },
@@ -461,18 +397,6 @@
         "External"
       ]
     },
-    "Activity": {
-      "type": "object",
-      "allOf": [
-        { "$ref": "#/$defs/ActivityBase" }
-      ],
-      "properties": {
-        "Actor": {
-          "type": "string"
-        }
-      },
-      "required": [ "Label", "Flows" ]
-    },
     "BusinessProcess": {
       "type": "object",
       "properties": {
@@ -485,14 +409,7 @@
         "Activities": {
           "type": "array",
           "items": {
-            "anyOf": [
-              {
-                "$ref": "#/$defs/Activity"
-              },
-              {
-                "type": "string"
-              }
-            ]
+            "type": "string"
           }
         }
       },

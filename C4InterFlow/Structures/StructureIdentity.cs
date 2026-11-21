@@ -10,8 +10,4 @@ public record StructureIdentity
 
 
     public StructureIdentity(string key, string? instance = null) => (Key, Instance) = (key, instance);
-    public static StructureIdentity New<T>() => new(typeof(T));
-    public static StructureIdentity New<T>(string instance) => new(typeof(T), instance);
-    private StructureIdentity(Type type) => (Key, Instance) = (type.FullName!, null);
-    private StructureIdentity(Type type, string instance) => (Key, Instance) = (type.FullName!, instance);
 }

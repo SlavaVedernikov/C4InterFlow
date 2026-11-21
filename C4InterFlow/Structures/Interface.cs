@@ -1,13 +1,7 @@
-﻿using C4InterFlow.Structures.Interfaces;
-
-namespace C4InterFlow.Structures
+﻿namespace C4InterFlow.Structures
 {
     public record Interface : Structure
     {
-        public Interface(Type type) : this(GetAlias(type), Utils.GetLabelFromAlias(GetAlias(type)))
-        { }
-        public Interface(Type type, string label) : this(GetAlias(type), label)
-        { }
         public Interface(string alias) : this(alias, Utils.GetLabelFromAlias(alias))
         { }
         public Interface(string alias, string label) : this(Utils.GetInterfaceOwnerAlias(alias), alias, label)
@@ -15,19 +9,6 @@ namespace C4InterFlow.Structures
         public Interface(string owner, string alias, string label) : base(alias, label)
         {
             Owner = owner;
-        }
-
-        public static string GetAlias<T>() where T : IInterfaceInstance
-        {
-            return Utils.GetStructureAlias<T>();
-        }
-
-        public static string GetAlias(Type type)
-        {
-            if (!typeof(IInterfaceInstance).IsAssignableFrom(type))
-                throw new ArgumentException($"Expected '{typeof(IInterfaceInstance).FullName}' type, but '{type.FullName}' type provided.", nameof(type));
-
-            return Utils.GetStructureAlias(type);
         }
 
         public string Protocol { get; init; }

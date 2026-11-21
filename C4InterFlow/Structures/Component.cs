@@ -20,10 +20,6 @@ public record Component : Structure, ISupportBoundary
     public string Container { get; init; }
     public Note[]? Notes { get; init; }
 
-    public Component(Type type) : this(GetAlias(type), Utils.GetLabelFromAlias(GetAlias(type)))
-    { }
-    public Component(Type type, string label) : this(GetAlias(type), label)
-    { }
     public Component(string alias) : this(alias, Utils.GetLabelFromAlias(alias))
     { }
     public Component(string alias, string label) : this(Utils.GetContainerAlias(alias), alias, label)
@@ -32,19 +28,6 @@ public record Component : Structure, ISupportBoundary
     {
         Container = container;
         ComponentType = ComponentType.None;
-    }
-
-    public static string GetAlias<T>() where T : IComponentInstance
-    {
-        return Utils.GetStructureAlias<T>();
-    }
-
-    public static string GetAlias(Type type)
-    {
-        if (!typeof(IComponentInstance).IsAssignableFrom(type))
-            throw new ArgumentException($"Expected '{typeof(IComponentInstance).FullName}' type, but '{type.FullName}' type provided.", nameof(type));
-
-        return Utils.GetStructureAlias(type);
     }
 
 }

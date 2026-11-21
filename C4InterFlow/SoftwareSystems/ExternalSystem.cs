@@ -1,9 +1,8 @@
 ﻿using C4InterFlow.Structures;
-using C4InterFlow.Structures.Interfaces;
 
 namespace C4InterFlow.SoftwareSystems
 {
-    public class ExternalSystem : ISoftwareSystemInstance
+    public class ExternalSystem
     {
         public const string ALIAS = $"{nameof(C4InterFlow)}.{nameof(SoftwareSystems)}.{nameof(ExternalSystem)}";
         public SoftwareSystem Instance => new SoftwareSystem(ALIAS, "External")
@@ -13,7 +12,7 @@ namespace C4InterFlow.SoftwareSystems
 
         public class Interfaces
         {
-            public class ExternalInterface : IInterfaceInstance
+            public class ExternalInterface
             {
                 public const string ALIAS = $"{nameof(C4InterFlow)}.{nameof(SoftwareSystems)}.{nameof(ExternalSystem)}.{nameof(Interfaces)}.{nameof(ExternalInterface)}";
                 public Interface Instance => new Interface(

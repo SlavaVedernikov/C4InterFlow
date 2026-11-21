@@ -73,16 +73,6 @@ namespace C4InterFlow
             return match.Success ? match.Groups[1].Value : string.Empty;
         }
 
-        public static string GetStructureAlias<T>()
-        {
-            return GetStructureAlias(typeof(T));
-        }
-
-        public static string GetStructureAlias(Type type)
-        {
-            return type.FullName?.Replace('+', '.') ?? string.Empty;
-        }
-
         public static string GetSoftwareSystemAlias(string alias)
         {
             var match = Regex.Match(alias, @"^(.*?)(?:\.Interfaces|\.Containers)");
