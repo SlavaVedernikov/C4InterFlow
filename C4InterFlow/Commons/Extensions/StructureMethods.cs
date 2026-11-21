@@ -17,11 +17,5 @@ namespace C4InterFlow.Commons.Extensions
         {
             return Utils.GetInstance<T>(structure.Alias);
         }
-
-        public static string GetPhase(this Structure structure)
-        {
-            // TODO: Add support for a concept of Phase (or possibly different name) e.g. "Design" or "Initiative name" etc.
-            return string.Empty;
-        }
     }
 }

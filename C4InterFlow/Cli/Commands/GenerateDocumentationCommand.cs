@@ -334,32 +334,5 @@ public class GenerateDocumentationCommand : Command
         rootObject["Label"] = structure.Label;
         rootObject["Description"] = structure.Description;
     }
-
-    private static Dictionary<string, object> GetNamespaceObject(Dictionary<string, object> architectureObject, string alias)
-    {
-        var result = new Dictionary<string, object>();
-
-        if (architectureObject == null) return result;
-
-        Match match = Regex.Match(alias, @"(.*)(?=\.SoftwareSystems)");
-
-        if (match.Success)
-        {
-            result = architectureObject;
-            var namespaceSegments = match.Value.Split('.');
-            
-            foreach (var segment in namespaceSegments)
-            {
-                if (!result.ContainsKey(segment))
-                {
-                    result[segment] = new Dictionary<string, object>();
-                }
-
-                result = (Dictionary<string, object>)result[segment];
-            }
-        }
-
-        return result;
-    }
     
 }

@@ -11,6 +11,7 @@ public partial class PlantumlContext : IDisposable
     private bool GenerateDiagramSvgImages { get; set; }
     private bool GenerateDiagramMdDocuments { get; set; }
     private string? PlantumlJarPath { get; set; }
+    private readonly object _jarLock = new();
     private ProcessStartInfo ProcessInfo { get; }
 
     /// <summary>
@@ -31,18 +32,6 @@ public partial class PlantumlContext : IDisposable
             CreateNoWindow = true,
             WindowStyle = ProcessWindowStyle.Hidden,
         };
-    }
-
-    /// <summary>
-    /// The C4Sharp has embedded the current version of C4-PluntUML.
-    /// But, if you want to use the C4-PlantUML up-to-date version from their repo,
-    /// use this method
-    /// </summary>
-    /// <returns>PlantumlSession instance</returns>
-    public PlantumlContext UseStandardLibraryBaseUrl()
-    {
-        UsingStandardLibraryBaseUrl = true;
-        return this;
     }
 
     /// <summary>
@@ -152,7 +141,10 @@ public partial class PlantumlContext
         try
         {
             PlantumlResources.LoadResources(outputDirectory);
-            PlantumlJarPath ??= PlantumlResources.LoadPlantumlJar();
+            lock (_jarLock)
+            {
+                PlantumlJarPath ??= PlantumlResources.LoadPlantumlJar();
+            }
 
             var directory = new DirectoryInfo(Path.Combine(outputDirectory, path)).FullName;
             var filePath = Path.Combine(directory, fileName);

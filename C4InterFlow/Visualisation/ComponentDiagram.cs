@@ -1,4 +1,3 @@
-using C4InterFlow.Attributes;
 using C4InterFlow.Visualisation.Interfaces;
 using C4InterFlow.Structures;
 using C4InterFlow.Structures.Boundaries;

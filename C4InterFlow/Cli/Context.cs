@@ -21,9 +21,6 @@ namespace C4InterFlow.Cli
         // Property to access the thread-specific singleton instance
         public static Context Instance => _threadInstance.Value;
 
-        // Property to access the ConcurrentDictionary
-        public ConcurrentDictionary<string, object> Current => _current;
-
         // Example methods for convenience
         public void AddOrUpdate(string key, object value) => _current.AddOrUpdate(key, value, (k, oldValue) => value);
 

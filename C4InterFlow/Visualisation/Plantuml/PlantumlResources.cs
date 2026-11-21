@@ -24,15 +24,6 @@ internal static class PlantumlResources
     }
 
     /// <summary>
-    /// Load all C4_Plantuml files
-    /// </summary>
-    public static void LoadHtmlResources(string path)
-    {
-        LoadResource(path, "ds.js");
-        LoadIconPngResource(path);
-    }
-
-    /// <summary>
     /// Load C4_Plantuml file
     /// </summary>
     /// <param name="resourcesPath"></param>
@@ -79,31 +70,6 @@ internal static class PlantumlResources
             LoadStream(fileName, resourceName);
 
             return fileName;
-        }
-        catch (Exception e)
-        {
-            throw new PlantumlException($"{nameof(PlantumlException)}: Could not load plantuml engine.", e);
-        }
-    }
-
-    /// <summary>
-    /// Load Icon PNG file
-    /// </summary>
-    /// <param name="resourcesPath"></param>
-    /// <exception cref="C4FileException"></exception>
-    private static void LoadIconPngResource(string resourcesPath)
-    {
-        try
-        {
-            const string resourceName = "icon.png";
-            var path = Path.Join(resourcesPath, resourceName);
-
-            if (File.Exists(path))
-            {
-                return;
-            }
-
-            LoadStream(path, resourceName);
         }
         catch (Exception e)
         {

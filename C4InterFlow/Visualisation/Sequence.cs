@@ -9,8 +9,6 @@ namespace C4InterFlow.Visualisation
 {
     internal class Sequence
     {
-        private const string NUMBERING_REGEX = @"^(\d)*(\.(\d)*)*";
-
         internal Sequence()
         {
             Index = 0;
@@ -25,12 +23,6 @@ namespace C4InterFlow.Visualisation
         private IList<Sequence> Sequences { get; } = new List<Sequence>();
         private int Index { get; }
         internal Sequence Parent { get; }
-
-        internal Sequence PeekNextSequence()
-        {
-            var lastSequence = Sequences.LastOrDefault();
-            return (lastSequence == null ? new Sequence(1, this) : new Sequence(lastSequence.Index + 1, this));
-        }
 
         internal Sequence Increment()
         {
@@ -92,14 +84,6 @@ namespace C4InterFlow.Visualisation
         public override string ToString()
         {
             return AppendSequence(GetSequence(this, Index.ToString()), Sequences);
-        }
-
-        internal static string RemoveNumbering(string text)
-        {
-            if (string.IsNullOrEmpty(text))
-                return string.Empty;
-
-            return Regex.Replace(text, NUMBERING_REGEX, string.Empty).Trim();
         }
     }
 }

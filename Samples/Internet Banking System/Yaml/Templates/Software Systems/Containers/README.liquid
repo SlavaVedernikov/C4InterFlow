@@ -8,6 +8,6 @@
 
 | Name | Description | 
 | ---- | ----------- |
-{% for interface in Interfaces %}| [{{interface[1].Label}}](./Interfaces/{{interface[1].Label | replace: ' ', '%20'}}/Container%20-%20C4%20Sequence.png) | {{interface[1].Description | default: '-'}} |
+{% for interface in Interfaces %}| [{{interface[1].Label}}](./Interfaces/{{interface[1].Label | replace: ' ', '%20'}}/Container%20-%20C4%20Sequence.svg) | {{interface[1].Description | default: '-'}} |
 {% endfor %}
 {% endif %}

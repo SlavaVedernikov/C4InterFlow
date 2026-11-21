@@ -538,7 +538,7 @@ public class DrawDiagramsCommand : Command
     {
         if (!businessProcesses.Any()) return;
 
-        var context = new PlantumlSequenceContext(style!.Value);
+        using var context = new PlantumlSequenceContext(style!.Value);
         if (formats.Contains(DiagramFormatsOption.PNG))
         {
             context.UseDiagramImageBuilder();
@@ -597,7 +597,7 @@ public class DrawDiagramsCommand : Command
     {
         if (!businessProcesses.Any()) return;
 
-        var context = new PlantumlContext();
+        using var context = new PlantumlContext();
         if (formats.Contains(DiagramFormatsOption.PNG))
         {
             context.UseDiagramImageBuilder();
@@ -656,7 +656,7 @@ public class DrawDiagramsCommand : Command
     {
         if (!interfaces.Any()) return;
 
-        var context = new PlantumlSequenceContext(style!.Value);
+        using var context = new PlantumlSequenceContext(style!.Value);
         if (formats.Contains(DiagramFormatsOption.PNG))
         {
             context.UseDiagramImageBuilder();
@@ -716,7 +716,7 @@ public class DrawDiagramsCommand : Command
     {
         if (!interfaces.Any()) return;
 
-        var context = new PlantumlContext();
+        using var context = new PlantumlContext();
         if (formats.Contains(DiagramFormatsOption.PNG))
         {
             context.UseDiagramImageBuilder();

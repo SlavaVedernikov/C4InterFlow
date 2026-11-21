@@ -17,9 +17,7 @@
     <EmbeddedResource Include="Resources\C4_Container.puml" />
     <EmbeddedResource Include="Resources\C4_Context.puml" />
     <EmbeddedResource Include="Resources\C4_Deployment.puml" />
-    <EmbeddedResource Include="Resources\C4_Dynamic.puml" />
     <EmbeddedResource Include="Resources\C4_Sequence.puml" />
-    <EmbeddedResource Include="Resources\icon.png" />
     <EmbeddedResource Include="Resources\plantuml.jar" />
     <EmbeddedResource Include="schema.json" />
   </ItemGroup>

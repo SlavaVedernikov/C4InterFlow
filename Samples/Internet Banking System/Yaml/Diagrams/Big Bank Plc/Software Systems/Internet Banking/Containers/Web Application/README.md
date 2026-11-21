@@ -8,5 +8,5 @@ Delivers the static content and the Internet banking SPA
 
 | Name | Description | 
 | ---- | ----------- |
-| [Navigate](./Interfaces/Navigate/Container%20-%20C4%20Sequence.png) | - |
+| [Navigate](./Interfaces/Navigate/Container%20-%20C4%20Sequence.svg) | - |
 
