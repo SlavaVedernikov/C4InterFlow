@@ -20,6 +20,7 @@
     <EmbeddedResource Include="Resources\C4_Sequence.puml" />
     <EmbeddedResource Include="Resources\plantuml.jar" />
     <EmbeddedResource Include="schema.json" />
+    <EmbeddedResource Include="config-schema.json" />
   </ItemGroup>
 
   <ItemGroup>

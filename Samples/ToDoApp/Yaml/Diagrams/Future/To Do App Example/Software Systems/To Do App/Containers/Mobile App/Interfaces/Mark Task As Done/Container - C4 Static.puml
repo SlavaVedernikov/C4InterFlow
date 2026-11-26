@@ -25,8 +25,8 @@ title To Do App Example - To Do App - Mobile App - Mark Task As Done - C4 Static
 
 System_Boundary(ToDoAppExample.SoftwareSystems.ToDoApp, "To Do App") {
     Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.MobileApp, "Mobile App", "", "", "apple")
-    Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, "Web Api", "", "", "dotnet", $tags="c4interflow:lifecycle:changed")
-    Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database, "Database", "", "", "msql_server", $tags="c4interflow:lifecycle:changed")
+    Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, "Web Api", "", "", "dotnet")
+    Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database, "Database", "", "", "msql_server")
 }
 
 Rel(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.MobileApp, ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, "Uses")

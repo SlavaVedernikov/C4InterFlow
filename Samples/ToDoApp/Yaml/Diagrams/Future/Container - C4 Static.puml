@@ -25,8 +25,8 @@ title All Software Systems - C4 Static - Container level
 
 
 System_Boundary(ToDoAppExample.SoftwareSystems.ToDoApp, "To Do App") {
-    Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database, "Database", "", "", "msql_server", $tags="c4interflow:lifecycle:changed")
-    Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, "Web Api", "", "", "dotnet", $tags="c4interflow:lifecycle:changed")
+    Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database, "Database", "", "", "msql_server")
+    Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, "Web Api", "", "", "dotnet")
     Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.MobileApp, "Mobile App", "", "", "apple")
     Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApp, "Web App", "", "", "angular")
 }

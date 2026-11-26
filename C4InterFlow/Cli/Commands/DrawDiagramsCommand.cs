@@ -18,7 +18,7 @@ namespace C4InterFlow.Cli.Commands;
 
 public class DrawDiagramsCommand : Command
 {
-    private const string COMMAND_NAME = "draw-diagrams";
+    public const string COMMAND_NAME = "draw-diagrams";
 
     public DrawDiagramsCommand() : base(COMMAND_NAME,
         "Draws diagrams")
@@ -60,7 +60,7 @@ public class DrawDiagramsCommand : Command
                     Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths);
                 }
 
-                await Execute(diagramOptions, inputOptions, displayOptions, outputOptions);
+                Environment.ExitCode = await Execute(diagramOptions, inputOptions, displayOptions, outputOptions);
             },
             new DiagramOptionsBinder(
                 diagramScopesOption, 

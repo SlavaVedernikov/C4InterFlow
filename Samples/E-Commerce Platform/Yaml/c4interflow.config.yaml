@@ -1,0 +1,25 @@
+commands:
+  - command: draw-diagrams
+    clearOutputDir: true
+    options:
+      aacInputPaths:
+        - ./Architecture
+      interfaces:
+        - ..SoftwareSystems.*.Interfaces.*
+        - ..SoftwareSystems.*.Containers.*.Interfaces.*
+      businessProcesses:
+        - ..BusinessProcesses.*
+      levelsOfDetails:
+        - context
+        - container
+      outputDir: ./Diagrams
+
+  - command: execute-views
+    options:
+      views:
+        - ..Views.*
+      aacInputPaths:
+        - ./Architecture
+      viewInputPaths:
+        - ./Views
+      outputDir: ./Diagrams

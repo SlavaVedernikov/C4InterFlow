@@ -13,9 +13,7 @@ System_Boundary(ToDoAppExample.SoftwareSystems.ToDoApp, "To Do App")
 Boundary_End()
 
 Rel(C4InterFlow.SoftwareSystems.ExternalSystem, ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, "Mark Task As Done")
-alt Task is not in Done status
-Rel(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database, "Update Task Status")
-end
+Rel(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database, "Update Task")
 
 
 @enduml

@@ -14,7 +14,7 @@ namespace C4InterFlow.Cli.Commands;
 
 public class QueryUseFlowsCommand : Command
 {
-    private const string COMMAND_NAME = "query-use-flows";
+    public const string COMMAND_NAME = "query-use-flows";
     public const string OUTPUT_CONTEXT_KEY = $"{nameof(QueryUseFlowsCommand)}Result";
     public QueryUseFlowsCommand() : base(COMMAND_NAME,
         "Finds all interface(s) that Use given interface(s) in their Flows.")
@@ -39,7 +39,7 @@ public class QueryUseFlowsCommand : Command
                 Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths);
             }
 
-            await Execute(interfaceAliases, isRecursive, queryOutputFile, append);
+            Environment.ExitCode = await Execute(interfaceAliases, isRecursive, queryOutputFile, append);
         },
         interfacesOption, isRecursiveOption, architectureAsCodeInputPathsOption, queryOutputFileOption, queryAppendOption);
     }
@@ -90,7 +90,6 @@ public class QueryUseFlowsCommand : Command
         }
     }
 
-    //TODO: Add includePrivateInterfaces parameter (default is false)
     //TODO: Move GetUsedBy into Utils
     //TODO: Add support for queries to DrawDiagramsCommand
     private static IEnumerable<string> GetUsedBy(IEnumerable<Interface> interfaces, string interfaceAlias, bool isRecursive)

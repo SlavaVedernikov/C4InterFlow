@@ -1,0 +1,15 @@
+command: draw-diagrams
+options:
+  aacInputPaths:
+    - ./Architecture
+  interfaces:
+    - ..SoftwareSystems.*.Interfaces.* 
+    - ..SoftwareSystems.*.Containers.*.Interfaces.*
+  businessProcesses:
+    - ..BusinessProcesses.*
+  levelsOfDetails:
+    - context
+    - container
+  outputDir: .\Diagrams
+  formats: 
+  - svg

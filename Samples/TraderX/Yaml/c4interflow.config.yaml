@@ -1,0 +1,14 @@
+commands:
+  - command: draw-diagrams
+    clearOutputDir: true
+    options:
+      aacInputPaths:
+        - ./Architecture
+      interfaces:
+        - TraderXExample.SoftwareSystems.*.Containers.*.Interfaces.*
+      businessProcesses:
+        - TraderXExample.BusinessProcesses.*
+      levelsOfDetails:
+        - context
+        - container
+      outputDir: ./Diagrams

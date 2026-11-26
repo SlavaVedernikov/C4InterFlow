@@ -13,7 +13,7 @@ namespace C4InterFlow.Cli.Commands;
 
 public class GenerateDocumentationCommand : Command
 {
-    private const string COMMAND_NAME = "generate-documentation";
+    public const string COMMAND_NAME = "generate-documentation";
     public GenerateDocumentationCommand() : base(COMMAND_NAME,
         "Generate Documentation")
     {
@@ -31,7 +31,7 @@ public class GenerateDocumentationCommand : Command
 
         this.SetHandler(async (structures, templatesDirectory, outputDirectory, fileExtension, architectureAsCodeInputPaths) =>
             {
-                await Execute(structures, templatesDirectory, outputDirectory, fileExtension, architectureAsCodeInputPaths);
+                Environment.ExitCode = await Execute(structures, templatesDirectory, outputDirectory, fileExtension, architectureAsCodeInputPaths);
             },
             structuresOption, templatesDirectoryOption, outputDirectoryOption, fileExtensionOption, architectureAsCodeInputPathsOption);
     }

@@ -1,0 +1,9 @@
+command: execute-views
+options:
+  views:
+    - ..Views.*
+  aacInputPaths:
+    - ./Architecture
+  viewInputPaths:
+   - .\Views
+  outputDir: .\Diagrams

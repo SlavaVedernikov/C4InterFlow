@@ -1,0 +1,14 @@
+commands:
+  - command: draw-diagrams
+    clearOutputDir: true
+    options:
+      aacInputPaths:
+        - ./Architecture
+      interfaces:
+        - BigBankPlc.SoftwareSystems.*.Containers.*.Interfaces.*
+      businessProcesses:
+        - BigBankPlc.BusinessProcesses.*
+      levelsOfDetails:
+        - context
+        - container
+      outputDir: ./Diagrams

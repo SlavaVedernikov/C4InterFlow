@@ -22,7 +22,7 @@ title To Do App Example - To Do App - Database - Update Task - C4 Static - Conta
 
 
 System_Boundary(ToDoAppExample.SoftwareSystems.ToDoApp, "To Do App") {
-    Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database, "Database", "", "", "msql_server", $tags="c4interflow:lifecycle:changed")
+    Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database, "Database", "", "", "msql_server")
 }
 
 

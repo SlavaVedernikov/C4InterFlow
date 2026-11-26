@@ -10,13 +10,13 @@
 @ECHO Make a choice for the following parameters. The default value will be chosen after %_TIMEOUT_% seconds of no input.
 @ECHO.
 
-@CHOICE /c TF /T %_TIMEOUT_% /D F /M "Redraw all diagrams - [T]rue or [F]alse (default: False)"
-@IF %ERRORLEVEL% EQU 1 SET "redraw-all=TRUE"
-@IF %ERRORLEVEL% EQU 2 SET "redraw-all=FALSE"
-
 @CHOICE /c DR /T %_TIMEOUT_% /D D /M "Build Configuration - [D]ebug or [R]elease (default: Debug)"
 @IF %ERRORLEVEL% EQU 1 SET "build-configuration=Debug"
 @IF %ERRORLEVEL% EQU 2 SET "build-configuration=Release"
+
+@CHOICE /c NY /T %_TIMEOUT_% /D N /M "Detect output changes - [N]o or [Y]es (default: No)"
+@IF %ERRORLEVEL% EQU 1 SET "detect-output-changes=FALSE"
+@IF %ERRORLEVEL% EQU 2 SET "detect-output-changes=TRUE"
 
 @SET ALL_ARGS=%*
 @IF NOT DEFINED ALL_ARGS SET "ALL_ARGS="
@@ -43,31 +43,21 @@
 
 @SET _OUTPUT_CHANGED_=0
 
-@SET "aac-type=Yaml"
-@CALL :DrawDiagrams "dotnet EShop (%aac-type%)" "dotnet.eShop"
-@IF "%_OUTPUT_CHANGED_%"=="1" GOTO :ReportOutputChanged
-
-@SET "aac-type=CSharp"
-::@CALL :DrawDiagrams "dotnet EShop (%aac-type%)" "dotnet.eShop"
-@IF "%_OUTPUT_CHANGED_%"=="1" GOTO :ReportOutputChanged
+:: Build once; sets 'cli-built' and 'cli-exe' so the sample scripts skip their own build
+@CALL "%SCRIPT_DIRECTORY%build.bat"
+@IF ERRORLEVEL 1 GOTO :EXIT
 
 @SET "aac-type=Yaml"
+
 @CALL :DrawDiagrams "E-Commerce Platform (%aac-type%)" "E-Commerce Platform\%aac-type%"
 @IF "%_OUTPUT_CHANGED_%"=="1" GOTO :ReportOutputChanged
 
-@SET "aac-type=CSV"
 @CALL :DrawDiagrams "Internet Banking System (%aac-type%)" "Internet Banking System\%aac-type%"
 @IF "%_OUTPUT_CHANGED_%"=="1" GOTO :ReportOutputChanged
 
-@SET "aac-type=Yaml"
-@CALL :DrawDiagrams "Internet Banking System (%aac-type%)" "Internet Banking System\%aac-type%"
+@CALL :DrawDiagrams "ToDoApp (%aac-type%)" "ToDoApp\%aac-type%"
 @IF "%_OUTPUT_CHANGED_%"=="1" GOTO :ReportOutputChanged
 
-@SET "aac-type=Yaml"
-@CALL :DrawDiagrams "ToDoApp (%aac-type%)" "ToDoApp\%aac-type%""
-@IF "%_OUTPUT_CHANGED_%"=="1" GOTO :ReportOutputChanged
-
-@SET "aac-type=CSV"
 @CALL :DrawDiagrams "TraderX (%aac-type%)" "TraderX\%aac-type%"
 @IF "%_OUTPUT_CHANGED_%"=="1" GOTO :ReportOutputChanged
 
@@ -107,8 +97,9 @@
 @ECHO x    %DISABLE_LINE_DRAWING%!_SAMPLE_NAME_:~0,70!%ENABLE_LINE_DRAWING%    x
 @ECHO mqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqj%DISABLE_LINE_DRAWING%%COLOR_RESET%
 @CD %SCRIPT_DIRECTORY%!_DIRECTORY_!
+@SET "diagrams-dir=%CD%\Diagrams"
 @CALL "%SCRIPT_DIRECTORY%!_DIRECTORY_!\draw-diagrams.bat"
-FOR /f "tokens=*" %%a in ('git status --short --porcelain --untracked-files=normal -- "%diagrams-dir%"') DO SET _OUTPUT_CHANGED_=1
+@IF "%detect-output-changes%"=="TRUE" FOR /f "tokens=*" %%a in ('git status --short --porcelain --untracked-files=normal -- "%diagrams-dir%"') DO SET _OUTPUT_CHANGED_=1
 @exit /B 0
 
 :ReportOutputChanged

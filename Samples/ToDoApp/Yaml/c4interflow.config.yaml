@@ -1,0 +1,23 @@
+commands:
+  - command: draw-diagrams
+    clearOutputDir: true
+    options:
+      aacInputPaths:
+        - ./Architecture/Current
+      interfaces:
+        - ToDoAppExample.SoftwareSystems.*.Containers.*.Interfaces.*
+      levelsOfDetails:
+        - container
+      outputDir: ./Diagrams/Current
+
+  - command: draw-diagrams
+    clearOutputDir: true
+    options:
+      aacInputPaths:
+        - ./Architecture/Current
+        - ./Architecture/Future
+      interfaces:
+        - ToDoAppExample.SoftwareSystems.*.Containers.*.Interfaces.*
+      levelsOfDetails:
+        - container
+      outputDir: ./Diagrams/Future

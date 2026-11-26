@@ -24,6 +24,11 @@
             }
         }
 
+        public static void Reset()
+        {
+            _strategy = null;
+        }
+
         public static void SetCurrentStrategy(IAaCReaderStrategy strategy, string[]? architectureInputPaths, string[]? viewsInputPaths, Dictionary<string, string>? parameters)
         {
             _strategy = strategy;

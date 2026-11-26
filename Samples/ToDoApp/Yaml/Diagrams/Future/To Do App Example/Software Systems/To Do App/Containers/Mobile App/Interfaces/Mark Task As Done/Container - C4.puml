@@ -25,12 +25,12 @@ title To Do App Example - To Do App - Mobile App - Mark Task As Done - C4 - Cont
 
 System_Boundary(ToDoAppExample.SoftwareSystems.ToDoApp, "To Do App") {
     Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.MobileApp, "Mobile App", "", "", "apple")
-    Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, "Web Api", "", "", "dotnet", $tags="c4interflow:lifecycle:changed")
-    Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database, "Database", "", "", "msql_server", $tags="c4interflow:lifecycle:changed")
+    Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, "Web Api", "", "", "dotnet")
+    Container(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database, "Database", "", "", "msql_server")
 }
 
 Rel(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.MobileApp, ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, "Mark Task As Done")
-Rel(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database, "Update Task Status (Conditional)")
+Rel(ToDoAppExample.SoftwareSystems.ToDoApp.Containers.WebApi, ToDoAppExample.SoftwareSystems.ToDoApp.Containers.Database, "Update Task")
 
 
 SHOW_LEGEND()

@@ -1,0 +1,26 @@
+name: Check commands schema
+
+# commands-schema.json is generated from the CLI commands by the 'export-schema' command.
+# This check fails if the committed file is out of date. To fix it, run:
+#   dotnet run --project C4InterFlow/C4InterFlow.csproj -- export-schema --output-dir C4InterFlow
+# and commit the result.
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check-commands-schema:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Export commands schema
+        run: dotnet run --project C4InterFlow/C4InterFlow.csproj -- export-schema --output-dir C4InterFlow
+
+      - name: Check commands schema is up to date
+        run: git diff --exit-code -- C4InterFlow/commands-schema.json

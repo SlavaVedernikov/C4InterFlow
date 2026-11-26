@@ -9,7 +9,7 @@ namespace C4InterFlow.Cli.Commands;
 
 public class ExecuteViewsCommand : Command
 {
-    private const string COMMAND_NAME = "execute-views";
+    public const string COMMAND_NAME = "execute-views";
     public ExecuteViewsCommand() : base(COMMAND_NAME,
         "Executes Architecture As Code generation Strategy")
     {
@@ -31,7 +31,7 @@ public class ExecuteViewsCommand : Command
                 {
                     Utils.SetArchitectureAsCodeReaderContext(architectureAsCodeInputPaths, viewInputPaths);
                 }
-                await Execute(views, outputDirectory, diagramNamePrefix);
+                Environment.ExitCode = await Execute(views, outputDirectory, diagramNamePrefix);
             },
             viewsOption, outputDirectoryOption, diagramNamePrefixOption, architectureAsCodeInputPathsOption, viewInputPathsOption);
     }
@@ -77,7 +77,7 @@ public class ExecuteViewsCommand : Command
                         interfaces = viewNamespacedInterfaces;
                     }
                 }
-                await DrawDiagramsCommand.Execute(
+                var drawResult = await DrawDiagramsCommand.Execute(
                     new DiagramOptions(
                         view.Scopes ?? DiagramScopesOption.GetAllValues(), 
                         view.Types ?? DiagramTypesOption.GetAllValues(), 
@@ -97,6 +97,8 @@ public class ExecuteViewsCommand : Command
                         C4InterFlow.Utils.GetPathFromAlias(view.Alias),
                         C4InterFlow.Utils.TryGetNamespaceAlias(view.Alias, out var namespaceAlias) ?
                         C4InterFlow.Utils.GetPathFromAlias(namespaceAlias) : null));
+
+                if (drawResult != 0) return drawResult;
             }
 
             return 0;

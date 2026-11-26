@@ -13,6 +13,8 @@ var rootCommandBuilder = RootCommandBuilder
         context.Add<DrawDiagramsCommand>();
         context.Add<QueryUseFlowsCommand>();
         context.Add<ExecuteViewsCommand>();
+        context.Add<ExecuteCommandsCommand>();
+        context.Add<ExportSchemaCommand>();
         context.Add<GenerateDocumentationCommand>();
     });
 
